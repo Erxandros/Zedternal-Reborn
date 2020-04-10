@@ -1,34 +1,30 @@
 class WMSpecialWave_Division extends WMSpecialWave;
 
-var float SmallZedDamageGiven, SmallZedDamageTaken;
+var float SmallZedDamageGiven, SmallZedDamageTaken, SmallZedSize;
 
 function Killed(Controller Killer, Controller KilledPlayer, Pawn KilledPawn, class<DamageType> DT)
 {
-	local KFPawn_Monster KFPM, newKFPM;
+	local KFPawn_Monster KFPM, newKFPM1, newKFPM2;
 	
 	KFPM = KFPawn_Monster(KilledPawn);
-	if (Killer != none && KFPM != none && KFPM.IntendedBodyScale != 0.6)
+	if (Killer != none && KFPM != none && KFPM.IntendedBodyScale != default.SmallZedSize)
 	{
 		if (Rand(2) == 1)
 		{
-			newKFPM = spawn(KFPM.Class,,,KFPM.Location + vect(100,0,0), KilledPawn.Rotation);
-			if (newKFPM != none)
-				AjustNewZed(newKFPM, KFPM.MyKFAIC.class, KFGameReplicationInfo(Killer.WorldInfo.GRI));
-			
-			newKFPM = spawn(KFPM.Class,,,KFPM.Location - vect(100,0,0), KilledPawn.Rotation);
-			if (newKFPM != none)
-				AjustNewZed(newKFPM, KFPM.MyKFAIC.class, KFGameReplicationInfo(Killer.WorldInfo.GRI));
+			newKFPM1 = spawn(KFPM.Class,,,KFPM.Location + vect(100,0,0), KilledPawn.Rotation);
+			newKFPM2 = spawn(KFPM.Class,,,KFPM.Location - vect(100,0,0), KilledPawn.Rotation);
 		}
 		else
 		{
-			newKFPM = spawn(KFPM.Class,,,KFPM.Location + vect(0,100,0), KilledPawn.Rotation);
-			if (newKFPM != none)
-				AjustNewZed(newKFPM, KFPM.MyKFAIC.class, KFGameReplicationInfo(Killer.WorldInfo.GRI));
-			
-			newKFPM = spawn(KFPM.Class,,,KFPM.Location - vect(0,100,0), KilledPawn.Rotation);
-			if (newKFPM != none)
-				AjustNewZed(newKFPM, KFPM.MyKFAIC.class, KFGameReplicationInfo(Killer.WorldInfo.GRI));
+			newKFPM1 = spawn(KFPM.Class,,,KFPM.Location + vect(0,100,0), KilledPawn.Rotation);
+			newKFPM2 = spawn(KFPM.Class,,,KFPM.Location - vect(0,100,0), KilledPawn.Rotation);
 		}
+
+		if (newKFPM1 != none)
+			AjustNewZed(newKFPM1, KFPM.MyKFAIC.class, KFGameReplicationInfo(Killer.WorldInfo.GRI));
+		
+		if (newKFPM2 != none)
+			AjustNewZed(newKFPM2, KFPM.MyKFAIC.class, KFGameReplicationInfo(Killer.WorldInfo.GRI));
 	}
 }
 
@@ -38,7 +34,7 @@ function AjustNewZed(KFPawn_Monster KFPM, class< KFAIController > KFAI, KFGameRe
 	{
 		KFPM.MyKFAIC = Spawn(KFAI);
 		KFPM.MyKFAIC.Possess(KFPM, false);
-		KFPM.IntendedBodyScale = 0.6;
+		KFPM.IntendedBodyScale = default.SmallZedSize;
 		KFPM.UpdateBodyScale(KFPM.IntendedBodyScale);
 		KFGRI.AIRemaining += 1;
 	}
@@ -46,19 +42,19 @@ function AjustNewZed(KFPawn_Monster KFPM, class< KFAIController > KFAI, KFGameRe
 
 static function ModifyDamageGiven( out int InDamage, int DefaultDamage, optional Actor DamageCauser, optional KFPawn_Monster MyKFPM, optional KFPlayerController DamageInstigator, optional class<KFDamageType> DamageType, optional int HitZoneIdx, optional KFWeapon MyKFW)
 {
-	if (MyKFPM != none && MyKFPM.IntendedBodyScale == 0.6)
+	if (MyKFPM != none && MyKFPM.IntendedBodyScale == default.SmallZedSize)
 		InDamage += Round(float(InDamage) * default.SmallZedDamageGiven);
 }
 
 static function ModifyDamageTaken( out int InDamage, int DefaultDamage, KFPawn OwnerPawn, optional class<DamageType> DamageType, optional Controller InstigatedBy, optional KFWeapon MyKFW)
 {
-	if (KFPawn_Monster(InstigatedBy.Pawn) != none && KFPawn_Monster(InstigatedBy.Pawn).IntendedBodyScale == 0.6)
+	if (KFPawn_Monster(InstigatedBy.Pawn) != none && KFPawn_Monster(InstigatedBy.Pawn).IntendedBodyScale == default.SmallZedSize)
 		InDamage -= Round(float(InDamage) * default.SmallZedDamageTaken);
 }
 
 static simulated function bool ShouldKnockDownOnBump(KFPawn_Monster KFPM, KFPawn OwnerPawn)
 {
-	if (KFPM != none && KFPM.IntendedBodyScale == 0.6)
+	if (KFPM != none && KFPM.IntendedBodyScale == default.SmallZedSize)
 		return true;
 	else
 		return false;
@@ -74,6 +70,7 @@ defaultproperties
    
    SmallZedDamageGiven=0.800000
    SmallZedDamageTaken=0.500000
+   SmallZedSize=0.5;
    
    Name="Default__WMSpecialWave_Division"
 }
