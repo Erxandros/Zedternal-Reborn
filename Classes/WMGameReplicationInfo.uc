@@ -465,6 +465,15 @@ simulated function bool IsBossWave()
 	return false;
 }
 
+simulated function array<int> GetKFSeqEventLevelLoadedIndices()
+{
+	local array<int> ActivateIndices;
+
+	ActivateIndices[0] = 6;
+
+	return ActivateIndices;
+}
+
 defaultproperties
 {
    WaveMax=255
