@@ -14,7 +14,7 @@ simulated static final function Zed_Arch_GoreFastOmega GetArch( WorldInfo Level 
 {
 	local Zed_Arch_GoreFastOmega A;
 	
-	foreach Level.DynamicActors(class'Zedternal.Zed_Arch_GoreFastOmega',A)
+	foreach Level.DynamicActors(class'ZedternalReborn.Zed_Arch_GoreFastOmega',A)
 	{
 		if( A.zedClientArch!=None )
 			return A;
@@ -23,7 +23,7 @@ simulated static final function Zed_Arch_GoreFastOmega GetArch( WorldInfo Level 
 	}
 	if( Level.NetMode!=NM_Client )
 	{
-		A = Level.Spawn(class'Zedternal.Zed_Arch_GoreFastOmega');
+		A = Level.Spawn(class'ZedternalReborn.Zed_Arch_GoreFastOmega');
 		return A;
 	}
 	return None;

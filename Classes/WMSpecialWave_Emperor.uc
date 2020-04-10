@@ -24,6 +24,6 @@ defaultproperties
    zedSpawnRateFactor=0.950000
    waveValueFactor=0.750000
    doshFactor=1.400000
-   EmperorClass=class'Zedternal.WMPawn_ZedScrake_Emperor'
+   EmperorClass=class'ZedternalReborn.WMPawn_ZedScrake_Emperor'
    Name="Default__WMSpecialWave_Emperor"
 }

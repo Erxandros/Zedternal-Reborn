@@ -40,6 +40,6 @@ defaultproperties
 	upgradeName="Destruction"
 	upgradeDescription(0)="All nearby ZEDs fall down whenever Zed time starts (radius of 5m)"
 	upgradeDescription(1)="All nearby ZEDs fall down whenever Zed time starts (radius of <font color=\"#b346ea\">10</font>m)"
-	upgradeIcon(0)=Texture2D'Zedternal_Resource.Skills.UI_Skill_Cripple'
-	upgradeIcon(1)=Texture2D'Zedternal_Resource.Skills.UI_Skill_Cripple_Deluxe'
+	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Cripple'
+	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Cripple_Deluxe'
 }

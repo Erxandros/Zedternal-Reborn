@@ -4,7 +4,7 @@ dependson(KFUnlockManager);
 
 function UpdateGameMode( string Mode )
 {
-	SetString("gameMode", "Zedternal");
+	SetString("gameMode", "ZedternalReborn");
 }
 
 

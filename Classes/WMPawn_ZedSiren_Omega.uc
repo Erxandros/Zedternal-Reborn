@@ -135,7 +135,7 @@ defaultproperties
   
    bVersusZed=False
   
-   DifficultySettings=Class'Zedternal.WMDifficulty_Siren_Omega'
+   DifficultySettings=Class'ZedternalReborn.WMDifficulty_Siren_Omega'
   
    DoshValue=32
    XPValues(0)=18.000000

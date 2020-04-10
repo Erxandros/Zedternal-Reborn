@@ -21,6 +21,6 @@ defaultproperties
 	extraAmmo(1)=10
 	extraAmmoPrct(0)=0.150000
 	extraAmmoPrct(1)=0.400000
-	upgradeIcon(0)=Texture2D'Zedternal_Resource.Skills.UI_Skill_ExtraRounds'
-	upgradeIcon(1)=Texture2D'Zedternal_Resource.Skills.UI_Skill_ExtraRounds_Deluxe'
+	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_ExtraRounds'
+	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_ExtraRounds_Deluxe'
 }

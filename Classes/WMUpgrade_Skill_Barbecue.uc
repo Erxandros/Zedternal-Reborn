@@ -24,6 +24,6 @@ defaultproperties
 	DoT(1)=5.000000
 	damage(0)=0.100000;
 	damage(1)=0.250000;
-	upgradeIcon(0)=Texture2D'Zedternal_Resource.Skills.UI_Skill_Barbecue'
-	upgradeIcon(1)=Texture2D'Zedternal_Resource.Skills.UI_Skill_Barbecue_Deluxe'
+	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Barbecue'
+	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Barbecue_Deluxe'
 }

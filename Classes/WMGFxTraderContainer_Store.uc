@@ -45,7 +45,7 @@ function RefreshWeaponListByPerk(byte FilterIndex, const out array<STraderItem> 
 			{
 				continue; // Skip this item if it's in our inventory
 			}
-			else if ( FullItemList[i].AssociatedPerkClasses.length > 0 && FullItemList[i].AssociatedPerkClasses[0] != none && TargetPerkClass != class'Zedternal.WMPerk' && TargetPerkClass != class'KFPerk_Survivalist'
+			else if ( FullItemList[i].AssociatedPerkClasses.length > 0 && FullItemList[i].AssociatedPerkClasses[0] != none && TargetPerkClass != class'ZedternalReborn.WMPerk' && TargetPerkClass != class'KFPerk_Survivalist'
 				&& (FilterIndex > KFPC.default.PerkList.Length || FullItemList[i].AssociatedPerkClasses.Find(TargetPerkClass) == INDEX_NONE ) )
 			{
 				continue; // filtered by perk
@@ -64,7 +64,7 @@ function RefreshWeaponListByPerk(byte FilterIndex, const out array<STraderItem> 
 function class<KFPerk> GetPerkFilterClass(byte index)
 {
 	if (index == 0)
-		return class'Zedternal.WMPerk';
+		return class'ZedternalReborn.WMPerk';
 	else if (index <= class'KFGame.KFPlayerController'.default.PerkList.length)
 		return class'KFGame.KFPlayerController'.default.PerkList[index-1].PerkClass;
 	else return none;

@@ -33,7 +33,7 @@ defaultproperties
    XPValues(3)=15.000000
    
    bKnockdownWhenJumpedOn=False
-   DifficultySettings=Class'Zedternal.WMDifficulty_Crawler_Big'
+   DifficultySettings=Class'ZedternalReborn.WMDifficulty_Crawler_Big'
    
    Mass=125.000000
    GroundSpeed=485.000000

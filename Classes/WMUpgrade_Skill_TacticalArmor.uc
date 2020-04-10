@@ -22,6 +22,6 @@ defaultproperties
 	upgradeDescription(1)="While you have body armor, Clots can't grab you. Increase max armor <font color=\"#b346ea\">50%</font>"
 	Armor(0)=0.2000000
 	Armor(1)=0.5000000
-	upgradeIcon(0)=Texture2D'Zedternal_Resource.Skills.UI_Skill_TacticalArmor'
-	upgradeIcon(1)=Texture2D'Zedternal_Resource.Skills.UI_Skill_TacticalArmor_Deluxe'
+	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_TacticalArmor'
+	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_TacticalArmor_Deluxe'
 }

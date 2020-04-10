@@ -19,6 +19,6 @@ defaultproperties
 	upgradeDescription(1)="Increase maximum health and damage with <font color=\"#eaeff7\">all weapons</font> <font color=\"#b346ea\">25%</font>"
 	bonus(0)=0.100000;
 	bonus(1)=0.250000;
-	upgradeIcon(0)=Texture2D'Zedternal_Resource.Skills.UI_Skill_Guerrilla'
-	upgradeIcon(1)=Texture2D'Zedternal_Resource.Skills.UI_Skill_Guerrilla_Deluxe'
+	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Guerrilla'
+	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Guerrilla_Deluxe'
 }

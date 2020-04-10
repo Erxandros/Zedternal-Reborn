@@ -192,7 +192,7 @@ simulated function CreateUPGMenu()
 	
 	KFPC = KFPlayerController(Owner);
 	
-	UPGMenu = new class'Zedternal.WMUI_Menu';
+	UPGMenu = new class'ZedternalReborn.WMUI_Menu';
 	UPGMenu.Owner = KFPawn_Human(KFPC.Pawn);
 	UPGMenu.KFPC = KFPC;
 	UPGMenu.KFPRI = KFPlayerReplicationInfo(KFPC.PlayerReplicationInfo);

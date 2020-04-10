@@ -21,6 +21,6 @@ defaultproperties
 	Syringe(1)=0.500000;
 	Recharge(0)=0.2000000;
 	Recharge(1)=0.5000000;
-	upgradeIcon(0)=Texture2D'Zedternal_Resource.Skills.UI_Skill_Safeguard'
-	upgradeIcon(1)=Texture2D'Zedternal_Resource.Skills.UI_Skill_Safeguard_Deluxe'
+	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Safeguard'
+	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Safeguard_Deluxe'
 }

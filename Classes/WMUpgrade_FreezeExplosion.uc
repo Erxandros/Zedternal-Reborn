@@ -19,11 +19,11 @@ defaultproperties
    Begin Object Name=ExploTemplate0
       Damage=10.000000
       DamageRadius=500.000000
-      MyDamageType=Class'Zedternal.WMUpgrade_FreezeExplosion_DT'
+      MyDamageType=Class'ZedternalReborn.WMUpgrade_FreezeExplosion_DT'
 	  ActorClassToIgnoreForDamage=class'KFGame.KFPawn_Human'
       Name="ExploTemplate0"
    End Object
    ExplosionTemplate=ExploTemplate0
-   AssociatedPerkClass=Class'Zedternal.WMPerk'
+   AssociatedPerkClass=Class'ZedternalReborn.WMPerk'
    Name="Default__WMUpgrade_FreezeExplosion"
 }

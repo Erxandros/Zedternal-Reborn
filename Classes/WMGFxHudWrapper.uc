@@ -258,8 +258,8 @@ simulated function UpdateWarningString()
 
 defaultproperties
 {
-   HUDClass=Class'Zedternal.WMGFxMoviePlayer_HUD'
-   backgroundIcon=Texture2D'Zedternal_Resource.ZedBuff_Background'
+   HUDClass=Class'ZedternalReborn.WMGFxMoviePlayer_HUD'
+   backgroundIcon=Texture2D'ZedternalReborn_Resource.ZedBuff_Background'
    warningLevel=1
    zedBuffIndex=-1
    bgFactor=0

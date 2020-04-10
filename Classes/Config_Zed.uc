@@ -1,5 +1,5 @@
 class Config_Zed extends Config_Base
-	config(Zedternal);
+	config(ZedternalReborn);
 
 var config int MODEVERSION;
 
@@ -134,7 +134,7 @@ static function UpdateConfig()
 		default.Zed_Monsters[11].MinGr=2;
 		default.Zed_Monsters[11].MaxGr=5;
 		
-		default.Zed_Monsters[12].MClass=Class'Zedternal.WMPawn_ZedStalker_Omega';
+		default.Zed_Monsters[12].MClass=Class'ZedternalReborn.WMPawn_ZedStalker_Omega';
 		default.Zed_Monsters[12].MinWave=14;
 		default.Zed_Monsters[12].MaxWave=999;
 		default.Zed_Monsters[12].MinGr=3;
@@ -160,19 +160,19 @@ static function UpdateConfig()
 		default.Zed_Monsters[15].MinGr=3;
 		default.Zed_Monsters[15].MaxGr=6;
 		
-		default.Zed_Monsters[16].MClass=Class'Zedternal.WMPawn_ZedGorefast_Omega';
+		default.Zed_Monsters[16].MClass=Class'ZedternalReborn.WMPawn_ZedGorefast_Omega';
 		default.Zed_Monsters[16].MinWave=11;
 		default.Zed_Monsters[16].MaxWave=16;
 		default.Zed_Monsters[16].MinGr=1;
 		default.Zed_Monsters[16].MaxGr=1;
 		
-		default.Zed_Monsters[17].MClass=Class'Zedternal.WMPawn_ZedGorefast_Omega';
+		default.Zed_Monsters[17].MClass=Class'ZedternalReborn.WMPawn_ZedGorefast_Omega';
 		default.Zed_Monsters[17].MinWave=16;
 		default.Zed_Monsters[17].MaxWave=999;
 		default.Zed_Monsters[17].MinGr=2;
 		default.Zed_Monsters[17].MaxGr=4;
 		
-		default.Zed_Monsters[18].MClass=Class'Zedternal.WMPawn_ZedGorefast_Omega';
+		default.Zed_Monsters[18].MClass=Class'ZedternalReborn.WMPawn_ZedGorefast_Omega';
 		default.Zed_Monsters[18].MinWave=21;
 		default.Zed_Monsters[18].MaxWave=999;
 		default.Zed_Monsters[18].MinGr=4;
@@ -218,13 +218,13 @@ static function UpdateConfig()
 		default.Zed_Monsters[24].MinGr=1;
 		default.Zed_Monsters[24].MaxGr=3;
 		
-		default.Zed_Monsters[25].MClass=Class'Zedternal.WMPawn_ZedHusk_Omega';
+		default.Zed_Monsters[25].MClass=Class'ZedternalReborn.WMPawn_ZedHusk_Omega';
 		default.Zed_Monsters[25].MinWave=16;
 		default.Zed_Monsters[25].MaxWave=999;
 		default.Zed_Monsters[25].MinGr=1;
 		default.Zed_Monsters[25].MaxGr=2;
 		
-		default.Zed_Monsters[26].MClass=Class'Zedternal.WMPawn_ZedHusk_Omega';
+		default.Zed_Monsters[26].MClass=Class'ZedternalReborn.WMPawn_ZedHusk_Omega';
 		default.Zed_Monsters[26].MinWave=21;
 		default.Zed_Monsters[26].MaxWave=999;
 		default.Zed_Monsters[26].MinGr=1;
@@ -244,7 +244,7 @@ static function UpdateConfig()
 		default.Zed_Monsters[28].MinGr=1;
 		default.Zed_Monsters[28].MaxGr=2;
 		
-		default.Zed_Monsters[29].MClass=Class'Zedternal.WMPawn_ZedSiren_Omega';
+		default.Zed_Monsters[29].MClass=Class'ZedternalReborn.WMPawn_ZedSiren_Omega';
 		default.Zed_Monsters[29].MinWave=16;
 		default.Zed_Monsters[29].MaxWave=999;
 		default.Zed_Monsters[29].MinGr=3;
@@ -290,25 +290,25 @@ static function UpdateConfig()
 		default.Zed_Monsters[35].MinGr=1;
 		default.Zed_Monsters[35].MaxGr=4;
 		
-		default.Zed_Monsters[36].MClass=Class'Zedternal.WMPawn_ZedScrake_Omega';
+		default.Zed_Monsters[36].MClass=Class'ZedternalReborn.WMPawn_ZedScrake_Omega';
 		default.Zed_Monsters[36].MinWave=16;
 		default.Zed_Monsters[36].MaxWave=30;
 		default.Zed_Monsters[36].MinGr=1;
 		default.Zed_Monsters[36].MaxGr=1;
 		
-		default.Zed_Monsters[37].MClass=Class'Zedternal.WMPawn_ZedScrake_Omega';
+		default.Zed_Monsters[37].MClass=Class'ZedternalReborn.WMPawn_ZedScrake_Omega';
 		default.Zed_Monsters[37].MinWave=21;
 		default.Zed_Monsters[37].MaxWave=999;
 		default.Zed_Monsters[37].MinGr=1;
 		default.Zed_Monsters[37].MaxGr=2;
 		
-		default.Zed_Monsters[38].MClass=Class'Zedternal.WMPawn_ZedScrake_Omega';
+		default.Zed_Monsters[38].MClass=Class'ZedternalReborn.WMPawn_ZedScrake_Omega';
 		default.Zed_Monsters[38].MinWave=26;
 		default.Zed_Monsters[38].MaxWave=999;
 		default.Zed_Monsters[38].MinGr=1;
 		default.Zed_Monsters[38].MaxGr=4;
 		
-		default.Zed_Monsters[39].MClass=Class'Zedternal.WMPawn_ZedScrake_Omega';
+		default.Zed_Monsters[39].MClass=Class'ZedternalReborn.WMPawn_ZedScrake_Omega';
 		default.Zed_Monsters[39].MinWave=31;
 		default.Zed_Monsters[39].MaxWave=999;
 		default.Zed_Monsters[39].MinGr=2;
@@ -328,19 +328,19 @@ static function UpdateConfig()
 		default.Zed_Monsters[41].MinGr=1;
 		default.Zed_Monsters[41].MaxGr=2;
 		
-		default.Zed_Monsters[42].MClass=Class'Zedternal.WMPawn_ZedFleshpound_Omega';
+		default.Zed_Monsters[42].MClass=Class'ZedternalReborn.WMPawn_ZedFleshpound_Omega';
 		default.Zed_Monsters[42].MinWave=21;
 		default.Zed_Monsters[42].MaxWave=27;
 		default.Zed_Monsters[42].MinGr=1;
 		default.Zed_Monsters[42].MaxGr=1;
 		
-		default.Zed_Monsters[43].MClass=Class'Zedternal.WMPawn_ZedFleshpound_Omega';
+		default.Zed_Monsters[43].MClass=Class'ZedternalReborn.WMPawn_ZedFleshpound_Omega';
 		default.Zed_Monsters[43].MinWave=24;
 		default.Zed_Monsters[43].MaxWave=999;
 		default.Zed_Monsters[43].MinGr=1;
 		default.Zed_Monsters[43].MaxGr=2;
 		
-		default.Zed_Monsters[44].MClass=Class'Zedternal.WMPawn_ZedFleshpound_Omega';
+		default.Zed_Monsters[44].MClass=Class'ZedternalReborn.WMPawn_ZedFleshpound_Omega';
 		default.Zed_Monsters[44].MinWave=28;
 		default.Zed_Monsters[44].MaxWave=999;
 		default.Zed_Monsters[44].MinGr=2;
@@ -348,25 +348,25 @@ static function UpdateConfig()
 		
 		// Fleshpound King / Bloat King
 		
-		default.Zed_Monsters[45].MClass=Class'Zedternal.WMPawn_ZedFleshpoundKing';
+		default.Zed_Monsters[45].MClass=Class'ZedternalReborn.WMPawn_ZedFleshpoundKing';
 		default.Zed_Monsters[45].MinWave=14;
 		default.Zed_Monsters[45].MaxWave=999;
 		default.Zed_Monsters[45].MinGr=1;
 		default.Zed_Monsters[45].MaxGr=1;
 		
-		default.Zed_Monsters[46].MClass=Class'Zedternal.WMPawn_ZedFleshpoundKing';
+		default.Zed_Monsters[46].MClass=Class'ZedternalReborn.WMPawn_ZedFleshpoundKing';
 		default.Zed_Monsters[46].MinWave=21;
 		default.Zed_Monsters[46].MaxWave=999;
 		default.Zed_Monsters[46].MinGr=1;
 		default.Zed_Monsters[46].MaxGr=1;
 		
-		default.Zed_Monsters[47].MClass=Class'Zedternal.WMPawn_ZedFleshpoundKing';
+		default.Zed_Monsters[47].MClass=Class'ZedternalReborn.WMPawn_ZedFleshpoundKing';
 		default.Zed_Monsters[47].MinWave=26;
 		default.Zed_Monsters[47].MaxWave=999;
 		default.Zed_Monsters[47].MinGr=1;
 		default.Zed_Monsters[47].MaxGr=2;
 		
-		default.Zed_Monsters[48].MClass=Class'Zedternal.WMPawn_ZedFleshpoundKing';
+		default.Zed_Monsters[48].MClass=Class'ZedternalReborn.WMPawn_ZedFleshpoundKing';
 		default.Zed_Monsters[48].MinWave=31;
 		default.Zed_Monsters[48].MaxWave=999;
 		default.Zed_Monsters[48].MinGr=1;
@@ -374,43 +374,43 @@ static function UpdateConfig()
 		
 		// Patriarch / Hans
 		
-		default.Zed_Monsters[49].MClass=Class'Zedternal.WMPawn_ZedPatriarch';
+		default.Zed_Monsters[49].MClass=Class'ZedternalReborn.WMPawn_ZedPatriarch';
 		default.Zed_Monsters[49].MinWave=16;
 		default.Zed_Monsters[49].MaxWave=999;
 		default.Zed_Monsters[49].MinGr=1;
 		default.Zed_Monsters[49].MaxGr=1;
 		
-		default.Zed_Monsters[50].MClass=Class'Zedternal.WMPawn_ZedPatriarch';
+		default.Zed_Monsters[50].MClass=Class'ZedternalReborn.WMPawn_ZedPatriarch';
 		default.Zed_Monsters[50].MinWave=21;
 		default.Zed_Monsters[50].MaxWave=999;
 		default.Zed_Monsters[50].MinGr=1;
 		default.Zed_Monsters[50].MaxGr=1;
 		
-		default.Zed_Monsters[51].MClass=Class'Zedternal.WMPawn_ZedPatriarch';
+		default.Zed_Monsters[51].MClass=Class'ZedternalReborn.WMPawn_ZedPatriarch';
 		default.Zed_Monsters[51].MinWave=26;
 		default.Zed_Monsters[51].MaxWave=999;
 		default.Zed_Monsters[51].MinGr=1;
 		default.Zed_Monsters[51].MaxGr=2;
 		
-		default.Zed_Monsters[52].MClass=Class'Zedternal.WMPawn_ZedPatriarch';
+		default.Zed_Monsters[52].MClass=Class'ZedternalReborn.WMPawn_ZedPatriarch';
 		default.Zed_Monsters[52].MinWave=31;
 		default.Zed_Monsters[52].MaxWave=999;
 		default.Zed_Monsters[52].MinGr=1;
 		default.Zed_Monsters[52].MaxGr=3;
 		
-		default.Zed_Monsters[53].MClass=Class'Zedternal.WMPawn_ZedPatriarch';
+		default.Zed_Monsters[53].MClass=Class'ZedternalReborn.WMPawn_ZedPatriarch';
 		default.Zed_Monsters[53].MinWave=36;
 		default.Zed_Monsters[53].MaxWave=999;
 		default.Zed_Monsters[53].MinGr=2;
 		default.Zed_Monsters[53].MaxGr=3;
 		
-		default.Zed_Monsters[54].MClass=Class'Zedternal.WMPawn_ZedFleshpoundKing';
+		default.Zed_Monsters[54].MClass=Class'ZedternalReborn.WMPawn_ZedFleshpoundKing';
 		default.Zed_Monsters[54].MinWave=41;
 		default.Zed_Monsters[54].MaxWave=999;
 		default.Zed_Monsters[54].MinGr=3;
 		default.Zed_Monsters[54].MaxGr=5;
 		
-		default.Zed_Monsters[55].MClass=Class'Zedternal.WMPawn_ZedPatriarch';
+		default.Zed_Monsters[55].MClass=Class'ZedternalReborn.WMPawn_ZedPatriarch';
 		default.Zed_Monsters[55].MinWave=46;
 		default.Zed_Monsters[55].MaxWave=999;
 		default.Zed_Monsters[55].MinGr=4;
@@ -428,7 +428,7 @@ static function UpdateConfig()
 		default.Zed_Monsters[57].MinGr=1;
 		default.Zed_Monsters[57].MaxGr=2;
 		
-		default.Zed_Monsters[58].MClass=Class'Zedternal.WMPawn_ZedCrawler_Huge';
+		default.Zed_Monsters[58].MClass=Class'ZedternalReborn.WMPawn_ZedCrawler_Huge';
 		default.Zed_Monsters[58].MinWave=20;
 		default.Zed_Monsters[58].MaxWave=999;
 		default.Zed_Monsters[58].MinGr=1;
@@ -462,13 +462,13 @@ static function UpdateConfig()
 		default.Zed_Value[4].ZedClass = Class'KFGameContent.KFPawn_ZedStalker';
 		default.Zed_Value[4].Value = 10;
 		
-		default.Zed_Value[5].ZedClass = Class'Zedternal.WMPawn_ZedStalker_Omega';
+		default.Zed_Value[5].ZedClass = Class'ZedternalReborn.WMPawn_ZedStalker_Omega';
 		default.Zed_Value[5].Value = 25;
 		
 		default.Zed_Value[6].ZedClass = Class'KFGameContent.KFPawn_ZedGorefast';
 		default.Zed_Value[6].Value = 16;
 		
-		default.Zed_Value[7].ZedClass = Class'Zedternal.WMPawn_ZedGorefast_Omega';
+		default.Zed_Value[7].ZedClass = Class'ZedternalReborn.WMPawn_ZedGorefast_Omega';
 		default.Zed_Value[7].Value = 40;
 		
 		default.Zed_Value[8].ZedClass = Class'KFGameContent.KFPawn_ZedBloat';
@@ -477,13 +477,13 @@ static function UpdateConfig()
 		default.Zed_Value[9].ZedClass = Class'KFGameContent.KFPawn_ZedHusk';
 		default.Zed_Value[9].Value = 25;
 		
-		default.Zed_Value[10].ZedClass = Class'Zedternal.WMPawn_ZedHusk_Omega';
+		default.Zed_Value[10].ZedClass = Class'ZedternalReborn.WMPawn_ZedHusk_Omega';
 		default.Zed_Value[10].Value = 70;
 		
 		default.Zed_Value[11].ZedClass = Class'KFGameContent.KFPawn_ZedSiren';
 		default.Zed_Value[11].Value = 30;
 		
-		default.Zed_Value[12].ZedClass = Class'Zedternal.WMPawn_ZedSiren_Omega';
+		default.Zed_Value[12].ZedClass = Class'ZedternalReborn.WMPawn_ZedSiren_Omega';
 		default.Zed_Value[12].Value = 45;
 		
 		default.Zed_Value[13].ZedClass = Class'KFGameContent.KFPawn_ZedFleshpoundMini';
@@ -494,7 +494,7 @@ static function UpdateConfig()
 		default.Zed_Value[14].Value = 110;
 		default.Zed_Value[14].ValuePerExtraPlayer = 9;
 		
-		default.Zed_Value[15].ZedClass = Class'Zedternal.WMPawn_ZedScrake_Omega';
+		default.Zed_Value[15].ZedClass = Class'ZedternalReborn.WMPawn_ZedScrake_Omega';
 		default.Zed_Value[15].Value = 400;
 		default.Zed_Value[15].ValuePerExtraPlayer = 32;
 		
@@ -502,26 +502,26 @@ static function UpdateConfig()
 		default.Zed_Value[16].Value = 175;
 		default.Zed_Value[16].ValuePerExtraPlayer = 14;
 		
-		default.Zed_Value[17].ZedClass = Class'Zedternal.WMPawn_ZedFleshpound_Omega';
+		default.Zed_Value[17].ZedClass = Class'ZedternalReborn.WMPawn_ZedFleshpound_Omega';
 		default.Zed_Value[17].Value = 400;
 		default.Zed_Value[17].ValuePerExtraPlayer = 32;
 		
-		default.Zed_Value[18].ZedClass = Class'Zedternal.WMPawn_ZedFleshpoundKing';
+		default.Zed_Value[18].ZedClass = Class'ZedternalReborn.WMPawn_ZedFleshpoundKing';
 		default.Zed_Value[18].Value = 900;
 		default.Zed_Value[18].ValuePerExtraPlayer = 72;
 		
-		default.Zed_Value[19].ZedClass = Class'Zedternal.WMPawn_ZedPatriarch';
+		default.Zed_Value[19].ZedClass = Class'ZedternalReborn.WMPawn_ZedPatriarch';
 		default.Zed_Value[19].Value = 1100;
 		default.Zed_Value[19].ValuePerExtraPlayer = 88;
 		
-		default.Zed_Value[20].ZedClass = Class'Zedternal.WMPawn_ZedHans';
+		default.Zed_Value[20].ZedClass = Class'ZedternalReborn.WMPawn_ZedHans';
 		default.Zed_Value[20].Value = 1100;
 		default.Zed_Value[20].ValuePerExtraPlayer = 88;
 		
 		default.Zed_Value[21].ZedClass = Class'KFGameContent.KFPawn_ZedCrawlerKing';
 		default.Zed_Value[21].Value = 20;
 		
-		default.Zed_Value[22].ZedClass = Class'Zedternal.WMPawn_ZedScrake_Tiny';
+		default.Zed_Value[22].ZedClass = Class'ZedternalReborn.WMPawn_ZedScrake_Tiny';
 		default.Zed_Value[22].Value = 80;
 		
 		default.Zed_Value[23].ZedClass = Class'KFGameContent.KFPawn_ZedDAR_Rocket';
@@ -533,28 +533,28 @@ static function UpdateConfig()
 		default.Zed_Value[25].ZedClass = Class'KFGameContent.KFPawn_ZedDAR_EMP';
 		default.Zed_Value[25].Value = 45;
 		
-		default.Zed_Value[26].ZedClass = Class'Zedternal.WMPawn_ZedCrawler_Mini';
+		default.Zed_Value[26].ZedClass = Class'ZedternalReborn.WMPawn_ZedCrawler_Mini';
 		default.Zed_Value[26].Value = 5;
 		
-		default.Zed_Value[27].ZedClass = Class'Zedternal.WMPawn_ZedCrawler_Medium';
+		default.Zed_Value[27].ZedClass = Class'ZedternalReborn.WMPawn_ZedCrawler_Medium';
 		default.Zed_Value[27].Value = 7;
 		
-		default.Zed_Value[28].ZedClass = Class'Zedternal.WMPawn_ZedCrawler_Big';
+		default.Zed_Value[28].ZedClass = Class'ZedternalReborn.WMPawn_ZedCrawler_Big';
 		default.Zed_Value[28].Value = 20;
 		
-		default.Zed_Value[29].ZedClass = Class'Zedternal.WMPawn_ZedCrawler_Huge';
+		default.Zed_Value[29].ZedClass = Class'ZedternalReborn.WMPawn_ZedCrawler_Huge';
 		default.Zed_Value[29].Value = 45;
 		
-		default.Zed_Value[30].ZedClass = Class'Zedternal.WMPawn_ZedCrawler_Ultra';
+		default.Zed_Value[30].ZedClass = Class'ZedternalReborn.WMPawn_ZedCrawler_Ultra';
 		default.Zed_Value[30].Value = 75;
 		
 		default.Zed_Value[31].ZedClass = Class'KFGameContent.KFPawn_ZedGorefastDualBlade';
 		default.Zed_Value[31].Value = 35;
 		
-		default.Zed_Value[32].ZedClass = Class'Zedternal.WMPawn_ZedHusk_NoDAR';
+		default.Zed_Value[32].ZedClass = Class'ZedternalReborn.WMPawn_ZedHusk_NoDAR';
 		default.Zed_Value[32].Value = 25;
 		
-		default.Zed_Value[33].ZedClass = Class'Zedternal.WMPawn_ZedBloatKing';
+		default.Zed_Value[33].ZedClass = Class'ZedternalReborn.WMPawn_ZedBloatKing';
 		default.Zed_Value[33].Value = 900;
 		default.Zed_Value[33].ValuePerExtraPlayer = 72;
 		
@@ -577,32 +577,32 @@ static function UpdateConfig()
 		default.Zed_ZedVariant[0].minDifficulty=0;
 		default.Zed_ZedVariant[0].maxDifficulty=4;
 		
-		default.Zed_ZedVariant[1].ZedClass=Class'Zedternal.WMPawn_ZedPatriarch';
-		default.Zed_ZedVariant[1].VariantClass=Class'Zedternal.WMPawn_ZedHans';
+		default.Zed_ZedVariant[1].ZedClass=Class'ZedternalReborn.WMPawn_ZedPatriarch';
+		default.Zed_ZedVariant[1].VariantClass=Class'ZedternalReborn.WMPawn_ZedHans';
 		default.Zed_ZedVariant[1].probability=0.500000;
 		default.Zed_ZedVariant[1].minDifficulty=0;
 		default.Zed_ZedVariant[1].maxDifficulty=4;
 				
-		default.Zed_ZedVariant[2].ZedClass=Class'Zedternal.WMPawn_ZedFleshpoundKing';
-		default.Zed_ZedVariant[2].VariantClass=Class'Zedternal.WMPawn_ZedBloatKing';
+		default.Zed_ZedVariant[2].ZedClass=Class'ZedternalReborn.WMPawn_ZedFleshpoundKing';
+		default.Zed_ZedVariant[2].VariantClass=Class'ZedternalReborn.WMPawn_ZedBloatKing';
 		default.Zed_ZedVariant[2].probability=0.500000;
 		default.Zed_ZedVariant[2].minDifficulty=0;
 		default.Zed_ZedVariant[2].maxDifficulty=4;
 		
 		default.Zed_ZedVariant[3].ZedClass=Class'KFGameContent.KFPawn_ZedScrake';
-		default.Zed_ZedVariant[3].VariantClass=Class'Zedternal.WMPawn_ZedScrake_Tiny';
+		default.Zed_ZedVariant[3].VariantClass=Class'ZedternalReborn.WMPawn_ZedScrake_Tiny';
 		default.Zed_ZedVariant[3].probability=0.010000;
 		default.Zed_ZedVariant[3].minDifficulty=0;
 		default.Zed_ZedVariant[3].maxDifficulty=4;
 		
 		default.Zed_ZedVariant[4].ZedClass=Class'KFGameContent.KFPawn_ZedHusk';
-		default.Zed_ZedVariant[4].VariantClass=Class'Zedternal.WMPawn_ZedHusk_NoDAR';
+		default.Zed_ZedVariant[4].VariantClass=Class'ZedternalReborn.WMPawn_ZedHusk_NoDAR';
 		default.Zed_ZedVariant[4].probability=1.000000;
 		default.Zed_ZedVariant[4].minDifficulty=0;
 		default.Zed_ZedVariant[4].maxDifficulty=4;
 				
 		default.Zed_ZedVariant[5].ZedClass=Class'KFGameContent.KFPawn_ZedStalker';
-		default.Zed_ZedVariant[5].VariantClass=Class'Zedternal.WMPawn_ZedStalker_NoDAR';
+		default.Zed_ZedVariant[5].VariantClass=Class'ZedternalReborn.WMPawn_ZedStalker_NoDAR';
 		default.Zed_ZedVariant[5].probability=1.000000;
 		default.Zed_ZedVariant[5].minDifficulty=0;
 		default.Zed_ZedVariant[5].maxDifficulty=4;
@@ -651,7 +651,7 @@ static function UpdateConfig()
 		// first, remove current bosses from the config file
 		for (i=0; i<default.Zed_Monsters.length; i+=1)
 		{
-			if (default.Zed_Monsters[i].MClass==Class'Zedternal.WMPawn_ZedFleshpoundKing' || default.Zed_Monsters[i].MClass==Class'Zedternal.WMPawn_ZedPatriarch')
+			if (default.Zed_Monsters[i].MClass==Class'ZedternalReborn.WMPawn_ZedFleshpoundKing' || default.Zed_Monsters[i].MClass==Class'ZedternalReborn.WMPawn_ZedPatriarch')
 			{
 				default.Zed_Monsters.Remove(i, 1);
 				i -= 1;
@@ -659,24 +659,24 @@ static function UpdateConfig()
 		}
 		
 		// then, add new bosses config
-		tempMonster.MClass =Class'Zedternal.WMPawn_ZedFleshpoundKing';
+		tempMonster.MClass =Class'ZedternalReborn.WMPawn_ZedFleshpoundKing';
 		tempMonster.MinGr = 1;
 		tempMonster.MaxGr = 1;
 		tempMonster.MinWave = 17;
 		tempMonster.MaxWave = 999;
 		default.Zed_Monsters.AddItem(tempMonster);
 		
-		tempMonster.MClass =Class'Zedternal.WMPawn_ZedPatriarch';
+		tempMonster.MClass =Class'ZedternalReborn.WMPawn_ZedPatriarch';
 		tempMonster.MinWave = 21;
 		tempMonster.MaxWave = 999;
 		default.Zed_Monsters.AddItem(tempMonster);
 		
-		tempMonster.MClass =Class'Zedternal.WMPawn_ZedFleshpoundKing';
+		tempMonster.MClass =Class'ZedternalReborn.WMPawn_ZedFleshpoundKing';
 		tempMonster.MinWave = 25;
 		tempMonster.MaxWave = 999;
 		default.Zed_Monsters.AddItem(tempMonster);
 		
-		tempMonster.MClass =Class'Zedternal.WMPawn_ZedPatriarch';
+		tempMonster.MClass =Class'ZedternalReborn.WMPawn_ZedPatriarch';
 		tempMonster.MinWave = 29;
 		tempMonster.MaxWave = 999;
 		default.Zed_Monsters.AddItem(tempMonster);
@@ -684,7 +684,7 @@ static function UpdateConfig()
 		// also, change there values
 		for (i=0; i<default.Zed_Value.length; i+=1)
 		{
-			if (default.Zed_Value[i].ZedClass==Class'Zedternal.WMPawn_ZedFleshpoundKing' || default.Zed_Value[i].ZedClass==Class'Zedternal.WMPawn_ZedPatriarch' || default.Zed_Value[i].ZedClass==Class'Zedternal.WMPawn_ZedBloatKing' || default.Zed_Value[i].ZedClass==Class'Zedternal.WMPawn_ZedHans')
+			if (default.Zed_Value[i].ZedClass==Class'ZedternalReborn.WMPawn_ZedFleshpoundKing' || default.Zed_Value[i].ZedClass==Class'ZedternalReborn.WMPawn_ZedPatriarch' || default.Zed_Value[i].ZedClass==Class'ZedternalReborn.WMPawn_ZedBloatKing' || default.Zed_Value[i].ZedClass==Class'ZedternalReborn.WMPawn_ZedHans')
 			{
 				default.Zed_Value[i].Value = 2000;
 				default.Zed_Value[i].ValuePerExtraPlayer = 160;
@@ -702,7 +702,7 @@ static function UpdateConfig()
 		// remove omega sirens
 		for (i=0; i<default.Zed_Monsters.length; i+=1)
 		{
-			if (default.Zed_Monsters[i].MClass==Class'Zedternal.WMPawn_ZedSiren_Omega')
+			if (default.Zed_Monsters[i].MClass==Class'ZedternalReborn.WMPawn_ZedSiren_Omega')
 			{
 				default.Zed_Monsters.Remove(i, 1);
 				i -= 1;
@@ -710,7 +710,7 @@ static function UpdateConfig()
 		}
 		
 		// add new omega slasher
-		tempMonster.MClass = Class'Zedternal.WMPawn_ZedClot_Slasher_Omega';
+		tempMonster.MClass = Class'ZedternalReborn.WMPawn_ZedClot_Slasher_Omega';
 		tempMonster.MinGr = 1;
 		tempMonster.MaxGr = 4;
 		tempMonster.MinWave = 9;
@@ -723,7 +723,7 @@ static function UpdateConfig()
 		tempMonster.MaxWave = 999;
 		default.Zed_Monsters.AddItem(tempMonster);
 		
-		tempValue.ZedClass = Class'Zedternal.WMPawn_ZedClot_Slasher_Omega';
+		tempValue.ZedClass = Class'ZedternalReborn.WMPawn_ZedClot_Slasher_Omega';
 		tempValue.Value = 24;
 		tempValue.ValuePerExtraPlayer = 0;
 		default.Zed_Value.AddItem(tempValue);
@@ -736,7 +736,7 @@ static function UpdateConfig()
 		{
 			if (default.Zed_Value[i].Value == 2000)
 			{
-				if (default.Zed_Value[i].ZedClass==Class'Zedternal.WMPawn_ZedFleshpoundKing' || default.Zed_Value[i].ZedClass==Class'Zedternal.WMPawn_ZedPatriarch' || default.Zed_Value[i].ZedClass==Class'Zedternal.WMPawn_ZedBloatKing' || default.Zed_Value[i].ZedClass==Class'Zedternal.WMPawn_ZedHans')
+				if (default.Zed_Value[i].ZedClass==Class'ZedternalReborn.WMPawn_ZedFleshpoundKing' || default.Zed_Value[i].ZedClass==Class'ZedternalReborn.WMPawn_ZedPatriarch' || default.Zed_Value[i].ZedClass==Class'ZedternalReborn.WMPawn_ZedBloatKing' || default.Zed_Value[i].ZedClass==Class'ZedternalReborn.WMPawn_ZedHans')
 				{
 					default.Zed_Value[i].Value = 2400;
 					default.Zed_Value[i].ValuePerExtraPlayer = 200;
@@ -747,10 +747,10 @@ static function UpdateConfig()
 		// exchange FleshpoundKing by Patriarch
 		for (i=0; i<default.Zed_Monsters.length; i+=1)
 		{
-			if (default.Zed_Monsters[i].MClass==Class'Zedternal.WMPawn_ZedFleshpoundKing' && default.Zed_Monsters[i].MinWave == 17)
-				default.Zed_Monsters[i].MClass = Class'Zedternal.WMPawn_ZedPatriarch';
-			else if (default.Zed_Monsters[i].MClass==Class'Zedternal.WMPawn_ZedPatriarch' && default.Zed_Monsters[i].MinWave == 21)
-				default.Zed_Monsters[i].MClass = Class'Zedternal.WMPawn_ZedFleshpoundKing';
+			if (default.Zed_Monsters[i].MClass==Class'ZedternalReborn.WMPawn_ZedFleshpoundKing' && default.Zed_Monsters[i].MinWave == 17)
+				default.Zed_Monsters[i].MClass = Class'ZedternalReborn.WMPawn_ZedPatriarch';
+			else if (default.Zed_Monsters[i].MClass==Class'ZedternalReborn.WMPawn_ZedPatriarch' && default.Zed_Monsters[i].MinWave == 21)
+				default.Zed_Monsters[i].MClass = Class'ZedternalReborn.WMPawn_ZedFleshpoundKing';
 		}
 		
 		// add more basic enemies
@@ -801,7 +801,7 @@ static function UpdateConfig()
 		for (i=0; i<default.Zed_Monsters.length; i+=1)
 		{
 			if (default.Zed_Monsters[i].MClass==Class'kfgamecontent.KFPawn_ZedClot_Alpha' && default.Zed_Monsters[i].MinWave == 0 && (default.Zed_Monsters[i].MaxWave == 4 || default.Zed_Monsters[i].MaxWave == 20))
-				default.Zed_Monsters[i].MClass=Class'Zedternal.WMPawn_ZedClot_Alpha_NoRiot';
+				default.Zed_Monsters[i].MClass=Class'ZedternalReborn.WMPawn_ZedClot_Alpha_NoRiot';
 		}
 	}
 	if (default.MODEVERSION < 13)
@@ -811,21 +811,21 @@ static function UpdateConfig()
 		{
 			if (default.Zed_Monsters[i].MClass==Class'kfgamecontent.KFPawn_ZedHusk' && default.Zed_Monsters[i].MaxGr==3)
 				default.Zed_Monsters[i].MaxGr = 2;
-			else if (default.Zed_Monsters[i].MClass==Class'Zedternal.WMPawn_ZedHusk_Omega' && default.Zed_Monsters[i].MaxGr==5)
+			else if (default.Zed_Monsters[i].MClass==Class'ZedternalReborn.WMPawn_ZedHusk_Omega' && default.Zed_Monsters[i].MaxGr==5)
 				default.Zed_Monsters[i].MaxGr = 4;
 		}
 		
-		tempValue.ZedClass = Class'Zedternal.WMPawn_ZedHusk_Tiny_Green';
+		tempValue.ZedClass = Class'ZedternalReborn.WMPawn_ZedHusk_Tiny_Green';
 		tempValue.Value = 18;
 		tempValue.ValuePerExtraPlayer = 0;
 		default.Zed_Value.AddItem(tempValue);
 		
-		tempValue.ZedClass = Class'Zedternal.WMPawn_ZedHusk_Tiny_Blue';
+		tempValue.ZedClass = Class'ZedternalReborn.WMPawn_ZedHusk_Tiny_Blue';
 		tempValue.Value = 18;
 		tempValue.ValuePerExtraPlayer = 0;
 		default.Zed_Value.AddItem(tempValue);
 		
-		tempValue.ZedClass = Class'Zedternal.WMPawn_ZedHusk_Tiny_Pink';
+		tempValue.ZedClass = Class'ZedternalReborn.WMPawn_ZedHusk_Tiny_Pink';
 		tempValue.Value = 18;
 		tempValue.ValuePerExtraPlayer = 0;
 		default.Zed_Value.AddItem(tempValue);
@@ -833,23 +833,23 @@ static function UpdateConfig()
 		// Omega Fleshpound spawn earlier
 		for (i=0; i<default.Zed_Monsters.length; i+=1)
 		{
-			if (default.Zed_Monsters[i].MClass==Class'Zedternal.WMPawn_ZedFleshpound_Omega' && default.Zed_Monsters[i].MinWave == 17)
+			if (default.Zed_Monsters[i].MClass==Class'ZedternalReborn.WMPawn_ZedFleshpound_Omega' && default.Zed_Monsters[i].MinWave == 17)
 				default.Zed_Monsters[i].MinWave = 15;
 		}
 		
-		// Add Zedternal Gorefast
+		// Add ZedternalReborn Gorefast
 		for (i=0; i<default.Zed_Monsters.length; i+=1)
 		{
 			if (default.Zed_Monsters[i].MClass==Class'kfgamecontent.KFPawn_ZedGorefast')
-				default.Zed_Monsters[i].MClass=Class'Zedternal.WMPawn_ZedGorefast_NoDualBlade';
+				default.Zed_Monsters[i].MClass=Class'ZedternalReborn.WMPawn_ZedGorefast_NoDualBlade';
 		}
-		tempValue.ZedClass = Class'Zedternal.WMPawn_ZedGorefast_NoDualBlade';
+		tempValue.ZedClass = Class'ZedternalReborn.WMPawn_ZedGorefast_NoDualBlade';
 		tempValue.Value = 16;
 		tempValue.ValuePerExtraPlayer = 0;
 		default.Zed_Value.AddItem(tempValue);
 		
 		// Add Gorefast variant
-		tempVariant.ZedClass = Class'Zedternal.WMPawn_ZedGorefast_NoDualBlade';
+		tempVariant.ZedClass = Class'ZedternalReborn.WMPawn_ZedGorefast_NoDualBlade';
 		tempVariant.VariantClass = Class'kfgamecontent.KFPawn_ZedGorefastDualBlade';
 		tempVariant.probability = 0.100000;
 		tempVariant.minDifficulty = 0;
@@ -868,9 +868,9 @@ static function UpdateConfig()
 		
 	}
 	
-	if (default.MODEVERSION < class'Zedternal.Config_Base'.default.currentVersion)
+	if (default.MODEVERSION < class'ZedternalReborn.Config_Base'.default.currentVersion)
 	{
-		default.MODEVERSION = class'Zedternal.Config_Base'.default.currentVersion;
+		default.MODEVERSION = class'ZedternalReborn.Config_Base'.default.currentVersion;
 		static.StaticSaveConfig();
 	}
 

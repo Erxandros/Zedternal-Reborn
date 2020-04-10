@@ -52,6 +52,6 @@ defaultproperties
 	healingProb(1)=0.001500
 	vampireProb(0)=0.002000
 	vampireProb(1)=0.005000
-	upgradeIcon(0)=Texture2D'Zedternal_Resource.Skills.UI_Skill_CombatantDoctor'
-	upgradeIcon(1)=Texture2D'Zedternal_Resource.Skills.UI_Skill_CombatantDoctor_Deluxe'
+	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_CombatantDoctor'
+	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_CombatantDoctor_Deluxe'
 }

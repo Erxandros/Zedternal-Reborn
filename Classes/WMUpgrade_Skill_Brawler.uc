@@ -20,6 +20,6 @@ defaultproperties
 	upgradeDescription(1)="Clots can't grab you. Also increase melee damage resistance by <font color=\"#b346ea\">10%</font>"
 	Damage(0)=0.050000;
 	Damage(1)=0.100000;
-	upgradeIcon(0)=Texture2D'Zedternal_Resource.Skills.UI_Skill_Brawler'
-	upgradeIcon(1)=Texture2D'Zedternal_Resource.Skills.UI_Skill_Brawler_Deluxe'
+	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Brawler'
+	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Brawler_Deluxe'
 }

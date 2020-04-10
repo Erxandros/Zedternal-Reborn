@@ -1,5 +1,5 @@
 class Config_Difficulty extends Config_Base
-	config(Zedternal);
+	config(ZedternalReborn);
 	
 var config int MODEVERSION;
 
@@ -60,9 +60,9 @@ static function UpdateConfig()
 			default.ZedStat_SoloDamageMod.Normal = 0.600000;
 	}
 	
-	if (default.MODEVERSION < class'Zedternal.Config_Base'.default.currentVersion)
+	if (default.MODEVERSION < class'ZedternalReborn.Config_Base'.default.currentVersion)
 	{
-		default.MODEVERSION = class'Zedternal.Config_Base'.default.currentVersion;
+		default.MODEVERSION = class'ZedternalReborn.Config_Base'.default.currentVersion;
 		static.StaticSaveConfig();
 	}
 

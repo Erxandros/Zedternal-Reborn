@@ -1,5 +1,5 @@
 class Config_Map extends Config_Base
-	config(Zedternal);
+	config(ZedternalReborn);
 
 var config int MODEVERSION;
 
@@ -30,9 +30,9 @@ static function UpdateConfig()
 		default.Map_Settings[0].zedSpawnRate = 1.000000;
 	}
 
-	if (default.MODEVERSION < class'Zedternal.Config_Base'.default.currentVersion)
+	if (default.MODEVERSION < class'ZedternalReborn.Config_Base'.default.currentVersion)
 	{
-		default.MODEVERSION = class'Zedternal.Config_Base'.default.currentVersion;
+		default.MODEVERSION = class'ZedternalReborn.Config_Base'.default.currentVersion;
 		static.StaticSaveConfig();
 	}
 

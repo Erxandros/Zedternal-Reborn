@@ -35,6 +35,6 @@ defaultproperties
 	BoneBreakerBodyParts(1)=3
 	BoneBreakerBodyParts(2)=4
 	BoneBreakerBodyParts(3)=5
-	upgradeIcon(0)=Texture2D'Zedternal_Resource.Skills.UI_Skill_BoneBreaker'
-	upgradeIcon(1)=Texture2D'Zedternal_Resource.Skills.UI_Skill_BoneBreaker_Deluxe'
+	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_BoneBreaker'
+	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_BoneBreaker_Deluxe'
 }

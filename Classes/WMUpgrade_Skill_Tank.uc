@@ -43,6 +43,6 @@ defaultproperties
 	Resistance(1)=0.300000
 	Critical(0)=0.900000
 	Critical(1)=0.700000
-	upgradeIcon(0)=Texture2D'Zedternal_Resource.Skills.UI_Skill_Tank'
-	upgradeIcon(1)=Texture2D'Zedternal_Resource.Skills.UI_Skill_Tank_Deluxe'
+	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Tank'
+	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Tank_Deluxe'
 }

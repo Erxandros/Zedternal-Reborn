@@ -22,6 +22,6 @@ defaultproperties
 	Weight(1) = 5
 	upgradeDescription(0)="Increase weight capacity by 2. You can carry up to 20% more ammo for <font color=\"#eaeff7\">all weapons</font>"
 	upgradeDescription(1)="Increase weight capacity by <font color=\"#b346ea\">5</font>. You can carry up to <font color=\"#b346ea\">75%</font> more ammo for <font color=\"#eaeff7\">all weapons</font>"
-	upgradeIcon(0)=Texture2D'Zedternal_Resource.Skills.UI_Skill_AmmoVest'
-	upgradeIcon(1)=Texture2D'Zedternal_Resource.Skills.UI_Skill_AmmoVest_Deluxe'
+	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_AmmoVest'
+	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_AmmoVest_Deluxe'
 }

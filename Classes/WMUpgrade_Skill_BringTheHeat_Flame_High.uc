@@ -9,7 +9,7 @@ defaultproperties
       ExplosionEffects=KFImpactEffectInfo'WEP_Flamethrower_ARCH.GroundFire_Impacts'
       Damage=115.000000
 	  DamageRadius=350.000000
-      MyDamageType=Class'Zedternal.WMUpgrade_Weapon_DT_HeatWave_Base'
+      MyDamageType=Class'ZedternalReborn.WMUpgrade_Weapon_DT_HeatWave_Base'
       KnockDownStrength=0.000000
       MomentumTransferScale=0.000000
       ExplosionSound=AkEvent'WW_ZED_Husk.ZED_Husk_SFX_Ranged_Shot_Impact'
@@ -21,6 +21,6 @@ defaultproperties
       CamShakeOuterRadius=24.000000
       Name="ExploTemplate0"
    End Object
-   ExplosionTemplate=KFGameExplosion'Zedternal.Default__WMUpgrade_Skill_BringTheHeat_Flame_High:ExploTemplate0'
+   ExplosionTemplate=KFGameExplosion'ZedternalReborn.Default__WMUpgrade_Skill_BringTheHeat_Flame_High:ExploTemplate0'
    Name="Default__WMUpgrade_Skill_BringTheHeat_Flame_High"
 }

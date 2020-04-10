@@ -105,7 +105,7 @@ defaultproperties
    XPValues(1)=14.000000
    XPValues(2)=14.000000
    XPValues(3)=16.000000
-   DifficultySettings=Class'Zedternal.WMDifficulty_Stalker'
+   DifficultySettings=Class'ZedternalReborn.WMDifficulty_Stalker'
    PenetrationResistance=0.800000
    SprintSpeed=565.000000
    

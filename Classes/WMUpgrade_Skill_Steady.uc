@@ -24,6 +24,6 @@ defaultproperties
 	Recoil(0)=0.300000
 	Recoil(1)=0.750000
 	Bob=0.110000
-	upgradeIcon(0)=Texture2D'Zedternal_Resource.Skills.UI_Skill_Steady'
-	upgradeIcon(1)=Texture2D'Zedternal_Resource.Skills.UI_Skill_Steady_Deluxe'
+	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Steady'
+	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Steady_Deluxe'
 }

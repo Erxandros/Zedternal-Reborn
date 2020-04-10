@@ -70,7 +70,7 @@ function OnStackingAfflictionChanged(byte Id)
 
 defaultproperties
 {
-   DifficultySettings=Class'Zedternal.WMDifficulty_Scrake_Emperor'
+   DifficultySettings=Class'ZedternalReborn.WMDifficulty_Scrake_Emperor'
    RageHealthThresholdNormal=0.200000
    RageHealthThresholdHard=0.225000
    RageHealthThresholdSuicidal=0.250000
@@ -91,7 +91,7 @@ defaultproperties
       MaxHitRange=200.000000
       Name="MeleeHelper_0"
    End Object
-   MeleeAttackHelper=KFMeleeHelperAI'Zedternal.Default__WMPawn_ZedScrake_Emperor:WMMeleeHelper_0'
+   MeleeAttackHelper=KFMeleeHelperAI'ZedternalReborn.Default__WMPawn_ZedScrake_Emperor:WMMeleeHelper_0'
    
    bVersusZed=True
 

@@ -14,14 +14,14 @@ simulated static final function Zed_Arch_FleshpoundOmega GetArch( WorldInfo Leve
 {
 	local Zed_Arch_FleshpoundOmega A;
 	
-	foreach Level.DynamicActors(class'Zedternal.Zed_Arch_FleshpoundOmega',A)
+	foreach Level.DynamicActors(class'ZedternalReborn.Zed_Arch_FleshpoundOmega',A)
 	{
 		if( A.zedClientArch!=None )
 			return A;
 	}
 	if( Level.NetMode!=NM_Client )
 	{
-		A = Level.Spawn(class'Zedternal.Zed_Arch_FleshpoundOmega');
+		A = Level.Spawn(class'ZedternalReborn.Zed_Arch_FleshpoundOmega');
 		return A;
 	}
 	return None;

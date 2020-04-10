@@ -69,15 +69,15 @@ static simulated function UpdateGrenade(KFPerk currentPerk)
 	{
 		switch(currentPerk.GrenadeClass)
 		{
-			case class'KFProj_FlashBangGrenade'	: currentPerk.GrenadeClass = class'Zedternal.WMProj_FlashBangGrenade_QuickFuse';	break;
-			case class'KFProj_FragGrenade' 		: currentPerk.GrenadeClass = class'Zedternal.WMProj_FragGrenade_QuickFuse';			break;
-			case class'KFProj_HansHEGrenade'	: currentPerk.GrenadeClass = class'Zedternal.WMProj_HansHEGrenade_QuickFuse';		break;
-			case class'KFProj_EMPGrenade'		: currentPerk.GrenadeClass = class'Zedternal.WMProj_EMPGrenade_QuickFuse';			break;
-			case class'KFProj_HEGrenade'		: currentPerk.GrenadeClass = class'Zedternal.WMProj_HEGrenade_QuickFuse';			break;
-			case class'KFProj_MedicGrenade'		: currentPerk.GrenadeClass = class'Zedternal.WMProj_MedicGrenade_QuickFuse';		break;
-			case class'KFProj_NailBombGrenade'	: currentPerk.GrenadeClass = class'Zedternal.WMProj_NailBombGrenade_QuickFuse';		break;
-			case class'KFProj_FreezeGrenade'	: currentPerk.GrenadeClass = class'Zedternal.WMProj_FreezeGrenade_QuickFuse';		break;
-			case class'KFProj_DynamiteGrenade'	: currentPerk.GrenadeClass = class'Zedternal.WMProj_DynamiteGrenade_QuickFuse';		break;
+			case class'KFProj_FlashBangGrenade'	: currentPerk.GrenadeClass = class'ZedternalReborn.WMProj_FlashBangGrenade_QuickFuse';	break;
+			case class'KFProj_FragGrenade' 		: currentPerk.GrenadeClass = class'ZedternalReborn.WMProj_FragGrenade_QuickFuse';			break;
+			case class'KFProj_HansHEGrenade'	: currentPerk.GrenadeClass = class'ZedternalReborn.WMProj_HansHEGrenade_QuickFuse';		break;
+			case class'KFProj_EMPGrenade'		: currentPerk.GrenadeClass = class'ZedternalReborn.WMProj_EMPGrenade_QuickFuse';			break;
+			case class'KFProj_HEGrenade'		: currentPerk.GrenadeClass = class'ZedternalReborn.WMProj_HEGrenade_QuickFuse';			break;
+			case class'KFProj_MedicGrenade'		: currentPerk.GrenadeClass = class'ZedternalReborn.WMProj_MedicGrenade_QuickFuse';		break;
+			case class'KFProj_NailBombGrenade'	: currentPerk.GrenadeClass = class'ZedternalReborn.WMProj_NailBombGrenade_QuickFuse';		break;
+			case class'KFProj_FreezeGrenade'	: currentPerk.GrenadeClass = class'ZedternalReborn.WMProj_FreezeGrenade_QuickFuse';		break;
+			case class'KFProj_DynamiteGrenade'	: currentPerk.GrenadeClass = class'ZedternalReborn.WMProj_DynamiteGrenade_QuickFuse';		break;
 		}
 	}
 }
@@ -89,6 +89,6 @@ defaultproperties
 	upgradeDescription(1)="Decrease fuse time of <font color=\"#eaeff7\">all grenades</font> by 50%. Increase damage with <font color=\"#eaeff7\">all grenades</font> <font color=\"#b346ea\">50%</font>"
 	Damage(0)=0.200000;
 	Damage(1)=0.500000;
-	upgradeIcon(0)=Texture2D'Zedternal_Resource.Skills.UI_Skill_QuickFuse'
-	upgradeIcon(1)=Texture2D'Zedternal_Resource.Skills.UI_Skill_QuickFuse_Deluxe'
+	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_QuickFuse'
+	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_QuickFuse_Deluxe'
 }

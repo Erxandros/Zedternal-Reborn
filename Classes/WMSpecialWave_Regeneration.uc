@@ -29,7 +29,7 @@ static function WMSpecialWave_Haemorrhage GetSpecialWaveObject(WorldInfo WI)
 {
 	local WMSpecialWave_Haemorrhage WMS;
 	
-	foreach WI.DynamicActors(class'Zedternal.WMSpecialWave_Haemorrhage',WMS)
+	foreach WI.DynamicActors(class'ZedternalReborn.WMSpecialWave_Haemorrhage',WMS)
 	{
 		return WMS;
 	}

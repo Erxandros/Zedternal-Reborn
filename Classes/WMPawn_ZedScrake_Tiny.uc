@@ -140,7 +140,7 @@ defaultproperties
       MaxHitRange=180.000000
       Name="MeleeHelper_0"
    End Object
-   MeleeAttackHelper=KFMeleeHelperAI'Zedternal.Default__WMPawn_ZedScrake_Tiny:WMMeleeHelper_0'
+   MeleeAttackHelper=KFMeleeHelperAI'ZedternalReborn.Default__WMPawn_ZedScrake_Tiny:WMMeleeHelper_0'
 
    HitZones(0)=(GoreHealth=400)
    HitZones(1)=()
@@ -210,7 +210,7 @@ defaultproperties
       SpecialMoveClasses(30)=Class'KFGame.KFSM_HansGrappleVictim'
       Name="SpecialMoveHandler_0"
    End Object
-   SpecialMoveHandler=KFSpecialMoveHandler'Zedternal.Default__WMPawn_ZedScrake_Omega:SpecialMoveHandler_0'
+   SpecialMoveHandler=KFSpecialMoveHandler'ZedternalReborn.Default__WMPawn_ZedScrake_Omega:SpecialMoveHandler_0'
    Mass=150.000000
    GroundSpeed=540.000000
    Health=600

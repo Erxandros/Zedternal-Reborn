@@ -145,6 +145,6 @@ defaultproperties
    SoundThemes(2)=(ThemeName="AAR",Theme=UISoundTheme'SoundsShared_UI.SoundTheme_AAR')
    Priority=10
    WidgetBindings(0)=(WidgetName="root1",WidgetClass=Class'GFxUI.GFxObject')
-   WidgetBindings(1)=(WidgetName="InventoryMenu",WidgetClass=Class'Zedternal.WMUI_UPGMenu')
+   WidgetBindings(1)=(WidgetName="InventoryMenu",WidgetClass=Class'ZedternalReborn.WMUI_UPGMenu')
    Name="Default__WMUI_Menu"
 }

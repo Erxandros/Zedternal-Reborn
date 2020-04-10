@@ -1,5 +1,5 @@
 class Config_ZedBuff extends Config_Base
-	config(Zedternal);
+	config(ZedternalReborn);
 
 var config int MODEVERSION;
 
@@ -68,20 +68,20 @@ static function UpdateConfig()
 		default.ZedBuff_DoshBonus.Custom = 500;
 		
 		default.ZedBuff_BuffPath.length = 14;
-		default.ZedBuff_BuffPath[0].Path = "Zedternal.WMZedBuff_PukeMine";
-		default.ZedBuff_BuffPath[1].Path = "Zedternal.WMZedBuff_SpawnRate";
-		default.ZedBuff_BuffPath[2].Path = "Zedternal.WMZedBuff_Slasher_Enraged";
-		default.ZedBuff_BuffPath[3].Path = "Zedternal.WMZedBuff_Crawler_Health";
-		default.ZedBuff_BuffPath[4].Path = "Zedternal.WMZedBuff_Crawler_Faster";
-		default.ZedBuff_BuffPath[5].Path = "Zedternal.WMZedBuff_Gorefast_Damage";
-		default.ZedBuff_BuffPath[6].Path = "Zedternal.WMZedBuff_Gorefast_Enraged";
-		default.ZedBuff_BuffPath[7].Path = "Zedternal.WMZedBuff_Siren_Heal";
-		default.ZedBuff_BuffPath[8].Path = "Zedternal.WMZedBuff_Scrake_Enraged";
-		default.ZedBuff_BuffPath[9].Path = "Zedternal.WMZedBuff_Fleshpound_Stronger";
-		default.ZedBuff_BuffPath[10].Path = "Zedternal.WMZedBuff_Health";
-		default.ZedBuff_BuffPath[11].Path = "Zedternal.WMZedBuff_Damage";
-		default.ZedBuff_BuffPath[12].Path = "Zedternal.WMZedBuff_Speed";
-		default.ZedBuff_BuffPath[13].Path = "Zedternal.WMZedBuff_Hostility";
+		default.ZedBuff_BuffPath[0].Path = "ZedternalReborn.WMZedBuff_PukeMine";
+		default.ZedBuff_BuffPath[1].Path = "ZedternalReborn.WMZedBuff_SpawnRate";
+		default.ZedBuff_BuffPath[2].Path = "ZedternalReborn.WMZedBuff_Slasher_Enraged";
+		default.ZedBuff_BuffPath[3].Path = "ZedternalReborn.WMZedBuff_Crawler_Health";
+		default.ZedBuff_BuffPath[4].Path = "ZedternalReborn.WMZedBuff_Crawler_Faster";
+		default.ZedBuff_BuffPath[5].Path = "ZedternalReborn.WMZedBuff_Gorefast_Damage";
+		default.ZedBuff_BuffPath[6].Path = "ZedternalReborn.WMZedBuff_Gorefast_Enraged";
+		default.ZedBuff_BuffPath[7].Path = "ZedternalReborn.WMZedBuff_Siren_Heal";
+		default.ZedBuff_BuffPath[8].Path = "ZedternalReborn.WMZedBuff_Scrake_Enraged";
+		default.ZedBuff_BuffPath[9].Path = "ZedternalReborn.WMZedBuff_Fleshpound_Stronger";
+		default.ZedBuff_BuffPath[10].Path = "ZedternalReborn.WMZedBuff_Health";
+		default.ZedBuff_BuffPath[11].Path = "ZedternalReborn.WMZedBuff_Damage";
+		default.ZedBuff_BuffPath[12].Path = "ZedternalReborn.WMZedBuff_Speed";
+		default.ZedBuff_BuffPath[13].Path = "ZedternalReborn.WMZedBuff_Hostility";
 		
 		// Constant Buffs (per wave)
 		// Buffs are more intense at normal difficulty than at HoE.
@@ -137,9 +137,9 @@ static function UpdateConfig()
 		default.ZedBuff_BuffPath.length = 17;
 		
 		// tier 1
-		default.ZedBuff_BuffPath[0].Path = "Zedternal.WMZedBuff_Slasher_Enraged";
-		default.ZedBuff_BuffPath[1].Path = "Zedternal.WMZedBuff_Crawler_Health";
-		default.ZedBuff_BuffPath[2].Path = "Zedternal.WMZedBuff_Crawler_Faster";
+		default.ZedBuff_BuffPath[0].Path = "ZedternalReborn.WMZedBuff_Slasher_Enraged";
+		default.ZedBuff_BuffPath[1].Path = "ZedternalReborn.WMZedBuff_Crawler_Health";
+		default.ZedBuff_BuffPath[2].Path = "ZedternalReborn.WMZedBuff_Crawler_Faster";
 		for (i=0; i<=2; i+=1)
 		{
 			default.ZedBuff_BuffPath[i].minWave = 0;
@@ -147,9 +147,9 @@ static function UpdateConfig()
 		}
 		
 		// tier 2
-		default.ZedBuff_BuffPath[3].Path = "Zedternal.WMZedBuff_Gorefast_Damage";
-		default.ZedBuff_BuffPath[4].Path = "Zedternal.WMZedBuff_Gorefast_Enraged";
-		default.ZedBuff_BuffPath[5].Path = "Zedternal.WMZedBuff_SpawnRate";
+		default.ZedBuff_BuffPath[3].Path = "ZedternalReborn.WMZedBuff_Gorefast_Damage";
+		default.ZedBuff_BuffPath[4].Path = "ZedternalReborn.WMZedBuff_Gorefast_Enraged";
+		default.ZedBuff_BuffPath[5].Path = "ZedternalReborn.WMZedBuff_SpawnRate";
 		for (i=3; i<=5; i+=1)
 		{
 			default.ZedBuff_BuffPath[i].minWave = 9;
@@ -157,9 +157,9 @@ static function UpdateConfig()
 		}
 		
 		// tier 3
-		default.ZedBuff_BuffPath[6].Path = "Zedternal.WMZedBuff_Health";
-		default.ZedBuff_BuffPath[7].Path = "Zedternal.WMZedBuff_Damage";
-		default.ZedBuff_BuffPath[8].Path = "Zedternal.WMZedBuff_Speed";
+		default.ZedBuff_BuffPath[6].Path = "ZedternalReborn.WMZedBuff_Health";
+		default.ZedBuff_BuffPath[7].Path = "ZedternalReborn.WMZedBuff_Damage";
+		default.ZedBuff_BuffPath[8].Path = "ZedternalReborn.WMZedBuff_Speed";
 		for (i=6; i<=8; i+=1)
 		{
 			default.ZedBuff_BuffPath[i].minWave = 13;
@@ -167,9 +167,9 @@ static function UpdateConfig()
 		}
 		
 		// tier 4		
-		default.ZedBuff_BuffPath[9].Path = "Zedternal.WMZedBuff_PukeMine";
-		default.ZedBuff_BuffPath[10].Path = "Zedternal.WMZedBuff_Siren_Heal";
-		default.ZedBuff_BuffPath[11].Path = "Zedternal.WMZedBuff_Hostility";
+		default.ZedBuff_BuffPath[9].Path = "ZedternalReborn.WMZedBuff_PukeMine";
+		default.ZedBuff_BuffPath[10].Path = "ZedternalReborn.WMZedBuff_Siren_Heal";
+		default.ZedBuff_BuffPath[11].Path = "ZedternalReborn.WMZedBuff_Hostility";
 		for (i=9; i<=11; i+=1)
 		{
 			default.ZedBuff_BuffPath[i].minWave = 17;
@@ -177,8 +177,8 @@ static function UpdateConfig()
 		}
 		
 		// tier 5
-		default.ZedBuff_BuffPath[12].Path = "Zedternal.WMZedBuff_Scrake_Enraged";
-		default.ZedBuff_BuffPath[13].Path = "Zedternal.WMZedBuff_Fleshpound_Stronger";
+		default.ZedBuff_BuffPath[12].Path = "ZedternalReborn.WMZedBuff_Scrake_Enraged";
+		default.ZedBuff_BuffPath[13].Path = "ZedternalReborn.WMZedBuff_Fleshpound_Stronger";
 		for (i=12; i<=13; i+=1)
 		{
 			default.ZedBuff_BuffPath[i].minWave = 21;
@@ -186,9 +186,9 @@ static function UpdateConfig()
 		}
 		
 		// tier 6
-		default.ZedBuff_BuffPath[14].Path = "Zedternal.WMZedBuff_Health_II";
-		default.ZedBuff_BuffPath[15].Path = "Zedternal.WMZedBuff_Damage_II";
-		default.ZedBuff_BuffPath[16].Path = "Zedternal.WMZedBuff_Speed_II";
+		default.ZedBuff_BuffPath[14].Path = "ZedternalReborn.WMZedBuff_Health_II";
+		default.ZedBuff_BuffPath[15].Path = "ZedternalReborn.WMZedBuff_Damage_II";
+		default.ZedBuff_BuffPath[16].Path = "ZedternalReborn.WMZedBuff_Speed_II";
 		for (i=14; i<=16; i+=1)
 		{
 			default.ZedBuff_BuffPath[i].minWave = 25;
@@ -200,25 +200,25 @@ static function UpdateConfig()
 	if (default.MODEVERSION < 7)
 	{
 		// new tier 1
-		TempObj.Path = "Zedternal.WMZedBuff_Clot_Stronger";
+		TempObj.Path = "ZedternalReborn.WMZedBuff_Clot_Stronger";
 		TempObj.minWave = 0;
 		TempObj.maxWave = 9;
 		default.ZedBuff_BuffPath.AddItem(TempObj);
 		
 		// new tier 2
-		TempObj.Path = "Zedternal.WMZedBuff_Siren_ScreamRate";
+		TempObj.Path = "ZedternalReborn.WMZedBuff_Siren_ScreamRate";
 		TempObj.minWave = 9;
 		TempObj.maxWave = 13;
 		default.ZedBuff_BuffPath.AddItem(TempObj);		
 		
 		// new tier 4
-		TempObj.Path = "Zedternal.WMZedBuff_Husk_SuicideRate";
+		TempObj.Path = "ZedternalReborn.WMZedBuff_Husk_SuicideRate";
 		TempObj.minWave = 17;
 		TempObj.maxWave = 21;
 		default.ZedBuff_BuffPath.AddItem(TempObj);
 		
 		// new tier 5
-		TempObj.Path = "Zedternal.WMZedBuff_Beefcake";
+		TempObj.Path = "ZedternalReborn.WMZedBuff_Beefcake";
 		TempObj.minWave = 21;
 		TempObj.maxWave = 999;
 		default.ZedBuff_BuffPath.AddItem(TempObj);
@@ -239,13 +239,13 @@ static function UpdateConfig()
 		default.ZedBuff_BuffPath.length = 21;
 		
 		// tier 1
-		default.ZedBuff_BuffPath[0].Path = "Zedternal.WMZedBuff_Slasher_Enraged";
-		default.ZedBuff_BuffPath[1].Path = "Zedternal.WMZedBuff_Crawler_Health";
-		default.ZedBuff_BuffPath[2].Path = "Zedternal.WMZedBuff_Crawler_Faster";
-		default.ZedBuff_BuffPath[3].Path = "Zedternal.WMZedBuff_Gorefast_Damage";
-		default.ZedBuff_BuffPath[4].Path = "Zedternal.WMZedBuff_Gorefast_Enraged";
-		default.ZedBuff_BuffPath[5].Path = "Zedternal.WMZedBuff_SpawnRate";
-		default.ZedBuff_BuffPath[6].Path = "Zedternal.WMZedBuff_Clot_Stronger";
+		default.ZedBuff_BuffPath[0].Path = "ZedternalReborn.WMZedBuff_Slasher_Enraged";
+		default.ZedBuff_BuffPath[1].Path = "ZedternalReborn.WMZedBuff_Crawler_Health";
+		default.ZedBuff_BuffPath[2].Path = "ZedternalReborn.WMZedBuff_Crawler_Faster";
+		default.ZedBuff_BuffPath[3].Path = "ZedternalReborn.WMZedBuff_Gorefast_Damage";
+		default.ZedBuff_BuffPath[4].Path = "ZedternalReborn.WMZedBuff_Gorefast_Enraged";
+		default.ZedBuff_BuffPath[5].Path = "ZedternalReborn.WMZedBuff_SpawnRate";
+		default.ZedBuff_BuffPath[6].Path = "ZedternalReborn.WMZedBuff_Clot_Stronger";
 		for (i=0; i<=6; i+=1)
 		{
 			default.ZedBuff_BuffPath[i].minWave = 0;
@@ -253,13 +253,13 @@ static function UpdateConfig()
 		}
 		
 		// tier 2
-		default.ZedBuff_BuffPath[7].Path = "Zedternal.WMZedBuff_Siren_ScreamRate";
-		default.ZedBuff_BuffPath[8].Path = "Zedternal.WMZedBuff_Health";
-		default.ZedBuff_BuffPath[9].Path = "Zedternal.WMZedBuff_Damage";
-		default.ZedBuff_BuffPath[10].Path = "Zedternal.WMZedBuff_Speed";
-		default.ZedBuff_BuffPath[11].Path = "Zedternal.WMZedBuff_PukeMine";
-		default.ZedBuff_BuffPath[12].Path = "Zedternal.WMZedBuff_Siren_Heal";
-		default.ZedBuff_BuffPath[13].Path = "Zedternal.WMZedBuff_Hostility";
+		default.ZedBuff_BuffPath[7].Path = "ZedternalReborn.WMZedBuff_Siren_ScreamRate";
+		default.ZedBuff_BuffPath[8].Path = "ZedternalReborn.WMZedBuff_Health";
+		default.ZedBuff_BuffPath[9].Path = "ZedternalReborn.WMZedBuff_Damage";
+		default.ZedBuff_BuffPath[10].Path = "ZedternalReborn.WMZedBuff_Speed";
+		default.ZedBuff_BuffPath[11].Path = "ZedternalReborn.WMZedBuff_PukeMine";
+		default.ZedBuff_BuffPath[12].Path = "ZedternalReborn.WMZedBuff_Siren_Heal";
+		default.ZedBuff_BuffPath[13].Path = "ZedternalReborn.WMZedBuff_Hostility";
 		for (i=7; i<=13; i+=1)
 		{
 			default.ZedBuff_BuffPath[i].minWave = 9;
@@ -267,13 +267,13 @@ static function UpdateConfig()
 		}
 		
 		// tier 3
-		default.ZedBuff_BuffPath[14].Path = "Zedternal.WMZedBuff_Husk_SuicideRate";
-		default.ZedBuff_BuffPath[15].Path = "Zedternal.WMZedBuff_Scrake_Enraged";
-		default.ZedBuff_BuffPath[16].Path = "Zedternal.WMZedBuff_Fleshpound_Stronger";
-		default.ZedBuff_BuffPath[17].Path = "Zedternal.WMZedBuff_Health_II";
-		default.ZedBuff_BuffPath[18].Path = "Zedternal.WMZedBuff_Damage_II";
-		default.ZedBuff_BuffPath[19].Path = "Zedternal.WMZedBuff_Speed_II";
-		default.ZedBuff_BuffPath[20].Path = "Zedternal.WMZedBuff_Beefcake";
+		default.ZedBuff_BuffPath[14].Path = "ZedternalReborn.WMZedBuff_Husk_SuicideRate";
+		default.ZedBuff_BuffPath[15].Path = "ZedternalReborn.WMZedBuff_Scrake_Enraged";
+		default.ZedBuff_BuffPath[16].Path = "ZedternalReborn.WMZedBuff_Fleshpound_Stronger";
+		default.ZedBuff_BuffPath[17].Path = "ZedternalReborn.WMZedBuff_Health_II";
+		default.ZedBuff_BuffPath[18].Path = "ZedternalReborn.WMZedBuff_Damage_II";
+		default.ZedBuff_BuffPath[19].Path = "ZedternalReborn.WMZedBuff_Speed_II";
+		default.ZedBuff_BuffPath[20].Path = "ZedternalReborn.WMZedBuff_Beefcake";
 		for (i=14; i<=20; i+=1)
 		{
 			default.ZedBuff_BuffPath[i].minWave = 17;
@@ -327,15 +327,15 @@ static function UpdateConfig()
 		default.ZedBuff_MaxHealthPowerPerWave_LargeZed.Custom = 0.050000;
 		
 		// new tier 1
-		TempObj.Path = "Zedternal.WMZedBuff_Stalker_Faster";
+		TempObj.Path = "ZedternalReborn.WMZedBuff_Stalker_Faster";
 		TempObj.minWave = 0;
 		TempObj.maxWave = 13;
 		default.ZedBuff_BuffPath.AddItem(TempObj);
 	}
 
-	if (default.MODEVERSION < class'Zedternal.Config_Base'.default.currentVersion)
+	if (default.MODEVERSION < class'ZedternalReborn.Config_Base'.default.currentVersion)
 	{
-		default.MODEVERSION = class'Zedternal.Config_Base'.default.currentVersion;
+		default.MODEVERSION = class'ZedternalReborn.Config_Base'.default.currentVersion;
 		static.StaticSaveConfig();
 	}
 

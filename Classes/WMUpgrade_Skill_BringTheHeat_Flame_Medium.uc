@@ -9,7 +9,7 @@ defaultproperties
       ExplosionEffects=KFImpactEffectInfo'wep_molotov_arch.Molotov_GroundFire'
       Damage=40.000000
 	  DamageRadius=260.000000
-      MyDamageType=Class'Zedternal.WMUpgrade_Weapon_DT_HeatWave_Base'
+      MyDamageType=Class'ZedternalReborn.WMUpgrade_Weapon_DT_HeatWave_Base'
       KnockDownStrength=0.000000
       MomentumTransferScale=0.000000
       ExplosionSound=AkEvent'WW_WEP_SA_DragonsBreath.Play_Bullet_DragonsBreath_Impact_Snow'
@@ -21,6 +21,6 @@ defaultproperties
       CamShakeOuterRadius=16.000000
       Name="ExploTemplate0"
    End Object
-   ExplosionTemplate=KFGameExplosion'Zedternal.Default__WMUpgrade_Skill_BringTheHeat_Flame_Medium:ExploTemplate0'
+   ExplosionTemplate=KFGameExplosion'ZedternalReborn.Default__WMUpgrade_Skill_BringTheHeat_Flame_Medium:ExploTemplate0'
    Name="Default__WMUpgrade_Skill_BringTheHeat_Flame_Medium"
 }

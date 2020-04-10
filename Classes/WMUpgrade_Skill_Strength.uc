@@ -14,6 +14,6 @@ defaultproperties
 	upgradeDescription(1)="Increase weight capacity by <font color=\"#b346ea\">8</font>"
 	Bonus(0)=3
 	Bonus(1)=8
-	upgradeIcon(0)=Texture2D'Zedternal_Resource.Skills.UI_Skill_Strength'
-	upgradeIcon(1)=Texture2D'Zedternal_Resource.Skills.UI_Skill_Strength_Deluxe'
+	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Strength'
+	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Strength_Deluxe'
 }

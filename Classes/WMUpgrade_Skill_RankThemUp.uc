@@ -61,6 +61,6 @@ defaultproperties
 	upgradeDescription(1)="Connect 5 headshots to <font color=\"#b346ea\">massively</font> increase damage on the 6th headshot with <font color=\"#eaeff7\">all weapons</font>"
 	ExtraDamage(1)=1.500000;
 	ExtraDamage(2)=3.750000;
-	upgradeIcon(0)=Texture2D'Zedternal_Resource.Skills.UI_Skill_RankThemUp'
-	upgradeIcon(1)=Texture2D'Zedternal_Resource.Skills.UI_Skill_RankThemUp_Deluxe'
+	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_RankThemUp'
+	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_RankThemUp_Deluxe'
 }

@@ -14,6 +14,6 @@ static function ModifyZedSpeedMod( out float SpeedMod, KFPawn_Monster P, float G
 defaultproperties
 {
 	buffDescription="HUSKS COMMIT SUICIDE MORE OFTEN"
-	buffIcon=Texture2D'Zedternal_Resource.zedBuffs.UI_ZedBuff_HuskSuicideRate'
+	buffIcon=Texture2D'ZedternalReborn_Resource.zedBuffs.UI_ZedBuff_HuskSuicideRate'
 	SuicideHealthRatio=0.350000
 }

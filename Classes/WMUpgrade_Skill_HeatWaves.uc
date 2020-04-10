@@ -23,6 +23,6 @@ defaultproperties
 	Stumble = 3.000000
 	RadiusSQ(0) = 70000
 	RadiusSQ(1) = 280000
-	upgradeIcon(0)=Texture2D'Zedternal_Resource.Skills.UI_Skill_HeatWaves'
-	upgradeIcon(1)=Texture2D'Zedternal_Resource.Skills.UI_Skill_HeatWaves_Deluxe'
+	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_HeatWaves'
+	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_HeatWaves_Deluxe'
 }

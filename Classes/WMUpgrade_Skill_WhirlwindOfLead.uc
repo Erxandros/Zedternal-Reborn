@@ -41,6 +41,6 @@ defaultproperties
     ZedTimeModifyingStates(4)="WeaponFiring"
 	ZedTimeModifyingStates(5)="WeaponBurstFiring"
     ZedTimeModifyingStates(6)="WeaponSingleFiring"
-	upgradeIcon(0)=Texture2D'Zedternal_Resource.Skills.UI_Skill_WhirlwindOfLead'
-	upgradeIcon(1)=Texture2D'Zedternal_Resource.Skills.UI_Skill_WhirlwindOfLead_Deluxe'
+	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_WhirlwindOfLead'
+	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_WhirlwindOfLead_Deluxe'
 }

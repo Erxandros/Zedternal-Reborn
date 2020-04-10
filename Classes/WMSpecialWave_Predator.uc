@@ -37,6 +37,6 @@ defaultproperties
    Description="The enemy of my enemy is my friend!"
    zedSpawnRateFactor=1.200000
    waveValueFactor=1.200000
-   PredatorClass=class'Zedternal.WMPawn_ZedFleshpound_Predator'
+   PredatorClass=class'ZedternalReborn.WMPawn_ZedFleshpound_Predator'
    Name="Default__WMSpecialWave_Predator"
 }

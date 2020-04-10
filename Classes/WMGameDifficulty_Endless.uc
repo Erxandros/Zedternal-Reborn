@@ -14,8 +14,8 @@ function GetAIHealthModifier(KFPawn_Monster P, float GameDifficulty, byte NumLiv
 	
 	if ( P != none )
 	{
-	    HealthMod = class'Zedternal.Config_Difficulty'.static.GetZedHealthMod(GameDifficulty);
-		HeadHealthMod = class'Zedternal.Config_Difficulty'.static.GetZedHeadHealthMod(GameDifficulty);
+	    HealthMod = class'ZedternalReborn.Config_Difficulty'.static.GetZedHealthMod(GameDifficulty);
+		HeadHealthMod = class'ZedternalReborn.Config_Difficulty'.static.GetZedHeadHealthMod(GameDifficulty);
 		
 		// invalid scaling?
 		if (HealthMod <= 0)
@@ -31,13 +31,13 @@ function GetAIHealthModifier(KFPawn_Monster P, float GameDifficulty, byte NumLiv
 		{
 			if (P.bLargeZed)
 			{
-				HealthMod = class'Zedternal.Config_ZedBuff'.static.GetMaxHealthBuff_LargeZed(HealthMod, GameDifficulty, WMGRI.WaveNum);
-				HeadHealthMod = class'Zedternal.Config_ZedBuff'.static.GetMaxHealthBuff_LargeZed(HeadHealthMod, GameDifficulty, WMGRI.WaveNum);
+				HealthMod = class'ZedternalReborn.Config_ZedBuff'.static.GetMaxHealthBuff_LargeZed(HealthMod, GameDifficulty, WMGRI.WaveNum);
+				HeadHealthMod = class'ZedternalReborn.Config_ZedBuff'.static.GetMaxHealthBuff_LargeZed(HeadHealthMod, GameDifficulty, WMGRI.WaveNum);
 			}
 			else
 			{
-				HealthMod = class'Zedternal.Config_ZedBuff'.static.GetMaxHealthBuff(HealthMod, GameDifficulty, WMGRI.WaveNum);
-				HeadHealthMod = class'Zedternal.Config_ZedBuff'.static.GetMaxHealthBuff(HeadHealthMod, GameDifficulty, WMGRI.WaveNum);
+				HealthMod = class'ZedternalReborn.Config_ZedBuff'.static.GetMaxHealthBuff(HealthMod, GameDifficulty, WMGRI.WaveNum);
+				HeadHealthMod = class'ZedternalReborn.Config_ZedBuff'.static.GetMaxHealthBuff(HeadHealthMod, GameDifficulty, WMGRI.WaveNum);
 			}
 			for (i=0;i<WMGRI.zedBuffs.length;i+=1)
 			{
@@ -52,8 +52,8 @@ function GetAIHealthModifier(KFPawn_Monster P, float GameDifficulty, byte NumLiv
 	    // Add another multiplier based on the number of players and the zeds character info scalers
 		if (P.bLargeZed)
 		{
-			HealthMod += class'Zedternal.Config_Difficulty'.static.GetLargeZedHealthModPerPlayer(GameDifficulty) * (NumLivingPlayers - 1);
-			HeadHealthMod += class'Zedternal.Config_Difficulty'.static.GetLargeZedHealthModPerPlayer(GameDifficulty) * (NumLivingPlayers - 1);
+			HealthMod += class'ZedternalReborn.Config_Difficulty'.static.GetLargeZedHealthModPerPlayer(GameDifficulty) * (NumLivingPlayers - 1);
+			HeadHealthMod += class'ZedternalReborn.Config_Difficulty'.static.GetLargeZedHealthModPerPlayer(GameDifficulty) * (NumLivingPlayers - 1);
 		}
 	}
 }
@@ -102,9 +102,9 @@ function float GetAIDamageModifier(KFPawn_Monster P, float GameDifficulty, bool 
 	local byte i;
 
     if(bSoloPlay)
-        ZedDamageMod = class'Zedternal.Config_Difficulty'.static.GetZedSoloDamageMod(GameDifficulty);
+        ZedDamageMod = class'ZedternalReborn.Config_Difficulty'.static.GetZedSoloDamageMod(GameDifficulty);
 	else
-		ZedDamageMod = class'Zedternal.Config_Difficulty'.static.GetZedDamageMod(GameDifficulty);
+		ZedDamageMod = class'ZedternalReborn.Config_Difficulty'.static.GetZedDamageMod(GameDifficulty);
 	
 	// invalid scaling?
 	if (ZedDamageMod <= 0)
@@ -113,7 +113,7 @@ function float GetAIDamageModifier(KFPawn_Monster P, float GameDifficulty, bool 
 	// Zed buff
 	if (WMGRI != none)
 	{
-		ZedDamageMod = class'Zedternal.Config_ZedBuff'.static.GetDamageBuff(ZedDamageMod, GameDifficulty, WMGRI.WaveNum);
+		ZedDamageMod = class'ZedternalReborn.Config_ZedBuff'.static.GetDamageBuff(ZedDamageMod, GameDifficulty, WMGRI.WaveNum);
 		for (i=0;i<WMGRI.zedBuffs.length;i+=1)
 		{
 			if (WMGRI.bZedBuffs[i]>0)
@@ -130,14 +130,14 @@ function float GetAISpeedMod(KFPawn_Monster P, float GameDifficulty)
 	local float SpeedMod;
 	local byte i;
 	
-	SpeedMod = class'Zedternal.Config_Difficulty'.static.GetZedSpeedMod(GameDifficulty) * RandRange(0.9f, 1.1f);
+	SpeedMod = class'ZedternalReborn.Config_Difficulty'.static.GetZedSpeedMod(GameDifficulty) * RandRange(0.9f, 1.1f);
 
 	// Zed buff
 	if (WMGRI == none)
 			WMGRI = WMGameReplicationInfo(Class'WorldInfo'.static.GetWorldInfo().GRI);
 	if (WMGRI != none)
 	{
-		SpeedMod = class'Zedternal.Config_ZedBuff'.static.GetSpeedBuff(SpeedMod, GameDifficulty, WMGRI.WaveNum);
+		SpeedMod = class'ZedternalReborn.Config_ZedBuff'.static.GetSpeedBuff(SpeedMod, GameDifficulty, WMGRI.WaveNum);
 		for (i=0;i<WMGRI.zedBuffs.length;i+=1)
 		{
 			if (WMGRI.bZedBuffs[i]>0)
@@ -155,7 +155,7 @@ function float GetCharSprintChanceByDifficulty( KFPawn_Monster P, float GameDiff
 	local KFAIController_Monster KFAI;
 	
 	// diable teleport ability
-	if (!class'Zedternal.Config_Game'.default.Game_bAllowZedTeleport)
+	if (!class'ZedternalReborn.Config_Game'.default.Game_bAllowZedTeleport)
 	{
 		KFAI = KFAIController_Monster(P.Controller);
 		if (KFAI != none)
@@ -183,7 +183,7 @@ function float GetCharSprintChanceByDifficulty( KFPawn_Monster P, float GameDiff
 	if (WMGRI != none)
 	{
 		if (KFPawn_ZedScrake(P) == none && KFPawn_ZedFleshpound(P) == none)
-			SprintChanceMod += class'Zedternal.Config_ZedBuff'.static.GetSprintChanceBuff(GameDifficulty, WMGRI.WaveNum);
+			SprintChanceMod += class'ZedternalReborn.Config_ZedBuff'.static.GetSprintChanceBuff(GameDifficulty, WMGRI.WaveNum);
 		for (i=0;i<WMGRI.zedBuffs.length;i+=1)
 		{
 			if (WMGRI.bZedBuffs[i]>0)
@@ -242,7 +242,7 @@ function float GetKillCashModifier()
 		WMGRI = WMGameReplicationInfo(Class'WorldInfo'.static.GetWorldInfo().GRI);
 	if (WMGRI != none)
 	{
-		DoshMod -= class'Zedternal.Config_ZedBuff'.static.GetDoshPenalityBuff(WMGRI.WaveNum);
+		DoshMod -= class'ZedternalReborn.Config_ZedBuff'.static.GetDoshPenalityBuff(WMGRI.WaveNum);
 		for (i=0;i<WMGRI.zedBuffs.length;i+=1)
 		{
 			if (WMGRI.bZedBuffs[i]>0)
@@ -354,7 +354,7 @@ function float GetHardAttackChance()
 		WMGRI = WMGameReplicationInfo(Class'WorldInfo'.static.GetWorldInfo().GRI);
 	if (WMGRI != none)
 	{
-		HardAttackChanceMod += class'Zedternal.Config_ZedBuff'.static.GetHardAttackChanceBuff(WMGRI.WaveNum);
+		HardAttackChanceMod += class'ZedternalReborn.Config_ZedBuff'.static.GetHardAttackChanceBuff(WMGRI.WaveNum);
 		for (i=0;i<WMGRI.zedBuffs.length;i+=1)
 		{
 			if (WMGRI.bZedBuffs[i]>0)

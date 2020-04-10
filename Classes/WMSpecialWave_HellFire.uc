@@ -20,7 +20,7 @@ defaultproperties
    MonsterToAdd(1)=(MinWave=0,MaxWave=12,MinGr=2,MaxGr=5,MClass=Class'KFGameContent.KFPawn_ZedCrawler')
    MonsterToAdd(2)=(MinWave=5,MaxWave=999,MinGr=1,MaxGr=2,MClass=Class'KFGameContent.KFPawn_ZedHusk')
    MonsterToAdd(3)=(MinWave=4,MaxWave=25,MinGr=1,MaxGr=3,MClass=Class'KFGameContent.KFPawn_ZedCrawler')
-   MonsterToAdd(4)=(MinWave=5,MaxWave=999,MinGr=1,MaxGr=1,MClass=Class'Zedternal.WMPawn_ZedHusk_Omega')
+   MonsterToAdd(4)=(MinWave=5,MaxWave=999,MinGr=1,MaxGr=1,MClass=Class'ZedternalReborn.WMPawn_ZedHusk_Omega')
    
    Defense=0.250000
 

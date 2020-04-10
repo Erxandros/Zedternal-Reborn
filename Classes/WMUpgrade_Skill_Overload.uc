@@ -21,6 +21,6 @@ defaultproperties
 	magCapacity(1)=0.500000;
 	maxAmmo(0)=0.200000;
 	maxAmmo(1)=0.500000;
-	upgradeIcon(0)=Texture2D'Zedternal_Resource.Skills.UI_Skill_Overload'
-	upgradeIcon(1)=Texture2D'Zedternal_Resource.Skills.UI_Skill_Overload_Deluxe'
+	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Overload'
+	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Overload_Deluxe'
 }

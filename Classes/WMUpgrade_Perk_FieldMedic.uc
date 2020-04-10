@@ -1,5 +1,5 @@
 Class WMUpgrade_Perk_FieldMedic extends WMUpgrade_Perk
-	config(Zedternal_Upgrade);
+	config(ZedternalReborn_Upgrade);
 	
 var float Damage;
 var float Health;
@@ -31,10 +31,10 @@ defaultproperties
 	Damage=0.050000
 	Health=0.050000
 	HealRate=0.200000
-	upgradeIcon(0)=Texture2D'Zedternal_Resource.Perks.UI_Perk_Medic_Rank_0'
-	upgradeIcon(1)=Texture2D'Zedternal_Resource.Perks.UI_Perk_Medic_Rank_1'
-	upgradeIcon(2)=Texture2D'Zedternal_Resource.Perks.UI_Perk_Medic_Rank_2'
-	upgradeIcon(3)=Texture2D'Zedternal_Resource.Perks.UI_Perk_Medic_Rank_3'
-	upgradeIcon(4)=Texture2D'Zedternal_Resource.Perks.UI_Perk_Medic_Rank_4'
-	upgradeIcon(5)=Texture2D'Zedternal_Resource.Perks.UI_Perk_Medic_Rank_5'
+	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Perks.UI_Perk_Medic_Rank_0'
+	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Perks.UI_Perk_Medic_Rank_1'
+	upgradeIcon(2)=Texture2D'ZedternalReborn_Resource.Perks.UI_Perk_Medic_Rank_2'
+	upgradeIcon(3)=Texture2D'ZedternalReborn_Resource.Perks.UI_Perk_Medic_Rank_3'
+	upgradeIcon(4)=Texture2D'ZedternalReborn_Resource.Perks.UI_Perk_Medic_Rank_4'
+	upgradeIcon(5)=Texture2D'ZedternalReborn_Resource.Perks.UI_Perk_Medic_Rank_5'
 }

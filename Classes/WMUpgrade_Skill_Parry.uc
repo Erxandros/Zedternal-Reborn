@@ -76,6 +76,6 @@ defaultproperties
 	Damage(1)=0.750000;
 	Resistance(0)=0.300000;
 	Resistance(1)=0.400000;
-	upgradeIcon(0)=Texture2D'Zedternal_Resource.Skills.UI_Skill_Parry'
-	upgradeIcon(1)=Texture2D'Zedternal_Resource.Skills.UI_Skill_Parry_Deluxe'
+	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Parry'
+	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Parry_Deluxe'
 }

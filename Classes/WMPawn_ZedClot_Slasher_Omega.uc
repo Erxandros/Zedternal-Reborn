@@ -138,7 +138,7 @@ defaultproperties
       MaxHitRange=180.000000
       Name="MeleeHelper_0"
    End Object
-   MeleeAttackHelper=KFMeleeHelperAI'Zedternal.Default__WMPawn_ZedClot_Slasher_Omega:WMMeleeHelper_0'
+   MeleeAttackHelper=KFMeleeHelperAI'ZedternalReborn.Default__WMPawn_ZedClot_Slasher_Omega:WMMeleeHelper_0'
    
    bVersusZed=False
    ParryResistance=1

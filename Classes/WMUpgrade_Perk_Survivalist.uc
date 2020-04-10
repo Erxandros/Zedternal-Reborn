@@ -1,5 +1,5 @@
 Class WMUpgrade_Perk_Survivalist extends WMUpgrade_Perk
-	config(Zedternal_Upgrade);
+	config(ZedternalReborn_Upgrade);
 	
 var float SpareAmmo, Damage;
 
@@ -30,10 +30,10 @@ defaultproperties
 	PerkBonus(2)=(baseValue=0, incValue=3, maxValue=-1)
 	SpareAmmo=0.200000
 	Damage=0.030000
-	upgradeIcon(0)=Texture2D'Zedternal_Resource.Perks.UI_Perk_Survivalist_Rank_0'
-	upgradeIcon(1)=Texture2D'Zedternal_Resource.Perks.UI_Perk_Survivalist_Rank_1'
-	upgradeIcon(2)=Texture2D'Zedternal_Resource.Perks.UI_Perk_Survivalist_Rank_2'
-	upgradeIcon(3)=Texture2D'Zedternal_Resource.Perks.UI_Perk_Survivalist_Rank_3'
-	upgradeIcon(4)=Texture2D'Zedternal_Resource.Perks.UI_Perk_Survivalist_Rank_4'
-	upgradeIcon(5)=Texture2D'Zedternal_Resource.Perks.UI_Perk_Survivalist_Rank_5'
+	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Perks.UI_Perk_Survivalist_Rank_0'
+	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Perks.UI_Perk_Survivalist_Rank_1'
+	upgradeIcon(2)=Texture2D'ZedternalReborn_Resource.Perks.UI_Perk_Survivalist_Rank_2'
+	upgradeIcon(3)=Texture2D'ZedternalReborn_Resource.Perks.UI_Perk_Survivalist_Rank_3'
+	upgradeIcon(4)=Texture2D'ZedternalReborn_Resource.Perks.UI_Perk_Survivalist_Rank_4'
+	upgradeIcon(5)=Texture2D'ZedternalReborn_Resource.Perks.UI_Perk_Survivalist_Rank_5'
 }

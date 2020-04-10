@@ -32,6 +32,6 @@ defaultproperties
 	upgradeDescription(1)="Killing a ZED adds <font color=\"#b346ea\">2</font> rounds into your current clip"
 	Ammo(0)=1
 	Ammo(1)=2
-	upgradeIcon(0)=Texture2D'Zedternal_Resource.Skills.UI_Skill_MagicBullet'
-	upgradeIcon(1)=Texture2D'Zedternal_Resource.Skills.UI_Skill_MagicBullet_Deluxe'
+	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_MagicBullet'
+	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_MagicBullet_Deluxe'
 }

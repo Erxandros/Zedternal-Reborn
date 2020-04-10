@@ -23,6 +23,6 @@ defaultproperties
 	Damage(1)=0.4000000
 	Speed(0)=0.100000
 	Speed(1)=0.200000
-	upgradeIcon(0)=Texture2D'Zedternal_Resource.Skills.UI_Skill_SpecialUnit'
-	upgradeIcon(1)=Texture2D'Zedternal_Resource.Skills.UI_Skill_SpecialUnit_Deluxe'
+	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_SpecialUnit'
+	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_SpecialUnit_Deluxe'
 }

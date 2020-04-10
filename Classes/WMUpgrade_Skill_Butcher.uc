@@ -21,6 +21,6 @@ defaultproperties
 	meleeSpeed(1)=0.400000;
 	rateOfFire(0)=0.150000;
 	rateOfFire(1)=0.400000;
-	upgradeIcon(0)=Texture2D'Zedternal_Resource.Skills.UI_Skill_Butcher'
-	upgradeIcon(1)=Texture2D'Zedternal_Resource.Skills.UI_Skill_Butcher_Deluxe'
+	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Butcher'
+	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Butcher_Deluxe'
 }

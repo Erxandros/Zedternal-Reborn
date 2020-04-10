@@ -6,10 +6,10 @@ var array<float> damageFactor;
 	
 static function ModifyDamageGiven( out int InDamage, int DefaultDamage, int upgLevel, optional Actor DamageCauser, optional KFPawn_Monster MyKFPM, optional KFPlayerController DamageInstigator, optional class<KFDamageType> DamageType, optional int HitZoneIdx, optional KFWeapon MyKFW)
 {
-	if (DamageType != none && DamageType != Class'Zedternal.WMDT_AcidicRounds_DoT' && DamageInstigator != none && MyKFPM != none && !MyKFPM.bIsPoisoned && FRand() < (float(DefaultDamage) * default.maxProbability / default.maxDamage))
+	if (DamageType != none && DamageType != Class'ZedternalReborn.WMDT_AcidicRounds_DoT' && DamageInstigator != none && MyKFPM != none && !MyKFPM.bIsPoisoned && FRand() < (float(DefaultDamage) * default.maxProbability / default.maxDamage))
 	{
 		//add poison effects on zed
-		MyKFPM.ApplyDamageOverTime(int(float(DefaultDamage)*default.damageFactor[upgLevel-1]), DamageInstigator, Class'Zedternal.WMDT_AcidicRounds_DoT');
+		MyKFPM.ApplyDamageOverTime(int(float(DefaultDamage)*default.damageFactor[upgLevel-1]), DamageInstigator, Class'ZedternalReborn.WMDT_AcidicRounds_DoT');
 	}
 }
 
@@ -23,6 +23,6 @@ defaultproperties
 	maxDamage=75.000000
 	damageFactor(0)=0.200000;
 	damageFactor(1)=0.500000;
-	upgradeIcon(0)=Texture2D'Zedternal_Resource.Skills.UI_Skill_AcidicRounds'
-	upgradeIcon(1)=Texture2D'Zedternal_Resource.Skills.UI_Skill_AcidicRounds_Deluxe'
+	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_AcidicRounds'
+	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_AcidicRounds_Deluxe'
 }

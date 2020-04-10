@@ -43,6 +43,6 @@ defaultproperties
 	upgradeDescription(1)="<font color=\"#b346ea\">Greatly</font> generate ammunition for your other weapons while killing ZEDs"
 	Prob(0)=0.010000
 	Prob(1)=0.025000
-	upgradeIcon(0)=Texture2D'Zedternal_Resource.Skills.UI_Skill_Scrapper'
-	upgradeIcon(1)=Texture2D'Zedternal_Resource.Skills.UI_Skill_Scrapper_Deluxe'
+	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Scrapper'
+	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Scrapper_Deluxe'
 }

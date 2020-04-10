@@ -25,7 +25,7 @@ event OnClose()
 
 function CreateUPGMenu()
 {
-	UPGMenu = new class'Zedternal.WMUI_Menu';
+	UPGMenu = new class'ZedternalReborn.WMUI_Menu';
 	UPGMenu.Owner = KFPawn_Human(MyKFPC.Pawn);
 	UPGMenu.KFPC = MyKFPC;
 	UPGMenu.KFPRI = KFPlayerReplicationInfo(MyKFPC.PlayerReplicationInfo);
@@ -35,9 +35,9 @@ function CreateUPGMenu()
 
 defaultproperties
 {
-   SubWidgetBindings(1)=(WidgetName="FilterContainer",WidgetClass=Class'Zedternal.WMGFxTraderContainer_Filter')
-   SubWidgetBindings(2)=(WidgetName="ShopContainer",WidgetClass=Class'Zedternal.WMGFxTraderContainer_Store')
-   SubWidgetBindings(5)=(WidgetName="ItemDetailsContainer",WidgetClass=Class'Zedternal.WMGFxTraderContainer_ItemDetails')
+   SubWidgetBindings(1)=(WidgetName="FilterContainer",WidgetClass=Class'ZedternalReborn.WMGFxTraderContainer_Filter')
+   SubWidgetBindings(2)=(WidgetName="ShopContainer",WidgetClass=Class'ZedternalReborn.WMGFxTraderContainer_Store')
+   SubWidgetBindings(5)=(WidgetName="ItemDetailsContainer",WidgetClass=Class'ZedternalReborn.WMGFxTraderContainer_ItemDetails')
    bBlinkPerkButton=false
    Name="Default__WMGFxMenu_Trader"
 }

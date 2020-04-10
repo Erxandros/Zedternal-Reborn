@@ -8,7 +8,7 @@ static function ModifyDamageGiven( out int InDamage, int DefaultDamage, int upgL
 	if (DamageType != none && class<KFDT_Toxic>(DamageType) != None && DamageInstigator != none && MyKFPM != none && !MyKFPM.bIsPoisoned)
 	{
 		//add poison effects on zed
-		MyKFPM.TakeDamage(default.Damage[upgLevel-1], DamageInstigator, MyKFPM.Location, default.VectZero, Class'Zedternal.WMDT_Hemogoblin');
+		MyKFPM.TakeDamage(default.Damage[upgLevel-1], DamageInstigator, MyKFPM.Location, default.VectZero, Class'ZedternalReborn.WMDT_Hemogoblin');
 	}
 }
 
@@ -21,6 +21,6 @@ defaultproperties
 	VectZero=(x=0.000000,y=0.000000,z=0.0000000)
 	Damage(0)=10
 	Damage(1)=50
-	upgradeIcon(0)=Texture2D'Zedternal_Resource.Skills.UI_Skill_Hemoglobin'
-	upgradeIcon(1)=Texture2D'Zedternal_Resource.Skills.UI_Skill_Hemoglobin_Deluxe'
+	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Hemoglobin'
+	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Hemoglobin_Deluxe'
 }

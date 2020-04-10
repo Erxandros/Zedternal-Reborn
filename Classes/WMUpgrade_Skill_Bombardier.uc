@@ -58,6 +58,6 @@ defaultproperties
 	upgradeDescription(1)="You gain a grenade every <font color=\"#b346ea\">20</font> seconds. Also increase damage with <font color=\"#eaeff7\">all grenades</font> <font color=\"#b346ea\">50%</font>"
 	Damage(0)=0.200000;
 	Damage(1)=0.500000;
-	upgradeIcon(0)=Texture2D'Zedternal_Resource.Skills.UI_Skill_Bombardier'
-	upgradeIcon(1)=Texture2D'Zedternal_Resource.Skills.UI_Skill_Bombardier_Deluxe'
+	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Bombardier'
+	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Bombardier_Deluxe'
 }

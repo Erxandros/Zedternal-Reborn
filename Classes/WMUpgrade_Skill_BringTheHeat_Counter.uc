@@ -52,7 +52,7 @@ function CreateHeatWave(byte force)
     Spawn(default.classHeatWave[force], Player.Controller,, Loc, Rot,,true);
 	
 	//CreateClientHeatWave(force, Player);
-	Spawn(class'Zedternal.WMFX_BringTheHeat',,, Player.Location, Rot,,true);
+	Spawn(class'ZedternalReborn.WMFX_BringTheHeat',,, Player.Location, Rot,,true);
 }
 
 reliable client function CreateClientHeatWave(byte force, KFPawn_Human KFOwner)
@@ -78,9 +78,9 @@ defaultproperties
    costHeatWave(0)=400
    costHeatWave(1)=750
    costHeatWave(2)=1500
-   classHeatWave(0)=class'Zedternal.WMUpgrade_Skill_BringTheHeat_Flame_Low'
-   classHeatWave(1)=class'Zedternal.WMUpgrade_Skill_BringTheHeat_Flame_Medium'
-   classHeatWave(2)=class'Zedternal.WMUpgrade_Skill_BringTheHeat_Flame_High'
-   PSBuff = ParticleSystem'Zedternal_Resource.FX_BringTheHeat_Effect'
+   classHeatWave(0)=class'ZedternalReborn.WMUpgrade_Skill_BringTheHeat_Flame_Low'
+   classHeatWave(1)=class'ZedternalReborn.WMUpgrade_Skill_BringTheHeat_Flame_Medium'
+   classHeatWave(2)=class'ZedternalReborn.WMUpgrade_Skill_BringTheHeat_Flame_High'
+   PSBuff = ParticleSystem'ZedternalReborn_Resource.FX_BringTheHeat_Effect'
    Name="Default__WMUpgrade_Skill_BringTheHeat_Counter"
 }

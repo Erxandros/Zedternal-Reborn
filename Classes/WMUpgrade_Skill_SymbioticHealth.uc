@@ -22,6 +22,6 @@ defaultproperties
 	Health(1)=0.250000;
 	Healing(0)=0.100000;
 	Healing(1)=0.250000;
-	upgradeIcon(0)=Texture2D'Zedternal_Resource.Skills.UI_Skill_SymbioticHealth'
-	upgradeIcon(1)=Texture2D'Zedternal_Resource.Skills.UI_Skill_SymbioticHealth_Deluxe'
+	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_SymbioticHealth'
+	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_SymbioticHealth_Deluxe'
 }

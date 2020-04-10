@@ -25,6 +25,6 @@ defaultproperties
 	upgradeName="Hot Pepper"
 	upgradeDescription(0)="ZEDs near you can catch on fire"
 	upgradeDescription(1)="ZEDs near you can catch on <font color=\"#b346ea\">heavy</font> fire"
-	upgradeIcon(0)=Texture2D'Zedternal_Resource.Skills.UI_Skill_HotPepper'
-	upgradeIcon(1)=Texture2D'Zedternal_Resource.Skills.UI_Skill_HotPepper_Deluxe'
+	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_HotPepper'
+	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_HotPepper_Deluxe'
 }

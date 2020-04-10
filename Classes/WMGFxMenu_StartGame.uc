@@ -3,6 +3,6 @@ class WMGFxMenu_StartGame extends KFGFxMenu_StartGame
 
 defaultproperties
 {
-   SubWidgetBindings(3)=(WidgetName="OverviewContainer",WidgetClass=Class'Zedternal.WMGFxStartContainer_InGameOverview')
+   SubWidgetBindings(3)=(WidgetName="OverviewContainer",WidgetClass=Class'ZedternalReborn.WMGFxStartContainer_InGameOverview')
    Name="Default__WMGFxMenu_StartGame"
 }

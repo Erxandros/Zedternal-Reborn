@@ -21,6 +21,6 @@ defaultproperties
 	Damage(1)=0.250000;
 	fireRate(0)=0.100000;
 	fireRate(1)=0.250000;
-	upgradeIcon(0)=Texture2D'Zedternal_Resource.Skills.UI_Skill_Salvo'
-	upgradeIcon(1)=Texture2D'Zedternal_Resource.Skills.UI_Skill_Salvo_Deluxe'
+	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Salvo'
+	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Salvo_Deluxe'
 }

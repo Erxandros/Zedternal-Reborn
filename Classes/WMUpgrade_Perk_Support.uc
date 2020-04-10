@@ -1,5 +1,5 @@
 Class WMUpgrade_Perk_Support extends WMUpgrade_Perk
-	config(Zedternal_Upgrade);
+	config(ZedternalReborn_Upgrade);
 	
 var float Penetration, LZDamage;
 var float StoppingPower;
@@ -38,10 +38,10 @@ defaultproperties
 	Penetration=0.500000
 	LZDamage=0.050000
 	StoppingPower=0.100000
-	upgradeIcon(0)=Texture2D'Zedternal_Resource.Perks.UI_Perk_Support_Rank_0'
-	upgradeIcon(1)=Texture2D'Zedternal_Resource.Perks.UI_Perk_Support_Rank_1'
-	upgradeIcon(2)=Texture2D'Zedternal_Resource.Perks.UI_Perk_Support_Rank_2'
-	upgradeIcon(3)=Texture2D'Zedternal_Resource.Perks.UI_Perk_Support_Rank_3'
-	upgradeIcon(4)=Texture2D'Zedternal_Resource.Perks.UI_Perk_Support_Rank_4'
-	upgradeIcon(5)=Texture2D'Zedternal_Resource.Perks.UI_Perk_Support_Rank_5'
+	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Perks.UI_Perk_Support_Rank_0'
+	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Perks.UI_Perk_Support_Rank_1'
+	upgradeIcon(2)=Texture2D'ZedternalReborn_Resource.Perks.UI_Perk_Support_Rank_2'
+	upgradeIcon(3)=Texture2D'ZedternalReborn_Resource.Perks.UI_Perk_Support_Rank_3'
+	upgradeIcon(4)=Texture2D'ZedternalReborn_Resource.Perks.UI_Perk_Support_Rank_4'
+	upgradeIcon(5)=Texture2D'ZedternalReborn_Resource.Perks.UI_Perk_Support_Rank_5'
 }

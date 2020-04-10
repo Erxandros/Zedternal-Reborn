@@ -15,6 +15,6 @@ defaultproperties
 	upgradeDescription(1)="Increase damage with <font color=\"#eaeff7\">all weapons</font> <font color=\"#b346ea\">50%</font> while moving"
 	Damage(0)=0.200000;
 	Damage(1)=0.500000;
-	upgradeIcon(0)=Texture2D'Zedternal_Resource.Skills.UI_Skill_Tempest'
-	upgradeIcon(1)=Texture2D'Zedternal_Resource.Skills.UI_Skill_Tempest_Deluxe'
+	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Tempest'
+	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Tempest_Deluxe'
 }

@@ -4,7 +4,7 @@ defaultproperties
 {
    glowColor=(R=5.000000,G=0.600000,B=1.800000)
    Begin Object Class=KFGameExplosion Name=TinyExploTemplate0 Archetype=KFGameExplosion'kfgamecontent.Default__KFPawn_ZedHusk:ExploTemplate0'
-      ExplosionEffects=KFImpactEffectInfo'Zedternal_Resource.FX_Husk_Tiny_Explosion_Pink'
+      ExplosionEffects=KFImpactEffectInfo'ZedternalReborn_Resource.FX_Husk_Tiny_Explosion_Pink'
       Damage=35.000000
       DamageRadius=360.000000
       DamageFalloffExponent=2.000000
@@ -17,7 +17,7 @@ defaultproperties
       Name="TinyExploTemplate0"
       ObjectArchetype=KFGameExplosion'kfgamecontent.Default__KFPawn_ZedHusk:ExploTemplate0'
    End Object
-   ExplosionTemplate=KFGameExplosion'zedternal.Default__WMPawn_ZedHusk_Tiny_Pink:TinyExploTemplate0'
+   ExplosionTemplate=KFGameExplosion'ZedternalReborn.Default__WMPawn_ZedHusk_Tiny_Pink:TinyExploTemplate0'
    Name="Default__WMPawn_ZedHusk_Tiny_Green"
-   ObjectArchetype=KFPawn_ZedHusk'zedternal.Default__WMPawn_ZedHusk_Tiny'
+   ObjectArchetype=KFPawn_ZedHusk'ZedternalReborn.Default__WMPawn_ZedHusk_Tiny'
 }

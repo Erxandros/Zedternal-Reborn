@@ -8,7 +8,7 @@ function BuildPerkList()
 	
 	// build perk list
 	DefaultPerk.length = 1 + class'KFGame.KFPlayerController'.default.PerkList.length;
-	DefaultPerk[0] = class'Zedternal.WMPerk';
+	DefaultPerk[0] = class'ZedternalReborn.WMPerk';
 	for (i=1; i<DefaultPerk.length; i+=1)
 	{
 		DefaultPerk[i] = class'KFGame.KFPlayerController'.default.PerkList[i-1].PerkClass;

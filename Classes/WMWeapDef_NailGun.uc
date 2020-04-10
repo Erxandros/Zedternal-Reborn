@@ -3,5 +3,5 @@ class WMWeapDef_Nailgun extends KFWeapDef_Nailgun
 
 DefaultProperties
 {
-	WeaponClassPath="Zedternal.WMWeap_Shotgun_Nailgun"
+	WeaponClassPath="ZedternalReborn.WMWeap_Shotgun_Nailgun"
 }

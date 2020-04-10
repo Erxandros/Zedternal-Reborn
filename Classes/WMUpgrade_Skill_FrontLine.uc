@@ -19,6 +19,6 @@ defaultproperties
 	Damage(1)=0.750000;
 	Resistance(0)=0.050000;
 	Resistance(1)=0.100000;
-	upgradeIcon(0)=Texture2D'Zedternal_Resource.Skills.UI_Skill_FrontLine'
-	upgradeIcon(1)=Texture2D'Zedternal_Resource.Skills.UI_Skill_FrontLine_Deluxe'
+	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_FrontLine'
+	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_FrontLine_Deluxe'
 }

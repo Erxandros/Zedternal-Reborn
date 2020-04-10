@@ -22,6 +22,6 @@ defaultproperties
 	minReloadSpeed(1)=0.250000;
 	maxReloadSpeed(0)=0.400000;
 	maxReloadSpeed(1)=0.750000;
-	upgradeIcon(0)=Texture2D'Zedternal_Resource.Skills.UI_Skill_Speedloader'
-	upgradeIcon(1)=Texture2D'Zedternal_Resource.Skills.UI_Skill_Speedloader_Deluxe'
+	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Speedloader'
+	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Speedloader_Deluxe'
 }

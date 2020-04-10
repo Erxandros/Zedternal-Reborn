@@ -14,6 +14,6 @@ defaultproperties
 	upgradeDescription(1)="Decrease shot spread <font color=\"#b346ea\">70%</font>"
 	Spread(0)=0.400000;
 	Spread(1)=0.700000;
-	upgradeIcon(0)=Texture2D'Zedternal_Resource.Skills.UI_Skill_TightChoke'
-	upgradeIcon(1)=Texture2D'Zedternal_Resource.Skills.UI_Skill_TightChoke_Deluxe'
+	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_TightChoke'
+	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_TightChoke_Deluxe'
 }

@@ -67,6 +67,6 @@ defaultproperties
 	DamageDelta(1)=0.100000;
 	DamageMax(0) = 2.000000;
 	DamageMax(1) = 5.000000;
-	upgradeIcon(0)=Texture2D'Zedternal_Resource.Skills.UI_Skill_FirstBlood'
-	upgradeIcon(1)=Texture2D'Zedternal_Resource.Skills.UI_Skill_FirstBlood_Deluxe'
+	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_FirstBlood'
+	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_FirstBlood_Deluxe'
 }

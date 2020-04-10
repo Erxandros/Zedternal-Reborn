@@ -19,6 +19,6 @@ defaultproperties
 	upgradeDescription(1)="Allow you to see cloaked ZEDs. Increase damage you dealt with <font color=\"#eaeff7\">all weapons</font> <font color=\"#b346ea\">25%</font>"
 	Damage(0)=0.100000
 	Damage(1)=0.250000
-	upgradeIcon(0)=Texture2D'Zedternal_Resource.Skills.UI_Skill_CallOut'
-	upgradeIcon(1)=Texture2D'Zedternal_Resource.Skills.UI_Skill_CallOut_Deluxe'
+	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_CallOut'
+	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_CallOut_Deluxe'
 }

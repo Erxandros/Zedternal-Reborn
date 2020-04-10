@@ -20,6 +20,6 @@ defaultproperties
 	upgradeDescription(1)="<font color=\"#caab05\">Explosive rounds</font> can explode at any range. Increase resistance to your own exlosives <font color=\"#b346ea\">75%</font>"
 	resistance(0)=0.300000;
 	resistance(1)=0.700000;
-	upgradeIcon(0)=Texture2D'Zedternal_Resource.Skills.UI_Skill_MadBomber'
-	upgradeIcon(1)=Texture2D'Zedternal_Resource.Skills.UI_Skill_MadBomber_Deluxe'
+	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_MadBomber'
+	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_MadBomber_Deluxe'
 }

@@ -29,6 +29,6 @@ defaultproperties
 	Snare=30.000000;
 	Bonus(0)=0.250000;
 	Bonus(1)=0.600000;
-	upgradeIcon(0)=Texture2D'Zedternal_Resource.Skills.UI_Skill_Zedatif'
-	upgradeIcon(1)=Texture2D'Zedternal_Resource.Skills.UI_Skill_Zedatif_Deluxe'
+	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Zedatif'
+	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Zedatif_Deluxe'
 }

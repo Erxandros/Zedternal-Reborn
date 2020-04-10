@@ -15,7 +15,7 @@ static function string GetItemLocalization(string KeyName)
 	ParseStringIntoArray(DEFAULT_WEAPON_PATH, Strings, ".", true);
 	Localization = Localize(Strings[1], KeyName, Strings[0]);
 	if (KeyName == "ItemName")
-		return class'Zedternal.WMWeaponPrecious_Helper'.static.GetItemNameVariant(Localization, SHORT_ITEM_NAME);
+		return class'ZedternalReborn.WMWeaponPrecious_Helper'.static.GetItemNameVariant(Localization, SHORT_ITEM_NAME);
 	else
 		return Localization;
 }
@@ -26,7 +26,7 @@ static function string GetItemLocalization(string KeyName)
 
 defaultproperties
 {
-   WeaponClassPath="Zedternal.WMWeap_Shotgun_M4_Precious"
+   WeaponClassPath="ZedternalReborn.WMWeap_Shotgun_M4_Precious"
    BuyPrice=2000
    AmmoPricePerMag=40
    Name="Default__KFWeapDef_M4_Precious"

@@ -193,7 +193,7 @@ defaultproperties
    bShieldOn=false
    EffectOffset=(X=0.000000, Y=0.000000, Z=0.000000)
    ShieldImpactEffects=KFSkinTypeEffects_HansShield'kfgamecontent.Default__KFPawn_ZedHans:ShieldEffects'
-   //ShieldImpactEffects=KFSkinTypeEffects'Zedternal.WMSkinTypeEffects_GorefastShield'
+   //ShieldImpactEffects=KFSkinTypeEffects'ZedternalReborn.WMSkinTypeEffects_GorefastShield'
    PSEffect=ParticleSystem'ZED_Hans_EMIT.FX_Hans_invulnerable_Hit'
    
    DoshValue=24
@@ -206,7 +206,7 @@ defaultproperties
    Health=600
    ExtraResistance=0.200000
 
-   DifficultySettings=Class'Zedternal.WMDifficulty_Gorefast_Omega'
+   DifficultySettings=Class'ZedternalReborn.WMDifficulty_Gorefast_Omega'
 
    LocalizationKey="WMPawn_ZedGorefast_Omega"
 
@@ -217,7 +217,7 @@ defaultproperties
 
    PenetrationResistance=2.250000
    
-   ControllerClass=Class'Zedternal.WMAIController_ZedGorefast_Omega'
+   ControllerClass=Class'ZedternalReborn.WMAIController_ZedGorefast_Omega'
 
    Name="Default__WMPawn_ZedGorefast_Omega"
 }

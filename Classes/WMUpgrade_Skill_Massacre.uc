@@ -20,6 +20,6 @@ defaultproperties
 	damage(1)=0.150000;
 	meleeDamage(0)=0.200000;
 	meleeDamage(1)=0.500000;
-	upgradeIcon(0)=Texture2D'Zedternal_Resource.Skills.UI_Skill_Massacre'
-	upgradeIcon(1)=Texture2D'Zedternal_Resource.Skills.UI_Skill_Massacre_Deluxe'
+	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Massacre'
+	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Massacre_Deluxe'
 }

@@ -22,7 +22,7 @@ function TriggerExplosion( KFPawn ZedOwner, Controller Killer )
 	if( ZedOwner != none && Killer.Pawn != none)
 	{
     	// Explode using the given template
-		ExploActor = ZedOwner.Spawn( class'Zedternal.WMExplosion_Virus', Killer.Pawn,, ZedOwner.Location, rotator(vect(0,0,1)) );
+		ExploActor = ZedOwner.Spawn( class'ZedternalReborn.WMExplosion_Virus', Killer.Pawn,, ZedOwner.Location, rotator(vect(0,0,1)) );
 		if( ExploActor != none )
 		{
             ExploActor.InstigatorController = Killer;
@@ -41,7 +41,7 @@ reliable client function VirusExplosion( KFPawn ZedOwner, Controller Killer )
 	if( ZedOwner != none && Killer.Pawn != none)
 	{
     	// Explode using the given template
-		ExploActor = ZedOwner.Spawn( class'Zedternal.WMExplosion_Virus', Killer.Pawn,, ZedOwner.Location, rotator(vect(0,0,1)) );
+		ExploActor = ZedOwner.Spawn( class'ZedternalReborn.WMExplosion_Virus', Killer.Pawn,, ZedOwner.Location, rotator(vect(0,0,1)) );
 		if( ExploActor != none )
 		{
             ExploActor.InstigatorController = Killer;

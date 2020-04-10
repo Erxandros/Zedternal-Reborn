@@ -14,14 +14,14 @@ simulated static final function Zed_Arch_ScrakeOmega GetArch( WorldInfo Level )
 {
 	local Zed_Arch_ScrakeOmega A;
 	
-	foreach Level.DynamicActors(class'Zedternal.Zed_Arch_ScrakeOmega',A)
+	foreach Level.DynamicActors(class'ZedternalReborn.Zed_Arch_ScrakeOmega',A)
 	{
 		if( A.zedClientArch!=None )
 			return A;
 	}
 	if( Level.NetMode!=NM_Client )
 	{
-		A = Level.Spawn(class'Zedternal.Zed_Arch_ScrakeOmega');
+		A = Level.Spawn(class'ZedternalReborn.Zed_Arch_ScrakeOmega');
 		return A;
 	}
 	return None;

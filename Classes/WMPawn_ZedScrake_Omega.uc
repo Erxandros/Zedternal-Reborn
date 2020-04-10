@@ -232,7 +232,7 @@ defaultproperties
       MaxHitRange=200.000000
       Name="MeleeHelper_0"
    End Object
-   MeleeAttackHelper=KFMeleeHelperAI'Zedternal.Default__WMPawn_ZedScrake_Omega:WMMeleeHelper_0'
+   MeleeAttackHelper=KFMeleeHelperAI'ZedternalReborn.Default__WMPawn_ZedScrake_Omega:WMMeleeHelper_0'
    
    bVersusZed=False
 

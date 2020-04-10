@@ -19,6 +19,6 @@ defaultproperties
 	upgradeDescription(1)="Zeds you kill have a <font color=\"#b346ea\">50%</font> chance to explode, damaging and knocking down nearby ZEDs"
 	Chance(0)=0.200000
 	Chance(1)=0.500000
-	upgradeIcon(0)=Texture2D'Zedternal_Resource.Skills.UI_Skill_ZedPlosion'
-	upgradeIcon(1)=Texture2D'Zedternal_Resource.Skills.UI_Skill_ZedPlosion_Deluxe'
+	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_ZedPlosion'
+	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_ZedPlosion_Deluxe'
 }

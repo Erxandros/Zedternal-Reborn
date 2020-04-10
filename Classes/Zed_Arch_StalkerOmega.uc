@@ -14,14 +14,14 @@ simulated static final function Zed_Arch_StalkerOmega GetArch( WorldInfo Level )
 {
 	local Zed_Arch_StalkerOmega A;
 	
-	foreach Level.DynamicActors(class'Zedternal.Zed_Arch_StalkerOmega',A)
+	foreach Level.DynamicActors(class'ZedternalReborn.Zed_Arch_StalkerOmega',A)
 	{
 		if( A.zedClientArch!=None )
 			return A;
 	}
 	if( Level.NetMode!=NM_Client )
 	{
-		A = Level.Spawn(class'Zedternal.Zed_Arch_StalkerOmega');
+		A = Level.Spawn(class'ZedternalReborn.Zed_Arch_StalkerOmega');
 		return A;
 	}
 	return None;

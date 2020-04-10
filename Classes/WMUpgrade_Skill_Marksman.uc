@@ -26,6 +26,6 @@ defaultproperties
 	rateOfFire(1)=0.400000
 	Speed(0)=0.050000
 	Speed(1)=0.100000
-	upgradeIcon(0)=Texture2D'Zedternal_Resource.Skills.UI_Skill_Marksman'
-	upgradeIcon(1)=Texture2D'Zedternal_Resource.Skills.UI_Skill_Marksman_Deluxe'
+	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Marksman'
+	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Marksman_Deluxe'
 }

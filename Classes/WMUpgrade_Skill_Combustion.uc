@@ -15,6 +15,6 @@ defaultproperties
 	upgradeDescription(1)="Increase burn, freeze and poison damages by <font color=\"#b346ea\">60%</font>"
 	damage(0)=0.250000;
 	damage(1)=0.600000;
-	upgradeIcon(0)=Texture2D'Zedternal_Resource.Skills.UI_Skill_Combustion'
-	upgradeIcon(1)=Texture2D'Zedternal_Resource.Skills.UI_Skill_Combustion_Deluxe'
+	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Combustion'
+	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Combustion_Deluxe'
 }

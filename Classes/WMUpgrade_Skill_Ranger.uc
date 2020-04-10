@@ -26,6 +26,6 @@ defaultproperties
 	Chance=0.500000;
 	Damage(0)=0.150000;
 	Damage(1)=0.400000;
-	upgradeIcon(0)=Texture2D'Zedternal_Resource.Skills.UI_Skill_Ranger'
-	upgradeIcon(1)=Texture2D'Zedternal_Resource.Skills.UI_Skill_Ranger_Deluxe'
+	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Ranger'
+	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Ranger_Deluxe'
 }

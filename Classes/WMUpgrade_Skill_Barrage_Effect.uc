@@ -21,7 +21,7 @@ function CreateEffect()
 	{
 		Loc = Player.Location;
 		Loc.Z -= Player.GetCollisionHeight() - 1;
-		Spawn(class'Zedternal.WMFX_Barrage',,, Loc, Player.Rotation,,true);
+		Spawn(class'ZedternalReborn.WMFX_Barrage',,, Loc, Player.Rotation,,true);
 		bCanCreateEffect = false;
 		SetTimer(0.8f, false, nameof(ResetEffect));
 	}

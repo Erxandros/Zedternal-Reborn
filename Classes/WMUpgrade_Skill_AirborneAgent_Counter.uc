@@ -40,7 +40,7 @@ function Timer()
 	else
 	{
 		Player.StartAirBorneAgentEvent();
-		Spawn(class'Zedternal.WMFX_AirborneAgent',,, Player.Location, Player.Rotation,,true);
+		Spawn(class'ZedternalReborn.WMFX_AirborneAgent',,, Player.Location, Player.Rotation,,true);
 		
 		if (bDeluxe)
 		{

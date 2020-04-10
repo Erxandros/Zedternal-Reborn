@@ -17,6 +17,6 @@ defaultproperties
 	minHealth=60
 	maxReloadSpeed(0)=0.600000;
 	maxReloadSpeed(1)=1.500000;
-	upgradeIcon(0)=Texture2D'Zedternal_Resource.Skills.UI_Skill_Pressure'
-	upgradeIcon(1)=Texture2D'Zedternal_Resource.Skills.UI_Skill_Pressure_Deluxe'
+	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Pressure'
+	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Pressure_Deluxe'
 }

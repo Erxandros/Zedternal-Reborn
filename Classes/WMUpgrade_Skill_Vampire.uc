@@ -19,6 +19,6 @@ defaultproperties
 	meleeVampire(1)=8
 	weapVampire(0)=2
 	weapVampire(1)=5
-	upgradeIcon(0)=Texture2D'Zedternal_Resource.Skills.UI_Skill_Vampire'
-	upgradeIcon(1)=Texture2D'Zedternal_Resource.Skills.UI_Skill_Vampire_Deluxe'
+	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Vampire'
+	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Vampire_Deluxe'
 }

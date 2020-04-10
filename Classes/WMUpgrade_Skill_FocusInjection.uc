@@ -32,6 +32,6 @@ defaultproperties
 	Bonus(1)=10
 	maxBonus(0)=20
 	maxBonus(1)=50
-	upgradeIcon(0)=Texture2D'Zedternal_Resource.Skills.UI_Skill_FocusInjection'
-	upgradeIcon(1)=Texture2D'Zedternal_Resource.Skills.UI_Skill_FocusInjection_Deluxe'
+	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_FocusInjection'
+	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_FocusInjection_Deluxe'
 }

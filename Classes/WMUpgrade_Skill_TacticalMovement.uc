@@ -23,6 +23,6 @@ defaultproperties
 	Speed(0)=1.000000
 	Speed(1)=1.150000
 	moveSpeed=0.050000
-	upgradeIcon(0)=Texture2D'Zedternal_Resource.Skills.UI_Skill_TacticalMovement'
-	upgradeIcon(1)=Texture2D'Zedternal_Resource.Skills.UI_Skill_TacticalMovement_Deluxe'
+	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_TacticalMovement'
+	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_TacticalMovement_Deluxe'
 }

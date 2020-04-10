@@ -14,14 +14,14 @@ simulated static final function Zed_Arch_ScrakeTiny GetArch( WorldInfo Level )
 {
 	local Zed_Arch_ScrakeTiny A;
 	
-	foreach Level.DynamicActors(class'Zedternal.Zed_Arch_ScrakeTiny',A)
+	foreach Level.DynamicActors(class'ZedternalReborn.Zed_Arch_ScrakeTiny',A)
 	{
 		if( A.zedClientArch!=None )
 			return A;
 	}
 	if( Level.NetMode!=NM_Client )
 	{
-		A = Level.Spawn(class'Zedternal.Zed_Arch_ScrakeTiny');
+		A = Level.Spawn(class'ZedternalReborn.Zed_Arch_ScrakeTiny');
 		return A;
 	}
 	return None;
@@ -53,7 +53,7 @@ simulated function updateZed()
 
 defaultproperties
 {
-   zedServerArch=KFCharacterInfo_Monster'Zedternal_Resource.ZED_Tiny_Scrake_Archetype'
+   zedServerArch=KFCharacterInfo_Monster'ZedternalReborn_Resource.ZED_Tiny_Scrake_Archetype'
    NetUpdateFrequency=4.000000
    Name="Default__Zed_Arch_Base"
 }

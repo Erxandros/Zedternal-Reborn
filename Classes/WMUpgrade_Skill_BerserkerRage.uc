@@ -23,6 +23,6 @@ defaultproperties
 	meleeDamage(1)=0.750000;
 	damage(0)=0.100000;
 	damage(1)=0.250000;
-	upgradeIcon(0)=Texture2D'Zedternal_Resource.Skills.UI_Skill_BerserkerRage'
-	upgradeIcon(1)=Texture2D'Zedternal_Resource.Skills.UI_Skill_BerserkerRage_Deluxe'
+	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_BerserkerRage'
+	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_BerserkerRage_Deluxe'
 }

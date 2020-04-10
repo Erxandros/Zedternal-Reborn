@@ -21,6 +21,6 @@ defaultproperties
 	Snare=10.00000;
 	Damage(0)=0.10000;
 	Damage(1)=0.25000;
-	upgradeIcon(0)=Texture2D'Zedternal_Resource.Skills.UI_Skill_Destruction'
-	upgradeIcon(1)=Texture2D'Zedternal_Resource.Skills.UI_Skill_Destruction_Deluxe'
+	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Destruction'
+	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Destruction_Deluxe'
 }

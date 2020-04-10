@@ -31,10 +31,10 @@ defaultproperties
 	Damage=0.050000
 	Armor=0.100000
 	MagSize=0.100000
-	upgradeIcon(0)=Texture2D'Zedternal_Resource.Perks.UI_Perk_SWAT_Rank_0'
-	upgradeIcon(1)=Texture2D'Zedternal_Resource.Perks.UI_Perk_SWAT_Rank_1'
-	upgradeIcon(2)=Texture2D'Zedternal_Resource.Perks.UI_Perk_SWAT_Rank_2'
-	upgradeIcon(3)=Texture2D'Zedternal_Resource.Perks.UI_Perk_SWAT_Rank_3'
-	upgradeIcon(4)=Texture2D'Zedternal_Resource.Perks.UI_Perk_SWAT_Rank_4'
-	upgradeIcon(5)=Texture2D'Zedternal_Resource.Perks.UI_Perk_SWAT_Rank_5'
+	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Perks.UI_Perk_SWAT_Rank_0'
+	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Perks.UI_Perk_SWAT_Rank_1'
+	upgradeIcon(2)=Texture2D'ZedternalReborn_Resource.Perks.UI_Perk_SWAT_Rank_2'
+	upgradeIcon(3)=Texture2D'ZedternalReborn_Resource.Perks.UI_Perk_SWAT_Rank_3'
+	upgradeIcon(4)=Texture2D'ZedternalReborn_Resource.Perks.UI_Perk_SWAT_Rank_4'
+	upgradeIcon(5)=Texture2D'ZedternalReborn_Resource.Perks.UI_Perk_SWAT_Rank_5'
 }

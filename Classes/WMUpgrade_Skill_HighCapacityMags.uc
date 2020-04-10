@@ -14,6 +14,6 @@ defaultproperties
 	upgradeDescription(1)="Increase magazine capacity of <font color=\"#eaeff7\">all weapons</font> <font color=\"#b346ea\">75%</font>"
 	magCapacity(0)=0.300000;
 	magCapacity(1)=0.750000;
-	upgradeIcon(0)=Texture2D'Zedternal_Resource.Skills.UI_Skill_HighCapacityMags'
-	upgradeIcon(1)=Texture2D'Zedternal_Resource.Skills.UI_Skill_HighCapacityMags_Deluxe'
+	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_HighCapacityMags'
+	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_HighCapacityMags_Deluxe'
 }

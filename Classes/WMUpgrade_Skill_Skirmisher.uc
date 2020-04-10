@@ -27,6 +27,6 @@ defaultproperties
 	upgradeDescription(1)="Move <font color=\"#b346ea\">10%</font> faster and regenerate <font color=\"#b346ea\">2</font> point of Health every second"
 	moveSpeed(0)=0.050000
 	moveSpeed(1)=0.100000
-	upgradeIcon(0)=Texture2D'Zedternal_Resource.Skills.UI_Skill_Skirmisher'
-	upgradeIcon(1)=Texture2D'Zedternal_Resource.Skills.UI_Skill_Skirmisher_Deluxe'
+	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Skirmisher'
+	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Skirmisher_Deluxe'
 }

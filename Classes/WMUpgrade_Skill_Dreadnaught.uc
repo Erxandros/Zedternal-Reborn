@@ -14,6 +14,6 @@ defaultproperties
 	upgradeDescription(1)="Increase total Health by <font color=\"#b346ea\">60%</font>"
 	Health(0)=0.250000;
 	Health(1)=0.600000;
-	upgradeIcon(0)=Texture2D'Zedternal_Resource.Skills.UI_Skill_Dreadnaught'
-	upgradeIcon(1)=Texture2D'Zedternal_Resource.Skills.UI_Skill_Dreadnaught_Deluxe'
+	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Dreadnaught'
+	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Dreadnaught_Deluxe'
 }

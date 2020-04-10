@@ -19,6 +19,6 @@ defaultproperties
 	upgradeDescription(0)="Once per wave, explode and survive when your health reaches critical level"
 	upgradeDescription(1)="Once per wave, explode and survive when your health reaches critical level. Increase damage with <font color=\"#eaeff7\">all weapons</font> <font color=\"#b346ea\">25%</font>"
 	DamageDeluxe=0.250000
-	upgradeIcon(0)=Texture2D'Zedternal_Resource.Skills.UI_Skill_Kamikaze'
-	upgradeIcon(1)=Texture2D'Zedternal_Resource.Skills.UI_Skill_Kamikaze_Deluxe'
+	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Kamikaze'
+	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Kamikaze_Deluxe'
 }

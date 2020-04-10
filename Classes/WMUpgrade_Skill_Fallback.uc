@@ -15,6 +15,6 @@ defaultproperties
 	upgradeDescription(1)="Increase damage with your 9mm pistol and your knife <font color=\"#b346ea\">250%</font>"
 	Damage(0)=1.000000;
 	Damage(1)=2.500000;
-	upgradeIcon(0)=Texture2D'Zedternal_Resource.Skills.UI_Skill_Fallback'
-	upgradeIcon(1)=Texture2D'Zedternal_Resource.Skills.UI_Skill_Fallback_Deluxe'
+	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Fallback'
+	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Fallback_Deluxe'
 }

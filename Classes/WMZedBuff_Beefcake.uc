@@ -32,7 +32,7 @@ static function ModifyZedDamageMod( out float PerZedDamageMod, KFPawn_Monster P,
 defaultproperties
 {
 	buffDescription="SOME ZEDS ARE STRONGER THAN USUAL"
-	buffIcon=Texture2D'Zedternal_Resource.zedBuffs.UI_ZedBuff_Beefcake'
+	buffIcon=Texture2D'ZedternalReborn_Resource.zedBuffs.UI_ZedBuff_Beefcake'
 	Health=0.750000
 	HeadHealth=0.750000
 	Size=1.178000

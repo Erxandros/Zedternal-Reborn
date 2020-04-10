@@ -17,7 +17,7 @@ function BuildWeaponList()
 	/////////////////
 	// Armor Price //
 	/////////////////
-	TraderItems.ArmorPrice = class'Zedternal.Config_Game'.static.GetArmorPrice(GameDifficulty);
+	TraderItems.ArmorPrice = class'ZedternalReborn.Config_Game'.static.GetArmorPrice(GameDifficulty);
 	if (WMGameReplicationInfo(MyKFGRI) != none)
 		WMGameReplicationInfo(MyKFGRI).ArmorPrice = TraderItems.ArmorPrice;
 	
@@ -42,24 +42,24 @@ function BuildWeaponList()
 	}
 	
 	//Add and register custom weapons
-	if (class'Zedternal.Config_Weapon'.default.Weapon_bUseCustomWeaponList)
+	if (class'ZedternalReborn.Config_Weapon'.default.Weapon_bUseCustomWeaponList)
 	{
-		for (i=0;i<class'Zedternal.Config_Weapon'.default.Weapon_CustomWeaponDef.length;i+=1)
+		for (i=0;i<class'ZedternalReborn.Config_Weapon'.default.Weapon_CustomWeaponDef.length;i+=1)
 		{
-			newWeapon.WeaponDef = class<KFWeaponDefinition>(DynamicLoadObject(class'Zedternal.Config_Weapon'.default.Weapon_CustomWeaponDef[i],class'Class'));
+			newWeapon.WeaponDef = class<KFWeaponDefinition>(DynamicLoadObject(class'ZedternalReborn.Config_Weapon'.default.Weapon_CustomWeaponDef[i],class'Class'));
 			newWeapon.ItemID = count;
 			count++;
 			TraderItems.SaleItems.AddItem(newWeapon);
 			KFWeaponDefPath.AddItem(PathName(newWeapon.WeaponDef)); //for client
 			
 			// Add weapons to the list of possible weapons
-			if (IsWeaponDefCanBeRandom(class<KFWeaponDefinition>(DynamicLoadObject(class'Zedternal.Config_Weapon'.default.Weapon_CustomWeaponDef[i],class'Class'))))
+			if (IsWeaponDefCanBeRandom(class<KFWeaponDefinition>(DynamicLoadObject(class'ZedternalReborn.Config_Weapon'.default.Weapon_CustomWeaponDef[i],class'Class'))))
 				weaponIndex[weaponIndex.Length] = count-1;
 		}
 	}
 	
 	//get WeaponVariant Probablity/Allowed
-	bAllowWeaponVariant = class'Zedternal.Config_Weapon'.default.WeaponVariant_bAllowWeaponVariant;
+	bAllowWeaponVariant = class'ZedternalReborn.Config_Weapon'.default.WeaponVariant_bAllowWeaponVariant;
 	
 	////////////////////////
 	// Create weapon list //
@@ -68,29 +68,29 @@ function BuildWeaponList()
 	weaponUpgradeArch.length=0;
 	
 	//create starting weapon list and adding them in the trader
-	for (i=0; i<class'Zedternal.Config_Weapon'.default.Weapon_PlayerStartingWeaponDefList.length; i++)
+	for (i=0; i<class'ZedternalReborn.Config_Weapon'.default.Weapon_PlayerStartingWeaponDefList.length; i++)
 	{
-		PerkStartingWeapon[i] = class<KFWeaponDefinition>(DynamicLoadObject(class'Zedternal.Config_Weapon'.default.Weapon_PlayerStartingWeaponDefList[i],class'Class'));
+		PerkStartingWeapon[i] = class<KFWeaponDefinition>(DynamicLoadObject(class'ZedternalReborn.Config_Weapon'.default.Weapon_PlayerStartingWeaponDefList[i],class'Class'));
 		KFStartingWeaponPath[i] = PerkStartingWeapon[i].default.WeaponClassPath;
 		
 		KFWeaponDefClass = PerkStartingWeapon[i];
 		if (KFWeaponDefClass != none)
 		{
 			if (bAllowWeaponVariant)
-				ApplyRandomWeaponVariant(class'Zedternal.Config_Weapon'.default.Weapon_PlayerStartingWeaponDefList[i]);
+				ApplyRandomWeaponVariant(class'ZedternalReborn.Config_Weapon'.default.Weapon_PlayerStartingWeaponDefList[i]);
 			else
 				AddWeaponInTrader(KFWeaponDefClass);
 		}
 	}
 	
 	//adding static weapon in the trader
-	for (i=0; i<class'Zedternal.Config_Weapon'.default.Trader_StaticWeaponDefs.length; i++)
+	for (i=0; i<class'ZedternalReborn.Config_Weapon'.default.Trader_StaticWeaponDefs.length; i++)
 	{
-		KFWeaponDefClass = class<KFWeaponDefinition>(DynamicLoadObject(class'Zedternal.Config_Weapon'.default.Trader_StaticWeaponDefs[i],class'Class'));
+		KFWeaponDefClass = class<KFWeaponDefinition>(DynamicLoadObject(class'ZedternalReborn.Config_Weapon'.default.Trader_StaticWeaponDefs[i],class'Class'));
 		if (KFWeaponDefClass != none)
 		{
 			if (bAllowWeaponVariant)
-				ApplyRandomWeaponVariant(class'Zedternal.Config_Weapon'.default.Trader_StaticWeaponDefs[i]);
+				ApplyRandomWeaponVariant(class'ZedternalReborn.Config_Weapon'.default.Trader_StaticWeaponDefs[i]);
 			else
 				AddWeaponInTrader(KFWeaponDefClass);
 		}
@@ -124,5 +124,5 @@ function BuildWeaponList()
 
 defaultproperties
 {
-   GameReplicationInfoClass=Class'Zedternal.WMGameReplicationInfo_AllWeapons'
+   GameReplicationInfoClass=Class'ZedternalReborn.WMGameReplicationInfo_AllWeapons'
 }

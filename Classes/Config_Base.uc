@@ -1,5 +1,5 @@
 class Config_Base extends info
-	config(Zedternal);
+	config(ZedternalReborn);
 	
 var int currentVersion;
 
@@ -43,7 +43,7 @@ static function CheckDefaultValue()
 {
 	local byte i;
 	
-	`log("Zedternal GameMode Version " $ default.currentVersion);
+	`log("ZedternalReborn GameMode Version " $ default.currentVersion);
 	
 	for (i=0;i<default.ConfigFiles.length;i++)
 	{
@@ -56,17 +56,17 @@ defaultproperties
 {
 	currentVersion = 14
 	
-	ConfigFiles(0) = class'Zedternal.Config_Game'
-	ConfigFiles(1) = class'Zedternal.Config_Difficulty'
-	ConfigFiles(2) = class'Zedternal.Config_Waves'
-	ConfigFiles(3) = class'Zedternal.Config_Player'
-	ConfigFiles(4) = class'Zedternal.Config_Zed'
-	ConfigFiles(5) = class'Zedternal.Config_ZedBuff'
-	ConfigFiles(6) = class'Zedternal.Config_Weapon'
-	ConfigFiles(7) = class'Zedternal.Config_WeaponUpgrade'
-	ConfigFiles(8) = class'Zedternal.Config_SpecialWave'
-	ConfigFiles(9) = class'Zedternal.Config_PerkUpgrade'
-	ConfigFiles(10) = class'Zedternal.Config_SkillUpgrade'
-	ConfigFiles(11) = class'Zedternal.Config_WeaponUpgrade'
-	ConfigFiles(12) = class'Zedternal.Config_Map'
+	ConfigFiles(0) = class'ZedternalReborn.Config_Game'
+	ConfigFiles(1) = class'ZedternalReborn.Config_Difficulty'
+	ConfigFiles(2) = class'ZedternalReborn.Config_Waves'
+	ConfigFiles(3) = class'ZedternalReborn.Config_Player'
+	ConfigFiles(4) = class'ZedternalReborn.Config_Zed'
+	ConfigFiles(5) = class'ZedternalReborn.Config_ZedBuff'
+	ConfigFiles(6) = class'ZedternalReborn.Config_Weapon'
+	ConfigFiles(7) = class'ZedternalReborn.Config_WeaponUpgrade'
+	ConfigFiles(8) = class'ZedternalReborn.Config_SpecialWave'
+	ConfigFiles(9) = class'ZedternalReborn.Config_PerkUpgrade'
+	ConfigFiles(10) = class'ZedternalReborn.Config_SkillUpgrade'
+	ConfigFiles(11) = class'ZedternalReborn.Config_WeaponUpgrade'
+	ConfigFiles(12) = class'ZedternalReborn.Config_Map'
 }

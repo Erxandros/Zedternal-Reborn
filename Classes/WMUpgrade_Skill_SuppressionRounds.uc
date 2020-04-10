@@ -34,6 +34,6 @@ defaultproperties
     BodyParts(1)=3
     BodyParts(2)=4
     BodyParts(3)=5
-	upgradeIcon(0)=Texture2D'Zedternal_Resource.Skills.UI_Skill_SuppressionRounds'
-	upgradeIcon(1)=Texture2D'Zedternal_Resource.Skills.UI_Skill_SuppressionRounds_Deluxe'
+	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_SuppressionRounds'
+	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_SuppressionRounds_Deluxe'
 }

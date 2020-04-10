@@ -6,7 +6,7 @@ var array<string> upgradeDescription;
 var array<Texture2D> upgradeIcon;
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// These functions are called by Zedternal.WMPerk (server or client) to get perk stats.
+// These functions are called by ZedternalReborn.WMPerk (server or client) to get perk stats.
 // So all function from upgrades bought by the player will be calledé
 //
 // To create a custom perk/skill/weapon upgrade, simply create a .uc file, extended to WMUpgrade_Perk, WMUpgrade_Skill or WMUpgrade_Weapon.

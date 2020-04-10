@@ -94,7 +94,7 @@ defaultproperties
    critical(0) = 0.900000
    critical(1) = 0.700000
    bDeluxe = false
-   PSShield=ParticleSystem'Zedternal_Resource.FX_Tank_effect'
+   PSShield=ParticleSystem'ZedternalReborn_Resource.FX_Tank_effect'
    BlockSound=AkEvent'WW_WEP_Bullet_Impacts.Play_Parry_Metal'
    Name="Default__WMUpgrade_Skill_Tank_Effect"
 }

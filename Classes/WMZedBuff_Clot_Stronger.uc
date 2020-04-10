@@ -25,5 +25,5 @@ defaultproperties
 	Health=0.240000
 	Damage=0.150000
 	buffDescription="CLOTS ARE STRONGER"
-	buffIcon=Texture2D'Zedternal_Resource.zedBuffs.UI_ZedBuff_ClotHealth'
+	buffIcon=Texture2D'ZedternalReborn_Resource.zedBuffs.UI_ZedBuff_ClotHealth'
 }

@@ -19,6 +19,6 @@ defaultproperties
 	upgradeDescription(1)="Your teammates can get 30% ammo by interacting with you once per wave. You can carry up to <font color=\"#b346ea\">75%</font> more ammo for <font color=\"#eaeff7\">all weapons</font>"
 	maxAmmo(0)=0.300000
 	maxAmmo(1)=0.750000
-	upgradeIcon(0)=Texture2D'Zedternal_Resource.Skills.UI_Skill_Supplier'
-	upgradeIcon(1)=Texture2D'Zedternal_Resource.Skills.UI_Skill_Supplier_Deluxe'
+	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Supplier'
+	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Supplier_Deluxe'
 }

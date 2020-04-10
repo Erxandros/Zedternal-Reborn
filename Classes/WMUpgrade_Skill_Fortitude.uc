@@ -27,6 +27,6 @@ defaultproperties
 	upgradeDescription(1)="Increase total Health by <font color=\"#b346ea\">25%</font> and heal 1 health point <font color=\"#b346ea\">every second</font>"
 	Health(0)=0.100000;
 	Health(1)=0.250000;
-	upgradeIcon(0)=Texture2D'Zedternal_Resource.Skills.UI_Skill_Fortitude'
-	upgradeIcon(1)=Texture2D'Zedternal_Resource.Skills.UI_Skill_Fortitude_Deluxe'
+	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Fortitude'
+	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Fortitude_Deluxe'
 }

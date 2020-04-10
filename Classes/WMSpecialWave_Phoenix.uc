@@ -41,8 +41,8 @@ function ReviveZED()
 			KFGRI.AIRemaining += 1;
 			
 			// effects
-			Spawn(class'Zedternal.WMFX_Phoenix',,, lastLocation, newKFPM.Rotation,,true);
-			Spawn(class'Zedternal.WMFX_PhoenixB',,, lastLocation, newKFPM.Rotation,,true);
+			Spawn(class'ZedternalReborn.WMFX_Phoenix',,, lastLocation, newKFPM.Rotation,,true);
+			Spawn(class'ZedternalReborn.WMFX_PhoenixB',,, lastLocation, newKFPM.Rotation,,true);
 		}
 	}
 }

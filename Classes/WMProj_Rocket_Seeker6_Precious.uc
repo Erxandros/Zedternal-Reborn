@@ -11,7 +11,7 @@ defaultproperties
       MyDamageType=Class'kfgamecontent.KFDT_Explosive_Seeker6'
       KnockDownStrength=0.000000
       ExplosionSound=AkEvent'WW_WEP_Seeker_6.Play_WEP_Seeker_6_Explosion'
-      ExploLight=PointLightComponent'Zedternal.Default__WMProj_Rocket_Seeker6_Precious:ExplosionPointLight'
+      ExploLight=PointLightComponent'ZedternalReborn.Default__WMProj_Rocket_Seeker6_Precious:ExplosionPointLight'
       ExploLightFadeOutTime=0.200000
       CamShake=KFCameraShake'FX_CameraShake_Arch.Misc_Explosions.Seeker6'
       CamShakeInnerRadius=180.000000
@@ -20,6 +20,6 @@ defaultproperties
       Name="ExploTemplatePrecious"
       ObjectArchetype=KFGameExplosion'KFGame.Default__KFGameExplosion'
    End Object
-   ExplosionTemplate=KFGameExplosion'Zedternal.Default__WMProj_Rocket_Seeker6_Precious:ExploTemplatePrecious'
+   ExplosionTemplate=KFGameExplosion'ZedternalReborn.Default__WMProj_Rocket_Seeker6_Precious:ExploTemplatePrecious'
    Name="Default__WMProj_Rocket_Seeker6_Precious"
 }

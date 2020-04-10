@@ -21,9 +21,9 @@ function Explosion(KFPawn OwnerPawn)
 		Loc = OwnerPawn.Location;
 		Loc.Z -= OwnerPawn.GetCollisionHeight();
 		if (bDeluxe)
-			OwnerPawn.Controller.Spawn(class'Zedternal.WMUpgrade_FreezeExplosion_Deluxe', OwnerPawn.Controller,, Loc, Rot,,true);
+			OwnerPawn.Controller.Spawn(class'ZedternalReborn.WMUpgrade_FreezeExplosion_Deluxe', OwnerPawn.Controller,, Loc, Rot,,true);
 		else
-			OwnerPawn.Controller.Spawn(class'Zedternal.WMUpgrade_FreezeExplosion', OwnerPawn.Controller,, Loc, Rot,,true);
+			OwnerPawn.Controller.Spawn(class'ZedternalReborn.WMUpgrade_FreezeExplosion', OwnerPawn.Controller,, Loc, Rot,,true);
 		PlayLocalEffects(OwnerPawn);
 		SetTimer(Delay,true,nameof(UpdateColdRiposte));
 	}
@@ -65,6 +65,6 @@ defaultproperties
    bReady = true
    Delay = 40.000000
    bDeluxe = false
-   PSBuff = ParticleSystem'Zedternal_Resource.FX_ColdRiposte_Effect'
+   PSBuff = ParticleSystem'ZedternalReborn_Resource.FX_ColdRiposte_Effect'
    Name="Default__WMUpgrade_Skill_ColdRiposte_Counter"
 }

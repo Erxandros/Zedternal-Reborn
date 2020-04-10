@@ -11,7 +11,7 @@ defaultproperties
       MyDamageType=Class'kfgamecontent.KFDT_Explosive_M79'
       KnockDownStrength=0.000000
       ExplosionSound=AkEvent'WW_WEP_SA_M79.Play_WEP_SA_M79_Explosion'
-      ExploLight=PointLightComponent'Zedternal.Default__WMProj_HighExplosive_M79_Precious:ExplosionPointLight'
+      ExploLight=PointLightComponent'ZedternalReborn.Default__WMProj_HighExplosive_M79_Precious:ExplosionPointLight'
       ExploLightFadeOutTime=0.200000
       CamShake=KFCameraShake'FX_CameraShake_Arch.Grenades.Default_Grenade'
       CamShakeInnerRadius=200.000000
@@ -19,6 +19,6 @@ defaultproperties
       Name="ExploTemplatePrecious"
       ObjectArchetype=KFGameExplosion'KFGame.Default__KFGameExplosion'
    End Object
-   ExplosionTemplate=KFGameExplosion'Zedternal.Default__WMProj_HighExplosive_M79_Precious:ExploTemplatePrecious'
+   ExplosionTemplate=KFGameExplosion'ZedternalReborn.Default__WMProj_HighExplosive_M79_Precious:ExploTemplatePrecious'
    Name="Default__WMProj_HighExplosive_M79_Precious"
 }

@@ -15,9 +15,9 @@ static function ModifyDamageGiven( out int InDamage, int DefaultDamage, int upgL
 		Loc.Z -= MyKFPM.GetCollisionHeight();
 		Rot.Pitch = 0;
 		if (upgLevel == 1)
-			DamageInstigator.Spawn(class'Zedternal.WMUpgrade_FreezeExplosion', DamageInstigator,, Loc, Rot,, true);
+			DamageInstigator.Spawn(class'ZedternalReborn.WMUpgrade_FreezeExplosion', DamageInstigator,, Loc, Rot,, true);
 		else
-			DamageInstigator.Spawn(class'Zedternal.WMUpgrade_FreezeExplosion_Deluxe', DamageInstigator,, Loc, Rot,, true);
+			DamageInstigator.Spawn(class'ZedternalReborn.WMUpgrade_FreezeExplosion_Deluxe', DamageInstigator,, Loc, Rot,, true);
 	}
 }
 
@@ -28,6 +28,6 @@ defaultproperties
 	upgradeDescription(1)="Any head shots with <font color=\"#eaeff7\">all weapons</font> have a chance to create a <font color=\"#b346ea\">massive</font> ice explosion"
 	prob=0.200000
 	maxDamage=800.000000
-	upgradeIcon(0)=Texture2D'Zedternal_Resource.Skills.UI_Skill_FrozenHeadPoper'
-	upgradeIcon(1)=Texture2D'Zedternal_Resource.Skills.UI_Skill_FrozenHeadPoper_Deluxe'
+	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_FrozenHeadPoper'
+	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_FrozenHeadPoper_Deluxe'
 }

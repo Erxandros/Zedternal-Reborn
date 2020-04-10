@@ -232,7 +232,7 @@ simulated event bool UsePlayerControlledZedSkin()
 defaultproperties
 {
    ParryResistance=3
-   SuicideFireballClass=Class'Zedternal.WMProj_Husk_Fireball_Suicide'
+   SuicideFireballClass=Class'ZedternalReborn.WMProj_Husk_Fireball_Suicide'
    Begin Object Name=MeleeHelper_0 Archetype=KFMeleeHelperAI'KFGame.Default__KFPawn_Monster:MeleeHelper_0'
       BaseDamage=20.000000
       MyDamageType=Class'kfgamecontent.KFDT_Slashing_ZedWeak'
@@ -253,7 +253,7 @@ defaultproperties
    omegaColor=(R=0.500000,G=0.250000,B=1.000000)
    omegaFresnelColor=(R=0.400000,G=0.250000,B=0.700000)
    
-   DifficultySettings=Class'Zedternal.WMDifficulty_Husk_Omega'
+   DifficultySettings=Class'ZedternalReborn.WMDifficulty_Husk_Omega'
    LocalizationKey="WMPawn_ZedHusk_Omega"
    HitZones(0)=(GoreHealth=430,DmgScale=1.001000)
    HitZones(1)=()
@@ -262,7 +262,7 @@ defaultproperties
    PenetrationResistance=3.000000
    bVersusZed=False
    nbProjSuicide=12;
-   ControllerClass=Class'Zedternal.WMAIController_ZedHusk_Omega'
+   ControllerClass=Class'ZedternalReborn.WMAIController_ZedHusk_Omega'
    Begin Object Name=KFPawnSkeletalMeshComponent Archetype=KFSkeletalMeshComponent'KFGame.Default__KFPawn_Monster:KFPawnSkeletalMeshComponent'
       WireframeColor=(B=0,G=255,R=255,A=255)
       MinDistFactorForKinematicUpdate=0.200000

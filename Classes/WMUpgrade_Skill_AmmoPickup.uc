@@ -22,6 +22,6 @@ defaultproperties
 	upgradeDescription(1)="Increase ammo from ammo boxes by <font color=\"#b346ea\">125%</font>"
 	Ammo(0)=1.500000
 	Ammo(1)=2.250000
-	upgradeIcon(0)=Texture2D'Zedternal_Resource.Skills.UI_Skill_AmmoPickup'
-	upgradeIcon(1)=Texture2D'Zedternal_Resource.Skills.UI_Skill_AmmoPickup_Deluxe'
+	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_AmmoPickup'
+	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_AmmoPickup_Deluxe'
 }

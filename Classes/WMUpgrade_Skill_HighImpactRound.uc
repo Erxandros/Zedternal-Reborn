@@ -15,6 +15,6 @@ defaultproperties
 	Knockdown(1) = 6.000000
 	upgradeDescription(0)="Greatly increase knockdown power of <font color=\"#eaeff7\">all explosives</font>"
 	upgradeDescription(1)="<font color=\"#b346ea\">Massively</font> increase knockdown power of <font color=\"#eaeff7\">all explosives</font>"
-	upgradeIcon(0)=Texture2D'Zedternal_Resource.Skills.UI_Skill_HighImpactRound'
-	upgradeIcon(1)=Texture2D'Zedternal_Resource.Skills.UI_Skill_HighImpactRound_Deluxe'
+	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_HighImpactRound'
+	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_HighImpactRound_Deluxe'
 }

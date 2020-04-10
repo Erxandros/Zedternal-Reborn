@@ -14,5 +14,5 @@ static function ModifyZedSpeedMod( out float SpeedMod, KFPawn_Monster P, float G
 defaultproperties
 {
 	buffDescription="SIRENS SCREAM MORE OFTEN"
-	buffIcon=Texture2D'Zedternal_Resource.zedBuffs.UI_ZedBuff_SirenScreamRate'
+	buffIcon=Texture2D'ZedternalReborn_Resource.zedBuffs.UI_ZedBuff_SirenScreamRate'
 }

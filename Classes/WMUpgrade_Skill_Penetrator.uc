@@ -14,6 +14,6 @@ defaultproperties
 	upgradeDescription(1)="Increase penetration power of <font color=\"#caab05\">Shotguns, Rifles and Revolvers</font> <font color=\"#b346ea\">500%</font>"
 	Penetration(0)=2.000000;
 	Penetration(1)=5.000000;
-	upgradeIcon(0)=Texture2D'Zedternal_Resource.Skills.UI_Skill_Penetrator'
-	upgradeIcon(1)=Texture2D'Zedternal_Resource.Skills.UI_Skill_Penetrator_Deluxe'
+	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Penetrator'
+	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Penetrator_Deluxe'
 }

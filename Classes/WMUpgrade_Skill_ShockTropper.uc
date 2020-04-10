@@ -15,6 +15,6 @@ defaultproperties
 	upgradeDescription(1)="Increase reload speed of empty magazine <font color=\"#b346ea\">100%</font> with <font color=\"#eaeff7\">all weapons</font>"
 	reloadSpeed(0)=0.400000;
 	reloadSpeed(1)=1.000000;
-	upgradeIcon(0)=Texture2D'Zedternal_Resource.Skills.UI_Skill_ShockTropper'
-	upgradeIcon(1)=Texture2D'Zedternal_Resource.Skills.UI_Skill_ShockTropper_Deluxe'
+	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_ShockTropper'
+	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_ShockTropper_Deluxe'
 }

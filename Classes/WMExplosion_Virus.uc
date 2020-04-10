@@ -8,7 +8,7 @@ function PostBeginPlay()
 	clientExplode();
 	
 	KFGExp = class'KFGameContent.KFPawn_ZedHans'.default.NerveGasAttackTemplate;
-	KFGExp.MyDamageType = class'Zedternal.WMDT_Explosive_Virus';
+	KFGExp.MyDamageType = class'ZedternalReborn.WMDT_Explosive_Virus';
 	Explode(KFGExp);
 }
 
@@ -17,7 +17,7 @@ reliable client function clientExplode()
 	local KFGameExplosion KFGExp;
 	
 	KFGExp = class'KFGameContent.KFPawn_ZedHans'.default.NerveGasAttackTemplate;
-	KFGExp.MyDamageType = class'Zedternal.WMDT_Explosive_Virus';
+	KFGExp.MyDamageType = class'ZedternalReborn.WMDT_Explosive_Virus';
 	Explode(KFGExp);
 }
 

@@ -35,6 +35,6 @@ defaultproperties
 	upgradeDescription(1)="Repair <font color=\"#b346ea\">100%</font> of your armor every wave completed"
 	Armor(0)=0.500000
 	Armor(1)=1.000000
-	upgradeIcon(0)=Texture2D'Zedternal_Resource.Skills.UI_Skill_AssaultArmor'
-	upgradeIcon(1)=Texture2D'Zedternal_Resource.Skills.UI_Skill_AssaultArmor_Deluxe'
+	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_AssaultArmor'
+	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_AssaultArmor_Deluxe'
 }

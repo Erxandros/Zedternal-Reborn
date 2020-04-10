@@ -1,13 +1,13 @@
 class WMPawn_Human extends KFPawn_Human;
 
-var byte HealingDamageBoost_Zedternal;
-var byte HealingShield_Zedternal;
+var byte HealingDamageBoost_ZedternalReborn;
+var byte HealingShield_ZedternalReborn;
 
 replication
 {
 	// Replicated to ALL
 	if(bNetDirty)
-		HealingDamageBoost_Zedternal, HealingShield_Zedternal;
+		HealingDamageBoost_ZedternalReborn, HealingShield_ZedternalReborn;
 }
 
 event bool HealDamage(int Amount, Controller Healer, class<DamageType> DamageType, optional bool bCanRepairArmor=true, optional bool bMessageHealer=true)
@@ -25,8 +25,8 @@ event bool HealDamage(int Amount, Controller Healer, class<DamageType> DamageTyp
 		{
 			WMP.HealingDamage(Amount, self, DamageType);
 
-			UpdateHealingDamageBoost_Zedternal(WMP);
-			UpdateHealingShield_Zedternal(WMP);
+			UpdateHealingDamageBoost_ZedternalReborn(WMP);
+			UpdateHealingShield_ZedternalReborn(WMP);
 		}
 	}
 	
@@ -35,36 +35,36 @@ event bool HealDamage(int Amount, Controller Healer, class<DamageType> DamageTyp
 
 simulated function float GetHealingDamageBoostModifier()
 {
-	return 1.f + (float(HealingDamageBoost_Zedternal) / 100);
+	return 1.f + (float(HealingDamageBoost_ZedternalReborn) / 100);
 }
 
 simulated function float GetHealingShieldModifier()
 {
-	return 1.f - (float(HealingShield_Zedternal) / 100);
+	return 1.f - (float(HealingShield_ZedternalReborn) / 100);
 }
 
-simulated function UpdateHealingDamageBoost_Zedternal(WMPerk WMP)
+simulated function UpdateHealingDamageBoost_ZedternalReborn(WMPerk WMP)
 {
-	HealingDamageBoost_Zedternal = Min( HealingDamageBoost_Zedternal + WMP.GetHealingDamageBoost(), WMP.GetMaxHealingDamageBoost() );
+	HealingDamageBoost_ZedternalReborn = Min( HealingDamageBoost_ZedternalReborn + WMP.GetHealingDamageBoost(), WMP.GetMaxHealingDamageBoost() );
 	SetTimer( 5.f,, nameOf(ResetHealingDamageBoost) );
 }
 
-simulated function UpdateHealingShield_Zedternal(WMPerk WMP)
+simulated function UpdateHealingShield_ZedternalReborn(WMPerk WMP)
 {
-	HealingShield_Zedternal = Min( HealingShield_Zedternal + WMP.GetHealingShield(), WMP.GetMaxHealingShield() );
+	HealingShield_ZedternalReborn = Min( HealingShield_ZedternalReborn + WMP.GetHealingShield(), WMP.GetMaxHealingShield() );
 	SetTimer( 5.f,, nameOf(ResetHealingShield) );
 }
 
 simulated function ResetHealingDamageBoost()
 {
-	HealingDamageBoost_Zedternal = 0;
+	HealingDamageBoost_ZedternalReborn = 0;
 	
 	super.ResetHealingDamageBoost();
 }
 
 simulated function ResetHealingShield()
 {
-	HealingShield_Zedternal = 0;
+	HealingShield_ZedternalReborn = 0;
 
 	super.ResetHealingShield();
 }
@@ -117,7 +117,7 @@ function ThrowActiveWeapon( optional bool bDestroyWeap )
 	}
 
 	// If we're dead, always throw all weapons
-	if( class'Zedternal.Config_Player'.default.Player_bDropAllWeaponsWhenDead && InvManager != none && Health <= 0 )
+	if( class'ZedternalReborn.Config_Player'.default.Player_bDropAllWeaponsWhenDead && InvManager != none && Health <= 0 )
 	{
 		foreach InvManager.InventoryActors( class'KFWeapon', TempWeapon )
 		{

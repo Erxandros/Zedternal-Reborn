@@ -35,7 +35,7 @@ function Timer()
 						dmg = default.damage[1];
 					else
 						dmg = default.damage[0];
-					KFM.ApplyDamageOverTime(dmg, KFPC, Class'Zedternal.WMUpgrade_Napalm_DT');
+					KFM.ApplyDamageOverTime(dmg, KFPC, Class'ZedternalReborn.WMUpgrade_Napalm_DT');
 				}
 			}
 		}

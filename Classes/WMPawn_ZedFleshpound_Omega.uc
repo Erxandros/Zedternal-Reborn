@@ -268,7 +268,7 @@ defaultproperties
       MaxHitRange=260.000000
       Name="MeleeHelper_0"
    End Object
-   MeleeAttackHelper=KFMeleeHelperAI'Zedternal.Default__WMPawn_ZedFleshpound_Omega:WMMeleeHelper_0'
+   MeleeAttackHelper=KFMeleeHelperAI'ZedternalReborn.Default__WMPawn_ZedFleshpound_Omega:WMMeleeHelper_0'
    Begin Object Name=KFPawnSkeletalMeshComponent Archetype=KFSkeletalMeshComponent'KFGame.Default__KFPawn_Monster:KFPawnSkeletalMeshComponent'
       WireframeColor=(B=0,G=255,R=255,A=255)
       MinDistFactorForKinematicUpdate=0.200000

@@ -40,7 +40,7 @@ defaultproperties
    DeadGlowColor=(R=0.000000,G=0.000000,B=0.000000,A=1.000000)
    RageBumpDamageType=Class'kfgamecontent.KFDT_HeavyZedBump'
 
-   ControllerClass=Class'Zedternal.WMAIController_ZedFleshpound_Predator'
+   ControllerClass=Class'ZedternalReborn.WMAIController_ZedFleshpound_Predator'
    bVersusZed=True
    predatorColor=(R=0.200000,G=1.000000,B=0.100000,A=1.000000)
    
