@@ -4,21 +4,32 @@ class WMProj_Rocket_RPG7_Precious extends KFProj_Rocket_RPG7
 defaultproperties
 {
    Begin Object Class=KFGameExplosion Name=ExploTemplatePrecious
+      Damage=1050
+      DamageRadius=400
+      DamageFalloffExponent=2
+      DamageDelay=0.f
+
+      // Damage Effects
+      MyDamageType=class'KFDT_Explosive_RPG7'
+      KnockDownStrength=0
+      FractureMeshRadius=200.0
+      FracturePartVel=500.0
       ExplosionEffects=KFImpactEffectInfo'WEP_RPG7_ARCH.RPG7_Explosion'
-      Damage=1050.000000
-      DamageRadius=400.000000
-      DamageFalloffExponent=2.000000
-      MyDamageType=Class'kfgamecontent.KFDT_Explosive_RPG7'
-      KnockDownStrength=0.000000
       ExplosionSound=AkEvent'WW_WEP_SA_RPG7.Play_WEP_SA_RPG7_Explosion'
-      ExploLight=PointLightComponent'ZedternalReborn.Default__WMProj_Rocket_RPG7_Precious:ExplosionPointLight'
-      ExploLightFadeOutTime=0.200000
-      CamShake=KFCameraShake'FX_CameraShake_Arch.Grenades.Default_Grenade'
-      CamShakeInnerRadius=200.000000
-      CamShakeFalloff=1.500000
-      Name="ExploTemplatePrecious"
-      ObjectArchetype=KFGameExplosion'KFGame.Default__KFGameExplosion'
+
+      // Dynamic Light
+      ExploLight=ExplosionPointLight
+      ExploLightStartFadeOutTime=0.0
+      ExploLightFadeOutTime=0.2
+
+      // Camera Shake
+      CamShake=CameraShake'FX_CameraShake_Arch.Misc_Explosions.Light_Explosion_Rumble'
+      CamShakeInnerRadius=200
+      CamShakeOuterRadius=900
+      CamShakeFalloff=1.5f
+      bOrientCameraShakeTowardsEpicenter=true
    End Object
-   ExplosionTemplate=KFGameExplosion'ZedternalReborn.Default__WMProj_Rocket_RPG7_Precious:ExploTemplatePrecious'
+   ExplosionTemplate=ExploTemplatePrecious
+   
    Name="Default__WMProj_Rocket_RPG7_Precious"
 }

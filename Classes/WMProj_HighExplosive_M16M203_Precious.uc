@@ -1,23 +1,35 @@
 class WMProj_HighExplosive_M16M203_Precious extends KFProj_HighExplosive_M16M203
-    hidedropdown;
+   hidedropdown;
 
 defaultproperties
 {
    Begin Object Class=KFGameExplosion Name=ExploTemplatePrecious
+      Damage=250
+      DamageRadius=500
+      DamageFalloffExponent=1
+      DamageDelay=0.f
+
+      // Damage Effects
+      MyDamageType=class'KFDT_Explosive_M16M203'
+      KnockDownStrength=0
+      FractureMeshRadius=200.0
+      FracturePartVel=500.0
       ExplosionEffects=KFImpactEffectInfo'Wep_M16_M203_ARCH.M16_M203_Grenade_Explosion'
-      Damage=250.000000
-      DamageFalloffExponent=2.500000
-      MyDamageType=Class'kfgamecontent.KFDT_Explosive_M16M203'
-      KnockDownStrength=0.000000
       ExplosionSound=AkEvent'WW_WEP_SA_M79.Play_WEP_SA_M79_Explosion'
-      ExploLight=PointLightComponent'ZedternalReborn.Default__WMProj_HighExplosive_M16M203_Precious:ExplosionPointLight'
-      ExploLightFadeOutTime=0.200000
-      CamShake=KFCameraShake'FX_CameraShake_Arch.Grenades.Default_Grenade'
-      CamShakeInnerRadius=0.000000
-      CamShakeOuterRadius=0.000000
-      Name="ExploTemplatePrecious"
-      ObjectArchetype=KFGameExplosion'KFGame.Default__KFGameExplosion'
+
+      // Dynamic Light
+      ExploLight=ExplosionPointLight
+      ExploLightStartFadeOutTime=0.0
+      ExploLightFadeOutTime=0.2
+
+      // Camera Shake
+      CamShake=CameraShake'FX_CameraShake_Arch.Misc_Explosions.Light_Explosion_Rumble'
+      CamShakeInnerRadius=200
+      CamShakeOuterRadius=900
+      CamShakeFalloff=1.5f
+      bOrientCameraShakeTowardsEpicenter=true
    End Object
-   ExplosionTemplate=KFGameExplosion'ZedternalReborn.Default__WMProj_HighExplosive_M16M203_Precious:ExploTemplatePrecious'
+   ExplosionTemplate=ExploTemplatePrecious
+
    Name="Default__WMProj_HighExplosive_M16M203_Precious"
 }

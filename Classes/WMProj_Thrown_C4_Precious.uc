@@ -1,24 +1,34 @@
 class WMProj_Thrown_C4_Precious extends KFProj_Thrown_C4;
 
-
 defaultproperties
 {
    Begin Object Class=KFGameExplosion Name=ExploTemplatePrecious
+      Damage=1100
+      DamageRadius=500
+      DamageFalloffExponent=2.f
+      DamageDelay=0.f
+
+      // Damage Effects
+      MyDamageType=class'KFDT_Explosive_C4'
+      KnockDownStrength=0
+      FractureMeshRadius=200.0
+      FracturePartVel=500.0
       ExplosionEffects=KFImpactEffectInfo'WEP_C4_ARCH.C4_Explosion'
-      Damage=1100.000000
-      DamageRadius=500.000000
-      DamageFalloffExponent=2.000000
-      MyDamageType=Class'kfgamecontent.KFDT_Explosive_C4'
-      KnockDownStrength=0.000000
       ExplosionSound=AkEvent'WW_WEP_EXP_C4.Play_WEP_EXP_C4_Explosion'
-      ExploLight=PointLightComponent'ZedternalReborn.Default__WMProj_Thrown_C4_Precious:ExplosionPointLight'
-      ExploLightFadeOutTime=0.200000
-      CamShake=KFCameraShake'FX_CameraShake_Arch.Grenades.Default_Grenade'
-      CamShakeInnerRadius=200.000000
-      CamShakeFalloff=1.500000
-      Name="ExploTemplatePrecious"
-      ObjectArchetype=KFGameExplosion'KFGame.Default__KFGameExplosion'
+
+      // Dynamic Light
+      ExploLight=ExplosionPointLight
+      ExploLightStartFadeOutTime=0.0
+      ExploLightFadeOutTime=0.2
+
+      // Camera Shake
+      CamShake=CameraShake'FX_CameraShake_Arch.Misc_Explosions.Light_Explosion_Rumble'
+      CamShakeInnerRadius=200
+      CamShakeOuterRadius=900
+      CamShakeFalloff=1.5f
+      bOrientCameraShakeTowardsEpicenter=true
    End Object
-   ExplosionTemplate=KFGameExplosion'ZedternalReborn.Default__WMProj_Thrown_C4_Precious:ExploTemplatePrecious'
+   ExplosionTemplate=ExploTemplatePrecious
+
    Name="Default__WMProj_Thrown_C4_Precious"
 }
