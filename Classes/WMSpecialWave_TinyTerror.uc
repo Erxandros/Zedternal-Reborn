@@ -14,7 +14,7 @@ function UpdateZed()
 	
 	foreach DynamicActors(class'KFPawn_Monster', KFM)
 	{
-		if (KFM.IntendedBodyScale != default.Size)
+		if (KFM.IntendedBodyScale >= default.Size)
 			KFM.IntendedBodyScale = default.Size;
 	}
 }
