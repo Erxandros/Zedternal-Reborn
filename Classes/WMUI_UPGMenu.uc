@@ -528,11 +528,11 @@ function bool isWeaponInInventory(class< KFWeapon > weaponClass)
 	
 	foreach Owner.InvManager.InventoryActors(class'KFWeapon',Weapon)
 	{
-		if ( ClassIsChildOf(Weapon.Class, weaponClass) )
+		if ( ClassIsChildOf(Weapon.Class, weaponClass) && ClassIsChildOf(weaponClass, Weapon.Class) )
 			return true;
-		else if ( Weapon.DualClass != none && ClassIsChildOf(Weapon.DualClass, weaponClass) )
+		else if ( Weapon.DualClass != none && ClassIsChildOf(Weapon.DualClass, weaponClass) && ClassIsChildOf(weaponClass, Weapon.DualClass) )
 			return true;
-		else if ( KFWeap_DualBase(Weapon) != none && ClassIsChildOf(KFWeap_DualBase(Weapon).default.SingleClass, weaponClass) )
+		else if ( KFWeap_DualBase(Weapon) != none && ClassIsChildOf(KFWeap_DualBase(Weapon).default.SingleClass, weaponClass) && ClassIsChildOf(weaponClass, KFWeap_DualBase(Weapon).default.SingleClass) )
 			return true;
 	}
 	return false;
