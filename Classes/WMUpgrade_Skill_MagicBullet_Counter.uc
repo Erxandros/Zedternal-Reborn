@@ -16,7 +16,24 @@ function PostBeginPlay()
 		Destroy();
 }
 
-reliable client function ClientKilledZed(int Ammo)
+function int UpdateAmmo(int AmmoIn, KFWeapon MyKFWeapon)
+{
+	local int Ammo;
+
+	// cap ammo
+	Ammo = Min(AmmoIn, MyKFWeapon.MagazineCapacity[0] - MyKFWeapon.AmmoCount[0]);
+	
+	if (MyKFWeapon.MagazineCapacity[0] > 1 && Ammo > 0 && MyKFWeapon.AmmoCount[0] != 0 && MyKFWeapon.SpareAmmoCount[0] >= Ammo)
+	{
+		MyKFWeapon.AmmoCount[0] += Ammo;
+		MyKFWeapon.SpareAmmoCount[0] -= Ammo;
+		return Ammo;
+	}
+
+	return -1; //Did not update values
+}
+
+reliable client function StandaloneUpdateAmmo(int Ammo)
 {
 	local KFWeapon MyKFWeapon;
 
@@ -25,38 +42,50 @@ reliable client function ClientKilledZed(int Ammo)
 		MyKFWeapon = KFWeapon(Player.Weapon);
 		if (MyKFWeapon != none)
 		{
-			// cap ammo
-			Ammo = Min(Ammo, MyKFWeapon.MagazineCapacity[0] - MyKFWeapon.AmmoCount[0]);
-			
-			if (MyKFWeapon.MagazineCapacity[0] > 1 && Ammo > 0 && MyKFWeapon.AmmoCount[0] != 0 && MyKFWeapon.SpareAmmoCount[0] >= Ammo)
-			{
-				MyKFWeapon.AmmoCount[0] += Ammo;
-				MyKFWeapon.SpareAmmoCount[0] -= Ammo;
-				
-				// Update server
-				if (Player.WorldInfo.NetMode == NM_DedicatedServer)
-					ServerUpdateSpareAmmo(Ammo);
-			}
+			UpdateAmmo(Ammo, MyKFWeapon);
 		}
 	}
 	else
 		Destroy();
 }
 
-reliable server function ServerUpdateSpareAmmo(int Ammo)
+reliable server function ServerUpdateAmmo(int Ammo)
 {
 	local KFWeapon MyKFWeapon;
+	local int ClientAmmo;
 	
 	if (Player != none && Player.Health > 0)
 	{
 		MyKFWeapon = KFWeapon(Player.Weapon);
 		if (MyKFWeapon != none)
-			MyKFWeapon.SpareAmmoCount[0] = Max(0, MyKFWeapon.SpareAmmoCount[0]-Ammo);
+		{
+			ClientAmmo = UpdateAmmo(Ammo, MyKFWeapon);
+			ClientUpdateAmmo(ClientAmmo);
+		}
 	}
 	else
 		Destroy();
 }
 
+reliable client function ClientUpdateAmmo(int Ammo)
+{
+	local KFWeapon MyKFWeapon;
+
+	if (Player != none && Player.Health > 0)
+	{
+		MyKFWeapon = KFWeapon(Player.Weapon);
+		if (MyKFWeapon != none)
+		{
+			if (Ammo > 0)
+			{
+				MyKFWeapon.AmmoCount[0] = Min(MyKFWeapon.MagazineCapacity[0], MyKFWeapon.AmmoCount[0] + Ammo); // We do not want to go over capacity
+				MyKFWeapon.SpareAmmoCount[0] = Max(0, MyKFWeapon.SpareAmmoCount[0] - Ammo); // We do not want negative ammo
+			}
+		}
+	}
+	else
+		Destroy();
+}
 
 defaultproperties
 {

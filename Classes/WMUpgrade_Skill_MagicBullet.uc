@@ -20,9 +20,16 @@ static simulated function WMUpgrade_Skill_MagicBullet_Counter GetCounter(KFPawn 
 static function AddVampireHealth(out int InHealth, int DefaultHealth, int upgLevel, KFPlayerController KFPC, class<DamageType> DT)
 {
 	local WMUpgrade_Skill_MagicBullet_Counter WMUP;
-	
+
 	WMUP = GetCounter(KFPawn(KFPC.Pawn));
-	WMUP.ClientKilledZed(default.Ammo[upgLevel-1]);
+	if (WMUP.Player.WorldInfo.NetMode == NM_Standalone) // For single player
+	{
+		WMUP.StandaloneUpdateAmmo(default.Ammo[upgLevel-1]);
+	}
+	else // For servers
+	{
+		WMUP.ServerUpdateAmmo(default.Ammo[upgLevel-1]);
+	}
 }
 
 defaultproperties
