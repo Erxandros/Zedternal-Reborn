@@ -6,7 +6,6 @@ var float ExtraResistance;
 var linearColor omegaColor, omegaFresnelColor;
 
 var KFSkinTypeEffects ShieldImpactEffects;
-var ParticleSystem PSEffect;
 var bool bShieldOn;
 var vector EffectOffset;
 
@@ -143,8 +142,6 @@ event TakeDamage(int Damage, Controller InstigatedBy, vector HitLocation, vector
 		Momentum.X *= 0.150000;
 		Momentum.Y *= 0.150000;
 		Momentum.Z *= 0.150000;
-		//if (WorldInfo.MyEmitterPool != none)
-		//	WorldInfo.MyEmitterPool.SpawnEmitterMeshAttachment( default.PSEffect, Mesh, HitInfo.BoneName, false, default.EffectOffset );
 	}
 	
 	super.TakeDamage( Damage, InstigatedBy, HitLocation, Momentum, DamageType, HitInfo, DamageCauser );
@@ -192,9 +189,7 @@ defaultproperties
    
    bShieldOn=false
    EffectOffset=(X=0.000000, Y=0.000000, Z=0.000000)
-   ShieldImpactEffects=KFSkinTypeEffects_HansShield'kfgamecontent.Default__KFPawn_ZedHans:ShieldEffects'
-   //ShieldImpactEffects=KFSkinTypeEffects'ZedternalReborn.WMSkinTypeEffects_GorefastShield'
-   PSEffect=ParticleSystem'ZED_Hans_EMIT.FX_Hans_invulnerable_Hit'
+   ShieldImpactEffects=KFSkinTypeEffects_InvulnerabilityShield'KFGameContent.Default__KFPawn_ZedHans:ShieldEffects'
    
    DoshValue=24
    XPValues(0)=22.000000
