@@ -31,7 +31,7 @@ simulated function byte GetNumProjectilesToFire(byte FireModeNum)
 		return NumPellets[CurrentFireMode];
 	}
 	
-	return Min( NumPellets[CurrentFireMode], AmmoCount[GetAmmoType(CurrentFireMode)] );
+	return super.GetNumProjectilesToFire(FireModeNum);
 }
 
 defaultproperties
