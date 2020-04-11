@@ -2058,10 +2058,6 @@ simulated function bool GetIsUberAmmoActive( KFWeapon KFW )
 	local byte i;
 	local byte index;
 	local bool bUber;
-
-	// exception
-	if (KFWeap_Shotgun_Nailgun(KFW) != none)
-		return false;
 	
 	MyWMPRI = WMPlayerReplicationInfo(MyPRI);
 	MyWMGRI = WMGameReplicationInfo(WorldInfo.GRI);
