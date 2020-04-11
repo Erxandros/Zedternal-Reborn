@@ -153,23 +153,6 @@ event PostLogin(PlayerController NewPlayer)
 	super.PostLogin(NewPlayer);
 }
 
-/*
-function RestartPlayer(Controller NewPlayer)
-{
-	local WMPlayerController WMPC;
-	local WMPlayerReplicationInfo WMPRI;
-	
-	WMPC = WMPlayerController(NewPlayer);
-	WMPRI = WMPlayerReplicationInfo(WMPC.PlayerReplicationInfo);
-	
-	if (WMPRI != none && MyKFGRI.bMatchHasBegun && WMPRI.NumTimesReconnected <= 1)
-		RepPlayerInfo(WMPRI);
-		
-	super.RestartPlayer(NewPlayer);
-}
-*/
-
-
 /** Set up the spawning */
 function InitSpawnManager()
 {
@@ -761,7 +744,7 @@ function ApplyRandomWeaponVariant(string weapDefinitionPath, optional int index 
 	
 	for (i=0; i<class'ZedternalReborn.Config_Weapon'.default.WeaponVariant_VariantList.length; i++)
 	{
-		if (class'ZedternalReborn.Config_Weapon'.default.WeaponVariant_VariantList[i].WeaponDef == weapDefinitionPath && FRand() < class'ZedternalReborn.Config_Weapon'.default.WeaponVariant_VariantList[i].Probability)
+		if (class'ZedternalReborn.Config_Weapon'.default.WeaponVariant_VariantList[i].WeaponDef == weapDefinitionPath && FRand() <= class'ZedternalReborn.Config_Weapon'.default.WeaponVariant_VariantList[i].Probability)
 		{
 			KFWeaponDefClass = class<KFWeaponDefinition>(DynamicLoadObject(class'ZedternalReborn.Config_Weapon'.default.WeaponVariant_VariantList[i].WeaponDefVariant,class'Class'));
 			if (KFWeaponDefClass != none)
