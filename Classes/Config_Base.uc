@@ -1,6 +1,6 @@
 class Config_Base extends info
 	config(ZedternalReborn);
-	
+
 var int currentVersion;
 
 var array< class< Config_Base > > ConfigFiles;
@@ -22,21 +22,6 @@ struct S_Difficulty_Float
 	var float Custom;
 };
 
-struct S_Length_Int
-{
-	var int Short;
-	var int Normal;
-	var int Long;
-	var int Custom;
-};
-struct S_Length_Float
-{
-	var float Short;
-	var float Normal;
-	var float Long;
-	var float Custom;
-};
-
 static function UpdateConfig();
 
 static function CheckDefaultValue()
@@ -45,17 +30,16 @@ static function CheckDefaultValue()
 	
 	`log("ZedternalReborn GameMode Version " $ default.currentVersion);
 	
-	for (i=0;i<default.ConfigFiles.length;i++)
+	for (i = 0; i < default.ConfigFiles.length; i++)
 	{
 		default.ConfigFiles[i].static.UpdateConfig();
 	}
 }
 
-	
 defaultproperties
 {
-	currentVersion = 14
-	
+	currentVersion = 1
+
 	ConfigFiles(0) = class'ZedternalReborn.Config_Game'
 	ConfigFiles(1) = class'ZedternalReborn.Config_Difficulty'
 	ConfigFiles(2) = class'ZedternalReborn.Config_Waves'
