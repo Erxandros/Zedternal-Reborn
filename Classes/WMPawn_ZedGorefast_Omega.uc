@@ -1,4 +1,4 @@
-class WMPawn_ZedGorefast_Omega extends KFPawn_ZedGorefast;
+class WMPawn_ZedGorefast_Omega extends WMPawn_ZedGorefast_NoDualBlade;
 
 var transient Zed_Arch_GoreFastOmega ZedArch;
 var transient ParticleSystemComponent SpecialFXPSCs[2];
@@ -120,11 +120,6 @@ function float GetDamageTypeModifier(class<DamageType> DT)
 	// Omega ZEDs have extra resistance against all damage type
 	currentMod = super.GetDamageTypeModifier(DT);
 	return FMax(0.01f, currentMod - ExtraResistance);
-}
-
-static event class<KFPawn_Monster> GetAIPawnClassToSpawn()
-{
-	return super(KFPawn_Monster).GetAIPawnClassToSpawn();
 }
 
 event TakeDamage(int Damage, Controller InstigatedBy, vector HitLocation, vector Momentum, class<DamageType> DamageType, optional TraceHitInfo HitInfo, optional Actor DamageCauser)

@@ -1,4 +1,4 @@
-class WMPawn_ZedHusk_Omega extends KFPawn_ZedHusk;
+class WMPawn_ZedHusk_Omega extends WMPawn_ZedHusk_NoDAR;
 
 var int nbProjSuicide;
 var class<KFProj_Husk_Fireball> SuicideFireballClass;
@@ -217,11 +217,6 @@ function TriggerExplosion(optional bool bIgnoreHumans)
 
 	    bHasExploded = true;
 	}
-}
-
-static event class<KFPawn_Monster> GetAIPawnClassToSpawn()
-{
-	return default.class;
 }
 
 simulated event bool UsePlayerControlledZedSkin()

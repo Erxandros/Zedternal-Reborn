@@ -1,4 +1,4 @@
-class WMPawn_ZedStalker_Omega extends KFPawn_ZedStalker;
+class WMPawn_ZedStalker_Omega extends WMPawn_ZedStalker_NoDAR;
 
 var transient Zed_Arch_StalkerOmega ZedArch;
 var linearColor omegaColor, omegaFresnelColor;
@@ -82,11 +82,6 @@ simulated function UpdateGameplayMICParams()
 			CharacterMICs[i].SetVectorParameterValue('Vector_FresnelGlowColor', omegaColor);
 		}
 	}
-}
-
-static event class<KFPawn_Monster> GetAIPawnClassToSpawn()
-{
-	return default.class;
 }
 
 simulated event bool UsePlayerControlledZedSkin()
