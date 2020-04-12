@@ -11,8 +11,8 @@ struct S_Map
 	
 	structdefaultproperties
 	{
-		zedNumberScale=1.000000;
-		zedSpawnRate=1.000000;
+		zedNumberScale = 1.000000;
+		zedSpawnRate = 1.000000;
 	}
 };
 
@@ -20,11 +20,10 @@ var config array< S_Map > Map_Settings;
 
 static function UpdateConfig()
 {
-	
-	if (default.MODEVERSION < 8)
+	if (default.MODEVERSION < 1)
 	{
 		default.Map_Settings.length = 1;
-		
+
 		default.Map_Settings[0].mapName = "KF-BioticsLab";
 		default.Map_Settings[0].zedNumberScale = 1.000000;
 		default.Map_Settings[0].zedSpawnRate = 1.000000;
@@ -35,10 +34,7 @@ static function UpdateConfig()
 		default.MODEVERSION = class'ZedternalReborn.Config_Base'.default.currentVersion;
 		static.StaticSaveConfig();
 	}
-
 }
-
-
 
 static function float GetZedNumberScale(string mapName)
 {
