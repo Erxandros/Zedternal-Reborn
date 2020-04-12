@@ -1,4 +1,4 @@
-class WMPawn_ZedCrawler_Ultra extends KFPawn_ZedCrawler;
+class WMPawn_ZedCrawler_Ultra extends WMPawn_ZedCrawler_NoElite;
 
 var float ExtraResistance;
 

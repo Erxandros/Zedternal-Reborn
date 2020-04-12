@@ -1,4 +1,4 @@
-class WMPawn_ZedCrawler_Medium extends KFPawn_ZedCrawler;
+class WMPawn_ZedCrawler_Medium extends WMPawn_ZedCrawler_NoElite;
 
 static function string GetLocalizedName()
 {
