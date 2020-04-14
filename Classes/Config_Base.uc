@@ -2,6 +2,7 @@ class Config_Base extends info
 	config(ZedternalReborn);
 
 var int currentVersion;
+var int currentHotfix;
 
 var array< class< Config_Base > > ConfigFiles;
 
@@ -27,9 +28,16 @@ static function UpdateConfig();
 static function CheckDefaultValue()
 {
 	local byte i;
-	
-	`log("ZedternalReborn GameMode Version " $ default.currentVersion);
-	
+
+	if (default.currentHotfix == 0)
+	{
+		`log("ZedternalReborn GameMode Version: " $ default.currentVersion);
+	}
+	else
+	{
+		`log("ZedternalReborn GameMode Version: " $ default.currentVersion $" Hotfix: " $ default.currentHotfix);
+	}
+
 	for (i = 0; i < default.ConfigFiles.length; i++)
 	{
 		default.ConfigFiles[i].static.UpdateConfig();
@@ -38,7 +46,8 @@ static function CheckDefaultValue()
 
 defaultproperties
 {
-	currentVersion = 1
+	currentVersion = 1;
+	currentHotfix = 1;
 
 	ConfigFiles(0) = class'ZedternalReborn.Config_Game'
 	ConfigFiles(1) = class'ZedternalReborn.Config_Difficulty'
