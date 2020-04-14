@@ -440,7 +440,7 @@ simulated function bool IsItemAllowed(STraderItem Item)
 {
 	local int i;
 	
-	for (i=0; i<min(maxWeapon, (startingWeapon + staticWeapon + (WaveNum+1) * newWeaponEachWave)); i++)
+	for (i = 0; i < min(maxWeapon - staticWeapon, (startingWeapon + staticWeapon + (WaveNum + 1) * newWeaponEachWave)); i++)
 	{
 		if (Item.ClassName==KFWeaponName[i])
 			return true;
