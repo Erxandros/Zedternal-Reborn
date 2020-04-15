@@ -512,5 +512,6 @@ defaultproperties
    ForcedBossNum=-1
    EarlyWaveIndex=1
    bAllowTurboSpawn=true
+   bSummoningBossMinions=false
    Name="Default__WMAISpawnManager"
 }
