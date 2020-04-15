@@ -1,0 +1,39 @@
+Class WMUpgrade_Perk_Commando extends WMUpgrade_Perk
+	config(Zedternal_Upgrade);
+	
+var float Damage;
+var float ReloadRate;
+var float MagSize;
+	
+static function ModifyDamageGiven( out int InDamage, int DefaultDamage, int upgLevel, optional Actor DamageCauser, optional KFPawn_Monster MyKFPM, optional KFPlayerController DamageInstigator, optional class<KFDamageType> DamageType, optional int HitZoneIdx, optional KFWeapon MyKFW)
+{
+	if (IsWeaponOnSpecificPerk( MyKFW, class'KFgame.KFPerk_Commando') || IsDamageTypeOnSpecificPerk( DamageType, class'KFgame.KFPerk_Commando'))
+		InDamage += Round(float(DefaultDamage) * default.Damage * upgLevel);
+}
+static simulated function GetReloadRateScalePassive( out float reloadRateFactor, int upgLevel)
+{
+	reloadRateFactor = 1.f / (1.f/reloadRateFactor + default.ReloadRate * upgLevel);
+}
+static simulated function GetZedTimeExtension( out float InExtension, float DefaultExtension, int upgLevel)
+{
+	InExtension += float(Min(upgLevel, 5));
+}
+
+defaultproperties
+{
+	upgradeName="Commando"
+	upgradeDescription(0)="+%x%s. Zed Time Extension with <font color=\"#eaeff7\">any weapon</font>"
+	upgradeDescription(1)="+%x%% Reload Speed with <font color=\"#eaeff7\">any weapon</font>"
+	upgradeDescription(2)="+%x%% Damage with <font color=\"#caab05\">Commando's weapons</font>"
+	PerkBonus(0)=(baseValue=0, incValue=1, maxValue=5)
+	PerkBonus(1)=(baseValue=0, incValue=15, maxValue=-1)
+	PerkBonus(2)=(baseValue=0, incValue=5, maxValue=-1)
+	Damage=0.050000
+	ReloadRate=0.150000
+	upgradeIcon(0)=Texture2D'Zedternal_Resource.Perks.UI_Perk_Commando_Rank_0'
+	upgradeIcon(1)=Texture2D'Zedternal_Resource.Perks.UI_Perk_Commando_Rank_1'
+	upgradeIcon(2)=Texture2D'Zedternal_Resource.Perks.UI_Perk_Commando_Rank_2'
+	upgradeIcon(3)=Texture2D'Zedternal_Resource.Perks.UI_Perk_Commando_Rank_3'
+	upgradeIcon(4)=Texture2D'Zedternal_Resource.Perks.UI_Perk_Commando_Rank_4'
+	upgradeIcon(5)=Texture2D'Zedternal_Resource.Perks.UI_Perk_Commando_Rank_5'
+}

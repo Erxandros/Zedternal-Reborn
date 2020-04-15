@@ -1,0 +1,29 @@
+class WMUpgrade_FreezeExplosion_Deluxe extends KFProj_FreezeGrenade
+	hidedropdown;
+
+simulated function PostBeginPlay()
+{
+	super.PostBeginPlay();
+
+	ExplodeTimer();
+}
+
+simulated event GrenadeIsAtRest()
+{
+	super.GrenadeIsAtRest();
+}
+	
+defaultproperties
+{
+   FuseTime=0.050000
+   Begin Object Name=ExploTemplate0
+      Damage=10.000000
+      DamageRadius=1250.000000
+      MyDamageType=Class'Zedternal.WMUpgrade_FreezeExplosion_DT'
+	  ActorClassToIgnoreForDamage=class'KFGame.KFPawn_Human'
+      Name="ExploTemplate0"
+   End Object
+   ExplosionTemplate=ExploTemplate0
+   AssociatedPerkClass=Class'Zedternal.WMPerk'
+   Name="Default__WMUpgrade_FreezeExplosion"
+}
