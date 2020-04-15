@@ -483,7 +483,7 @@ function BuildWeaponList()
 	local bool bAllowWeaponVariant;
 	local array<int> weaponIndex;
 	local array<string> tempWeapDefStr;
-	local class<KFWeaponDefinition> KFWeaponDefClass;
+	local class<KFWeaponDefinition> KFWeaponDefClass, CustomWeaponDef;
 	local STraderItem newWeapon;
 	local array< int > tempList;
 	
@@ -517,24 +517,35 @@ function BuildWeaponList()
 		if (IsWeaponDefCanBeRandom(DefaultTraderItems.SaleItems[i].WeaponDef))
 			weaponIndex[weaponIndex.Length] = count-1;
 	}
-	
+
 	//Add and register custom weapons
 	if (class'ZedternalReborn.Config_Weapon'.default.Weapon_bUseCustomWeaponList)
 	{
-		for (i=0;i<class'ZedternalReborn.Config_Weapon'.default.Weapon_CustomWeaponDef.length;i+=1)
+		for (i = 0; i < class'ZedternalReborn.Config_Weapon'.default.Weapon_CustomWeaponDef.length; i++)
 		{
-			newWeapon.WeaponDef = class<KFWeaponDefinition>(DynamicLoadObject(class'ZedternalReborn.Config_Weapon'.default.Weapon_CustomWeaponDef[i],class'Class'));
-			newWeapon.ItemID = count;
-			count++;
-			TraderItems.SaleItems.AddItem(newWeapon);
-			KFWeaponDefPath.AddItem(PathName(newWeapon.WeaponDef)); //for client
-			
-			// Add weapons to the list of possible weapons
-			if (IsWeaponDefCanBeRandom(class<KFWeaponDefinition>(DynamicLoadObject(class'ZedternalReborn.Config_Weapon'.default.Weapon_CustomWeaponDef[i],class'Class'))))
-				weaponIndex[weaponIndex.Length] = count-1;
+			CustomWeaponDef = class<KFWeaponDefinition>(DynamicLoadObject(class'ZedternalReborn.Config_Weapon'.default.Weapon_CustomWeaponDef[i],class'Class'));
+			if (CustomWeaponDef != None)
+			{
+				newWeapon.WeaponDef = CustomWeaponDef;
+				newWeapon.ItemID = count;
+				count++;
+				TraderItems.SaleItems.AddItem(newWeapon);
+				KFWeaponDefPath.AddItem(PathName(newWeapon.WeaponDef)); //for client
+
+				// Add weapons to the list of possible weapons
+				if (IsWeaponDefCanBeRandom(CustomWeaponDef))
+					weaponIndex[weaponIndex.Length] = count-1;
+
+				`log("Custom weapon added: "$class'ZedternalReborn.Config_Weapon'.default.Weapon_CustomWeaponDef[i]);
+			}
+			else
+			{
+				`log("Custom weapon "$class'ZedternalReborn.Config_Weapon'.default.Weapon_CustomWeaponDef[i]$
+					" does not exist, please check spelling or make sure the workshop item is correctly installed");
+			}
 		}
 	}
-	
+
 	//get WeaponVariant Probablity/Allowed
 	bAllowWeaponVariant = class'ZedternalReborn.Config_Weapon'.default.WeaponVariant_bAllowWeaponVariant;
 	
