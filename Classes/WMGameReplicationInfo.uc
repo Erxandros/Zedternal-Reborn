@@ -353,12 +353,12 @@ simulated function ForceNewMusicZedBuff()
 {
 	// play a boss music during this wave
 	ForceNewMusicTrack(default.ZedBuffMusic[zedBuff_nextMusicTrackIndex]);
-	
-	zedBuff_nextMusicTrackIndex += 1;
-	
-	// if we played all tracks, play last 2 tracks
+
+	zedBuff_nextMusicTrackIndex++;
+
+	// cycle tracks
 	if (zedBuff_nextMusicTrackIndex >= default.ZedBuffMusic.length)
-		zedBuff_nextMusicTrackIndex -= 2;
+		zedBuff_nextMusicTrackIndex = 0;
 }
 
 simulated function RepairDoor()
