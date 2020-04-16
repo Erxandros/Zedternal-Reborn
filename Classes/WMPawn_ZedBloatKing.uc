@@ -20,7 +20,15 @@ function SummonChildren()
 {
 }
 
+static simulated event bool IsABoss()
+{ 
+   return false; 
+}
 
+function bool CanBeGrabbed(KFPawn GrabbingPawn, optional bool bIgnoreFalling, optional bool bAllowSameTeamGrab)
+{
+	return false;
+}
 
 function SpawnPoopMonster()
 {
@@ -66,5 +74,6 @@ defaultproperties
    XPValues(1)=150.000000
    XPValues(2)=150.000000
    XPValues(3)=150.000000
+   MinSpawnSquadSizeType=EST_Large
    Name="Default__WMPawn_ZedBloatKing"
 }

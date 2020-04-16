@@ -20,6 +20,16 @@ function PlayBossMusic()
 {
 }
 
+static simulated event bool IsABoss()
+{ 
+   return false; 
+}
+
+function bool CanBeGrabbed(KFPawn GrabbingPawn, optional bool bIgnoreFalling, optional bool bAllowSameTeamGrab)
+{
+  return false;
+}
+
 defaultproperties
 {
    EntranceSound=AkEvent'WW_ZED_Matriarch.Play_Matriarch_Jump_Land_01'
@@ -28,5 +38,6 @@ defaultproperties
    XPValues(1)=250.000000
    XPValues(2)=250.000000
    XPValues(3)=250.000000
+  MinSpawnSquadSizeType=EST_Large
    Name="Default__WMPawn_ZedMatriarch"
 }

@@ -20,6 +20,16 @@ function PlayBossMusic()
 {
 }
 
+static simulated event bool IsABoss()
+{ 
+   return false; 
+}
+
+function bool CanBeGrabbed(KFPawn GrabbingPawn, optional bool bIgnoreFalling, optional bool bAllowSameTeamGrab)
+{
+   return false;
+}
+
 defaultproperties
 {
    EntranceSound=AkEvent'WW_ZED_Hans.Play_Hans_Intro_Land'
@@ -27,6 +37,7 @@ defaultproperties
    XPValues(0)=250.000000
    XPValues(1)=250.000000
    XPValues(2)=250.000000
-   XPValues(3)=250.000000   
+   XPValues(3)=250.000000
+   MinSpawnSquadSizeType=EST_Large
    Name="Default__WMPawn_ZedHans"
 }
