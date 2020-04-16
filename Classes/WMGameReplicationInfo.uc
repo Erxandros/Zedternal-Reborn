@@ -13,7 +13,7 @@ var int SpecialWaveID[2];
 var repnotify bool bNewZedBuff;
 var int startingWeapon, newWeaponEachWave, maxWeapon, staticWeapon;
 var KFGFxObject_TraderItems TraderArch;
-var repnotify int ArmorPrice;
+var int ArmorPrice;
 var repnotify int TraderVoiceGroupIndex;
 
 var int perkPrice[255];
@@ -108,10 +108,6 @@ simulated event ReplicatedEvent(name VarName)
 				else
 					bEnd = true;
 			}
-			break;
-			
-		case 'ArmorPrice':
-			TraderItems.ArmorPrice = ArmorPrice;
 			break;
 			
 		case 'perkUpgradesStr':
