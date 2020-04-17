@@ -1149,7 +1149,7 @@ function Killed(Controller Killer, Controller KilledPlayer, Pawn KilledPawn, cla
 	}
 	
 	if (KFPawn_Monster(KilledPawn) != none && PlayerCount != 0)
-		doshNewPlayer += GameLengthDoshScale[GameDifficulty] * KFPawn_Monster(KilledPawn).static.GetDoshValue() / PlayerCount;
+		doshNewPlayer += GameLengthDoshScale[GameLength] * KFPawn_Monster(KilledPawn).static.GetDoshValue() / PlayerCount;
 	
 	if( SpawnManager != None )
 		MyKFGRI.AIRemaining--;
