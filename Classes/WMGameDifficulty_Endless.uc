@@ -6,7 +6,7 @@ var bool CustomMode;
 
 function SetDifficultySettings( float GameDifficulty )
 {
-	`log("Zedternal Reborn GameDifficulty: "$GameDifficulty);
+	`log("ZedternalReborn GameDifficulty: "$GameDifficulty);
 
 	WMGRI = WMGameReplicationInfo(Class'WorldInfo'.static.GetWorldInfo().GRI);
 
