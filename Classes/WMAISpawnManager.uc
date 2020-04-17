@@ -29,6 +29,11 @@ var array< SStuckZed > lastZedInfo;
 
 var bool bAllowTurboSpawn;
 
+function Initialize()
+{
+	//LoadAIClasses();
+	RegisterSpawnVolumes();
+}
 
 function SetupNextWave(byte NextWaveIndex, int TimeToNextWaveBuffer = 0)
 {
