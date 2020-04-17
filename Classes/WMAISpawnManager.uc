@@ -28,9 +28,16 @@ struct SStuckZed
 var array< SStuckZed > lastZedInfo;
 
 var bool bAllowTurboSpawn;
+var float CustomDifficulty;
+var bool CustomMode;
 
 function Initialize()
 {
+	if (GameDifficulty > `DIFFICULTY_HELLONEARTH)
+	{
+		CustomMode = true;
+	}
+
 	//LoadAIClasses();
 	RegisterSpawnVolumes();
 }
@@ -171,7 +178,10 @@ function SetupNextWave(byte NextWaveIndex, int TimeToNextWaveBuffer = 0)
 	
 	// Number of points for this wave :
 	// 1) wave points at current wave
-	tempWaveValue = float(class'ZedternalReborn.Config_Waves'.static.GetBaseValue(GameDifficulty)) + float(class'ZedternalReborn.Config_Waves'.static.GetValueIncPerwave(GameDifficulty))*float(NextWaveIndex-1);
+	if (CustomMode)
+		tempWaveValue = float(class'ZedternalReborn.Config_Waves'.static.GetBaseValue(CustomDifficulty)) + float(class'ZedternalReborn.Config_Waves'.static.GetValueIncPerwave(CustomDifficulty))*float(NextWaveIndex-1);
+	else
+		tempWaveValue = float(class'ZedternalReborn.Config_Waves'.static.GetBaseValue(GameDifficulty)) + float(class'ZedternalReborn.Config_Waves'.static.GetValueIncPerwave(GameDifficulty))*float(NextWaveIndex-1);
 	
 	// 2) wave points factor at current wave (so wave value vs wavenum is not linear)
 	tempWaveValue *= 1.f + class'ZedternalReborn.Config_Waves'.default.ZedSpawn_ValueFactorPerWave * float(NextWaveIndex);
@@ -205,7 +215,10 @@ function SetupNextWave(byte NextWaveIndex, int TimeToNextWaveBuffer = 0)
 	
 	// we need to compute the spawn rate
 	// 1) spawn rate factor at current wave
-	customSpawnRate = 1.f / (class'ZedternalReborn.Config_Waves'.static.GetZedSpawnRate(GameDifficulty) + class'ZedternalReborn.Config_Waves'.default.ZedSpawn_ZedSpawnRateIncPerWave * (NextWaveIndex-1));
+	if (CustomMode)
+		customSpawnRate = 1.f / (class'ZedternalReborn.Config_Waves'.static.GetZedSpawnRate(CustomDifficulty) + class'ZedternalReborn.Config_Waves'.default.ZedSpawn_ZedSpawnRateIncPerWave * (NextWaveIndex-1));
+	else
+		customSpawnRate = 1.f / (class'ZedternalReborn.Config_Waves'.static.GetZedSpawnRate(GameDifficulty) + class'ZedternalReborn.Config_Waves'.default.ZedSpawn_ZedSpawnRateIncPerWave * (NextWaveIndex-1));
 	
 	// 2) spawn rate power to greatly increase spawn rate at late waves
 	customSpawnRate = customSpawnRate ** (1.f + class'ZedternalReborn.Config_Waves'.default.ZedSpawn_ZedSpawnRatePowerPerWave * float(NextWaveIndex-1));
@@ -282,13 +295,27 @@ function SetupNextWave(byte NextWaveIndex, int TimeToNextWaveBuffer = 0)
 			{
 				for (k=0;k<class'ZedternalReborn.Config_Zed'.default.Zed_ZedVariant.length;k++)
 				{
-					if (groupList[i].MClass[j] == class'ZedternalReborn.Config_Zed'.default.Zed_ZedVariant[k].zedClass
-						&& class'ZedternalReborn.Config_Zed'.default.Zed_ZedVariant[k].minDifficulty <= GameDifficulty
-						&& class'ZedternalReborn.Config_Zed'.default.Zed_ZedVariant[k].maxDifficulty >= GameDifficulty
-						&& class'ZedternalReborn.Config_Zed'.default.Zed_ZedVariant[k].Probability >= FRand())
+					if (CustomMode)
 					{
-						groupList[i].MClass[j] = class'ZedternalReborn.Config_Zed'.default.Zed_ZedVariant[k].variantClass;
-						k = class'ZedternalReborn.Config_Zed'.default.Zed_ZedVariant.length;
+						if (groupList[i].MClass[j] == class'ZedternalReborn.Config_Zed'.default.Zed_ZedVariant[k].zedClass
+							&& class'ZedternalReborn.Config_Zed'.default.Zed_ZedVariant[k].minDifficulty <= CustomDifficulty
+							&& class'ZedternalReborn.Config_Zed'.default.Zed_ZedVariant[k].maxDifficulty >= CustomDifficulty
+							&& class'ZedternalReborn.Config_Zed'.default.Zed_ZedVariant[k].Probability >= FRand())
+						{
+							groupList[i].MClass[j] = class'ZedternalReborn.Config_Zed'.default.Zed_ZedVariant[k].variantClass;
+							k = class'ZedternalReborn.Config_Zed'.default.Zed_ZedVariant.length;
+						}
+					}
+					else
+					{
+						if (groupList[i].MClass[j] == class'ZedternalReborn.Config_Zed'.default.Zed_ZedVariant[k].zedClass
+							&& class'ZedternalReborn.Config_Zed'.default.Zed_ZedVariant[k].minDifficulty <= GameDifficulty
+							&& class'ZedternalReborn.Config_Zed'.default.Zed_ZedVariant[k].maxDifficulty >= GameDifficulty
+							&& class'ZedternalReborn.Config_Zed'.default.Zed_ZedVariant[k].Probability >= FRand())
+						{
+							groupList[i].MClass[j] = class'ZedternalReborn.Config_Zed'.default.Zed_ZedVariant[k].variantClass;
+							k = class'ZedternalReborn.Config_Zed'.default.Zed_ZedVariant.length;
+						}
 					}
 				}
 			}
@@ -518,5 +545,7 @@ defaultproperties
    EarlyWaveIndex=1
    bAllowTurboSpawn=true
    bSummoningBossMinions=false
+   CustomDifficulty=4.0
+   CustomMode=false
    Name="Default__WMAISpawnManager"
 }

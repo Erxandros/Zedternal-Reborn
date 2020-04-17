@@ -1,17 +1,32 @@
 class WMGameDifficulty_Endless extends KFGameDifficulty_Survival;
 
 var WMGameReplicationInfo WMGRI;
+var float CustomDifficulty;
+var bool CustomMode;
 
 function SetDifficultySettings( float GameDifficulty )
 {
+	`log("Zedternal Reborn GameDifficulty: "$GameDifficulty);
+
 	WMGRI = WMGameReplicationInfo(Class'WorldInfo'.static.GetWorldInfo().GRI);
+
+	if (GameDifficulty > `DIFFICULTY_HELLONEARTH)
+	{
+		CustomMode = true;
+		GameDifficulty = `DIFFICULTY_HELLONEARTH;
+	}
 	super.SetDifficultySettings(GameDifficulty);
 }
 
 function GetAIHealthModifier(KFPawn_Monster P, float GameDifficulty, byte NumLivingPlayers, out float HealthMod, out float HeadHealthMod, optional bool bApplyDifficultyScaling=true)
 {
 	local byte i;
-	
+
+	if (CustomMode)
+	{
+		GameDifficulty = CustomDifficulty;
+	}
+
 	if ( P != none )
 	{
 	    HealthMod = class'ZedternalReborn.Config_Difficulty'.static.GetZedHealthMod(GameDifficulty);
@@ -62,7 +77,7 @@ function GetAIHealthModifier(KFPawn_Monster P, float GameDifficulty, byte NumLiv
 function GetVersusHealthModifier(KFPawn_Monster P, byte NumLivingPlayers, out float HealthMod, out float HeadHealthMod)
 {
 	local byte i;
-	
+
 	if ( P != none )
 	{
 		HealthMod = GetGlobalHealthMod();
@@ -101,6 +116,11 @@ function float GetAIDamageModifier(KFPawn_Monster P, float GameDifficulty, bool 
     local float ZedDamageMod;
 	local byte i;
 
+	if (CustomMode)
+	{
+		GameDifficulty = CustomDifficulty;
+	}
+
     if(bSoloPlay)
         ZedDamageMod = class'ZedternalReborn.Config_Difficulty'.static.GetZedSoloDamageMod(GameDifficulty);
 	else
@@ -129,7 +149,12 @@ function float GetAISpeedMod(KFPawn_Monster P, float GameDifficulty)
 {
 	local float SpeedMod;
 	local byte i;
-	
+
+	if (CustomMode)
+	{
+		GameDifficulty = CustomDifficulty;
+	}
+
 	SpeedMod = class'ZedternalReborn.Config_Difficulty'.static.GetZedSpeedMod(GameDifficulty) * RandRange(0.9f, 1.1f);
 
 	// Zed buff
@@ -153,7 +178,12 @@ function float GetCharSprintChanceByDifficulty( KFPawn_Monster P, float GameDiff
 	local float SprintChanceMod;
 	local byte i;
 	local KFAIController_Monster KFAI;
-	
+
+	if (CustomMode)
+	{
+		GameDifficulty = CustomDifficulty;
+	}
+
 	// diable teleport ability
 	if (!class'ZedternalReborn.Config_Game'.default.Game_bAllowZedTeleport)
 	{
@@ -198,7 +228,12 @@ function float GetCharSprintWhenDamagedChanceByDifficulty( KFPawn_Monster P, flo
 {
 	local float SprintChanceMod;
 	local byte i;
-	
+
+	if (CustomMode)
+	{
+		GameDifficulty = CustomDifficulty;
+	}
+
 	if ( GameDifficulty >= 3.0)
 	{
 		SprintChanceMod =  P.DifficultySettings.default.HellOnEarth.DamagedSprintChance;
@@ -320,6 +355,7 @@ function float GetWeakAttackChance()
 	
 	return FMax(0.f, WeakAttackChanceMod);
 }
+
 function float GetMediumAttackChance()
 {
 	local float MediumAttackChanceMod;
@@ -410,13 +446,14 @@ function float GetDamageResistanceModifier( byte NumLivingPlayers )
 	return FMax(0.1f, DamageResistanceMod);
 }
 
-
 defaultproperties
 {
-   Normal=(TraderTime=75,MovementSpeedMod=0.900000,WaveCountMod=0.850000,DoshKillMod=1.200000,StartingDosh=300,AmmoPickupsMod=0.400000,ItemPickupsMod=0.450000,SelfInflictedDamageMod=0.100000,SpawnRateModifier=0.800000)
-   Hard=(MovementSpeedMod=0.950000,RespawnDosh=300,AmmoPickupsMod=0.300000,ItemPickupsMod=0.350000,SelfInflictedDamageMod=0.200000,SpawnRateModifier=0.800000)
-   Suicidal=(MovementSpeedMod=0.950000,WaveCountMod=1.300000,AmmoPickupsMod=0.400000,ItemPickupsMod=0.250000,MediumAttackChance=1.000000,HardAttackChance=0.500000,SelfInflictedDamageMod=0.200000,SpawnRateModifier=0.700000)
-   HellOnEarth=(MovementSpeedMod=0.950000,WaveCountMod=1.700000,DoshKillMod=0.900000,AmmoPickupsMod=0.250000,ItemPickupsMod=0.100000,MediumAttackChance=1.000000,HardAttackChance=1.000000,SelfInflictedDamageMod=0.500000,SpawnRateModifier=0.680000)
-   Name="Default__KFGameDifficulty_Survival"
-   ObjectArchetype=KFGameDifficultyInfo'KFGame.Default__KFGameDifficultyInfo'
+	CustomDifficulty = 4.0;
+	CustomMode = false;
+	Normal = (TraderTime=75,MovementSpeedMod=0.900000,WaveCountMod=0.850000,DoshKillMod=1.200000,StartingDosh=300,AmmoPickupsMod=0.400000,ItemPickupsMod=0.450000,SelfInflictedDamageMod=0.100000,SpawnRateModifier=0.800000);
+	Hard = (MovementSpeedMod=0.950000,RespawnDosh=300,AmmoPickupsMod=0.300000,ItemPickupsMod=0.350000,SelfInflictedDamageMod=0.200000,SpawnRateModifier=0.800000);
+	Suicidal = (MovementSpeedMod=0.950000,WaveCountMod=1.300000,AmmoPickupsMod=0.400000,ItemPickupsMod=0.250000,MediumAttackChance=1.000000,HardAttackChance=0.500000,SelfInflictedDamageMod=0.200000,SpawnRateModifier=0.700000);
+	HellOnEarth = (MovementSpeedMod=0.950000,WaveCountMod=1.700000,DoshKillMod=0.900000,AmmoPickupsMod=0.250000,ItemPickupsMod=0.100000,MediumAttackChance=1.000000,HardAttackChance=1.000000,SelfInflictedDamageMod=0.500000,SpawnRateModifier=0.680000);
+	Name = "Default__KFGameDifficulty_Survival";
+	ObjectArchetype = KFGameDifficultyInfo'KFGame.Default__KFGameDifficultyInfo';
 }
