@@ -49,5 +49,5 @@ defaultproperties
    damageOther = 0.200000
    ZedHeadScale = 0.800000
    
-   Name="Default__WMSpecialWave_DoubleDamage"
+   Name="Default__WMSpecialWave_Pop"
 }

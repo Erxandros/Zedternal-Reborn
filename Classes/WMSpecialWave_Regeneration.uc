@@ -44,5 +44,5 @@ defaultproperties
    healRecharge = 0.300000
    regenTimer = 0.300000
    
-   Name="Default__WMSpecialWave_regenTimer"
+   Name="Default__WMSpecialWave_Regeneration"
 }

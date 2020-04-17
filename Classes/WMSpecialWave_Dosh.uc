@@ -30,5 +30,5 @@ defaultproperties
    Title="Dosh"
    Description="It's raining Dosh!"
    MaxDoshVelocity=600.000000
-   Name="Default__WMSpecialWave_Popcorn"
+   Name="Default__WMSpecialWave_Dosh"
 }

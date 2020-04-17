@@ -43,5 +43,5 @@ defaultproperties
    MonsterToAdd(5)=(MinWave=0,MaxWave=999,MinGr=1,MaxGr=4,MClass=Class'ZedternalReborn.WMPawn_ZedGorefast_NoDualBlade')
    MonsterToAdd(6)=(MinWave=0,MaxWave=999,MinGr=1,MaxGr=2,MClass=Class'ZedternalReborn.WMPawn_ZedStalker_NoDAR')
    
-   Name="Default__WMSpecialWave_TinyTerror"
+   Name="Default__WMSpecialWave_TheHorde"
 }

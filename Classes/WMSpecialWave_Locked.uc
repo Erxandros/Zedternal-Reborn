@@ -84,5 +84,5 @@ defaultproperties
    
    Rate = 0.700000
    
-   Name="Default__WMSpecialWave_Poundamonium"
+   Name="Default__WMSpecialWave_Locked"
 }

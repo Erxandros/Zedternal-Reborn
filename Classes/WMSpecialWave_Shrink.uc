@@ -60,5 +60,5 @@ defaultproperties
    StartingDamageScale=1.000000
    DeadDamageScale=1.500000
    
-   Name="Default__WMSpecialWave_TinyTerror"
+   Name="Default__WMSpecialWave_Shrink"
 }

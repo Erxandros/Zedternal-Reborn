@@ -25,5 +25,5 @@ defaultproperties
    
    Damage = 0.600000
    
-   Name="Default__WMSpecialWave_Poundamonium"
+   Name="Default__WMSpecialWave_BloodyChainsaw"
 }

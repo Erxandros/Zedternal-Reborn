@@ -91,5 +91,5 @@ defaultproperties
    healRecharge = 0.300000
    bleedTime = 20
    
-   Name="Default__WMSpecialWave_Hemoragie"
+   Name="Default__WMSpecialWave_Haemorrhage"
 }

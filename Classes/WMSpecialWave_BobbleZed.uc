@@ -58,5 +58,5 @@ defaultproperties
    DamageFactor=0.800000
    DamageHeadFactor=0.550000
    
-   Name="Default__WMSpecialWave_BobbelZed"
+   Name="Default__WMSpecialWave_BobbleZed"
 }
