@@ -625,7 +625,7 @@ function ModifyArmor( out byte MaxArmor )
 
 	DefaultArmor = MaxArmor;
 	
-	if (MyWMPRI != none)
+	if (MyWMPRI != none && MyWMGRI != none)
 	{
 		for (i=0;i<MyWMPRI.purchase_perkUpgrade.length;i+=1)
 		{
@@ -637,11 +637,11 @@ function ModifyArmor( out byte MaxArmor )
 			index = MyWMPRI.purchase_skillUpgrade[i];
 			MyWMGRI.skillUpgrades[index].static.ModifyArmor(MaxArmor, DefaultArmor, MyWMPRI.bSkillUpgrade[index]);
 		}
-	}
-	for(i=0;i<=1;i+=1)
-	{
-		if(MyWMGRI.SpecialWaveID[i] != -1)
-			MyWMGRI.specialWaves[MyWMGRI.SpecialWaveID[i]].static.ModifyArmor(MaxArmor, DefaultArmor);
+		for(i=0;i<=1;i+=1)
+		{
+			if(MyWMGRI.SpecialWaveID[i] != -1)
+				MyWMGRI.specialWaves[MyWMGRI.SpecialWaveID[i]].static.ModifyArmor(MaxArmor, DefaultArmor);
+		}
 	}
 }
 
@@ -1113,7 +1113,7 @@ function ApplyWeightLimits()
 			
 			DefaultWeightLimit = InWeightLimit;
 			
-			if (MyWMPRI != none)
+			if (MyWMPRI != none && MyWMGRI != none)
 			{
 				for (i=0;i<MyWMPRI.purchase_perkUpgrade.length;i+=1)
 				{
@@ -1125,12 +1125,13 @@ function ApplyWeightLimits()
 					index = MyWMPRI.purchase_skillUpgrade[i];
 					MyWMGRI.skillUpgrades[index].static.ApplyWeightLimits(InWeightLimit, DefaultWeightLimit, MyWMPRI.bSkillUpgrade[index]);
 				}
+				for(i=0;i<=1;i+=1)
+				{
+					if(MyWMGRI.SpecialWaveID[i] != -1)
+						MyWMGRI.specialWaves[MyWMGRI.SpecialWaveID[i]].static.ApplyWeightLimits(InWeightLimit, DefaultWeightLimit);
+				}
 			}
-			for(i=0;i<=1;i+=1)
-			{
-				if(MyWMGRI.SpecialWaveID[i] != -1)
-					MyWMGRI.specialWaves[MyWMGRI.SpecialWaveID[i]].static.ApplyWeightLimits(InWeightLimit, DefaultWeightLimit);
-			}
+
 			KFIM.MaxCarryBlocks = InWeightLimit;
 			CheckForOverWeight(KFIM);
 		}
