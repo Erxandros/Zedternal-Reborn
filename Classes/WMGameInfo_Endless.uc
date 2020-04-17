@@ -18,15 +18,6 @@ var byte traderVoiceIndex;
 var float CustomDifficulty;
 var bool CustomMode;
 
-struct S_Difficulty_Int
-{
-	var int Normal;
-	var int Hard;
-	var int Suicidal;
-	var int HoE;
-	var int Custom;
-};
-
 struct S_Weapon_Upgrade
 {
 	var class<KFWeapon> KFWeapon;
