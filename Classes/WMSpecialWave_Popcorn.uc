@@ -19,10 +19,10 @@ defaultproperties
    Title="Popcorn"
    Description="Make them explode!"
    zedSpawnRateFactor=1.300000
-   MonsterToAdd(0)=(MinWave=0,MaxWave=999,MinGr=4,MaxGr=8,MClass=Class'KFGameContent.KFPawn_ZedCrawler')
-   MonsterToAdd(1)=(MinWave=0,MaxWave=999,MinGr=4,MaxGr=8,MClass=Class'KFGameContent.KFPawn_ZedCrawler')
-   MonsterToAdd(2)=(MinWave=0,MaxWave=999,MinGr=4,MaxGr=8,MClass=Class'KFGameContent.KFPawn_ZedCrawler')
-   MonsterToAdd(3)=(MinWave=0,MaxWave=999,MinGr=4,MaxGr=8,MClass=Class'KFGameContent.KFPawn_ZedCrawler')
+   MonsterToAdd(0)=(MinWave=0,MaxWave=999,MinGr=4,MaxGr=8,MClass=Class'ZedternalReborn.WMPawn_ZedCrawler_NoElite')
+   MonsterToAdd(1)=(MinWave=0,MaxWave=999,MinGr=4,MaxGr=8,MClass=Class'ZedternalReborn.WMPawn_ZedCrawler_NoElite')
+   MonsterToAdd(2)=(MinWave=0,MaxWave=999,MinGr=4,MaxGr=8,MClass=Class'ZedternalReborn.WMPawn_ZedCrawler_NoElite')
+   MonsterToAdd(3)=(MinWave=0,MaxWave=999,MinGr=4,MaxGr=8,MClass=Class'ZedternalReborn.WMPawn_ZedCrawler_NoElite')
 
    Chance = 0.600000
    

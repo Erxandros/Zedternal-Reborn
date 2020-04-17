@@ -35,13 +35,13 @@ defaultproperties
    DamageTakenFactor=0.900000;
    
    bReplaceMonstertoAdd=true
-   MonsterToAdd(0)=(MinWave=0,MaxWave=999,MinGr=2,MaxGr=5,MClass=Class'KFGameContent.KFPawn_ZedClot_Alpha')
+   MonsterToAdd(0)=(MinWave=0,MaxWave=999,MinGr=2,MaxGr=5,MClass=Class'ZedternalReborn.WMPawn_ZedClot_Alpha_NoRiot')
    MonsterToAdd(1)=(MinWave=0,MaxWave=999,MinGr=2,MaxGr=5,MClass=Class'KFGameContent.KFPawn_ZedClot_Slasher')
-   MonsterToAdd(2)=(MinWave=0,MaxWave=999,MinGr=2,MaxGr=5,MClass=Class'KFGameContent.KFPawn_ZedClot_Alpha')
+   MonsterToAdd(2)=(MinWave=0,MaxWave=999,MinGr=2,MaxGr=5,MClass=Class'ZedternalReborn.WMPawn_ZedClot_Alpha_NoRiot')
    MonsterToAdd(3)=(MinWave=0,MaxWave=999,MinGr=2,MaxGr=5,MClass=Class'KFGameContent.KFPawn_ZedClot_Slasher')
-   MonsterToAdd(4)=(MinWave=0,MaxWave=999,MinGr=1,MaxGr=2,MClass=Class'KFGameContent.KFPawn_ZedCrawler')
-   MonsterToAdd(5)=(MinWave=0,MaxWave=999,MinGr=1,MaxGr=4,MClass=Class'KFGameContent.KFPawn_ZedGorefast')
-   MonsterToAdd(6)=(MinWave=0,MaxWave=999,MinGr=1,MaxGr=2,MClass=Class'KFGameContent.KFPawn_ZedStalker')
+   MonsterToAdd(4)=(MinWave=0,MaxWave=999,MinGr=1,MaxGr=2,MClass=Class'ZedternalReborn.WMPawn_ZedCrawler_NoElite')
+   MonsterToAdd(5)=(MinWave=0,MaxWave=999,MinGr=1,MaxGr=4,MClass=Class'ZedternalReborn.WMPawn_ZedGorefast_NoDualBlade')
+   MonsterToAdd(6)=(MinWave=0,MaxWave=999,MinGr=1,MaxGr=2,MClass=Class'ZedternalReborn.WMPawn_ZedStalker_NoDAR')
    
    Name="Default__WMSpecialWave_TinyTerror"
 }

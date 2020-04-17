@@ -34,7 +34,7 @@ defaultproperties
    doshFactor=2.000000
    MonsterToAdd(0)=(MinWave=0,MaxWave=999,MinGr=4,MaxGr=8,MClass=Class'KFGameContent.KFPawn_ZedSiren')
    MonsterToAdd(1)=(MinWave=0,MaxWave=999,MinGr=1,MaxGr=4,MClass=Class'KFGameContent.KFPawn_ZedSiren')
-   MonsterToAdd(2)=(MinWave=0,MaxWave=999,MinGr=3,MaxGr=6,MClass=Class'KFGameContent.KFPawn_ZedClot_Alpha')
+   MonsterToAdd(2)=(MinWave=0,MaxWave=999,MinGr=3,MaxGr=6,MClass=Class'ZedternalReborn.WMPawn_ZedClot_Alpha_NoRiot')
    MonsterToAdd(3)=(MinWave=0,MaxWave=999,MinGr=2,MaxGr=5,MClass=Class'KFGameContent.KFPawn_ZedClot_Slasher')
    MonsterToAdd(4)=(MinWave=4,MaxWave=999,MinGr=6,MaxGr=12,MClass=Class'KFGameContent.KFPawn_ZedSiren')
    MonsterToAdd(5)=(MinWave=7,MaxWave=999,MinGr=2,MaxGr=3,MClass=Class'KFGameContent.KFPawn_ZedSiren')
