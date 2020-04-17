@@ -5,6 +5,8 @@ var array<byte> BodyParts;
 
 static function ModifyDamageGiven( out int InDamage, int DefaultDamage, int upgLevel, optional Actor DamageCauser, optional KFPawn_Monster MyKFPM, optional KFPlayerController DamageInstigator, optional class<KFDamageType> DamageType, optional int HitZoneIdx, optional KFWeapon MyKFW)
 {
+	if (HitZoneIdx < 0) return;
+
 	if( MyKFPM != none && MyKFPM.bIsSprinting && FRand() < default.Prob[upgLevel-1] && HitShouldGiveBodyPartDamage( MyKFPM.HitZones[HitZoneIdx].Limb ) && MyKFPM.CanDoSpecialMove( SM_Knockdown ) )
 		MyKFPM.Knockdown( MyKFPM.Velocity * 0.5, vect(1,1,1), MyKFPM.Location, 1000, 100 );
 }
