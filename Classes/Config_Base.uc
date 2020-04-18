@@ -47,7 +47,7 @@ static function CheckDefaultValue()
 defaultproperties
 {
 	currentVersion = 1;
-	currentHotfix = 3;
+	currentHotfix = 4;
 
 	ConfigFiles(0) = class'ZedternalReborn.Config_Game'
 	ConfigFiles(1) = class'ZedternalReborn.Config_Difficulty'
