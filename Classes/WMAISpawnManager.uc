@@ -408,12 +408,12 @@ function CheckStuckZed()
 	local bool bFound;
 	
 	// remove dead tracked zedClass
-	for (i=0; i<lastZedInfo.length; i+=1)
+	for (i = 0; i < lastZedInfo.length; i++)
 	{
 		if (lastZedInfo[i].pawn == none || lastZedInfo[i].pawn.Health <= 0)
 		{
 			lastZedInfo.Remove(i, 1);
-			i -= 1;
+			i--;
 		}
 	}
 	
@@ -421,30 +421,30 @@ function CheckStuckZed()
 	{
 		bFound = false;
 		// check if we are currently tracking this monster
-		for (i=0; i<lastZedInfo.length; i+=1)
+		for (i = 0; i < lastZedInfo.length; i++)
 		{
 			if (lastZedInfo[i].pawn == KFM)
 			{
 				bFound = true;	// yes, we are currently tracking this monster
-				lastZedInfo[i].countDown -= 1;
+				lastZedInfo[i].countDown--;
 				// run this section if this monster is in the world for more than X seconds (when countdown reach 0)
 				if (lastZedInfo[i].countDown == 0)
 				{
 					// if stuck and full health, teleport it
-					if (KFM.Health >= (KFM.HealthMax-4))
+					if (KFM.Health >= (KFM.HealthMax - 4))
 					{
 						groupList.Insert(0,1);
 						groupList[0].MClass.AddItem(KFM.default.class);
 						groupList[0].Delay = 1.f;
-						WaveTotalAI += 1;
-						KFGameReplicationInfo(WorldInfo.GRI).AIRemaining += 1;
+						WaveTotalAI++;
+						KFGameReplicationInfo(WorldInfo.GRI).AIRemaining++;
 						
 						// kill zed
 						KFM.Died(none , none, KFM.Location);
 					}
 				}
 				else
-					lastZedInfo[i].countDown -= 1;
+					lastZedInfo[i].countDown--;
 			}
 		}
 		
