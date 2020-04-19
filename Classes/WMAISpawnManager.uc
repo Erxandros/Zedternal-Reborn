@@ -430,10 +430,10 @@ function CheckStuckZed()
 				bFound = true;	// yes, we are currently tracking this monster
 				lastZedInfo[i].countDown--;
 				// run this section if this monster is in the world for more than X seconds (when countdown reach 0)
-				if (lastZedInfo[i].countDown == 0)
+				if (lastZedInfo[i].countDown <= 0)
 				{
-					// if stuck and full health, teleport it
-					if (KFM.Health >= (KFM.HealthMax - 4))
+					// if stuck and near full health, teleport it
+					if (KFM.Health >= (KFM.HealthMax * 0.9))
 					{
 						groupList.Insert(0,1);
 						groupList[0].MClass.AddItem(KFM.default.class);
