@@ -380,7 +380,7 @@ function Update()
         }
 	}
 	
-	if (groupList.Length == 0 && GetAIAliveCount() <= 4)
+	if (groupList.Length == 0 && GetAIAliveCount() <= class'ZedternalReborn.Config_Map'.static.GetZedStuckThreshold(WorldInfo.GetMapName(true)))
 	{
 		CheckStuckZed();
 	}
@@ -455,7 +455,7 @@ function CheckStuckZed()
 		{
 			lastZedInfo.Insert(0,1);
 			lastZedInfo[0].pawn = KFM;
-			lastZedInfo[0].countDown = 120; // will be teleported after 2 minutes
+			lastZedInfo[0].countDown = class'ZedternalReborn.Config_Map'.static.GetZedStuckTimeout(WorldInfo.GetMapName(true));; // will be teleported after 2.5 minutes or user defined time
 		}
 	}
 }
