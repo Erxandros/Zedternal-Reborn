@@ -60,6 +60,8 @@ function SetupNextWave(byte NextWaveIndex, int TimeToNextWaveBuffer = 0)
 	WMGRI = WMGameReplicationInfo(WorldInfo.GRI);
 	
 	bAllowTurboSpawn = class'ZedternalReborn.Config_Game'.default.Game_bAllowFastSpawning;
+
+	lastZedInfo.length = 0; // Clear the lastZedInfo array just in case
 	
 	`log("Generating ZED list for wave " $ NextWaveIndex $ "...");
 	
