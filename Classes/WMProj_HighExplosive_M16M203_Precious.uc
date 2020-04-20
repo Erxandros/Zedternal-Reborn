@@ -4,8 +4,8 @@ class WMProj_HighExplosive_M16M203_Precious extends KFProj_HighExplosive_M16M203
 defaultproperties
 {
    Begin Object Class=KFGameExplosion Name=ExploTemplatePrecious
-      Damage=250
-      DamageRadius=500
+      Damage=288.0 //25% increase (round up)
+      DamageRadius=600.0 //20% increase
       DamageFalloffExponent=1
       DamageDelay=0.f
 

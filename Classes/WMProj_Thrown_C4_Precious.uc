@@ -3,8 +3,8 @@ class WMProj_Thrown_C4_Precious extends KFProj_Thrown_C4;
 defaultproperties
 {
    Begin Object Class=KFGameExplosion Name=ExploTemplatePrecious
-      Damage=1100
-      DamageRadius=500
+      Damage=1025 //25% increase
+      DamageRadius=480 //20% increase
       DamageFalloffExponent=2.f
       DamageDelay=0.f
 

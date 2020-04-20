@@ -4,8 +4,8 @@ class WMProj_Rocket_RPG7_Precious extends KFProj_Rocket_RPG7
 defaultproperties
 {
    Begin Object Class=KFGameExplosion Name=ExploTemplatePrecious
-      Damage=1050
-      DamageRadius=400
+      Damage=938.0 //25% increase (round up)
+      DamageRadius=480.0 //20% increase
       DamageFalloffExponent=2
       DamageDelay=0.f
 
