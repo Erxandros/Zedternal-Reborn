@@ -1306,32 +1306,32 @@ function byte GetGameIntensityForMusic()
 
 defaultproperties
 {
-	EndCinematicDelay = 4.000000;
-	AARDisplayDelay = 15.000000;
-	bCanPerkAlwaysChange = False;
-	ReservationTimeout = 120;
-	DifficultyInfoClass = Class'ZedternalReborn.WMGameDifficulty_Endless';
-	DifficultyInfoConsoleClass = Class'kfgamecontent.KFGameDifficulty_Survival_Console';
-	MaxGameDifficulty = 4;
-	bIsEndlessGame = True;
-	startingWave = 0;
-	SpawnManagerClasses(0) = Class'ZedternalReborn.WMAISpawnManager';
-	SpawnManagerClasses(1) = Class'ZedternalReborn.WMAISpawnManager';
-	SpawnManagerClasses(2) = Class'ZedternalReborn.WMAISpawnManager';
-	GameplayEventsWriterClass = Class'KFGame.KFGameplayEventsWriter';
-	TraderVoiceGroupClass = Class'kfgamecontent.KFTraderVoiceGroup_Default';
-	traderVoiceIndex = 0;
+	EndCinematicDelay=4.000000
+	AARDisplayDelay=15.000000
+	bCanPerkAlwaysChange=False
+	ReservationTimeout=120
+	DifficultyInfoClass=Class'ZedternalReborn.WMGameDifficulty_Endless'
+	DifficultyInfoConsoleClass=Class'kfgamecontent.KFGameDifficulty_Survival_Console'
+	MaxGameDifficulty=4
+	bIsEndlessGame=True
+	startingWave=0
+	SpawnManagerClasses(0)=Class'ZedternalReborn.WMAISpawnManager'
+	SpawnManagerClasses(1)=Class'ZedternalReborn.WMAISpawnManager'
+	SpawnManagerClasses(2)=Class'ZedternalReborn.WMAISpawnManager'
+	GameplayEventsWriterClass=Class'KFGame.KFGameplayEventsWriter'
+	TraderVoiceGroupClass=Class'kfgamecontent.KFTraderVoiceGroup_Default'
+	traderVoiceIndex=0
 
-	CustomMode = false;
-	CustomDifficulty = 4.0;
-	Name = "Default__WMGameInfo_Endless";
+	CustomMode=false
+	CustomDifficulty=4.0
+	Name="Default__WMGameInfo_Endless"
 
-	DefaultPawnClass = Class'ZedternalReborn.WMPawn_Human';
-	PlayerReplicationInfoClass = Class'ZedternalReborn.WMPlayerReplicationInfo';
-	PlayerControllerClass = Class'ZedternalReborn.WMPlayerController';
-	KFGFxManagerClass = Class'ZedternalReborn.WMGFxMoviePlayer_Manager';
-	GameReplicationInfoClass = Class'ZedternalReborn.WMGameReplicationInfo';
+	DefaultPawnClass=Class'ZedternalReborn.WMPawn_Human'
+	PlayerReplicationInfoClass=Class'ZedternalReborn.WMPlayerReplicationInfo'
+	PlayerControllerClass=Class'ZedternalReborn.WMPlayerController'
+	KFGFxManagerClass=Class'ZedternalReborn.WMGFxMoviePlayer_Manager'
+	GameReplicationInfoClass=Class'ZedternalReborn.WMGameReplicationInfo'
 
-	DefaultTraderItems = KFGFxObject_TraderItems'GP_Trader_ARCH.DefaultTraderItems';
-	HUDType = Class'ZedternalReborn.WMGFxHudWrapper';
+	DefaultTraderItems=KFGFxObject_TraderItems'GP_Trader_ARCH.DefaultTraderItems'
+	HUDType=Class'ZedternalReborn.WMGFxHudWrapper'
 }

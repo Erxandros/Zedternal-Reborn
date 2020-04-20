@@ -14,6 +14,6 @@ defaultproperties
    zedSpawnRateFactor=1.300000
    waveValueFactor=1.300000
    doshFactor=0.750000
-   Damage = 1.000000
+   Damage=1.000000
    Name="Default__WMSpecialWave_DoubleDamage"
 }

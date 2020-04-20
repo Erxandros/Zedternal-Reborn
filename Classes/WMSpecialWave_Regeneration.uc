@@ -41,8 +41,8 @@ defaultproperties
    Description="You feel better!"
    zedSpawnRateFactor=1.100000
    waveValueFactor=1.000000
-   healRecharge = 0.300000
-   regenTimer = 0.300000
+   healRecharge=0.300000
+   regenTimer=0.300000
    
    Name="Default__WMSpecialWave_Regeneration"
 }

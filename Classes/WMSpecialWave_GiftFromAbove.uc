@@ -25,7 +25,7 @@ defaultproperties
    Title="Gift From Above"
    Description="More gifts spawn during the wave!"
    
-   PickupFactor = 9.000000
+   PickupFactor=9.000000
    
    Name="Default__WMSpecialWave_GiftFromAbove"
 }

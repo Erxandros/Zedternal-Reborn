@@ -32,7 +32,7 @@ defaultproperties
    waveValueFactor=0.800000
    doshFactor=1.100000
    
-   DamageTakenFactor=0.900000;
+   DamageTakenFactor=0.900000
    
    bReplaceMonstertoAdd=true
    MonsterToAdd(0)=(MinWave=0,MaxWave=999,MinGr=2,MaxGr=5,MClass=Class'ZedternalReborn.WMPawn_ZedClot_Alpha_NoRiot')

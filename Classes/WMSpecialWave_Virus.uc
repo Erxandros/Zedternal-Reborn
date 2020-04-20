@@ -57,7 +57,7 @@ defaultproperties
    zedSpawnRateFactor=0.950000
    waveValueFactor=1.050000
    
-   prob = 0.2500000;
+   prob=0.2500000
    
    Name="Default__WMSpecialWave_Virus"
 }

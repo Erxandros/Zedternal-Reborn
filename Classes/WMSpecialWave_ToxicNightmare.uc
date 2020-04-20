@@ -61,10 +61,10 @@ defaultproperties
    MonsterToAdd(4)=(MinWave=3,MaxWave=999,MinGr=2,MaxGr=6,MClass=Class'KFGameContent.KFPawn_ZedCrawlerKing')
    MonsterToAdd(5)=(MinWave=3,MaxWave=999,MinGr=2,MaxGr=4,MClass=Class'KFGameContent.KFPawn_ZedBloatKingSubspawn')
 
-   Probability = 0.050000
-   nbPoint = -1
-   desiredMines = 65
-   Delay = 30.000000
+   Probability=0.050000
+   nbPoint=-1
+   desiredMines=65
+   Delay=30.000000
    PukeMineProjectileClass=Class'kfgamecontent.KFProj_BloatPukeMine'
    Name="Default__WMSpecialWave_ToxicNightmare"
 }

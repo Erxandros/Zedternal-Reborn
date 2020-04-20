@@ -42,10 +42,10 @@ defaultproperties
    Description="Everyone is a vampire!"
    zedSpawnRateFactor=1.100000
    
-   healRecharge = 0.500000
-   Amount = 5;
-   HealZed = 5;
-   HealLargeZed = 10;
+   healRecharge=0.500000
+   Amount=5
+   HealZed=5
+   HealLargeZed=10
    
    Name="Default__WMSpecialWave_Vampire"
 }

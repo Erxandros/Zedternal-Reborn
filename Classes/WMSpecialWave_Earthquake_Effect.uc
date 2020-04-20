@@ -29,7 +29,7 @@ reliable client function PlayLocalEffects()
 
 defaultproperties
 {
-   bOnlyRelevantToOwner = true
+   bOnlyRelevantToOwner=true
    cameraShake=KFCameraShake'ZedternalReborn_Resource.FX_CameraShake_Earthquake'
-   earthquakeSound = AkEvent'ww_zed_fleshpound_2.Play_Fleshpound_Pound'
+   earthquakeSound=AkEvent'ww_zed_fleshpound_2.Play_Fleshpound_Pound'
 }

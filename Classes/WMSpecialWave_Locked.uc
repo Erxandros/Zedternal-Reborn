@@ -82,7 +82,7 @@ defaultproperties
    waveValueFactor=0.700000
    doshFactor=1.400000
    
-   Rate = 0.700000
+   Rate=0.700000
    
    Name="Default__WMSpecialWave_Locked"
 }

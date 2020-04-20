@@ -23,7 +23,7 @@ defaultproperties
    MonsterToAdd(5)=(MinWave=7,MaxWave=999,MinGr=1,MaxGr=5,MClass=Class'KFGameContent.KFPawn_ZedScrake')
    MonsterToAdd(6)=(MinWave=0,MaxWave=999,MinGr=1,MaxGr=1,MClass=Class'ZedternalReborn.WMPawn_ZedScrake_Tiny')
    
-   Damage = 0.600000
+   Damage=0.600000
    
    Name="Default__WMSpecialWave_BloodyChainsaw"
 }

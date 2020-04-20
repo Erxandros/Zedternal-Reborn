@@ -24,7 +24,7 @@ defaultproperties
    MonsterToAdd(2)=(MinWave=0,MaxWave=999,MinGr=4,MaxGr=8,MClass=Class'ZedternalReborn.WMPawn_ZedCrawler_NoElite')
    MonsterToAdd(3)=(MinWave=0,MaxWave=999,MinGr=4,MaxGr=8,MClass=Class'ZedternalReborn.WMPawn_ZedCrawler_NoElite')
 
-   Chance = 0.600000
+   Chance=0.600000
    
    Name="Default__WMSpecialWave_Popcorn"
 }

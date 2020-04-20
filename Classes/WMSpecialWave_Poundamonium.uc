@@ -22,7 +22,7 @@ defaultproperties
    MonsterToAdd(4)=(MinWave=6,MaxWave=999,MinGr=1,MaxGr=2,MClass=Class'KFGameContent.KFPawn_ZedFleshpound')
    MonsterToAdd(5)=(MinWave=0,MaxWave=999,MinGr=1,MaxGr=4,MClass=Class'KFGameContent.KFPawn_ZedFleshpoundMini')
    
-   Damage = 0.400000
+   Damage=0.400000
    
    Name="Default__WMSpecialWave_Poundamonium"
 }

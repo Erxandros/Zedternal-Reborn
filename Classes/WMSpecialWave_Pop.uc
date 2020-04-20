@@ -44,10 +44,10 @@ defaultproperties
    Title="Hard Skin"
    Description="Headshots are the key!"
 
-   damageHead = 1.300000
-   damageBody = 0.450000
-   damageOther = 0.200000
-   ZedHeadScale = 0.800000
+   damageHead=1.300000
+   damageBody=0.450000
+   damageOther=0.200000
+   ZedHeadScale=0.800000
    
    Name="Default__WMSpecialWave_Pop"
 }

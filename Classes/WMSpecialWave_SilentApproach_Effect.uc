@@ -44,6 +44,6 @@ simulated function UpdateZed()
 
 defaultproperties
 {
-   bOnlyRelevantToOwner = true
-   Invisible_Mat = MaterialInstanceConstant'ZED_Stalker_MAT.ZED_Stalker_MAT'
+   bOnlyRelevantToOwner=true
+   Invisible_Mat=MaterialInstanceConstant'ZED_Stalker_MAT.ZED_Stalker_MAT'
 }

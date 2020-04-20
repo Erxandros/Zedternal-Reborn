@@ -27,7 +27,7 @@ defaultproperties
    zedSpawnRateFactor=0.925000
    waveValueFactor=0.950000
    
-   zedSpeedScale = 1.0f;
+   zedSpeedScale=1.0f
    
    Name="Default__WMSpecialWave_Lethargic"
 }
