@@ -26,6 +26,8 @@ var config array<SVampire> Player_VampireEffect;
 
 static function UpdateConfig()
 {
+	local SDamage DValue;
+
 	if (default.MODEVERSION < 1)
 	{
 		default.Player_bDropAllWeaponsWhenDead = true;
@@ -69,6 +71,16 @@ static function UpdateConfig()
 		default.Player_VampireEffect[1].HealAmount = 3;
 		default.Player_VampireEffect[2].DamageType = class'KFGame.KFDT_Slashing';
 		default.Player_VampireEffect[2].HealAmount = 3;
+	}
+
+	if (default.MODEVERSION < 2)
+	{
+		if (default.Player_DamageTakenFactor.Find('DamageType', class'KFGameContent.KFDT_EMP_MatriarchPlasmaCannon') == -1)
+		{
+			DValue.DamageType = class'KFGameContent.KFDT_EMP_MatriarchPlasmaCannon';
+			DValue.Factor = 0.750000;
+			default.Player_DamageTakenFactor.AddItem(DValue);
+		}
 	}
 
 	if (default.MODEVERSION < class'ZedternalReborn.Config_Base'.default.currentVersion)
