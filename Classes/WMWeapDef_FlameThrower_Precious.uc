@@ -1,11 +1,8 @@
-class WMWeapDef_Flamethrower_Precious extends KFWeapDef_Flamethrower
+class WMWeapDef_FlameThrower_Precious extends KFWeapDef_FlameThrower
 	abstract;
 
 const SHORT_ITEM_NAME = "Flamethrower";
 const DEFAULT_WEAPON_PATH = "KFGameContent.KFWeap_Flame_Flamethrower";
-
-
-
 
 static function string GetItemLocalization(string KeyName)
 {
@@ -20,14 +17,10 @@ static function string GetItemLocalization(string KeyName)
 		return Localization;
 }
 
-
-
-
-
 defaultproperties
 {
    WeaponClassPath="ZedternalReborn.WMWeap_Flame_Flamethrower_Precious"
    BuyPrice=2000
    AmmoPricePerMag=100
-   Name="Default__KFWeapDef_Flamethrower_Precious"
+   Name="Default__KFWeapDef_FlameThrower_Precious"
 }

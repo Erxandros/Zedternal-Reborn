@@ -175,6 +175,16 @@ static function UpdateConfig()
 		}
 	}
 
+	if (default.MODEVERSION < 2)
+	{
+		i = default.WeaponVariant_VariantList.Find('WeaponDef', "KFGame.KFWeapDef_Flamethrower");
+		if (i != -1)
+		{
+			default.WeaponVariant_VariantList[i].WeaponDef = "KFGame.KFWeapDef_FlameThrower";
+			default.WeaponVariant_VariantList[i].WeaponDefVariant = "ZedternalReborn.WMWeapDef_FlameThrower_Precious";
+		}
+	}
+
 	if (default.MODEVERSION < class'ZedternalReborn.Config_Base'.default.currentVersion)
 	{
 		default.MODEVERSION = class'ZedternalReborn.Config_Base'.default.currentVersion;
