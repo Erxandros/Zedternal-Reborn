@@ -4,9 +4,6 @@ class WMWeapDef_AF2011_Precious extends KFWeapDef_AF2011
 const SHORT_ITEM_NAME = "AF2011";
 const DEFAULT_WEAPON_PATH = "KFGameContent.KFWeap_Pistol_AF2011";
 
-
-
-
 static function string GetItemLocalization(string KeyName)
 {
 	local array<string> Strings;
@@ -20,14 +17,10 @@ static function string GetItemLocalization(string KeyName)
 		return Localization;
 }
 
-
-
-
-
 defaultproperties
 {
-   WeaponClassPath="ZedternalReborn.WMWeap_Pistol_AF2011_Precious"
-   BuyPrice=1000
-   AmmoPricePerMag=49
-   Name="Default__KFWeapDef_AF2011_Precious"
+	WeaponClassPath="ZedternalReborn.WMWeap_Pistol_AF2011_Precious"
+	BuyPrice=1500 //2x
+	AmmoPricePerMag=57 //40% more per bullet
+	Name="Default__KFWeapDef_AF2011_Precious"
 }

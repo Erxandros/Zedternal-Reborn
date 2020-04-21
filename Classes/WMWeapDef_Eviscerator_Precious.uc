@@ -4,9 +4,6 @@ class WMWeapDef_Eviscerator_Precious extends KFWeapDef_Eviscerator
 const SHORT_ITEM_NAME = "Eviscerator";
 const DEFAULT_WEAPON_PATH = "KFGameContent.KFWeap_Eviscerator";
 
-
-
-
 static function string GetItemLocalization(string KeyName)
 {
 	local array<string> Strings;
@@ -20,14 +17,12 @@ static function string GetItemLocalization(string KeyName)
 		return Localization;
 }
 
-
-
-
-
 defaultproperties
 {
-   WeaponClassPath="ZedternalReborn.WMWeap_Eviscerator_Precious"
-   BuyPrice=2000
-   AmmoPricePerMag=90
-   Name="Default__KFWeapDef_Eviscerator_Precious"
+	WeaponClassPath="ZedternalReborn.WMWeap_Eviscerator_Precious"
+	BuyPrice=3200 //2x
+	AmmoPricePerMag=168 //40% more per blade
+	SecondaryAmmoMagSize=15 //50% increase
+	SecondaryAmmoMagPrice=21 //40% more per fuel
+	Name="Default__KFWeapDef_Eviscerator_Precious"
 }

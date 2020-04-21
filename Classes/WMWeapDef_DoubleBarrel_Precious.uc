@@ -4,9 +4,6 @@ class WMWeapDef_DoubleBarrel_Precious extends KFWeapDef_DoubleBarrel
 const SHORT_ITEM_NAME = "Double Barrel";
 const DEFAULT_WEAPON_PATH = "KFGameContent.KFWeap_Shotgun_DoubleBarrel";
 
-
-
-
 static function string GetItemLocalization(string KeyName)
 {
 	local array<string> Strings;
@@ -20,14 +17,10 @@ static function string GetItemLocalization(string KeyName)
 		return Localization;
 }
 
-
-
-
-
 defaultproperties
 {
-   WeaponClassPath="ZedternalReborn.WMWeap_Shotgun_DoubleBarrel_Precious"
-   BuyPrice=2000
-   AmmoPricePerMag=15
-   Name="Default__KFWeapDef_DoubleBarrel_Precious"
+	WeaponClassPath="ZedternalReborn.WMWeap_Shotgun_DoubleBarrel_Precious"
+	BuyPrice=1500 //2x
+	AmmoPricePerMag=28 //40% more per bullet
+	Name="Default__KFWeapDef_DoubleBarrel_Precious"
 }

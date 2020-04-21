@@ -4,9 +4,6 @@ class WMWeapDef_AA12_Precious extends KFWeapDef_AA12
 const SHORT_ITEM_NAME = "AA12";
 const DEFAULT_WEAPON_PATH = "KFGameContent.KFWeap_Shotgun_AA12";
 
-
-
-
 static function string GetItemLocalization(string KeyName)
 {
 	local array<string> Strings;
@@ -20,14 +17,10 @@ static function string GetItemLocalization(string KeyName)
 		return Localization;
 }
 
-
-
-
-
 defaultproperties
 {
-   WeaponClassPath="ZedternalReborn.WMWeap_Shotgun_AA12_Precious"
-   BuyPrice=2000
-   AmmoPricePerMag=115
-   Name="Default__KFWeapDef_AA12_Precious"
+	WeaponClassPath="ZedternalReborn.WMWeap_Shotgun_AA12_Precious"
+	BuyPrice=3000 //2x
+	AmmoPricePerMag=173 //40% more per bullet
+	Name="Default__KFWeapDef_AA12_Precious"
 }

@@ -4,9 +4,6 @@ class WMWeapDef_Katana_Precious extends KFWeapDef_Katana
 const SHORT_ITEM_NAME = "Katana";
 const DEFAULT_WEAPON_PATH = "KFGameContent.KFWeap_Edged_Katana";
 
-
-
-
 static function string GetItemLocalization(string KeyName)
 {
 	local array<string> Strings;
@@ -20,13 +17,9 @@ static function string GetItemLocalization(string KeyName)
 		return Localization;
 }
 
-
-
-
-
 defaultproperties
 {
-   WeaponClassPath="ZedternalReborn.WMWeap_Edged_Katana_Precious"
-   BuyPrice=2000
-   Name="Default__KFWeapDef_Katana_Precious"
+	WeaponClassPath="ZedternalReborn.WMWeap_Edged_Katana_Precious"
+	BuyPrice=1700 //2x
+	Name="Default__KFWeapDef_Katana_Precious"
 }

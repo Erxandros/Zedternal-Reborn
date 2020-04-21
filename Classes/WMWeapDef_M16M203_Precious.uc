@@ -4,9 +4,6 @@ class WMWeapDef_M16M203_Precious extends KFWeapDef_M16M203
 const SHORT_ITEM_NAME = "M16-M203";
 const DEFAULT_WEAPON_PATH = "KFGameContent.KFWeap_HighExplosive_M16M203";
 
-
-
-
 static function string GetItemLocalization(string KeyName)
 {
 	local array<string> Strings;
@@ -20,15 +17,12 @@ static function string GetItemLocalization(string KeyName)
 		return Localization;
 }
 
-
-
-
-
 defaultproperties
 {
-   WeaponClassPath="ZedternalReborn.WMWeap_HighExplosive_M16M203_Precious"
-   BuyPrice=2000
-   AmmoPricePerMag=55
-   SecondaryAmmoMagPrice=16
-   Name="Default__KFWeapDef_M16M203_Precious"
+	WeaponClassPath="ZedternalReborn.WMWeap_HighExplosive_M16M203_Precious"
+	BuyPrice=2400 //2x
+	AmmoPricePerMag=63 //40% more per bullet
+	SecondaryAmmoMagSize=2 //2x
+	SecondaryAmmoMagPrice=42 //40% more per grenade
+	Name="Default__KFWeapDef_M16M203_Precious"
 }

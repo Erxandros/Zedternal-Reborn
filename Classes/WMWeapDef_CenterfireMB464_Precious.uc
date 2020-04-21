@@ -4,9 +4,6 @@ class WMWeapDef_CenterfireMB464_Precious extends KFWeapDef_CenterfireMB464
 const SHORT_ITEM_NAME = "Centerfire";
 const DEFAULT_WEAPON_PATH = "KFGameContent.KFWeap_Rifle_CenterfireMB464";
 
-
-
-
 static function string GetItemLocalization(string KeyName)
 {
 	local array<string> Strings;
@@ -20,14 +17,10 @@ static function string GetItemLocalization(string KeyName)
 		return Localization;
 }
 
-
-
-
-
 defaultproperties
 {
-   WeaponClassPath="ZedternalReborn.WMWeap_Rifle_CenterfireMB464_Precious"
-   BuyPrice=2000
-   AmmoPricePerMag=110
-   Name="Default__KFWeapDef_CenterfireMB464_Precious"
+	WeaponClassPath="ZedternalReborn.WMWeap_Rifle_CenterfireMB464_Precious"
+	BuyPrice=1300 //2x
+	AmmoPricePerMag=116 //40% more per bullet
+	Name="Default__KFWeapDef_CenterfireMB464_Precious"
 }

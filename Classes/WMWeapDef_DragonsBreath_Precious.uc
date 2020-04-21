@@ -4,9 +4,6 @@ class WMWeapDef_DragonsBreath_Precious extends KFWeapDef_DragonsBreath
 const SHORT_ITEM_NAME = "DragonsBreath";
 const DEFAULT_WEAPON_PATH = "KFGameContent.KFWeap_Shotgun_DragonsBreath";
 
-
-
-
 static function string GetItemLocalization(string KeyName)
 {
 	local array<string> Strings;
@@ -20,14 +17,10 @@ static function string GetItemLocalization(string KeyName)
 		return Localization;
 }
 
-
-
-
-
 defaultproperties
 {
-   WeaponClassPath="ZedternalReborn.WMWeap_Shotgun_DragonsBreath_Precious"
-   BuyPrice=2000
-   AmmoPricePerMag=48
-   Name="Default__KFWeapDef_DragonsBreath_Precious"
+	WeaponClassPath="ZedternalReborn.WMWeap_Shotgun_DragonsBreath_Precious"
+	BuyPrice=1300 //2x
+	AmmoPricePerMag=63 //40% more per bullet
+	Name="Default__KFWeapDef_DragonsBreath_Precious"
 }

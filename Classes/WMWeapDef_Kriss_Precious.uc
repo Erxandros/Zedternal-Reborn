@@ -4,9 +4,6 @@ class WMWeapDef_Kriss_Precious extends KFWeapDef_Kriss
 const SHORT_ITEM_NAME = "Kriss";
 const DEFAULT_WEAPON_PATH = "KFGameContent.KFWeap_SMG_Kriss";
 
-
-
-
 static function string GetItemLocalization(string KeyName)
 {
 	local array<string> Strings;
@@ -20,14 +17,10 @@ static function string GetItemLocalization(string KeyName)
 		return Localization;
 }
 
-
-
-
-
 defaultproperties
 {
-   WeaponClassPath="ZedternalReborn.WMWeap_SMG_Kriss_Precious"
-   BuyPrice=2000
-   AmmoPricePerMag=40
-   Name="Default__KFWeapDef_Kriss_Precious"
+	WeaponClassPath="ZedternalReborn.WMWeap_SMG_Kriss_Precious"
+	BuyPrice=3000 //2x
+	AmmoPricePerMag=75 //40% more per bullet
+	Name="Default__KFWeapDef_Kriss_Precious"
 }

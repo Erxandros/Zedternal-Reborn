@@ -4,9 +4,6 @@ class WMWeapDef_SW500Dual_Precious extends KFWeapDef_SW500Dual
 const SHORT_ITEM_NAME = "Dual SW500";
 const DEFAULT_WEAPON_PATH = "KFGameContent.KFWeap_Revolver_DualSW500";
 
-
-
-
 static function string GetItemLocalization(string KeyName)
 {
 	local array<string> Strings;
@@ -20,14 +17,10 @@ static function string GetItemLocalization(string KeyName)
 		return Localization;
 }
 
-
-
-
-
 defaultproperties
 {
-   WeaponClassPath="ZedternalReborn.WMWeap_Revolver_DualSW500_Precious"
-   BuyPrice=2000
-   AmmoPricePerMag=70
-   Name="Default__KFWeapDef_SW500Dual_Precious"
+	WeaponClassPath="ZedternalReborn.WMWeap_Revolver_DualSW500_Precious"
+	BuyPrice=3000 //2x
+	AmmoPricePerMag=112 //40% more per bullet
+	Name="Default__KFWeapDef_SW500Dual_Precious"
 }

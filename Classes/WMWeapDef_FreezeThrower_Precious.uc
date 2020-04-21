@@ -4,9 +4,6 @@ class WMWeapDef_FreezeThrower_Precious extends KFWeapDef_FreezeThrower
 const SHORT_ITEM_NAME = "FreezeThrower";
 const DEFAULT_WEAPON_PATH = "KFGameContent.KFWeap_Ice_FreezeThrower";
 
-
-
-
 static function string GetItemLocalization(string KeyName)
 {
 	local array<string> Strings;
@@ -20,14 +17,10 @@ static function string GetItemLocalization(string KeyName)
 		return Localization;
 }
 
-
-
-
-
 defaultproperties
 {
-   WeaponClassPath="ZedternalReborn.WMWeap_Ice_FreezeThrower_Precious"
-   BuyPrice=2000
-   AmmoPricePerMag=60
-   Name="Default__KFWeapDef_FreezeThrower_Precious"
+	WeaponClassPath="ZedternalReborn.WMWeap_Ice_FreezeThrower_Precious"
+	BuyPrice=2200 //2x
+	AmmoPricePerMag=95 //40% more per fuel
+	Name="Default__KFWeapDef_FreezeThrower_Precious"
 }

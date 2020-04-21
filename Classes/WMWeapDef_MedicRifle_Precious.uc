@@ -4,9 +4,6 @@ class WMWeapDef_MedicRifle_Precious extends KFWeapDef_MedicRifle
 const SHORT_ITEM_NAME = "HMTech-401";
 const DEFAULT_WEAPON_PATH = "KFGameContent.KFWeap_AssaultRifle_Medic";
 
-
-
-
 static function string GetItemLocalization(string KeyName)
 {
 	local array<string> Strings;
@@ -20,14 +17,10 @@ static function string GetItemLocalization(string KeyName)
 		return Localization;
 }
 
-
-
-
-
 defaultproperties
 {
-   WeaponClassPath="ZedternalReborn.WMWeap_AssaultRifle_Medic_Precious"
-   BuyPrice=2000
-   AmmoPricePerMag=55
-   Name="Default__KFWeapDef_MedicRifle_Precious"
+	WeaponClassPath="ZedternalReborn.WMWeap_AssaultRifle_Medic_Precious"
+	BuyPrice=3000 //2x
+	AmmoPricePerMag=84 //40% more per bullet
+	Name="Default__KFWeapDef_MedicRifle_Precious"
 }

@@ -4,9 +4,6 @@ class WMWeapDef_Crossbow_Precious extends KFWeapDef_Crossbow
 const SHORT_ITEM_NAME = "Crossbow";
 const DEFAULT_WEAPON_PATH = "KFGameContent.KFWeap_Bow_Crossbow";
 
-
-
-
 static function string GetItemLocalization(string KeyName)
 {
 	local array<string> Strings;
@@ -20,14 +17,10 @@ static function string GetItemLocalization(string KeyName)
 		return Localization;
 }
 
-
-
-
-
 defaultproperties
 {
-   WeaponClassPath="ZedternalReborn.WMWeap_Bow_Crossbow_Precious"
-   BuyPrice=2000
-   AmmoPricePerMag=20
-   Name="Default__KFWeapDef_Crossbow_Precious"
+	WeaponClassPath="ZedternalReborn.WMWeap_Bow_Crossbow_Precious"
+	BuyPrice=1300 //2x
+	AmmoPricePerMag=31 //40% more per arrow
+	Name="Default__KFWeapDef_Crossbow_Precious"
 }

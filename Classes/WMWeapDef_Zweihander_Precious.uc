@@ -4,9 +4,6 @@ class WMWeapDef_Zweihander_Precious extends KFWeapDef_Zweihander
 const SHORT_ITEM_NAME = "Zweihander";
 const DEFAULT_WEAPON_PATH = "KFGameContent.KFWeap_Edged_Zweihander";
 
-
-
-
 static function string GetItemLocalization(string KeyName)
 {
 	local array<string> Strings;
@@ -20,13 +17,9 @@ static function string GetItemLocalization(string KeyName)
 		return Localization;
 }
 
-
-
-
-
 defaultproperties
 {
-   WeaponClassPath="ZedternalReborn.WMWeap_Edged_Zweihander_Precious"
-   BuyPrice=2000
-   Name="Default__KFWeapDef_Zweihander_Precious"
+	WeaponClassPath="ZedternalReborn.WMWeap_Edged_Zweihander_Precious"
+	BuyPrice=2600
+	Name="Default__KFWeapDef_Zweihander_Precious"
 }

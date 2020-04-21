@@ -4,9 +4,6 @@ class WMWeapDef_RPG7_Precious extends KFWeapDef_RPG7
 const SHORT_ITEM_NAME = "RPG7";
 const DEFAULT_WEAPON_PATH = "KFGameContent.KFWeap_RocketLauncher_RPG7";
 
-
-
-
 static function string GetItemLocalization(string KeyName)
 {
 	local array<string> Strings;
@@ -20,14 +17,10 @@ static function string GetItemLocalization(string KeyName)
 		return Localization;
 }
 
-
-
-
-
 defaultproperties
 {
-   WeaponClassPath="ZedternalReborn.WMWeap_RocketLauncher_RPG7_Precious"
-   BuyPrice=2000
-   AmmoPricePerMag=35
-   Name="Default__KFWeapDef_RPG7_Precious"
+	WeaponClassPath="ZedternalReborn.WMWeap_RocketLauncher_RPG7_Precious"
+	BuyPrice=3000 //2x
+	AmmoPricePerMag=84 //40% more per rocket
+	Name="Default__KFWeapDef_RPG7_Precious"
 }

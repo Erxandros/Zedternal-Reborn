@@ -4,9 +4,6 @@ class WMWeapDef_Pulverizer_Precious extends KFWeapDef_Pulverizer
 const SHORT_ITEM_NAME = "Pulverizer";
 const DEFAULT_WEAPON_PATH = "KFGameContent.KFWeap_Blunt_Pulverizer";
 
-
-
-
 static function string GetItemLocalization(string KeyName)
 {
 	local array<string> Strings;
@@ -20,14 +17,10 @@ static function string GetItemLocalization(string KeyName)
 		return Localization;
 }
 
-
-
-
-
 defaultproperties
 {
-   WeaponClassPath="ZedternalReborn.WMWeap_Blunt_Pulverizer_Precious"
-   BuyPrice=2000
-   AmmoPricePerMag=125
-   Name="Default__KFWeapDef_Pulverizer_Precious"
+	WeaponClassPath="ZedternalReborn.WMWeap_Blunt_Pulverizer_Precious"
+	BuyPrice=2600 //2x
+	AmmoPricePerMag=191 //40% more per bullet
+	Name="Default__KFWeapDef_Pulverizer_Precious"
 }

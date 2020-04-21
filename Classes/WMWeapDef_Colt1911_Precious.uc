@@ -4,9 +4,6 @@ class WMWeapDef_Colt1911_Precious extends KFWeapDef_Colt1911
 const SHORT_ITEM_NAME = "Colt1911";
 const DEFAULT_WEAPON_PATH = "KFGameContent.KFWeap_Pistol_Colt1911";
 
-
-
-
 static function string GetItemLocalization(string KeyName)
 {
 	local array<string> Strings;
@@ -20,14 +17,10 @@ static function string GetItemLocalization(string KeyName)
 		return Localization;
 }
 
-
-
-
-
 defaultproperties
 {
-   WeaponClassPath="ZedternalReborn.WMWeap_Pistol_Colt1911_Precious"
-   BuyPrice=1000
-   AmmoPricePerMag=44
-   Name="Default__KFWeapDef_Colt1911_Precious"
+	WeaponClassPath="ZedternalReborn.WMWeap_Pistol_Colt1911_Precious"
+	BuyPrice=650 //2x
+	AmmoPricePerMag=28 //40% more per bullet
+	Name="Default__KFWeapDef_Colt1911_Precious"
 }

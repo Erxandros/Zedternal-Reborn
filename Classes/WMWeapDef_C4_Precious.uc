@@ -4,9 +4,6 @@ class WMWeapDef_C4_Precious extends KFWeapDef_C4
 const SHORT_ITEM_NAME = "C4";
 const DEFAULT_WEAPON_PATH = "KFGameContent.KFWeap_Thrown_C4";
 
-
-
-
 static function string GetItemLocalization(string KeyName)
 {
 	local array<string> Strings;
@@ -20,14 +17,10 @@ static function string GetItemLocalization(string KeyName)
 		return Localization;
 }
 
-
-
-
-
 defaultproperties
 {
-   WeaponClassPath="ZedternalReborn.WMWeap_Thrown_C4_Precious"
-   BuyPrice=2000
-   AmmoPricePerMag=35
-   Name="Default__KFWeapDef_C4_Precious"
+	WeaponClassPath="ZedternalReborn.WMWeap_Thrown_C4_Precious"
+	BuyPrice=600 //2x
+	AmmoPricePerMag=140 //40% more per bomb
+	Name="Default__KFWeapDef_C4_Precious"
 }

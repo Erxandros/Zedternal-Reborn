@@ -4,9 +4,6 @@ class WMWeapDef_Bullpup_Precious extends KFWeapDef_Bullpup
 const SHORT_ITEM_NAME = "Bullpup";
 const DEFAULT_WEAPON_PATH = "KFGameContent.KFWeap_AssaultRifle_Bullpup";
 
-
-
-
 static function string GetItemLocalization(string KeyName)
 {
 	local array<string> Strings;
@@ -20,14 +17,10 @@ static function string GetItemLocalization(string KeyName)
 		return Localization;
 }
 
-
-
-
-
 defaultproperties
 {
-   WeaponClassPath="ZedternalReborn.WMWeap_AssaultRifle_Bullpup_Precious"
-   BuyPrice=2000
-   AmmoPricePerMag=50
-   Name="Default__KFWeapDef_Bullpup_Precious"
+	WeaponClassPath="ZedternalReborn.WMWeap_AssaultRifle_Bullpup_Precious"
+	BuyPrice=1300 //2x
+	AmmoPricePerMag=63 //40% more per bullet
+	Name="Default__KFWeapDef_Bullpup_Precious"
 }

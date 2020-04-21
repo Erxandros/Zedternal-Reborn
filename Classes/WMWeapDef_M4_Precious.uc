@@ -4,9 +4,6 @@ class WMWeapDef_M4_Precious extends KFWeapDef_M4
 const SHORT_ITEM_NAME = "M4";
 const DEFAULT_WEAPON_PATH = "KFGameContent.KFWeap_Shotgun_M4";
 
-
-
-
 static function string GetItemLocalization(string KeyName)
 {
 	local array<string> Strings;
@@ -20,14 +17,10 @@ static function string GetItemLocalization(string KeyName)
 		return Localization;
 }
 
-
-
-
-
 defaultproperties
 {
-   WeaponClassPath="ZedternalReborn.WMWeap_Shotgun_M4_Precious"
-   BuyPrice=2000
-   AmmoPricePerMag=40
-   Name="Default__KFWeapDef_M4_Precious"
+	WeaponClassPath="ZedternalReborn.WMWeap_Shotgun_M4_Precious"
+	BuyPrice=2200 //2x
+	AmmoPricePerMag=80 //40% more per bullet
+	Name="Default__KFWeapDef_M4_Precious"
 }

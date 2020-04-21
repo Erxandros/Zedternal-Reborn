@@ -4,9 +4,6 @@ class WMWeapDef_MicrowaveGun_Precious extends KFWeapDef_MicrowaveGun
 const SHORT_ITEM_NAME = "Microwave";
 const DEFAULT_WEAPON_PATH = "KFGameContent.KFWeap_Beam_Beamthrower";
 
-
-
-
 static function string GetItemLocalization(string KeyName)
 {
 	local array<string> Strings;
@@ -20,14 +17,10 @@ static function string GetItemLocalization(string KeyName)
 		return Localization;
 }
 
-
-
-
-
 defaultproperties
 {
-   WeaponClassPath="ZedternalReborn.WMWeap_Beam_Microwave_Precious"
-   BuyPrice=2000
-   AmmoPricePerMag=125
-   Name="Default__KFWeapDef_MicrowaveGun_Precious"
+	WeaponClassPath="ZedternalReborn.WMWeap_Beam_Microwave_Precious"
+	BuyPrice=3000 //2x
+	AmmoPricePerMag=210 //40% more per fuel
+	Name="Default__KFWeapDef_MicrowaveGun_Precious"
 }

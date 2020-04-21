@@ -4,9 +4,6 @@ class WMWeapDef_FlareGunDual_Precious extends KFWeapDef_FlareGunDual
 const SHORT_ITEM_NAME = "Dual Spitfire";
 const DEFAULT_WEAPON_PATH = "KFGameContent.KFWeap_Pistol_DualFlare";
 
-
-
-
 static function string GetItemLocalization(string KeyName)
 {
 	local array<string> Strings;
@@ -20,14 +17,10 @@ static function string GetItemLocalization(string KeyName)
 		return Localization;
 }
 
-
-
-
-
 defaultproperties
 {
-   WeaponClassPath="ZedternalReborn.WMWeap_Pistol_DualFlare_Precious"
-   BuyPrice=2000
-   AmmoPricePerMag=60
-   Name="Default__KFWeapDef_FlareGunDual_Precious"
+	WeaponClassPath="ZedternalReborn.WMWeap_Pistol_DualFlare_Precious"
+	BuyPrice=1300 //2x
+	AmmoPricePerMag=55 //40% more per bullet
+	Name="Default__KFWeapDef_FlareGunDual_Precious"
 }

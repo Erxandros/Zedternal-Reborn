@@ -4,9 +4,6 @@ class WMWeapDef_Deagle_Precious extends KFWeapDef_Deagle
 const SHORT_ITEM_NAME = "Deagle";
 const DEFAULT_WEAPON_PATH = "KFGameContent.KFWeap_Pistol_Deagle";
 
-
-
-
 static function string GetItemLocalization(string KeyName)
 {
 	local array<string> Strings;
@@ -20,14 +17,10 @@ static function string GetItemLocalization(string KeyName)
 		return Localization;
 }
 
-
-
-
-
 defaultproperties
 {
-   WeaponClassPath="ZedternalReborn.WMWeap_Pistol_Deagle_Precious"
-   BuyPrice=1000
-   AmmoPricePerMag=42
-   Name="Default__KFWeapDef_Deagle_Precious"
+	WeaponClassPath="ZedternalReborn.WMWeap_Pistol_Deagle_Precious"
+	BuyPrice=1100 //2x
+	AmmoPricePerMag=47 //40% more per bullet
+	Name="Default__KFWeapDef_Deagle_Precious"
 }

@@ -4,9 +4,6 @@ class WMWeapDef_Hemogoblin_Precious extends KFWeapDef_Hemogoblin
 const SHORT_ITEM_NAME = "Hemogoblin";
 const DEFAULT_WEAPON_PATH = "KFGameContent.KFWeap_Rifle_Hemogoblin";
 
-
-
-
 static function string GetItemLocalization(string KeyName)
 {
 	local array<string> Strings;
@@ -20,14 +17,10 @@ static function string GetItemLocalization(string KeyName)
 		return Localization;
 }
 
-
-
-
-
 defaultproperties
 {
-   WeaponClassPath="ZedternalReborn.WMWeap_Rifle_Hemogoblin_Precious"
-   BuyPrice=2000
-   AmmoPricePerMag=56
-   Name="Default__KFWeapDef_Hemogoblin_Precious"
+	WeaponClassPath="ZedternalReborn.WMWeap_Rifle_Hemogoblin_Precious"
+	BuyPrice=2200 //2x
+	AmmoPricePerMag=66 //40% more per bullet
+	Name="Default__KFWeapDef_Hemogoblin_Precious"
 }

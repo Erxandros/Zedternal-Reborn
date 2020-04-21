@@ -4,9 +4,6 @@ class WMWeapDef_HuskCannon_Precious extends KFWeapDef_HuskCannon
 const SHORT_ITEM_NAME = "HuskCannon";
 const DEFAULT_WEAPON_PATH = "KFGameContent.KFWeap_HuskCannon";
 
-
-
-
 static function string GetItemLocalization(string KeyName)
 {
 	local array<string> Strings;
@@ -20,14 +17,10 @@ static function string GetItemLocalization(string KeyName)
 		return Localization;
 }
 
-
-
-
-
 defaultproperties
 {
-   WeaponClassPath="ZedternalReborn.WMWeap_HuskCannon_Precious"
-   BuyPrice=2000
-   AmmoPricePerMag=60
-   Name="Default__KFWeapDef_HuskCannon_Precious"
+	WeaponClassPath="ZedternalReborn.WMWeap_HuskCannon_Precious"
+	BuyPrice=3000 //2x
+	AmmoPricePerMag=263 //40% more per fuel
+	Name="Default__KFWeapDef_HuskCannon_Precious"
 }

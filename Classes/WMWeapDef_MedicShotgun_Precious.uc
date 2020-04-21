@@ -4,9 +4,6 @@ class WMWeapDef_MedicShotgun_Precious extends KFWeapDef_MedicShotgun
 const SHORT_ITEM_NAME = "HMTech-301";
 const DEFAULT_WEAPON_PATH = "KFGameContent.KFWeap_Shotgun_Medic";
 
-
-
-
 static function string GetItemLocalization(string KeyName)
 {
 	local array<string> Strings;
@@ -20,14 +17,10 @@ static function string GetItemLocalization(string KeyName)
 		return Localization;
 }
 
-
-
-
-
 defaultproperties
 {
-   WeaponClassPath="ZedternalReborn.WMWeap_Shotgun_Medic_Precious"
-   BuyPrice=2000
-   AmmoPricePerMag=54
-   Name="Default__KFWeapDef_MedicShotgun_Precious"
+	WeaponClassPath="ZedternalReborn.WMWeap_Shotgun_Medic_Precious"
+	BuyPrice=2200 //2x
+	AmmoPricePerMag=84 //40% more per bullet
+	Name="Default__KFWeapDef_MedicShotgun_Precious"
 }

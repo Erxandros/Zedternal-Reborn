@@ -4,9 +4,6 @@ class WMWeapDef_AK12_Precious extends KFWeapDef_AK12
 const SHORT_ITEM_NAME = "AK-12";
 const DEFAULT_WEAPON_PATH = "KFGameContent.KFWeap_AssaultRifle_AK12";
 
-
-
-
 static function string GetItemLocalization(string KeyName)
 {
 	local array<string> Strings;
@@ -20,14 +17,10 @@ static function string GetItemLocalization(string KeyName)
 		return Localization;
 }
 
-
-
-
-
 defaultproperties
 {
-   WeaponClassPath="ZedternalReborn.WMWeap_AssaultRifle_AK12_Precious"
-   BuyPrice=2000
-   AmmoPricePerMag=78
-   Name="Default__KFWeapDef_AK12_Precious"
+	WeaponClassPath="ZedternalReborn.WMWeap_AssaultRifle_AK12_Precious"
+	BuyPrice=2200 //2x
+	AmmoPricePerMag=84 //40% more per bullet
+	Name="Default__KFWeapDef_AK12_Precious"
 }

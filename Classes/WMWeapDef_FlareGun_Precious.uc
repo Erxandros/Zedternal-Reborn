@@ -4,9 +4,6 @@ class WMWeapDef_FlareGun_Precious extends KFWeapDef_FlareGun
 const SHORT_ITEM_NAME = "Spitfire";
 const DEFAULT_WEAPON_PATH = "KFGameContent.KFWeap_Pistol_Flare";
 
-
-
-
 static function string GetItemLocalization(string KeyName)
 {
 	local array<string> Strings;
@@ -20,14 +17,10 @@ static function string GetItemLocalization(string KeyName)
 		return Localization;
 }
 
-
-
-
-
 defaultproperties
 {
-   WeaponClassPath="ZedternalReborn.WMWeap_Pistol_Flare_Precious"
-   BuyPrice=1000
-   AmmoPricePerMag=30
-   Name="Default__KFWeapDef_FlareGun_Precious"
+	WeaponClassPath="ZedternalReborn.WMWeap_Pistol_Flare_Precious"
+	BuyPrice=650 //2x
+	AmmoPricePerMag=28 //40% more per bullet
+	Name="Default__KFWeapDef_FlareGun_Precious"
 }

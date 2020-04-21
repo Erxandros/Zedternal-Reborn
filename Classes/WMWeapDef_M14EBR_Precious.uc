@@ -4,9 +4,6 @@ class WMWeapDef_M14EBR_Precious extends KFWeapDef_M14EBR
 const SHORT_ITEM_NAME = "M14EBR";
 const DEFAULT_WEAPON_PATH = "KFGameContent.KFWeap_Rifle_M14EBR";
 
-
-
-
 static function string GetItemLocalization(string KeyName)
 {
 	local array<string> Strings;
@@ -20,14 +17,10 @@ static function string GetItemLocalization(string KeyName)
 		return Localization;
 }
 
-
-
-
-
 defaultproperties
 {
-   WeaponClassPath="ZedternalReborn.WMWeap_Rifle_M14EBR_Precious"
-   BuyPrice=2000
-   AmmoPricePerMag=105
-   Name="Default__KFWeapDef_M14EBR_Precious"
+	WeaponClassPath="ZedternalReborn.WMWeap_Rifle_M14EBR_Precious"
+	BuyPrice=2200 //2x
+	AmmoPricePerMag=112 //40% more per bullet
+	Name="Default__KFWeapDef_M14EBR_Precious"
 }

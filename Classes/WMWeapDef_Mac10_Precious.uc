@@ -4,9 +4,6 @@ class WMWeapDef_Mac10_Precious extends KFWeapDef_Mac10
 const SHORT_ITEM_NAME = "Mac 10";
 const DEFAULT_WEAPON_PATH = "KFGameContent.KFWeap_SMG_Mac10";
 
-
-
-
 static function string GetItemLocalization(string KeyName)
 {
 	local array<string> Strings;
@@ -20,14 +17,10 @@ static function string GetItemLocalization(string KeyName)
 		return Localization;
 }
 
-
-
-
-
 defaultproperties
 {
-   WeaponClassPath="ZedternalReborn.WMWeap_SMG_Mac10_Precious"
-   BuyPrice=2000
-   AmmoPricePerMag=52
-   Name="Default__KFWeapDef_Mac10_Precious"
+	WeaponClassPath="ZedternalReborn.WMWeap_SMG_Mac10_Precious"
+	BuyPrice=2200 //2x
+	AmmoPricePerMag=68 //40% more per bullet
+	Name="Default__KFWeapDef_Mac10_Precious"
 }

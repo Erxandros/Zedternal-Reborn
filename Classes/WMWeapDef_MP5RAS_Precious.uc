@@ -4,9 +4,6 @@ class WMWeapDef_MP5RAS_Precious extends KFWeapDef_MP5RAS
 const SHORT_ITEM_NAME = "MP5RAS";
 const DEFAULT_WEAPON_PATH = "KFGameContent.KFWeap_SMG_MP5RAS";
 
-
-
-
 static function string GetItemLocalization(string KeyName)
 {
 	local array<string> Strings;
@@ -20,14 +17,10 @@ static function string GetItemLocalization(string KeyName)
 		return Localization;
 }
 
-
-
-
-
 defaultproperties
 {
-   WeaponClassPath="ZedternalReborn.WMWeap_SMG_MP5RAS_Precious"
-   BuyPrice=2000
-   AmmoPricePerMag=58
-   Name="Default__KFWeapDef_MP5RAS_Precious"
+	WeaponClassPath="ZedternalReborn.WMWeap_SMG_MP5RAS_Precious"
+	BuyPrice=1300 //2x
+	AmmoPricePerMag=59 //40% more per bullet
+	Name="Default__KFWeapDef_MP5RAS_Precious"
 }

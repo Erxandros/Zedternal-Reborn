@@ -19,8 +19,8 @@ static function string GetItemLocalization(string KeyName)
 
 defaultproperties
 {
-   WeaponClassPath="ZedternalReborn.WMWeap_Flame_Flamethrower_Precious"
-   BuyPrice=2000
-   AmmoPricePerMag=100
-   Name="Default__KFWeapDef_FlameThrower_Precious"
+	WeaponClassPath="ZedternalReborn.WMWeap_Flame_Flamethrower_Precious"
+	BuyPrice=2400 //2x
+	AmmoPricePerMag=175 //40% more per fuel
+	Name="Default__KFWeapDef_FlameThrower_Precious"
 }

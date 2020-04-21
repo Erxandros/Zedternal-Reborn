@@ -4,9 +4,6 @@ class WMWeapDef_HK_UMP_Precious extends KFWeapDef_HK_UMP
 const SHORT_ITEM_NAME = "HK-UMP";
 const DEFAULT_WEAPON_PATH = "KFGameContent.KFWeap_SMG_HK_UMP";
 
-
-
-
 static function string GetItemLocalization(string KeyName)
 {
 	local array<string> Strings;
@@ -20,14 +17,10 @@ static function string GetItemLocalization(string KeyName)
 		return Localization;
 }
 
-
-
-
-
 defaultproperties
 {
-   WeaponClassPath="ZedternalReborn.WMWeap_SMG_HK_UMP_Precious"
-   BuyPrice=2000
-   AmmoPricePerMag=76
-   Name="Default__KFWeapDef_HK_UMP_Precious"
+	WeaponClassPath="ZedternalReborn.WMWeap_SMG_HK_UMP_Precious"
+	BuyPrice=2400 //2x
+	AmmoPricePerMag=76 //40% more per bullet
+	Name="Default__KFWeapDef_HK_UMP_Precious"
 }

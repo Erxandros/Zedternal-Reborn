@@ -4,9 +4,6 @@ class WMWeapDef_M79_Precious extends KFWeapDef_M79
 const SHORT_ITEM_NAME = "M79";
 const DEFAULT_WEAPON_PATH = "KFGameContent.KFWeap_GrenadeLauncher_M79";
 
-
-
-
 static function string GetItemLocalization(string KeyName)
 {
 	local array<string> Strings;
@@ -20,14 +17,10 @@ static function string GetItemLocalization(string KeyName)
 		return Localization;
 }
 
-
-
-
-
 defaultproperties
 {
-   WeaponClassPath="ZedternalReborn.WMWeap_GrenadeLauncher_M79_Precious"
-   BuyPrice=2000
-   AmmoPricePerMag=30
-   Name="Default__KFWeapDef_M79_Precious"
+	WeaponClassPath="ZedternalReborn.WMWeap_GrenadeLauncher_M79_Precious"
+	BuyPrice=1300 //2x
+	AmmoPricePerMag=37 //40% more per grenade
+	Name="Default__KFWeapDef_M79_Precious"
 }

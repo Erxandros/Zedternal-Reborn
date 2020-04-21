@@ -4,9 +4,6 @@ class WMWeapDef_P90_Precious extends KFWeapDef_P90
 const SHORT_ITEM_NAME = "P90";
 const DEFAULT_WEAPON_PATH = "KFGameContent.KFWeap_SMG_P90";
 
-
-
-
 static function string GetItemLocalization(string KeyName)
 {
 	local array<string> Strings;
@@ -20,14 +17,10 @@ static function string GetItemLocalization(string KeyName)
 		return Localization;
 }
 
-
-
-
-
 defaultproperties
 {
-   WeaponClassPath="ZedternalReborn.WMWeap_SMG_P90_Precious"
-   BuyPrice=2000
-   AmmoPricePerMag=90
-   Name="Default__KFWeapDef_P90_Precious"
+	WeaponClassPath="ZedternalReborn.WMWeap_SMG_P90_Precious"
+	BuyPrice=2200 //2x
+	AmmoPricePerMag=84 //40% more per bullet
+	Name="Default__KFWeapDef_P90_Precious"
 }

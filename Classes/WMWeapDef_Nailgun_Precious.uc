@@ -4,9 +4,6 @@ class WMWeapDef_Nailgun_Precious extends KFWeapDef_Nailgun
 const SHORT_ITEM_NAME = "Nailgun";
 const DEFAULT_WEAPON_PATH = "KFGameContent.KFWeap_Shotgun_Nailgun";
 
-
-
-
 static function string GetItemLocalization(string KeyName)
 {
 	local array<string> Strings;
@@ -20,14 +17,10 @@ static function string GetItemLocalization(string KeyName)
 		return Localization;
 }
 
-
-
-
-
 defaultproperties
 {
-   WeaponClassPath="ZedternalReborn.WMWeap_Shotgun_Nailgun_Precious"
-   BuyPrice=2000
-   AmmoPricePerMag=28
-   Name="Default__KFWeapDef_Nailgun_Precious"
+	WeaponClassPath="ZedternalReborn.WMWeap_Shotgun_Nailgun_Precious"
+	BuyPrice=1500 //2x
+	AmmoPricePerMag=82 //40% more per nail
+	Name="Default__KFWeapDef_Nailgun_Precious"
 }

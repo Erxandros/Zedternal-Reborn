@@ -4,9 +4,6 @@ class WMWeapDef_SW500_Precious extends KFWeapDef_SW500
 const SHORT_ITEM_NAME = "SW500";
 const DEFAULT_WEAPON_PATH = "KFGameContent.KFWeap_Revolver_SW500";
 
-
-
-
 static function string GetItemLocalization(string KeyName)
 {
 	local array<string> Strings;
@@ -20,14 +17,10 @@ static function string GetItemLocalization(string KeyName)
 		return Localization;
 }
 
-
-
-
-
 defaultproperties
 {
-   WeaponClassPath="ZedternalReborn.WMWeap_Revolver_SW500_Precious"
-   BuyPrice=1000
-   AmmoPricePerMag=35
-   Name="Default__KFWeapDef_SW500_Precious"
+	WeaponClassPath="ZedternalReborn.WMWeap_Revolver_SW500_Precious"
+	BuyPrice=1500 //2x
+	AmmoPricePerMag=56 //40% more per bullet
+	Name="Default__KFWeapDef_SW500_Precious"
 }
