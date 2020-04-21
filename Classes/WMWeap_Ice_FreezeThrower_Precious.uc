@@ -13,23 +13,6 @@ function SetOriginalValuesFromPickup( KFWeapon PickedUpWeapon )
 	class'ZedternalReborn.WMWeaponPrecious_Helper'.static.VariantSetOriginalValuesFromPickup( self, PickedUpWeapon, VARIANT_SKIN_ID );
 }
 
-/** Returns an anim rate scale for reloading */
-simulated function float GetReloadRateScale()
-{
-	local float Rate;
-	local KFPerk MyPerk;
-
-	Rate = 0.85f;
-
-	MyPerk = GetPerk();
-	if( MyPerk != None )
-	{
-		Rate *= MyPerk.GetReloadRateScale( self );
-	}
-
-	return Rate;
-}
-
 defaultproperties
 {
 	MagazineCapacity(0)=150 //50% increase

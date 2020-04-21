@@ -7,26 +7,10 @@ reliable client function ClientWeaponSet(bool bOptionalSet, optional bool bDoNot
 	Super.ClientWeaponSet(bOptionalSet, bDoNotActivate);
 	class'ZedternalReborn.WMWeaponPrecious_Helper'.static.VariantClientWeaponSet( self, VARIANT_SKIN_ID );
 }
+
 function SetOriginalValuesFromPickup( KFWeapon PickedUpWeapon )
 {
 	class'ZedternalReborn.WMWeaponPrecious_Helper'.static.VariantSetOriginalValuesFromPickup( self, PickedUpWeapon, VARIANT_SKIN_ID );
-}
-
-/** Returns an anim rate scale for reloading */
-simulated function float GetReloadRateScale()
-{
-	local float Rate;
-	local KFPerk MyPerk;
-
-	Rate = 0.9f;
-
-	MyPerk = GetPerk();
-	if( MyPerk != None )
-	{
-		Rate *= MyPerk.GetReloadRateScale( self );
-	}
-
-	return Rate;
 }
 
 defaultproperties
