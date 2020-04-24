@@ -46,14 +46,16 @@ function SetupNextWave(byte NextWaveIndex, int TimeToNextWaveBuffer = 0)
 {
 	local KFGameReplicationInfo KFGRI;
 	local WMGameReplicationInfo WMGRI;
-	local array< class<WMSpecialWave> > WMSW;
 	local KFPlayerController KFPC;
+	local array< class<WMSpecialWave> > WMSW;
 	local array<SMonster> MToA;
 	local byte i, j, k, choice, NbPlayer;
 	local int waveValue, number;
 	local float tempWaveValue;
 	local float customSpawnRate;
-	local bool bNewSquad;
+	local bool bNewSquad, bVariantZeds, bVariantApplied;
+	local array<float> variantProbabilities;
+	local array< class<KFPawn_Monster> > variantClasses;
 	local int noLargeZedCountDown;
 	local int maxNumberOfZed;
 
@@ -240,7 +242,16 @@ function SetupNextWave(byte NextWaveIndex, int TimeToNextWaveBuffer = 0)
 	customSpawnRate *= 1.f / class'ZedternalReborn.Config_Map'.static.GetZedSpawnRate(WorldInfo.GetMapName(true));
 	
 	`log("SpawnRateFactor = "$customSpawnRate);
-	
+
+	if (class'ZedternalReborn.Config_Zed'.default.Zed_ZedVariant.length != 0)
+	{
+		bVariantZeds = true;
+	}
+	else
+	{
+		bVariantZeds = false;
+	}
+
 	// now, we can create the list of ZEDs (meaning that at the begining of the wave, we already know which ZEDs and when they will spawn)
 	bNewSquad = true;
 	noLargeZedCountDown = 0;	// this script will try to avoid spamming large zed using this variable
@@ -248,7 +259,7 @@ function SetupNextWave(byte NextWaveIndex, int TimeToNextWaveBuffer = 0)
 	while (waveValue>0 && WaveTotalAI<maxNumberOfZed && MToA.Length>0)
 	{
 		choice = Rand(MToA.Length);
-		
+
 		// check if we have enough value to spawn this monster
 		// if not, we remove it from the list
 		if (waveValue<(MToA[choice].Value*MToA[choice].MinGr))
@@ -271,62 +282,61 @@ function SetupNextWave(byte NextWaveIndex, int TimeToNextWaveBuffer = 0)
 				number = Min(number, 8 - groupList[0].MClass.length);
 				bNewSquad = true;
 			}
-			
-			groupList[0].Delay += MToA[choice].Value*customSpawnRate*number/10;
-			for (i=0;i<number;i+=1)
+
+			if (bVariantZeds)
 			{
-				groupList[0].MClass.AddItem(MToA[choice].Mclass);
+				variantProbabilities.length = 0;
+				variantClasses.length = 0;
+				for (k = 0; k < class'ZedternalReborn.Config_Zed'.default.Zed_ZedVariant.length; k++)
+				{
+					if (MToA[choice].Mclass == class'ZedternalReborn.Config_Zed'.default.Zed_ZedVariant[k].zedClass)
+					{
+						if ((CustomMode && class'ZedternalReborn.Config_Zed'.default.Zed_ZedVariant[k].minDifficulty <= CustomDifficulty
+							&& class'ZedternalReborn.Config_Zed'.default.Zed_ZedVariant[k].maxDifficulty >= CustomDifficulty) ||
+							(class'ZedternalReborn.Config_Zed'.default.Zed_ZedVariant[k].minDifficulty <= GameDifficulty
+							&& class'ZedternalReborn.Config_Zed'.default.Zed_ZedVariant[k].maxDifficulty >= GameDifficulty))
+						{
+							variantProbabilities.AddItem(class'ZedternalReborn.Config_Zed'.default.Zed_ZedVariant[k].Probability);
+							variantClasses.AddItem(class'ZedternalReborn.Config_Zed'.default.Zed_ZedVariant[k].variantClass);
+						}
+					}
+				}
+			}
+
+			groupList[0].Delay += MToA[choice].Value*customSpawnRate*number/10;
+			for (i = 0; i < number; i++)
+			{
+				if (bVariantZeds)
+				{
+					bVariantApplied = false;
+					for (j = 0; j < variantProbabilities.length; j++)
+					{
+						if (variantProbabilities[j] >= FRand())
+						{
+							groupList[0].MClass.AddItem(variantClasses[j]);
+							bVariantApplied = true;
+							break;
+						}
+					}
+				}
+
+				if (!bVariantApplied || !bVariantZeds)
+					groupList[0].MClass.AddItem(MToA[choice].Mclass);
+
 				if (MToA[choice].Mclass.default.bLargeZed)
 					noLargeZedCountDown = 1;
 				else if(class<KFPawn_MonsterBoss>(MToA[choice].Mclass) != none)
 					noLargeZedCountDown = 10;
 			}
-			
+
 			WaveTotalAI += number;
 			waveValue -= MToA[choice].Value*number;
 		}
-		
 	}
-	
-	// List almost done. We still need to scan each zed from the list to add variant zeds.
-	if (class'ZedternalReborn.Config_Zed'.default.Zed_ZedVariant.length != 0)
-	{
-		for (i=0;i<groupList.length;i++)
-		{
-			for (j=0;j<groupList[i].MClass.length;j++)
-			{
-				for (k=0;k<class'ZedternalReborn.Config_Zed'.default.Zed_ZedVariant.length;k++)
-				{
-					if (CustomMode)
-					{
-						if (groupList[i].MClass[j] == class'ZedternalReborn.Config_Zed'.default.Zed_ZedVariant[k].zedClass
-							&& class'ZedternalReborn.Config_Zed'.default.Zed_ZedVariant[k].minDifficulty <= CustomDifficulty
-							&& class'ZedternalReborn.Config_Zed'.default.Zed_ZedVariant[k].maxDifficulty >= CustomDifficulty
-							&& class'ZedternalReborn.Config_Zed'.default.Zed_ZedVariant[k].Probability >= FRand())
-						{
-							groupList[i].MClass[j] = class'ZedternalReborn.Config_Zed'.default.Zed_ZedVariant[k].variantClass;
-							k = class'ZedternalReborn.Config_Zed'.default.Zed_ZedVariant.length;
-						}
-					}
-					else
-					{
-						if (groupList[i].MClass[j] == class'ZedternalReborn.Config_Zed'.default.Zed_ZedVariant[k].zedClass
-							&& class'ZedternalReborn.Config_Zed'.default.Zed_ZedVariant[k].minDifficulty <= GameDifficulty
-							&& class'ZedternalReborn.Config_Zed'.default.Zed_ZedVariant[k].maxDifficulty >= GameDifficulty
-							&& class'ZedternalReborn.Config_Zed'.default.Zed_ZedVariant[k].Probability >= FRand())
-						{
-							groupList[i].MClass[j] = class'ZedternalReborn.Config_Zed'.default.Zed_ZedVariant[k].variantClass;
-							k = class'ZedternalReborn.Config_Zed'.default.Zed_ZedVariant.length;
-						}
-					}
-				}
-			}
-		}
-	}
-	
+
 	// Clear out any leftover spawn squads from last wave
     LeftoverSpawnSquad.Length = 0;
-	
+
 	WaveStartTime = WorldInfo.TimeSeconds;
 	TimeUntilNextSpawn = 5.500000;
 
