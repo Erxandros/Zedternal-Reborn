@@ -1,6 +1,6 @@
 class WMAISpawnManager extends KFAISpawnManager
 	config(GameEndlessSpawn);
-	
+
 struct SMonster
 {
 	var int MinWave, MaxWave;
@@ -9,7 +9,6 @@ struct SMonster
 	var class<KFPawn_Monster> MClass;
 };
 var SMonster SMonster_Temp;
-
 
 struct SGroupToSpawn
 {
@@ -49,32 +48,29 @@ function SetupNextWave(byte NextWaveIndex, int TimeToNextWaveBuffer = 0)
 	local KFPlayerController KFPC;
 	local array< class<WMSpecialWave> > WMSW;
 	local array<SMonster> MToA;
-	local byte i, j, k, choice, NbPlayer;
-	local int waveValue, number;
-	local float tempWaveValue;
-	local float customSpawnRate;
-	local int noLargeZedCountDown;
-	local int maxNumberOfZed;
+	local byte i, k, choice, NbPlayer;
+	local int waveValue, number, noLargeZedCountDown, maxNumberOfZed;
+	local float tempWaveValue, customSpawnRate;
 	local bool bNewSquad, bVariantZeds, bVariantApplied;
 	local array<SZedVariant> trimedZedVariantList;
 	local array<float> variantProbabilitiesList;
 	local array<int> variantClassesList;
 
 	WMGRI = WMGameReplicationInfo(WorldInfo.GRI);
-	
+
 	bAllowTurboSpawn = class'ZedternalReborn.Config_Game'.default.Game_bAllowFastSpawning;
 
 	lastZedInfo.length = 0; // Clear the lastZedInfo array just in case
-	
+
 	`log("Generating ZED list for wave " $ NextWaveIndex $ "...");
-	
+
 	/////////////////////////////////////////////////////////////////////
 	// Create the list of all zeds that will spawn in the current wave //
 	/////////////////////////////////////////////////////////////////////
-	
+
 	NbPlayer=0;
 	MToA.length=0;
-	
+
 	// Number of players:
 	foreach DynamicActors(class'KFPlayerController', KFPC)
 	{
@@ -83,10 +79,10 @@ function SetupNextWave(byte NextWaveIndex, int TimeToNextWaveBuffer = 0)
 	}
 	if (NbPlayer == 0)
 		NbPlayer = 1;
-	
+
 	//First, to randomize waves, we use a certain number of different MonsterToSpawn
 	//Lets select only monsters that can spawn in the current wave:
-	
+
 	if (WMGRI.SpecialWaveID[0] != -1)
 	{
 		WMSW.length = 0;
@@ -95,7 +91,7 @@ function SetupNextWave(byte NextWaveIndex, int TimeToNextWaveBuffer = 0)
 			if (WMGRI.SpecialWaveID[k] != -1)
 				WMSW.AddItem(WMGRI.specialWaves[WMGRI.SpecialWaveID[k]]);
 		}
-		
+
 		if (WMSW[0].default.bReplaceMonstertoAdd || (WMSW.length > 1 && WMSW[1].default.bReplaceMonstertoAdd))
 		{
 			for (k=0;k<WMSW.length;k+=1)
@@ -176,72 +172,70 @@ function SetupNextWave(byte NextWaveIndex, int TimeToNextWaveBuffer = 0)
 			MToA.Remove(choice,1);
 		}
 	}
-	
+
 	//Next, we need to calcul the value for the current wave.
 	//Points are used to spawn ZEDs (where big ZEDs cost more points).
 	//Value of the wave are depend on the number of players, the wave number and the difficulty
-	
+
 	// Number of points for this wave :
 	// 1) wave points at current wave
 	if (CustomMode)
 		tempWaveValue = float(class'ZedternalReborn.Config_Waves'.static.GetBaseValue(CustomDifficulty)) + float(class'ZedternalReborn.Config_Waves'.static.GetValueIncPerwave(CustomDifficulty))*float(NextWaveIndex-1);
 	else
 		tempWaveValue = float(class'ZedternalReborn.Config_Waves'.static.GetBaseValue(GameDifficulty)) + float(class'ZedternalReborn.Config_Waves'.static.GetValueIncPerwave(GameDifficulty))*float(NextWaveIndex-1);
-	
+
 	// 2) wave points factor at current wave (so wave value vs wavenum is not linear)
 	tempWaveValue *= 1.f + class'ZedternalReborn.Config_Waves'.default.ZedSpawn_ValueFactorPerWave * float(NextWaveIndex);
-	
+
 	// 3) wave points power at current wave (greatly increase wave value at high waves)
 	tempWaveValue = tempWaveValue ** (1.f + class'ZedternalReborn.Config_Waves'.default.ZedSpawn_ValuePowerPerWave * float(NextWaveIndex-1));
-	
+
 	// 4) increase wave points based on number of players
 	tempWaveValue *= class'ZedternalReborn.Config_Waves'.static.GetValueFactor(NbPlayer);
-	
+
 	// 5) change wave points from current specialWaves
 	for (k=0;k<WMSW.length;k+=1)
 	{
 		tempWaveValue *= WMSW[k].default.waveValueFactor;
 	}
-	
+
 	// 6) change wave points from custom map settings
 	tempWaveValue *= class'ZedternalReborn.Config_Map'.static.GetZedNumberScale(WorldInfo.GetMapName(true));
-	
+
 	// 7) round result
 	waveValue = int(tempWaveValue);
-		
+	
 	`Log("Wave's Value = "$waveValue);
-	
-	
-	
+
 	// we are now ready to build the list
 	// we use two arrays : One for the Zed's Class and one for the delay between each spawn
 	groupList.Length = 0;
 	WaveTotalAI = 0;
-	
+
 	// we need to compute the spawn rate
 	// 1) spawn rate factor at current wave
 	if (CustomMode)
 		customSpawnRate = 1.f / (class'ZedternalReborn.Config_Waves'.static.GetZedSpawnRate(CustomDifficulty) + class'ZedternalReborn.Config_Waves'.default.ZedSpawn_ZedSpawnRateIncPerWave * (NextWaveIndex-1));
 	else
 		customSpawnRate = 1.f / (class'ZedternalReborn.Config_Waves'.static.GetZedSpawnRate(GameDifficulty) + class'ZedternalReborn.Config_Waves'.default.ZedSpawn_ZedSpawnRateIncPerWave * (NextWaveIndex-1));
-	
+
 	// 2) spawn rate power to greatly increase spawn rate at late waves
 	customSpawnRate = customSpawnRate ** (1.f + class'ZedternalReborn.Config_Waves'.default.ZedSpawn_ZedSpawnRatePowerPerWave * float(NextWaveIndex-1));
-	
+
 	// 3) spawn rate factor based on number of players
 	customSpawnRate = customSpawnRate / class'ZedternalReborn.Config_Waves'.static.ZedSpawnRateFactor(NbPlayer);
 	for (k=0;k<WMSW.length;k+=1)
 	{
 		customSpawnRate = customSpawnRate/(WMSW[k].default.zedSpawnRateFactor);
 	}
-	
+
 	// 4) reduce spawn rate by 35% only for wave 1
 	if (NextWaveIndex == 1)
 		customSpawnRate *= 1.350000;
-	
+
 	// 5) change spawnrate from custom map settings
 	customSpawnRate *= 1.f / class'ZedternalReborn.Config_Map'.static.GetZedSpawnRate(WorldInfo.GetMapName(true));
-	
+
 	`log("SpawnRateFactor = "$customSpawnRate);
 
 	// Check to see if zed variant list should be enabled
@@ -347,11 +341,11 @@ function SetupNextWave(byte NextWaveIndex, int TimeToNextWaveBuffer = 0)
 				if (bVariantZeds)
 				{
 					bVariantApplied = false;
-					for (j = 0; j < variantProbabilitiesList.length; j++)
+					for (k = 0; k < variantProbabilitiesList.length; k++)
 					{
-						if (variantProbabilitiesList[j] >= FRand())
+						if (variantProbabilitiesList[k] >= FRand())
 						{
-							groupList[0].MClass.AddItem(trimedZedVariantList[variantClassesList[j]].VariantClass);
+							groupList[0].MClass.AddItem(trimedZedVariantList[variantClassesList[k]].VariantClass);
 							bVariantApplied = true;
 							break;
 						}
@@ -373,29 +367,29 @@ function SetupNextWave(byte NextWaveIndex, int TimeToNextWaveBuffer = 0)
 	}
 
 	// Clear out any leftover spawn squads from last wave
-    LeftoverSpawnSquad.Length = 0;
+	LeftoverSpawnSquad.Length = 0;
 
 	WaveStartTime = WorldInfo.TimeSeconds;
 	TimeUntilNextSpawn = 5.500000;
 
-    // Reset the total waves active time on first wave
+	// Reset the total waves active time on first wave
 	if( NextWaveIndex == 0 )
 		TotalWavesActiveTime = 0;
 
-    KFGRI = KFGameReplicationInfo(WorldInfo.GRI);
-    if( KFGRI != none && (KFGRI.bDebugSpawnManager || KFGRI.bGameConductorGraphingEnabled) )
-    {
-    	KFGRI.CurrentSineMod = GetSineMod();
-    	KFGRI.CurrentNextSpawnTime = TimeUntilNextSpawn;
-    	KFGRI.CurrentSineWavFreq = GetSineWaveFreq();
-    	KFGRI.CurrentNextSpawnTimeMod = GetNextSpawnTimeMod();
-    	KFGRI.CurrentTotalWavesActiveTime = TotalWavesActiveTime;
-    	KFGRI.CurrentMaxMonsters = GetMaxMonsters();
-    	KFGRI.CurrentTimeTilNextSpawn = TimeUntilNextSpawn;
-    }
+	KFGRI = KFGameReplicationInfo(WorldInfo.GRI);
+	if( KFGRI != none && (KFGRI.bDebugSpawnManager || KFGRI.bGameConductorGraphingEnabled) )
+	{
+		KFGRI.CurrentSineMod = GetSineMod();
+		KFGRI.CurrentNextSpawnTime = TimeUntilNextSpawn;
+		KFGRI.CurrentSineWavFreq = GetSineWaveFreq();
+		KFGRI.CurrentNextSpawnTimeMod = GetNextSpawnTimeMod();
+		KFGRI.CurrentTotalWavesActiveTime = TotalWavesActiveTime;
+		KFGRI.CurrentMaxMonsters = GetMaxMonsters();
+		KFGRI.CurrentTimeTilNextSpawn = TimeUntilNextSpawn;
+	}
 
 	KFGRI.AIRemaining = WaveTotalAI;
-    LastAISpawnVolume = none;
+	LastAISpawnVolume = none;
 
 	if (bLogAISpawning || bLogWaveSpawnTiming) LogInternal("KFAISpawnManager.SetupNextWave() NextWave:" @ NextWaveIndex @ "WaveTotalAI:" @ WaveTotalAI);
 }
@@ -524,7 +518,6 @@ function bool IsFinishedSpawning()
 
 	return false;
 }
-
 
 function float GetSineMod()
 {
