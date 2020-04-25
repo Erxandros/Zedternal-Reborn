@@ -53,11 +53,12 @@ function SetupNextWave(byte NextWaveIndex, int TimeToNextWaveBuffer = 0)
 	local int waveValue, number;
 	local float tempWaveValue;
 	local float customSpawnRate;
-	local bool bNewSquad, bVariantZeds, bVariantApplied;
-	local array<float> variantProbabilities;
-	local array< class<KFPawn_Monster> > variantClasses;
 	local int noLargeZedCountDown;
 	local int maxNumberOfZed;
+	local bool bNewSquad, bVariantZeds, bVariantApplied;
+	local array<SZedVariant> trimedZedVariantList;
+	local array<float> variantProbabilitiesList;
+	local array<int> variantClassesList;
 
 	WMGRI = WMGameReplicationInfo(WorldInfo.GRI);
 	
@@ -194,7 +195,7 @@ function SetupNextWave(byte NextWaveIndex, int TimeToNextWaveBuffer = 0)
 	tempWaveValue = tempWaveValue ** (1.f + class'ZedternalReborn.Config_Waves'.default.ZedSpawn_ValuePowerPerWave * float(NextWaveIndex-1));
 	
 	// 4) increase wave points based on number of players
-		tempWaveValue *= class'ZedternalReborn.Config_Waves'.static.GetValueFactor(NbPlayer);
+	tempWaveValue *= class'ZedternalReborn.Config_Waves'.static.GetValueFactor(NbPlayer);
 	
 	// 5) change wave points from current specialWaves
 	for (k=0;k<WMSW.length;k+=1)
@@ -243,6 +244,7 @@ function SetupNextWave(byte NextWaveIndex, int TimeToNextWaveBuffer = 0)
 	
 	`log("SpawnRateFactor = "$customSpawnRate);
 
+	// Check to see if zed variant list should be enabled
 	if (class'ZedternalReborn.Config_Zed'.default.Zed_ZedVariant.length != 0)
 	{
 		bVariantZeds = true;
@@ -252,9 +254,42 @@ function SetupNextWave(byte NextWaveIndex, int TimeToNextWaveBuffer = 0)
 		bVariantZeds = false;
 	}
 
+	// We know what zeds will spawn, so shorten the ZedVariant list to make it more efficient and reduce loop counts
+	if (bVariantZeds)
+	{
+		// Use variantClassesList as a counter array to reduce the need of another variable
+		variantClassesList.length = class'ZedternalReborn.Config_Zed'.default.Zed_ZedVariant.length;
+		for (k = 0; k < class'ZedternalReborn.Config_Zed'.default.Zed_ZedVariant.length; k++)
+		{
+			variantClassesList[k] = 0;
+			for (i = 0; i < MToA.Length; i++)
+			{
+				if (MToA[i].Mclass == class'ZedternalReborn.Config_Zed'.default.Zed_ZedVariant[k].zedClass)
+				{
+					if ((CustomMode && class'ZedternalReborn.Config_Zed'.default.Zed_ZedVariant[k].minDifficulty <= CustomDifficulty
+						&& class'ZedternalReborn.Config_Zed'.default.Zed_ZedVariant[k].maxDifficulty >= CustomDifficulty) ||
+						(class'ZedternalReborn.Config_Zed'.default.Zed_ZedVariant[k].minDifficulty <= GameDifficulty
+						&& class'ZedternalReborn.Config_Zed'.default.Zed_ZedVariant[k].maxDifficulty >= GameDifficulty))
+					{
+						variantClassesList[k]++;
+					}
+				}
+			}
+		}
+
+		// Add elements to trimedZedVariantList
+		for (k = 0; k < variantClassesList.length; k++)
+		{
+			if (variantClassesList[k] > 0)
+			{
+				trimedZedVariantList.AddItem(class'ZedternalReborn.Config_Zed'.default.Zed_ZedVariant[k]);
+			}
+		}
+	}
+
 	// now, we can create the list of ZEDs (meaning that at the begining of the wave, we already know which ZEDs and when they will spawn)
 	bNewSquad = true;
-	noLargeZedCountDown = 0;	// this script will try to avoid spamming large zed using this variable
+	noLargeZedCountDown = 0;	// this script will try to avoid spamming large zeds using this variable
 	maxNumberOfZed = class'ZedternalReborn.Config_Waves'.default.ZedSpawn_MaxNumberOfMonster;
 	while (waveValue>0 && WaveTotalAI<maxNumberOfZed && MToA.Length>0)
 	{
@@ -263,7 +298,9 @@ function SetupNextWave(byte NextWaveIndex, int TimeToNextWaveBuffer = 0)
 		// check if we have enough value to spawn this monster
 		// if not, we remove it from the list
 		if (waveValue<(MToA[choice].Value*MToA[choice].MinGr))
+		{
 			MToA.Remove(choice,1);
+		}
 		else if (noLargeZedCountDown > 0 && MToA[choice].Mclass.default.bLargeZed)
 		{
 			noLargeZedCountDown -= 1;
@@ -283,21 +320,22 @@ function SetupNextWave(byte NextWaveIndex, int TimeToNextWaveBuffer = 0)
 				bNewSquad = true;
 			}
 
+			// Check for zed variants
 			if (bVariantZeds)
 			{
-				variantProbabilities.length = 0;
-				variantClasses.length = 0;
-				for (k = 0; k < class'ZedternalReborn.Config_Zed'.default.Zed_ZedVariant.length; k++)
+				variantProbabilitiesList.length = 0;
+				variantClassesList.length = 0;
+				for (k = 0; k < trimedZedVariantList.length; k++)
 				{
-					if (MToA[choice].Mclass == class'ZedternalReborn.Config_Zed'.default.Zed_ZedVariant[k].zedClass)
+					if (MToA[choice].Mclass == trimedZedVariantList[k].zedClass)
 					{
-						if ((CustomMode && class'ZedternalReborn.Config_Zed'.default.Zed_ZedVariant[k].minDifficulty <= CustomDifficulty
-							&& class'ZedternalReborn.Config_Zed'.default.Zed_ZedVariant[k].maxDifficulty >= CustomDifficulty) ||
-							(class'ZedternalReborn.Config_Zed'.default.Zed_ZedVariant[k].minDifficulty <= GameDifficulty
-							&& class'ZedternalReborn.Config_Zed'.default.Zed_ZedVariant[k].maxDifficulty >= GameDifficulty))
+						if ((CustomMode && trimedZedVariantList[k].minDifficulty <= CustomDifficulty
+							&& trimedZedVariantList[k].maxDifficulty >= CustomDifficulty) ||
+							(trimedZedVariantList[k].minDifficulty <= GameDifficulty
+							&& trimedZedVariantList[k].maxDifficulty >= GameDifficulty))
 						{
-							variantProbabilities.AddItem(class'ZedternalReborn.Config_Zed'.default.Zed_ZedVariant[k].Probability);
-							variantClasses.AddItem(class'ZedternalReborn.Config_Zed'.default.Zed_ZedVariant[k].variantClass);
+							variantProbabilitiesList.AddItem(trimedZedVariantList[k].Probability);
+							variantClassesList.AddItem(k);
 						}
 					}
 				}
@@ -309,11 +347,11 @@ function SetupNextWave(byte NextWaveIndex, int TimeToNextWaveBuffer = 0)
 				if (bVariantZeds)
 				{
 					bVariantApplied = false;
-					for (j = 0; j < variantProbabilities.length; j++)
+					for (j = 0; j < variantProbabilitiesList.length; j++)
 					{
-						if (variantProbabilities[j] >= FRand())
+						if (variantProbabilitiesList[j] >= FRand())
 						{
-							groupList[0].MClass.AddItem(variantClasses[j]);
+							groupList[0].MClass.AddItem(trimedZedVariantList[variantClassesList[j]].VariantClass);
 							bVariantApplied = true;
 							break;
 						}
