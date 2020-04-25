@@ -403,10 +403,10 @@ function Update()
 {
 	local array<class<KFPawn_Monster> > SpawnList;
 	local int remainAllowedSpawn;
-	
+
 	if( IsWaveActive() )
 	{
-   		TotalWavesActiveTime += 1.f;
+		TotalWavesActiveTime += 1.f;
 		TimeUntilNextSpawn -= 1.f * GetSineMod();
 
 		if (bAllowTurboSpawn)
@@ -415,13 +415,14 @@ function Update()
 			remainAllowedSpawn = 1;
 		
 		while (ShouldAddAI() && remainAllowedSpawn > 0)
-        {
+		{
 			SpawnList = GetNextSpawnList();
 			NumAISpawnsQueued += SpawnSquad(SpawnList);
 			remainAllowedSpawn -= 1;
-        }
+			UpdateAIRemaining();
+		}
 	}
-	
+
 	if (groupList.Length == 0 && GetAIAliveCount() <= class'ZedternalReborn.Config_Map'.static.GetZedStuckThreshold(WorldInfo.GetMapName(true)))
 	{
 		CheckStuckZed();

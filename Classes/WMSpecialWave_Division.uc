@@ -21,22 +21,21 @@ function Killed(Controller Killer, Controller KilledPlayer, Pawn KilledPawn, cla
 		}
 
 		if (newKFPM1 != none)
-			AjustNewZed(newKFPM1, KFPM.MyKFAIC.class, KFGameReplicationInfo(Killer.WorldInfo.GRI));
+			AjustNewZed(newKFPM1, KFPM.MyKFAIC.class);
 		
 		if (newKFPM2 != none)
-			AjustNewZed(newKFPM2, KFPM.MyKFAIC.class, KFGameReplicationInfo(Killer.WorldInfo.GRI));
+			AjustNewZed(newKFPM2, KFPM.MyKFAIC.class);
 	}
 }
 
-function AjustNewZed(KFPawn_Monster KFPM, class< KFAIController > KFAI, KFGameReplicationInfo KFGRI)
+function AjustNewZed(KFPawn_Monster KFPM, class< KFAIController > KFAI)
 {
-	if (KFPM != none && KFAI != none && KFGRI != none)
+	if (KFPM != none && KFAI != none)
 	{
 		KFPM.MyKFAIC = Spawn(KFAI);
 		KFPM.MyKFAIC.Possess(KFPM, false);
 		KFPM.IntendedBodyScale = default.SmallZedSize;
 		KFPM.UpdateBodyScale(KFPM.IntendedBodyScale);
-		KFGRI.AIRemaining += 1;
 	}
 }
 

@@ -27,7 +27,7 @@ function Killed(Controller Killer, Controller KilledPlayer, Pawn KilledPawn, cla
 function ReviveZED()
 {
 	local KFPawn_Monster newKFPM;
-	
+
 	if (KFPM_class != none && KFAI_class != none && KFGRI != none && KFGRI.AIRemaining > 0)
 	{
 		newKFPM = spawn(KFPM_class,,,lastLocation, lastRotation);
@@ -37,16 +37,13 @@ function ReviveZED()
 			newKFPM.MyKFAIC.Possess(newKFPM, false);
 			if (newKFPM.CanDoSpecialMove( SM_Knockdown ))
 				newKFPM.Knockdown(vect(0,0,0), vect(1,1,1), newKFPM.Location, 1000, 100);
-			
-			KFGRI.AIRemaining += 1;
-			
+
 			// effects
 			Spawn(class'ZedternalReborn.WMFX_Phoenix',,, lastLocation, newKFPM.Rotation,,true);
 			Spawn(class'ZedternalReborn.WMFX_PhoenixB',,, lastLocation, newKFPM.Rotation,,true);
 		}
 	}
 }
-
 
 defaultproperties
 {

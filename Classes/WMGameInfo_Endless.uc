@@ -273,10 +273,6 @@ function StartWave()
 	SetTimer( 5.f, false, nameof(PlayWaveStartDialog) );
 }
 
-event UpdateAIRemaining()
-{
-}
-
 function WaveEnded(EWaveEndCondition WinCondition)
 {
 	local WMPlayerController WMPC;	
@@ -1110,12 +1106,12 @@ function Killed(Controller Killer, Controller KilledPlayer, Pawn KilledPawn, cla
 	local KFPlayerController KFPC;
 	local WMSpecialWave WMSW;
 	local WMGameReplicationInfo WMGRI;
-	
+
 	if (KilledPawn.IsA('KFPawn_Human'))
 		bUseExtendedTraderTime = true;
-	
+
 	WMGRI = WMGameReplicationInfo(MyKFGRI);
-	
+
 	if (WMGRI.SpecialWaveID[0] != -1)
 	{
 		foreach DynamicActors(class'WMSpecialWave', WMSW)
@@ -1123,7 +1119,7 @@ function Killed(Controller Killer, Controller KilledPlayer, Pawn KilledPawn, cla
 			WMSW.Killed(Killer, KilledPlayer, KilledPawn, DT);
 		}
 	}
-	
+
 	for (i=0;i<WMGRI.zedBuffs.length;i+=1)
 	{
 		if (WMGRI.bZedBuffs[i]>0)
@@ -1136,15 +1132,12 @@ function Killed(Controller Killer, Controller KilledPlayer, Pawn KilledPawn, cla
 	foreach WorldInfo.AllControllers(class'KFPlayerController', KFPC)
 	{
 		if(KFPC.Pawn != none)
-    	 	PlayerCount++;
+			PlayerCount++;
 	}
-	
+
 	if (KFPawn_Monster(KilledPawn) != none && PlayerCount != 0)
 		doshNewPlayer += GameLengthDoshScale[GameLength] * KFPawn_Monster(KilledPawn).static.GetDoshValue() / PlayerCount;
-	
-	if( SpawnManager != None )
-		MyKFGRI.AIRemaining--;
-	
+
 	super.Killed(Killer, KilledPlayer, KilledPawn, DT);
 }
 
