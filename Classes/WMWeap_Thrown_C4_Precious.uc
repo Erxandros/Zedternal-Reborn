@@ -16,8 +16,7 @@ function SetOriginalValuesFromPickup( KFWeapon PickedUpWeapon )
 defaultproperties
 {
 	WeaponProjectiles(THROW_FIREMODE)=Class'ZedternalReborn.WMProj_Thrown_C4_Precious'
-	MagazineCapacity(0)=2 //50% increase (round up)
-	SpareAmmoCapacity(0)=3 //20% increase (round up)
+	SpareAmmoCapacity(0)=4 //double spare ammo
 	InstantHitDamage(BASH_FIREMODE)=29.0 //25% increase (round up)
 	Name="Default__WMWeap_Thrown_C4_Precious"
 }
