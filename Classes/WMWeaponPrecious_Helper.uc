@@ -15,8 +15,28 @@ static function string GetItemNameVariant(string defaultName, string customShort
 	return str;
 }
 
+static function SetupDroppedPickup( KFWeapon KFW, out DroppedPickup P, vector StartVelocity, int SkinId )
+{
+	local WMPreciousDroppedPickup X;
 
-
+	if (ClassIsChildOf(P.class, class'ZedternalReborn.WMPreciousDroppedPickup'))
+	{
+		X = WMPreciousDroppedPickup(P);
+		X.SetPhysics(PHYS_Falling);
+		X.Inventory	= KFW;
+		X.InventoryClass = KFW.class;
+		X.Velocity = StartVelocity;
+		X.Instigator = KFW.Instigator;
+		X.PreciousSkinItemId = SkinId;
+		X.SetPickupMesh(KFW.DroppedPickupMesh);
+		X.SetPickupParticles(KFW.DroppedPickupParticles);
+		P = X;
+	}
+	else
+	{
+		KFW.SetupDroppedPickup(P, StartVelocity);
+	}
+}
 
 
 // Apply skin (we need to by-pass SkinItemId)
