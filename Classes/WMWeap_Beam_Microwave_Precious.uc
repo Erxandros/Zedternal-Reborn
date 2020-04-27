@@ -1,18 +1,5 @@
 class WMWeap_Beam_Microwave_Precious extends KFWeap_Beam_Microwave;
 
-const VARIANT_SKIN_ID = 3435;
-
-reliable client function ClientWeaponSet(bool bOptionalSet, optional bool bDoNotActivate)
-{
-	Super.ClientWeaponSet(bOptionalSet, bDoNotActivate);
-	class'ZedternalReborn.WMWeaponPrecious_Helper'.static.VariantClientWeaponSet( self, VARIANT_SKIN_ID );
-}
-
-function SetOriginalValuesFromPickup( KFWeapon PickedUpWeapon )
-{
-	class'ZedternalReborn.WMWeaponPrecious_Helper'.static.VariantSetOriginalValuesFromPickup( self, PickedUpWeapon, VARIANT_SKIN_ID );
-}
-
 defaultproperties
 {
 	MagazineCapacity(0)=150 //50% increase
@@ -30,5 +17,6 @@ defaultproperties
 		ParticleEmitterTemplate=ParticleSystem'WEP_Microwave_Gun_EMIT.FX_Microwave_Blast_01'
 	End Object
 	ExplosionTemplate=ExploTemplatePrecious
+	DroppedPickupClass=class'ZedternalReborn.WMPreciousDroppedPickup'
 	Name="Default__WMWeap_Beam_Microwave_Precious"
 }

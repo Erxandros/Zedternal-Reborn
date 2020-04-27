@@ -11,104 +11,21 @@ struct WeaponDefPath
 var const array<WeaponDefPath> WeaponDefinitions;
 
 // Localization
-
 static function string GetItemNameVariant(string defaultName, string customShortName)
 {
 	local string str;
-	
+
 	str = defaultName $ " [Precious]";
 	if (Len(str) > NAME_MAX_LENGTH)
 		return customShortName $ " [Precious]";
-	
+
 	return str;
-}
-
-
-// Apply skin (we need to by-pass SkinItemId)
-
-static simulated function VariantClientWeaponSet( KFWeapon KFW, int SkinId )
-{
-	local PlayerController PC;
-	local int i;
-	
-	if ( KFW.Instigator != None && KFW.InvManager != None && KFW.WorldInfo.NetMode != NM_DedicatedServer )
-	{
-		PC = PlayerController(KFW.Instigator.Controller);
-		if( PC != none && PC.myHUD != none )
-		{
-			KFW.InitFOV( PC.myHUD.SizeX, PC.myHUD.SizeY, PC.DefaultFOV );
-		}
-		for( i = 0; i < KFW.NumBloodMapMaterials; ++i )
-		{
-			KFW.WeaponMICs.AddItem( KFW.Mesh.CreateAndSetMaterialInstanceConstant(i) );
-		}
-		
-		// Apply custom skin
-		ApplyFirstPersonSkin( KFW.Mesh, SkinId );
-	}
-}
-
-static function VariantSetOriginalValuesFromPickup( KFWeapon KFW, KFWeapon PickedUpWeapon, int SkinId )
-{
-	local byte i;
-	local KFWeapon KFWInv;
-
-	for (i = 0; i < 2; i++)
-	{
-		KFW.AmmoCount[i] = PickedUpWeapon.AmmoCount[i];
-	}
-
-	KFW.SpareAmmoCount[0] = PickedUpWeapon.SpareAmmoCount[0];
-
-	if( KFW.DualClass != none )
-	{
-		foreach KFInventoryManager(KFW.InvManager).InventoryActors( class'KFWeapon', KFWInv )
-		{
-			if( KFWInv.Class == KFW.DualClass )
-			{
-				KFWInv.AmmoCount[0] -= KFW.default.MagazineCapacity[0] - KFW.AmmoCount[0];
-				KFWInv.AmmoCount[1] -= KFW.default.MagazineCapacity[1] - KFW.AmmoCount[1];
-
-				KFWInv.SpareAmmoCount[0] -= (KFW.default.InitialSpareMags[0] * KFW.default.MagazineCapacity[0]) - KFW.SpareAmmoCount[0];
-				KFWInv.SpareAmmoCount[0] = Min( KFWInv.SpareAmmoCount[0], KFWInv.SpareAmmoCapacity[0] );
-
-				KFWInv.ClientForceAmmoUpdate(KFWInv.AmmoCount[0],KFWInv.SpareAmmoCount[0]);
-				KFWInv.ClientForceSecondaryAmmoUpdate(KFWInv.AmmoCount[1]);
-
-				KFWInv.bGivenAtStart = PickedUpWeapon.bGivenAtStart;
-
-				return;
-			}
-		}
-	}
-	
-	KFW.ClientForceAmmoUpdate( KFW.AmmoCount[0], KFW.SpareAmmoCount[0] );
-	KFW.ClientForceSecondaryAmmoUpdate( KFW.AmmoCount[1] );
-	KFW.bGivenAtStart = PickedUpWeapon.bGivenAtStart;
-	
-	// Apply custom skin
-	ApplyFirstPersonSkin( KFW.Mesh, SkinId );
-}
-
-
-static simulated function ApplyFirstPersonSkin( MeshComponent WeapMesh, int SkinId )
-{
-	local int i;
-	local array<MaterialInterface> SkinMICs;
-
-	SkinMICs = class'KFWeaponSkinList'.static.GetWeaponSkin(SkinId, WST_FirstPerson);
-	for (i=0; i<SkinMICs.length; i++)
-	{
-		WeapMesh.SetMaterial( i, SkinMICs[i] );
-	}
 }
 
 //For single player
 static function UpdateSkinsStandalone(const out array<string> WeaponDefs)
 {
 	local int i;
-
-	`log("Enter UpdateSkinsStandalone");
 
 	for (i = 0; i < WeaponDefs.length; i++)
 	{
@@ -120,8 +37,6 @@ static function UpdateSkinsStandalone(const out array<string> WeaponDefs)
 static function UpdateSkinsClient(const out string WeaponDefs[255])
 {
 	local byte i;
-
-	`log("Enter UpdateSkinsClient");
 
 	for (i = 0; i < 255; i++)
 	{
@@ -144,7 +59,6 @@ static function UpdateSkinsHelper(const out string WeaponDef)
 	if (index == -1)
 		return;
 
-	`log("Found skin to update: "$WeaponDef);
 	ZedternalWeapon = class<KFWeaponDefinition>(DynamicLoadObject(default.WeaponDefinitions[index].ZedternalWeaponDefPath, class'Class'));
 	OrginalWeapon = class<KFWeaponDefinition>(DynamicLoadObject(default.WeaponDefinitions[index].OriginalWeaponDefPath, class'Class'));
 
@@ -157,7 +71,7 @@ static function UpdateSkinsHelper(const out string WeaponDef)
 		}
 	}
 }
-	
+
 defaultproperties
 {
 	//Overrides

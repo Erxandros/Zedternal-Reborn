@@ -421,24 +421,6 @@ simulated function HideSpecialWaveMessage()
 	}
 }
 
-
-reliable server function ChangeThirdPersonWeaponSkin(KFPawn weaponOwner, int SkinId)
-{
-	SendThirdPersonWeaponSkin(weaponOwner, SkinId);
-}
-
-reliable client function SendThirdPersonWeaponSkin(KFPawn weaponOwner, int SkinId)
-{
-	local array<MaterialInterface> SkinMICs;
-	local int i;
-	
-	SkinMICs = class'KFWeaponSkinList'.static.GetWeaponSkin(SkinId, WST_ThirdPerson);
-	for (i=0; i<SkinMICs.length; i++)
-	{
-		weaponOwner.WeaponAttachment.WeapMesh.SetMaterial(i, SkinMICs[i]);
-	}
-}
-
 simulated function bool IsItemAllowed(STraderItem Item)
 {
 	local int i;

@@ -1,18 +1,5 @@
 class WMWeap_Blunt_Pulverizer_Precious extends KFWeap_Blunt_Pulverizer;
 
-const VARIANT_SKIN_ID = 3430;
-
-reliable client function ClientWeaponSet(bool bOptionalSet, optional bool bDoNotActivate)
-{
-	Super.ClientWeaponSet(bOptionalSet, bDoNotActivate);
-	class'ZedternalReborn.WMWeaponPrecious_Helper'.static.VariantClientWeaponSet( self, VARIANT_SKIN_ID );
-}
-
-function SetOriginalValuesFromPickup( KFWeapon PickedUpWeapon )
-{
-	class'ZedternalReborn.WMWeaponPrecious_Helper'.static.VariantSetOriginalValuesFromPickup( self, PickedUpWeapon, VARIANT_SKIN_ID );
-}
-
 defaultproperties
 {
 	MagazineCapacity(0)=8 //50% increase (round up)
@@ -33,5 +20,6 @@ defaultproperties
 		ExplosionEmitterScale=4.0
 	End Object
 	ExplosionTemplate=ExploTemplatePrecious
+	DroppedPickupClass=class'ZedternalReborn.WMPreciousDroppedPickup'
 	Name="Default__WMWeap_Blunt_Pulverizer_Precious"
 }
