@@ -1,4 +1,4 @@
-class WMWeap_Rifle_Railgun_Precious extends KFWeap_Rifle_Railgun;
+class WMWeap_Rifle_RailGun_Precious extends KFWeap_Rifle_RailGun;
 
 const VARIANT_SKIN_ID = 4794;
 
@@ -20,5 +20,5 @@ defaultproperties
 	InstantHitDamage(DEFAULT_FIREMODE)=350.0 //25% increase
 	InstantHitDamage(ALTFIRE_FIREMODE)=700.0 //25% increase
 	InstantHitDamage(BASH_FIREMODE)=38.0 //25% increase (round up)
-	Name="Default__WMWeap_Rifle_Railgun_Precious"
+	Name="Default__WMWeap_Rifle_RailGun_Precious"
 }

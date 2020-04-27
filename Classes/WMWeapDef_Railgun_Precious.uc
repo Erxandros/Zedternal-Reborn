@@ -1,8 +1,8 @@
-class WMWeapDef_Railgun_Precious extends KFWeapDef_Railgun
+class WMWeapDef_RailGun_Precious extends KFWeapDef_RailGun
 	abstract;
 
-const SHORT_ITEM_NAME = "Railgun";
-const DEFAULT_WEAPON_PATH = "KFGameContent.KFWeap_Rifle_Railgun";
+const SHORT_ITEM_NAME = "RailGun";
+const DEFAULT_WEAPON_PATH = "KFGameContent.KFWeap_Rifle_RailGun";
 
 static function string GetItemLocalization(string KeyName)
 {
@@ -19,8 +19,8 @@ static function string GetItemLocalization(string KeyName)
 
 defaultproperties
 {
-	WeaponClassPath="ZedternalReborn.WMWeap_Rifle_Railgun_Precious"
+	WeaponClassPath="ZedternalReborn.WMWeap_Rifle_RailGun_Precious"
 	BuyPrice=3000 //2x
 	AmmoPricePerMag=56 //40% more per bullet
-	Name="Default__KFWeapDef_Railgun_Precious"
+	Name="Default__KFWeapDef_RailGun_Precious"
 }
