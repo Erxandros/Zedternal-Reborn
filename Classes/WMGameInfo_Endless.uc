@@ -176,10 +176,24 @@ function InitSpawnManager()
 function StartMatch()
 {
 	local KFPlayerController KFPC;
+	local WMGameReplicationInfo WMGRI;
 	WaveNum = startingWave;
 	MyKFGRI.WaveNum = WaveNum;
 
 	super(KFGameInfo).StartMatch();
+
+	if (WorldInfo.NetMode != NM_Standalone)
+	{
+		WMGRI = WMGameReplicationInfo(MyKFGRI);
+		if (WMGRI != none)
+		{
+			WMGRI.updateSkins = true;
+		}
+	}
+	else
+	{
+		class'ZedternalReborn.WMWeaponPrecious_Helper'.static.UpdateSkinsStandalone(KFWeaponDefPath);
+	}
 
 	if( class'KFGameEngine'.static.CheckNoAutoStart() || class'KFGameEngine'.static.IsEditor() )
 	{
