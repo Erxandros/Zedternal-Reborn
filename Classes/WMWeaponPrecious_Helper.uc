@@ -11,7 +11,7 @@ struct WeaponDefPath
 var const array<WeaponDefPath> WeaponDefinitions;
 
 // Localization
-static function string GetItemNameVariant(string defaultName, string customShortName)
+static function string GetItemNamePreciousVariant(string defaultName, string customShortName)
 {
 	local string str;
 

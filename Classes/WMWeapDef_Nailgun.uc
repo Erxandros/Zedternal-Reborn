@@ -1,7 +1,6 @@
 class WMWeapDef_Nailgun extends KFWeapDef_Nailgun
 	abstract;
 
-const SHORT_ITEM_NAME = "Nailgun";
 const DEFAULT_WEAPON_PATH = "KFGameContent.KFWeap_Shotgun_Nailgun";
 
 static function string GetItemLocalization(string KeyName)
