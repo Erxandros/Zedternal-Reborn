@@ -92,7 +92,7 @@ function BuildWeaponList()
 		if (KFWeaponDefClass != none)
 		{
 			if (bAllowWeaponVariant)
-				ApplyRandomWeaponVariant(class'ZedternalReborn.Config_Weapon'.default.Weapon_PlayerStartingWeaponDefList[i]);
+				ApplyRandomWeaponVariant(class'ZedternalReborn.Config_Weapon'.default.Weapon_PlayerStartingWeaponDefList[i], true);
 			else
 				CheckForWeaponOverrides(KFWeaponDefClass);
 		}
@@ -105,7 +105,7 @@ function BuildWeaponList()
 		if (KFWeaponDefClass != none)
 		{
 			if (bAllowWeaponVariant)
-				ApplyRandomWeaponVariant(class'ZedternalReborn.Config_Weapon'.default.Trader_StaticWeaponDefs[i]);
+				ApplyRandomWeaponVariant(class'ZedternalReborn.Config_Weapon'.default.Trader_StaticWeaponDefs[i], true);
 			else
 				CheckForWeaponOverrides(KFWeaponDefClass);
 		}
@@ -118,7 +118,7 @@ function BuildWeaponList()
 		if (KFWeaponDefClass != none)
 		{
 			if (bAllowWeaponVariant)
-				ApplyRandomWeaponVariant(PathName(TraderItems.SaleItems[weaponIndex[i]].WeaponDef), weaponIndex[i]);
+				ApplyRandomWeaponVariant(PathName(TraderItems.SaleItems[weaponIndex[i]].WeaponDef), false, weaponIndex[i]);
 			else
 				CheckForWeaponOverrides(TraderItems.SaleItems[weaponIndex[i]].WeaponDef, weaponIndex[i]);
 		}
