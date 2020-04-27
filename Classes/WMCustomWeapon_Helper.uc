@@ -67,9 +67,11 @@ static function UpdateSkinsHelper(const out string WeaponDef)
 		if (class'KFWeaponSkinList'.Static.IsSkinEquip(OrginalWeapon, skin.Id))
 		{
 			class'KFWeaponSkinList'.Static.SaveWeaponSkin(ZedternalWeapon, skin.Id);
-			break;
+			return;
 		}
 	}
+
+	class'KFWeaponSkinList'.Static.SaveWeaponSkin(ZedternalWeapon, 0); //clear skin
 }
 
 defaultproperties
