@@ -1,4 +1,4 @@
-Class WMWeaponPrecious_Helper extends Info;
+Class WMCustomWeapon_Helper extends Info;
 
 const NAME_MAX_LENGTH = 24;
 

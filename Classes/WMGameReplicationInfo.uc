@@ -304,7 +304,7 @@ simulated event ReplicatedEvent(name VarName)
 
 		case 'updateSkins':
 			if (updateSkins)
-				class'ZedternalReborn.WMWeaponPrecious_Helper'.static.UpdateSkinsClient(KFWeaponDefPath);
+				class'ZedternalReborn.WMCustomWeapon_Helper'.static.UpdateSkinsClient(KFWeaponDefPath);
 			break;
 
 		default:

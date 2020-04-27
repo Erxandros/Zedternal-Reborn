@@ -192,7 +192,7 @@ function StartMatch()
 	}
 	else
 	{
-		class'ZedternalReborn.WMWeaponPrecious_Helper'.static.UpdateSkinsStandalone(KFWeaponDefPath);
+		class'ZedternalReborn.WMCustomWeapon_Helper'.static.UpdateSkinsStandalone(KFWeaponDefPath);
 	}
 
 	if( class'KFGameEngine'.static.CheckNoAutoStart() || class'KFGameEngine'.static.IsEditor() )
