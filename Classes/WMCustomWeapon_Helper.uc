@@ -144,4 +144,5 @@ defaultproperties
 	WeaponDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_MedicRifleGrenadeLauncher_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_MedicRifleGrenadeLauncher"));
 	WeaponDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_HX25_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_HX25"));
 	WeaponDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_SealSqueal_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_SealSqueal"));
+	WeaponDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_M32_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_M32"));
 }
