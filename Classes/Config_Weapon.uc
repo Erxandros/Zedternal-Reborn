@@ -322,6 +322,11 @@ static function UpdateConfig()
 		newVariant.DualWeaponDefVariant = "ZedternalReborn.WMWeapDef_ChiappaRhinoDual_Precious";
 		default.WeaponVariant_VariantList.AddItem(newVariant);
 
+		newVariant.WeaponDef = "KFGame.KFWeapDef_HRGWinterbite";
+		newVariant.WeaponDefVariant = "ZedternalReborn.WMWeapDef_HRGWinterbite_Precious";
+		newVariant.DualWeaponDefVariant = "ZedternalReborn.WMWeapDef_HRGWinterbiteDual_Precious";
+		default.WeaponVariant_VariantList.AddItem(newVariant);
+
 		for (i = i; i < default.WeaponVariant_VariantList.length; i++)
 		{
 			default.WeaponVariant_VariantList[i].Probability = 0.017500;
