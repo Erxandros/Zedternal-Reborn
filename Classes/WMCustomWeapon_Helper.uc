@@ -157,4 +157,5 @@ defaultproperties
 	WeaponDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_MP7_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_MP7"));
 	WeaponDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_Nailgun_HRG_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_Nailgun_HRG"));
 	WeaponDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_G18_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_G18"));
+	WeaponDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_LazerCutter_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_LazerCutter"));
 }
