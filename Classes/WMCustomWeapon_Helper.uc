@@ -153,4 +153,5 @@ defaultproperties
 	WeaponDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_Winchester1894_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_Winchester1894"));
 	WeaponDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_MosinNagant_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_MosinNagant"));
 	WeaponDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_CompoundBow_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_CompoundBow"));
+	WeaponDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_M99_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_M99"));
 }
