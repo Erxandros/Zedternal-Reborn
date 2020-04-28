@@ -327,6 +327,11 @@ static function UpdateConfig()
 		newVariant.DualWeaponDefVariant = "ZedternalReborn.WMWeapDef_HRGWinterbiteDual_Precious";
 		default.WeaponVariant_VariantList.AddItem(newVariant);
 
+		newVariant.WeaponDef = "KFGame.KFWeapDef_Winchester1894";
+		newVariant.WeaponDefVariant = "ZedternalReborn.WMWeapDef_Winchester1894_Precious";
+		newVariant.DualWeaponDefVariant = "";
+		default.WeaponVariant_VariantList.AddItem(newVariant);
+
 		for (i = i; i < default.WeaponVariant_VariantList.length; i++)
 		{
 			default.WeaponVariant_VariantList[i].Probability = 0.017500;

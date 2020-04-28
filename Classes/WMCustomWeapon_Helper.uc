@@ -150,4 +150,5 @@ defaultproperties
 	WeaponDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_Remington1858_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_Remington1858"));
 	WeaponDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_ChiappaRhino_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_ChiappaRhino"));
 	WeaponDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_HRGWinterbite_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_HRGWinterbite"));
+	WeaponDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_Winchester1894_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_Winchester1894"));
 }
