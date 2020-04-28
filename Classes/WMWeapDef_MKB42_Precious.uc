@@ -22,5 +22,5 @@ defaultproperties
 	WeaponClassPath="ZedternalReborn.WMWeap_AssaultRifle_MKB42_Precious"
 	BuyPrice=2200 //2x
 	AmmoPricePerMag=105 //40% more per bullet
-	Name="Default__KFWeapDef_MKB42_Precious"
+	Name="Default__WMWeapDef_MKB42_Precious"
 }

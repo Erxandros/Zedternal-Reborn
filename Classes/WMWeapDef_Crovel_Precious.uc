@@ -21,5 +21,5 @@ defaultproperties
 {
 	WeaponClassPath="ZedternalReborn.WMWeap_Blunt_Crovel_Precious"
 	BuyPrice=400 //2x
-	Name="Default__KFWeapDef_Crovel_Precious"
+	Name="Default__WMWeapDef_Crovel_Precious"
 }

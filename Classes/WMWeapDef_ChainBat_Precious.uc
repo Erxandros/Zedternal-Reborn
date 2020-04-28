@@ -21,5 +21,5 @@ defaultproperties
 {
 	WeaponClassPath="ZedternalReborn.WMWeap_Blunt_ChainBat_Precious"
 	BuyPrice=1700 //2x
-	Name="Default__KFWeapDef_ChainBat_Precious"
+	Name="Default__WMWeapDef_ChainBat_Precious"
 }

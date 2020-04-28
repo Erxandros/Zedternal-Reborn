@@ -22,5 +22,5 @@ defaultproperties
 	WeaponClassPath="ZedternalReborn.WMWeap_AssaultRifle_Microwave_Precious"
 	BuyPrice=4000 //2x
 	AmmoPricePerMag=139 //40% more per bullet (round up)
-	Name="Default__KFWeapDef_MicrowaveRifle_Precious"
+	Name="Default__WMWeapDef_MicrowaveRifle_Precious"
 }

@@ -22,5 +22,5 @@ defaultproperties
 	WeaponClassPath="ZedternalReborn.WMWeap_AssaultRifle_AR15_Precious"
 	BuyPrice=400 //2x
 	AmmoPricePerMag=42 //40% more per bullet
-	Name="Default__KFWeapDef_AR15_Precious"
+	Name="Default__WMWeapDef_AR15_Precious"
 }

@@ -22,5 +22,5 @@ defaultproperties
 	WeaponClassPath="ZedternalReborn.WMWeap_Rifle_Winchester1894_Precious"
 	BuyPrice=400 //2x
 	AmmoPricePerMag=68 //40% more per bullet (round up)
-	Name="Default__KFWeapDef_Winchester1894_Precious"
+	Name="Default__WMWeapDef_Winchester1894_Precious"
 }

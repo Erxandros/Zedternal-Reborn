@@ -22,5 +22,5 @@ defaultproperties
 	WeaponClassPath="ZedternalReborn.WMWeap_Rifle_MosinNagant_Precious"
 	BuyPrice=2200 //2x
 	AmmoPricePerMag=95 //40% more per bullet (round up)
-	Name="Default__KFWeapDef_MosinNagant_Precious"
+	Name="Default__WMWeapDef_MosinNagant_Precious"
 }

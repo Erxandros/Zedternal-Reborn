@@ -8,7 +8,7 @@ static function string GetItemLocalization(string KeyName)
 {
 	local array<string> Strings;
 	local string Localization;
-	
+
 	ParseStringIntoArray(DEFAULT_WEAPON_PATH, Strings, ".", true);
 	Localization = Localize(Strings[1], KeyName, Strings[0]);
 	if (KeyName == "ItemName")
@@ -22,5 +22,5 @@ defaultproperties
 	WeaponClassPath="ZedternalReborn.WMWeap_Bow_Crossbow_Precious"
 	BuyPrice=1300 //2x
 	AmmoPricePerMag=31 //40% more per arrow
-	Name="Default__KFWeapDef_Crossbow_Precious"
+	Name="Default__WMWeapDef_Crossbow_Precious"
 }

@@ -21,5 +21,5 @@ defaultproperties
 {
 	WeaponClassPath="ZedternalReborn.WMWeap_Edged_IonThruster_Precious"
 	BuyPrice=4000 //2x
-	Name="Default__KFWeapDef_IonThruster_Precious"
+	Name="Default__WMWeapDef_IonThruster_Precious"
 }

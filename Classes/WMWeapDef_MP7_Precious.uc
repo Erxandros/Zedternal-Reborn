@@ -22,5 +22,5 @@ defaultproperties
 	WeaponClassPath="ZedternalReborn.WMWeap_SMG_MP7_Precious"
 	BuyPrice=400 //2x
 	AmmoPricePerMag=34 //40% more per bullet (round up)
-	Name="Default__KFWeapDef_MP7_Precious"
+	Name="Default__WMWeapDef_MP7_Precious"
 }

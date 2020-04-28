@@ -8,7 +8,7 @@ static function string GetItemLocalization(string KeyName)
 {
 	local array<string> Strings;
 	local string Localization;
-	
+
 	ParseStringIntoArray(DEFAULT_WEAPON_PATH, Strings, ".", true);
 	Localization = Localize(Strings[1], KeyName, Strings[0]);
 	if (KeyName == "ItemName")
@@ -24,5 +24,5 @@ defaultproperties
 	AmmoPricePerMag=168 //40% more per blade
 	SecondaryAmmoMagSize=15 //50% increase
 	SecondaryAmmoMagPrice=21 //40% more per fuel
-	Name="Default__KFWeapDef_Eviscerator_Precious"
+	Name="Default__WMWeapDef_Eviscerator_Precious"
 }

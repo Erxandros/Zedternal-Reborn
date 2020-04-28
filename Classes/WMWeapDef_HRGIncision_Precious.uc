@@ -22,5 +22,5 @@ defaultproperties
 	WeaponClassPath="ZedternalReborn.WMWeap_Rifle_HRGIncision_Precious"
 	BuyPrice=3000 //2x
 	AmmoPricePerMag=40 //40% more per bullet (round up)
-	Name="Default__KFWeapDef_HRGIncision_Precious"
+	Name="Default__WMWeapDef_HRGIncision_Precious"
 }

@@ -21,5 +21,5 @@ defaultproperties
 {
 	WeaponClassPath="ZedternalReborn.WMWeap_Edged_AbominationAxe_Precious"
 	BuyPrice=4000 //2x
-	Name="Default__KFWeapDef_AbominationAxe_Precious"
+	Name="Default__WMWeapDef_AbominationAxe_Precious"
 }

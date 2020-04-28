@@ -22,5 +22,5 @@ defaultproperties
 	WeaponClassPath="ZedternalReborn.WMWeap_Shotgun_MB500_Precious"
 	BuyPrice=400 //2x
 	AmmoPricePerMag=63 //40% more per bullet
-	Name="Default__KFWeapDef_MB500_Precious"
+	Name="Default__WMWeapDef_MB500_Precious"
 }

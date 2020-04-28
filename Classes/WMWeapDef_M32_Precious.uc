@@ -22,5 +22,5 @@ defaultproperties
 	WeaponClassPath="ZedternalReborn.WMWeap_GrenadeLauncher_M32_Precious"
 	BuyPrice=4000 //2x
 	AmmoPricePerMag=141 //40% more per grenade (round up)
-	Name="Default__KFWeapDef_M32_Precious"
+	Name="Default__WMWeapDef_M32_Precious"
 }

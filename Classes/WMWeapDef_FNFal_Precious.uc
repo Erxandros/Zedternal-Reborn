@@ -22,5 +22,5 @@ defaultproperties
 	WeaponClassPath="ZedternalReborn.WMWeap_AssaultRifle_FNFal_Precious"
 	BuyPrice=3000 //2x
 	AmmoPricePerMag=99 //40% more per bullet (round up)
-	Name="Default__KFWeapDef_FNFal_Precious"
+	Name="Default__WMWeapDef_FNFal_Precious"
 }

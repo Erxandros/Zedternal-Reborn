@@ -22,5 +22,5 @@ defaultproperties
 	WeaponClassPath="ZedternalReborn.WMWeap_Pistol_ChiappaRhinoDual_Precious"
 	BuyPrice=2200 //2x
 	AmmoPricePerMag=72 //40% more per bullet (round up)
-	Name="Default__KFWeapDef_ChiappaRhinoDual_Precious"
+	Name="Default__WMWeapDef_ChiappaRhinoDual_Precious"
 }

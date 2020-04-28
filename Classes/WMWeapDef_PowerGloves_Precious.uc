@@ -21,5 +21,5 @@ defaultproperties
 {
 	WeaponClassPath="ZedternalReborn.WMWeap_Blunt_PowerGloves_Precious"
 	BuyPrice=3200 //2x
-	Name="Default__KFWeapDef_PowerGloves_Precious"
+	Name="Default__WMWeapDef_PowerGloves_Precious"
 }

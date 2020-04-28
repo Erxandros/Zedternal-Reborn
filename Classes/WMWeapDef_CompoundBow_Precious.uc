@@ -22,5 +22,5 @@ defaultproperties
 	WeaponClassPath="ZedternalReborn.WMWeap_Bow_CompoundBow_Precious"
 	BuyPrice=4000 //2x
 	AmmoPricePerMag=45 //40% more per arrow (round up)
-	Name="Default__KFWeapDef_CompoundBow_Precious"
+	Name="Default__WMWeapDef_CompoundBow_Precious"
 }

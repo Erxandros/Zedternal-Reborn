@@ -22,5 +22,5 @@ defaultproperties
 	WeaponClassPath="ZedternalReborn.WMWeap_AssaultRifle_LazerCutter_Precious"
 	BuyPrice=4000 //2x
 	AmmoPricePerMag=177 //40% more per bullet (round up)
-	Name="Default__KFWeapDef_LazerCutter_Precious"
+	Name="Default__WMWeapDef_LazerCutter_Precious"
 }

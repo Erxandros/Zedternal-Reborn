@@ -24,5 +24,5 @@ defaultproperties
 	AmmoPricePerMag=99 //40% more per bullet (round up)
 	SecondaryAmmoMagSize=2 //2x
 	SecondaryAmmoMagPrice=76 //40% more per grenade (round up)
-	Name="Default__KFWeapDef_MedicRifleGrenadeLauncher_Precious"
+	Name="Default__WMWeapDef_MedicRifleGrenadeLauncher_Precious"
 }

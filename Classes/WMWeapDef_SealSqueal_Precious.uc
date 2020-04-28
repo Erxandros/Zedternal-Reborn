@@ -22,5 +22,5 @@ defaultproperties
 	WeaponClassPath="ZedternalReborn.WMWeap_RocketLauncher_SealSqueal_Precious"
 	BuyPrice=2200 //2x
 	AmmoPricePerMag=168 //40% more per rocket
-	Name="Default__KFWeapDef_SealSqueal_Precious"
+	Name="Default__WMWeapDef_SealSqueal_Precious"
 }

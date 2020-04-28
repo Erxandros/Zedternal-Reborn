@@ -22,5 +22,5 @@ defaultproperties
 	WeaponClassPath="ZedternalReborn.WMWeap_Rifle_M99_Precious"
 	BuyPrice=5000 //2x
 	AmmoPricePerMag=107 //40% more per bullet (round up)
-	Name="Default__KFWeapDef_M99_Precious"
+	Name="Default__WMWeapDef_M99_Precious"
 }

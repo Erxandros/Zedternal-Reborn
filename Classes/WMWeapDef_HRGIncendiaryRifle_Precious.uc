@@ -24,5 +24,5 @@ defaultproperties
 	AmmoPricePerMag=63 //40% more per bullet
 	SecondaryAmmoMagSize=2 //2x
 	SecondaryAmmoMagPrice=42 //40% more per grenade
-	Name="Default__KFWeapDef_HRGIncendiaryRifle_Precious"
+	Name="Default__WMWeapDef_HRGIncendiaryRifle_Precious"
 }

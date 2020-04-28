@@ -22,5 +22,5 @@ defaultproperties
 	WeaponClassPath="ZedternalReborn.WMWeap_GrenadeLauncher_HX25_Precious"
 	BuyPrice=600 //2x
 	AmmoPricePerMag=26 //40% more per grenade (round up)
-	Name="Default__KFWeapDef_HX25_Precious"
+	Name="Default__WMWeapDef_HX25_Precious"
 }

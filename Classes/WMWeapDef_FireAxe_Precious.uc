@@ -21,5 +21,5 @@ defaultproperties
 {
 	WeaponClassPath="ZedternalReborn.WMWeap_Edged_FireAxe_Precious"
 	BuyPrice=1700 //2x
-	Name="Default__KFWeapDef_FireAxe_Precious"
+	Name="Default__WMWeapDef_FireAxe_Precious"
 }

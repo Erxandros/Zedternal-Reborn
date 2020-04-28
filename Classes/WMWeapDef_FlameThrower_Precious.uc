@@ -8,7 +8,7 @@ static function string GetItemLocalization(string KeyName)
 {
 	local array<string> Strings;
 	local string Localization;
-	
+
 	ParseStringIntoArray(DEFAULT_WEAPON_PATH, Strings, ".", true);
 	Localization = Localize(Strings[1], KeyName, Strings[0]);
 	if (KeyName == "ItemName")
@@ -22,5 +22,5 @@ defaultproperties
 	WeaponClassPath="ZedternalReborn.WMWeap_Flame_Flamethrower_Precious"
 	BuyPrice=2400 //2x
 	AmmoPricePerMag=175 //40% more per fuel
-	Name="Default__KFWeapDef_FlameThrower_Precious"
+	Name="Default__WMWeapDef_FlameThrower_Precious"
 }

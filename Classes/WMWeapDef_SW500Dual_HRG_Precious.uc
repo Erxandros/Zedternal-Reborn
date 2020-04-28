@@ -22,5 +22,5 @@ defaultproperties
 	WeaponClassPath="ZedternalReborn.WMWeap_HRG_Revolver_DualBuckshot_Precious"
 	BuyPrice=2200 //2x
 	AmmoPricePerMag=96 //40% more per bullet
-	Name="Default__KFWeapDef_SW500Dual_HRG_Precious"
+	Name="Default__WMWeapDef_SW500Dual_HRG_Precious"
 }
