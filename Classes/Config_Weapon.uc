@@ -312,6 +312,11 @@ static function UpdateConfig()
 		newVariant.DualWeaponDefVariant = "";
 		default.WeaponVariant_VariantList.AddItem(newVariant);
 
+		newVariant.WeaponDef = "KFGame.KFWeapDef_Remington1858";
+		newVariant.WeaponDefVariant = "ZedternalReborn.WMWeapDef_Remington1858_Precious";
+		newVariant.DualWeaponDefVariant = "ZedternalReborn.WMWeapDef_Remington1858Dual_Precious";
+		default.WeaponVariant_VariantList.AddItem(newVariant);
+
 		for (i = i; i < default.WeaponVariant_VariantList.length; i++)
 		{
 			default.WeaponVariant_VariantList[i].Probability = 0.017500;
