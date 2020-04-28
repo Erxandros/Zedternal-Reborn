@@ -1,4 +1,4 @@
-class WMWeap_HRG_Nailgun_Precious extends KFWeap_HRG_Nailgun;
+class WMWeap_HRG_Nailgun_Precious extends WMWeap_HRG_Nailgun;
 
 defaultproperties
 {
