@@ -131,4 +131,5 @@ defaultproperties
 	WeaponDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_FNFal_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_FNFal"));
 	WeaponDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_Crovel_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_Crovel"));
 	WeaponDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_ChainBat_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_ChainBat"));
+	WeaponDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_FireAxe_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_FireAxe"));
 }
