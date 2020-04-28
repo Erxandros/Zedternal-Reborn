@@ -139,4 +139,5 @@ defaultproperties
 	WeaponDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_MB500_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_MB500"));
 	WeaponDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_ElephantGun_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_ElephantGun"));
 	WeaponDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_SW500_HRG_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_SW500_HRG"));
+	WeaponDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_Healthrower_HRG_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_Healthrower_HRG"));
 }

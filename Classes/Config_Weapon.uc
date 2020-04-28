@@ -272,6 +272,11 @@ static function UpdateConfig()
 		newVariant.DualWeaponDefVariant = "ZedternalReborn.WMWeapDef_SW500Dual_HRG_Precious";
 		default.WeaponVariant_VariantList.AddItem(newVariant);
 
+		newVariant.WeaponDef = "KFGame.KFWeapDef_Healthrower_HRG";
+		newVariant.WeaponDefVariant = "ZedternalReborn.WMWeapDef_Healthrower_HRG_Precious";
+		newVariant.DualWeaponDefVariant = "";
+		default.WeaponVariant_VariantList.AddItem(newVariant);
+
 		for (i = i; i < default.WeaponVariant_VariantList.length; i++)
 		{
 			default.WeaponVariant_VariantList[i].Probability = 0.017500;
