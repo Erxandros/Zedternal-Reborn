@@ -3,6 +3,7 @@ class WMWeap_AssaultRifle_SCAR_Precious extends KFWeap_AssaultRifle_SCAR;
 defaultproperties
 {
 	MagazineCapacity(0)=30 //50% increase
+	AmmoPickupScale(0)=0.5 //50% decrease
 	SpareAmmoCapacity(0)=408 //20% increase
 	InstantHitDamage(DEFAULT_FIREMODE)=69.0 //25% increase (round up)
 	InstantHitDamage(ALTFIRE_FIREMODE)=69.0 //25% increase (round up)

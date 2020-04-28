@@ -3,6 +3,7 @@ class WMWeap_Blunt_Pulverizer_Precious extends KFWeap_Blunt_Pulverizer;
 defaultproperties
 {
 	MagazineCapacity(0)=8 //50% increase (round up)
+	AmmoPickupScale(0)=0.5 //50% decrease
 	SpareAmmoCapacity(0)=18  //20% increase
 	InstantHitDamage(DEFAULT_FIREMODE)=100.0 //25% increase
 	InstantHitDamage(HEAVY_ATK_FIREMODE)=182.0 //25% increase (round up)

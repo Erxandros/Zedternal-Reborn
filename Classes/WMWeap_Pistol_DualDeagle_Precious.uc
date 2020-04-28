@@ -4,6 +4,7 @@ defaultproperties
 {
 	SingleClass=Class'ZedternalReborn.WMWeap_Pistol_Deagle_Precious'
 	MagazineCapacity(0)=22 //50% increase (round up)
+	AmmoPickupScale(0)=0.5 //50% decrease
 	SpareAmmoCapacity(0)=118 //20% increase (round up)
 	InstantHitDamage(DEFAULT_FIREMODE)=114.0 //25% increase (round up)
 	InstantHitDamage(ALTFIRE_FIREMODE)=114.0 //25% increase (round up)

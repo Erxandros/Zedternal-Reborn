@@ -4,6 +4,7 @@ defaultproperties
 {
 	SingleClass=Class'ZedternalReborn.WMWeap_Revolver_SW500_Precious'
 	MagazineCapacity(0)=16 //50% increase (round up)
+	AmmoPickupScale(0)=0.5 //50% decrease
 	SpareAmmoCapacity(0)=114 //20% increase
 	InstantHitDamage(DEFAULT_FIREMODE)=200.0 //25% increase
 	InstantHitDamage(ALTFIRE_FIREMODE)=200.0 //25% increase

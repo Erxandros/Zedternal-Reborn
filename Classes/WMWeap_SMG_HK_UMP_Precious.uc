@@ -3,6 +3,7 @@ class WMWeap_SMG_HK_UMP_Precious extends KFWeap_SMG_HK_UMP;
 defaultproperties
 {
 	MagazineCapacity(0)=45 //50% increase
+	AmmoPickupScale(0)=0.5 //50% decrease
 	SpareAmmoCapacity(0)=348 //20% increase
 	InstantHitDamage(DEFAULT_FIREMODE)=57.0 //25% increase (round up)
 	InstantHitDamage(ALTFIRE_FIREMODE)=57.0 //25% increase (round up)

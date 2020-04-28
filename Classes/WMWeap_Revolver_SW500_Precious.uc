@@ -4,6 +4,7 @@ defaultproperties
 {
 	DualClass=Class'ZedternalReborn.WMWeap_Revolver_DualSW500_Precious'
 	MagazineCapacity(0)=8 //50% increase (round up)
+	AmmoPickupScale(0)=1.0 //50% decrease
 	SpareAmmoCapacity(0)=120 //20% increase
 	InstantHitDamage(DEFAULT_FIREMODE)=200.0 //25% increase
 	InstantHitDamage(BASH_FIREMODE)=29.0 //25% increase (round up)

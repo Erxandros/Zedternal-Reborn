@@ -4,6 +4,7 @@ defaultproperties
 {
 	DualClass=Class'ZedternalReborn.WMWeap_Pistol_DualColt1911_Precious'
 	MagazineCapacity(0)=12 //50% increase
+	AmmoPickupScale(0)=1.0 //50% decrease
 	SpareAmmoCapacity(0)=164 //20% increase (round up)
 	InstantHitDamage(DEFAULT_FIREMODE)=63.0 //25% increase (round up)
 	InstantHitDamage(BASH_FIREMODE)=28.0 //25% increase (round up)

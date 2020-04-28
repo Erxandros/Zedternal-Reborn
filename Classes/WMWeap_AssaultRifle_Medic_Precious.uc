@@ -3,6 +3,7 @@ class WMWeap_AssaultRifle_Medic_Precious extends KFWeap_AssaultRifle_Medic;
 defaultproperties
 {
 	MagazineCapacity(0)=60 //50% increase
+	AmmoPickupScale(0)=0.5 //50% decrease
 	SpareAmmoCapacity(0)=480 //20% increase
 	InstantHitDamage(DEFAULT_FIREMODE)=44.0 //25% increase (round up)
 	AmmoCost(ALTFIRE_FIREMODE)=30 //20% decrease

@@ -4,6 +4,7 @@ defaultproperties
 {
 	SingleClass=Class'ZedternalReborn.WMWeap_Pistol_AF2011_Precious'
 	MagazineCapacity(0)=48 //50% increase
+	AmmoPickupScale(0)=0.5 //50% decrease
 	SpareAmmoCapacity(0)=327 //20% increase (round up)
 	InstantHitDamage(DEFAULT_FIREMODE)=67.0 //25% increase (round up)
 	InstantHitDamage(ALTFIRE_FIREMODE)=67.0 //25% increase (round up)

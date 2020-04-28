@@ -3,6 +3,7 @@ class WMWeap_Ice_FreezeThrower_Precious extends KFWeap_Ice_FreezeThrower;
 defaultproperties
 {
 	MagazineCapacity(0)=150 //50% increase
+	AmmoPickupScale(0)=0.375 //50% decrease
 	SpareAmmoCapacity(0)=600 //20% increase
 	FireInterval(DEFAULT_FIREMODE)=0.056 //25% increase
 	InstantHitDamage(ALTFIRE_FIREMODE)=25.0 //25% increase

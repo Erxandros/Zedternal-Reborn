@@ -3,6 +3,7 @@ class WMWeap_Flame_Flamethrower_Precious extends KFWeap_Flame_Flamethrower;
 defaultproperties
 {
 	MagazineCapacity(0)=150 //50% increase
+	AmmoPickupScale(0)=0.2 //50% decrease
 	SpareAmmoCapacity(0)=600 //20% increase
 	FireInterval(DEFAULT_FIREMODE)=0.056 //25% increase
 	InstantHitDamage(BASH_FIREMODE)=35 //25% increase

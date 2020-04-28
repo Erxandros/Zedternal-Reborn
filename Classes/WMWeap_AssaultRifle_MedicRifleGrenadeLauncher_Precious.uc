@@ -6,7 +6,7 @@ defaultproperties
 	AmmoPickupScale(0)=0.5 //50% decrease
 	SpareAmmoCapacity(0)=252 //20% increase
 	MagazineCapacity(1)=2 //50% increase (round up)
-	AmmoPickupScale(1)=0.5 //50% decrease
+	AmmoPickupScale(1)=1.0 //50% decrease
 	SpareAmmoCapacity(1)=11 //20% increase (round up)
 	InstantHitDamage(DEFAULT_FIREMODE)=59.0 //25% increase (round up)
 	InstantHitDamage(ALTFIRE_FIREMODE)=63.0 //25% increase (round up)

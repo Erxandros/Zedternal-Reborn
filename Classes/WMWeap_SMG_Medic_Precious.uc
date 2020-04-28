@@ -3,6 +3,7 @@ class WMWeap_SMG_Medic_Precious extends KFWeap_SMG_Medic;
 defaultproperties
 {
 	MagazineCapacity(0)=60 //50% increase
+	AmmoPickupScale(0)=0.5 //50% decrease
 	SpareAmmoCapacity(0)=576 //20% increase
 	InstantHitDamage(DEFAULT_FIREMODE)=25.0 //25% increase
 	AmmoCost(ALTFIRE_FIREMODE)=32 //20% decrease

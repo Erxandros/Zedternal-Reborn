@@ -3,6 +3,7 @@ class WMWeap_Shotgun_DoubleBarrel_Precious extends KFWeap_Shotgun_DoubleBarrel;
 defaultproperties
 {
 	MagazineCapacity(0)=3 //50% increase
+	AmmoPickupScale(0)=1.5 //50% decrease
 	SpareAmmoCapacity(0)=56 //20% increase (round up)
 	InstantHitDamage(DEFAULT_FIREMODE)=32.0 //25% increase (round up)
 	InstantHitDamage(ALTFIRE_FIREMODE)=32.0 //25% increase (round up)

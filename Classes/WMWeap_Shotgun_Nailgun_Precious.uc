@@ -3,6 +3,7 @@ class WMWeap_Shotgun_Nailgun_Precious extends WMWeap_Shotgun_Nailgun;
 defaultproperties
 {
 	MagazineCapacity(0)=63 //50% increase
+	AmmoPickupScale(0)=0.5 //50% decrease
 	SpareAmmoCapacity(0)=404 //20% increase (round up)
 	InstantHitDamage(DEFAULT_FIREMODE)=44.0 //25% increase (round up)
 	InstantHitDamage(ALTFIRE_FIREMODE)=44.0 //25% increase (round up)

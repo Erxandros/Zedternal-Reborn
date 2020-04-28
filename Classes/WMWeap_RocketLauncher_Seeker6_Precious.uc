@@ -2,10 +2,12 @@ class WMWeap_RocketLauncher_Seeker6_Precious extends KFWeap_RocketLauncher_Seeke
 
 defaultproperties
 {
-	WeaponProjectiles(0)=Class'ZedternalReborn.WMProj_Rocket_Seeker6_Precious'
 	MagazineCapacity(0)=9 //50% increase
+	AmmoPickupScale(0)=1.0 //50% decrease
 	SpareAmmoCapacity(0)=101 //20% increase (round up)
+	WeaponProjectiles(DEFAULT_FIREMODE)=Class'ZedternalReborn.WMProj_Rocket_Seeker6_Precious'
 	InstantHitDamage(DEFAULT_FIREMODE)=150.0 //25% increase
+	WeaponProjectiles(ALTFIRE_FIREMODE)=Class'ZedternalReborn.WMProj_Rocket_Seeker6_Precious'
 	InstantHitDamage(ALTFIRE_FIREMODE)=150.0 //25% increase
 	InstantHitDamage(BASH_FIREMODE)=37.0 //25% increase (round up)
 	DroppedPickupClass=class'ZedternalReborn.WMPreciousDroppedPickup'
