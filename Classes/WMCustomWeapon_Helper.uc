@@ -137,4 +137,5 @@ defaultproperties
 	WeaponDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_IonThruster_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_IonThruster"));
 	WeaponDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_AbominationAxe_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_AbominationAxe"));
 	WeaponDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_MB500_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_MB500"));
+	WeaponDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_ElephantGun_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_ElephantGun"));
 }
