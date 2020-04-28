@@ -126,4 +126,5 @@ defaultproperties
 	WeaponDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_AF2011_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_AF2011"));
 	WeaponDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_MedicPistol_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_MedicPistol"));
 	WeaponDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_AR15_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_AR15"));
+	WeaponDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_Thompson_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_Thompson"));
 }
