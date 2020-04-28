@@ -1,7 +1,7 @@
 class WMWeapDef_AF2011Dual_Precious extends KFWeapDef_AF2011Dual
 	abstract;
 
-const SHORT_ITEM_NAME = "AF2011 Dual";
+const SHORT_ITEM_NAME = "Dual AF2011";
 const DEFAULT_WEAPON_PATH = "KFGameContent.KFWeap_Pistol_DualAF2011";
 
 static function string GetItemLocalization(string KeyName)
