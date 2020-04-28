@@ -135,4 +135,5 @@ defaultproperties
 	WeaponDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_MedicBat_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_MedicBat"));
 	WeaponDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_PowerGloves_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_PowerGloves"));
 	WeaponDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_IonThruster_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_IonThruster"));
+	WeaponDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_AbominationAxe_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_AbominationAxe"));
 }
