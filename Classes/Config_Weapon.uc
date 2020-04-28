@@ -32,6 +32,7 @@ var config array< S_Variant > WeaponVariant_VariantList;	// here, we can configu
 static function UpdateConfig()
 {
 	local int i;
+	local S_Variant newVariant;
 
 	if (default.MODEVERSION < 1)
 	{
@@ -191,6 +192,19 @@ static function UpdateConfig()
 		{
 			default.WeaponVariant_VariantList[i].WeaponDef = "KFGame.KFWeapDef_RailGun";
 			default.WeaponVariant_VariantList[i].WeaponDefVariant = "ZedternalReborn.WMWeapDef_RailGun_Precious";
+		}
+
+		i = default.WeaponVariant_VariantList.length;
+
+		//Add new precious weapons
+		newVariant.WeaponDef = "KFGame.KFWeapDef_MedicPistol";
+		newVariant.WeaponDefVariant = "ZedternalReborn.WMWeapDef_MedicPistol_Precious";
+		newVariant.DualWeaponDefVariant = "";
+		default.WeaponVariant_VariantList.AddItem(newVariant);
+
+		for (i = i; i < default.WeaponVariant_VariantList.length; i++)
+		{
+			default.WeaponVariant_VariantList[i].Probability = 0.017500;
 		}
 	}
 
