@@ -155,4 +155,5 @@ defaultproperties
 	WeaponDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_CompoundBow_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_CompoundBow"));
 	WeaponDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_M99_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_M99"));
 	WeaponDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_MP7_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_MP7"));
+	WeaponDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_Nailgun_HRG_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_Nailgun_HRG"));
 }
