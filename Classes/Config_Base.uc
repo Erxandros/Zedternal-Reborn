@@ -29,6 +29,16 @@ static function CheckDefaultValue()
 {
 	local byte i;
 
+	PrintVersion();
+
+	for (i = 0; i < default.ConfigFiles.length; i++)
+	{
+		default.ConfigFiles[i].static.UpdateConfig();
+	}
+}
+
+static function PrintVersion()
+{
 	if (default.currentHotfix == 0)
 	{
 		`log("ZedternalReborn GameMode Version: " $ default.currentVersion);
@@ -36,11 +46,6 @@ static function CheckDefaultValue()
 	else
 	{
 		`log("ZedternalReborn GameMode Version: " $ default.currentVersion $" Hotfix: " $ default.currentHotfix);
-	}
-
-	for (i = 0; i < default.ConfigFiles.length; i++)
-	{
-		default.ConfigFiles[i].static.UpdateConfig();
 	}
 }
 

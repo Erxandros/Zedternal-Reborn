@@ -53,11 +53,12 @@ var array< KFMusicTrackInfo > ZedBuffMusic;
 var array< class<KFTraderVoiceGroupBase> > TraderVoiceGroupClasses;
 
 var repnotify bool updateSkins;
+var repnotify bool printVersion;
 
 replication
 {
 	if ( bNetDirty )
-		staticWeapon,weaponUpgrade_WeaponStr,weaponUpgrade_UpgradeStr,KFWeaponName,KFWeaponDefPath,KFStartingWeaponPath,SpecialWaveID,TraderVoiceGroupIndex,bNewZedBuff,TraderArch,ArmorPrice,perkUpgradesStr,skillUpgradesStr,skillUpgradesStr_Perk,specialWavesStr,grenadesStr,zedBuffStr,startingWeapon,newWeaponEachWave,maxWeapon,perkPrice,perkMaxLevel,skillPrice,skillDeluxePrice,bUseCustomWeaponPrice,weaponPrice,weaponMaxLevel,bZedBuffs,weaponUpgrade_WeaponStr_B,weaponUpgrade_UpgradeStr_B,weaponUpgrade_PriceRep, weaponUpgrade_PriceRep_B, updateSkins;
+		staticWeapon,weaponUpgrade_WeaponStr,weaponUpgrade_UpgradeStr,KFWeaponName,KFWeaponDefPath,KFStartingWeaponPath,SpecialWaveID,TraderVoiceGroupIndex,bNewZedBuff,TraderArch,ArmorPrice,perkUpgradesStr,skillUpgradesStr,skillUpgradesStr_Perk,specialWavesStr,grenadesStr,zedBuffStr,startingWeapon,newWeaponEachWave,maxWeapon,perkPrice,perkMaxLevel,skillPrice,skillDeluxePrice,bUseCustomWeaponPrice,weaponPrice,weaponMaxLevel,bZedBuffs,weaponUpgrade_WeaponStr_B,weaponUpgrade_UpgradeStr_B,weaponUpgrade_PriceRep, weaponUpgrade_PriceRep_B, updateSkins, printVersion;
 }
 
 simulated event ReplicatedEvent(name VarName)
@@ -305,6 +306,11 @@ simulated event ReplicatedEvent(name VarName)
 		case 'updateSkins':
 			if (updateSkins)
 				class'ZedternalReborn.WMCustomWeapon_Helper'.static.UpdateSkinsClient(KFWeaponDefPath);
+			break;
+
+		case 'printVersion':
+			if (printVersion)
+				class'ZedternalReborn.Config_Base'.static.PrintVersion();
 			break;
 
 		default:

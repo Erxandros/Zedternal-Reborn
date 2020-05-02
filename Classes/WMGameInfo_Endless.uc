@@ -914,6 +914,9 @@ function RepGameInfo()
 	WMGRI = WMGameReplicationInfo(MyKFGRI);
 	if (WMGRI == none)
 		return;
+
+	//Print game version
+	WMGRI.printVersion = true;
 	
 	//ZedBuff
 	for (i=0;i<Min(254,class'ZedternalReborn.Config_ZedBuff'.default.ZedBuff_BuffPath.length);i++)
