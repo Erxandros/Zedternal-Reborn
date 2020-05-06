@@ -749,10 +749,12 @@ function UnlockRandomSkill(Class< WMUpgrade_Perk > perkClass, bool bShouldBeDelu
 	local array< int > availableIndex;
 	local int i, choice;
 	local WMGameReplicationInfo WMGRI;
+	local WMPlayerController WMPC;
 	local WMPlayerReplicationInfo WMPRI;
 	
 	WMGRI = WMGameReplicationInfo(GetPC().WorldInfo.GRI);
 	WMPRI = WMPlayerReplicationInfo(KFPC.PlayerReplicationInfo);
+	WMPC = WMPlayerController(KFPC);
 	
 	for (i=0;i<WMGRI.skillUpgrades.length;i+=1)
 	{
@@ -762,11 +764,7 @@ function UnlockRandomSkill(Class< WMUpgrade_Perk > perkClass, bool bShouldBeDelu
 	if (availableIndex.length > 0)
 	{
 		choice = Rand(availableIndex.length);
-		WMPRI.bSkillUnlocked[availableIndex[choice]] = 1;
-		if (bShouldBeDeluxe)
-			WMPRI.bSkillDeluxe[availableIndex[choice]] = 1;
-		else
-			WMPRI.bSkillDeluxe[availableIndex[choice]] = 0;
+		WMPC.UnlockSkill(availableIndex[choice], bShouldBeDeluxe);
 		
 		skillLastUnlocked = availableIndex[choice]+1;
 		Refresh();

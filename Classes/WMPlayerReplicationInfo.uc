@@ -1,22 +1,20 @@
 class WMPlayerReplicationInfo extends KFPlayerReplicationInfo;
 
-
+//Replicated arrays
 var name KFWeaponName[255];
 var byte bPerkUpgrade[255];
 var byte bPerkUpgradeAvailable[255];
 var byte bWeaponUpgrade_A[255];
 var byte bWeaponUpgrade_B[255];
 var byte bSkillUpgrade[255];
-var byte bSkillDeluxe[255];
 var byte bSkillUnlocked[255];
-var int perkLvl;
+var byte bSkillDeluxe[255];
 
 // Current "perk" : perk's icon reflets where player spend his dosh (perk upgrades and skill upgrades)
 var repnotify byte perkIconIndex;
 var texture2D CurrentIconToDisplay;
 var array< int > doshSpentOnPerk;
-
-var repnotify byte bForcePurchaseUpdate;
+var int perkLvl;
 
 // new opti array to track purchase of player (on server and client sides)
 // used in WMPerk
@@ -25,7 +23,7 @@ var array< byte > purchase_perkUpgrade, purchase_skillUpgrade, purchase_weaponUp
 replication
 {
 	if ( bNetDirty )
-		KFWeaponName,bPerkUpgrade,bPerkUpgradeAvailable,bWeaponUpgrade_A,bWeaponUpgrade_B,bSkillUpgrade,bSkillUnlocked,perkLvl,perkIconIndex,bForcePurchaseUpdate;
+		KFWeaponName,bPerkUpgrade,bPerkUpgradeAvailable,bWeaponUpgrade_A,bWeaponUpgrade_B,bSkillUpgrade,bSkillUnlocked,bSkillDeluxe,perkIconIndex,perkLvl;
 }
 
 simulated event ReplicatedEvent(name VarName)
@@ -37,10 +35,6 @@ simulated event ReplicatedEvent(name VarName)
 		WMGRI = WMGameReplicationInfo(WorldInfo.GRI);
 		if (WMGRI != none)
 			CurrentIconToDisplay = WMGRI.perkUpgrades[perkIconIndex].static.GetUpgradeIcon( bPerkUpgrade[perkIconIndex]-1 );
-	}
-	else if (VarName == 'bForcePurchaseUpdate')
-	{
-		UpdatePurchase();
 	}
 	else
 		super.ReplicatedEvent(VarName);
@@ -66,10 +60,10 @@ function CopyProperties(PlayerReplicationInfo PRI)
 			WMPRI.bWeaponUpgrade_B[i] = bWeaponUpgrade_B[i];
 			WMPRI.bSkillUpgrade[i] = bSkillUpgrade[i];
 			WMPRI.bSkillUnlocked[i] = bSkillUnlocked[i];
+			WMPRI.bSkillDeluxe[i] = bSkillDeluxe[i];
 		}
 		
 		WMPRI.perkLvl = perkLvl;
-		WMPRI.bForcePurchaseUpdate = 1;
 		
 		WMP = WMPlayerController(WMPRI.KFPlayerOwner);
 		if (WMP != none)
@@ -219,7 +213,6 @@ defaultproperties
 {
 	perkLvl=0
 	perkIconIndex=254
-	bForcePurchaseUpdate=0
 	CurrentIconToDisplay=Texture2D'UI_PerkIcons_TEX.UI_Horzine_H_Logo'
 
 	Name="Default__WMPlayerReplicationInfo"

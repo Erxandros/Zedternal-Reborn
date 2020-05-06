@@ -88,6 +88,20 @@ reliable server function BuySkillUpgrade(int ItemDefinition, int PerkItemDefinit
 	}
 }
 
+reliable server function UnlockSkill(int index, bool deluxe)
+{
+	local WMPlayerReplicationInfo WMPRI;
+
+	WMPRI = WMPlayerReplicationInfo(Pawn.PlayerReplicationInfo);
+
+	if (WMPRI != none)
+	{
+		WMPRI.bSkillUnlocked[index] = 1;
+		if (deluxe)
+			WMPRI.bSkillDeluxe[index] = 1;
+	}
+}
+
 function UpdateWeaponMagAndCap()
 {
 	local KFPawn_Human KFP;
