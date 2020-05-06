@@ -144,17 +144,17 @@ event PostLogin(PlayerController NewPlayer)
 {
 	local WMPlayerController WMPC;
 	local WMPlayerReplicationInfo WMPRI;
-	
+
+	super.PostLogin(NewPlayer);
+
 	WMPC = WMPlayerController(NewPlayer);
 	WMPRI = WMPlayerReplicationInfo(WMPC.PlayerReplicationInfo);
-	
+
 	if (MyKFGRI != none && MyKFGRI.AIRemaining > 0)
 		bUseExtendedTraderTime = true;
 
 	if (WMPRI != none)
 		RepPlayerInfo(WMPRI);
-	
-	super.PostLogin(NewPlayer);
 }
 
 /** Set up the spawning */
