@@ -1,14 +1,14 @@
 class WMPlayerReplicationInfo extends KFPlayerReplicationInfo;
 
 
-var name KFWeaponName[254];
-var byte bPerkUpgrade[254];
-var byte bPerkUpgradeAvailable[254];
+var name KFWeaponName[255];
+var byte bPerkUpgrade[255];
+var byte bPerkUpgradeAvailable[255];
 var byte bWeaponUpgrade_A[255];
 var byte bWeaponUpgrade_B[255];
-var byte bSkillUpgrade[254];
-var byte bSkillDeluxe[254];
-var byte bSkillUnlocked[254];
+var byte bSkillUpgrade[255];
+var byte bSkillDeluxe[255];
+var byte bSkillUnlocked[255];
 var int perkLvl;
 
 // Current "perk" : perk's icon reflets where player spend his dosh (perk upgrades and skill upgrades)
@@ -57,7 +57,7 @@ function CopyProperties(PlayerReplicationInfo PRI)
 	
 	if (WMPRI != none)
 	{
-		for (i=0; i<254; i+=1)
+		for (i = 0; i < 255; i++)
 		{
 			WMPRI.KFWeaponName[i] = KFWeaponName[i];
 			WMPRI.bPerkUpgrade[i] = bPerkUpgrade[i];
@@ -145,28 +145,28 @@ simulated function UpdatePurchase()
 	local WMPlayerController LocalPC;
 	local WMPerk Perk;
 	local int i;
-	
+
 	purchase_perkUpgrade.length = 0;
-	for (i=0; i<254; i+=1)
+	for (i = 0; i < 255; i++)
 	{
 		if (bPerkUpgrade[i] > 0)
 			purchase_perkUpgrade.AddItem(i);
 	}
-	
+
 	purchase_skillUpgrade.length = 0;
-	for (i=0; i<254; i+=1)
+	for (i = 0; i < 255; i++)
 	{
 		if (bSkillUpgrade[i] > 0)
 			purchase_skillUpgrade.AddItem(i);
 	}
-	
+
 	purchase_weaponUpgrade.length = 0;
-	for (i=0; i<510; i+=1)
+	for (i = 0; i < 510; i++)
 	{
 		if (GetWeaponUpgrade(i) > 0)
 			purchase_weaponUpgrade.AddItem(i);
 	}
-	
+
 	LocalPC = WMPlayerController(GetALocalPlayerController());
 	if (LocalPC != none)
 	{
@@ -217,10 +217,10 @@ simulated function IncermentWeaponUpgrade(int index)
 
 defaultproperties
 {
-   perkLvl=0
-   perkIconIndex=254
-   bForcePurchaseUpdate=0
-   CurrentIconToDisplay=Texture2D'UI_PerkIcons_TEX.UI_Horzine_H_Logo'
-   
-   Name="Default__WMPlayerReplicationInfo"
+	perkLvl=0
+	perkIconIndex=254
+	bForcePurchaseUpdate=0
+	CurrentIconToDisplay=Texture2D'UI_PerkIcons_TEX.UI_Horzine_H_Logo'
+
+	Name="Default__WMPlayerReplicationInfo"
 }

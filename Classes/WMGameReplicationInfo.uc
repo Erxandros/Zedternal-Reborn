@@ -79,7 +79,7 @@ simulated event ReplicatedEvent(name VarName)
 			TraderItems = new class'KFGFxObject_TraderItems';
 			bEnd = false;
 			i = 0;
-			while (!bEnd && i<=254)
+			while (!bEnd && i < 255)
 			{
 				if (KFWeaponDefPath[i]!="")
 				{
@@ -101,7 +101,7 @@ simulated event ReplicatedEvent(name VarName)
 		case 'KFStartingWeaponPath':
 			bEnd = false;
 			i = 0;
-			while (!bEnd && i<=254)
+			while (!bEnd && i < 255)
 			{
 				if (KFStartingWeaponPath[i]!="")
 				{
@@ -116,7 +116,7 @@ simulated event ReplicatedEvent(name VarName)
 		case 'perkUpgradesStr':
 			bEnd = false;
 			i = 0;
-			while (!bEnd && i<=254)
+			while (!bEnd && i < 255)
 			{
 				if (perkUpgradesStr[i]!="")
 				{
@@ -131,7 +131,7 @@ simulated event ReplicatedEvent(name VarName)
 		case 'weaponUpgrade_WeaponStr':
 			bEnd = false;
 			i = 0;
-			while (!bEnd && i<=254)
+			while (!bEnd && i < 255)
 			{
 				if (weaponUpgrade_WeaponStr[i]!="")
 				{
@@ -146,7 +146,7 @@ simulated event ReplicatedEvent(name VarName)
 		case 'weaponUpgrade_UpgradeStr':
 			bEnd = false;
 			i = 0;
-			while (!bEnd && i<=254)
+			while (!bEnd && i < 255)
 			{
 				if (weaponUpgrade_UpgradeStr[i]!="")
 				{
@@ -161,7 +161,7 @@ simulated event ReplicatedEvent(name VarName)
 		case 'weaponUpgrade_PriceRep':
 			bEnd = false;
 			i = 0;
-			while (!bEnd && i<=254)
+			while (!bEnd && i < 255)
 			{
 				if (weaponUpgrade_PriceRep[i]!=0)
 				{
@@ -176,7 +176,7 @@ simulated event ReplicatedEvent(name VarName)
 		case 'weaponUpgrade_WeaponStr_B':
 			bEnd = false;
 			i = 0;
-			while (!bEnd && i<=254)
+			while (!bEnd && i < 255)
 			{
 				if (weaponUpgrade_WeaponStr_B[i]!="")
 				{
@@ -191,7 +191,7 @@ simulated event ReplicatedEvent(name VarName)
 		case 'weaponUpgrade_UpgradeStr_B':
 			bEnd = false;
 			i = 0;
-			while (!bEnd && i<=254)
+			while (!bEnd && i < 255)
 			{
 				if (weaponUpgrade_UpgradeStr_B[i]!="")
 				{
@@ -206,7 +206,7 @@ simulated event ReplicatedEvent(name VarName)
 		case 'weaponUpgrade_PriceRep_B':
 			bEnd = false;
 			i = 0;
-			while (!bEnd && i<=254)
+			while (!bEnd && i < 255)
 			{
 				if (weaponUpgrade_PriceRep_B[i]!=0)
 				{
@@ -221,7 +221,7 @@ simulated event ReplicatedEvent(name VarName)
 		case 'skillUpgradesStr':
 			bEnd = false;
 			i = 0;
-			while (!bEnd && i<=254)
+			while (!bEnd && i < 255)
 			{
 				if (skillUpgradesStr[i]!="")
 				{
@@ -236,7 +236,7 @@ simulated event ReplicatedEvent(name VarName)
 		case 'skillUpgradesStr_Perk':
 			bEnd = false;
 			i = 0;
-			while (!bEnd && i<=254)
+			while (!bEnd && i < 255)
 			{
 				if (skillUpgradesStr_Perk[i]!="")
 				{
@@ -251,7 +251,7 @@ simulated event ReplicatedEvent(name VarName)
 		case 'specialWavesStr':
 			bEnd = false;
 			i = 0;
-			while (!bEnd && i<=254)
+			while (!bEnd && i < 255)
 			{
 				if (specialWavesStr[i]!="")
 				{
@@ -266,7 +266,7 @@ simulated event ReplicatedEvent(name VarName)
 		case 'grenadesStr':
 			bEnd = false;
 			i = 0;
-			while (!bEnd && i<=254)
+			while (!bEnd && i < 255)
 			{
 				if (grenadesStr[i]!="")
 				{
@@ -281,7 +281,7 @@ simulated event ReplicatedEvent(name VarName)
 		case 'zedBuffStr':
 			bEnd = false;
 			i = 0;
-			while (!bEnd && i<=254)
+			while (!bEnd && i < 255)
 			{
 				if (zedBuffStr[i]!="")
 				{
