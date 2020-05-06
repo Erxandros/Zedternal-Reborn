@@ -318,7 +318,7 @@ function Callback_InventoryFilter( int FilterIndex )
 		{
 			if (isWeaponInInventory(WMGRI.weaponUpgrade_Weapon[i]))
 			{
-				lvl = WMPRI.bWeaponUpgrade[i];
+				lvl = WMPRI.GetWeaponUpgrade(i);
 				if (CurrentBuyType=="weapon" && CurrentBuyIndex==i)
 					lvl = CurrentBuyLvl;
 				
@@ -603,7 +603,7 @@ function CallBack_ItemDetailsClicked(int ItemDefinition)
 		if (Index>=(perkUPGLength+skillUPGLength) && weaponUPGLength>0)
 		{
 			Index = weaponUPGIndex[Index - perkUPGLength - skillUPGLength];
-			lvl = WMPRI.bWeaponUpgrade[Index];
+			lvl = WMPRI.GetWeaponUpgrade(index);
 			EquipButton.SetString("label", ""$WMGRI.weaponUpgrade_Price[Index]*(lvl+1)$Chr(163));
 		}
 		else if (Index>=perkUPGLength)
@@ -655,13 +655,12 @@ function Callback_Equip( int ItemDefinition )
 		if (Index>=(perkUPGLength+skillUPGLength) && weaponUPGLength>0)
 		{
 			Index = weaponUPGIndex[Index - perkUPGLength - skillUPGLength];
-			lvl = WMPRI.bWeaponUpgrade[Index];
+			lvl = WMPRI.GetWeaponUpgrade(index);
 			price = WMGRI.weaponUpgrade_Price[Index]*(lvl+1);
 			if (KFPRI.Score >= price)
 			{
 				WMPC.BuyWeaponUpgrade(Index,price);
 				KFPRI.Score -= price;
-				WMPRI.bWeaponUpgrade[Index] += 1;
 				WMPC.UpdateWeaponMagAndCap();
 				if (WMPRI.purchase_weaponUpgrade.Find(Index) == -1)
 					WMPRI.purchase_weaponUpgrade.AddItem(Index);

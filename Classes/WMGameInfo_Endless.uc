@@ -1059,7 +1059,7 @@ function RepPlayerInfo(WMPlayerReplicationInfo WMPRI)
 	}
 	else if (WMPRI.NumTimesReconnected >= 1)
 	{
-		WMPRI.UpdatePurchase(WMPRI.bWeaponUpgrade);
+		WMPRI.UpdatePurchase();
 		WMPRI.UpdateClientPurchase();
 	}
 }

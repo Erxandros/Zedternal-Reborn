@@ -51,16 +51,14 @@ reliable server function BuyWeaponUpgrade(int ItemDefinition, int Cost)
 	
 	WMPRI = WMPlayerReplicationInfo(Pawn.PlayerReplicationInfo);
 	
-	if (WMPRI != none && Pawn.PlayerReplicationInfo.Score >= Cost && WMPRI.bWeaponUpgrade[ItemDefinition] < WMGameReplicationInfo(WorldInfo.GRI).weaponMaxLevel)
+	if (WMPRI != none && Pawn.PlayerReplicationInfo.Score >= Cost && WMPRI.GetWeaponUpgrade(ItemDefinition) < WMGameReplicationInfo(WorldInfo.GRI).weaponMaxLevel)
 	{
+		WMPRI.IncermentWeaponUpgrade(ItemDefinition);
 		if (WMPRI.purchase_weaponUpgrade.Find(ItemDefinition) == -1)
 			WMPRI.purchase_weaponUpgrade.AddItem(ItemDefinition);
 		
 		if (WorldInfo.NetMode == NM_DedicatedServer)
-		{
-			WMPRI.bWeaponUpgrade[ItemDefinition] += 1;
 			Pawn.PlayerReplicationInfo.Score -= Cost;
-		}
 		
 		UpdateWeaponMagAndCap();
 	}

@@ -4,7 +4,8 @@ class WMPlayerReplicationInfo extends KFPlayerReplicationInfo;
 var name KFWeaponName[254];
 var byte bPerkUpgrade[254];
 var byte bPerkUpgradeAvailable[254];
-var array< byte > bWeaponUpgrade;
+var byte bWeaponUpgrade_A[255];
+var byte bWeaponUpgrade_B[255];
 var byte bSkillUpgrade[254];
 var byte bSkillDeluxe[254];
 var byte bSkillUnlocked[254];
@@ -24,7 +25,7 @@ var array< byte > purchase_perkUpgrade, purchase_skillUpgrade, purchase_weaponUp
 replication
 {
 	if ( bNetDirty )
-		KFWeaponName,bPerkUpgrade,bPerkUpgradeAvailable,bSkillUpgrade,bSkillUnlocked,perkLvl,perkIconIndex,bForcePurchaseUpdate;
+		KFWeaponName,bPerkUpgrade,bPerkUpgradeAvailable,bWeaponUpgrade_A,bWeaponUpgrade_B,bSkillUpgrade,bSkillUnlocked,perkLvl,perkIconIndex,bForcePurchaseUpdate;
 }
 
 simulated event ReplicatedEvent(name VarName)
@@ -39,7 +40,7 @@ simulated event ReplicatedEvent(name VarName)
 	}
 	else if (VarName == 'bForcePurchaseUpdate')
 	{
-		UpdatePurchase(bWeaponUpgrade);
+		UpdatePurchase();
 	}
 	else
 		super.ReplicatedEvent(VarName);
@@ -61,6 +62,8 @@ function CopyProperties(PlayerReplicationInfo PRI)
 			WMPRI.KFWeaponName[i] = KFWeaponName[i];
 			WMPRI.bPerkUpgrade[i] = bPerkUpgrade[i];
 			WMPRI.bPerkUpgradeAvailable[i] = bPerkUpgradeAvailable[i];
+			WMPRI.bWeaponUpgrade_A[i] = bWeaponUpgrade_A[i];
+			WMPRI.bWeaponUpgrade_B[i] = bWeaponUpgrade_B[i];
 			WMPRI.bSkillUpgrade[i] = bSkillUpgrade[i];
 			WMPRI.bSkillUnlocked[i] = bSkillUnlocked[i];
 		}
@@ -78,18 +81,6 @@ function CopyProperties(PlayerReplicationInfo PRI)
 	}
 	
 	super.CopyProperties(PRI);
-}
-
-simulated function PostBeginPlay()
-{
-	local int i;
-	
-	for (i=0; i<510; i+=1)
-	{
-		bWeaponUpgrade[i] = 0;
-	}
-	
-	super.PostBeginPlay();
 }
 
 simulated function byte GetActivePerkLevel()
@@ -146,10 +137,10 @@ function UpdateCurrentIconToDisplay(int lastBoughtIndex, int doshSpent, int lvl)
 
 reliable client function UpdateClientPurchase()
 {
-	UpdatePurchase(bWeaponUpgrade);
+	UpdatePurchase();
 }
 
-simulated function UpdatePurchase(array<byte> weaponPurchase)
+simulated function UpdatePurchase()
 {
 	local WMPlayerController LocalPC;
 	local WMPerk Perk;
@@ -170,10 +161,10 @@ simulated function UpdatePurchase(array<byte> weaponPurchase)
 	}
 	
 	purchase_weaponUpgrade.length = 0;
-	for (i=0; i<weaponPurchase.length; i+=1)
+	for (i=0; i<510; i+=1)
 	{
-		if (bWeaponUpgrade[i] > 0)
-		purchase_weaponUpgrade.AddItem(i);
+		if (GetWeaponUpgrade(i) > 0)
+			purchase_weaponUpgrade.AddItem(i);
 	}
 	
 	LocalPC = WMPlayerController(GetALocalPlayerController());
@@ -200,6 +191,29 @@ simulated function CreateUPGMenu()
 	UPGMenu.Init(LocalPLayer(KFPC.Player));
 }
 
+simulated function byte GetWeaponUpgrade(int index)
+{
+	if (index < 255)
+	{
+		return bWeaponUpgrade_A[index];
+	}
+	else
+	{
+		return bWeaponUpgrade_B[index - 255];
+	}
+}
+
+simulated function IncermentWeaponUpgrade(int index)
+{
+	if (index < 255)
+	{
+		bWeaponUpgrade_A[index]++;
+	}
+	else
+	{
+		bWeaponUpgrade_B[index - 255]++;
+	}
+}
 
 defaultproperties
 {
