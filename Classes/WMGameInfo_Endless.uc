@@ -289,20 +289,20 @@ function StartWave()
 
 function WaveEnded(EWaveEndCondition WinCondition)
 {
-	local WMPlayerController WMPC;	
-	
+	local WMPlayerController WMPC;
+
+	super.WaveEnded(WinCondition);
+
 	ClearSpecialWave();
-	
+
 	foreach DynamicActors(class'WMPlayerController', WMPC)
 	{
 		if (WMPerk(WMPC.CurrentPerk) != none)
 			WMPerk(WMPC.CurrentPerk).WaveEnd(WMPC);
 	}
-	
+
 	if (WinCondition == WEC_WaveWon)
 		SetTimer(4.5f, false, nameof(CheckZedBuff));
-	
-	super.WaveEnded(WinCondition);
 }
 
 function CheckZedBuff()
@@ -1141,6 +1141,8 @@ function Killed(Controller Killer, Controller KilledPlayer, Pawn KilledPawn, cla
 	local WMSpecialWave WMSW;
 	local WMGameReplicationInfo WMGRI;
 
+	super.Killed(Killer, KilledPlayer, KilledPawn, DT);
+
 	if (KilledPawn.IsA('KFPawn_Human'))
 		bUseExtendedTraderTime = true;
 
@@ -1171,8 +1173,6 @@ function Killed(Controller Killer, Controller KilledPlayer, Pawn KilledPawn, cla
 
 	if (KFPawn_Monster(KilledPawn) != none && PlayerCount != 0)
 		doshNewPlayer += GameLengthDoshScale[GameLength] * KFPawn_Monster(KilledPawn).static.GetDoshValue() / PlayerCount;
-
-	super.Killed(Killer, KilledPlayer, KilledPawn, DT);
 }
 
 function ScoreDamage( int DamageAmount, int HealthBeforeDamage, Controller InstigatedBy, Pawn DamagedPawn, class<DamageType> damageType )
