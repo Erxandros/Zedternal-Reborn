@@ -603,7 +603,7 @@ function CallBack_ItemDetailsClicked(int ItemDefinition)
 		if (Index>=(perkUPGLength+skillUPGLength) && weaponUPGLength>0)
 		{
 			Index = weaponUPGIndex[Index - perkUPGLength - skillUPGLength];
-			lvl = WMPRI.GetWeaponUpgrade(index);
+			lvl = WMPRI.GetWeaponUpgrade(Index);
 			EquipButton.SetString("label", ""$WMGRI.weaponUpgrade_Price[Index]*(lvl+1)$Chr(163));
 		}
 		else if (Index>=perkUPGLength)
@@ -655,11 +655,12 @@ function Callback_Equip( int ItemDefinition )
 		if (Index>=(perkUPGLength+skillUPGLength) && weaponUPGLength>0)
 		{
 			Index = weaponUPGIndex[Index - perkUPGLength - skillUPGLength];
-			lvl = WMPRI.GetWeaponUpgrade(index);
+			lvl = WMPRI.GetWeaponUpgrade(Index);
 			price = WMGRI.weaponUpgrade_Price[Index]*(lvl+1);
 			if (KFPRI.Score >= price)
 			{
-				WMPC.BuyWeaponUpgrade(Index,price);
+				WMPC.BuyWeaponUpgrade(Index, price);
+				WMPRI.IncermentWeaponUpgrade(Index);
 				KFPRI.Score -= price;
 				WMPC.UpdateWeaponMagAndCap();
 				if (WMPRI.purchase_weaponUpgrade.Find(Index) == -1)
@@ -684,6 +685,7 @@ function Callback_Equip( int ItemDefinition )
 			if (KFPRI.Score >= price)
 			{
 				WMPC.BuySkillUpgrade(Index, GetPerkRelatedIndex(Index), price, WMPRI.bSkillDeluxe[Index] + 1);
+				WMPRI.bSkillUpgrade[Index] = min(lvl + WMPRI.bSkillDeluxe[Index] + 1, 2);
 				KFPRI.Score -= price;
 				if (WMPRI.purchase_skillUpgrade.Find(Index) == -1)
 					WMPRI.purchase_skillUpgrade.AddItem(Index);
@@ -704,6 +706,7 @@ function Callback_Equip( int ItemDefinition )
 			if (KFPRI.Score >= price)
 			{
 				WMPC.BuyPerkUpgrade(Index, price);
+				WMPRI.bPerkUpgrade[ItemDefinition]++;
 				KFPRI.Score -= price;
 				if (WMPRI.purchase_perkUpgrade.Find(Index) == -1)
 					WMPRI.purchase_perkUpgrade.AddItem(Index);
@@ -765,6 +768,10 @@ function UnlockRandomSkill(Class< WMUpgrade_Perk > perkClass, bool bShouldBeDelu
 	{
 		choice = Rand(availableIndex.length);
 		WMPC.UnlockSkill(availableIndex[choice], bShouldBeDeluxe);
+
+		WMPRI.bSkillUnlocked[availableIndex[choice]] = 1;
+		if (bShouldBeDeluxe)
+			WMPRI.bSkillDeluxe[availableIndex[choice]] = 1;
 		
 		skillLastUnlocked = availableIndex[choice]+1;
 		Refresh();
