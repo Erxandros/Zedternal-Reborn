@@ -947,7 +947,7 @@ simulated function ModifyMagSizeAndNumber( KFWeapon KFW, out byte MagazineCapaci
 			MyWMGRI.specialWaves[MyWMGRI.SpecialWaveID[i]].static.ModifyMagSizeAndNumber(MagCapacity, DefaultMagazineCapacity, KFW, WeaponPerkClass, bSecondary, WeaponClassname);
 	}
 	
-	if (KFWeap_Bow_Crossbow(KFW) == none) // crossbow doesn't work with more than 1 ammo per clip :(
+	if (KFWeap_Bow_Crossbow(KFW) == none || KFWeap_Bow_CompoundBow(KFW) == none) // crossbow and bow doesn't work with more than 1 ammo per clip :(
 		MagazineCapacity = byte(max(0, min(255, MagCapacity)));
 	else
 		MagazineCapacity = 1;
