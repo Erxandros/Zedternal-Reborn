@@ -660,7 +660,8 @@ function Callback_Equip( int ItemDefinition )
 			if (KFPRI.Score >= price)
 			{
 				WMPC.BuyWeaponUpgrade(Index, price);
-				WMPRI.IncermentWeaponUpgrade(Index);
+				if (WMPC.WorldInfo.NetMode != NM_Standalone)
+					WMPRI.IncermentWeaponUpgrade(Index);
 				KFPRI.Score -= price;
 				WMPC.UpdateWeaponMagAndCap();
 				if (WMPRI.purchase_weaponUpgrade.Find(Index) == -1)
@@ -685,7 +686,8 @@ function Callback_Equip( int ItemDefinition )
 			if (KFPRI.Score >= price)
 			{
 				WMPC.BuySkillUpgrade(Index, GetPerkRelatedIndex(Index), price, WMPRI.bSkillDeluxe[Index] + 1);
-				WMPRI.bSkillUpgrade[Index] = min(lvl + WMPRI.bSkillDeluxe[Index] + 1, 2);
+				if (WMPC.WorldInfo.NetMode != NM_Standalone)
+					WMPRI.bSkillUpgrade[Index] = min(lvl + WMPRI.bSkillDeluxe[Index] + 1, 2);
 				KFPRI.Score -= price;
 				if (WMPRI.purchase_skillUpgrade.Find(Index) == -1)
 					WMPRI.purchase_skillUpgrade.AddItem(Index);
@@ -706,7 +708,8 @@ function Callback_Equip( int ItemDefinition )
 			if (KFPRI.Score >= price)
 			{
 				WMPC.BuyPerkUpgrade(Index, price);
-				WMPRI.bPerkUpgrade[ItemDefinition]++;
+				if (WMPC.WorldInfo.NetMode != NM_Standalone)
+					WMPRI.bPerkUpgrade[ItemDefinition]++;
 				KFPRI.Score -= price;
 				if (WMPRI.purchase_perkUpgrade.Find(Index) == -1)
 					WMPRI.purchase_perkUpgrade.AddItem(Index);
