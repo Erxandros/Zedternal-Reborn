@@ -209,6 +209,18 @@ simulated function IncermentWeaponUpgrade(int index)
 	}
 }
 
+simulated function SetWeaponUpgrade(int index, int value)
+{
+	if (index < 255)
+	{
+		bWeaponUpgrade_A[index] = value;
+	}
+	else
+	{
+		bWeaponUpgrade_B[index - 255] = value;
+	}
+}
+
 defaultproperties
 {
 	perkLvl=0

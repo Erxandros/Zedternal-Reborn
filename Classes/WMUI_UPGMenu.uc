@@ -638,46 +638,47 @@ function Callback_Equip( int ItemDefinition )
 	local int lvl;
 	local int price;
 	local int maxLevel;
-	
+
 	local WMGameReplicationInfo WMGRI;
 	local WMPlayerController WMPC;
 	local WMPlayerReplicationInfo WMPRI;
-	
+
 	WMGRI = WMGameReplicationInfo(GetPC().WorldInfo.GRI);
 	WMPRI = WMPlayerReplicationInfo(KFPC.PlayerReplicationInfo);
 	WMPC = WMPlayerController(KFPC);
-	
+
 	Index = ItemDefinition;
-	
+
 	//upgrades
-	if (CurrentFilterIndex==0)
+	if (CurrentFilterIndex == 0)
 	{
-		if (Index>=(perkUPGLength+skillUPGLength) && weaponUPGLength>0)
+		if (Index >= (perkUPGLength + skillUPGLength) && weaponUPGLength > 0)
 		{
 			Index = weaponUPGIndex[Index - perkUPGLength - skillUPGLength];
 			lvl = WMPRI.GetWeaponUpgrade(Index);
-			price = WMGRI.weaponUpgrade_Price[Index]*(lvl+1);
+			price = WMGRI.weaponUpgrade_Price[Index] * (lvl + 1);
+
 			if (KFPRI.Score >= price)
 			{
 				WMPC.BuyWeaponUpgrade(Index, price);
 				if (WMPC.WorldInfo.NetMode != NM_Standalone)
-					WMPRI.IncermentWeaponUpgrade(Index);
+					WMPRI.SetWeaponUpgrade(Index, lvl + 1);
 				KFPRI.Score -= price;
 				WMPC.UpdateWeaponMagAndCap();
 				if (WMPRI.purchase_weaponUpgrade.Find(Index) == -1)
 					WMPRI.purchase_weaponUpgrade.AddItem(Index);
-				CurrentBuyIndex=Index;
-				CurrentBuyType="weapon";
-				CurrentBuyLvl=lvl+1;
+				CurrentBuyIndex = Index;
+				CurrentBuyType = "weapon";
+				CurrentBuyLvl = lvl + 1;
 				if (Owner != none)
 					Owner.PlaySoundBase(default.weaponSound, true);
 			}
 		}
-		else if (Index>=perkUPGLength)
+		else if (Index >= perkUPGLength)
 		{
 			Index = skillUPGIndex[Index - perkUPGLength];
 			lvl = WMPRI.bSkillUpgrade[Index];
-			
+
 			if (WMPRI.bSkillDeluxe[Index] == 1)
 				price = WMGRI.skillDeluxePrice;
 			else
@@ -687,13 +688,13 @@ function Callback_Equip( int ItemDefinition )
 			{
 				WMPC.BuySkillUpgrade(Index, GetPerkRelatedIndex(Index), price, WMPRI.bSkillDeluxe[Index] + 1);
 				if (WMPC.WorldInfo.NetMode != NM_Standalone)
-					WMPRI.bSkillUpgrade[Index] = min(lvl + WMPRI.bSkillDeluxe[Index] + 1, 2);
+					WMPRI.bSkillUpgrade[Index] = lvl + WMPRI.bSkillDeluxe[Index] + 1;
 				KFPRI.Score -= price;
 				if (WMPRI.purchase_skillUpgrade.Find(Index) == -1)
 					WMPRI.purchase_skillUpgrade.AddItem(Index);
-				CurrentBuyIndex=Index;
-				CurrentBuyType="skill";
-				CurrentBuyLvl=lvl + WMPRI.bSkillDeluxe[Index] + 1;
+				CurrentBuyIndex = Index;
+				CurrentBuyType = "skill";
+				CurrentBuyLvl = lvl + WMPRI.bSkillDeluxe[Index] + 1;
 				if (Owner != none)
 					Owner.PlaySoundBase(default.skillSound, true);
 			}
@@ -709,28 +710,28 @@ function Callback_Equip( int ItemDefinition )
 			{
 				WMPC.BuyPerkUpgrade(Index, price);
 				if (WMPC.WorldInfo.NetMode != NM_Standalone)
-					WMPRI.bPerkUpgrade[ItemDefinition]++;
+					WMPRI.bPerkUpgrade[Index] = lvl + 1;
 				KFPRI.Score -= price;
 				if (WMPRI.purchase_perkUpgrade.Find(Index) == -1)
 					WMPRI.purchase_perkUpgrade.AddItem(Index);
-				CurrentBuyIndex=Index;
-				CurrentBuyType="perk";
-				CurrentBuyLvl=lvl+1;
-				UnlockRandomSkill(WMGRI.perkUpgrades[Index], ((lvl+1) == maxLevel));
+				CurrentBuyIndex = Index;
+				CurrentBuyType = "perk";
+				CurrentBuyLvl = lvl + 1;
+				UnlockRandomSkill(WMGRI.perkUpgrades[Index], ((lvl + 1) == maxLevel));
 				if (Owner != none)
 					Owner.PlaySoundBase(default.perkSound, true);
 			}
 		}
 	}
-	else if (CurrentFilterIndex==1) //Grenades
+	else if (CurrentFilterIndex == 1) //Grenades
 	{
 		WMPC.ChangeGrenade(GrenadeIndex[Index]);
 	}
-	else if (CurrentFilterIndex==2) //Knives
+	else if (CurrentFilterIndex == 2) //Knives
 	{
 		WMPC.ChangeKnife(Index);
 	}
-	
+
 	Refresh();
 }
 
