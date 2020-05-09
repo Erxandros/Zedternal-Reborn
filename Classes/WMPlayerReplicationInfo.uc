@@ -22,8 +22,11 @@ var array< byte > purchase_perkUpgrade, purchase_skillUpgrade, purchase_weaponUp
 
 replication
 {
+	if ( bNetDirty && (Role == Role_Authority) )
+		KFWeaponName,bPerkUpgrade,bPerkUpgradeAvailable,bWeaponUpgrade_A,bWeaponUpgrade_B,bSkillUpgrade,bSkillUnlocked,bSkillDeluxe;
+
 	if ( bNetDirty )
-		KFWeaponName,bPerkUpgrade,bPerkUpgradeAvailable,bWeaponUpgrade_A,bWeaponUpgrade_B,bSkillUpgrade,bSkillUnlocked,bSkillDeluxe,perkIconIndex,perkLvl;
+		perkIconIndex,perkLvl;
 }
 
 simulated event ReplicatedEvent(name VarName)
