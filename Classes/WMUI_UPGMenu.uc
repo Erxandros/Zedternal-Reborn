@@ -778,7 +778,6 @@ function UnlockRandomSkill(Class< WMUpgrade_Perk > perkClass, bool bShouldBeDelu
 			WMPRI.bSkillDeluxe[availableIndex[choice]] = 1;
 		
 		skillLastUnlocked = availableIndex[choice]+1;
-		Refresh();
 	}
 }
 
