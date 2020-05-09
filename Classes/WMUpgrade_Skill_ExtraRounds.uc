@@ -1,5 +1,5 @@
 Class WMUpgrade_Skill_ExtraRounds extends WMUpgrade_Skill;
-	
+
 var array<int> extraAmmo, extraAmmoPrct;
 
 static simulated function ModifySpareAmmoAmountPassive( out float spareAmmoFactor, int upgLevel)
@@ -9,7 +9,19 @@ static simulated function ModifySpareAmmoAmountPassive( out float spareAmmoFacto
 
 static simulated function ModifySpareAmmoAmount( out int InSpareAmmo, int DefaultSpareAmmo, int upgLevel, KFWeapon KFW, optional const out STraderItem TraderItem, optional bool bSecondary=false )
 {
-	InSpareAmmo += default.extraAmmo[upgLevel-1];
+	local array< Class<KFPerk> > PerkList;
+	local Class<KFPerk> Perk;
+
+	PerkList = KFW.static.GetAssociatedPerkClasses();
+
+	foreach PerkList(Perk)
+	{
+		if (Perk == class'KFPerk_Demolitionist')
+		{
+			InSpareAmmo += default.extraAmmo[upgLevel-1];
+			return;
+		}
+	}
 }
 
 defaultproperties
