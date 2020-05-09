@@ -391,12 +391,12 @@ function SetupNextWave(byte NextWaveIndex, int TimeToNextWaveBuffer = 0)
 	KFGRI.AIRemaining = WaveTotalAI;
 	LastAISpawnVolume = none;
 
-	if (bLogAISpawning || bLogWaveSpawnTiming) LogInternal("KFAISpawnManager.SetupNextWave() NextWave:" @ NextWaveIndex @ "WaveTotalAI:" @ WaveTotalAI);
+	`Log("WaveTotalAI = " $ WaveTotalAI);
 }
 
 function int GetMaxMonsters()
 {
-    return class'ZedternalReborn.Config_Waves'.default.ZedSpawn_MaxSpawnedMonster;
+	return class'ZedternalReborn.Config_Waves'.default.ZedSpawn_MaxSpawnedMonster;
 }
 
 function Update()
@@ -413,7 +413,7 @@ function Update()
 			remainAllowedSpawn = 8;
 		else
 			remainAllowedSpawn = 1;
-		
+
 		while (ShouldAddAI() && remainAllowedSpawn > 0)
 		{
 			SpawnList = GetNextSpawnList();
@@ -432,15 +432,15 @@ function Update()
 /** Should we? */
 function bool ShouldAddAI()
 {
-	local int numb;
-	
-	numb = GetAIAliveCount();
-	if(!IsFinishedSpawning() && TotalWavesActiveTime>3
-		&& (TimeUntilNextSpawn<=0 || numb==0)
-		&& (groupList.Length>0 || LeftoverSpawnSquad.Length>0)
-		&& numb<GetMaxMonsters())
+	local int AliveCount;
+
+	AliveCount = GetAIAliveCount();
+	if (!IsFinishedSpawning() && TotalWavesActiveTime > 3
+		&& (TimeUntilNextSpawn <= 0 || AliveCount == 0)
+		&& (groupList.Length > 0 || LeftoverSpawnSquad.Length > 0)
+		&& AliveCount < GetMaxMonsters())
 	{
-        return true;
+		return true;
 	}
 
 	return false;
@@ -451,7 +451,7 @@ function CheckStuckZed()
 	local KFPawn_Monster KFM;
 	local int i;
 	local bool bFound;
-	
+
 	// remove dead tracked zedClass
 	for (i = 0; i < lastZedInfo.length; i++)
 	{
@@ -461,7 +461,7 @@ function CheckStuckZed()
 			i--;
 		}
 	}
-	
+
 	foreach DynamicActors(class'KFPawn_Monster', KFM)
 	{
 		bFound = false;
@@ -492,7 +492,7 @@ function CheckStuckZed()
 					lastZedInfo[i].countDown--;
 			}
 		}
-		
+
 		// if new zed
 		if (!bFound)
 		{
@@ -505,15 +505,19 @@ function CheckStuckZed()
 
 function bool IsFinishedSpawning()
 {
-    if( ActiveSpawner != none && ActiveSpawner.bIsSpawning && ActiveSpawner.PendingSpawns.Length > 0 )
-    {
-        if (bLogAISpawning) LogInternal("KFAISpawnManager.IsFinishedSpawning() ActiveSpawner Still Spawning " @ string(ActiveSpawner != none && ActiveSpawner.bIsSpawning && ActiveSpawner.PendingSpawns.Length > 0));
-        return false;
-    }
-
-	if( NumAISpawnsQueued >= WaveTotalAI )
+	if (ActiveSpawner != none && ActiveSpawner.bIsSpawning && ActiveSpawner.PendingSpawns.Length > 0)
 	{
-		if (bLogAISpawning) LogInternal("KFAISpawnManager.IsFinishedSpawning()" @ string(NumAISpawnsQueued >= WaveTotalAI));
+		return false;
+	}
+
+	if (NumAISpawnsQueued >= WaveTotalAI)
+	{
+		return true;
+	}
+
+	if (groupList.Length == 0 && LeftoverSpawnSquad.Length == 0 && GetAIAliveCount() <= 0)
+	{
+		`log("WMAISpawnManager.IsFinishedSpawning() emergency breakout. NumAISpawnsQueued: " $ NumAISpawnsQueued $ " WaveTotalAI: " $ WaveTotalAI);
 		return true;
 	}
 
@@ -528,24 +532,23 @@ function float GetSineMod()
 /** Returns a random AIGroup from the "waiting" list */
 function array< class<KFPawn_Monster> > GetNextSpawnList()
 {
-	local array< class<KFPawn_Monster> >  NewSquad;
+	local array< class<KFPawn_Monster> > NewSquad;
 
-
-    if( LeftoverSpawnSquad.Length > 0)
-    {
+	if (LeftoverSpawnSquad.Length > 0)
+	{
 		TimeUntilNextSpawn = 0.f;
 		NewSquad = LeftoverSpawnSquad;
-		LeftoverSpawnSquad.Length=0;
+		LeftoverSpawnSquad.Remove(0, NewSquad.Length);
 	}
-    else
-    {
+	else
+	{
 		TimeUntilNextSpawn += groupList[0].Delay;
 		NewSquad = groupList[0].MClass;
-		groupList.Remove(0,1);
-    }
-	
+		groupList.Remove(0, 1);
+	}
+
 	// Make sure we properly initialize the DesiredSquadType for the leftover squads, otherwise they will just use whatever size data was left in the system
-    SetDesiredSquadTypeForZedList( NewSquad );
+	SetDesiredSquadTypeForZedList( NewSquad );
 	return NewSquad;
 }
 
@@ -553,43 +556,39 @@ function SummonBossMinions( array<KFAISpawnSquad> NewMinionSquad, int NewMaxBoss
 {
 }
 
-function UseDefaultMonster()
-{
-}
-
 defaultproperties
 {
-   SMonster_Temp=(MinWave=0,MaxWave=99,MinGr=1,MaxGr=2,MClass=class'KFGameContent.KFPawn_ZedClot_Alpha',Value=5)
-   SoloWaveSpawnRateModifier(0)=(RateModifier=(0.200000,0.200000,0.200000,0.200000))
-   SoloWaveSpawnRateModifier(1)=(RateModifier=(0.200000,0.200000,0.200000,0.200000))
-   SoloWaveSpawnRateModifier(2)=(RateModifier=(0.200000,0.200000,0.200000,0.200000))
-   SoloWaveSpawnRateModifier(3)=(RateModifier=(0.200000,0.200000,0.200000,0.200000))
-   EarlyWaveSpawnRateModifier(0)=0.200000
-   EarlyWaveSpawnRateModifier(1)=0.200000
-   EarlyWaveSpawnRateModifier(2)=0.200000
-   EarlyWaveSpawnRateModifier(3)=0.200000
-   EarlyWavesSpawnTimeModByPlayers(0)=0.200000
-   EarlyWavesSpawnTimeModByPlayers(1)=0.200000
-   EarlyWavesSpawnTimeModByPlayers(2)=0.200000
-   EarlyWavesSpawnTimeModByPlayers(3)=0.200000
-   EarlyWavesSpawnTimeModByPlayers(4)=0.200000
-   EarlyWavesSpawnTimeModByPlayers(5)=0.200000
-   LateWavesSpawnTimeModByPlayers(0)=0.200000
-   LateWavesSpawnTimeModByPlayers(1)=0.200000
-   LateWavesSpawnTimeModByPlayers(2)=0.200000
-   LateWavesSpawnTimeModByPlayers(3)=0.200000
-   LateWavesSpawnTimeModByPlayers(4)=0.200000
-   LateWavesSpawnTimeModByPlayers(5)=0.200000
-   RecycleSpecialSquad(0)=False
-   RecycleSpecialSquad(1)=False
-   RecycleSpecialSquad(2)=True
-   RecycleSpecialSquad(3)=True
-   MaxSpecialSquadRecycles=-1
-   ForcedBossNum=-1
-   EarlyWaveIndex=1
-   bAllowTurboSpawn=true
-   bSummoningBossMinions=false
-   CustomDifficulty=4.0
-   CustomMode=false
-   Name="Default__WMAISpawnManager"
+	SMonster_Temp=(MinWave=0,MaxWave=99,MinGr=1,MaxGr=2,MClass=class'KFGameContent.KFPawn_ZedClot_Alpha',Value=5)
+	SoloWaveSpawnRateModifier(0)=(RateModifier=(0.200000,0.200000,0.200000,0.200000))
+	SoloWaveSpawnRateModifier(1)=(RateModifier=(0.200000,0.200000,0.200000,0.200000))
+	SoloWaveSpawnRateModifier(2)=(RateModifier=(0.200000,0.200000,0.200000,0.200000))
+	SoloWaveSpawnRateModifier(3)=(RateModifier=(0.200000,0.200000,0.200000,0.200000))
+	EarlyWaveSpawnRateModifier(0)=0.200000
+	EarlyWaveSpawnRateModifier(1)=0.200000
+	EarlyWaveSpawnRateModifier(2)=0.200000
+	EarlyWaveSpawnRateModifier(3)=0.200000
+	EarlyWavesSpawnTimeModByPlayers(0)=0.200000
+	EarlyWavesSpawnTimeModByPlayers(1)=0.200000
+	EarlyWavesSpawnTimeModByPlayers(2)=0.200000
+	EarlyWavesSpawnTimeModByPlayers(3)=0.200000
+	EarlyWavesSpawnTimeModByPlayers(4)=0.200000
+	EarlyWavesSpawnTimeModByPlayers(5)=0.200000
+	LateWavesSpawnTimeModByPlayers(0)=0.200000
+	LateWavesSpawnTimeModByPlayers(1)=0.200000
+	LateWavesSpawnTimeModByPlayers(2)=0.200000
+	LateWavesSpawnTimeModByPlayers(3)=0.200000
+	LateWavesSpawnTimeModByPlayers(4)=0.200000
+	LateWavesSpawnTimeModByPlayers(5)=0.200000
+	RecycleSpecialSquad(0)=False
+	RecycleSpecialSquad(1)=False
+	RecycleSpecialSquad(2)=True
+	RecycleSpecialSquad(3)=True
+	MaxSpecialSquadRecycles=-1
+	ForcedBossNum=-1
+	EarlyWaveIndex=1
+	bAllowTurboSpawn=true
+	bSummoningBossMinions=false
+	CustomDifficulty=4.0
+	CustomMode=false
+	Name="Default__WMAISpawnManager"
 }
