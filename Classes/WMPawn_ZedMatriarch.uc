@@ -6,8 +6,8 @@ simulated event PostBeginPlay()
 {
 	// add entrance sound
 	SoundGroupArch.EntranceSound = default.EntranceSound;
-	
-    Super.PostBeginPlay();
+
+	Super.PostBeginPlay();
 }
 
 /** Summon some children */
@@ -21,23 +21,24 @@ function PlayBossMusic()
 }
 
 static simulated event bool IsABoss()
-{ 
-   return false; 
+{
+	return false;
 }
 
 function bool CanBeGrabbed(KFPawn GrabbingPawn, optional bool bIgnoreFalling, optional bool bAllowSameTeamGrab)
 {
-  return false;
+	return false;
 }
 
 defaultproperties
 {
-   EntranceSound=AkEvent'WW_ZED_Matriarch.Play_Matriarch_Jump_Land_01'
-   DoshValue=500
-   XPValues(0)=250.000000
-   XPValues(1)=250.000000
-   XPValues(2)=250.000000
-   XPValues(3)=250.000000
-  MinSpawnSquadSizeType=EST_Large
-   Name="Default__WMPawn_ZedMatriarch"
+	EntranceSound=AkEvent'WW_ZED_Matriarch.Play_Matriarch_Jump_Land_01'
+	bLargeZed=true
+	DoshValue=500
+	XPValues(0)=250.000000
+	XPValues(1)=250.000000
+	XPValues(2)=250.000000
+	XPValues(3)=250.000000
+	MinSpawnSquadSizeType=EST_Large
+	Name="Default__WMPawn_ZedMatriarch"
 }
