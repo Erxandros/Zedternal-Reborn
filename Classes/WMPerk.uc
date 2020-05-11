@@ -382,8 +382,8 @@ function ModifyDamageGiven( out int InDamage, optional Actor DamageCauser, optio
 {
 	local KFWeapon MyKFW;
 	local int DefaultDamage;
-	local byte i;
-	local byte index;
+	local int i;
+	local int index;
 	
 	DefaultDamage = InDamage;
 	
@@ -462,8 +462,8 @@ function ModifyHardAttackDamage( out int InDamage )
 {
 	local KFWeapon MyKFW;
 	local int DefaultDamage;
-	local byte i;
-	local byte index;
+	local int i;
+	local int index;
 	
 	if (InDamage==0)
 		return;
@@ -482,6 +482,7 @@ function ModifyHardAttackDamage( out int InDamage )
 		}
 		for (i=0;i<MyWMPRI.purchase_weaponUpgrade.length;i+=1)
 		{
+			index = MyWMPRI.purchase_weaponUpgrade[i];
 			if (isValidWeapon(MyWMGRI.weaponUpgrade_Weapon[i], MyKFW))
 				MyWMGRI.weaponUpgrade_Upgrade[index].static.ModifyHardAttackDamage(InDamage, DefaultDamage, MyWMPRI.GetWeaponUpgrade(index), OwnerPawn);
 		}
@@ -506,8 +507,8 @@ function ModifyDamageTaken( out int InDamage, optional class<DamageType> DamageT
 	local KFWeapon MyKFW;
 	local KFInventoryManager KFIM;
 	local int DefaultDamage;
-	local byte i;
-	local byte index;
+	local int i;
+	local int index;
 	
 	if (InDamage==0 || class<WMUpgrade_Weapon_DT_HeatWave_Base>(DamageType) != none)
 	{
@@ -556,6 +557,7 @@ function ModifyDamageTaken( out int InDamage, optional class<DamageType> DamageT
 		}
 		for (i=0;i<MyWMPRI.purchase_weaponUpgrade.length;i+=1)
 		{
+			index = MyWMPRI.purchase_weaponUpgrade[i];
 			if (isValidWeapon(MyWMGRI.weaponUpgrade_Weapon[i], MyKFW))
 				MyWMGRI.weaponUpgrade_Upgrade[index].static.ModifyDamageTaken(InDamage, DefaultDamage, MyWMPRI.GetWeaponUpgrade(index), OwnerPawn, DamageType, InstigatedBy, MyKFW);
 		}
@@ -650,8 +652,8 @@ function ModifyArmor( out byte MaxArmor )
 simulated function ModifyMeleeAttackSpeed( out float InDuration, KFWeapon KFW )
 {
 	local float DefaultDuration;
-	local byte i;
-	local byte index;
+	local int i;
+	local int index;
 	
 	DefaultDuration = InDuration;
 	InDuration *= passiveMeleeAttackSpeed;
@@ -689,8 +691,8 @@ simulated function ModifyMeleeAttackSpeed( out float InDuration, KFWeapon KFW )
 simulated function float GetReloadRateScale(KFWeapon KFW)
 {
 	local float InReloadRateScale;
-	local byte i;
-	local byte index;
+	local int i;
+	local int index;
 	
 	InReloadRateScale = passiveReloadRateScale;
 	
@@ -731,8 +733,8 @@ function bool ModifyHealAmount(out float HealAmount)
 {
 	local KFWeapon MyKFW;
 	local float DefaultHealAmount;
-	local byte i;
-	local byte index;
+	local int i;
+	local int index;
 	
 	DefaultHealAmount = HealAmount;
 	
@@ -751,6 +753,7 @@ function bool ModifyHealAmount(out float HealAmount)
 		}
 		for (i=0;i<MyWMPRI.purchase_weaponUpgrade.length;i+=1)
 		{
+			index = MyWMPRI.purchase_weaponUpgrade[i];
 			if (isValidWeapon(MyWMGRI.weaponUpgrade_Weapon[i], MyKFW))
 				MyWMGRI.weaponUpgrade_Upgrade[index].static.ModifyHealAmount(HealAmount, DefaultHealAmount, MyWMPRI.GetWeaponUpgrade(index));
 		}
@@ -834,8 +837,8 @@ simulated function ModifySpeed( out float Speed )
 simulated function ModifyRecoil(out float CurrentRecoilModifier, KFWeapon KFW)
 {
 	local float DefaultRecoilModifier;
-	local byte i;
-	local byte index;
+	local int i;
+	local int index;
 	
 	DefaultRecoilModifier = CurrentRecoilModifier;
 	CurrentRecoilModifier *= passiveRecoil;
@@ -874,8 +877,8 @@ simulated function ModifyRecoil(out float CurrentRecoilModifier, KFWeapon KFW)
 simulated function ModifyWeaponBopDamping( out float BobDamping, KFWeapon PawnWeapon )
 {
 	local float InBobDamping, DefaultBobDamping;
-	local byte i;
-	local byte index;
+	local int i;
+	local int index;
 	
 	DefaultBobDamping = BobDamping;
 	InBobDamping = DefaultBobDamping * passiveBobDamp;
@@ -914,8 +917,8 @@ simulated function ModifyMagSizeAndNumber( KFWeapon KFW, out byte MagazineCapaci
 {
 	local int DefaultMagazineCapacity;
 	local int MagCapacity;
-	local byte i;
-	local byte index;
+	local int i;
+	local int index;
 	
 	MagCapacity = int(MagazineCapacity);
 	DefaultMagazineCapacity = MagCapacity;
@@ -960,8 +963,8 @@ simulated function ModifyMagSizeAndNumber( KFWeapon KFW, out byte MagazineCapaci
 simulated function ModifySpareAmmoAmount( KFWeapon KFW, out int PrimarySpareAmmo, optional const out STraderItem TraderItem, optional bool bSecondary=false )
 {
 	local int DefaultSpareAmmo;
-	local byte i;
-	local byte index;
+	local int i;
+	local int index;
 	
 	if (KFW != none && PrimarySpareAmmo>0)
 	{
@@ -977,7 +980,7 @@ simulated function ModifySpareAmmoAmount( KFWeapon KFW, out int PrimarySpareAmmo
 			for (i=0;i<MyWMPRI.purchase_weaponUpgrade.length;i+=1)
 			{
 				index = MyWMPRI.purchase_weaponUpgrade[i];
-			if (isValidWeapon(MyWMGRI.weaponUpgrade_Weapon[index], KFW))
+				if (isValidWeapon(MyWMGRI.weaponUpgrade_Weapon[index], KFW))
 					MyWMGRI.weaponUpgrade_Upgrade[index].static.ModifySpareAmmoAmount(PrimarySpareAmmo, DefaultSpareAmmo, MyWMPRI.GetWeaponUpgrade(index), KFW, TraderItem, bSecondary);
 			}
 			for (i=0;i<MyWMPRI.purchase_skillUpgrade.length;i+=1)
@@ -1174,8 +1177,8 @@ function ModifyDoTScaler( out float DoTScaler, optional class<KFDamageType> KFDT
 simulated function ModifyRateOfFire( out float InRate, KFWeapon KFW )
 {
 	local float DefaultRate;
-	local byte i;
-	local byte index;
+	local int i;
+	local int index;
 	
 	DefaultRate = InRate;
 	if (KFWeap_FlameBase(KFW) == none)
@@ -1214,8 +1217,8 @@ simulated function ModifyRateOfFire( out float InRate, KFWeapon KFW )
 simulated function float GetTightChokeModifier()
 {
 	local float InTight, DefaultTight;
-	local byte i;
-	local byte index;
+	local int i;
+	local int index;
 	local KFWeapon KFW;
 	local KFInventoryManager KFIM;
 	
@@ -1267,8 +1270,8 @@ simulated function float GetPenetrationModifier(byte Level, class<KFDamageType> 
 	local KFWeapon MyKFW;
 	local float DefaultPenetration;
 	local float InPenetration;
-	local byte i;
-	local byte index;
+	local int i;
+	local int index;
 	
 	InPenetration = 1.f;
 	DefaultPenetration = InPenetration;
@@ -1285,6 +1288,7 @@ simulated function float GetPenetrationModifier(byte Level, class<KFDamageType> 
 		}
 		for (i=0;i<MyWMPRI.purchase_weaponUpgrade.length;i+=1)
 		{
+			index = MyWMPRI.purchase_weaponUpgrade[i];
 			if (isValidWeapon(MyWMGRI.weaponUpgrade_Weapon[i], MyKFW))
 				MyWMGRI.weaponUpgrade_Upgrade[index].static.ModifyPenetration(InPenetration, DefaultPenetration, MyWMPRI.GetWeaponUpgrade(index), DamageType, OwnerPawn, bForce);
 		}
@@ -1307,8 +1311,8 @@ function float GetStunPowerModifier( optional class<DamageType> DamageType, opti
 	local KFWeapon MyKFW;
 	local float DefaultStunPower;
 	local float InStunPower;
-	local byte i;
-	local byte index;
+	local int i;
+	local int index;
 	
 	InStunPower = 1.f;
 	DefaultStunPower = InStunPower;
@@ -1325,6 +1329,7 @@ function float GetStunPowerModifier( optional class<DamageType> DamageType, opti
 		}
 		for (i=0;i<MyWMPRI.purchase_weaponUpgrade.length;i+=1)
 		{
+			index = MyWMPRI.purchase_weaponUpgrade[i];
 			if (isValidWeapon(MyWMGRI.weaponUpgrade_Weapon[i], MyKFW))
 				MyWMGRI.weaponUpgrade_Upgrade[index].static.ModifyStunPower(InStunPower, DefaultStunPower, MyWMPRI.GetWeaponUpgrade(index), DamageType, HitZoneIdx);
 		}
@@ -1348,8 +1353,8 @@ function float GetStumblePowerModifier( optional KFPawn KFP, optional class<KFDa
 	local KFWeapon MyKFW;
 	local float DefaultStumblePower;
 	local float InStumblePower;
-	local byte i;
-	local byte index;
+	local int i;
+	local int index;
 	
 	InStumblePower = 1.f;
 	DefaultStumblePower = InStumblePower;
@@ -1366,6 +1371,7 @@ function float GetStumblePowerModifier( optional KFPawn KFP, optional class<KFDa
 		}
 		for (i=0;i<MyWMPRI.purchase_weaponUpgrade.length;i+=1)
 		{
+			index = MyWMPRI.purchase_weaponUpgrade[i];
 			if (isValidWeapon(MyWMGRI.weaponUpgrade_Weapon[i], MyKFW))
 				MyWMGRI.weaponUpgrade_Upgrade[index].static.ModifyStumblePower(InStumblePower, DefaultStumblePower, MyWMPRI.GetWeaponUpgrade(index), KFP, DamageType, CooldownModifier, BodyPart, OwnerPawn);
 		}
@@ -1388,8 +1394,8 @@ function float GetKnockdownPowerModifier( optional class<DamageType> DamageType,
 	local KFWeapon MyKFW;
 	local float DefaultKnockdownPower;
 	local float InKnockdownPower;
-	local byte i;
-	local byte index;
+	local int i;
+	local int index;
 	
 	InKnockdownPower = 1.f;
 	DefaultKnockdownPower = InKnockdownPower;
@@ -1406,6 +1412,7 @@ function float GetKnockdownPowerModifier( optional class<DamageType> DamageType,
 		}
 		for (i=0;i<MyWMPRI.purchase_weaponUpgrade.length;i+=1)
 		{
+			index = MyWMPRI.purchase_weaponUpgrade[i];
 			if (isValidWeapon(MyWMGRI.weaponUpgrade_Weapon[i], MyKFW))
 				MyWMGRI.weaponUpgrade_Upgrade[index].static.ModifyKnockdownPower(InKnockdownPower, DefaultKnockdownPower, MyWMPRI.GetWeaponUpgrade(index), OwnerPawn, DamageType, BodyPart, bIsSprinting);
 		}
@@ -1463,8 +1470,8 @@ function float GetSnarePower( optional class<DamageType> DamageType, optional by
 simulated function ModifyWeaponSwitchTime( out float ModifiedSwitchTime )
 {
 	local float DefaultSwitchTime;
-	local byte i;
-	local byte index;
+	local int i;
+	local int index;
 	local KFWeapon KFW;
 	local KFInventoryManager KFIM;
 	
@@ -1840,8 +1847,8 @@ simulated function bool GetUsingTactialReload( KFWeapon KFW )
 
 simulated function InitiateWeapon(KFWeapon KFW)
 {
-	local byte i;
-	local byte index;
+	local int i;
+	local int index;
 
 	if (MyWMPRI != none)
 	{
@@ -1904,8 +1911,8 @@ simulated function bool IsHealingSurgeActive(){ return true; }
 
 simulated event float GetIronSightSpeedModifier( KFWeapon KFW )
 {
-	local byte i;
-	local byte index;
+	local int i;
+	local int index;
 	local float InSpeed, DefaultSpeed;
 	
 	DefaultSpeed = 1.000000;
@@ -1941,8 +1948,8 @@ simulated event float GetIronSightSpeedModifier( KFWeapon KFW )
 
 simulated event float GetCrouchSpeedModifier( KFWeapon KFW )
 {
-	local byte i;
-	local byte index;
+	local int i;
+	local int index;
 	local float InSpeed, DefaultSpeed;
 	
 	DefaultSpeed = 1.000000;
