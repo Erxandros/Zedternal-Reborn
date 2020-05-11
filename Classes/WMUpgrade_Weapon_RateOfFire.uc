@@ -5,7 +5,7 @@ var float RateOfFire;
 
 // Revolvers, Shotgun, Rifle, SMG and Medic weapons are compatible
 static function bool IsUpgradeCompatible( class<KFWeapon> KFW )
-{	
+{
 	if (class<KFWeap_PistolBase>(KFW) != none)
 		return true;
 	else if (class<KFWeap_ShotgunBase>(KFW) != none && class<KFWeap_Shotgun_DoubleBarrel>(KFW) == none)
@@ -16,6 +16,8 @@ static function bool IsUpgradeCompatible( class<KFWeapon> KFW )
 		return true;
 	else if (class<KFWeap_MedicBase>(KFW) != none)
 		return true;
+	else if (class<KFWeap_Rifle_MosinNagant>(KFW) != none)
+		return true;
 
 	return false;
 }
@@ -24,7 +26,6 @@ static simulated function ModifyRateOfFire( out float InRate, float DefaultRate,
 {
 	InRate = DefaultRate / (DefaultRate/InRate + default.RateOfFire * upgLevel);
 }
-
 
 defaultproperties
 {

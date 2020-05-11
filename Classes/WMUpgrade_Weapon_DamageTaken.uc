@@ -8,6 +8,8 @@ static function bool IsUpgradeCompatible( class<KFWeapon> KFW )
 {
 	if (class<KFWeap_MeleeBase>(KFW) != none)
 		return true;
+	else if (class<KFWeap_Bow_CompoundBow>(KFW) != none)
+		return true;
 
 	return false;
 }

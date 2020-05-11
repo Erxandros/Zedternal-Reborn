@@ -6,7 +6,9 @@ var float Damage;
 // Only Melee weapons are compatible
 static function bool IsUpgradeCompatible( class<KFWeapon> KFW )
 {
-	if (class<KFWeap_MeleeBase>(KFW) != none)
+	if (class<KFWeap_Rifle_MosinNagant>(KFW) != none)
+		return false;
+	else if (class<KFWeap_MeleeBase>(KFW) != none)
 		return true;
 
 	return false;
@@ -16,7 +18,6 @@ static function ModifyHardAttackDamage( out int InDamage, int DefaultDamage, int
 {
 	InDamage += Round(float(DefaultDamage) * default.Damage * upgLevel);
 }
-
 
 defaultproperties
 {

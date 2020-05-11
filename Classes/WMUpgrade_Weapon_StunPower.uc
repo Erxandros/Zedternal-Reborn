@@ -7,7 +7,7 @@ var float StunPower;
 static function bool IsUpgradeCompatible( class<KFWeapon> KFW )
 {
 	local class<KFDamageType> KFDT;
-	
+
 	KFDT = class<KFDamageType>(KFW.default.InstantHitDamageTypes[0]);
 	if (KFDT != none && KFDT.default.StunPower > 0)
 		return true;
@@ -19,7 +19,6 @@ static function ModifyStunPower( out float InStunPower, float DefaultStunPower, 
 {
 	InStunPower += DefaultStunPower * default.StunPower * upgLevel;
 }
-
 
 defaultproperties
 {

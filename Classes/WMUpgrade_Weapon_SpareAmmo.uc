@@ -8,7 +8,7 @@ static function bool IsUpgradeCompatible( class<KFWeapon> KFW )
 {
 	if (KFW.default.SpareAmmoCapacity[0] >= 7)
 		return true;
-	
+
 	return false;
 }
 
@@ -17,7 +17,6 @@ static simulated function ModifySpareAmmoAmount( out int InSpareAmmo, int Defaul
 	if (!bSecondary)
 		InSpareAmmo += Round(float(DefaultSpareAmmo) * default.SpareAmmo * upgLevel);
 }
-
 
 defaultproperties
 {

@@ -5,8 +5,10 @@ var float RateOfFire;
 
 // Flamme/Freeze thrower weapons are compatible
 static function bool IsUpgradeCompatible( class<KFWeapon> KFW )
-{	
-	if (class<KFWeap_FlameBase>(KFW) != none)
+{
+	if (class<KFWeap_AssaultRifle_LazerCutter>(KFW) != none)
+		return false;
+	else if (class<KFWeap_FlameBase>(KFW) != none)
 		return true;
 
 	return false;
@@ -16,7 +18,6 @@ static simulated function ModifyRateOfFire( out float InRate, float DefaultRate,
 {
 	InRate = DefaultRate / (DefaultRate/InRate - default.RateOfFire * upgLevel);
 }
-
 
 defaultproperties
 {

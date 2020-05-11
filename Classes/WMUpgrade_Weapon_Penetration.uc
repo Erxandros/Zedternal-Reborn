@@ -5,7 +5,7 @@ var float Penetration;
 
 // weapons with penetration power are compatible
 static function bool IsUpgradeCompatible( class<KFWeapon> KFW )
-{	
+{
 	if (KFW.default.PenetrationPower[0] > 0)
 		return true;
 
@@ -16,7 +16,6 @@ static simulated function ModifyPenetration( out float InPenetration, float Defa
 {
 	InPenetration += DefaultPenetration * default.Penetration * upgLevel;
 }
-
 
 defaultproperties
 {

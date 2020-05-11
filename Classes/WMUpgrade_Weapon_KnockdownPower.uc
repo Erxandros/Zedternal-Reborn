@@ -20,7 +20,6 @@ static function ModifyKnockdownPower( out float InKnockdownPower, float DefaultK
 	InKnockdownPower += DefaultKnockdownPower * default.KnockdownPower * upgLevel;
 }
 
-
 defaultproperties
 {
 	upgradeName="Knockdown Effect"

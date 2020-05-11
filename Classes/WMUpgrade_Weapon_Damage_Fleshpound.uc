@@ -14,7 +14,7 @@ static function bool IsUpgradeCompatible( class<KFWeapon> KFW )
 		return true;
 	else if (class<KFWeap_Thrown_C4>(KFW) != none)
 		return true;
-	
+
 	return false;
 }
 
@@ -23,7 +23,6 @@ static function ModifyDamageGiven( out int InDamage, int DefaultDamage, int upgL
 	if (MyKFPM != none && KFPawn_ZedFleshpound(MyKFPM) != none)
 		InDamage += Round(float(DefaultDamage) * default.Damage * upgLevel);
 }
-
 
 defaultproperties
 {

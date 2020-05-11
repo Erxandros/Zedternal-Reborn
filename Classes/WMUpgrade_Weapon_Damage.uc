@@ -4,7 +4,7 @@ Class WMUpgrade_Weapon_Damage extends WMUpgrade_Weapon
 var float Damage;
 
 // all weapons are compatible
-static function bool IsUpgradeCompatible( class<KFWeapon> KFD )
+static function bool IsUpgradeCompatible( class<KFWeapon> KFW )
 {
 	return true;
 }
@@ -13,7 +13,6 @@ static function ModifyDamageGiven( out int InDamage, int DefaultDamage, int upgL
 {
 	InDamage += Round(float(DefaultDamage) * default.Damage * upgLevel);
 }
-
 
 defaultproperties
 {

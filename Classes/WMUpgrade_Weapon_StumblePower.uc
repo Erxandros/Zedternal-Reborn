@@ -5,17 +5,17 @@ var float StumblePower;
 
 // weapons with stumble effect (and without stun/knockdown effect) are compatible
 static function bool IsUpgradeCompatible( class<KFWeapon> KFW )
-{	
+{
 	local float Stumble;
 	local class<KFDamageType> KFDT;
-	
+
 	KFDT = class<KFDamageType>(KFW.default.InstantHitDamageTypes[0]);
-	
+
 	if (KFDT != none)
 		Stumble = KFDT.default.StumblePower;
 	else
 		return false;
-	
+
 	if (Stumble > 0 && KFDT.default.StunPower == 0.000000 && KFDT.default.KnockdownPower == 0.000000)
 		return true;
 
@@ -26,7 +26,6 @@ static function ModifyStumblePower( out float InStumblePower, float DefaultStumb
 {
 	InStumblePower += DefaultStumblePower * default.StumblePower * upgLevel;
 }
-
 
 defaultproperties
 {

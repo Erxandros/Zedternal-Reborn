@@ -5,7 +5,7 @@ var float Recoil;
 
 // Revolvers, Rifles, SMGs and Medic weapons are compatible
 static function bool IsUpgradeCompatible( class<KFWeapon> KFW )
-{	
+{
 	if (KFW.default.MagazineCapacity[0] <= 1)
 		return false;
 	else if (class<KFWeap_PistolBase>(KFW) != none)
@@ -17,6 +17,10 @@ static function bool IsUpgradeCompatible( class<KFWeapon> KFW )
 	else if (class<KFWeap_ScopedBase>(KFW) != none)
 		return true;
 	else if (class<KFWeap_MedicBase>(KFW) != none)
+		return true;
+	else if (class<KFWeap_Rifle_MosinNagant>(KFW) != none)
+		return true;
+	else if (class<KFWeap_HRG_Nailgun>(KFW) != none)
 		return true;
 
 	return false;

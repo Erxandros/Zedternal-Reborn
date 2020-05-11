@@ -8,7 +8,7 @@ static function bool IsUpgradeCompatible( class<KFWeapon> KFW )
 {
 	if (KFW.default.MagazineCapacity[0] >= 5 && KFW.default.MagazineCapacity[0] < 10)
 		return true;
-	
+
 	return false;
 }
 
@@ -16,7 +16,6 @@ static simulated function ModifyMagSizeAndNumber( out int InMagazineCapacity, in
 {
 	InMagazineCapacity += default.MagSize * upgLevel;
 }
-
 
 defaultproperties
 {

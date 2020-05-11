@@ -5,8 +5,10 @@ var float Spread;
 
 // Only Shotgun are compatible
 static function bool IsUpgradeCompatible( class<KFWeapon> KFW )
-{	
+{
 	if (class<KFWeap_ShotgunBase>(KFW) != none)
+		return true;
+	else if (class<KFWeap_HRG_Revolver_Buckshot>(KFW) != none)
 		return true;
 
 	return false;
@@ -16,7 +18,6 @@ static simulated function ModifyTightChokePassive( out float tightChokeFactor, i
 {
 	tightChokeFactor -= default.Spread * upgLevel;
 }
-
 
 defaultproperties
 {
