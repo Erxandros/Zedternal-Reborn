@@ -36,12 +36,12 @@ replication
 simulated event ReplicatedEvent(name VarName)
 {
 	local WMGameReplicationInfo WMGRI;
-	
+
 	if (VarName == 'perkIconIndex')
 	{
 		WMGRI = WMGameReplicationInfo(WorldInfo.GRI);
 		if (WMGRI != none)
-			CurrentIconToDisplay = WMGRI.perkUpgrades[perkIconIndex].static.GetUpgradeIcon( bPerkUpgrade[perkIconIndex]-1 );
+			CurrentIconToDisplay = WMGRI.perkUpgrades[perkIconIndex].static.GetUpgradeIcon( bPerkUpgrade[perkIconIndex] - 1 );
 	}
 	else
 		super.ReplicatedEvent(VarName);
@@ -53,12 +53,12 @@ function CopyProperties(PlayerReplicationInfo PRI)
 	local WMPlayerController WMP;
 	local WMPerk Perk;
 	local byte i;
-	
+
 	WMPRI = WMPlayerReplicationInfo(PRI);
-	
+
 	if (WMPRI != none)
 	{
-		for (i = 0; i < 255; i++)
+		for (i = 0; i < 255; ++i)
 		{
 			WMPRI.KFWeaponName[i] = KFWeaponName[i];
 			WMPRI.bPerkUpgrade[i] = bPerkUpgrade[i];
@@ -71,9 +71,9 @@ function CopyProperties(PlayerReplicationInfo PRI)
 			WMPRI.bSkillUnlocked[i] = bSkillUnlocked[i];
 			WMPRI.bSkillDeluxe[i] = bSkillDeluxe[i];
 		}
-		
+
 		WMPRI.perkLvl = perkLvl;
-		
+
 		WMP = WMPlayerController(WMPRI.KFPlayerOwner);
 		if (WMP != none)
 		{
@@ -82,7 +82,7 @@ function CopyProperties(PlayerReplicationInfo PRI)
 				Perk.ServerComputePassiveBonuses();
 		}
 	}
-	
+
 	super.CopyProperties(PRI);
 }
 
@@ -106,33 +106,33 @@ function UpdateCurrentIconToDisplay(int lastBoughtIndex, int doshSpent, int lvl)
 	// function called every time a perk upgrade or skill upgrade is bought
 	// will update perk icon based on dosh spent by the player
 	// will also increase player level by one
-	
+
 	local WMGameReplicationInfo WMGRI;
 	local byte i;
-	
+
 	WMGRI = WMGameReplicationInfo(WorldInfo.GRI);
-	
+
 	if (WMGRI != none)
 	{
 		// initialize doshRecord if needed
 		if (perkIconIndex == 254)
 		{
-			for (i=0; i<WMGRI.perkUpgrades.length; i+=1)
+			for (i = 0; i < WMGRI.perkUpgrades.length; ++i)
 			{
 				doshSpentOnPerk[i] = 0;
 			}
 		}
-		
+
 		// record dosh spent on perk[index] related upgrades
 		doshSpentOnPerk[lastBoughtIndex] += doshSpent;
-		
+
 		// check and update player's perk icon index
 		if (perkIconIndex == 254 || doshSpentOnPerk[lastBoughtIndex] >= doshSpentOnPerk[perkIconIndex])
 		{
 			perkIconIndex = lastBoughtIndex;
-			CurrentIconToDisplay = WMGRI.perkUpgrades[perkIconIndex].static.GetUpgradeIcon( bPerkUpgrade[perkIconIndex]-1 );
+			CurrentIconToDisplay = WMGRI.perkUpgrades[perkIconIndex].static.GetUpgradeIcon( bPerkUpgrade[perkIconIndex] - 1 );
 		}
-		
+
 		// increase player level
 		perkLvl += lvl;
 	}
@@ -150,21 +150,21 @@ simulated function UpdatePurchase()
 	local int i;
 
 	purchase_perkUpgrade.length = 0;
-	for (i = 0; i < 255; i++)
+	for (i = 0; i < 255; ++i)
 	{
 		if (bPerkUpgrade[i] > 0)
 			purchase_perkUpgrade.AddItem(i);
 	}
 
 	purchase_skillUpgrade.length = 0;
-	for (i = 0; i < 255; i++)
+	for (i = 0; i < 255; ++i)
 	{
 		if (bSkillUpgrade[i] > 0)
 			purchase_skillUpgrade.AddItem(i);
 	}
 
 	purchase_weaponUpgrade.length = 0;
-	for (i = 0; i < 1020; i++)
+	for (i = 0; i < 1020; ++i)
 	{
 		if (GetWeaponUpgrade(i) > 0)
 			purchase_weaponUpgrade.AddItem(i);
@@ -183,9 +183,9 @@ simulated function CreateUPGMenu()
 {
 	local WMUI_Menu UPGMenu;
 	local KFPlayerController KFPC;
-	
+
 	KFPC = KFPlayerController(Owner);
-	
+
 	UPGMenu = new class'ZedternalReborn.WMUI_Menu';
 	UPGMenu.Owner = KFPawn_Human(KFPC.Pawn);
 	UPGMenu.KFPC = KFPC;
@@ -218,19 +218,19 @@ simulated function IncermentWeaponUpgrade(int index)
 {
 	if (index < 255)
 	{
-		bWeaponUpgrade_A[index]++;
+		++bWeaponUpgrade_A[index];
 	}
 	else if (index < 510)
 	{
-		bWeaponUpgrade_B[index - 255]++;
+		++bWeaponUpgrade_B[index - 255];
 	}
 	else if (index < 765)
 	{
-		bWeaponUpgrade_C[index - 510]++;
+		++bWeaponUpgrade_C[index - 510];
 	}
 	else
 	{
-		bWeaponUpgrade_D[index - 765]++;
+		++bWeaponUpgrade_D[index - 765];
 	}
 }
 
