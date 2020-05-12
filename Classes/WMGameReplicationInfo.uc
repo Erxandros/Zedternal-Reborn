@@ -76,9 +76,9 @@ replication
 
 simulated event ReplicatedEvent(name VarName)
 {
-	local bool bEnd;
 	local int i;
 	local STraderItem newWeapon;
+
 	switch (VarName)
 	{
 		case 'WaveNum':
@@ -89,7 +89,6 @@ simulated event ReplicatedEvent(name VarName)
 			break;
 
 		case 'KFWeaponDefPath':
-			//`log("KFWeaponDefPath replicate entered");
 			if (TraderItems == none)
 				TraderItems = new class'KFGFxObject_TraderItems';
 
@@ -100,7 +99,6 @@ simulated event ReplicatedEvent(name VarName)
 
 				else if (i == TraderItems.SaleItems.Length)
 				{
-					//`log("KFWeaponDefPath[i] add weapon in i = length: "$KFWeaponDefPath[i]);
 					newWeapon.WeaponDef = class<KFWeaponDefinition>(DynamicLoadObject(KFWeaponDefPath[i],class'Class'));
 					newWeapon.ItemID = i;
 					TraderItems.SaleItems.AddItem(newWeapon);
@@ -115,35 +113,27 @@ simulated event ReplicatedEvent(name VarName)
 			break;
 
 		case 'KFStartingWeaponPath':
-			bEnd = false;
-			i = 0;
-			while (!bEnd && i < 255)
+			for (i = 0; i < 255; ++i)
 			{
-				if (KFStartingWeaponPath[i]!="")
-				{
+				if (KFStartingWeaponPath[i] == "")
+					break; //base case
+
+				else if (i == KFStartingWeapon.Length || PathName(KFStartingWeapon[i]) == "" || PathName(KFStartingWeapon[i]) != KFStartingWeaponPath[i])
 					KFStartingWeapon[i] = class<KFWeapon>(DynamicLoadObject(KFStartingWeaponPath[i],class'Class'));
-					i += 1;
-				}
-				else
-					bEnd = true;
 			}
 			break;
-			
+
 		case 'perkUpgradesStr':
-			bEnd = false;
-			i = 0;
-			while (!bEnd && i < 255)
+			for (i = 0; i < 255; ++i)
 			{
-				if (perkUpgradesStr[i]!="")
-				{
+				if (perkUpgradesStr[i] == "")
+					break; //base case
+
+				else if (i == perkUpgrades.Length || PathName(perkUpgrades[i]) == "" || PathName(perkUpgrades[i]) != perkUpgradesStr[i])
 					perkUpgrades[i] = class<WMUpgrade_Perk>(DynamicLoadObject(perkUpgradesStr[i],class'Class'));
-					i += 1;
-				}
-				else
-					bEnd = true;
 			}
 			break;
-			
+
 		case 'weaponUpgrade_WeaponStr_A':
 			for (i = 0; i < 255; ++i)
 			{
@@ -273,77 +263,57 @@ simulated event ReplicatedEvent(name VarName)
 			break;
 
 		case 'skillUpgradesStr':
-			bEnd = false;
-			i = 0;
-			while (!bEnd && i < 255)
+			for (i = 0; i < 255; ++i)
 			{
-				if (skillUpgradesStr[i]!="")
-				{
+				if (skillUpgradesStr[i] == "")
+					break; //base case
+
+				else if (i == skillUpgrades.Length || PathName(skillUpgrades[i]) == "" || PathName(skillUpgrades[i]) != skillUpgradesStr[i])
 					skillUpgrades[i] = class<WMUpgrade_Skill>(DynamicLoadObject(skillUpgradesStr[i],class'Class'));
-					i += 1;
-				}
-				else
-					bEnd = true;
 			}
 			break;
 
 		case 'skillUpgradesStr_Perk':
-			bEnd = false;
-			i = 0;
-			while (!bEnd && i < 255)
+			for (i = 0; i < 255; ++i)
 			{
-				if (skillUpgradesStr_Perk[i]!="")
-				{
+				if (skillUpgradesStr_Perk[i] == "")
+					break; //base case
+
+				else if (i == skillUpgrades_Perk.Length || PathName(skillUpgrades_Perk[i]) == "" || PathName(skillUpgrades_Perk[i]) != skillUpgradesStr_Perk[i])
 					skillUpgrades_Perk[i] = class<WMUpgrade_Perk>(DynamicLoadObject(skillUpgradesStr_Perk[i],class'Class'));
-					i += 1;
-				}
-				else
-					bEnd = true;
 			}
 			break;
 
 		case 'specialWavesStr':
-			bEnd = false;
-			i = 0;
-			while (!bEnd && i < 255)
+			for (i = 0; i < 255; ++i)
 			{
-				if (specialWavesStr[i]!="")
-				{
+				if (specialWavesStr[i] == "")
+					break; //base case
+
+				else if (i == specialWaves.Length || PathName(specialWaves[i]) == "" || PathName(specialWaves[i]) != specialWavesStr[i])
 					specialWaves[i] = class<WMSpecialWave>(DynamicLoadObject(specialWavesStr[i],class'Class'));
-					i += 1;
-				}
-				else
-					bEnd = true;
 			}
 			break;
 
 		case 'grenadesStr':
-			bEnd = false;
-			i = 0;
-			while (!bEnd && i < 255)
+			for (i = 0; i < 255; ++i)
 			{
-				if (grenadesStr[i]!="")
-				{
+				if (grenadesStr[i] == "")
+					break; //base case
+
+				else if (i == Grenades.Length || PathName(Grenades[i]) == "" || PathName(Grenades[i]) != grenadesStr[i])
 					Grenades[i] = class<KFWeaponDefinition>(DynamicLoadObject(grenadesStr[i],class'Class'));
-					i += 1;
-				}
-				else
-					bEnd = true;
 			}
 			break;
 
 		case 'zedBuffStr':
-			bEnd = false;
-			i = 0;
-			while (!bEnd && i < 255)
+			for (i = 0; i < 255; ++i)
 			{
-				if (zedBuffStr[i]!="")
-				{
+				if (zedBuffStr[i] == "")
+					break; //base case
+
+				else if (i == zedBuffs.Length || PathName(zedBuffs[i]) == "" || PathName(zedBuffs[i]) != zedBuffStr[i])
 					zedBuffs[i] = class<WMZedBuff>(DynamicLoadObject(zedBuffStr[i],class'Class'));
-					i += 1;
-				}
-				else
-					bEnd = true;
 			}
 			break;
 
@@ -387,7 +357,7 @@ simulated function SetWeaponPickupList()
 			newPickup.ItemClass = Class'kfgamecontent.KFInventory_Armor';
 			KFPFID.ItemPickups.AddItem(newPickup);
 			
-			for (j=0; j<KFStartingWeapon.length; j++)
+			for (j = 0; j < KFStartingWeapon.length; ++j)
 			{
 				newPickup.ItemClass = KFStartingWeapon[j];
 				KFPFID.ItemPickups.AddItem(newPickup);
@@ -400,12 +370,12 @@ simulated function PlayZedBuffSoundAndEffect()
 {
 	if (WMGFxHudWrapper(KFPlayerController(GetALocalPlayerController()).myHUD) != none)
 		WMGFxHudWrapper(KFPlayerController(GetALocalPlayerController()).myHUD).ResestWarningMessage();
-	
+
 	class'KFMusicStingerHelper'.static.PlayRoundWonStinger( KFPlayerController(GetALocalPlayerController()) );
-	
+
 	// reset doors
 	RepairDoor();
-	
+
 	//trader dialog
 	SetTimer(2.f, false, nameof(PlayZedBuffTraderDialog));
 }
@@ -421,7 +391,7 @@ simulated function ForceNewMusicZedBuff()
 	// play a boss music during this wave
 	ForceNewMusicTrack(default.ZedBuffMusic[zedBuff_nextMusicTrackIndex]);
 
-	zedBuff_nextMusicTrackIndex++;
+	++zedBuff_nextMusicTrackIndex;
 
 	// cycle tracks
 	if (zedBuff_nextMusicTrackIndex >= default.ZedBuffMusic.length)
@@ -431,7 +401,7 @@ simulated function ForceNewMusicZedBuff()
 simulated function RepairDoor()
 {
 	local KFDoorActor KFD;
-	
+
 	ForEach WorldInfo.AllActors(class'KFGame.KFDoorActor',KFD)
 	{
 		KFD.ResetDoor();
@@ -444,11 +414,12 @@ simulated function TriggerSpecialWaveMessage()
 	specialWaveIndexToShow = 0;
 	SetTimer(2.00000,false,nameof(ShowSpecialWaveMessage));
 }
+
 simulated function ShowSpecialWaveMessage()
 {
 	local KFPawn_Human KFP;
 	local KFPlayerController KFPC;
-	
+
 	KFPC = KFPlayerController(GetALocalPlayerController());
 	KFP = KFPawn_Human(GetALocalPlayerController().Pawn);
 	if (KFP != none)
@@ -462,16 +433,18 @@ simulated function ShowSpecialWaveMessage()
 	}
 	
 }
+
 simulated function PlaySpecialWaveSound()
 {
 	class'KFMusicStingerHelper'.static.PlayZedPlayerSuicideStinger( KFPlayerController(GetALocalPlayerController()) );
 	SetTimer(4.150000, false, nameof(HideSpecialWaveMessage));
 }
+
 simulated function HideSpecialWaveMessage()
 {
 	if (specialWaveIndexToShow == 0 && SpecialWaveID[1] != -1)
 	{
-		specialWaveIndexToShow += 1;
+		++specialWaveIndexToShow;
 		ShowSpecialWaveMessage();
 	}
 	else
@@ -484,12 +457,12 @@ simulated function HideSpecialWaveMessage()
 simulated function bool IsItemAllowed(STraderItem Item)
 {
 	local int i;
-	
-	for (i = 0; i < min(maxWeapon - staticWeapon, (startingWeapon + staticWeapon + (WaveNum + 1) * newWeaponEachWave)); i++)
+
+	for (i = 0; i < min(maxWeapon - staticWeapon, (startingWeapon + staticWeapon + (WaveNum + 1) * newWeaponEachWave)); ++i)
 	{
-		if (Item.ClassName==KFWeaponName[i])
+		if (Item.ClassName == KFWeaponName[i])
 			return true;
-		else if (Item.SingleClassName==KFWeaponName[i])
+		else if (Item.SingleClassName == KFWeaponName[i])
 			return true;
 	}
 	return false;
@@ -497,7 +470,7 @@ simulated function bool IsItemAllowed(STraderItem Item)
 
 simulated function bool ShouldSetBossCamOnBossDeath()
 {
-    return false;
+	return false;
 }
 
 simulated function bool IsEndlessWave()
@@ -521,24 +494,24 @@ simulated function array<int> GetKFSeqEventLevelLoadedIndices()
 
 defaultproperties
 {
-   WaveMax=255
-   ArmorPrice=3
-   bEndlessMode=True
-   bDrawSpecialWave=false
-   UpdateZedInfoInterval=0.500000
-   UpdateHumanInfoInterval=0.500000
-   UpdatePickupInfoInterval=1.000000
-   zedBuff_nextMusicTrackIndex=0
-   SpecialWaveID(0)=-1
-   SpecialWaveID(1)=-1
-   TraderVoiceGroupClasses(0)=Class'kfgamecontent.KFTraderVoiceGroup_Default'
-   TraderVoiceGroupClasses(1)=Class'kfgamecontent.KFTraderVoiceGroup_Patriarch'
-   TraderVoiceGroupClasses(2)=Class'kfgamecontent.KFTraderVoiceGroup_Hans'
-   TraderVoiceGroupClasses(3)=Class'kfgamecontent.KFTraderVoiceGroup_Lockheart'
-   TraderVoiceGroupClasses(4)=Class'kfgamecontent.KFTraderVoiceGroup_Santa'
-   ZedBuffMusic(0)=KFMusicTrackInfo'WW_MACT_Default.TI_SH_Boss_DieVolter'
-   ZedBuffMusic(1)=KFMusicTrackInfo'WW_MACT_Default.TI_Boss_Patriarch'
-   ZedBuffMusic(2)=KFMusicTrackInfo'WW_MACT_Default.TI_RG_Abomination'
-   ZedBuffMusic(3)=KFMusicTrackInfo'WW_MACT_Default.TI_RG_KingFP'
-   ZedBuffMusic(4)=KFMusicTrackInfo'WW_MACT_Default.TI_Boss_Matriarch'
+	WaveMax=255
+	ArmorPrice=3
+	bEndlessMode=True
+	bDrawSpecialWave=false
+	UpdateZedInfoInterval=0.500000
+	UpdateHumanInfoInterval=0.500000
+	UpdatePickupInfoInterval=1.000000
+	zedBuff_nextMusicTrackIndex=0
+	SpecialWaveID(0)=-1
+	SpecialWaveID(1)=-1
+	TraderVoiceGroupClasses(0)=Class'kfgamecontent.KFTraderVoiceGroup_Default'
+	TraderVoiceGroupClasses(1)=Class'kfgamecontent.KFTraderVoiceGroup_Patriarch'
+	TraderVoiceGroupClasses(2)=Class'kfgamecontent.KFTraderVoiceGroup_Hans'
+	TraderVoiceGroupClasses(3)=Class'kfgamecontent.KFTraderVoiceGroup_Lockheart'
+	TraderVoiceGroupClasses(4)=Class'kfgamecontent.KFTraderVoiceGroup_Santa'
+	ZedBuffMusic(0)=KFMusicTrackInfo'WW_MACT_Default.TI_SH_Boss_DieVolter'
+	ZedBuffMusic(1)=KFMusicTrackInfo'WW_MACT_Default.TI_Boss_Patriarch'
+	ZedBuffMusic(2)=KFMusicTrackInfo'WW_MACT_Default.TI_RG_Abomination'
+	ZedBuffMusic(3)=KFMusicTrackInfo'WW_MACT_Default.TI_RG_KingFP'
+	ZedBuffMusic(4)=KFMusicTrackInfo'WW_MACT_Default.TI_Boss_Matriarch'
 }
