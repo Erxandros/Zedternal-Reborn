@@ -6,6 +6,8 @@ var byte bPerkUpgrade[255];
 var byte bPerkUpgradeAvailable[255];
 var byte bWeaponUpgrade_A[255];
 var byte bWeaponUpgrade_B[255];
+var byte bWeaponUpgrade_C[255];
+var byte bWeaponUpgrade_D[255];
 var byte bSkillUpgrade[255];
 var byte bSkillUnlocked[255];
 var byte bSkillDeluxe[255];
@@ -16,17 +18,19 @@ var texture2D CurrentIconToDisplay;
 var array< int > doshSpentOnPerk;
 var int perkLvl;
 
-// new opti array to track purchase of player (on server and client sides)
+// dynamic array used to track purchases of player (on server and client sides)
 // used in WMPerk
-var array< byte > purchase_perkUpgrade, purchase_skillUpgrade, purchase_weaponUpgrade;
+var array< byte > purchase_perkUpgrade, purchase_skillUpgrade;
+var array< int > purchase_weaponUpgrade;
 
 replication
 {
 	if ( bNetDirty && (Role == Role_Authority) )
-		KFWeaponName,bPerkUpgrade,bPerkUpgradeAvailable,bWeaponUpgrade_A,bWeaponUpgrade_B,bSkillUpgrade,bSkillUnlocked,bSkillDeluxe;
+		KFWeaponName, bPerkUpgrade, bPerkUpgradeAvailable, bWeaponUpgrade_A, bWeaponUpgrade_B, bWeaponUpgrade_C, bWeaponUpgrade_D,
+		bSkillUpgrade, bSkillUnlocked, bSkillDeluxe;
 
 	if ( bNetDirty )
-		perkIconIndex,perkLvl;
+		perkIconIndex, perkLvl;
 }
 
 simulated event ReplicatedEvent(name VarName)
@@ -61,6 +65,8 @@ function CopyProperties(PlayerReplicationInfo PRI)
 			WMPRI.bPerkUpgradeAvailable[i] = bPerkUpgradeAvailable[i];
 			WMPRI.bWeaponUpgrade_A[i] = bWeaponUpgrade_A[i];
 			WMPRI.bWeaponUpgrade_B[i] = bWeaponUpgrade_B[i];
+			WMPRI.bWeaponUpgrade_C[i] = bWeaponUpgrade_C[i];
+			WMPRI.bWeaponUpgrade_D[i] = bWeaponUpgrade_D[i];
 			WMPRI.bSkillUpgrade[i] = bSkillUpgrade[i];
 			WMPRI.bSkillUnlocked[i] = bSkillUnlocked[i];
 			WMPRI.bSkillDeluxe[i] = bSkillDeluxe[i];
@@ -158,7 +164,7 @@ simulated function UpdatePurchase()
 	}
 
 	purchase_weaponUpgrade.length = 0;
-	for (i = 0; i < 510; i++)
+	for (i = 0; i < 1020; i++)
 	{
 		if (GetWeaponUpgrade(i) > 0)
 			purchase_weaponUpgrade.AddItem(i);
@@ -194,9 +200,17 @@ simulated function byte GetWeaponUpgrade(int index)
 	{
 		return bWeaponUpgrade_A[index];
 	}
-	else
+	else if (index < 510)
 	{
 		return bWeaponUpgrade_B[index - 255];
+	}
+	else if (index < 765)
+	{
+		return bWeaponUpgrade_C[index - 510];
+	}
+	else
+	{
+		return bWeaponUpgrade_D[index - 765];
 	}
 }
 
@@ -206,9 +220,17 @@ simulated function IncermentWeaponUpgrade(int index)
 	{
 		bWeaponUpgrade_A[index]++;
 	}
-	else
+	else if (index < 510)
 	{
 		bWeaponUpgrade_B[index - 255]++;
+	}
+	else if (index < 765)
+	{
+		bWeaponUpgrade_C[index - 510]++;
+	}
+	else
+	{
+		bWeaponUpgrade_D[index - 765]++;
 	}
 }
 
@@ -218,9 +240,17 @@ simulated function SetWeaponUpgrade(int index, int value)
 	{
 		bWeaponUpgrade_A[index] = value;
 	}
-	else
+	else if (index < 510)
 	{
 		bWeaponUpgrade_B[index - 255] = value;
+	}
+	else if (index < 765)
+	{
+		bWeaponUpgrade_C[index - 510] = value;
+	}
+	else
+	{
+		bWeaponUpgrade_D[index - 765] = value;
 	}
 }
 

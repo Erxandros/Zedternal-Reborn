@@ -903,7 +903,8 @@ function SelectRandomTraderVoice()
 function RepGameInfo()
 {
 	local WMGameReplicationInfo WMGRI;
-	local byte i,j;
+	local byte i;
+	local int j;
 	
 	//AmmoPriceFactor
 	if (CustomMode)
@@ -956,31 +957,52 @@ function RepGameInfo()
 	//TraderObject
 	WMGRI.TraderArch = TraderItems;
 	
-	//Upgrades
+	//Perk Upgrades
 	for (j = 0; j < Min(255, class'ZedternalReborn.Config_PerkUpgrade'.default.PerkUpgrade_perkUpgrades.length); j++)
 	{
 		WMGRI.perkUpgradesStr[j] =			class'ZedternalReborn.Config_PerkUpgrade'.default.PerkUpgrade_PerkUpgrades[j];
 		WMGRI.perkUpgrades[j] =				class<WMUpgrade_Perk>(DynamicLoadObject(class'ZedternalReborn.Config_PerkUpgrade'.default.PerkUpgrade_PerkUpgrades[j],class'Class'));
 	}
+
+	//Weapon Upgrades
 	for (j = 0; j < Min(255, weaponUpgradeArch.length); j++)
 	{
-		WMGRI.weaponUpgrade_WeaponStr[j] =				PathName(weaponUpgradeArch[j].KFWeapon);
-		WMGRI.weaponUpgrade_UpgradeStr[j] =				PathName(weaponUpgradeArch[j].KFWeaponUpgrade);
-		WMGRI.weaponUpgrade_PriceRep[j] =				weaponUpgradeArch[j].Price;
-		WMGRI.weaponUpgrade_Price[j] =					weaponUpgradeArch[j].Price;
-		WMGRI.weaponUpgrade_Weapon[j] =					weaponUpgradeArch[j].KFWeapon;
-		WMGRI.weaponUpgrade_Upgrade[j] =				weaponUpgradeArch[j].KFWeaponUpgrade;
+		WMGRI.weaponUpgrade_WeaponStr_A[j] =	PathName(weaponUpgradeArch[j].KFWeapon);
+		WMGRI.weaponUpgrade_UpgradeStr_A[j] =	PathName(weaponUpgradeArch[j].KFWeaponUpgrade);
+		WMGRI.weaponUpgrade_PriceRep_A[j] =		weaponUpgradeArch[j].Price;
+		WMGRI.weaponUpgrade_Price[j] =			weaponUpgradeArch[j].Price;
+		WMGRI.weaponUpgrade_Weapon[j] =			weaponUpgradeArch[j].KFWeapon;
+		WMGRI.weaponUpgrade_Upgrade[j] =		weaponUpgradeArch[j].KFWeaponUpgrade;
 	}
-	// increase maximum number of weapon upgrades supported by the game mod (cheap way)
 	for (j = 0; j < Min(255, weaponUpgradeArch.length - 255); j++)
 	{
-		WMGRI.weaponUpgrade_WeaponStr_B[j] =			PathName(weaponUpgradeArch[j+255].KFWeapon);
-		WMGRI.weaponUpgrade_UpgradeStr_B[j] =			PathName(weaponUpgradeArch[j+255].KFWeaponUpgrade);
-		WMGRI.weaponUpgrade_PriceRep_B[j] =				weaponUpgradeArch[j+255].Price;
-		WMGRI.weaponUpgrade_Price[j+255] =				weaponUpgradeArch[j+255].Price;
-		WMGRI.weaponUpgrade_Weapon[j+255] =				weaponUpgradeArch[j+255].KFWeapon;
-		WMGRI.weaponUpgrade_Upgrade[j+255] =			weaponUpgradeArch[j+255].KFWeaponUpgrade;
+		WMGRI.weaponUpgrade_WeaponStr_B[j] =	PathName(weaponUpgradeArch[j + 255].KFWeapon);
+		WMGRI.weaponUpgrade_UpgradeStr_B[j] =	PathName(weaponUpgradeArch[j + 255].KFWeaponUpgrade);
+		WMGRI.weaponUpgrade_PriceRep_B[j] =		weaponUpgradeArch[j + 255].Price;
+		WMGRI.weaponUpgrade_Price[j + 255] =	weaponUpgradeArch[j + 255].Price;
+		WMGRI.weaponUpgrade_Weapon[j + 255] =	weaponUpgradeArch[j + 255].KFWeapon;
+		WMGRI.weaponUpgrade_Upgrade[j + 255] =	weaponUpgradeArch[j + 255].KFWeaponUpgrade;
 	}
+	for (j = 0; j < Min(255, weaponUpgradeArch.length - 510); j++)
+	{
+		WMGRI.weaponUpgrade_WeaponStr_C[j] =	PathName(weaponUpgradeArch[j + 510].KFWeapon);
+		WMGRI.weaponUpgrade_UpgradeStr_C[j] =	PathName(weaponUpgradeArch[j + 510].KFWeaponUpgrade);
+		WMGRI.weaponUpgrade_PriceRep_C[j] =		weaponUpgradeArch[j + 510].Price;
+		WMGRI.weaponUpgrade_Price[j + 510] =	weaponUpgradeArch[j + 510].Price;
+		WMGRI.weaponUpgrade_Weapon[j + 510] =	weaponUpgradeArch[j + 510].KFWeapon;
+		WMGRI.weaponUpgrade_Upgrade[j + 510] =	weaponUpgradeArch[j + 510].KFWeaponUpgrade;
+	}
+	for (j = 0; j < Min(255, weaponUpgradeArch.length - 765); j++)
+	{
+		WMGRI.weaponUpgrade_WeaponStr_D[j] =	PathName(weaponUpgradeArch[j + 765].KFWeapon);
+		WMGRI.weaponUpgrade_UpgradeStr_D[j] =	PathName(weaponUpgradeArch[j + 765].KFWeaponUpgrade);
+		WMGRI.weaponUpgrade_PriceRep_D[j] =		weaponUpgradeArch[j + 765].Price;
+		WMGRI.weaponUpgrade_Price[j + 765] =	weaponUpgradeArch[j + 765].Price;
+		WMGRI.weaponUpgrade_Weapon[j + 765] =	weaponUpgradeArch[j + 765].KFWeapon;
+		WMGRI.weaponUpgrade_Upgrade[j + 765] =	weaponUpgradeArch[j + 765].KFWeaponUpgrade;
+	}
+
+	//Skill Upgrades
 	for (j = 0; j < Min(255, class'ZedternalReborn.Config_SkillUpgrade'.default.SkillUpgrade_SkillUpgrades.length); j++)
 	{
 		WMGRI.skillUpgradesStr[j] =			class'ZedternalReborn.Config_SkillUpgrade'.default.SkillUpgrade_SkillUpgrades[j].SkillPath;
@@ -994,17 +1016,19 @@ function RepGameInfo()
 		WMGRI.specialWavesStr[j] =			class'ZedternalReborn.Config_SpecialWave'.default.SpecialWave_SpecialWaves[j].Path;
 		WMGRI.specialWaves[j] =				class<WMSpecialWave>(DynamicLoadObject(class'ZedternalReborn.Config_SpecialWave'.default.SpecialWave_SpecialWaves[j].Path,class'Class'));
 	}
+
 	WMGRI.startingWeapon =					class'ZedternalReborn.Config_Weapon'.default.Trader_StartingWeaponNumber;
 	WMGRI.newWeaponEachWave =				class'ZedternalReborn.Config_Weapon'.default.Trader_NewWeaponEachWave;
 	WMGRI.maxWeapon =						class'ZedternalReborn.Config_Weapon'.default.Trader_MaxWeapon;
 	WMGRI.staticWeapon =					class'ZedternalReborn.Config_Weapon'.default.Trader_StaticWeaponDefs.length;
-	
+
 	//Perks, Skills and Weapons upgrades custom prices
 	WMGRI.perkMaxLevel =					class'ZedternalReborn.Config_PerkUpgrade'.default.PerkUpgrade_Price.Length;
 	for (j = 0; j < Min(255, class'ZedternalReborn.Config_PerkUpgrade'.default.PerkUpgrade_Price.length); j++)
 	{
 		WMGRI.perkPrice[j] =				class'ZedternalReborn.Config_PerkUpgrade'.default.PerkUpgrade_Price[j];
 	}
+
 	WMGRI.skillPrice =						class'ZedternalReborn.Config_SkillUpgrade'.default.SkillUpgrade_Price;
 	WMGRI.skillDeluxePrice =				class'ZedternalReborn.Config_SkillUpgrade'.default.SkillUpgrade_DeluxePrice;
 	WMGRI.weaponMaxLevel =					class'ZedternalReborn.Config_WeaponUpgrade'.default.WeaponUpgrade_MaxLevel;
