@@ -12,7 +12,6 @@ var repnotify string zedBuffStr[255];
 var int SpecialWaveID[2];
 var repnotify bool bNewZedBuff;
 var int startingWeapon, newWeaponEachWave, maxWeapon, staticWeapon;
-var KFGFxObject_TraderItems TraderArch;
 var int ArmorPrice;
 var repnotify int TraderVoiceGroupIndex;
 
@@ -65,7 +64,7 @@ replication
 {
 	if ( bNetDirty )
 		KFWeaponName, KFWeaponDefPath, KFStartingWeaponPath, perkUpgradesStr, skillUpgradesStr, skillUpgradesStr_Perk, specialWavesStr, grenadesStr,
-		zedBuffStr, SpecialWaveID, bNewZedBuff, startingWeapon, newWeaponEachWave, maxWeapon, staticWeapon, TraderArch, ArmorPrice, TraderVoiceGroupIndex,
+		zedBuffStr, SpecialWaveID, bNewZedBuff, startingWeapon, newWeaponEachWave, maxWeapon, staticWeapon, ArmorPrice, TraderVoiceGroupIndex,
 		perkPrice, perkMaxLevel, skillPrice, skillDeluxePrice, bUseCustomWeaponPrice, weaponPrice, weaponMaxLevel, bZedBuffs,
 		weaponUpgrade_WeaponStr_A, weaponUpgrade_UpgradeStr_A, weaponUpgrade_PriceRep_A,
 		weaponUpgrade_WeaponStr_B, weaponUpgrade_UpgradeStr_B, weaponUpgrade_PriceRep_B,

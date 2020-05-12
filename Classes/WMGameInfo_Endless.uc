@@ -949,9 +949,6 @@ function RepGameInfo()
 		WMGRI.KFWeaponDefPath[b] = KFWeaponDefPath[b];
 	}
 
-	//TraderObject
-	WMGRI.TraderArch = TraderItems;
-
 	//Perk Upgrades
 	for (b = 0; b < Min(255, class'ZedternalReborn.Config_PerkUpgrade'.default.PerkUpgrade_perkUpgrades.length); ++b)
 	{
