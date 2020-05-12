@@ -1,7 +1,6 @@
 class WMGameInfo_Endless_AllWeapons extends WMGameInfo_Endless
 	config(GameEndless);
 
-
 function BuildWeaponList()
 {
 	local int i, count;
@@ -9,11 +8,11 @@ function BuildWeaponList()
 	local array<int> weaponIndex;
 	local class<KFWeaponDefinition> KFWeaponDefClass, CustomWeaponDef;
 	local STraderItem newWeapon;
-	
-	weaponIndex.Length=0;
-	
+
+	weaponIndex.Length = 0;
+
 	TraderItems = new class'KFGFxObject_TraderItems';
-	
+
 	/////////////////
 	// Armor Price //
 	/////////////////
@@ -24,44 +23,43 @@ function BuildWeaponList()
 
 	if (WMGameReplicationInfo(MyKFGRI) != none)
 		WMGameReplicationInfo(MyKFGRI).ArmorPrice = TraderItems.ArmorPrice;
-	
-	
+
 	//////////////////////
 	// Register Weapons //
 	//////////////////////
-	
+
 	//Scan and register all default weapons from the game
 	count = 0;
-	for (i=0;i<DefaultTraderItems.SaleItems.Length;i+=1)
+	for (i = 0; i < DefaultTraderItems.SaleItems.Length; ++i)
 	{
 		newWeapon.WeaponDef = DefaultTraderItems.SaleItems[i].WeaponDef;
 		newWeapon.ItemID = count;
-		count++;
+		++count;
 		TraderItems.SaleItems.AddItem(newWeapon);
 		KFWeaponDefPath.AddItem(PathName(newWeapon.WeaponDef)); //for client
 		
 		// Add weapons to the list of possible weapons
 		if (IsWeaponDefCanBeRandom(DefaultTraderItems.SaleItems[i].WeaponDef))
-			weaponIndex[weaponIndex.Length] = count-1;
+			weaponIndex[weaponIndex.Length] = count - 1;
 	}
 
 	//Add and register custom weapons
 	if (class'ZedternalReborn.Config_Weapon'.default.Weapon_bUseCustomWeaponList)
 	{
-		for (i = 0; i < class'ZedternalReborn.Config_Weapon'.default.Weapon_CustomWeaponDef.length; i++)
+		for (i = 0; i < class'ZedternalReborn.Config_Weapon'.default.Weapon_CustomWeaponDef.length; ++i)
 		{
 			CustomWeaponDef = class<KFWeaponDefinition>(DynamicLoadObject(class'ZedternalReborn.Config_Weapon'.default.Weapon_CustomWeaponDef[i],class'Class'));
 			if (CustomWeaponDef != None)
 			{
 				newWeapon.WeaponDef = CustomWeaponDef;
 				newWeapon.ItemID = count;
-				count++;
+				++count;
 				TraderItems.SaleItems.AddItem(newWeapon);
 				KFWeaponDefPath.AddItem(PathName(newWeapon.WeaponDef)); //for client
 
 				// Add weapons to the list of possible weapons
 				if (IsWeaponDefCanBeRandom(CustomWeaponDef))
-					weaponIndex[weaponIndex.Length] = count-1;
+					weaponIndex[weaponIndex.Length] = count - 1;
 
 				`log("Custom weapon added: "$class'ZedternalReborn.Config_Weapon'.default.Weapon_CustomWeaponDef[i]);
 			}
@@ -79,11 +77,11 @@ function BuildWeaponList()
 	////////////////////////
 	// Create weapon list //
 	////////////////////////
-	
-	weaponUpgradeArch.length=0;
-	
+
+	weaponUpgradeArch.length = 0;
+
 	//create starting weapon list and adding them in the trader
-	for (i=0; i<class'ZedternalReborn.Config_Weapon'.default.Weapon_PlayerStartingWeaponDefList.length; i++)
+	for (i = 0; i < class'ZedternalReborn.Config_Weapon'.default.Weapon_PlayerStartingWeaponDefList.length; ++i)
 	{
 		PerkStartingWeapon[i] = class<KFWeaponDefinition>(DynamicLoadObject(class'ZedternalReborn.Config_Weapon'.default.Weapon_PlayerStartingWeaponDefList[i],class'Class'));
 		KFStartingWeaponPath[i] = PerkStartingWeapon[i].default.WeaponClassPath;
@@ -97,9 +95,9 @@ function BuildWeaponList()
 				CheckForWeaponOverrides(KFWeaponDefClass);
 		}
 	}
-	
+
 	//adding static weapon in the trader
-	for (i=0; i<class'ZedternalReborn.Config_Weapon'.default.Trader_StaticWeaponDefs.length; i++)
+	for (i = 0; i < class'ZedternalReborn.Config_Weapon'.default.Trader_StaticWeaponDefs.length; ++i)
 	{
 		KFWeaponDefClass = class<KFWeaponDefinition>(DynamicLoadObject(class'ZedternalReborn.Config_Weapon'.default.Trader_StaticWeaponDefs[i],class'Class'));
 		if (KFWeaponDefClass != none)
@@ -110,9 +108,9 @@ function BuildWeaponList()
 				CheckForWeaponOverrides(KFWeaponDefClass);
 		}
 	}
-	
+
 	//Adding other weapons
-	for (i=0; i<weaponIndex.length; i++)
+	for (i = 0; i < weaponIndex.length; ++i)
 	{
 		KFWeaponDefClass = TraderItems.SaleItems[weaponIndex[i]].WeaponDef;
 		if (KFWeaponDefClass != none)
@@ -123,13 +121,13 @@ function BuildWeaponList()
 				CheckForWeaponOverrides(TraderItems.SaleItems[weaponIndex[i]].WeaponDef, weaponIndex[i]);
 		}
 	}
-	
+
 	//Finishing WeaponList
 	TraderItems.SetItemsInfo(TraderItems.SaleItems);
 	MyKFGRI.TraderItems = TraderItems;
-	
+
 	`log("Weapon List : ");
-	for (i=0; i<KFWeaponName.length; i++)
+	for (i = 0; i < KFWeaponName.length; ++i)
 	{
 		`log(KFWeaponName[i] $ "(" $ i $ ")");
 	}
@@ -137,5 +135,5 @@ function BuildWeaponList()
 
 defaultproperties
 {
-   GameReplicationInfoClass=Class'ZedternalReborn.WMGameReplicationInfo_AllWeapons'
+	GameReplicationInfoClass=Class'ZedternalReborn.WMGameReplicationInfo_AllWeapons'
 }
