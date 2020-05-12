@@ -254,7 +254,7 @@ simulated event ReplicatedEvent(name VarName)
 		case 'weaponUpgrade_PriceRep_D':
 			for (i = 0; i < 255; ++i)
 			{
-				if (weaponUpgrade_PriceRep_A[i] == 0)
+				if (weaponUpgrade_PriceRep_D[i] == 0)
 					break; //base case
 
 				weaponUpgrade_Price[i + 765] = weaponUpgrade_PriceRep_D[i];
