@@ -166,6 +166,8 @@ simulated event ReplicatedEvent(name VarName)
 			break;
 
 		case 'weaponUpgrade_WeaponStr_B':
+			if (255 > weaponUpgrade_Weapon.Length)
+				weaponUpgrade_Weapon.Length = 255;
 			for (i = 0; i < 255; ++i)
 			{
 				if (weaponUpgrade_WeaponStr_B[i] == "")
@@ -177,6 +179,8 @@ simulated event ReplicatedEvent(name VarName)
 			break;
 
 		case 'weaponUpgrade_UpgradeStr_B':
+			if (255 > weaponUpgrade_Upgrade.Length)
+				weaponUpgrade_Upgrade.Length = 255;
 			for (i = 0; i < 255; ++i)
 			{
 				if (weaponUpgrade_UpgradeStr_B[i] == "")
@@ -188,6 +192,8 @@ simulated event ReplicatedEvent(name VarName)
 			break;
 
 		case 'weaponUpgrade_PriceRep_B':
+			if (255 > weaponUpgrade_Price.Length)
+				weaponUpgrade_Price.Length = 255;
 			for (i = 0; i < 255; ++i)
 			{
 				if (weaponUpgrade_PriceRep_B[i] == 0)
@@ -198,6 +204,8 @@ simulated event ReplicatedEvent(name VarName)
 			break;
 
 		case 'weaponUpgrade_WeaponStr_C':
+			if (510 > weaponUpgrade_Weapon.Length)
+				weaponUpgrade_Weapon.Length = 510;
 			for (i = 0; i < 255; ++i)
 			{
 				if (weaponUpgrade_WeaponStr_C[i] == "")
@@ -209,6 +217,8 @@ simulated event ReplicatedEvent(name VarName)
 			break;
 
 		case 'weaponUpgrade_UpgradeStr_C':
+			if (510 > weaponUpgrade_Upgrade.Length)
+				weaponUpgrade_Upgrade.Length = 510;
 			for (i = 0; i < 255; ++i)
 			{
 				if (weaponUpgrade_UpgradeStr_C[i] == "")
@@ -220,6 +230,8 @@ simulated event ReplicatedEvent(name VarName)
 			break;
 
 		case 'weaponUpgrade_PriceRep_C':
+			if (510 > weaponUpgrade_Price.Length)
+				weaponUpgrade_Price.Length = 510;
 			for (i = 0; i < 255; ++i)
 			{
 				if (weaponUpgrade_PriceRep_C[i] == 0)
@@ -230,6 +242,8 @@ simulated event ReplicatedEvent(name VarName)
 			break;
 
 		case 'weaponUpgrade_WeaponStr_D':
+			if (765 > weaponUpgrade_Weapon.Length)
+				weaponUpgrade_Weapon.Length = 765;
 			for (i = 0; i < 255; ++i)
 			{
 				if (weaponUpgrade_WeaponStr_D[i] == "")
@@ -241,6 +255,8 @@ simulated event ReplicatedEvent(name VarName)
 			break;
 
 		case 'weaponUpgrade_UpgradeStr_D':
+			if (765 > weaponUpgrade_Upgrade.Length)
+				weaponUpgrade_Upgrade.Length = 765;
 			for (i = 0; i < 255; ++i)
 			{
 				if (weaponUpgrade_UpgradeStr_D[i] == "")
@@ -252,6 +268,8 @@ simulated event ReplicatedEvent(name VarName)
 			break;
 
 		case 'weaponUpgrade_PriceRep_D':
+			if (765 > weaponUpgrade_Price.Length)
+				weaponUpgrade_Price.Length = 765;
 			for (i = 0; i < 255; ++i)
 			{
 				if (weaponUpgrade_PriceRep_D[i] == 0)
