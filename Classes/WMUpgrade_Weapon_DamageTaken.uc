@@ -10,6 +10,8 @@ static function bool IsUpgradeCompatible( class<KFWeapon> KFW )
 		return true;
 	else if (class<KFWeap_Bow_CompoundBow>(KFW) != none)
 		return true;
+	else if (class<KFWeap_SMG_G18>(KFW) != none)
+		return true;
 
 	return false;
 }
