@@ -27,16 +27,15 @@ struct S_Weapon_Upgrade
 var array<S_Weapon_Upgrade> weaponUpgradeArch;
 
 
-
 event InitGame( string Options, out string ErrorMessage )
 {
 	// starting wave can be set through the console while launching the mod (by adding : ?wave=XXX)
 	startingWave = Min(Max(class'GameInfo'.static.GetIntOption(Options, "wave", 1) - 1, 0), 199);
-	
+
 	// starting dosh can be set through the console while launching the mod (by adding : ?dosh=XXX)
 	startingDosh = class'GameInfo'.static.GetIntOption(Options, "dosh", 0);
-	
-	
+
+
 	Super.InitGame( Options, ErrorMessage );
 	GameLength = 2;
 }
@@ -47,24 +46,24 @@ static function PreloadGlobalContentClasses()
 	local array< class<KFPawn_Monster> > NewClassList;
 	local class<KFPawn_Monster> tempClass;
 	local int i;
-	
+
 	super.PreloadGlobalContentClasses();
-	
+
 	// find all custom pawnclasses
 	NewClassList[0] = default.AIClassList[0];
-	for (i=0; i<class'ZedternalReborn.Config_Zed'.default.Zed_Monsters.length; i+=1)
+	for (i = 0; i < class'ZedternalReborn.Config_Zed'.default.Zed_Monsters.length; ++i)
 	{
 		tempClass = class'ZedternalReborn.Config_Zed'.default.Zed_Monsters[i].MClass;
 		if (default.AIClassList.Find(tempClass) == INDEX_NONE && NewClassList.Find(tempClass) == INDEX_NONE)
 			NewClassList.AddItem(tempClass);
 	}
-	for (i=0; i<class'ZedternalReborn.Config_Zed'.default.Zed_ZedVariant.length; i+=1)
+	for (i = 0; i < class'ZedternalReborn.Config_Zed'.default.Zed_ZedVariant.length; ++i)
 	{
 		tempClass = class'ZedternalReborn.Config_Zed'.default.Zed_ZedVariant[i].variantClass;
 		if (default.AIClassList.Find(tempClass) == INDEX_NONE && NewClassList.Find(tempClass) == INDEX_NONE)
 			NewClassList.AddItem(tempClass);
 	}
-	
+
 	// Preload content of custom PawnClass
 	foreach NewClassList(PawnClass)
 	{
@@ -75,19 +74,19 @@ static function PreloadGlobalContentClasses()
 event PostBeginPlay()
 {
 	super.PostBeginPlay();
-	
+
 	// Update Default Value
 	class'ZedternalReborn.Config_Base'.static.CheckDefaultValue();
 
 	// Available weapon are random each wave. Need to build the list
 	BuildWeaponList();
-	
+
 	// Select Trader voice
 	SelectRandomTraderVoice();
-	
+
 	// Replicate new information from this game mode (weapon list, skill, monster...)
 	SetTimer(5.f, false, 'RepGameInfo');
-	
+
 	if (startingDosh > 0)
 		doshNewPlayer = startingDosh;
 	else
@@ -210,17 +209,17 @@ function StartMatch()
 		bUseExtendedTraderTime = true;
 		SetupNextTrader();
 		GotoState( 'TraderOpen', 'Begin' );
-		
+
 		// update wave modificators
 		SetTimer(4.5f, false, NameOf(CheckForPreviousZedBuff));
 	}
 
-    foreach WorldInfo.AllControllers(class'KFPlayerController', KFPC)
-    {
-        KFPC.ClientMatchStarted();
+	foreach WorldInfo.AllControllers(class'KFPlayerController', KFPC)
+	{
+		KFPC.ClientMatchStarted();
 		if (startingDosh > 0)
 			KFPlayerReplicationInfo(KFPC.PlayerReplicationInfo).Score = startingDosh;
-    }
+	}
 }
 
 function StartWave()
@@ -228,13 +227,13 @@ function StartWave()
 	local int i, j;
 	local KFPickupFactory_ItemDefault KFPFID;
 	local ItemPickup newPickup;
-	
+
 	//closes trader on server
 	MyKFGRI.CloseTrader();
-	
+
 	SetupSpecialWave();
-	
-	WaveNum++;
+
+	++WaveNum;
 	MyKFGRI.WaveNum = WaveNum;
 	NumAISpawnsQueued = 0;
 	AIAliveCount = 0;
@@ -243,7 +242,7 @@ function StartWave()
 	MyKFGRI.bWaveStarted = true;
 
 	// Set Weapon PickupList
-	for (i=0; i<ItemPickups.length; i++)
+	for (i = 0; i < ItemPickups.length; ++i)
 	{
 		KFPFID = KFPickupFactory_ItemDefault(ItemPickups[i]);
 		if (KFPFID != none)
@@ -252,14 +251,14 @@ function StartWave()
 			newPickup.ItemClass = Class'kfgamecontent.KFInventory_Armor';
 			KFPFID.ItemPickups.AddItem(newPickup);
 			
-			for (j=0; j<PerkStartingWeapon.length; j++)
+			for (j = 0; j < PerkStartingWeapon.length; ++j)
 			{
 				newPickup.ItemClass = class<KFWeapon>(DynamicLoadObject(PerkStartingWeapon[j].default.WeaponClassPath,class'Class'));
 				KFPFID.ItemPickups.AddItem(newPickup);
 			}
 		}
 	}
-	
+
 	SpawnManager.SetupNextWave(WaveNum);
 
 	if( WorldInfo.NetMode != NM_DedicatedServer && Role == ROLE_Authority )
@@ -274,9 +273,9 @@ function StartWave()
 
 	BroadcastLocalizedMessage(class'KFLocalMessage_Priority', GMT_WaveStart);
 
-    SetupNextTrader();
+	SetupNextTrader();
 	ResetAllPickups();
-	
+
 	if (WMGameReplicationInfo(MyKFGRI) != none)
 		WMGameReplicationInfo(MyKFGRI).bNewZedBuff = false;
 
@@ -307,9 +306,9 @@ function WaveEnded(EWaveEndCondition WinCondition)
 
 function CheckZedBuff()
 {
-	if (class'ZedternalReborn.Config_ZedBuff'.static.IsWaveBuffZed(WaveNum+1))
+	if (class'ZedternalReborn.Config_ZedBuff'.static.IsWaveBuffZed(WaveNum + 1))
 	{
-		ApplyRandomZedBuff(WaveNum+1, true);
+		ApplyRandomZedBuff(WaveNum + 1, true);
 	}
 }
 
@@ -318,11 +317,11 @@ function CheckForPreviousZedBuff()
 {
 	local int testedWave;
 	
-	for (testedWave=1; testedWave<=WaveNum+1; testedWave+=1)
+	for (testedWave = 1; testedWave <= WaveNum + 1; ++testedWave)
 	{
 		if (class'ZedternalReborn.Config_ZedBuff'.static.IsWaveBuffZed(testedWave))
 		{
-			ApplyRandomZedBuff(WaveNum+1, false);
+			ApplyRandomZedBuff(WaveNum + 1, false);
 		}
 	}
 }
@@ -334,32 +333,32 @@ function ApplyRandomZedBuff(int Wave, bool bRewardPlayer)
 	local array<byte> buffIndex;
 	local byte i;
 	local int index;
-	
+
 	WMGRI = WMGameReplicationInfo(MyKFGRI);
-	
+
 	if (WMGRI != none)
 	{
 		// build available buff list
-		for (i=0; i<WMGRI.zedBuffs.length; i+=1)
+		for (i = 0; i < WMGRI.zedBuffs.length; ++i)
 		{
 			if (WMGRI.bZedBuffs[i] == 0 && class'ZedternalReborn.Config_ZedBuff'.default.ZedBuff_BuffPath[i].minWave <= Wave && class'ZedternalReborn.Config_ZedBuff'.default.ZedBuff_BuffPath[i].maxWave >= WaveNum)
 				buffIndex.AddItem(i);
 		}
-			
+
 		// select random buff
 		if (buffIndex.length > 0)
 		{
 			index = buffIndex[Rand(buffIndex.length)];
 			WMGRI.bZedBuffs[index] = 1;
-			
+
 			// warning players about new buff
 			WMGRI.bNewZedBuff = true;
 			if (WorldInfo.NetMode != NM_DedicatedServer)
 				WMGRI.PlayZedBuffSoundAndEffect();
-				
+
 			// spawn zedbuff object in world
 			Spawn(WMGRI.zedBuffs[index]);
-				
+
 			// reward players, well, for being good :]
 			if (bRewardPlayer)
 			{
@@ -380,7 +379,7 @@ function ApplyRandomZedBuff(int Wave, bool bRewardPlayer)
 					doshNewPlayer += class'ZedternalReborn.Config_ZedBuff'.static.GetDoshBonus(GameDifficulty);
 			}
 		}
-			
+
 		// play bosses music to stress players
 		WMGRI.ForceNewMusicZedBuff();
 		RepairDoor();
@@ -390,7 +389,7 @@ function ApplyRandomZedBuff(int Wave, bool bRewardPlayer)
 function RepairDoor()
 {
 	local KFDoorActor KFD;
-	
+
 	ForEach WorldInfo.AllActors(class'KFGame.KFDoorActor',KFD)
 	{
 		KFD.ResetDoor();
@@ -413,9 +412,8 @@ function OpenTrader()
 			TimeBetweenWaves += class'ZedternalReborn.Config_ZedBuff'.static.GetTraderTimeBonus(CustomDifficulty);
 		else
 			TimeBetweenWaves += class'ZedternalReborn.Config_ZedBuff'.static.GetTraderTimeBonus(GameDifficulty);
-
 	}
-	
+
 	MyKFGRI.OpenTrader(TimeBetweenWaves);
 	NotifyTraderOpened();
 }
@@ -430,31 +428,31 @@ function SetupSpecialWave()
 	local int index;
 	local array< int > SWList;
 	local int i;
-	
+
 	SWList.length = 0;
-	
+
 	// Check if its a secial wave. If true, build Available Special Wave list (SWList)
-	if (class'ZedternalReborn.Config_SpecialWave'.default.SpecialWave_bAllowed && WaveNum>0 && FRand() < class'ZedternalReborn.Config_SpecialWave'.default.SpecialWave_Probability)
+	if (class'ZedternalReborn.Config_SpecialWave'.default.SpecialWave_bAllowed && WaveNum > 0 && FRand() < class'ZedternalReborn.Config_SpecialWave'.default.SpecialWave_Probability)
 	{		
-		for (i=0; i<class'ZedternalReborn.Config_SpecialWave'.default.SpecialWave_SpecialWaves.length; i+=1)
+		for (i = 0; i < class'ZedternalReborn.Config_SpecialWave'.default.SpecialWave_SpecialWaves.length; ++i)
 		{
-			if (class'ZedternalReborn.Config_SpecialWave'.default.SpecialWave_SpecialWaves[i].MinWave <= (WaveNum+1) && class'ZedternalReborn.Config_SpecialWave'.default.SpecialWave_SpecialWaves[i].MaxWave >= (WaveNum+1) && i != lastSpecialWaveID)
+			if (class'ZedternalReborn.Config_SpecialWave'.default.SpecialWave_SpecialWaves[i].MinWave <= (WaveNum + 1) && class'ZedternalReborn.Config_SpecialWave'.default.SpecialWave_SpecialWaves[i].MaxWave >= (WaveNum + 1) && i != lastSpecialWaveID)
 				SWList.AddItem(i);
 		}
 	}
-	
+
 	// Select a Special Wave from SWList
 	if (SWList.length != 0)
 	{
 		index = Rand(SWList.Length);
 		WMGameReplicationInfo(MyKFGRI).SpecialWaveID[0] = SWList[index];
-		
+
 		if (class'ZedternalReborn.Config_SpecialWave'.default.SpecialWave_SpecialWaves.length > 1)
 		{
 			lastSpecialWaveID = SWList[index];
 			SWList.Remove(index, 1);
 		}
-		
+
 		// check for a double special wave
 		if (SWList.length != 0 && FRand() < class'ZedternalReborn.Config_SpecialWave'.default.SpecialWave_DoubleProbability)
 		{
@@ -463,7 +461,7 @@ function SetupSpecialWave()
 		}
 		else
 			WMGameReplicationInfo(MyKFGRI).SpecialWaveID[1] = -1;
-		
+
 		// if playing solo, trigger special wave visual effect
 		if (WorldInfo.NetMode != NM_DedicatedServer)
 			WMGameReplicationInfo(MyKFGRI).TriggerSpecialWaveMessage();
@@ -480,12 +478,12 @@ function SetupSpecialWave()
 function SetSpecialWaveActor()
 {
 	local WMPlayerController WMPC;
-	
+
 	if (WMGameReplicationInfo(MyKFGRI).SpecialWaveID[0] != -1)
 		Spawn(WMGameReplicationInfo(MyKFGRI).specialWaves[WMGameReplicationInfo(MyKFGRI).SpecialWaveID[0]]);
 	if (WMGameReplicationInfo(MyKFGRI).SpecialWaveID[1] != -1)
 		Spawn(WMGameReplicationInfo(MyKFGRI).specialWaves[WMGameReplicationInfo(MyKFGRI).SpecialWaveID[1]]);
-	
+
 	foreach DynamicActors(class'WMPlayerController', WMPC)
 	{
 		WMPC.UpdateWeaponMagAndCap();
@@ -497,8 +495,8 @@ function ClearSpecialWave()
 	local WMSpecialWave WMSW;
 	local WMPlayerController WMPC;
 	local byte i;
-	
-	for(i=0; i<=1; i+=1)
+
+	for(i = 0; i <= 1; ++i)
 	{
 		WMGameReplicationInfo(MyKFGRI).SpecialWaveID[i] = -1;
 	}
@@ -522,11 +520,11 @@ function BuildWeaponList()
 	local class<KFWeaponDefinition> KFWeaponDefClass, CustomWeaponDef;
 	local STraderItem newWeapon;
 	local array< int > tempList;
-	
-	weaponIndex.Length=0;
-	
+
+	weaponIndex.Length = 0;
+
 	TraderItems = new class'KFGFxObject_TraderItems';
-	
+
 	/////////////////
 	// Armor Price //
 	/////////////////
@@ -537,21 +535,21 @@ function BuildWeaponList()
 
 	if (WMGameReplicationInfo(MyKFGRI) != none)
 		WMGameReplicationInfo(MyKFGRI).ArmorPrice = TraderItems.ArmorPrice;
-	
+
 	//////////////////////
 	// Register Weapons //
 	//////////////////////
-	
+
 	//Scan and register all default weapons from the game
 	count = 0;
-	for (i=0;i<DefaultTraderItems.SaleItems.Length;i+=1)
+	for (i = 0; i < DefaultTraderItems.SaleItems.Length; ++i)
 	{
 		newWeapon.WeaponDef = DefaultTraderItems.SaleItems[i].WeaponDef;
 		newWeapon.ItemID = count;
-		count++;
+		++count;
 		TraderItems.SaleItems.AddItem(newWeapon);
 		KFWeaponDefPath.AddItem(PathName(newWeapon.WeaponDef)); //for client
-		
+
 		// Add weapons to the list of possible weapons
 		if (IsWeaponDefCanBeRandom(DefaultTraderItems.SaleItems[i].WeaponDef))
 			weaponIndex[weaponIndex.Length] = count-1;
@@ -560,20 +558,20 @@ function BuildWeaponList()
 	//Add and register custom weapons
 	if (class'ZedternalReborn.Config_Weapon'.default.Weapon_bUseCustomWeaponList)
 	{
-		for (i = 0; i < class'ZedternalReborn.Config_Weapon'.default.Weapon_CustomWeaponDef.length; i++)
+		for (i = 0; i < class'ZedternalReborn.Config_Weapon'.default.Weapon_CustomWeaponDef.length; ++i)
 		{
 			CustomWeaponDef = class<KFWeaponDefinition>(DynamicLoadObject(class'ZedternalReborn.Config_Weapon'.default.Weapon_CustomWeaponDef[i],class'Class'));
 			if (CustomWeaponDef != None)
 			{
 				newWeapon.WeaponDef = CustomWeaponDef;
 				newWeapon.ItemID = count;
-				count++;
+				++count;
 				TraderItems.SaleItems.AddItem(newWeapon);
 				KFWeaponDefPath.AddItem(PathName(newWeapon.WeaponDef)); //for client
 
 				// Add weapons to the list of possible weapons
 				if (IsWeaponDefCanBeRandom(CustomWeaponDef))
-					weaponIndex[weaponIndex.Length] = count-1;
+					weaponIndex[weaponIndex.Length] = count - 1;
 
 				`log("Custom weapon added: "$class'ZedternalReborn.Config_Weapon'.default.Weapon_CustomWeaponDef[i]);
 			}
@@ -587,29 +585,29 @@ function BuildWeaponList()
 
 	//get WeaponVariant Probablity/Allowed
 	bAllowWeaponVariant = class'ZedternalReborn.Config_Weapon'.default.WeaponVariant_bAllowWeaponVariant;
-	
+
 	////////////////////////
 	// Create weapon list //
 	////////////////////////
-	
-	weaponUpgradeArch.length=0;
-	
+
+	weaponUpgradeArch.length = 0;
+
 	//create starting weapon list
-	for (i=0; i<class'ZedternalReborn.Config_Weapon'.default.Weapon_PlayerStartingWeaponDefList.length; i++)
+	for (i = 0; i < class'ZedternalReborn.Config_Weapon'.default.Weapon_PlayerStartingWeaponDefList.length; ++i)
 	{
 		tempList[tempList.length] = i;
 	}
-	for (i=0; i<min(class'ZedternalReborn.Config_Weapon'.default.Trader_StartingWeaponNumber, tempList.length); i++)
+	for (i = 0; i < min(class'ZedternalReborn.Config_Weapon'.default.Trader_StartingWeaponNumber, tempList.length); ++i)
 	{
 		choice = Rand(tempList.length);
 		tempWeapDefStr[i] = class'ZedternalReborn.Config_Weapon'.default.Weapon_PlayerStartingWeaponDefList[tempList[choice]];
 		PerkStartingWeapon[i] = class<KFWeaponDefinition>(DynamicLoadObject(class'ZedternalReborn.Config_Weapon'.default.Weapon_PlayerStartingWeaponDefList[tempList[choice]],class'Class'));
 		KFStartingWeaponPath[i] = PerkStartingWeapon[i].default.WeaponClassPath;
-		tempList.Remove(choice,1);
+		tempList.Remove(choice, 1);
 	}
-	
+
 	//adding randomly starting weapon in trader
-	for (i=0; i<PerkStartingWeapon.length; i++)
+	for (i = 0; i < PerkStartingWeapon.length; ++i)
 	{
 		KFWeaponDefClass = PerkStartingWeapon[i];
 		if (KFWeaponDefClass != none)
@@ -620,9 +618,9 @@ function BuildWeaponList()
 				CheckForWeaponOverrides(KFWeaponDefClass);
 		}
 	}
-	
+
 	//adding static weapon in the trader
-	for (i=0; i<class'ZedternalReborn.Config_Weapon'.default.Trader_StaticWeaponDefs.length; i++)
+	for (i = 0; i < class'ZedternalReborn.Config_Weapon'.default.Trader_StaticWeaponDefs.length; ++i)
 	{
 		KFWeaponDefClass = class<KFWeaponDefinition>(DynamicLoadObject(class'ZedternalReborn.Config_Weapon'.default.Trader_StaticWeaponDefs[i],class'Class'));
 		if (KFWeaponDefClass != none)
@@ -633,9 +631,9 @@ function BuildWeaponList()
 				CheckForWeaponOverrides(KFWeaponDefClass);
 		}
 	}
-	
+
 	//Adding randomly other weapons
-	for (i=(class'ZedternalReborn.Config_Weapon'.default.Trader_StaticWeaponDefs.length+class'ZedternalReborn.Config_Weapon'.default.Trader_StartingWeaponNumber); i<class'ZedternalReborn.Config_Weapon'.default.Trader_maxWeapon; i++)
+	for (i = (class'ZedternalReborn.Config_Weapon'.default.Trader_StaticWeaponDefs.length + class'ZedternalReborn.Config_Weapon'.default.Trader_StartingWeaponNumber); i < class'ZedternalReborn.Config_Weapon'.default.Trader_maxWeapon; ++i)
 	{
 		if (weaponIndex.Length > 0)
 		{
@@ -649,16 +647,16 @@ function BuildWeaponList()
 					CheckForWeaponOverrides(TraderItems.SaleItems[weaponIndex[choice]].WeaponDef, weaponIndex[choice]);
 			}
 
-			weaponIndex.remove(choice,1);
+			weaponIndex.remove(choice, 1);
 		}
 	}
-	
+
 	//Finishing WeaponList
 	TraderItems.SetItemsInfo(TraderItems.SaleItems);
 	MyKFGRI.TraderItems = TraderItems;
-	
+
 	`log("Weapon List : ");
-	for (i=0; i<KFWeaponName.length; i++)
+	for (i = 0; i < KFWeaponName.length; ++i)
 	{
 		`log(KFWeaponName[i] $ "(" $ i $ ")");
 	}
@@ -673,49 +671,49 @@ function AddWeaponInTrader(class<KFWeaponDefinition> KFWD)
 	local array< class<WMUpgrade_Weapon> > AllowedUpgrades, StaticUpgrades;
 	local WMGameReplicationInfo WMGRI;
 	local S_Weapon_Upgrade tempWUA;
-	
+
 	// Add this weapon in KFWeaponName (will be replicated)
 	str = KFWD.default.WeaponClassPath;
 	KFWeaponName.AddItem(name(Right(str, Len(str) - InStr(str, ".") - 1)));
-	
+
 	// select weapon upgrades
 	WMGRI = WMGameReplicationInfo(MyKFGRI);
 	KFW = class<KFWeapon>(DynamicLoadObject(KFWD.default.WeaponClassPath,class'Class'));
 	if (WMGRI != none && KFW != none)
-	{	
+	{
 		AllowedUpgrades.length = 0;
-		for (i=0; i<class'ZedternalReborn.Config_WeaponUpgrade'.default.WeaponUpgrade_WeaponUpgrades.length; i+=1)
+		for (i = 0; i < class'ZedternalReborn.Config_WeaponUpgrade'.default.WeaponUpgrade_WeaponUpgrades.length; ++i)
 		{
-			WMUW = class<WMUpgrade_Weapon>(DynamicLoadObject(class'ZedternalReborn.Config_WeaponUpgrade'.default.WeaponUpgrade_WeaponUpgrades[i],class'Class'));
+			WMUW = class<WMUpgrade_Weapon>(DynamicLoadObject(class'ZedternalReborn.Config_WeaponUpgrade'.default.WeaponUpgrade_WeaponUpgrades[i], class'Class'));
 			if (WMUW != none && WMUW.static.IsUpgradeCompatible(KFW))
 				AllowedUpgrades.AddItem(WMUW);
 		}
-		for (i=0; i<class'ZedternalReborn.Config_WeaponUpgrade'.default.WeaponUpgrade_StaticWeaponUpgrades.length; i+=1)
+		for (i = 0; i < class'ZedternalReborn.Config_WeaponUpgrade'.default.WeaponUpgrade_StaticWeaponUpgrades.length; ++i)
 		{
-			WMUW = class<WMUpgrade_Weapon>(DynamicLoadObject(class'ZedternalReborn.Config_WeaponUpgrade'.default.WeaponUpgrade_StaticWeaponUpgrades[i],class'Class'));
+			WMUW = class<WMUpgrade_Weapon>(DynamicLoadObject(class'ZedternalReborn.Config_WeaponUpgrade'.default.WeaponUpgrade_StaticWeaponUpgrades[i], class'Class'));
 			if (WMUW != none && WMUW.static.IsUpgradeCompatible(KFW))
 				StaticUpgrades.AddItem(WMUW);
 		}
 		
-		for (i=0; i<class'ZedternalReborn.Config_WeaponUpgrade'.default.WeaponUpgrade_NumberUpgradePerWeapon; i+=1)
+		for (i = 0; i < class'ZedternalReborn.Config_WeaponUpgrade'.default.WeaponUpgrade_NumberUpgradePerWeapon; ++i)
 		{
-			if (StaticUpgrades.length>0)
+			if (StaticUpgrades.length > 0)
 			{
 				tempWUA.KFWeapon = KFW;
 				tempWUA.KFWeaponUpgrade = StaticUpgrades[0];
 				tempWUA.Price = GetWeaponUpgradePrice(KFWD);
-				
+
 				weaponUpgradeArch.AddItem(tempWUA);
 				StaticUpgrades.Remove(0, 1);
 			}
-			else if (AllowedUpgrades.length>0)
+			else if (AllowedUpgrades.length > 0)
 			{
 				choice = Rand(AllowedUpgrades.length);
-				
+
 				tempWUA.KFWeapon = KFW;
 				tempWUA.KFWeaponUpgrade = AllowedUpgrades[Choice];
 				tempWUA.Price = GetWeaponUpgradePrice(KFWD);
-				
+
 				// add upgrade info into the list
 				weaponUpgradeArch.AddItem(tempWUA);
 				AllowedUpgrades.Remove(choice, 1);
@@ -729,7 +727,7 @@ function CheckForWeaponOverrides(class<KFWeaponDefinition> KFWD, optional int in
 {
 	local string weapDefinitionPath;
 	local class<KFWeaponDefinition> overrideWeapon;
-	
+
 	weapDefinitionPath = PathName(KFWD);
 
 	if (weapDefinitionPath == "KFGame.KFWeapDef_Nailgun")
@@ -756,39 +754,39 @@ function int GetWeaponUpgradePrice(class<KFWeaponDefinition> KFWD)
 {
 	local class<KFWeapon> KFW;
 	local int unit;
-	
-	KFW = class<KFWeapon>(DynamicLoadObject(KFWD.default.WeaponClassPath,class'Class'));
+
+	KFW = class<KFWeapon>(DynamicLoadObject(KFWD.default.WeaponClassPath, class'Class'));
 	unit = class'ZedternalReborn.Config_WeaponUpgrade'.default.WeaponUpgrade_PriceUnit;
-	
+
 	if (KFW.default.DualClass != none) // is a dual weapons
-		return Max(unit, Round(float(KFWD.default.BuyPrice)*2*class'ZedternalReborn.Config_WeaponUpgrade'.default.WeaponUpgrade_PriceFactor/unit) * unit);
+		return Max(unit, Round(float(KFWD.default.BuyPrice) * 2 * class'ZedternalReborn.Config_WeaponUpgrade'.default.WeaponUpgrade_PriceFactor / unit) * unit);
 	else
-		return Max(unit, Round(float(KFWD.default.BuyPrice)*class'ZedternalReborn.Config_WeaponUpgrade'.default.WeaponUpgrade_PriceFactor/unit) * unit);
+		return Max(unit, Round(float(KFWD.default.BuyPrice) * class'ZedternalReborn.Config_WeaponUpgrade'.default.WeaponUpgrade_PriceFactor / unit) * unit);
 }
 
 function bool IsWeaponDefCanBeRandom(Class<KFWeaponDefinition> KFWepDef)
 {
 	local int i;
 	// check if this weapon can be randomly added in the trader during the game
-	
+
 	// Exclude dualWeapon. DualWeapon will be available with singleWeapon
-	if (class<KFWeap_DualBase>(class<KFWeapon>(DynamicLoadObject(KFWepDef.default.WeaponClassPath,class'Class')))!=none)
+	if (class<KFWeap_DualBase>(class<KFWeapon>(DynamicLoadObject(KFWepDef.default.WeaponClassPath,class'Class'))) != none)
 		return false;
-	
+
 	// Exclude static weapon (because they are already in the trader)
-	for (i=0; i<class'ZedternalReborn.Config_Weapon'.default.Trader_StaticWeaponDefs.length; i++)
+	for (i = 0; i < class'ZedternalReborn.Config_Weapon'.default.Trader_StaticWeaponDefs.length; ++i)
 	{
-		if (KFWepDef == class<KFWeaponDefinition>(DynamicLoadObject(class'ZedternalReborn.Config_Weapon'.default.Trader_StaticWeaponDefs[i],class'Class')))
+		if (KFWepDef == class<KFWeaponDefinition>(DynamicLoadObject(class'ZedternalReborn.Config_Weapon'.default.Trader_StaticWeaponDefs[i], class'Class')))
 			return false;
 	}
-	
+
 	// Exclude starting weapons (because they are already in the trader)
-	for (i=0; i<class'ZedternalReborn.Config_Weapon'.default.Weapon_PlayerStartingWeaponDefList.length; i++)
+	for (i = 0; i < class'ZedternalReborn.Config_Weapon'.default.Weapon_PlayerStartingWeaponDefList.length; ++i)
 	{
-		if (KFWepDef == class<KFWeaponDefinition>(DynamicLoadObject(class'ZedternalReborn.Config_Weapon'.default.Weapon_PlayerStartingWeaponDefList[i],class'Class')))
+		if (KFWepDef == class<KFWeaponDefinition>(DynamicLoadObject(class'ZedternalReborn.Config_Weapon'.default.Weapon_PlayerStartingWeaponDefList[i], class'Class')))
 			return false;
 	}
-	
+
 	return true;
 }
 
@@ -799,23 +797,23 @@ function ApplyRandomWeaponVariant(string weapDefinitionPath, bool shouldNotRepla
 
 	if (shouldNotReplace)
 		CheckForWeaponOverrides(class<KFWeaponDefinition>(DynamicLoadObject(weapDefinitionPath,class'Class')), index);
-	
-	for (i=0; i<class'ZedternalReborn.Config_Weapon'.default.WeaponVariant_VariantList.length; i++)
+
+	for (i = 0; i < class'ZedternalReborn.Config_Weapon'.default.WeaponVariant_VariantList.length; ++i)
 	{
 		if (class'ZedternalReborn.Config_Weapon'.default.WeaponVariant_VariantList[i].WeaponDef == weapDefinitionPath && FRand() <= class'ZedternalReborn.Config_Weapon'.default.WeaponVariant_VariantList[i].Probability)
 		{
-			KFWeaponDefClass = class<KFWeaponDefinition>(DynamicLoadObject(class'ZedternalReborn.Config_Weapon'.default.WeaponVariant_VariantList[i].WeaponDefVariant,class'Class'));
+			KFWeaponDefClass = class<KFWeaponDefinition>(DynamicLoadObject(class'ZedternalReborn.Config_Weapon'.default.WeaponVariant_VariantList[i].WeaponDefVariant, class'Class'));
 			if (KFWeaponDefClass != none)
 			{
 				TraderItemsReplacementHelper(weapDefinitionPath, KFWeaponDefClass, shouldNotReplace, index);
-				
+
 				// adding dual weapon class in trader
 				if (class'ZedternalReborn.Config_Weapon'.default.WeaponVariant_VariantList[i].DualWeaponDefVariant != "")
 				{
-					KFDualWeaponDefClass = class<KFWeaponDefinition>(DynamicLoadObject(class'ZedternalReborn.Config_Weapon'.default.WeaponVariant_VariantList[i].DualWeaponDefVariant,class'Class'));
+					KFDualWeaponDefClass = class<KFWeaponDefinition>(DynamicLoadObject(class'ZedternalReborn.Config_Weapon'.default.WeaponVariant_VariantList[i].DualWeaponDefVariant, class'Class'));
 					if (KFDualWeaponDefClass != none)
 					{
-						for (x=0; x<TraderItems.SaleItems.length; x++)
+						for (x = 0; x < TraderItems.SaleItems.length; ++x)
 						{
 							if (ClassIsChildOf(KFDualWeaponDefClass, TraderItems.SaleItems[x].WeaponDef))
 								break;
@@ -824,12 +822,12 @@ function ApplyRandomWeaponVariant(string weapDefinitionPath, bool shouldNotRepla
 						TraderItemsReplacementHelper(PathName(TraderItems.SaleItems[x].WeaponDef), KFDualWeaponDefClass, shouldNotReplace, x, false);
 					}
 				}
-				
+
 				return;
 			}
 		}
 	}
-	
+
 	if (!shouldNotReplace)
 		CheckForWeaponOverrides(class<KFWeaponDefinition>(DynamicLoadObject(weapDefinitionPath,class'Class')), index);
 }
@@ -841,7 +839,7 @@ function TraderItemsReplacementHelper(string OldWeaponDefPath, class<KFWeaponDef
 
 	if (index < 0 && !shouldNotReplace)
 	{
-		for (i = 0; i < TraderItems.SaleItems.length; i++)
+		for (i = 0; i < TraderItems.SaleItems.length; ++i)
 		{
 			if (PathName(TraderItems.SaleItems[i].WeaponDef) == OldWeaponDefPath)
 				break;
@@ -877,7 +875,7 @@ function TraderItemsReplacementHelper(string OldWeaponDefPath, class<KFWeaponDef
 function SelectRandomTraderVoice()
 {
 	local array< byte > traderVoiceList;
-	
+
 	//TraderVoiceGroup
 	traderVoiceList.length = 0;
 	if (class'ZedternalReborn.Config_Game'.default.Game_bUseDefaultTraderVoice)
@@ -890,196 +888,194 @@ function SelectRandomTraderVoice()
 		traderVoiceList.AddItem(3);
 	if (class'ZedternalReborn.Config_Game'.default.Game_bUseSantaTraderVoice)
 		traderVoiceList.AddItem(4);
-	
+
 	if (traderVoiceList.length > 0)
 		traderVoiceIndex = traderVoiceList[Rand(traderVoiceList.length)];
 	else
 		traderVoiceIndex = default.traderVoiceIndex;
-	
-	
 }
 
 
 function RepGameInfo()
 {
 	local WMGameReplicationInfo WMGRI;
-	local byte i;
-	local int j;
-	
+	local byte b;
+	local int i;
+
 	//AmmoPriceFactor
 	if (CustomMode)
 		MyKFGRI.GameAmmoCostScale = class'ZedternalReborn.Config_Game'.static.GetAmmoPriceFactor(CustomDifficulty);
 	else
 		MyKFGRI.GameAmmoCostScale = class'ZedternalReborn.Config_Game'.static.GetAmmoPriceFactor(GameDifficulty);
-	
+
 	WMGRI = WMGameReplicationInfo(MyKFGRI);
 	if (WMGRI == none)
 		return;
 
 	//Print game version
 	WMGRI.printVersion = true;
-	
+
 	//ZedBuff
-	for (i = 0; i < Min(255, class'ZedternalReborn.Config_ZedBuff'.default.ZedBuff_BuffPath.length); i++)
+	for (b = 0; b < Min(255, class'ZedternalReborn.Config_ZedBuff'.default.ZedBuff_BuffPath.length); ++b)
 	{
-		WMGRI.zedBuffStr[i]=				class'ZedternalReborn.Config_ZedBuff'.default.ZedBuff_BuffPath[i].Path;
-		WMGRI.zedBuffs[i] =					class<WMZedBuff>(DynamicLoadObject(class'ZedternalReborn.Config_ZedBuff'.default.ZedBuff_BuffPath[i].Path,class'Class'));
+		WMGRI.zedBuffStr[b] =	class'ZedternalReborn.Config_ZedBuff'.default.ZedBuff_BuffPath[b].Path;
+		WMGRI.zedBuffs[b] =		class<WMZedBuff>(DynamicLoadObject(class'ZedternalReborn.Config_ZedBuff'.default.ZedBuff_BuffPath[b].Path,class'Class'));
 	}
-	
-	
+
 	WMGRI.TraderVoiceGroupIndex = traderVoiceIndex;
 	if (WorldInfo.NetMode != NM_DedicatedServer)
 		WMGRI.TraderDialogManager.TraderVoiceGroupClass = WMGRI.default.TraderVoiceGroupClasses[traderVoiceIndex];
-	
+
 	//Grenades
-	for (i = 0; i < Min(255, class'ZedternalReborn.Config_Weapon'.default.Trader_grenadesDef.length); i++)
+	for (b = 0; b < Min(255, class'ZedternalReborn.Config_Weapon'.default.Trader_grenadesDef.length); ++b)
 	{
-		WMGRI.grenadesStr[i]=				class'ZedternalReborn.Config_Weapon'.default.Trader_grenadesDef[i];
-		WMGRI.Grenades[i] =					class<KFWeaponDefinition>(DynamicLoadObject(class'ZedternalReborn.Config_Weapon'.default.Trader_grenadesDef[i],class'Class'));
+		WMGRI.grenadesStr[b] =	class'ZedternalReborn.Config_Weapon'.default.Trader_grenadesDef[b];
+		WMGRI.Grenades[b] =		class<KFWeaponDefinition>(DynamicLoadObject(class'ZedternalReborn.Config_Weapon'.default.Trader_grenadesDef[b],class'Class'));
 	}
-	
+
 	//Starting/itempickup Weapon
-	for (i = 0; i < Min(255, KFStartingWeaponPath.Length); i++)
+	for (b = 0; b < Min(255, KFStartingWeaponPath.Length); ++b)
 	{
-		WMGRI.KFStartingWeaponPath[i]=KFStartingWeaponPath[i];
+		WMGRI.KFStartingWeaponPath[b] = KFStartingWeaponPath[b];
 	}
-	
+
 	//Weapons
-	for (i = 0; i < Min(255, KFWeaponName.Length); i++)
+	for (b = 0; b < Min(255, KFWeaponName.Length); ++b)
 	{
-		WMGRI.KFWeaponName[i]=KFWeaponName[i];
+		WMGRI.KFWeaponName[b] = KFWeaponName[b];
 	}
-	for (i = 0; i < Min(255, KFWeaponDefPath.Length); i++)
+	for (b = 0; b < Min(255, KFWeaponDefPath.Length); ++b)
 	{
-		WMGRI.KFWeaponDefPath[i]=KFWeaponDefPath[i];
+		WMGRI.KFWeaponDefPath[b] = KFWeaponDefPath[b];
 	}
-	
+
 	//TraderObject
 	WMGRI.TraderArch = TraderItems;
-	
+
 	//Perk Upgrades
-	for (j = 0; j < Min(255, class'ZedternalReborn.Config_PerkUpgrade'.default.PerkUpgrade_perkUpgrades.length); j++)
+	for (b = 0; b < Min(255, class'ZedternalReborn.Config_PerkUpgrade'.default.PerkUpgrade_perkUpgrades.length); ++b)
 	{
-		WMGRI.perkUpgradesStr[j] =			class'ZedternalReborn.Config_PerkUpgrade'.default.PerkUpgrade_PerkUpgrades[j];
-		WMGRI.perkUpgrades[j] =				class<WMUpgrade_Perk>(DynamicLoadObject(class'ZedternalReborn.Config_PerkUpgrade'.default.PerkUpgrade_PerkUpgrades[j],class'Class'));
+		WMGRI.perkUpgradesStr[b] =	class'ZedternalReborn.Config_PerkUpgrade'.default.PerkUpgrade_PerkUpgrades[b];
+		WMGRI.perkUpgrades[b] =		class<WMUpgrade_Perk>(DynamicLoadObject(class'ZedternalReborn.Config_PerkUpgrade'.default.PerkUpgrade_PerkUpgrades[b],class'Class'));
 	}
 
 	//Weapon Upgrades
-	for (j = 0; j < Min(255, weaponUpgradeArch.length); j++)
+	for (i = 0; i < Min(255, weaponUpgradeArch.length); ++i)
 	{
-		WMGRI.weaponUpgrade_WeaponStr_A[j] =	PathName(weaponUpgradeArch[j].KFWeapon);
-		WMGRI.weaponUpgrade_UpgradeStr_A[j] =	PathName(weaponUpgradeArch[j].KFWeaponUpgrade);
-		WMGRI.weaponUpgrade_PriceRep_A[j] =		weaponUpgradeArch[j].Price;
-		WMGRI.weaponUpgrade_Price[j] =			weaponUpgradeArch[j].Price;
-		WMGRI.weaponUpgrade_Weapon[j] =			weaponUpgradeArch[j].KFWeapon;
-		WMGRI.weaponUpgrade_Upgrade[j] =		weaponUpgradeArch[j].KFWeaponUpgrade;
+		WMGRI.weaponUpgrade_WeaponStr_A[i] =	PathName(weaponUpgradeArch[i].KFWeapon);
+		WMGRI.weaponUpgrade_UpgradeStr_A[i] =	PathName(weaponUpgradeArch[i].KFWeaponUpgrade);
+		WMGRI.weaponUpgrade_PriceRep_A[i] =		weaponUpgradeArch[i].Price;
+		WMGRI.weaponUpgrade_Price[i] =			weaponUpgradeArch[i].Price;
+		WMGRI.weaponUpgrade_Weapon[i] =			weaponUpgradeArch[i].KFWeapon;
+		WMGRI.weaponUpgrade_Upgrade[i] =		weaponUpgradeArch[i].KFWeaponUpgrade;
 	}
-	for (j = 0; j < Min(255, weaponUpgradeArch.length - 255); j++)
+	for (i = 0; i < Min(255, weaponUpgradeArch.length - 255); ++i)
 	{
-		WMGRI.weaponUpgrade_WeaponStr_B[j] =	PathName(weaponUpgradeArch[j + 255].KFWeapon);
-		WMGRI.weaponUpgrade_UpgradeStr_B[j] =	PathName(weaponUpgradeArch[j + 255].KFWeaponUpgrade);
-		WMGRI.weaponUpgrade_PriceRep_B[j] =		weaponUpgradeArch[j + 255].Price;
-		WMGRI.weaponUpgrade_Price[j + 255] =	weaponUpgradeArch[j + 255].Price;
-		WMGRI.weaponUpgrade_Weapon[j + 255] =	weaponUpgradeArch[j + 255].KFWeapon;
-		WMGRI.weaponUpgrade_Upgrade[j + 255] =	weaponUpgradeArch[j + 255].KFWeaponUpgrade;
+		WMGRI.weaponUpgrade_WeaponStr_B[i] =	PathName(weaponUpgradeArch[i + 255].KFWeapon);
+		WMGRI.weaponUpgrade_UpgradeStr_B[i] =	PathName(weaponUpgradeArch[i + 255].KFWeaponUpgrade);
+		WMGRI.weaponUpgrade_PriceRep_B[i] =		weaponUpgradeArch[i + 255].Price;
+		WMGRI.weaponUpgrade_Price[i + 255] =	weaponUpgradeArch[i + 255].Price;
+		WMGRI.weaponUpgrade_Weapon[i + 255] =	weaponUpgradeArch[i + 255].KFWeapon;
+		WMGRI.weaponUpgrade_Upgrade[i + 255] =	weaponUpgradeArch[i + 255].KFWeaponUpgrade;
 	}
-	for (j = 0; j < Min(255, weaponUpgradeArch.length - 510); j++)
+	for (i = 0; i < Min(255, weaponUpgradeArch.length - 510); ++i)
 	{
-		WMGRI.weaponUpgrade_WeaponStr_C[j] =	PathName(weaponUpgradeArch[j + 510].KFWeapon);
-		WMGRI.weaponUpgrade_UpgradeStr_C[j] =	PathName(weaponUpgradeArch[j + 510].KFWeaponUpgrade);
-		WMGRI.weaponUpgrade_PriceRep_C[j] =		weaponUpgradeArch[j + 510].Price;
-		WMGRI.weaponUpgrade_Price[j + 510] =	weaponUpgradeArch[j + 510].Price;
-		WMGRI.weaponUpgrade_Weapon[j + 510] =	weaponUpgradeArch[j + 510].KFWeapon;
-		WMGRI.weaponUpgrade_Upgrade[j + 510] =	weaponUpgradeArch[j + 510].KFWeaponUpgrade;
+		WMGRI.weaponUpgrade_WeaponStr_C[i] =	PathName(weaponUpgradeArch[i + 510].KFWeapon);
+		WMGRI.weaponUpgrade_UpgradeStr_C[i] =	PathName(weaponUpgradeArch[i + 510].KFWeaponUpgrade);
+		WMGRI.weaponUpgrade_PriceRep_C[i] =		weaponUpgradeArch[i + 510].Price;
+		WMGRI.weaponUpgrade_Price[i + 510] =	weaponUpgradeArch[i + 510].Price;
+		WMGRI.weaponUpgrade_Weapon[i + 510] =	weaponUpgradeArch[i + 510].KFWeapon;
+		WMGRI.weaponUpgrade_Upgrade[i + 510] =	weaponUpgradeArch[i + 510].KFWeaponUpgrade;
 	}
-	for (j = 0; j < Min(255, weaponUpgradeArch.length - 765); j++)
+	for (i = 0; i < Min(255, weaponUpgradeArch.length - 765); ++i)
 	{
-		WMGRI.weaponUpgrade_WeaponStr_D[j] =	PathName(weaponUpgradeArch[j + 765].KFWeapon);
-		WMGRI.weaponUpgrade_UpgradeStr_D[j] =	PathName(weaponUpgradeArch[j + 765].KFWeaponUpgrade);
-		WMGRI.weaponUpgrade_PriceRep_D[j] =		weaponUpgradeArch[j + 765].Price;
-		WMGRI.weaponUpgrade_Price[j + 765] =	weaponUpgradeArch[j + 765].Price;
-		WMGRI.weaponUpgrade_Weapon[j + 765] =	weaponUpgradeArch[j + 765].KFWeapon;
-		WMGRI.weaponUpgrade_Upgrade[j + 765] =	weaponUpgradeArch[j + 765].KFWeaponUpgrade;
+		WMGRI.weaponUpgrade_WeaponStr_D[i] =	PathName(weaponUpgradeArch[i + 765].KFWeapon);
+		WMGRI.weaponUpgrade_UpgradeStr_D[i] =	PathName(weaponUpgradeArch[i + 765].KFWeaponUpgrade);
+		WMGRI.weaponUpgrade_PriceRep_D[i] =		weaponUpgradeArch[i + 765].Price;
+		WMGRI.weaponUpgrade_Price[i + 765] =	weaponUpgradeArch[i + 765].Price;
+		WMGRI.weaponUpgrade_Weapon[i + 765] =	weaponUpgradeArch[i + 765].KFWeapon;
+		WMGRI.weaponUpgrade_Upgrade[i + 765] =	weaponUpgradeArch[i + 765].KFWeaponUpgrade;
 	}
 
 	//Skill Upgrades
-	for (j = 0; j < Min(255, class'ZedternalReborn.Config_SkillUpgrade'.default.SkillUpgrade_SkillUpgrades.length); j++)
+	for (b = 0; b < Min(255, class'ZedternalReborn.Config_SkillUpgrade'.default.SkillUpgrade_SkillUpgrades.length); ++b)
 	{
-		WMGRI.skillUpgradesStr[j] =			class'ZedternalReborn.Config_SkillUpgrade'.default.SkillUpgrade_SkillUpgrades[j].SkillPath;
-		WMGRI.skillUpgrades[j] =			class<WMUpgrade_Skill>(DynamicLoadObject(class'ZedternalReborn.Config_SkillUpgrade'.default.SkillUpgrade_SkillUpgrades[j].SkillPath,class'Class'));
-		WMGRI.skillUpgradesStr_Perk[j] =	class'ZedternalReborn.Config_SkillUpgrade'.default.SkillUpgrade_SkillUpgrades[j].PerkPath;
-		WMGRI.skillUpgrades_Perk[j] =		class<WMUpgrade_Perk>(DynamicLoadObject(class'ZedternalReborn.Config_SkillUpgrade'.default.SkillUpgrade_SkillUpgrades[j].PerkPath,class'Class'));
-	}
-	
-	for (j = 0; j < Min(255, class'ZedternalReborn.Config_SpecialWave'.default.SpecialWave_SpecialWaves.length); j++)
-	{
-		WMGRI.specialWavesStr[j] =			class'ZedternalReborn.Config_SpecialWave'.default.SpecialWave_SpecialWaves[j].Path;
-		WMGRI.specialWaves[j] =				class<WMSpecialWave>(DynamicLoadObject(class'ZedternalReborn.Config_SpecialWave'.default.SpecialWave_SpecialWaves[j].Path,class'Class'));
+		WMGRI.skillUpgradesStr[b] =			class'ZedternalReborn.Config_SkillUpgrade'.default.SkillUpgrade_SkillUpgrades[b].SkillPath;
+		WMGRI.skillUpgrades[b] =			class<WMUpgrade_Skill>(DynamicLoadObject(class'ZedternalReborn.Config_SkillUpgrade'.default.SkillUpgrade_SkillUpgrades[b].SkillPath,class'Class'));
+		WMGRI.skillUpgradesStr_Perk[b] =	class'ZedternalReborn.Config_SkillUpgrade'.default.SkillUpgrade_SkillUpgrades[b].PerkPath;
+		WMGRI.skillUpgrades_Perk[b] =		class<WMUpgrade_Perk>(DynamicLoadObject(class'ZedternalReborn.Config_SkillUpgrade'.default.SkillUpgrade_SkillUpgrades[b].PerkPath,class'Class'));
 	}
 
-	WMGRI.startingWeapon =					class'ZedternalReborn.Config_Weapon'.default.Trader_StartingWeaponNumber;
-	WMGRI.newWeaponEachWave =				class'ZedternalReborn.Config_Weapon'.default.Trader_NewWeaponEachWave;
-	WMGRI.maxWeapon =						class'ZedternalReborn.Config_Weapon'.default.Trader_MaxWeapon;
-	WMGRI.staticWeapon =					class'ZedternalReborn.Config_Weapon'.default.Trader_StaticWeaponDefs.length;
+	for (b = 0; b < Min(255, class'ZedternalReborn.Config_SpecialWave'.default.SpecialWave_SpecialWaves.length); ++b)
+	{
+		WMGRI.specialWavesStr[b] =	class'ZedternalReborn.Config_SpecialWave'.default.SpecialWave_SpecialWaves[b].Path;
+		WMGRI.specialWaves[b] =		class<WMSpecialWave>(DynamicLoadObject(class'ZedternalReborn.Config_SpecialWave'.default.SpecialWave_SpecialWaves[b].Path,class'Class'));
+	}
+
+	WMGRI.startingWeapon =		class'ZedternalReborn.Config_Weapon'.default.Trader_StartingWeaponNumber;
+	WMGRI.newWeaponEachWave =	class'ZedternalReborn.Config_Weapon'.default.Trader_NewWeaponEachWave;
+	WMGRI.maxWeapon =			class'ZedternalReborn.Config_Weapon'.default.Trader_MaxWeapon;
+	WMGRI.staticWeapon =		class'ZedternalReborn.Config_Weapon'.default.Trader_StaticWeaponDefs.length;
 
 	//Perks, Skills and Weapons upgrades custom prices
-	WMGRI.perkMaxLevel =					class'ZedternalReborn.Config_PerkUpgrade'.default.PerkUpgrade_Price.Length;
-	for (j = 0; j < Min(255, class'ZedternalReborn.Config_PerkUpgrade'.default.PerkUpgrade_Price.length); j++)
+	WMGRI.perkMaxLevel = class'ZedternalReborn.Config_PerkUpgrade'.default.PerkUpgrade_Price.Length;
+	for (b = 0; b < Min(255, class'ZedternalReborn.Config_PerkUpgrade'.default.PerkUpgrade_Price.length); ++b)
 	{
-		WMGRI.perkPrice[j] =				class'ZedternalReborn.Config_PerkUpgrade'.default.PerkUpgrade_Price[j];
+		WMGRI.perkPrice[b] = class'ZedternalReborn.Config_PerkUpgrade'.default.PerkUpgrade_Price[b];
 	}
 
-	WMGRI.skillPrice =						class'ZedternalReborn.Config_SkillUpgrade'.default.SkillUpgrade_Price;
-	WMGRI.skillDeluxePrice =				class'ZedternalReborn.Config_SkillUpgrade'.default.SkillUpgrade_DeluxePrice;
-	WMGRI.weaponMaxLevel =					class'ZedternalReborn.Config_WeaponUpgrade'.default.WeaponUpgrade_MaxLevel;
-	WMGRI.weaponPrice =						class'ZedternalReborn.Config_WeaponUpgrade'.default.WeaponUpgrade_PriceFactor;
+	WMGRI.skillPrice =			class'ZedternalReborn.Config_SkillUpgrade'.default.SkillUpgrade_Price;
+	WMGRI.skillDeluxePrice =	class'ZedternalReborn.Config_SkillUpgrade'.default.SkillUpgrade_DeluxePrice;
+	WMGRI.weaponMaxLevel =		class'ZedternalReborn.Config_WeaponUpgrade'.default.WeaponUpgrade_MaxLevel;
+	WMGRI.weaponPrice =			class'ZedternalReborn.Config_WeaponUpgrade'.default.WeaponUpgrade_PriceFactor;
 }
 
 function RepPlayerInfo(WMPlayerReplicationInfo WMPRI)
 {
 	local array<byte> PerkIndex;
-	local byte i,j,choice;
+	local byte i, j, choice;
 	local bool bFound;
-	
 
-	for (i = 0; i < Min(255, KFWeaponName.Length); i++)
-	{	
-		WMPRI.KFWeaponName[i]=KFWeaponName[i];
+	for (i = 0; i < Min(255, KFWeaponName.Length); ++i)
+	{
+		WMPRI.KFWeaponName[i] = KFWeaponName[i];
 	}
+
 	`log("Reconnect : " $WMPRI.NumTimesReconnected);
+
 	if (WMPRI.NumTimesReconnected < 1 && class'ZedternalReborn.Config_PerkUpgrade'.default.PerkUpgrade_NbAvailablePerks > 0)
 	{
 		PerkIndex.Length = 0;
-		for (i=0;i<class'ZedternalReborn.Config_PerkUpgrade'.default.PerkUpgrade_PerkUpgrades.length;i++)
+		for (i = 0; i < class'ZedternalReborn.Config_PerkUpgrade'.default.PerkUpgrade_PerkUpgrades.length; ++i)
 		{
 			// check if the perk i should be in the trader (fixedPerk)
 			bFound = false;
-			for (j=0;j<class'ZedternalReborn.Config_PerkUpgrade'.default.PerkUpgrade_FixedperkUpgrades.Length;j++)
+			for (j = 0; j < class'ZedternalReborn.Config_PerkUpgrade'.default.PerkUpgrade_FixedperkUpgrades.Length; ++j)
 			{
 				if (class'ZedternalReborn.Config_PerkUpgrade'.default.PerkUpgrade_FixedperkUpgrades[j] == class'ZedternalReborn.Config_PerkUpgrade'.default.PerkUpgrade_PerkUpgrades[i])
 				{
 					bFound = true;
-					WMPRI.bPerkUpgradeAvailable[i]=1;
+					WMPRI.bPerkUpgradeAvailable[i] = 1;
 					j = class'ZedternalReborn.Config_PerkUpgrade'.default.PerkUpgrade_FixedperkUpgrades.Length;
 				}
 			}
 			if (!bFound)
 			{
-				PerkIndex[PerkIndex.Length]=i;
-				WMPRI.bPerkUpgradeAvailable[i]=0;
+				PerkIndex[PerkIndex.Length] = i;
+				WMPRI.bPerkUpgradeAvailable[i] = 0;
 			}
 		}
-		
-		for (i=0; i<class'ZedternalReborn.Config_PerkUpgrade'.default.PerkUpgrade_NbAvailablePerks - class'ZedternalReborn.Config_PerkUpgrade'.default.PerkUpgrade_FixedperkUpgrades.Length; i++)
+
+		for (i = 0; i < class'ZedternalReborn.Config_PerkUpgrade'.default.PerkUpgrade_NbAvailablePerks - class'ZedternalReborn.Config_PerkUpgrade'.default.PerkUpgrade_FixedperkUpgrades.Length; ++i)
 		{
 			if (PerkIndex.Length > 0)
 			{
 				choice = Rand(PerkIndex.Length);
-				WMPRI.bPerkUpgradeAvailable[PerkIndex[choice]]=1;
-				PerkIndex.remove(choice,1);
+				WMPRI.bPerkUpgradeAvailable[PerkIndex[choice]] = 1;
+				PerkIndex.remove(choice, 1);
 			}
 		}
-		
+
 	}
 	else if (WMPRI.NumTimesReconnected >= 1)
 	{
@@ -1094,22 +1090,22 @@ function int GetAdjustedDeathPenalty( KFPlayerReplicationInfo KilledPlayerPRI, o
 	local int PlayerCount;
 	local int perkBonus;
 	local KFPlayerController KFPC;
-	
+
 	// new player (dosh is based on what team won during the game
 	if( bLateJoiner )
 		return (Round(doshNewPlayer * class'ZedternalReborn.Config_Game'.default.Game_LateJoinerTotalDoshFactor));
 
 	// count current number of players
-	PlayerCount=0;
+	PlayerCount = 0;
 	foreach WorldInfo.AllControllers(class'KFPlayerController', KFPC)
 	{
 		if(KFPC.Pawn != none)
-    	 	PlayerCount++;
+			++PlayerCount;
 	}
-	
+
 	PlayerCut = Round(class'ZedternalReborn.Config_Game'.default.Game_ExtraDoshPerWavePerPlayer * PlayerCount) + class'ZedternalReborn.Config_Game'.default.Game_DoshPerWavePerPlayer;
-	perkBonus = Round(float(Min(WMPlayerReplicationInfo(KilledPlayerPRI).perkLvl, 25)*PlayerCut)/100.f);
-	return Round(float(PlayerCut+perkBonus)*(1.f-DeathPenaltyModifiers[GameDifficulty]));
+	perkBonus = Round(float(Min(WMPlayerReplicationInfo(KilledPlayerPRI).perkLvl, 25) * PlayerCut) / 100.f);
+	return Round(float(PlayerCut + perkBonus) * (1.f - DeathPenaltyModifiers[GameDifficulty]));
 }
 
 function float GetAdjustedAIDoshValue( class<KFPawn_Monster> MonsterClass )
@@ -1118,18 +1114,18 @@ function float GetAdjustedAIDoshValue( class<KFPawn_Monster> MonsterClass )
 	local int PlayerCount;
 	local KFPlayerController KFPC;
 	local byte i;
-	
-	PlayerCount=0;
+
+	PlayerCount = 0;
 	foreach WorldInfo.AllControllers(class'KFPlayerController', KFPC)
 	{
 		if(KFPC.Pawn != none)
-    	 	PlayerCount++;
+			++PlayerCount;
 	}
-	
+
 	TempValue = float(MonsterClass.static.GetDoshValue());
 	TempValue *= DifficultyInfo.GetKillCashModifier();
-	
-	for (i=0; i<=1; i+=1)
+
+	for (i = 0; i <= 1; ++i)
 	{
 		if (WMGameReplicationInfo(MyKFGRI).SpecialWaveID[i] != -1)
 			TempValue *= WMGameReplicationInfo(MyKFGRI).specialWaves[WMGameReplicationInfo(MyKFGRI).SpecialWaveID[i]].default.doshFactor;
@@ -1180,19 +1176,19 @@ function Killed(Controller Killer, Controller KilledPlayer, Pawn KilledPawn, cla
 		}
 	}
 
-	for (i=0;i<WMGRI.zedBuffs.length;i+=1)
+	for (i = 0; i < WMGRI.zedBuffs.length; ++i)
 	{
-		if (WMGRI.bZedBuffs[i]>0)
+		if (WMGRI.bZedBuffs[i] > 0)
 		{
 			WMGRI.zedBuffs[i].static.KilledPawn(KilledPawn);
 		}
 	}
 
-	PlayerCount=0;
+	PlayerCount = 0;
 	foreach WorldInfo.AllControllers(class'KFPlayerController', KFPC)
 	{
 		if(KFPC.Pawn != none)
-			PlayerCount++;
+			++PlayerCount;
 	}
 
 	if (KFPawn_Monster(KilledPawn) != none && PlayerCount != 0)
@@ -1200,10 +1196,9 @@ function Killed(Controller Killer, Controller KilledPlayer, Pawn KilledPawn, cla
 }
 
 function ScoreDamage( int DamageAmount, int HealthBeforeDamage, Controller InstigatedBy, Pawn DamagedPawn, class<DamageType> damageType )
-{	
+{
 	super.ScoreDamage(DamageAmount, HealthBeforeDamage, InstigatedBy, DamagedPawn, damageType);
 }
-
 
 function GiveExpToPlayer(Controller Player, int XPValue)
 {
@@ -1221,33 +1216,33 @@ function RewardSurvivingPlayers()
 	{
 		if( KFPC.Pawn != none && KFPC.Pawn.IsAliveAndWell() )
 		{
-    	 	PlayerCount++;
+			++PlayerCount;
 
-    	 	// Find the player's team
-            if( T == none && KFPC.PlayerReplicationInfo != none && KFPC.PlayerReplicationInfo.Team != none )
-    	 	{
-                T = KFTeamInfo_Human(KFPC.PlayerReplicationInfo.Team);
-            }
+			// Find the player's team
+			if( T == none && KFPC.PlayerReplicationInfo != none && KFPC.PlayerReplicationInfo.Team != none )
+			{
+				T = KFTeamInfo_Human(KFPC.PlayerReplicationInfo.Team);
+			}
 		}
 	}
 
-    // No dosh to distribute if there is no team or score
-    if( T == none || T.Score <= 0 )
-    {
-        return;
-    }
-	
+	// No dosh to distribute if there is no team or score
+	if( T == none || T.Score <= 0 )
+	{
+		return;
+	}
+
 	PlayerCut = Round( float(class'ZedternalReborn.Config_Game'.default.Game_ExtraDoshPerWavePerPlayer) * float(PlayerCount) ) + class'ZedternalReborn.Config_Game'.default.Game_DoshPerWavePerPlayer;
 
-    if (bLogScoring) LogInternal("SCORING: Team dosh earned this round:" @ T.Score);
-    if (bLogScoring) LogInternal("SCORING: Number of surviving players:" @ PlayerCount);
-    if (bLogScoring) LogInternal("SCORING: Dosh/survivng player:" @ PlayerCut);
+	if (bLogScoring) LogInternal("SCORING: Team dosh earned this round:" @ T.Score);
+	if (bLogScoring) LogInternal("SCORING: Number of surviving players:" @ PlayerCount);
+	if (bLogScoring) LogInternal("SCORING: Dosh/survivng player:" @ PlayerCut);
 
 	foreach WorldInfo.AllControllers(class'KFPlayerController', KFPC)
 	{
 		if( KFPC.Pawn != none && KFPC.Pawn.IsAliveAndWell() )
 		{
-			perkBonus = Round(float(Min(WMPlayerReplicationInfo(KFPC.PlayerReplicationInfo).perkLvl, 25)*PlayerCut)/100.f);
+			perkBonus = Round(float(Min(WMPlayerReplicationInfo(KFPC.PlayerReplicationInfo).perkLvl, 25) * PlayerCut) / 100.f);
 			KFPlayerReplicationInfo(KFPC.PlayerReplicationInfo).AddDosh(PlayerCut + perkBonus, true);
 			doshNewPlayer += (PlayerCut + perkBonus) / PlayerCount;
 			T.AddScore( -PlayerCut );
@@ -1287,7 +1282,7 @@ function CheckZedTimeOnKill(Controller Killer, Controller KilledPlayer, Pawn Kil
 			{
 				// Force Zed Time extension for every kill as long as the Player's Perk has Extensions left
 				DramaticEvent(1.0);
-				ZedTimeExtensionsUsed++;
+				++ZedTimeExtensionsUsed;
 			}
 		}
 	}
@@ -1326,27 +1321,27 @@ function CheckZedTimeOnKill(Controller Killer, Controller KilledPlayer, Pawn Kil
 
 function ResetPickups( array<KFPickupFactory> PickupList, int NumPickups )
 {
- 	local byte i, ChosenIndex;
- 	local array<KFPickupFactory>	PossiblePickups;
-	
-	NumPickups = max(min(Round(float(NumPickups) * 0.5f) + WaveNum * 2,PickupList.Length-5),0);
-	
-    PossiblePickups = PickupList;
- 	for ( i = 0; i < NumPickups; i++ )
- 	{
+	local byte i, ChosenIndex;
+	local array<KFPickupFactory> PossiblePickups;
+
+	NumPickups = max(min(Round(float(NumPickups) * 0.5f) + WaveNum * 2, PickupList.Length - 5), 0);
+
+	PossiblePickups = PickupList;
+	for (i = 0; i < NumPickups; ++i)
+	{
 		if (PossiblePickups.Length > 0)
 		{
-			ChosenIndex = Rand( PossiblePickups.Length );
+			ChosenIndex = Rand(PossiblePickups.Length);
 			PossiblePickups[ChosenIndex].Reset();
-			PossiblePickups.Remove( ChosenIndex, 1 );
+			PossiblePickups.Remove(ChosenIndex, 1);
 		}
- 	}
+	}
 
 	// Put any pickup factories that weren't enabled to sleep
- 	for ( i = 0; i < PossiblePickups.Length; i++ )
- 	{
- 	 	PossiblePickups[i].StartSleeping();
- 	}
+	for (i = 0; i < PossiblePickups.Length; ++i)
+	{
+		PossiblePickups[i].StartSleeping();
+	}
 }
 
 /** Custom logic to determine what the game's current intensity is */
