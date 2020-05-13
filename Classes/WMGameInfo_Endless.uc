@@ -1024,7 +1024,6 @@ function RepGameInfo()
 	WMGRI.skillPrice =			class'ZedternalReborn.Config_SkillUpgrade'.default.SkillUpgrade_Price;
 	WMGRI.skillDeluxePrice =	class'ZedternalReborn.Config_SkillUpgrade'.default.SkillUpgrade_DeluxePrice;
 	WMGRI.weaponMaxLevel =		class'ZedternalReborn.Config_WeaponUpgrade'.default.WeaponUpgrade_MaxLevel;
-	WMGRI.weaponPrice =			class'ZedternalReborn.Config_WeaponUpgrade'.default.WeaponUpgrade_PriceFactor;
 }
 
 function RepPlayerInfo(WMPlayerReplicationInfo WMPRI)

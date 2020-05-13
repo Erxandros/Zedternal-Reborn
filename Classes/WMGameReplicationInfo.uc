@@ -19,8 +19,6 @@ var int perkPrice[255];
 var int perkMaxLevel;
 var int skillPrice;
 var int skillDeluxePrice;
-var bool bUseCustomWeaponPrice;
-var int weaponPrice;
 var int weaponMaxLevel;
 var int bZedBuffs[255];
 
@@ -65,7 +63,7 @@ replication
 	if ( bNetDirty )
 		KFWeaponName, KFWeaponDefPath, KFStartingWeaponPath, perkUpgradesStr, skillUpgradesStr, skillUpgradesStr_Perk, specialWavesStr, grenadesStr,
 		zedBuffStr, SpecialWaveID, bNewZedBuff, startingWeapon, newWeaponEachWave, maxWeapon, staticWeapon, ArmorPrice, TraderVoiceGroupIndex,
-		perkPrice, perkMaxLevel, skillPrice, skillDeluxePrice, bUseCustomWeaponPrice, weaponPrice, weaponMaxLevel, bZedBuffs,
+		perkPrice, perkMaxLevel, skillPrice, skillDeluxePrice, weaponMaxLevel, bZedBuffs,
 		weaponUpgrade_WeaponStr_A, weaponUpgrade_UpgradeStr_A, weaponUpgrade_PriceRep_A,
 		weaponUpgrade_WeaponStr_B, weaponUpgrade_UpgradeStr_B, weaponUpgrade_PriceRep_B,
 		weaponUpgrade_WeaponStr_C, weaponUpgrade_UpgradeStr_C, weaponUpgrade_PriceRep_C,
