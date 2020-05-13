@@ -6,7 +6,6 @@ var config int MODEVERSION;
 var config array< string >  PerkUpgrade_PerkUpgrades;
 var config array< string >  PerkUpgrade_FixedPerkUpgrades;
 var config int 				PerkUpgrade_NbAvailablePerks;
-var config bool 			PerkUpgrade_bUseCustomPrice;
 var config array< int > 	PerkUpgrade_Price;
 
 static function UpdateConfig()
@@ -29,7 +28,6 @@ static function UpdateConfig()
 
 		default.PerkUpgrade_NbAvailablePerks = 10;
 
-		default.PerkUpgrade_bUseCustomPrice = false;
 		default.PerkUpgrade_Price[0] = 500;
 		default.PerkUpgrade_Price[1] = 600;
 		default.PerkUpgrade_Price[2] = 750;
