@@ -1,5 +1,6 @@
 class WMGameReplicationInfo extends KFGameReplicationInfo;
 
+//Replicated data
 var name KFWeaponName[255];
 var repnotify string KFWeaponDefPath[255];
 var repnotify string KFStartingWeaponPath[255];
@@ -35,6 +36,10 @@ var repnotify string weaponUpgrade_WeaponStr_D[255];
 var repnotify string weaponUpgrade_UpgradeStr_D[255];
 var repnotify int weaponUpgrade_PriceRep_D[255];
 
+var repnotify bool updateSkins;
+var repnotify bool printVersion;
+
+//Non-replicated data
 var array< class<KFWeapon> > weaponUpgrade_Weapon;
 var array< class<WMUpgrade_Weapon> > weaponUpgrade_Upgrade;
 var array< int > weaponUpgrade_Price;
@@ -54,9 +59,6 @@ var int zedBuff_nextMusicTrackIndex;
 var array< KFMusicTrackInfo > ZedBuffMusic;
 
 var array< class<KFTraderVoiceGroupBase> > TraderVoiceGroupClasses;
-
-var repnotify bool updateSkins;
-var repnotify bool printVersion;
 
 replication
 {
