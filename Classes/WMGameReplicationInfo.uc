@@ -96,7 +96,7 @@ simulated event ReplicatedEvent(name VarName)
 				if (KFWeaponDefPath[i] == "")
 					break; //base case
 
-				else if (i == TraderItems.SaleItems.Length)
+				if (i == TraderItems.SaleItems.Length)
 				{
 					newWeapon.WeaponDef = class<KFWeaponDefinition>(DynamicLoadObject(KFWeaponDefPath[i],class'Class'));
 					newWeapon.ItemID = i;
@@ -117,7 +117,7 @@ simulated event ReplicatedEvent(name VarName)
 				if (KFStartingWeaponPath[i] == "")
 					break; //base case
 
-				else if (i == KFStartingWeapon.Length || PathName(KFStartingWeapon[i]) == "" || PathName(KFStartingWeapon[i]) != KFStartingWeaponPath[i])
+				if (i == KFStartingWeapon.Length || KFStartingWeapon[i] == none || PathName(KFStartingWeapon[i]) != KFStartingWeaponPath[i])
 					KFStartingWeapon[i] = class<KFWeapon>(DynamicLoadObject(KFStartingWeaponPath[i],class'Class'));
 			}
 			break;
@@ -128,7 +128,7 @@ simulated event ReplicatedEvent(name VarName)
 				if (perkUpgradesStr[i] == "")
 					break; //base case
 
-				else if (i == perkUpgrades.Length || PathName(perkUpgrades[i]) == "" || PathName(perkUpgrades[i]) != perkUpgradesStr[i])
+				if (i == perkUpgrades.Length || perkUpgrades[i] == none || PathName(perkUpgrades[i]) != perkUpgradesStr[i])
 					perkUpgrades[i] = class<WMUpgrade_Perk>(DynamicLoadObject(perkUpgradesStr[i],class'Class'));
 			}
 			break;
@@ -139,7 +139,7 @@ simulated event ReplicatedEvent(name VarName)
 				if (weaponUpgrade_WeaponStr_A[i] == "")
 					break; //base case
 
-				else if (i == weaponUpgrade_Weapon.Length || PathName(weaponUpgrade_Weapon[i]) == "" || PathName(weaponUpgrade_Weapon[i]) != weaponUpgrade_WeaponStr_A[i])
+				if (i == weaponUpgrade_Weapon.Length || weaponUpgrade_Weapon[i] == none || PathName(weaponUpgrade_Weapon[i]) != weaponUpgrade_WeaponStr_A[i])
 					weaponUpgrade_Weapon[i] = class<KFWeapon>(DynamicLoadObject(weaponUpgrade_WeaponStr_A[i],class'Class'));
 			}
 			break;
@@ -150,7 +150,7 @@ simulated event ReplicatedEvent(name VarName)
 				if (weaponUpgrade_UpgradeStr_A[i] == "")
 					break; //base case
 
-				else if (i == weaponUpgrade_Upgrade.Length || PathName(weaponUpgrade_Upgrade[i]) == "" || PathName(weaponUpgrade_Upgrade[i]) != weaponUpgrade_UpgradeStr_A[i])
+				if (i == weaponUpgrade_Upgrade.Length || weaponUpgrade_Upgrade[i] == none || PathName(weaponUpgrade_Upgrade[i]) != weaponUpgrade_UpgradeStr_A[i])
 					weaponUpgrade_Upgrade[i] = class<WMUpgrade_Weapon>(DynamicLoadObject(weaponUpgrade_UpgradeStr_A[i],class'Class'));
 			}
 			break;
@@ -173,7 +173,7 @@ simulated event ReplicatedEvent(name VarName)
 				if (weaponUpgrade_WeaponStr_B[i] == "")
 					break; //base case
 
-				else if ((i + 255) == weaponUpgrade_Weapon.Length || PathName(weaponUpgrade_Weapon[i + 255]) == "" || PathName(weaponUpgrade_Weapon[i + 255]) != weaponUpgrade_WeaponStr_B[i])
+				if ((i + 255) == weaponUpgrade_Weapon.Length || weaponUpgrade_Weapon[i + 255] == none || PathName(weaponUpgrade_Weapon[i + 255]) != weaponUpgrade_WeaponStr_B[i])
 					weaponUpgrade_Weapon[i + 255] = class<KFWeapon>(DynamicLoadObject(weaponUpgrade_WeaponStr_B[i],class'Class'));
 			}
 			break;
@@ -186,7 +186,7 @@ simulated event ReplicatedEvent(name VarName)
 				if (weaponUpgrade_UpgradeStr_B[i] == "")
 					break; //base case
 
-				else if ((i + 255) == weaponUpgrade_Upgrade.Length || PathName(weaponUpgrade_Upgrade[i + 255]) == "" || PathName(weaponUpgrade_Upgrade[i + 255]) != weaponUpgrade_UpgradeStr_B[i])
+				if ((i + 255) == weaponUpgrade_Upgrade.Length || weaponUpgrade_Upgrade[i + 255] == none || PathName(weaponUpgrade_Upgrade[i + 255]) != weaponUpgrade_UpgradeStr_B[i])
 					weaponUpgrade_Upgrade[i + 255] = class<WMUpgrade_Weapon>(DynamicLoadObject(weaponUpgrade_UpgradeStr_B[i],class'Class'));
 			}
 			break;
@@ -211,7 +211,7 @@ simulated event ReplicatedEvent(name VarName)
 				if (weaponUpgrade_WeaponStr_C[i] == "")
 					break; //base case
 
-				else if ((i + 510) == weaponUpgrade_Weapon.Length || PathName(weaponUpgrade_Weapon[i + 510]) == "" || PathName(weaponUpgrade_Weapon[i + 510]) != weaponUpgrade_WeaponStr_C[i])
+				if ((i + 510) == weaponUpgrade_Weapon.Length || weaponUpgrade_Weapon[i + 510] == none || PathName(weaponUpgrade_Weapon[i + 510]) != weaponUpgrade_WeaponStr_C[i])
 					weaponUpgrade_Weapon[i + 510] = class<KFWeapon>(DynamicLoadObject(weaponUpgrade_WeaponStr_C[i],class'Class'));
 			}
 			break;
@@ -224,7 +224,7 @@ simulated event ReplicatedEvent(name VarName)
 				if (weaponUpgrade_UpgradeStr_C[i] == "")
 					break; //base case
 
-				else if ((i + 510) == weaponUpgrade_Upgrade.Length || PathName(weaponUpgrade_Upgrade[i + 510]) == "" || PathName(weaponUpgrade_Upgrade[i + 510]) != weaponUpgrade_UpgradeStr_C[i])
+				if ((i + 510) == weaponUpgrade_Upgrade.Length || weaponUpgrade_Upgrade[i + 510] == none || PathName(weaponUpgrade_Upgrade[i + 510]) != weaponUpgrade_UpgradeStr_C[i])
 					weaponUpgrade_Upgrade[i + 510] = class<WMUpgrade_Weapon>(DynamicLoadObject(weaponUpgrade_UpgradeStr_C[i],class'Class'));
 			}
 			break;
@@ -249,7 +249,7 @@ simulated event ReplicatedEvent(name VarName)
 				if (weaponUpgrade_WeaponStr_D[i] == "")
 					break; //base case
 
-				else if ((i + 765) == weaponUpgrade_Weapon.Length || PathName(weaponUpgrade_Weapon[i + 765]) == "" || PathName(weaponUpgrade_Weapon[i + 765]) != weaponUpgrade_WeaponStr_D[i])
+				if ((i + 765) == weaponUpgrade_Weapon.Length || weaponUpgrade_Weapon[i + 765] == none || PathName(weaponUpgrade_Weapon[i + 765]) != weaponUpgrade_WeaponStr_D[i])
 					weaponUpgrade_Weapon[i + 765] = class<KFWeapon>(DynamicLoadObject(weaponUpgrade_WeaponStr_D[i],class'Class'));
 			}
 			break;
@@ -262,7 +262,7 @@ simulated event ReplicatedEvent(name VarName)
 				if (weaponUpgrade_UpgradeStr_D[i] == "")
 					break; //base case
 
-				else if ((i + 765) == weaponUpgrade_Upgrade.Length || PathName(weaponUpgrade_Upgrade[i + 765]) == "" || PathName(weaponUpgrade_Upgrade[i + 765]) != weaponUpgrade_UpgradeStr_D[i])
+				if ((i + 765) == weaponUpgrade_Upgrade.Length || weaponUpgrade_Upgrade[i + 765] == none || PathName(weaponUpgrade_Upgrade[i + 765]) != weaponUpgrade_UpgradeStr_D[i])
 					weaponUpgrade_Upgrade[i + 765] = class<WMUpgrade_Weapon>(DynamicLoadObject(weaponUpgrade_UpgradeStr_D[i],class'Class'));
 			}
 			break;
@@ -285,7 +285,7 @@ simulated event ReplicatedEvent(name VarName)
 				if (skillUpgradesStr[i] == "")
 					break; //base case
 
-				else if (i == skillUpgrades.Length || PathName(skillUpgrades[i]) == "" || PathName(skillUpgrades[i]) != skillUpgradesStr[i])
+				if (i == skillUpgrades.Length || skillUpgrades[i] == none || PathName(skillUpgrades[i]) != skillUpgradesStr[i])
 					skillUpgrades[i] = class<WMUpgrade_Skill>(DynamicLoadObject(skillUpgradesStr[i],class'Class'));
 			}
 			break;
@@ -296,7 +296,7 @@ simulated event ReplicatedEvent(name VarName)
 				if (skillUpgradesStr_Perk[i] == "")
 					break; //base case
 
-				else if (i == skillUpgrades_Perk.Length || PathName(skillUpgrades_Perk[i]) == "" || PathName(skillUpgrades_Perk[i]) != skillUpgradesStr_Perk[i])
+				if (i == skillUpgrades_Perk.Length || skillUpgrades_Perk[i] == none || PathName(skillUpgrades_Perk[i]) != skillUpgradesStr_Perk[i])
 					skillUpgrades_Perk[i] = class<WMUpgrade_Perk>(DynamicLoadObject(skillUpgradesStr_Perk[i],class'Class'));
 			}
 			break;
@@ -307,7 +307,7 @@ simulated event ReplicatedEvent(name VarName)
 				if (specialWavesStr[i] == "")
 					break; //base case
 
-				else if (i == specialWaves.Length || PathName(specialWaves[i]) == "" || PathName(specialWaves[i]) != specialWavesStr[i])
+				if (i == specialWaves.Length || specialWaves[i] == none || PathName(specialWaves[i]) != specialWavesStr[i])
 					specialWaves[i] = class<WMSpecialWave>(DynamicLoadObject(specialWavesStr[i],class'Class'));
 			}
 			break;
@@ -318,7 +318,7 @@ simulated event ReplicatedEvent(name VarName)
 				if (grenadesStr[i] == "")
 					break; //base case
 
-				else if (i == Grenades.Length || PathName(Grenades[i]) == "" || PathName(Grenades[i]) != grenadesStr[i])
+				if (i == Grenades.Length || Grenades[i] == none || PathName(Grenades[i]) != grenadesStr[i])
 					Grenades[i] = class<KFWeaponDefinition>(DynamicLoadObject(grenadesStr[i],class'Class'));
 			}
 			break;
@@ -329,7 +329,7 @@ simulated event ReplicatedEvent(name VarName)
 				if (zedBuffStr[i] == "")
 					break; //base case
 
-				else if (i == zedBuffs.Length || PathName(zedBuffs[i]) == "" || PathName(zedBuffs[i]) != zedBuffStr[i])
+				if (i == zedBuffs.Length || zedBuffs[i] == none || PathName(zedBuffs[i]) != zedBuffStr[i])
 					zedBuffs[i] = class<WMZedBuff>(DynamicLoadObject(zedBuffStr[i],class'Class'));
 			}
 			break;
