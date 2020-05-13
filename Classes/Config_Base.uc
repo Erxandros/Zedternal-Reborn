@@ -52,7 +52,7 @@ static function PrintVersion()
 defaultproperties
 {
 	currentVersion=2
-	currentHotfix=2
+	currentHotfix=3
 
 	ConfigFiles(0)=class'ZedternalReborn.Config_Game'
 	ConfigFiles(1)=class'ZedternalReborn.Config_Difficulty'
