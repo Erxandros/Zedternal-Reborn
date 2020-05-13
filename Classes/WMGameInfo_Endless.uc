@@ -1033,11 +1033,6 @@ function RepPlayerInfo(WMPlayerReplicationInfo WMPRI)
 	local byte i, j, choice;
 	local bool bFound;
 
-	for (i = 0; i < Min(255, KFWeaponName.Length); ++i)
-	{
-		WMPRI.KFWeaponName[i] = KFWeaponName[i];
-	}
-
 	`log("Reconnect : " $WMPRI.NumTimesReconnected);
 
 	if (WMPRI.NumTimesReconnected < 1 && class'ZedternalReborn.Config_PerkUpgrade'.default.PerkUpgrade_NbAvailablePerks > 0)

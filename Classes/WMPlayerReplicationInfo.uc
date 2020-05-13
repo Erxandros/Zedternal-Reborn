@@ -1,7 +1,6 @@
 class WMPlayerReplicationInfo extends KFPlayerReplicationInfo;
 
 //Replicated arrays
-var name KFWeaponName[255];
 var byte bPerkUpgrade[255];
 var byte bPerkUpgradeAvailable[255];
 var byte bWeaponUpgrade_A[255];
@@ -26,7 +25,7 @@ var array< int > purchase_weaponUpgrade;
 replication
 {
 	if ( bNetDirty && (Role == Role_Authority) )
-		KFWeaponName, bPerkUpgrade, bPerkUpgradeAvailable, bWeaponUpgrade_A, bWeaponUpgrade_B, bWeaponUpgrade_C, bWeaponUpgrade_D,
+		bPerkUpgrade, bPerkUpgradeAvailable, bWeaponUpgrade_A, bWeaponUpgrade_B, bWeaponUpgrade_C, bWeaponUpgrade_D,
 		bSkillUpgrade, bSkillUnlocked, bSkillDeluxe;
 
 	if ( bNetDirty )
@@ -60,7 +59,6 @@ function CopyProperties(PlayerReplicationInfo PRI)
 	{
 		for (i = 0; i < 255; ++i)
 		{
-			WMPRI.KFWeaponName[i] = KFWeaponName[i];
 			WMPRI.bPerkUpgrade[i] = bPerkUpgrade[i];
 			WMPRI.bPerkUpgradeAvailable[i] = bPerkUpgradeAvailable[i];
 			WMPRI.bWeaponUpgrade_A[i] = bWeaponUpgrade_A[i];
