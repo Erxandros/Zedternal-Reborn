@@ -37,7 +37,10 @@ reliable server function BuyPerkUpgrade(int ItemDefinition, int Cost)
 			WMPRI.purchase_perkUpgrade.AddItem(ItemDefinition);
 
 		if (WorldInfo.NetMode == NM_DedicatedServer)
+		{
 			Pawn.PlayerReplicationInfo.Score -= Cost;
+			WMPRI.syncTrigger = !WMPRI.syncTrigger;
+		}
 
 		UpdateWeaponMagAndCap();
 
@@ -58,7 +61,10 @@ reliable server function BuyWeaponUpgrade(int ItemDefinition, int Cost)
 			WMPRI.purchase_weaponUpgrade.AddItem(ItemDefinition);
 
 		if (WorldInfo.NetMode == NM_DedicatedServer)
+		{
 			Pawn.PlayerReplicationInfo.Score -= Cost;
+			WMPRI.syncTrigger = !WMPRI.syncTrigger;
+		}
 
 		UpdateWeaponMagAndCap();
 	}
@@ -77,7 +83,10 @@ reliable server function BuySkillUpgrade(int ItemDefinition, int PerkItemDefinit
 			WMPRI.purchase_skillUpgrade.AddItem(ItemDefinition);
 
 		if (WorldInfo.NetMode == NM_DedicatedServer)
+		{
 			Pawn.PlayerReplicationInfo.Score -= Cost;
+			WMPRI.syncTrigger = !WMPRI.syncTrigger;
+		}
 
 		UpdateWeaponMagAndCap();
 

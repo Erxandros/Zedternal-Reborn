@@ -575,6 +575,7 @@ function Refresh()
 {
 	Callback_InventoryFilter(CurrentFilterIndex);
 	UpdateText();
+	EquipButton.SetString("label", "Synchronizing...");
 }
 
 function Callback_RequestInitialnventory()
@@ -590,8 +591,15 @@ function CallBack_ItemDetailsClicked(int ItemDefinition)
 	local WMGameReplicationInfo WMGRI;
 	local WMPlayerReplicationInfo WMPRI;
 	
-	WMGRI = WMGameReplicationInfo(GetPC().WorldInfo.GRI);
 	WMPRI = WMPlayerReplicationInfo(KFPC.PlayerReplicationInfo);
+
+	if (!WMPRI.syncCompleted && WMPRI.SyncTimerActive())
+	{
+		EquipButton.SetString("label", "Synchronizing...");
+		return;
+	}
+
+	WMGRI = WMGameReplicationInfo(GetPC().WorldInfo.GRI);
 	Index = ItemDefinition;
 	
 	if (Owner != none)
@@ -643,8 +651,17 @@ function Callback_Equip( int ItemDefinition )
 	local WMPlayerController WMPC;
 	local WMPlayerReplicationInfo WMPRI;
 
-	WMGRI = WMGameReplicationInfo(GetPC().WorldInfo.GRI);
 	WMPRI = WMPlayerReplicationInfo(KFPC.PlayerReplicationInfo);
+
+	if (!WMPRI.syncCompleted)
+	{
+		if (!WMPRI.SyncTimerActive())
+			WMPRI.SetSyncTimer(self, ItemDefinition);
+
+		return;
+	}
+
+	WMGRI = WMGameReplicationInfo(GetPC().WorldInfo.GRI);
 	WMPC = WMPlayerController(KFPC);
 
 	Index = ItemDefinition;
@@ -660,6 +677,8 @@ function Callback_Equip( int ItemDefinition )
 
 			if (KFPRI.Score >= price)
 			{
+				if (WMPC.WorldInfo.NetMode != NM_Standalone)
+					WMPRI.syncCompleted = false;
 				WMPC.BuyWeaponUpgrade(Index, price);
 				if (WMPC.WorldInfo.NetMode != NM_Standalone)
 					WMPRI.SetWeaponUpgrade(Index, lvl + 1);
@@ -686,6 +705,8 @@ function Callback_Equip( int ItemDefinition )
 			
 			if (KFPRI.Score >= price)
 			{
+				if (WMPC.WorldInfo.NetMode != NM_Standalone)
+					WMPRI.syncCompleted = false;
 				WMPC.BuySkillUpgrade(Index, GetPerkRelatedIndex(Index), price, WMPRI.bSkillDeluxe[Index] + 1);
 				if (WMPC.WorldInfo.NetMode != NM_Standalone)
 					WMPRI.bSkillUpgrade[Index] = lvl + WMPRI.bSkillDeluxe[Index] + 1;
@@ -708,6 +729,8 @@ function Callback_Equip( int ItemDefinition )
 
 			if (KFPRI.Score >= price)
 			{
+				if (WMPC.WorldInfo.NetMode != NM_Standalone)
+					WMPRI.syncCompleted = false;
 				WMPC.BuyPerkUpgrade(Index, price);
 				if (WMPC.WorldInfo.NetMode != NM_Standalone)
 					WMPRI.bPerkUpgrade[Index] = lvl + 1;

@@ -1,13 +1,13 @@
 class WMPlayerReplicationInfo extends KFPlayerReplicationInfo;
 
 //Replicated arrays
-var byte bPerkUpgrade[255];
+var repnotify byte bPerkUpgrade[255];
 var byte bPerkUpgradeAvailable[255];
-var byte bWeaponUpgrade_A[255];
-var byte bWeaponUpgrade_B[255];
-var byte bWeaponUpgrade_C[255];
-var byte bWeaponUpgrade_D[255];
-var byte bSkillUpgrade[255];
+var repnotify byte bWeaponUpgrade_A[255];
+var repnotify byte bWeaponUpgrade_B[255];
+var repnotify byte bWeaponUpgrade_C[255];
+var repnotify byte bWeaponUpgrade_D[255];
+var repnotify byte bSkillUpgrade[255];
 var byte bSkillUnlocked[255];
 var byte bSkillDeluxe[255];
 
@@ -16,6 +16,13 @@ var repnotify byte perkIconIndex;
 var texture2D CurrentIconToDisplay;
 var array< int > doshSpentOnPerk;
 var int perkLvl;
+
+// Sync variables
+var repnotify bool syncTrigger;
+var bool syncCompleted;
+var WMUI_UPGMenu syncMenuObject;
+var int syncItemDefinition;
+var byte syncLoopCounter;
 
 // dynamic array used to track purchases of player (on server and client sides)
 // used in WMPerk
@@ -29,18 +36,25 @@ replication
 		bSkillUpgrade, bSkillUnlocked, bSkillDeluxe;
 
 	if ( bNetDirty )
-		perkIconIndex, perkLvl;
+		perkIconIndex, perkLvl, syncTrigger;
 }
 
 simulated event ReplicatedEvent(name VarName)
 {
 	local WMGameReplicationInfo WMGRI;
 
-	if (VarName == 'perkIconIndex')
+	if (VarName == 'syncTrigger')
+		return; //do nothing
+	else if (VarName == 'perkIconIndex')
 	{
 		WMGRI = WMGameReplicationInfo(WorldInfo.GRI);
 		if (WMGRI != none)
 			CurrentIconToDisplay = WMGRI.perkUpgrades[perkIconIndex].static.GetUpgradeIcon( bPerkUpgrade[perkIconIndex] - 1 );
+	}
+	else if (VarName == 'bPerkUpgrade' || VarName == 'bWeaponUpgrade_A' || VarName == 'bWeaponUpgrade_B' ||
+			VarName == 'bWeaponUpgrade_C' || VarName == 'bWeaponUpgrade_D' || VarName == 'bSkillUpgrade')
+	{
+		syncCompleted = true;
 	}
 	else
 		super.ReplicatedEvent(VarName);
@@ -252,11 +266,38 @@ simulated function SetWeaponUpgrade(int index, int value)
 	}
 }
 
+
+simulated function SetSyncTimer(const WMUI_UPGMenu menu, int ItemDefinition)
+{
+	syncMenuObject = menu;
+	syncItemDefinition = ItemDefinition;
+	syncLoopCounter = 0;
+	SetTimer(0.1f, true, 'SyncTimerLoop');
+}
+
+simulated function SyncTimerLoop()
+{
+	if (syncCompleted || syncLoopCounter >= 30)
+	{
+		ClearTimer('SyncTimerLoop');
+		syncMenuObject.Callback_Equip(syncItemDefinition);
+	}
+
+	++syncLoopCounter;
+}
+
+simulated function bool SyncTimerActive()
+{
+	return IsTimerActive('SyncTimerLoop');
+}
+
 defaultproperties
 {
 	perkLvl=0
 	perkIconIndex=254
 	CurrentIconToDisplay=Texture2D'UI_PerkIcons_TEX.UI_Horzine_H_Logo'
+	syncTrigger=false
+	syncCompleted=true
 
 	Name="Default__WMPlayerReplicationInfo"
 }
