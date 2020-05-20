@@ -155,6 +155,12 @@ reliable client function UpdateClientPurchase()
 	UpdatePurchase();
 }
 
+reliable server function UpdateServerPurchase()
+{
+	UpdatePurchase();
+	SetTimer(5.0f, false, 'UpdatePerkIcon'); //Give server some time before it updates the HUD
+}
+
 simulated function UpdatePurchase()
 {
 	local WMPlayerController LocalPC;
@@ -188,6 +194,42 @@ simulated function UpdatePurchase()
 		Perk = WMPerk(LocalPC.CurrentPerk);
 		if (Perk != none)
 			Perk.ClientAndServerComputePassiveBonuses();
+	}
+}
+
+function UpdatePerkIcon()
+{
+	local byte index;
+	local byte level;
+	local WMGameReplicationInfo WMGRI;
+
+	WMGRI = WMGameReplicationInfo(WorldInfo.GRI);
+
+	if (WMGRI != none)
+	{
+		perkLvl = 0;
+
+		foreach purchase_perkUpgrade(index)
+		{
+			for (level = 0; level < bPerkUpgrade[index]; ++level)
+			{
+				UpdateCurrentIconToDisplay(index, WMGRI.perkPrice[level], 1);
+			}
+		}
+
+		foreach purchase_skillUpgrade(index)
+		{
+			for (level = 0; level < WMGRI.skillUpgrades_Perk.length; ++level)
+			{
+				if (WMGRI.perkUpgrades[level] == WMGRI.skillUpgrades_Perk[index])
+					break;
+			}
+
+			if (bSkillDeluxe[index] > 0)
+				UpdateCurrentIconToDisplay(level, WMGRI.skillDeluxePrice, 3);
+			else
+				UpdateCurrentIconToDisplay(level, WMGRI.skillPrice, 1);
+		}
 	}
 }
 

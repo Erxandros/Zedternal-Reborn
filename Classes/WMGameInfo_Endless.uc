@@ -1070,7 +1070,7 @@ function RepPlayerInfo(WMPlayerReplicationInfo WMPRI)
 	}
 	else if (WMPRI.NumTimesReconnected >= 1)
 	{
-		WMPRI.UpdatePurchase();
+		WMPRI.UpdateServerPurchase();
 		WMPRI.UpdateClientPurchase();
 	}
 }
