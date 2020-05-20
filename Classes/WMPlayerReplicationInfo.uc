@@ -158,7 +158,7 @@ reliable client function UpdateClientPurchase()
 reliable server function UpdateServerPurchase()
 {
 	UpdatePurchase();
-	SetTimer(5.0f, false, 'UpdatePerkIcon'); //Give server some time before it updates the HUD
+	SetTimer(5.0f, false, nameof(UpdatePerkAndSkillPurchases)); //Give server some time before it updates the HUD
 }
 
 simulated function UpdatePurchase()
@@ -197,7 +197,7 @@ simulated function UpdatePurchase()
 	}
 }
 
-function UpdatePerkIcon()
+function UpdatePerkAndSkillPurchases()
 {
 	local byte index;
 	local byte level;
