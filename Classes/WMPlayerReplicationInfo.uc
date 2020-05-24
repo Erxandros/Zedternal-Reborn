@@ -63,8 +63,6 @@ simulated event ReplicatedEvent(name VarName)
 function CopyProperties(PlayerReplicationInfo PRI)
 {
 	local WMPlayerReplicationInfo WMPRI;
-	local WMPlayerController WMP;
-	local WMPerk Perk;
 	local byte i;
 
 	WMPRI = WMPlayerReplicationInfo(PRI);
@@ -85,14 +83,6 @@ function CopyProperties(PlayerReplicationInfo PRI)
 		}
 
 		WMPRI.perkLvl = perkLvl;
-
-		WMP = WMPlayerController(WMPRI.KFPlayerOwner);
-		if (WMP != none)
-		{
-			Perk = WMPerk(WMP.CurrentPerk);
-			if (Perk != none)
-				Perk.ServerComputePassiveBonuses();
-		}
 	}
 
 	super.CopyProperties(PRI);
@@ -163,8 +153,6 @@ reliable server function UpdateServerPurchase()
 
 simulated function UpdatePurchase()
 {
-	local WMPlayerController LocalPC;
-	local WMPerk Perk;
 	local int i;
 
 	purchase_perkUpgrade.length = 0;
@@ -186,14 +174,6 @@ simulated function UpdatePurchase()
 	{
 		if (GetWeaponUpgrade(i) > 0)
 			purchase_weaponUpgrade.AddItem(i);
-	}
-
-	LocalPC = WMPlayerController(GetALocalPlayerController());
-	if (LocalPC != none)
-	{
-		Perk = WMPerk(LocalPC.CurrentPerk);
-		if (Perk != none)
-			Perk.ClientAndServerComputePassiveBonuses();
 	}
 }
 

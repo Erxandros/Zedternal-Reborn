@@ -167,6 +167,11 @@ reliable client function UpdateClientPerkBonuses()
 	}
 }
 
+function DelayedPerkUpdate(float TimeOffset)
+{
+	SetTimer(TimeOffset + 2.5f, false, nameof(UpdateWeaponMagAndCap));
+}
+
 simulated function ChangeGrenade(int Index)
 {
 	CurrentPerk.GrenadeWeaponDef = WMGameReplicationInfo(WorldInfo.GRI).Grenades[Index];

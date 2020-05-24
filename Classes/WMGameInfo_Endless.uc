@@ -304,6 +304,29 @@ function WaveEnded(EWaveEndCondition WinCondition)
 		SetTimer(4.5f, false, nameof(CheckZedBuff));
 }
 
+function RestartPlayer(Controller NewPlayer)
+{
+	local WMPlayerController WMPC;
+	local WMPlayerReplicationInfo WMPRI;
+	local float TimeOffset;
+
+	Super.RestartPlayer(NewPlayer);
+
+	WMPC = WMPlayerController(NewPlayer);
+	WMPRI = WMPlayerReplicationInfo(NewPlayer.PlayerReplicationInfo);
+
+	if (WMPC != none && WMPRI != none && !isWaveActive() && WMPRI.NumTimesReconnected > 0)
+	{
+		TimeOffset = 0;
+		if (WMPRI.NumTimesReconnected > 1 && `TimeSince(WMPRI.LastQuitTime) < ReconnectRespawnTime)
+		{
+			TimeOffset = ReconnectRespawnTime - `TimeSince(WMPRI.LastQuitTime);
+		}
+
+		WMPC.DelayedPerkUpdate(TimeOffset);
+	}
+}
+
 function CheckZedBuff()
 {
 	if (class'ZedternalReborn.Config_ZedBuff'.static.IsWaveBuffZed(WaveNum + 1))
