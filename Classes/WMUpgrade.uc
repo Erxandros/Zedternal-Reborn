@@ -188,7 +188,7 @@ static simulated function Texture2D GetupgradeIcon( int index)
 {
 	if (index < 0)
 		return default.upgradeIcon[0];
-	else if (index <= default.upgradeIcon.length)
+	else if (index < default.upgradeIcon.length)
 		return default.upgradeIcon[index];
 	else
 		return default.upgradeIcon[default.upgradeIcon.length - 1];
