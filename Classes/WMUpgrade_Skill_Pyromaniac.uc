@@ -1,13 +1,13 @@
 Class WMUpgrade_Skill_Pyromaniac extends WMUpgrade_Skill;
-	
+
 var array<float> rateOfFire;
 
 static simulated function bool GetIsUberAmmoActive(int upgLevel, KFWeapon KFW, KFPawn OwnerPawn)
 {
 	local WMUpgrade_Skill_Pyromaniac_Counter UPG;
-	
+
 	UPG = GetCounter(OwnerPawn, upgLevel);
-	if (UPG.bOn)
+	if (UPG.bEnable)
 		return true;
 	else
 		return false;
@@ -16,19 +16,19 @@ static simulated function bool GetIsUberAmmoActive(int upgLevel, KFWeapon KFW, K
 static simulated function ModifyMeleeAttackSpeed( out float InDuration, float DefaultDuration, int upgLevel, KFWeapon KFW)
 {
 	local WMUpgrade_Skill_Pyromaniac_Counter UPG;
-	
+
 	UPG = GetCounter(KFPawn(KFW.Owner), upgLevel);
-	if (UPG.bOn)
+	if (UPG.bEnable)
 		InDuration = DefaultDuration / (DefaultDuration/InDuration + default.rateOfFire[upgLevel-1]);
 }
 
 static simulated function ModifyRateOfFire( out float InRate, float DefaultRate, int upgLevel, KFWeapon KFW )
 {
 	local WMUpgrade_Skill_Pyromaniac_Counter UPG;
-	
+
 	UPG = GetCounter(KFPawn(KFW.Owner), upgLevel);
-	if (UPG.bOn)
-		InRate = DefaultRate / (DefaultRate/InRate + default.rateOfFire[upgLevel-1]);
+	if (UPG.bEnable)
+		InRate = DefaultRate / (DefaultRate / InRate + default.rateOfFire[upgLevel - 1]);
 }
 
 static function WMUpgrade_Skill_Pyromaniac_Counter GetCounter(KFPawn OwnerPawn, int upgLevel)
@@ -37,11 +37,11 @@ static function WMUpgrade_Skill_Pyromaniac_Counter GetCounter(KFPawn OwnerPawn, 
 
 	if (KFPawn_Human(OwnerPawn)!=none)
 	{
-		foreach OwnerPawn.ChildActors(class'WMUpgrade_Skill_Pyromaniac_Counter',UPG)
+		foreach OwnerPawn.ChildActors(class'WMUpgrade_Skill_Pyromaniac_Counter', UPG)
 			return UPG;
 	}
 	// should have one
-	UPG = OwnerPawn.Spawn(class'WMUpgrade_Skill_Pyromaniac_Counter',OwnerPawn);
+	UPG = OwnerPawn.Spawn(class'WMUpgrade_Skill_Pyromaniac_Counter', OwnerPawn);
 	UPG.bDeluxe = (upgLevel > 1);
 	return UPG;
 }
@@ -49,9 +49,9 @@ static function WMUpgrade_Skill_Pyromaniac_Counter GetCounter(KFPawn OwnerPawn, 
 static function WaveEnd( int upgLevel, KFPlayerController KFPC)
 {
 	local WMUpgrade_Skill_Pyromaniac_Counter UPG;
-	
+
 	UPG = GetCounter(KFPawn(KFPC.Pawn), upgLevel);
-	UPG.ForceTurnOffEffect();
+	UPG.EndWaveReset();
 }
 
 defaultproperties
