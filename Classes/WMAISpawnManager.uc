@@ -37,8 +37,44 @@ function Initialize()
 		CustomMode = true;
 	}
 
-	//LoadAIClasses();
+	CheckForBadZedClasses();
+
 	RegisterSpawnVolumes();
+}
+
+function CheckForBadZedClasses()
+{
+	local int i, lineNumber;
+
+	lineNumber = 0;
+	for (i = 0; i < class'ZedternalReborn.Config_Zed'.default.Zed_Monsters.Length; ++i)
+	{
+		++lineNumber;
+
+		//Errors
+		if (class'ZedternalReborn.Config_Zed'.default.Zed_Monsters[i].MClass == none)
+		{
+			`log("ERROR: Failed to add wave config from Zed_Monsters on line "$lineNumber$
+				" because the class defined in MClass does not exist or is not a valid type, please check your config and verify that the class is correct.");
+
+			class'ZedternalReborn.Config_Zed'.default.Zed_Monsters.Remove(i, 1);
+			--i;
+			continue;
+		}
+
+		//Warnings
+		if (class'ZedternalReborn.Config_Zed'.default.Zed_Value.Find('ZedClass', class'ZedternalReborn.Config_Zed'.default.Zed_Monsters[i].MClass) == -1)
+		{
+			`log("WARN: Zed class "$string(class'ZedternalReborn.Config_Zed'.default.Zed_Monsters[i].MClass)$
+				" does not have a value defined under Zed_Value in the config, defaulting to the class's default dosh value.");
+		}
+
+		if (class'ZedternalReborn.Config_Zed'.default.Zed_Monsters[i].MClass.default.MinSpawnSquadSizeType == EST_Boss)
+		{
+			`log("WARN: Zed class "$string(class'ZedternalReborn.Config_Zed'.default.Zed_Monsters[i].MClass)$
+				" is defined as a boss, it will almost certainly break zedternal spawning.");
+		}
+	}
 }
 
 function SetupNextWave(byte NextWaveIndex, int TimeToNextWaveBuffer = 0)
