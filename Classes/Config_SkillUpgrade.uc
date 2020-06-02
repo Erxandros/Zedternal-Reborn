@@ -185,6 +185,16 @@ static function UpdateConfig()
 		default.SkillUpgrade_DeluxePrice = 750;
 	}
 
+	if (default.MODEVERSION < 3)
+	{
+		//Fix typo
+		i = default.SkillUpgrade_SkillUpgrades.Find('SkillPath', "ZedternalReborn.WMUpgrade_Skill_FrozenHeadPoper");
+		if (i != -1)
+		{
+			default.SkillUpgrade_SkillUpgrades[i].SkillPath = "ZedternalReborn.WMUpgrade_Skill_FrozenHeadPopper";
+		}
+	}
+
 	if (default.MODEVERSION < class'ZedternalReborn.Config_Base'.default.currentVersion)
 	{
 		default.MODEVERSION = class'ZedternalReborn.Config_Base'.default.currentVersion;
