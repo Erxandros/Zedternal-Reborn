@@ -745,13 +745,37 @@ function AddWeaponInTrader(class<KFWeaponDefinition> KFWD)
 	}
 }
 
+function string FindSingleWeaponFromDual(const out class<KFWeap_DualBase> KFDW)
+{
+	local int i;
+	local string SingleWeaponDef;
+
+	SingleWeaponDef = PathName(KFDW.default.SingleClass);
+
+	for (i = 0; i < TraderItems.SaleItems.Length; ++i)
+	{
+		if (SingleWeaponDef ~= TraderItems.SaleItems[i].WeaponDef.default.WeaponClassPath)
+			return PathName(TraderItems.SaleItems[i].WeaponDef);
+	}
+
+	return PathName(KFDW);
+}
+
 // To fix broken weapons using our own overrides, like nailguns
 function CheckForWeaponOverrides(class<KFWeaponDefinition> KFWD, optional int index = -1)
 {
 	local string weapDefinitionPath;
 	local class<KFWeaponDefinition> overrideWeapon;
+	local class<KFWeap_DualBase> KFDualWeaponTemp;
 
 	weapDefinitionPath = PathName(KFWD);
+
+	KFDualWeaponTemp = class<KFWeap_DualBase>(class<KFWeapon>(DynamicLoadObject(KFWD.default.WeaponClassPath,class'Class')));
+	if (KFDualWeaponTemp != none)
+	{
+		weapDefinitionPath = FindSingleWeaponFromDual(KFDualWeaponTemp);
+		KFWD = class<KFWeaponDefinition>(DynamicLoadObject(weapDefinitionPath,class'Class'));
+	}
 
 	if (weapDefinitionPath == "KFGame.KFWeapDef_Nailgun")
 	{
@@ -790,6 +814,8 @@ function int GetWeaponUpgradePrice(class<KFWeaponDefinition> KFWD)
 function bool IsWeaponDefCanBeRandom(Class<KFWeaponDefinition> KFWepDef)
 {
 	local int i;
+	local class<KFWeaponDefinition> KFWeaponDefinitionTemp;
+	local class<KFWeap_DualBase> KFDualWeaponTemp;
 	// check if this weapon can be randomly added in the trader during the game
 
 	// Exclude dualWeapon. DualWeapon will be available with singleWeapon
@@ -799,14 +825,24 @@ function bool IsWeaponDefCanBeRandom(Class<KFWeaponDefinition> KFWepDef)
 	// Exclude static weapon (because they are already in the trader)
 	for (i = 0; i < class'ZedternalReborn.Config_Weapon'.default.Trader_StaticWeaponDefs.length; ++i)
 	{
-		if (KFWepDef == class<KFWeaponDefinition>(DynamicLoadObject(class'ZedternalReborn.Config_Weapon'.default.Trader_StaticWeaponDefs[i], class'Class')))
+		KFWeaponDefinitionTemp = class<KFWeaponDefinition>(DynamicLoadObject(class'ZedternalReborn.Config_Weapon'.default.Trader_StaticWeaponDefs[i],class'Class'));
+		if (KFWepDef == KFWeaponDefinitionTemp)
+			return false;
+
+		KFDualWeaponTemp = class<KFWeap_DualBase>(class<KFWeapon>(DynamicLoadObject(KFWeaponDefinitionTemp.default.WeaponClassPath,class'Class')));
+		if (KFDualWeaponTemp != none && KFWepDef.default.WeaponClassPath ~= PathName(KFDualWeaponTemp.default.SingleClass))
 			return false;
 	}
 
 	// Exclude starting weapons (because they are already in the trader)
 	for (i = 0; i < class'ZedternalReborn.Config_Weapon'.default.Weapon_PlayerStartingWeaponDefList.length; ++i)
 	{
-		if (KFWepDef == class<KFWeaponDefinition>(DynamicLoadObject(class'ZedternalReborn.Config_Weapon'.default.Weapon_PlayerStartingWeaponDefList[i], class'Class')))
+		KFWeaponDefinitionTemp = class<KFWeaponDefinition>(DynamicLoadObject(class'ZedternalReborn.Config_Weapon'.default.Weapon_PlayerStartingWeaponDefList[i],class'Class'));
+		if (KFWepDef == KFWeaponDefinitionTemp)
+			return false;
+
+		KFDualWeaponTemp = class<KFWeap_DualBase>(class<KFWeapon>(DynamicLoadObject(KFWeaponDefinitionTemp.default.WeaponClassPath,class'Class')));
+		if (KFDualWeaponTemp != none && KFWepDef.default.WeaponClassPath ~= PathName(KFDualWeaponTemp.default.SingleClass))
 			return false;
 	}
 
@@ -817,6 +853,14 @@ function ApplyRandomWeaponVariant(string weapDefinitionPath, bool shouldNotRepla
 {
 	local int i, x;
 	local class<KFWeaponDefinition> KFWeaponDefClass, KFDualWeaponDefClass;
+	local class<KFWeap_DualBase> KFDualWeaponTemp;
+
+	KFWeaponDefClass = class<KFWeaponDefinition>(DynamicLoadObject(weapDefinitionPath, class'Class'));
+	KFDualWeaponTemp = class<KFWeap_DualBase>(class<KFWeapon>(DynamicLoadObject(KFWeaponDefClass.default.WeaponClassPath,class'Class')));
+	if (KFDualWeaponTemp != none)
+		weapDefinitionPath = FindSingleWeaponFromDual(KFDualWeaponTemp);
+
+	KFWeaponDefClass = none;
 
 	if (shouldNotReplace)
 		CheckForWeaponOverrides(class<KFWeaponDefinition>(DynamicLoadObject(weapDefinitionPath,class'Class')), index);
