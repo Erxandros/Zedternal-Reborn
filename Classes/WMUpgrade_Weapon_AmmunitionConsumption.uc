@@ -1,4 +1,4 @@
-Class WMUpgrade_Weapon_AmmunitionConsomption extends WMUpgrade_Weapon
+Class WMUpgrade_Weapon_AmmunitionConsumption extends WMUpgrade_Weapon
 	abstract;
 
 var float RateOfFire;

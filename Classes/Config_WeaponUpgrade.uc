@@ -12,6 +12,8 @@ var config array< string > WeaponUpgrade_StaticWeaponUpgrades;
 
 static function UpdateConfig()
 {
+	local int i;
+
 	if (default.MODEVERSION < 1)
 	{
 		default.WeaponUpgrade_PriceUnit = 50;
@@ -45,6 +47,16 @@ static function UpdateConfig()
 
 		default.WeaponUpgrade_StaticWeaponUpgrades.length = 1;
 		default.WeaponUpgrade_StaticWeaponUpgrades[0] = "ZedternalReborn.WMUpgrade_Weapon_Damage";
+	}
+
+	if (default.MODEVERSION < 3)
+	{
+		//Fix typo
+		i = default.WeaponUpgrade_WeaponUpgrades.Find("ZedternalReborn.WMUpgrade_Weapon_AmmunitionConsomption");
+		if (i != -1)
+		{
+			default.WeaponUpgrade_WeaponUpgrades[i] = "ZedternalReborn.WMUpgrade_Weapon_AmmunitionConsumption";
+		}
 	}
 
 	if (default.MODEVERSION < class'ZedternalReborn.Config_Base'.default.currentVersion)
