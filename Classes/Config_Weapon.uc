@@ -373,6 +373,16 @@ static function UpdateConfig()
 		}
 	}
 
+	if (default.MODEVERSION < 3)
+	{
+		//Changed single 1858 to dual 1858
+		i = default.Weapon_PlayerStartingWeaponDefList.Find("KFGame.KFWeapDef_Remington1858");
+		if (i != -1)
+		{
+			default.Weapon_PlayerStartingWeaponDefList[i] = "KFGame.KFWeapDef_Remington1858Dual";
+		}
+	}
+
 	if (default.MODEVERSION < class'ZedternalReborn.Config_Base'.default.currentVersion)
 	{
 		default.MODEVERSION = class'ZedternalReborn.Config_Base'.default.currentVersion;
