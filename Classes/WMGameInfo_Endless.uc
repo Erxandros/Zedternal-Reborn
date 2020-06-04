@@ -657,7 +657,7 @@ function BuildWeaponList()
 	}
 
 	//Adding randomly other weapons
-	for (i = (class'ZedternalReborn.Config_Weapon'.default.Trader_StaticWeaponDefs.length + class'ZedternalReborn.Config_Weapon'.default.Trader_StartingWeaponNumber); i < class'ZedternalReborn.Config_Weapon'.default.Trader_maxWeapon; ++i)
+	for (i = (class'ZedternalReborn.Config_Weapon'.default.Trader_StaticWeaponDefs.length + min(class'ZedternalReborn.Config_Weapon'.default.Trader_StartingWeaponNumber, count)); i < class'ZedternalReborn.Config_Weapon'.default.Trader_maxWeapon; ++i)
 	{
 		if (weaponIndex.Length > 0)
 		{
