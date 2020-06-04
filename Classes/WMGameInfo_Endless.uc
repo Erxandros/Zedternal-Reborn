@@ -620,7 +620,8 @@ function BuildWeaponList()
 	{
 		tempList[tempList.length] = i;
 	}
-	for (i = 0; i < min(class'ZedternalReborn.Config_Weapon'.default.Trader_StartingWeaponNumber, tempList.length); ++i)
+	count = tempList.length;
+	for (i = 0; i < min(class'ZedternalReborn.Config_Weapon'.default.Trader_StartingWeaponNumber, count); ++i)
 	{
 		choice = Rand(tempList.length);
 		tempWeapDefStr[i] = class'ZedternalReborn.Config_Weapon'.default.Weapon_PlayerStartingWeaponDefList[tempList[choice]];
