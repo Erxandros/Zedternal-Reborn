@@ -778,12 +778,12 @@ function CheckForWeaponOverrides(class<KFWeaponDefinition> KFWD, optional int in
 		KFWD = class<KFWeaponDefinition>(DynamicLoadObject(weapDefinitionPath,class'Class'));
 	}
 
-	if (weapDefinitionPath == "KFGame.KFWeapDef_Nailgun")
+	if (weapDefinitionPath ~= "KFGame.KFWeapDef_Nailgun")
 	{
 		overrideWeapon = class<KFWeaponDefinition>(DynamicLoadObject("ZedternalReborn.WMWeapDef_Nailgun",class'Class'));
 	}
 
-	else if (weapDefinitionPath == "KFGame.KFWeapDef_Nailgun_HRG")
+	else if (weapDefinitionPath ~= "KFGame.KFWeapDef_Nailgun_HRG")
 	{
 		overrideWeapon = class<KFWeaponDefinition>(DynamicLoadObject("ZedternalReborn.WMWeapDef_Nailgun_HRG",class'Class'));
 	}
@@ -868,7 +868,7 @@ function ApplyRandomWeaponVariant(string weapDefinitionPath, bool shouldNotRepla
 
 	for (i = 0; i < class'ZedternalReborn.Config_Weapon'.default.WeaponVariant_VariantList.length; ++i)
 	{
-		if (class'ZedternalReborn.Config_Weapon'.default.WeaponVariant_VariantList[i].WeaponDef == weapDefinitionPath && FRand() <= class'ZedternalReborn.Config_Weapon'.default.WeaponVariant_VariantList[i].Probability)
+		if (class'ZedternalReborn.Config_Weapon'.default.WeaponVariant_VariantList[i].WeaponDef ~= weapDefinitionPath && FRand() <= class'ZedternalReborn.Config_Weapon'.default.WeaponVariant_VariantList[i].Probability)
 		{
 			KFWeaponDefClass = class<KFWeaponDefinition>(DynamicLoadObject(class'ZedternalReborn.Config_Weapon'.default.WeaponVariant_VariantList[i].WeaponDefVariant, class'Class'));
 			if (KFWeaponDefClass != none)
@@ -909,7 +909,7 @@ function TraderItemsReplacementHelper(string OldWeaponDefPath, class<KFWeaponDef
 	{
 		for (i = 0; i < TraderItems.SaleItems.length; ++i)
 		{
-			if (PathName(TraderItems.SaleItems[i].WeaponDef) == OldWeaponDefPath)
+			if (PathName(TraderItems.SaleItems[i].WeaponDef) ~= OldWeaponDefPath)
 				break;
 		}
 	}
@@ -1111,7 +1111,7 @@ function RepPlayerInfo(WMPlayerReplicationInfo WMPRI)
 			bFound = false;
 			for (j = 0; j < class'ZedternalReborn.Config_PerkUpgrade'.default.PerkUpgrade_FixedperkUpgrades.Length; ++j)
 			{
-				if (class'ZedternalReborn.Config_PerkUpgrade'.default.PerkUpgrade_FixedperkUpgrades[j] == class'ZedternalReborn.Config_PerkUpgrade'.default.PerkUpgrade_PerkUpgrades[i])
+				if (class'ZedternalReborn.Config_PerkUpgrade'.default.PerkUpgrade_FixedperkUpgrades[j] ~= class'ZedternalReborn.Config_PerkUpgrade'.default.PerkUpgrade_PerkUpgrades[i])
 				{
 					bFound = true;
 					WMPRI.bPerkUpgradeAvailable[i] = 1;
