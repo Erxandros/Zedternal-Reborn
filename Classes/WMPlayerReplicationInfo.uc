@@ -294,12 +294,12 @@ simulated function SetSyncTimer(const WMUI_UPGMenu menu, int ItemDefinition)
 	syncMenuObject = menu;
 	syncItemDefinition = ItemDefinition;
 	syncLoopCounter = 0;
-	SetTimer(0.1f, true, 'SyncTimerLoop');
+	SetTimer(0.375f, true, 'SyncTimerLoop');
 }
 
 simulated function SyncTimerLoop()
 {
-	if (syncCompleted || syncLoopCounter >= 30)
+	if (syncCompleted || syncLoopCounter >= 7)
 	{
 		ClearTimer('SyncTimerLoop');
 		syncCompleted = true; //For timeout case
