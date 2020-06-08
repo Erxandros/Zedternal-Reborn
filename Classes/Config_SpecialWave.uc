@@ -47,7 +47,7 @@ static function UpdateConfig()
 		default.SpecialWave_SpecialWaves[18].Path = "ZedternalReborn.WMSpecialWave_GodMode";
 		default.SpecialWave_SpecialWaves[19].Path = "ZedternalReborn.WMSpecialWave_Chaos";
 		default.SpecialWave_SpecialWaves[20].Path = "ZedternalReborn.WMSpecialWave_Fireworks";
-		for (i = 0; i <= 20; i++)
+		for (i = 0; i <= 20; ++i)
 		{
 			default.SpecialWave_SpecialWaves[i].MinWave = 0;
 			default.SpecialWave_SpecialWaves[i].MaxWave = 999;
@@ -55,7 +55,7 @@ static function UpdateConfig()
 
 		default.SpecialWave_SpecialWaves[21].Path = "ZedternalReborn.WMSpecialWave_Phoenix";
 		default.SpecialWave_SpecialWaves[22].Path = "ZedternalReborn.WMSpecialWave_Predator";
-		for (i = 21; i <= 22; i++)
+		for (i = 21; i <= 22; ++i)
 		{
 			default.SpecialWave_SpecialWaves[i].MinWave = 3;
 			default.SpecialWave_SpecialWaves[i].MaxWave = 999;
@@ -66,7 +66,7 @@ static function UpdateConfig()
 		default.SpecialWave_SpecialWaves[25].Path = "ZedternalReborn.WMSpecialWave_Emperor";
 		default.SpecialWave_SpecialWaves[26].Path = "ZedternalReborn.WMSpecialWave_Lethargic";
 		default.SpecialWave_SpecialWaves[27].Path = "ZedternalReborn.WMSpecialWave_Titans";
-		for (i = 23; i <= 27; i++)
+		for (i = 23; i <= 27; ++i)
 		{
 			default.SpecialWave_SpecialWaves[i].MinWave = 3;
 			default.SpecialWave_SpecialWaves[i].MaxWave = 10;
@@ -82,7 +82,7 @@ static function UpdateConfig()
 		default.SpecialWave_SpecialWaves[35].Path = "ZedternalReborn.WMSpecialWave_BloodyChainsaw";
 		default.SpecialWave_SpecialWaves[36].Path = "ZedternalReborn.WMSpecialWave_MechanicalProblem";
 		default.SpecialWave_SpecialWaves[37].Path = "ZedternalReborn.WMSpecialWave_PurpleAlert";
-		for (i = 28; i <= 37; i++)
+		for (i = 28; i <= 37; ++i)
 		{
 			default.SpecialWave_SpecialWaves[i].MinWave = 3;
 			default.SpecialWave_SpecialWaves[i].MaxWave = 15;
@@ -90,7 +90,7 @@ static function UpdateConfig()
 
 		default.SpecialWave_SpecialWaves[38].Path = "ZedternalReborn.WMSpecialWave_TinyTerror";
 		default.SpecialWave_SpecialWaves[39].Path = "ZedternalReborn.WMSpecialWave_BackupPlan";
-		for (i = 38; i <= 39; i++)
+		for (i = 38; i <= 39; ++i)
 		{
 			default.SpecialWave_SpecialWaves[i].MinWave = 0;
 			default.SpecialWave_SpecialWaves[i].MaxWave = 7;

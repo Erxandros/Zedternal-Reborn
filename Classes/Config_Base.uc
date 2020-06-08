@@ -31,7 +31,7 @@ static function CheckDefaultValue()
 
 	PrintVersion();
 
-	for (i = 0; i < default.ConfigFiles.length; i++)
+	for (i = 0; i < default.ConfigFiles.length; ++i)
 	{
 		default.ConfigFiles[i].static.UpdateConfig();
 	}

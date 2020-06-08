@@ -32,7 +32,7 @@ static function UpdateConfig()
 		default.SkillUpgrade_SkillUpgrades[7].SkillPath = "ZedternalReborn.WMUpgrade_Skill_Tank";
 		default.SkillUpgrade_SkillUpgrades[8].SkillPath = "ZedternalReborn.WMUpgrade_Skill_Vampire";
 		default.SkillUpgrade_SkillUpgrades[9].SkillPath = "ZedternalReborn.WMUpgrade_Skill_Tempest";
-		for (i = 0; i <= 9; i++)
+		for (i = 0; i <= 9; ++i)
 		{
 			default.SkillUpgrade_SkillUpgrades[i].PerkPath = "ZedternalReborn.WMUpgrade_Perk_Berserker";
 		}
@@ -48,7 +48,7 @@ static function UpdateConfig()
 		default.SkillUpgrade_SkillUpgrades[17].SkillPath = "ZedternalReborn.WMUpgrade_Skill_Supplier";
 		default.SkillUpgrade_SkillUpgrades[18].SkillPath = "ZedternalReborn.WMUpgrade_Skill_TacticalReload";
 		default.SkillUpgrade_SkillUpgrades[19].SkillPath = "ZedternalReborn.WMUpgrade_Skill_Tactician";
-		for (i = 10; i <= 19; i++)
+		for (i = 10; i <= 19; ++i)
 		{
 			default.SkillUpgrade_SkillUpgrades[i].PerkPath = "ZedternalReborn.WMUpgrade_Perk_Commando";
 		}
@@ -64,7 +64,7 @@ static function UpdateConfig()
 		default.SkillUpgrade_SkillUpgrades[27].SkillPath = "ZedternalReborn.WMUpgrade_Skill_ShockTropper";
 		default.SkillUpgrade_SkillUpgrades[28].SkillPath = "ZedternalReborn.WMUpgrade_Skill_SonicResistantRounds";
 		default.SkillUpgrade_SkillUpgrades[29].SkillPath = "ZedternalReborn.WMUpgrade_Skill_QuickFuse";
-		for (i = 20; i <= 29; i++)
+		for (i = 20; i <= 29; ++i)
 		{
 			default.SkillUpgrade_SkillUpgrades[i].PerkPath = "ZedternalReborn.WMUpgrade_Perk_Demolitionist";
 		}
@@ -80,7 +80,7 @@ static function UpdateConfig()
 		default.SkillUpgrade_SkillUpgrades[37].SkillPath = "ZedternalReborn.WMUpgrade_Skill_SymbioticHealth";
 		default.SkillUpgrade_SkillUpgrades[38].SkillPath = "ZedternalReborn.WMUpgrade_Skill_Zedatif";
 		default.SkillUpgrade_SkillUpgrades[39].SkillPath = "ZedternalReborn.WMUpgrade_Skill_FocusInjection";
-		for (i = 30; i <= 39; i++)
+		for (i = 30; i <= 39; ++i)
 		{
 			default.SkillUpgrade_SkillUpgrades[i].PerkPath = "ZedternalReborn.WMUpgrade_Perk_FieldMedic";
 		}
@@ -96,7 +96,7 @@ static function UpdateConfig()
 		default.SkillUpgrade_SkillUpgrades[47].SkillPath = "ZedternalReborn.WMUpgrade_Skill_Resistance";
 		default.SkillUpgrade_SkillUpgrades[48].SkillPath = "ZedternalReborn.WMUpgrade_Skill_ZedPlosion";
 		default.SkillUpgrade_SkillUpgrades[49].SkillPath = "ZedternalReborn.WMUpgrade_Skill_HotPepper";
-		for (i = 40; i <= 49; i++)
+		for (i = 40; i <= 49; ++i)
 		{
 			default.SkillUpgrade_SkillUpgrades[i].PerkPath = "ZedternalReborn.WMUpgrade_Perk_Firebug";
 		}
@@ -112,7 +112,7 @@ static function UpdateConfig()
 		default.SkillUpgrade_SkillUpgrades[57].SkillPath = "ZedternalReborn.WMUpgrade_Skill_Speedloader";
 		default.SkillUpgrade_SkillUpgrades[58].SkillPath = "ZedternalReborn.WMUpgrade_Skill_WhirlwindOfLead";
 		default.SkillUpgrade_SkillUpgrades[59].SkillPath = "ZedternalReborn.WMUpgrade_Skill_Steady";
-		for (i = 50; i <= 59; i++)
+		for (i = 50; i <= 59; ++i)
 		{
 			default.SkillUpgrade_SkillUpgrades[i].PerkPath = "ZedternalReborn.WMUpgrade_Perk_Gunslinger";
 		}
@@ -128,7 +128,7 @@ static function UpdateConfig()
 		default.SkillUpgrade_SkillUpgrades[67].SkillPath = "ZedternalReborn.WMUpgrade_Skill_Stability";
 		default.SkillUpgrade_SkillUpgrades[68].SkillPath = "ZedternalReborn.WMUpgrade_Skill_Velocity";
 		default.SkillUpgrade_SkillUpgrades[69].SkillPath = "ZedternalReborn.WMUpgrade_Skill_Hunter";
-		for (i = 60; i <= 69; i++)
+		for (i = 60; i <= 69; ++i)
 		{
 			default.SkillUpgrade_SkillUpgrades[i].PerkPath = "ZedternalReborn.WMUpgrade_Perk_Sharpshooter";
 		}
@@ -144,7 +144,7 @@ static function UpdateConfig()
 		default.SkillUpgrade_SkillUpgrades[77].SkillPath = "ZedternalReborn.WMUpgrade_Skill_Tenacity";
 		default.SkillUpgrade_SkillUpgrades[78].SkillPath = "ZedternalReborn.WMUpgrade_Skill_TightChoke";
 		default.SkillUpgrade_SkillUpgrades[79].SkillPath = "ZedternalReborn.WMUpgrade_Skill_ConcussionRounds";
-		for (i = 70; i <= 79; i++)
+		for (i = 70; i <= 79; ++i)
 		{
 			default.SkillUpgrade_SkillUpgrades[i].PerkPath = "ZedternalReborn.WMUpgrade_Perk_Support";
 		}
@@ -160,7 +160,7 @@ static function UpdateConfig()
 		default.SkillUpgrade_SkillUpgrades[87].SkillPath = "ZedternalReborn.WMUpgrade_Skill_SuppressionRounds";
 		default.SkillUpgrade_SkillUpgrades[88].SkillPath = "ZedternalReborn.WMUpgrade_Skill_TacticalMovement";
 		default.SkillUpgrade_SkillUpgrades[89].SkillPath = "ZedternalReborn.WMUpgrade_Skill_AssaultArmor";
-		for (i = 80; i <= 89; i++)
+		for (i = 80; i <= 89; ++i)
 		{
 			default.SkillUpgrade_SkillUpgrades[i].PerkPath = "ZedternalReborn.WMUpgrade_Perk_SWAT";
 		}
@@ -176,7 +176,7 @@ static function UpdateConfig()
 		default.SkillUpgrade_SkillUpgrades[97].SkillPath = "ZedternalReborn.WMUpgrade_Skill_TacticalArmor";
 		default.SkillUpgrade_SkillUpgrades[98].SkillPath = "ZedternalReborn.WMUpgrade_Skill_Watcher";
 		default.SkillUpgrade_SkillUpgrades[99].SkillPath = "ZedternalReborn.WMUpgrade_Skill_AmmoPickup";
-		for (i = 90; i <= 99; i++)
+		for (i = 90; i <= 99; ++i)
 		{
 			default.SkillUpgrade_SkillUpgrades[i].PerkPath = "ZedternalReborn.WMUpgrade_Perk_Survivalist";
 		}

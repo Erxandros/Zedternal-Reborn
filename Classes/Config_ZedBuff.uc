@@ -63,7 +63,7 @@ static function UpdateConfig()
 		default.ZedBuff_BuffPath[5].Path = "ZedternalReborn.WMZedBuff_SpawnRate";
 		default.ZedBuff_BuffPath[6].Path = "ZedternalReborn.WMZedBuff_Clot_Stronger";
 		default.ZedBuff_BuffPath[7].Path = "ZedternalReborn.WMZedBuff_Stalker_Faster";
-		for (i = 0; i <= 7; i++)
+		for (i = 0; i <= 7; ++i)
 		{
 			default.ZedBuff_BuffPath[i].minWave = 0;
 			default.ZedBuff_BuffPath[i].maxWave = 13;
@@ -76,7 +76,7 @@ static function UpdateConfig()
 		default.ZedBuff_BuffPath[12].Path = "ZedternalReborn.WMZedBuff_PukeMine";
 		default.ZedBuff_BuffPath[13].Path = "ZedternalReborn.WMZedBuff_Siren_Heal";
 		default.ZedBuff_BuffPath[14].Path = "ZedternalReborn.WMZedBuff_Hostility";
-		for (i = 8; i <= 14; i++)
+		for (i = 8; i <= 14; ++i)
 		{
 			default.ZedBuff_BuffPath[i].minWave = 9;
 			default.ZedBuff_BuffPath[i].maxWave = 21;
@@ -89,7 +89,7 @@ static function UpdateConfig()
 		default.ZedBuff_BuffPath[19].Path = "ZedternalReborn.WMZedBuff_Damage_II";
 		default.ZedBuff_BuffPath[20].Path = "ZedternalReborn.WMZedBuff_Speed_II";
 		default.ZedBuff_BuffPath[21].Path = "ZedternalReborn.WMZedBuff_Beefcake";
-		for (i = 15; i <= 21; i++)
+		for (i = 15; i <= 21; ++i)
 		{
 			default.ZedBuff_BuffPath[i].minWave = 17;
 			default.ZedBuff_BuffPath[i].maxWave = 999;
@@ -185,7 +185,7 @@ static function bool IsWaveBuffZed(int Wave)
 	if (!default.ZedBuff_bEnable)
 		return false;
 	
-	for (i = 0; i < default.ZedBuff_BuffWaves.Waves.length; i++)
+	for (i = 0; i < default.ZedBuff_BuffWaves.Waves.length; ++i)
 	{
 		if (default.ZedBuff_BuffWaves.Waves[i] == Wave)
 			return true;
@@ -235,8 +235,8 @@ static function float GetMaxHealthBuff(float mod, int Difficulty, int WaveNum)
 		default:	factor = default.ZedBuff_MaxHealthIncPerWave.Custom;	power = default.ZedBuff_MaxHealthPowerPerWave.Custom;		break;
 	}
 
-	wave = float(WaveNum-1);
-	return (mod + factor*wave)**(1.f + power*wave);
+	wave = float(WaveNum - 1);
+	return (mod + factor * wave) ** (1.f + power * wave);
 }
 
 static function float GetMaxHealthBuff_LargeZed(float mod, int Difficulty, int WaveNum)
@@ -252,8 +252,8 @@ static function float GetMaxHealthBuff_LargeZed(float mod, int Difficulty, int W
 		default:	factor = default.ZedBuff_MaxHealthIncPerWave_LargeZed.Custom;	power = default.ZedBuff_MaxHealthPowerPerWave_LargeZed.Custom;		break;
 	}
 
-	wave = float(WaveNum-1);
-	return (mod + factor*wave)**(1.f + power*wave);
+	wave = float(WaveNum - 1);
+	return (mod + factor * wave) ** (1.f + power * wave);
 }
 
 static function float GetDamageBuff(float mod, int Difficulty, int WaveNum)
@@ -269,8 +269,8 @@ static function float GetDamageBuff(float mod, int Difficulty, int WaveNum)
 		default:	factor = default.ZedBuff_DamageIncPerWave.Custom;	power = default.ZedBuff_DamagePowerPerWave.Custom;		break;
 	}
 
-	wave = float(WaveNum-1);
-	return (mod + factor*wave)**(1.f + power*wave);
+	wave = float(WaveNum - 1);
+	return (mod + factor * wave) ** (1.f + power * wave);
 }
 
 static function float GetSpeedBuff(float mod, int Difficulty, int WaveNum)
@@ -286,8 +286,8 @@ static function float GetSpeedBuff(float mod, int Difficulty, int WaveNum)
 		default:	factor = default.ZedBuff_SpeedIncPerWave.Custom;	power = default.ZedBuff_SpeedPowerPerWave.Custom;		break;
 	}
 	
-	wave = float(WaveNum-1);
-	return (mod + factor*wave)**(1.f + power*wave);
+	wave = float(WaveNum - 1);
+	return (mod + factor * wave) ** (1.f + power * wave);
 }
 
 static function float GetSprintChanceBuff(int Difficulty, int WaveNum)
@@ -303,17 +303,17 @@ static function float GetSprintChanceBuff(int Difficulty, int WaveNum)
 		default:	factor = default.ZedBuff_SprintChanceIncPerWave.Custom;		break;
 	}
 
-	return factor * float(WaveNum-1);
+	return factor * float(WaveNum - 1);
 }
 
 static function float GetDoshPenalityBuff(int WaveNum)
 {
-	return FMin(default.ZedBuff_DoshPenalityLimit, default.ZedBuff_DoshPenalityPerWave * float(WaveNum-1));
+	return FMin(default.ZedBuff_DoshPenalityLimit, default.ZedBuff_DoshPenalityPerWave * float(WaveNum - 1));
 }
 
 static function float GetHardAttackChanceBuff(int WaveNum)
 {
-	return default.ZedBuff_HardAttackChanceIncPerWave * float(WaveNum-1);
+	return default.ZedBuff_HardAttackChanceIncPerWave * float(WaveNum - 1);
 }
 
 defaultproperties

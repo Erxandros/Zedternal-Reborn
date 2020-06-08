@@ -149,7 +149,7 @@ static function UpdateConfig()
 		default.WeaponVariant_VariantList[37].WeaponDef = "KFGame.KFWeapDef_FreezeThrower";
 		default.WeaponVariant_VariantList[37].WeaponDefVariant = "ZedternalReborn.WMWeapDef_FreezeThrower_Precious";
 
-		for (i = 0; i <= 37; i++)
+		for (i = 0; i <= 37; ++i)
 		{
 			default.WeaponVariant_VariantList[i].DualWeaponDefVariant = "";
 		}
@@ -170,7 +170,7 @@ static function UpdateConfig()
 		default.WeaponVariant_VariantList[42].WeaponDefVariant = "ZedternalReborn.WMWeapDef_AF2011_Precious";
 		default.WeaponVariant_VariantList[42].DualWeaponDefVariant = "ZedternalReborn.WMWeapDef_AF2011Dual_Precious";
 
-		for (i = 0; i <= 42; i++)
+		for (i = 0; i <= 42; ++i)
 		{
 			default.WeaponVariant_VariantList[i].Probability = 0.017500;
 		}
@@ -367,7 +367,7 @@ static function UpdateConfig()
 		newVariant.DualWeaponDefVariant = "";
 		default.WeaponVariant_VariantList.AddItem(newVariant);
 
-		for (i = i; i < default.WeaponVariant_VariantList.length; i++)
+		for (i = i; i < default.WeaponVariant_VariantList.length; ++i)
 		{
 			default.WeaponVariant_VariantList[i].Probability = 0.017500;
 		}

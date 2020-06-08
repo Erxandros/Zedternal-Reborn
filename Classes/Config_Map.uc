@@ -37,7 +37,7 @@ static function UpdateConfig()
 
 	if (default.MODEVERSION < 2)
 	{
-		for (i = 0; i < default.Map_Settings.length; i++)
+		for (i = 0; i < default.Map_Settings.length; ++i)
 		{
 			default.Map_Settings[i].zedStuckThreshold = 4;
 			default.Map_Settings[i].zedStuckTimeout = 150;

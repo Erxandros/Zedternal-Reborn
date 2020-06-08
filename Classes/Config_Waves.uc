@@ -117,15 +117,15 @@ static function float GetValueFactor(int NbPlayer)
 	else if (NbPlayer == 0)
 		return default.ZedSpawn_ValueFactorPerPlayer[0];
 	else if (NbPlayer <= arrayLength)
-		return default.ZedSpawn_ValueFactorPerPlayer[NbPlayer-1];
+		return default.ZedSpawn_ValueFactorPerPlayer[NbPlayer - 1];
 	else
 	{
 		if (arrayLength == 1)
 			return default.ZedSpawn_ValueFactorPerPlayer[0] * NbPlayer;
 		else
 		{
-			delta = FMax(0.f, default.ZedSpawn_ValueFactorPerPlayer[arrayLength-1] - default.ZedSpawn_ValueFactorPerPlayer[arrayLength-2]);
-			return delta * (NbPlayer - arrayLength) + default.ZedSpawn_ValueFactorPerPlayer[arrayLength-1];
+			delta = FMax(0.f, default.ZedSpawn_ValueFactorPerPlayer[arrayLength - 1] - default.ZedSpawn_ValueFactorPerPlayer[arrayLength - 2]);
+			return delta * (NbPlayer - arrayLength) + default.ZedSpawn_ValueFactorPerPlayer[arrayLength - 1];
 		}
 	}
 }
@@ -142,15 +142,15 @@ static function float ZedSpawnRateFactor(int NbPlayer)
 	else if (NbPlayer == 0)
 		return default.ZedSpawn_ZedSpawnRatePerPlayer[0];
 	else if (NbPlayer <= arrayLength)
-		return default.ZedSpawn_ZedSpawnRatePerPlayer[NbPlayer-1];
+		return default.ZedSpawn_ZedSpawnRatePerPlayer[NbPlayer - 1];
 	else
 	{
 		if (arrayLength == 1)
 			return default.ZedSpawn_ZedSpawnRatePerPlayer[0] * NbPlayer;
 		else
 		{
-			delta = FMax(0.f, default.ZedSpawn_ZedSpawnRatePerPlayer[arrayLength-1] - default.ZedSpawn_ZedSpawnRatePerPlayer[arrayLength-2]);
-			return delta * (NbPlayer - arrayLength) + default.ZedSpawn_ZedSpawnRatePerPlayer[arrayLength-1];
+			delta = FMax(0.f, default.ZedSpawn_ZedSpawnRatePerPlayer[arrayLength - 1] - default.ZedSpawn_ZedSpawnRatePerPlayer[arrayLength - 2]);
+			return delta * (NbPlayer - arrayLength) + default.ZedSpawn_ZedSpawnRatePerPlayer[arrayLength - 1];
 		}
 	}
 }
