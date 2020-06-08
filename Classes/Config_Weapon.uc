@@ -399,6 +399,11 @@ static function UpdateConfig()
 		newVariant.DualWeaponDefVariant = "";
 		default.WeaponVariant_VariantList.AddItem(newVariant);
 
+		newVariant.WeaponDef = "KFGame.KFWeapDef_Pistol_G18C";
+		newVariant.WeaponDefVariant = "ZedternalReborn.WMWeapDef_Pistol_G18C_Precious";
+		newVariant.DualWeaponDefVariant = "ZedternalReborn.WMWeapDef_Pistol_DualG18_Precious";
+		default.WeaponVariant_VariantList.AddItem(newVariant);
+
 		for (i = i; i < default.WeaponVariant_VariantList.length; ++i)
 		{
 			default.WeaponVariant_VariantList[i].Probability = 0.017500;
