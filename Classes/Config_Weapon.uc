@@ -381,6 +381,18 @@ static function UpdateConfig()
 		{
 			default.Weapon_PlayerStartingWeaponDefList[i] = "KFGame.KFWeapDef_Remington1858Dual";
 		}
+
+		i = default.WeaponVariant_VariantList.length;
+
+		newVariant.WeaponDef = "KFGame.KFWeapDef_HRG_Kaboomstick";
+		newVariant.WeaponDefVariant = "ZedternalReborn.WMWeapDef_HRG_Kaboomstick_Precious";
+		newVariant.DualWeaponDefVariant = "";
+		default.WeaponVariant_VariantList.AddItem(newVariant);
+
+		for (i = i; i < default.WeaponVariant_VariantList.length; ++i)
+		{
+			default.WeaponVariant_VariantList[i].Probability = 0.017500;
+		}
 	}
 
 	if (default.MODEVERSION < class'ZedternalReborn.Config_Base'.default.currentVersion)
