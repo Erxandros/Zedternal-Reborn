@@ -389,6 +389,11 @@ static function UpdateConfig()
 		newVariant.DualWeaponDefVariant = "";
 		default.WeaponVariant_VariantList.AddItem(newVariant);
 
+		newVariant.WeaponDef = "KFGame.KFWeapDef_Blunderbuss";
+		newVariant.WeaponDefVariant = "ZedternalReborn.WMWeapDef_Blunderbuss_Precious";
+		newVariant.DualWeaponDefVariant = "";
+		default.WeaponVariant_VariantList.AddItem(newVariant);
+
 		for (i = i; i < default.WeaponVariant_VariantList.length; ++i)
 		{
 			default.WeaponVariant_VariantList[i].Probability = 0.017500;
