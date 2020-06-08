@@ -8,6 +8,8 @@ static function bool IsUpgradeCompatible( class<KFWeapon> KFW )
 {
 	if (class<KFWeap_GrenadeLauncher_Base>(KFW) != none)
 		return true;
+	else if (class<KFWeap_Pistol_Blunderbuss>(KFW) != none)
+		return true;
 	else if (class<KFWeap_Beam_Microwave>(KFW) != none)
 		return true;
 	else if (class<KFWeap_AssaultRifle_M16M203>(KFW) != none)

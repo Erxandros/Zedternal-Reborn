@@ -6,7 +6,9 @@ var float RateOfFire;
 // Revolvers, Shotgun, Rifle, SMG and Medic weapons are compatible
 static function bool IsUpgradeCompatible( class<KFWeapon> KFW )
 {
-	if (class<KFWeap_PistolBase>(KFW) != none)
+	if (class<KFWeap_Pistol_Blunderbuss>(KFW) != none)
+		return false;
+	else if (class<KFWeap_PistolBase>(KFW) != none)
 		return true;
 	else if (class<KFWeap_ShotgunBase>(KFW) != none && class<KFWeap_Shotgun_DoubleBarrel>(KFW) == none)
 		return true;

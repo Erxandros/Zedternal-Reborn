@@ -6,13 +6,23 @@ var float Speed;
 // Medic and Gunslinger weapons are compatible
 static function bool IsUpgradeCompatible( class<KFWeapon> KFW )
 {
-	if (class<KFWeap_MedicBase>(KFW) != none)
+	if (class<KFWeap_Pistol_Blunderbuss>(KFW) != none)
+		return false;
+	else if (class<KFWeap_MedicBase>(KFW) != none)
+		return true;
+	else if (class<KFWeap_HRG_Healthrower>(KFW) != none)
+		return true;
+	else if (class<KFWeap_Rifle_HRGIncision>(KFW) != none)
+		return true;
+	else if (class<KFWeap_Blunt_MedicBat>(KFW) != none)
 		return true;
 	else if (class<KFWeap_PistolBase>(KFW) != none)
 		return true;
-	else if (class<KFWeap_Rifle_M14EBR>(KFW) != none)
+	else if (class<KFWeap_Rifle_Winchester1894>(KFW) != none)
 		return true;
-	else if (class<KFWeap_Rifle_RailGun>(KFW) != none)
+	else if (class<KFWeap_GrenadeLauncher_HX25>(KFW) != none)
+		return true;
+	else if (class<KFWeap_Rifle_CenterfireMB464>(KFW) != none)
 		return true;
 
 	return false;

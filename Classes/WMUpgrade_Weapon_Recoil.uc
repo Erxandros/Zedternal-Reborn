@@ -8,6 +8,8 @@ static function bool IsUpgradeCompatible( class<KFWeapon> KFW )
 {
 	if (KFW.default.MagazineCapacity[0] <= 1)
 		return false;
+	else if (class<KFWeap_Pistol_Blunderbuss>(KFW) != none)
+		return false;
 	else if (class<KFWeap_PistolBase>(KFW) != none)
 		return true;
 	else if (class<KFWeap_RifleBase>(KFW) != none)

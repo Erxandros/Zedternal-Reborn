@@ -10,6 +10,8 @@ static function bool IsUpgradeCompatible( class<KFWeapon> KFW )
 		return true;
 	else if (class<KFWeap_HRG_Revolver_Buckshot>(KFW) != none)
 		return true;
+	else if (class<KFWeap_Pistol_Blunderbuss>(KFW) != none)
+		return true;
 
 	return false;
 }
