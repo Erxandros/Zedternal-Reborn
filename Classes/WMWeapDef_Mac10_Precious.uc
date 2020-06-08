@@ -20,7 +20,7 @@ static function string GetItemLocalization(string KeyName)
 defaultproperties
 {
 	WeaponClassPath="ZedternalReborn.WMWeap_SMG_Mac10_Precious"
-	BuyPrice=2200 //2x
+	BuyPrice=1800 //2x
 	AmmoPricePerMag=68 //40% more per bullet
 	Name="Default__WMWeapDef_Mac10_Precious"
 }
