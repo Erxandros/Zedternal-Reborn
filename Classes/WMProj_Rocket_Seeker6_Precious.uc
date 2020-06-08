@@ -4,8 +4,8 @@ class WMProj_Rocket_Seeker6_Precious extends KFProj_Rocket_Seeker6
 defaultproperties
 {
    Begin Object Class=KFGameExplosion Name=ExploTemplatePrecious
-      Damage=157.0 //25% increase (round up)
-      DamageRadius=300.0 //20% increase
+      Damage=200.0 //25% increase
+      DamageRadius=420.0 //20% increase
       DamageFalloffExponent=2
       DamageDelay=0.f
 
