@@ -301,8 +301,8 @@ simulated function SyncTimerLoop()
 {
 	if (syncCompleted || syncLoopCounter >= 7)
 	{
-		ClearTimer('SyncTimerLoop');
 		syncCompleted = true; //For timeout case
+		ClearTimer('SyncTimerLoop');
 		syncMenuObject.Callback_Equip(syncItemDefinition);
 	}
 
