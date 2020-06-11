@@ -46,7 +46,6 @@ var array< int > weaponUpgrade_Price;
 
 var array< class<KFWeapon> > KFStartingWeapon;
 var array< class<WMUpgrade_Perk> > perkUpgrades;
-var array< class<WMUpgrade_Weapon> > weaponUpgrades;
 var array< class<WMUpgrade_Skill> > skillUpgrades;
 var array< class<WMUpgrade_Perk> > skillUpgrades_Perk;
 var array< class<WMSpecialWave> > specialWaves;
