@@ -84,8 +84,8 @@ function SetupNextWave(byte NextWaveIndex, int TimeToNextWaveBuffer = 0)
 	local KFPlayerController KFPC;
 	local array< class<WMSpecialWave> > WMSW;
 	local array<SMonster> MToA;
-	local byte i, k, choice, NbPlayer;
-	local int waveValue, number, noLargeZedCountDown, maxNumberOfZed;
+	local byte NbPlayer;
+	local int waveValue, number, noLargeZedCountDown, maxNumberOfZed, i, k, choice;
 	local float tempWaveValue, customSpawnRate;
 	local bool bNewSquad, bVariantZeds, bVariantApplied;
 	local array<SZedVariant> trimedZedVariantList;
@@ -438,7 +438,7 @@ function int GetMaxMonsters()
 function Update()
 {
 	local array<class<KFPawn_Monster> > SpawnList;
-	local int remainAllowedSpawn;
+	local byte remainAllowedSpawn;
 
 	if( IsWaveActive() )
 	{
