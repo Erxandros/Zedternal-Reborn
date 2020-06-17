@@ -2,7 +2,7 @@ class WMPlayerController extends KFPlayerController
 	config(ZedternalReborn_LocalData);
 
 var int HUD_perkIndex;
-var int UPG_PerkListIndex, UPG_SkillListIndex, UPG_WeaponlistIndex;
+var int UPG_UpgradeListIndex;
 var bool bShouldUpdateHUDPerkIcon;
 
 var config byte KnifeIndex;
@@ -274,9 +274,7 @@ defaultproperties
 {
 	HUD_perkIndex=-1
 	bShouldUpdateHUDPerkIcon=true
-	UPG_PerkListIndex=1
-	UPG_SkillListIndex=2
-	UPG_WeaponListIndex=1
+	UPG_UpgradeListIndex=1
 	PerkList(0)=(PerkClass=Class'ZedternalReborn.WMPerk')
 	ServPendingPerkBuild=-1
 	ServPendingPerkLevel=-1
