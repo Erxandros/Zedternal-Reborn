@@ -1,10 +1,11 @@
 Class WMUpgrade_Skill_ExtraRounds extends WMUpgrade_Skill;
 
-var array<int> extraAmmo, extraAmmoPrct;
+var array<int> extraAmmo;
+var array<float> extraAmmoPrct;
 
 static simulated function ModifySpareAmmoAmountPassive( out float spareAmmoFactor, int upgLevel)
 {
-	spareAmmoFactor += default.extraAmmoPrct[upgLevel-1];
+	spareAmmoFactor += default.extraAmmoPrct[upgLevel - 1];
 }
 
 static simulated function ModifySpareAmmoAmount( out int InSpareAmmo, int DefaultSpareAmmo, int upgLevel, KFWeapon KFW, optional const out STraderItem TraderItem, optional bool bSecondary=false )
@@ -18,7 +19,7 @@ static simulated function ModifySpareAmmoAmount( out int InSpareAmmo, int Defaul
 	{
 		if (Perk == class'KFPerk_Demolitionist')
 		{
-			InSpareAmmo += default.extraAmmo[upgLevel-1];
+			InSpareAmmo += default.extraAmmo[upgLevel - 1];
 			return;
 		}
 	}
