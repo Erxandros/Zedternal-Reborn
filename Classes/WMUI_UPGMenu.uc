@@ -24,11 +24,11 @@ enum EWMINV_Filter
 var EWMINV_Filter CurrentUpgradeFilter;
 
 function InitializeMenu(WMUI_Menu Manag)
-{	
+{
 	Manager = Manag;
 	// check if player is using a controller
 	SetBool("bUsingGamepad", class'WorldInfo'.static.IsConsoleBuild());
-	
+
 	CurrentFilterIndex = 0;
 	CurrentBuyIndex = 0;
 	CurrentBuyType = "";
@@ -61,7 +61,7 @@ function UpdateText()
 		LocalizedObject.SetString("useString", "");
 		LocalizedObject.SetString("recycle", "");
 		LocalizedObject.SetString("inventory", "Upgrade Menu");
-		
+
 		LocalizedObject.SetString("filters", "Upgrade Menu");
 		LocalizedObject.SetString("all", "Perk Upgrades");
 		LocalizedObject.SetString("weaponSkins", "Skill Upgrades");
@@ -73,27 +73,27 @@ function UpdateText()
 
 		LocalizedObject.SetString("craftWeapon", "Skip Trader Time");
 		LocalizedObject.SetString("craftCosmetic", "Close Menu");
-		
+
 		LocalizedObject.SetString("filterName_0", "Upgrades");
 		LocalizedObject.SetString("filterName_1", "");
 		LocalizedObject.SetString("filterName_2", "");
-		
+
 		LocalizedObject.SetInt("filterIndex_0", int(CurrentUpgradeFilter) );
-		
+
 		UpgradeList = CreateArray();
-		
+
 		TempObject = CreateObject("Object");
 		TempObject.SetString("label", "Show All");
 		UpgradeList.SetElementObject(0, TempObject);
-		
+
 		TempObject = CreateObject("Object");
 		TempObject.SetString("label", "Available");
 		UpgradeList.SetElementObject(1, TempObject);
-		
+
 		TempObject = CreateObject("Object");
 		TempObject.SetString("label", "Purchased");
 		UpgradeList.SetElementObject(2, TempObject);
-		
+
 		LocalizedObject.SetObject("filterData_0", UpgradeList);
 	}
 	SetObject("localizedText", LocalizedObject);
@@ -135,26 +135,26 @@ function Callback_InventoryFilter( int FilterIndex )
 				lvl = WMPRI.bPerkUpgrade[i];
 				if (CurrentBuyType == "perk" && CurrentBuyIndex == i)
 					lvl = CurrentBuyLvl;
-				
+
 				// Get Max Level of that upgrade
 				maxLevel = WMGRI.perkMaxLevel;
-				
+
 				// Is it fully bought?
 				if (lvl >= maxLevel)
 					bPurchased = true;
 				else
 					bPurchased = false;
-				
+
 				// Create info arch
 				if ((CurrentUpgradeFilter == EWMInv_All) || (CurrentUpgradeFilter == EWMInv_Available && !bPurchased) || (CurrentUpgradeFilter == EWMInv_Purchased && bPurchased))
 				{
 					if (bPurchased)
 						--lvl;
 					ItemObject = CreateObject("Object");
-					
+
 					tempPrice = WMGRI.perkPrice[lvl];
 					ItemObject.SetInt("count", tempPrice);
-					
+
 					if (maxLevel > 1)
 					{
 						if (bPurchased)
@@ -164,7 +164,7 @@ function Callback_InventoryFilter( int FilterIndex )
 					}
 					else
 						ItemObject.SetString("label", WMGRI.perkUpgrades[i].default.upgradeName);
-					
+
 					ItemObject.SetString("price", "");
 					ItemObject.Setstring("typeRarity", "");
 					ItemObject.SetBool("exchangeable", false);
@@ -204,7 +204,7 @@ function Callback_InventoryFilter( int FilterIndex )
 				lvl = WMPRI.bSkillUpgrade[i];
 				if (CurrentBuyType == "skill" && CurrentBuyIndex == i)
 					lvl = CurrentBuyLvl;
-				
+
 				// Is it fully bought?
 				if (lvl == 0)
 					bPurchased = false;
@@ -217,7 +217,7 @@ function Callback_InventoryFilter( int FilterIndex )
 					if (bPurchased)
 						--lvl;
 					ItemObject = CreateObject("Object");
-					
+
 					if (WMPRI.bSkillDeluxe[i] == 1)
 					{
 						ItemObject.SetString("label", WMGRI.skillUpgrades[i].default.upgradeName $ " [Deluxe]");
@@ -233,11 +233,11 @@ function Callback_InventoryFilter( int FilterIndex )
 						tempPrice = WMGRI.skillPrice;
 					}
 					ItemObject.SetInt("count", tempPrice);
-					
+
 					ItemObject.SetString("iconURLSmall", S);
 					S = "img://"$PathName(WMGRI.skillUpgrades_Perk[i].static.GetupgradeIcon(0));
 					ItemObject.SetString("iconURLLarge", S);
-					
+
 					ItemObject.SetString("price", "");
 					ItemObject.Setstring("typeRarity", "");
 					ItemObject.SetBool("exchangeable", false);
@@ -248,7 +248,6 @@ function Callback_InventoryFilter( int FilterIndex )
 						ItemObject.SetInt("type", 1);
 						ItemObject.SetBool("active", true);
 						ItemObject.SetInt("rarity", 0);
-						
 					}
 					else
 					{
@@ -275,15 +274,15 @@ function Callback_InventoryFilter( int FilterIndex )
 				lvl = WMPRI.GetWeaponUpgrade(i);
 				if (CurrentBuyType == "weapon" && CurrentBuyIndex == i)
 					lvl = CurrentBuyLvl;
-				
+
 				maxLevel = WMGRI.weaponMaxLevel;
-				
+
 				// Is it fully bought?
 				if (lvl >= maxLevel)
 					bPurchased = true;
 				else
 					bPurchased = false;
-				
+
 				// Create info arch
 				if ((CurrentUpgradeFilter == EWMInv_All) || (CurrentUpgradeFilter == EWMInv_Available && !bPurchased) || (CurrentUpgradeFilter == EWMInv_Purchased && bPurchased))
 				{
@@ -291,7 +290,7 @@ function Callback_InventoryFilter( int FilterIndex )
 						--lvl;
 					ItemObject = CreateObject("Object");
 					ItemObject.SetInt("count", WMGRI.weaponUpgrade_Price[i] * (lvl + 1));
-					
+
 					if (maxLevel > 1)
 					{
 						if (bPurchased)
@@ -299,7 +298,7 @@ function Callback_InventoryFilter( int FilterIndex )
 						else
 							ItemObject.SetString("label", WMGRI.weaponUpgrade_Upgrade[i].default.upgradeName $ " (" $ lvl $ "/" $ maxLevel $ ")");
 					}
-					
+
 					ItemObject.SetString("price", "");
 					ItemObject.Setstring("typeRarity", "");
 					ItemObject.SetBool("exchangeable", false);
@@ -396,22 +395,22 @@ function string GetUpgradeDescription(int index, int lvl, WMGameReplicationInfo 
 	local string str, textColor;
 	local bool bFirstSkill;
 	local int i;
-	
+
 	// write list of passive bonuses
 	if (WMGRI.perkUpgrades[index].default.upgradeDescription.length == 0)
 		return "";
 	else
 		str = repl(WMGRI.perkUpgrades[index].default.upgradeDescription[0], "%x%", WMGRI.perkUpgrades[index].static.GetBonusValue(0, lvl + 1));
 
-	for (i=1; i<WMGRI.perkUpgrades[index].default.upgradeDescription.length; i+=1)
+	for (i = 1; i < WMGRI.perkUpgrades[index].default.upgradeDescription.length; ++i)
 	{
 		str = str $ "\n" $ repl(WMGRI.perkUpgrades[index].default.upgradeDescription[i], "%x%", WMGRI.perkUpgrades[index].static.GetBonusValue(i, lvl + 1));
 	}
-	
+
 	// write associated skills (and use different colors for locked, unlocked and bought skills)
 	bFirstSkill = true;
 	str = str $ "\n\n\n\n Buying this upgrade will unlocked one of these skills :\n";
-	for (i=0; i<WMGRI.skillUpgrades.length; i+=1)
+	for (i = 0; i < WMGRI.skillUpgrades.length; ++i)
 	{
 		if (WMGRI.skillUpgrades_Perk[i] == WMGRI.perkUpgrades[index])
 		{
@@ -431,7 +430,7 @@ function string GetUpgradeDescription(int index, int lvl, WMGameReplicationInfo 
 			}
 			else
 				textColor = "919191";
-			
+
 			if (bFirstSkill)
 			{
 				str = str $ "\n   <font color=\"#" $textColor$ "\">" $WMGRI.skillUpgrades[i].default.upgradeName$ "</font>";
@@ -443,9 +442,8 @@ function string GetUpgradeDescription(int index, int lvl, WMGameReplicationInfo 
 	}
 	if (!bFirstSkill)
 		str = str $ ".";
-	
-	return str;
 
+	return str;
 }
 
 // Upgrade Filter
@@ -454,20 +452,20 @@ function Callback_RarityTypeFilterChanged(int NewFilterIndex)
 	CurrentUpgradeFilter = EWMINV_Filter(NewFilterIndex);
 	if (WMPlayerController(KFPC) != none)
 		WMPlayerController(KFPC).UPG_UpgradeListIndex = NewFilterIndex;
-	Refresh();	
+	Refresh();
 }
 
 function bool isWeaponInInventory(class< KFWeapon > weaponClass)
 {
 	local KFWeapon Weapon;
-	
+
 	foreach Owner.InvManager.InventoryActors(class'KFWeapon',Weapon)
 	{
-		if ( ClassIsChildOf(Weapon.Class, weaponClass) && ClassIsChildOf(weaponClass, Weapon.Class) )
+		if (ClassIsChildOf(Weapon.Class, weaponClass) && ClassIsChildOf(weaponClass, Weapon.Class))
 			return true;
-		else if ( Weapon.DualClass != none && ClassIsChildOf(Weapon.DualClass, weaponClass) && ClassIsChildOf(weaponClass, Weapon.DualClass) )
+		else if (Weapon.DualClass != none && ClassIsChildOf(Weapon.DualClass, weaponClass) && ClassIsChildOf(weaponClass, Weapon.DualClass))
 			return true;
-		else if ( KFWeap_DualBase(Weapon) != none && ClassIsChildOf(KFWeap_DualBase(Weapon).default.SingleClass, weaponClass) && ClassIsChildOf(weaponClass, KFWeap_DualBase(Weapon).default.SingleClass) )
+		else if (KFWeap_DualBase(Weapon) != none && ClassIsChildOf(KFWeap_DualBase(Weapon).default.SingleClass, weaponClass) && ClassIsChildOf(weaponClass, KFWeap_DualBase(Weapon).default.SingleClass))
 			return true;
 	}
 	return false;
@@ -476,21 +474,21 @@ function bool isWeaponInInventory(class< KFWeapon > weaponClass)
 function CallBack_RequestWeaponCraftInfo() // Vote to skip trader
 {
 	local KFGameReplicationInfo KFGRI;
-	
+
 	KFGRI = KFGameReplicationInfo(KFPC.WorldInfo.GRI);
 	if (KFPRI != none &&KFGRI != none && KFGRI.bTraderIsOpen)
 		KFPRI.RequestSkiptTrader( KFPRI );
-	
+
 	//refresh button
 	UpdateCraftButtons();
-	
+
 	Manager.CloseMenu();
 }
 
 function UpdateCraftButtons()
 {
 	local GFxObject ItemListContainer, CraftWeaponButton;
-	
+
 	ItemListContainer = GetObject("inventoryListContainer");
 	if(ItemListContainer != none && KFPRI != none)
 	{
@@ -525,7 +523,7 @@ function CallBack_ItemDetailsClicked(int ItemDefinition)
 	local int price;
 	local WMGameReplicationInfo WMGRI;
 	local WMPlayerReplicationInfo WMPRI;
-	
+
 	WMPRI = WMPlayerReplicationInfo(KFPC.PlayerReplicationInfo);
 
 	if (!WMPRI.syncCompleted && WMPRI.SyncTimerActive())
@@ -536,10 +534,10 @@ function CallBack_ItemDetailsClicked(int ItemDefinition)
 
 	WMGRI = WMGameReplicationInfo(GetPC().WorldInfo.GRI);
 	Index = ItemDefinition;
-	
+
 	if (Owner != none)
 		Owner.PlaySoundBase(default.selectSound, true);
-	
+
 	//Upgrades
 	if (CurrentFilterIndex==0) //Perk Upgrades
 	{
@@ -553,7 +551,7 @@ function CallBack_ItemDetailsClicked(int ItemDefinition)
 	{
 		Index = skillUPGIndex[Index];
 		lvl = WMPRI.bSkillUpgrade[Index];
-		
+
 		if (WMPRI.bSkillDeluxe[Index] == 1)
 			price = WMGRI.skillDeluxePrice;
 		else
@@ -633,7 +631,7 @@ function Callback_Equip( int ItemDefinition )
 			price = WMGRI.skillDeluxePrice;
 		else
 			price = WMGRI.skillPrice;
-		
+
 		if (KFPRI.Score >= price)
 		{
 			if (WMPC.WorldInfo.NetMode != NM_Standalone)
@@ -692,14 +690,14 @@ function int GetPerkRelatedIndex(int SkillIndex)
 	//return Skill perk related index
 	local byte i;
 	local WMGameReplicationInfo WMGRI;
-	
+
 	WMGRI = WMGameReplicationInfo(GetPC().WorldInfo.GRI);
-	for (i=0; i<WMGRI.skillUpgrades_Perk.length; i+=1)
+	for (i = 0; i < WMGRI.skillUpgrades_Perk.length; ++i)
 	{
 		if (WMGRI.perkUpgrades[i] == WMGRI.skillUpgrades_Perk[SkillIndex])
 			return i;
 	}
-	
+
 	return 0;
 }
 
@@ -710,12 +708,12 @@ function UnlockRandomSkill(Class< WMUpgrade_Perk > perkClass, bool bShouldBeDelu
 	local WMGameReplicationInfo WMGRI;
 	local WMPlayerController WMPC;
 	local WMPlayerReplicationInfo WMPRI;
-	
+
 	WMGRI = WMGameReplicationInfo(GetPC().WorldInfo.GRI);
 	WMPRI = WMPlayerReplicationInfo(KFPC.PlayerReplicationInfo);
 	WMPC = WMPlayerController(KFPC);
-	
-	for (i=0;i<WMGRI.skillUpgrades.length;i+=1)
+
+	for (i = 0; i < WMGRI.skillUpgrades.length; ++i)
 	{
 		if (WMGRI.skillUpgrades_Perk[i] == perkClass && WMPRI.bSkillUnlocked[i] == 0)
 			availableIndex.AddItem(i);
@@ -728,8 +726,8 @@ function UnlockRandomSkill(Class< WMUpgrade_Perk > perkClass, bool bShouldBeDelu
 		WMPRI.bSkillUnlocked[availableIndex[choice]] = 1;
 		if (bShouldBeDeluxe)
 			WMPRI.bSkillDeluxe[availableIndex[choice]] = 1;
-		
-		skillLastUnlocked = availableIndex[choice]+1;
+
+		skillLastUnlocked = availableIndex[choice] + 1;
 	}
 }
 
