@@ -62,7 +62,7 @@ function UpdateText()
 		LocalizedObject.SetString("recycle", "");
 		LocalizedObject.SetString("inventory", "Upgrade Menu");
 
-		LocalizedObject.SetString("filters", "Upgrade Menu");
+		LocalizedObject.SetString("filters", "Loadout");
 		LocalizedObject.SetString("all", "Perk Upgrades");
 		LocalizedObject.SetString("weaponSkins", "Skill Upgrades");
 		LocalizedObject.SetString("cosmetics", "Weapon Upgrades");
