@@ -2,14 +2,11 @@ Class WMUI_UPGMenu extends GFxObject;
 
 var WMUI_Menu Manager;
 var GFxObject ItemDetailsContainer,EquipButton;
-var int CurrentFilterIndex;
-var int CurrentBuyIndex;
+var int CurrentFilterIndex, CurrentBuyIndex, CurrentBuyLvl, skillLastUnlocked;
 var string CurrentBuyType;
-var int CurrentBuyLvl;
 var KFPawn_Human Owner;
 var KFPlayerController KFPC;
 var KFPlayerReplicationInfo KFPRI;
-var int skillLastUnlocked;
 var array< int > perkUPGIndex, weaponUPGIndex, skillUPGIndex, GrenadeIndex;
 
 var AkBaseSoundObject selectSound, perkSound, skillSound, weaponSound;
@@ -45,9 +42,7 @@ function InitializeMenu(WMUI_Menu Manag)
 
 function UpdateText()
 {
-	local GFxObject LocalizedObject;
-	local GFxObject UpgradeList;
-	local GFxObject TempObject;
+	local GFxObject LocalizedObject, UpgradeList, TempObject;
 
 	LocalizedObject = GetObject("localizedText");
 	if (LocalizedObject == None)
@@ -102,12 +97,9 @@ function UpdateText()
 function Callback_InventoryFilter( int FilterIndex )
 {
 	local GFxObject ItemArray, ItemObject;
-	local int i, j;
-	local int tempPrice;
-	local int maxLevel;
+	local int i, j, tempPrice, maxLevel, lvl;
 	local string S;
 	local bool bPurchased;
-	local int lvl;
 	local WMGameReplicationInfo WMGRI;
 	local WMPlayerController WMPC;
 	local WMPlayerReplicationInfo WMPRI;
@@ -503,7 +495,6 @@ function CallBack_RequestCosmeticCraftInfo() // Close menu.
 	Manager.CloseMenu();
 }
 
-
 function Refresh()
 {
 	Callback_InventoryFilter(CurrentFilterIndex);
@@ -518,9 +509,7 @@ function Callback_RequestInitialnventory()
 
 function CallBack_ItemDetailsClicked(int ItemDefinition)
 {
-	local int Index;
-	local int lvl;
-	local int price;
+	local int Index, lvl, price;
 	local WMGameReplicationInfo WMGRI;
 	local WMPlayerReplicationInfo WMPRI;
 
@@ -539,7 +528,7 @@ function CallBack_ItemDetailsClicked(int ItemDefinition)
 		Owner.PlaySoundBase(default.selectSound, true);
 
 	//Upgrades
-	if (CurrentFilterIndex==0) //Perk Upgrades
+	if (CurrentFilterIndex == 0) //Perk Upgrades
 	{
 		Index = perkUPGIndex[Index];
 		lvl = WMPRI.bPerkUpgrade[Index];
@@ -562,9 +551,9 @@ function CallBack_ItemDetailsClicked(int ItemDefinition)
 	{
 		Index = weaponUPGIndex[Index];
 		lvl = WMPRI.GetWeaponUpgrade(Index);
-		EquipButton.SetString("label", ""$WMGRI.weaponUpgrade_Price[Index]*(lvl+1)$Chr(163));
+		EquipButton.SetString("label", ""$WMGRI.weaponUpgrade_Price[Index] * (lvl + 1)$Chr(163));
 	}
-	else if(CurrentFilterIndex==3 || CurrentFilterIndex==4)//Knives and Grenades
+	else if(CurrentFilterIndex == 3 || CurrentFilterIndex == 4)//Knives and Grenades
 	{
 		EquipButton.SetString("label", "Equip");
 	}
@@ -572,10 +561,7 @@ function CallBack_ItemDetailsClicked(int ItemDefinition)
 
 function Callback_Equip( int ItemDefinition )
 {
-	local int Index;
-	local int lvl;
-	local int price;
-	local int maxLevel;
+	local int Index, lvl, maxLevel, price;
 
 	local WMGameReplicationInfo WMGRI;
 	local WMPlayerController WMPC;
