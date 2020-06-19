@@ -414,10 +414,11 @@ function ApplyRandomZedBuff(int Wave, bool bRewardPlayer, byte count)
 				else
 					doshNewPlayer += class'ZedternalReborn.Config_ZedBuff'.static.GetDoshBonus(GameDifficulty) * doshMultiplier;
 			}
+
+			// play bosses music to stress players
+			WMGRI.ForceNewMusicZedBuff();
 		}
 
-		// play bosses music to stress players
-		WMGRI.ForceNewMusicZedBuff();
 		RepairDoor();
 	}
 }
