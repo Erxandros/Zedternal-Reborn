@@ -332,9 +332,7 @@ function CheckZedBuff()
 	local byte count;
 
 	if (class'ZedternalReborn.Config_ZedBuff'.static.IsWaveBuffZed(WaveNum + 1, count))
-	{
 		ApplyRandomZedBuff(WaveNum + 1, true, count);
-	}
 }
 
 // Used when starting match at higher wave
@@ -345,9 +343,7 @@ function CheckForPreviousZedBuff()
 	for (testedWave = 1; testedWave <= WaveNum + 1; ++testedWave)
 	{
 		if (class'ZedternalReborn.Config_ZedBuff'.static.IsWaveBuffZed(testedWave, count))
-		{
 			ApplyRandomZedBuff(testedWave, false, count);
-		}
 	}
 }
 
@@ -406,7 +402,6 @@ function ApplyRandomZedBuff(int Wave, bool bRewardPlayer, byte count)
 							KFPlayerReplicationInfo(KFPC.PlayerReplicationInfo).AddDosh(class'ZedternalReborn.Config_ZedBuff'.static.GetDoshBonus(CustomDifficulty) * doshMultiplier, true);
 						else
 							KFPlayerReplicationInfo(KFPC.PlayerReplicationInfo).AddDosh(class'ZedternalReborn.Config_ZedBuff'.static.GetDoshBonus(GameDifficulty) * doshMultiplier, true);
-
 					}
 				}
 				if (CustomMode)
@@ -464,9 +459,7 @@ function OpenTrader()
 			timeMultiplier = 1; //If WMGRI is not available, default to 1
 
 		if (class'ZedternalReborn.Config_ZedBuff'.default.ZedBuff_bBonusTraderTimeGivenPerBuff)
-		{
 			timeMultiplier = Min(timeMultiplier, count);
-		}
 		else
 			timeMultiplier = 1;
 
