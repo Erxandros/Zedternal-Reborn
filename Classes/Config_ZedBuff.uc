@@ -9,6 +9,8 @@ struct S_BuffWaves
 };
 
 var config bool ZedBuff_bEnable;
+var config bool ZedBuff_bBonusDoshGivenPerBuff;
+var config bool ZedBuff_bBonusTraderTimeGivenPerBuff;
 
 var config S_BuffWaves ZedBuff_BuffWaves;
 
@@ -171,6 +173,12 @@ static function UpdateConfig()
 		default.ZedBuff_HardAttackChanceIncPerWave = 0.030000;
 	}
 
+	if (default.MODEVERSION < 4)
+	{
+		default.ZedBuff_bBonusDoshGivenPerBuff = false;
+		default.ZedBuff_bBonusTraderTimeGivenPerBuff = false;
+	}
+
 	if (default.MODEVERSION < class'ZedternalReborn.Config_Base'.default.currentVersion)
 	{
 		default.MODEVERSION = class'ZedternalReborn.Config_Base'.default.currentVersion;
@@ -178,20 +186,24 @@ static function UpdateConfig()
 	}
 }
 
-static function bool IsWaveBuffZed(int Wave)
+static function bool IsWaveBuffZed(int Wave, out byte count)
 {
 	local int i;
-	
+
 	if (!default.ZedBuff_bEnable)
 		return false;
-	
+
+	count = 0;
 	for (i = 0; i < default.ZedBuff_BuffWaves.Waves.length; ++i)
 	{
 		if (default.ZedBuff_BuffWaves.Waves[i] == Wave)
-			return true;
+			++count;
+
+		if (count >= 255)
+			break;
 	}
-	
-	return false;
+
+	return count > 0;
 }
 
 static function int GetTraderTimeBonus(int Difficulty)
@@ -225,7 +237,7 @@ static function int GetDoshBonus(int Difficulty)
 static function float GetMaxHealthBuff(float mod, int Difficulty, int WaveNum)
 {
 	local float factor, power, wave;
-	
+
 	switch (Difficulty)
 	{
 		case 0 :	factor = default.ZedBuff_MaxHealthIncPerWave.Normal;	power = default.ZedBuff_MaxHealthPowerPerWave.Normal;		break;
@@ -242,7 +254,7 @@ static function float GetMaxHealthBuff(float mod, int Difficulty, int WaveNum)
 static function float GetMaxHealthBuff_LargeZed(float mod, int Difficulty, int WaveNum)
 {
 	local float factor, power, wave;
-	
+
 	switch (Difficulty)
 	{
 		case 0 :	factor = default.ZedBuff_MaxHealthIncPerWave_LargeZed.Normal;	power = default.ZedBuff_MaxHealthPowerPerWave_LargeZed.Normal;		break;
@@ -259,7 +271,7 @@ static function float GetMaxHealthBuff_LargeZed(float mod, int Difficulty, int W
 static function float GetDamageBuff(float mod, int Difficulty, int WaveNum)
 {
 	local float factor, power, wave;
-	
+
 	switch (Difficulty)
 	{
 		case 0 :	factor = default.ZedBuff_DamageIncPerWave.Normal;	power = default.ZedBuff_DamagePowerPerWave.Normal;		break;
@@ -276,7 +288,7 @@ static function float GetDamageBuff(float mod, int Difficulty, int WaveNum)
 static function float GetSpeedBuff(float mod, int Difficulty, int WaveNum)
 {
 	local float factor, power, wave;
-	
+
 	switch (Difficulty)
 	{
 		case 0 :	factor = default.ZedBuff_SpeedIncPerWave.Normal;	power = default.ZedBuff_SpeedPowerPerWave.Normal;		break;
@@ -285,7 +297,7 @@ static function float GetSpeedBuff(float mod, int Difficulty, int WaveNum)
 		case 3 :	factor = default.ZedBuff_SpeedIncPerWave.HoE;		power = default.ZedBuff_SpeedPowerPerWave.HoE;			break;
 		default:	factor = default.ZedBuff_SpeedIncPerWave.Custom;	power = default.ZedBuff_SpeedPowerPerWave.Custom;		break;
 	}
-	
+
 	wave = float(WaveNum - 1);
 	return (mod + factor * wave) ** (1.f + power * wave);
 }
@@ -293,7 +305,7 @@ static function float GetSpeedBuff(float mod, int Difficulty, int WaveNum)
 static function float GetSprintChanceBuff(int Difficulty, int WaveNum)
 {
 	local float factor;
-	
+
 	switch (Difficulty)
 	{
 		case 0 :	factor = default.ZedBuff_SprintChanceIncPerWave.Normal;		break;
