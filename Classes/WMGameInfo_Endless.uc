@@ -448,22 +448,24 @@ function OpenTrader()
 
 	if (class'ZedternalReborn.Config_ZedBuff'.static.IsWaveBuffZed(WaveNum + 1, count))
 	{
+		WMGRI = WMGameReplicationInfo(MyKFGRI);
+
+		if (WMGRI != none)
+		{
+			//Check to see if any Zed buffs are available
+			timeMultiplier = 0;
+			for (i = 0; i < Min(255, WMGRI.zedBuffs.length); ++i)
+			{
+				if (WMGRI.bZedBuffs[i] == 0 && class'ZedternalReborn.Config_ZedBuff'.default.ZedBuff_BuffPath[i].minWave <= WaveNum + 1 && class'ZedternalReborn.Config_ZedBuff'.default.ZedBuff_BuffPath[i].maxWave >= WaveNum)
+					++timeMultiplier;
+			}
+		}
+		else
+			timeMultiplier = 1; //If WMGRI is not available, default to 1
+
 		if (class'ZedternalReborn.Config_ZedBuff'.default.ZedBuff_bBonusTraderTimeGivenPerBuff)
 		{
-			WMGRI = WMGameReplicationInfo(MyKFGRI);
-			if (WMGRI != none)
-			{
-				timeMultiplier = 0;
-				for (i = 0; i < Min(255, WMGRI.zedBuffs.length); ++i)
-				{
-					if (WMGRI.bZedBuffs[i] == 0 && class'ZedternalReborn.Config_ZedBuff'.default.ZedBuff_BuffPath[i].minWave <= WaveNum + 1 && class'ZedternalReborn.Config_ZedBuff'.default.ZedBuff_BuffPath[i].maxWave >= WaveNum)
-						++timeMultiplier;
-				}
-
-				timeMultiplier = Min(timeMultiplier, count);
-			}
-			else
-				timeMultiplier = 1;
+			timeMultiplier = Min(timeMultiplier, count);
 		}
 		else
 			timeMultiplier = 1;
