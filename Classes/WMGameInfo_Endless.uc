@@ -346,7 +346,7 @@ function CheckForPreviousZedBuff()
 	{
 		if (class'ZedternalReborn.Config_ZedBuff'.static.IsWaveBuffZed(testedWave, count))
 		{
-			ApplyRandomZedBuff(WaveNum + 1, false, count);
+			ApplyRandomZedBuff(testedWave, false, count);
 		}
 	}
 }
@@ -365,7 +365,7 @@ function ApplyRandomZedBuff(int Wave, bool bRewardPlayer, byte count)
 		// build available buff list
 		for (i = 0; i < Min(255, WMGRI.zedBuffs.length); ++i)
 		{
-			if (WMGRI.bZedBuffs[i] == 0 && class'ZedternalReborn.Config_ZedBuff'.default.ZedBuff_BuffPath[i].minWave <= Wave && class'ZedternalReborn.Config_ZedBuff'.default.ZedBuff_BuffPath[i].maxWave >= WaveNum)
+			if (WMGRI.bZedBuffs[i] == 0 && class'ZedternalReborn.Config_ZedBuff'.default.ZedBuff_BuffPath[i].minWave <= Wave && class'ZedternalReborn.Config_ZedBuff'.default.ZedBuff_BuffPath[i].maxWave >= Wave)
 				buffIndex.AddItem(i);
 		}
 
@@ -456,7 +456,7 @@ function OpenTrader()
 			timeMultiplier = 0;
 			for (i = 0; i < Min(255, WMGRI.zedBuffs.length); ++i)
 			{
-				if (WMGRI.bZedBuffs[i] == 0 && class'ZedternalReborn.Config_ZedBuff'.default.ZedBuff_BuffPath[i].minWave <= WaveNum + 1 && class'ZedternalReborn.Config_ZedBuff'.default.ZedBuff_BuffPath[i].maxWave >= WaveNum)
+				if (WMGRI.bZedBuffs[i] == 0 && class'ZedternalReborn.Config_ZedBuff'.default.ZedBuff_BuffPath[i].minWave <= WaveNum + 1 && class'ZedternalReborn.Config_ZedBuff'.default.ZedBuff_BuffPath[i].maxWave >= WaveNum + 1)
 					++timeMultiplier;
 			}
 		}
