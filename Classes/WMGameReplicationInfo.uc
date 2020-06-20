@@ -21,7 +21,7 @@ var int perkMaxLevel;
 var int skillPrice;
 var int skillDeluxePrice;
 var int weaponMaxLevel;
-var int bZedBuffs[255];
+var byte bZedBuffs[255];
 
 var repnotify string weaponUpgrade_WeaponStr_A[255];
 var repnotify string weaponUpgrade_UpgradeStr_A[255];
