@@ -14,7 +14,7 @@ var int SpecialWaveID[2];
 var repnotify bool bNewZedBuff;
 var int startingWeapon, newWeaponEachWave, maxWeapon, staticWeapon;
 var int ArmorPrice;
-var repnotify int TraderVoiceGroupIndex;
+var repnotify byte TraderVoiceGroupIndex;
 
 var int perkPrice[255];
 var int perkMaxLevel;
@@ -54,9 +54,9 @@ var array< class<KFWeaponDefinition> > Grenades;
 var array< class<WMZedBuff> > zedBuffs;
 var bool bDrawSpecialWave;
 var byte specialWaveIndexToShow;
-var int zedBuff_nextMusicTrackIndex;
-var array< KFMusicTrackInfo > ZedBuffMusic;
 
+var byte zedBuff_nextMusicTrackIndex;
+var array< KFMusicTrackInfo > ZedBuffMusic;
 var array< class<KFTraderVoiceGroupBase> > TraderVoiceGroupClasses;
 
 replication
