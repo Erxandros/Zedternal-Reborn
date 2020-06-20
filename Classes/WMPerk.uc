@@ -57,8 +57,20 @@ struct WM_PassivePerk
 	var string IconPath;
 };
 
+var byte KnifeIndexFromClient;
+
+simulated function PreBeginPlay()
+{
+	super.PreBeginPlay();
+
+	if (WMPlayerController(OwnerPC) != none)
+		GetKnifeIndexFromClient();
+}
+
 simulated function PostBeginPlay()
 {
+	super.PostBeginPlay();
+
 	if (Owner != none)
 	{
 		MyWMPRI = WMPlayerReplicationInfo(KFPlayerController(Owner).PlayerReplicationInfo);
@@ -66,8 +78,6 @@ simulated function PostBeginPlay()
 			MyWMPRI = WMPlayerReplicationInfo(MyPRI);
 	}
 	MyWMGRI = WMGameReplicationInfo(WorldInfo.GRI);
-	
-	super.PostBeginPlay();
 }
 
 function bool ShouldGetAllTheXP()
@@ -155,7 +165,7 @@ function AddDefaultInventory( KFPawn P )
 		}
 		else
 			P.DefaultInventory.AddItem(class<Weapon>(DynamicLoadObject(GetPrimaryWeaponClassPath(), class'Class')));
-		
+
 		// Secondary weapon is spawned through the pawn unless we want an additional one  not anymore
 		P.DefaultInventory.AddItem(class<Weapon>(DynamicLoadObject(GetSecondaryWeaponClassPath(), class'Class')));
 		P.DefaultInventory.AddItem(class<Weapon>(DynamicLoadObject(GetKnifeWeaponClassPath(), class'Class')));
@@ -168,24 +178,35 @@ simulated function string GetPrimaryWeaponClassPath()
 	AutoBuyLoadOutPath.InsertItem(0,PrimaryWeaponPaths[StartingWeaponClassIndex]);
     return PrimaryWeaponPaths[StartingWeaponClassIndex].default.WeaponClassPath;
 }
-simulated function string GetKnifeWeaponClassPath()
+
+reliable server function SetKnifeIndexFromClient(byte index)
 {
-	local byte index;
+	KnifeIndexFromClient = index;
+}
+
+reliable client function GetKnifeIndexFromClient()
+{
 	local WMPlayerController WMPC;
-	
+	local byte index;
 	WMPC = WMPlayerController(OwnerPC);
+
 	if (WMPC != none)
-	{
 		index = WMPC.KnifeIndex;
-		if (index < 0 || index > KnivesWeaponDef.length)
-			index = 0;
-	}
 	else
 		index = 0;
-	
-	KnifeWeaponDef = KnivesWeaponDef[index];
-    return KnifeWeaponDef.default.WeaponClassPath;
+
+	SetKnifeIndexFromClient(index);
 }
+
+simulated function string GetKnifeWeaponClassPath()
+{
+	if (KnifeIndexFromClient < 0 || KnifeIndexFromClient > KnivesWeaponDef.length)
+		KnifeIndexFromClient = 0;
+
+	KnifeWeaponDef = KnivesWeaponDef[KnifeIndexFromClient];
+	return KnifeWeaponDef.default.WeaponClassPath;
+}
+
 function bool ShouldAutosellWeapon(class<KFWeaponDefinition> DefClass)
 {
     //Because survivalists get a random first weapon in their auto buy load out, if they ever swap 
