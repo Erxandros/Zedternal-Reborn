@@ -10,8 +10,8 @@ var config byte KnifeIndex;
 simulated event PostBeginPlay()
 {
 	super.PostBeginPlay();
-	PerkList.Length=1;
-	PerkList[0].PerkClass=Class'ZedternalReborn.WMPerk';
+	PerkList.Length = 1;
+	PerkList[0].PerkClass = Class'ZedternalReborn.WMPerk';
 
 	SetTimer(2.f, true, nameof(UpdatePerkIcon));
 }
@@ -241,7 +241,8 @@ simulated function string GetPerkIconPath()
 	local WMGameReplicationInfo WMGRI;
 	local int tries;
 
-	WMPRI = WMPlayerReplicationInfo(Pawn.PlayerReplicationInfo);
+	if (Pawn != none)
+		WMPRI = WMPlayerReplicationInfo(Pawn.PlayerReplicationInfo);
 	WMGRI = WMGameReplicationInfo(WorldInfo.GRI);
 
 	bShouldUpdateHUDPerkIcon = false;
@@ -267,7 +268,7 @@ simulated function string GetPerkIconPath()
 
 simulated function UpdatePerkIcon()
 {
-	bShouldUpdateHUDPerkIcon=true;
+	bShouldUpdateHUDPerkIcon = true;
 }
 
 defaultproperties
