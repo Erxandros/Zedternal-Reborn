@@ -4,6 +4,7 @@ class WMPlayerController extends KFPlayerController
 var int HUD_perkIndex;
 var int UPG_UpgradeListIndex;
 var bool bShouldUpdateHUDPerkIcon;
+var bool bShouldUpdateGrenadeIcon;
 
 var config byte KnifeIndex;
 var config string GrenadePath;
@@ -213,6 +214,8 @@ simulated function ChangeGrenade(int Index)
 	CurrentPerk.GrenadeClass = class<KFProj_Grenade>(DynamicLoadObject(CurrentPerk.GrenadeWeaponDef.default.WeaponClassPath, class'Class'));
 	ChangeGrenadeServer(Index);
 
+	bShouldUpdateGrenadeIcon = true;
+
 	GrenadePath = WMGameReplicationInfo(WorldInfo.GRI).grenadesStr[Index];
 	SaveConfig();
 }
@@ -313,6 +316,7 @@ defaultproperties
 {
 	HUD_perkIndex=-1
 	bShouldUpdateHUDPerkIcon=true
+	bShouldUpdateGrenadeIcon=true
 	UPG_UpgradeListIndex=1
 	PerkList(0)=(PerkClass=Class'ZedternalReborn.WMPerk')
 	ServPendingPerkBuild=-1
