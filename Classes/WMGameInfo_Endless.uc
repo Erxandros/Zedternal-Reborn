@@ -154,6 +154,9 @@ event PostLogin(PlayerController NewPlayer)
 
 	if (WMPRI != none)
 		RepPlayerInfo(WMPRI);
+
+	if (WMPC != none)
+		WMPC.SetPreferredGrenadeTimer();
 }
 
 /** Set up the spawning */

@@ -6,6 +6,7 @@ var int UPG_UpgradeListIndex;
 var bool bShouldUpdateHUDPerkIcon;
 
 var config byte KnifeIndex;
+var config string GrenadePath;
 
 simulated event PostBeginPlay()
 {
@@ -172,11 +173,48 @@ function DelayedPerkUpdate(float TimeOffset)
 	SetTimer(TimeOffset + 2.5f, false, nameof(UpdateWeaponMagAndCap));
 }
 
+reliable client function SetPreferredGrenadeTimer()
+{
+	SetTimer(3.0f, true, nameof(CheckPreferredGrenade));
+}
+
+simulated function CheckPreferredGrenade()
+{
+	local WMGameReplicationInfo WMGRI;
+	local byte i;
+	local bool bFound;
+
+	WMGRI = WMGameReplicationInfo(WorldInfo.GRI);
+	if (WMGRI != none && WMGRI.Grenades.length > 0)
+	{
+		ClearTimer(nameof(CheckPreferredGrenade));
+
+		bFound = false;
+		for (i = 0; i < 255; ++i)
+		{
+			if (WMGRI.grenadesStr[i] ~= "")
+				break;
+
+			if (WMGRI.grenadesStr[i] ~= GrenadePath)
+			{
+				bFound = true;
+				break;
+			}
+		}
+
+		if (bFound)
+			ChangeGrenade(i);
+	}
+}
+
 simulated function ChangeGrenade(int Index)
 {
 	CurrentPerk.GrenadeWeaponDef = WMGameReplicationInfo(WorldInfo.GRI).Grenades[Index];
 	CurrentPerk.GrenadeClass = class<KFProj_Grenade>(DynamicLoadObject(CurrentPerk.GrenadeWeaponDef.default.WeaponClassPath, class'Class'));
 	ChangeGrenadeServer(Index);
+
+	GrenadePath = WMGameReplicationInfo(WorldInfo.GRI).grenadesStr[Index];
+	SaveConfig();
 }
 
 reliable server function ChangeGrenadeServer(int Index)
