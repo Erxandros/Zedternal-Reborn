@@ -240,6 +240,10 @@ function SetupNextWave(byte NextWaveIndex, int TimeToNextWaveBuffer = 0)
 
 	// 7) round result
 	waveValue = int(tempWaveValue);
+
+	//Check for integer overflow
+	if (waveValue < 0)
+		waveValue = 2147483647;
 	
 	`Log("Wave's Value = "$waveValue);
 
