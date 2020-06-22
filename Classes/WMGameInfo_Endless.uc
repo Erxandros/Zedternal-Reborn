@@ -30,7 +30,7 @@ var array<S_Weapon_Upgrade> weaponUpgradeArch;
 event InitGame( string Options, out string ErrorMessage )
 {
 	// starting wave can be set through the console while launching the mod (by adding : ?wave=XXX)
-	startingWave = Min(Max(class'GameInfo'.static.GetIntOption(Options, "wave", 1) - 1, 0), 199);
+	startingWave = Min(Max(class'GameInfo'.static.GetIntOption(Options, "wave", 1) - 1, 0), 254);
 
 	// starting dosh can be set through the console while launching the mod (by adding : ?dosh=XXX)
 	startingDosh = class'GameInfo'.static.GetIntOption(Options, "dosh", 0);
@@ -341,7 +341,8 @@ function CheckZedBuff()
 // Used when starting match at higher wave
 function CheckForPreviousZedBuff()
 {
-	local byte testedWave, count;
+	local int testedWave;
+	local byte count;
 
 	for (testedWave = 1; testedWave <= WaveNum + 1; ++testedWave)
 	{
