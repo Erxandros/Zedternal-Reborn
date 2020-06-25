@@ -18,6 +18,7 @@ var config array< SSpecialWave > SpecialWave_SpecialWaves;
 static function UpdateConfig()
 {
 	local int i;
+	local SSpecialWave sWave;
 
 	if (default.MODEVERSION < 1)
 	{
@@ -99,6 +100,17 @@ static function UpdateConfig()
 		default.SpecialWave_SpecialWaves[40].Path = "ZedternalReborn.WMSpecialWave_TheHorde";
 		default.SpecialWave_SpecialWaves[40].MinWave = 7;
 		default.SpecialWave_SpecialWaves[40].MaxWave = 999;
+	}
+
+	if (default.MODEVERSION < 4)
+	{
+		if (default.SpecialWave_SpecialWaves.Find('Path', "ZedternalReborn.WMSpecialWave_InstaKill") == -1)
+		{
+			sWave.Path = "ZedternalReborn.WMSpecialWave_InstaKill";
+			sWave.MinWave = 0;
+			sWave.MaxWave = 15;
+			default.SpecialWave_SpecialWaves.AddItem(sWave);
+		}
 	}
 
 	if (default.MODEVERSION < class'ZedternalReborn.Config_Base'.default.currentVersion)
