@@ -20,7 +20,7 @@ function PostBeginPlay()
 function UpdateZed()
 {
 	local KFPawn_Monster KFM;
-	
+
 	foreach DynamicActors(class'KFPawn_Monster', KFM)
 	{
 		if (!KFM.bUseDamageInflation)
@@ -37,17 +37,17 @@ function UpdateZed()
 
 defaultproperties
 {
-   Title="Up, Up and Decay"
-   Description="Try to make ninety-nine Zed balloons!"
-   zedSpawnRateFactor=1.000000
-   waveValueFactor=1.000000
-   
-   ZeroHealthInflation=3.000000
-   InflationDeathGravity=-0.570000
-   InflationExplosionTimer=1.700000
-   GlobalDeflationRate=0.100000
-   Damage=0.500000
-   DamageBloat=1.250000
-   
-   Name="Default__WMSpecialWave_UpUpDecay"
+	Title="Up, Up and Decay"
+	Description="Try to make ninety-nine Zed balloons!"
+	zedSpawnRateFactor=1.000000
+	waveValueFactor=1.000000
+
+	ZeroHealthInflation=3.000000
+	InflationDeathGravity=-0.570000
+	InflationExplosionTimer=1.700000
+	GlobalDeflationRate=0.100000
+	Damage=0.500000
+	DamageBloat=1.250000
+
+	Name="Default__WMSpecialWave_UpUpDecay"
 }

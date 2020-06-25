@@ -25,9 +25,9 @@ event Destroyed()
 
 defaultproperties
 {
-   Title="Acceleration"
-   Description="Time is collapsing!"
-   MaxTimeDilation=2.000000
-   delta=0.040000
-   Name="Default__WMSpecialWave_Acceleration"
+	Title="Acceleration"
+	Description="Time is collapsing!"
+	MaxTimeDilation=2.000000
+	delta=0.040000
+	Name="Default__WMSpecialWave_Acceleration"
 }

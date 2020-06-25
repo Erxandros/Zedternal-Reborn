@@ -5,7 +5,7 @@ var float SmallZedDamageGiven, SmallZedDamageTaken, SmallZedSize;
 function Killed(Controller Killer, Controller KilledPlayer, Pawn KilledPawn, class<DamageType> DT)
 {
 	local KFPawn_Monster KFPM, newKFPM1, newKFPM2;
-	
+
 	KFPM = KFPawn_Monster(KilledPawn);
 	if (Killer != none && KFPM != none && KFPM.IntendedBodyScale != default.SmallZedSize)
 	{
@@ -61,15 +61,15 @@ static simulated function bool ShouldKnockDownOnBump(KFPawn_Monster KFPM, KFPawn
 
 defaultproperties
 {
-   Title="Division"
-   Description="Double the Troubles!"
-   zedSpawnRateFactor=0.500000
-   waveValueFactor=0.400000
-   doshFactor=0.650000
-   
-   SmallZedDamageGiven=0.800000
-   SmallZedDamageTaken=0.500000
-   SmallZedSize=0.5;
-   
-   Name="Default__WMSpecialWave_Division"
+	Title="Division"
+	Description="Double the Troubles!"
+	zedSpawnRateFactor=0.500000
+	waveValueFactor=0.400000
+	doshFactor=0.650000
+
+	SmallZedDamageGiven=0.800000
+	SmallZedDamageTaken=0.500000
+	SmallZedSize=0.5;
+
+	Name="Default__WMSpecialWave_Division"
 }

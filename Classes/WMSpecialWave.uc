@@ -110,9 +110,9 @@ static simulated function InitiateWeapon(KFWeapon KFW, KFPawn OwnerPawn);
 
 defaultproperties
 {
-   zedSpawnRateFactor=1.000000
-   waveValueFactor=1.000000
-   doshFactor=1.000000
-   bReplaceMonstertoAdd=false
-   Name="Default__WMSpecialWave"
+	zedSpawnRateFactor=1.000000
+	waveValueFactor=1.000000
+	doshFactor=1.000000
+	bReplaceMonstertoAdd=false
+	Name="Default__WMSpecialWave"
 }

@@ -4,7 +4,7 @@ var float healRecharge;
 var float regenTimer;
 
 function PostBeginPlay()
-{	
+{
 	SetTimer(regenTimer,true,nameof(UpdateHuman));
 	super.PostBeginPlay();
 }
@@ -28,7 +28,7 @@ static simulated function ModifyHealerRechargeTime( out float InRechargeTime, fl
 static function WMSpecialWave_Haemorrhage GetSpecialWaveObject(WorldInfo WI)
 {
 	local WMSpecialWave_Haemorrhage WMS;
-	
+
 	foreach WI.DynamicActors(class'ZedternalReborn.WMSpecialWave_Haemorrhage',WMS)
 	{
 		return WMS;
@@ -37,12 +37,12 @@ static function WMSpecialWave_Haemorrhage GetSpecialWaveObject(WorldInfo WI)
 
 defaultproperties
 {
-   Title="Regeneration"
-   Description="You feel better!"
-   zedSpawnRateFactor=1.100000
-   waveValueFactor=1.000000
-   healRecharge=0.300000
-   regenTimer=0.300000
-   
-   Name="Default__WMSpecialWave_Regeneration"
+	Title="Regeneration"
+	Description="You feel better!"
+	zedSpawnRateFactor=1.100000
+	waveValueFactor=1.000000
+	healRecharge=0.300000
+	regenTimer=0.300000
+
+	Name="Default__WMSpecialWave_Regeneration"
 }

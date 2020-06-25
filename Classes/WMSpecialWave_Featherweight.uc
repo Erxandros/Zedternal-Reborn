@@ -12,7 +12,7 @@ function PostBeginPlay()
 function UpdateZed()
 {
 	local KFPawn_Monster KFM;
-	
+
 	foreach DynamicActors(class'KFPawn_Monster', KFM)
 	{
 		if (!KFM.bUseDamageInflation)
@@ -29,15 +29,15 @@ function UpdateZed()
 
 defaultproperties
 {
-   Title="Featherweight"
-   Description="Dead bodies are floating!"
-   zedSpawnRateFactor=0.900000
-   waveValueFactor=1.000000
-   
-   ZeroHealthInflation=1.000000
-   InflationDeathGravity=-0.003000
-   InflationExplosionTimer=100.00000
-   GlobalDeflationRate=0.000000
-   
-   Name="Default__WMSpecialWave_Featherweight"
+	Title="Featherweight"
+	Description="Dead bodies are floating!"
+	zedSpawnRateFactor=0.900000
+	waveValueFactor=1.000000
+
+	ZeroHealthInflation=1.000000
+	InflationDeathGravity=-0.003000
+	InflationExplosionTimer=100.00000
+	GlobalDeflationRate=0.000000
+
+	Name="Default__WMSpecialWave_Featherweight"
 }

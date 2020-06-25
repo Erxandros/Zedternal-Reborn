@@ -11,7 +11,7 @@ function PostBeginPlay()
 function WaveEnded()
 {
 	local KFDoorActor KFD;
-	
+
 	ForEach WorldInfo.AllActors(class'KFGame.KFDoorActor',KFD)
 	{
 		if (!KFD.bIsDestroyed)
@@ -22,7 +22,7 @@ function WaveEnded()
 function UpdateDoor()
 {
 	local KFDoorActor KFD;
-	
+
 	ForEach WorldInfo.AllActors(class'KFGame.KFDoorActor',KFD)
 	{
 		KFD.ResetDoor();
@@ -36,7 +36,7 @@ function CloseDoor(KFDoorActor Door)
 {
 	if( Door.bIsDestroyed || !Door.bLocalIsDoorOpen )
 	{
-	 	return;
+		return;
 	}
 
 	// If door has been closed, it's dirty
@@ -70,19 +70,19 @@ function CloseDoor(KFDoorActor Door)
 
 static simulated function ModifyWeldingRate( out float InFastenRate, float DefaultFastenRate, out float InUnfastenRate, float DefaultUnfastenRate)
 {
-	InFastenRate = InFastenRate*default.Rate;
-	InUnfastenRate = InUnfastenRate*default.Rate;
+	InFastenRate = InFastenRate * default.Rate;
+	InUnfastenRate = InUnfastenRate * default.Rate;
 }
 
 defaultproperties
 {
-   Title="Locked"
-   Description="It's a trap!"
-   zedSpawnRateFactor=0.900000
-   waveValueFactor=0.700000
-   doshFactor=1.400000
-   
-   Rate=0.700000
-   
-   Name="Default__WMSpecialWave_Locked"
+	Title="Locked"
+	Description="It's a trap!"
+	zedSpawnRateFactor=0.900000
+	waveValueFactor=0.700000
+	doshFactor=1.400000
+
+	Rate=0.700000
+
+	Name="Default__WMSpecialWave_Locked"
 }

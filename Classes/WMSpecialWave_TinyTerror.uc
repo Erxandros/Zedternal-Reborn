@@ -11,7 +11,7 @@ function PostBeginPlay()
 function UpdateZed()
 {
 	local KFPawn_Monster KFM;
-	
+
 	foreach DynamicActors(class'KFPawn_Monster', KFM)
 	{
 		if (KFM.IntendedBodyScale >= default.Size)
@@ -40,15 +40,15 @@ static simulated function bool ShouldKnockDownOnBump(KFPawn_Monster KFPM, KFPawn
 
 defaultproperties
 {
-   Title="Tiny Terror"
-   Description="Look at them, they are so cute!"
-   zedSpawnRateFactor=1.500000
-   waveValueFactor=1.300000
-   doshFactor=0.750000
-   
-   Damage=0.700000
-   DamageTakenFactor=0.700000;
-   Size=0.680000
-   
-   Name="Default__WMSpecialWave_TinyTerror"
+	Title="Tiny Terror"
+	Description="Look at them, they are so cute!"
+	zedSpawnRateFactor=1.500000
+	waveValueFactor=1.300000
+	doshFactor=0.750000
+
+	Damage=0.700000
+	DamageTakenFactor=0.700000;
+	Size=0.680000
+
+	Name="Default__WMSpecialWave_TinyTerror"
 }

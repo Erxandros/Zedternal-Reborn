@@ -11,7 +11,7 @@ function PostBeginPlay()
 function UpdateZed()
 {
 	local KFPawn_Monster KFM;
-	
+
 	foreach DynamicActors(class'KFPawn_Monster', KFM)
 	{
 		if (!KFM.bMovesFastInZedTime)
@@ -19,15 +19,14 @@ function UpdateZed()
 	}
 }
 
-
 defaultproperties
 {
-   Title="Lethargic"
-   Description="They are faster during ZED times!"
-   zedSpawnRateFactor=0.925000
-   waveValueFactor=0.950000
-   
-   zedSpeedScale=1.0f
-   
-   Name="Default__WMSpecialWave_Lethargic"
+	Title="Lethargic"
+	Description="They are faster during ZED times!"
+	zedSpawnRateFactor=0.925000
+	waveValueFactor=0.950000
+
+	zedSpeedScale=1.0f
+
+	Name="Default__WMSpecialWave_Lethargic"
 }

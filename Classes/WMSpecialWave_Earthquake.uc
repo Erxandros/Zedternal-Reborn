@@ -9,7 +9,7 @@ function PostBeginPlay()
 function Earthquake()
 {
 	local KFPawn_Monster KFM;
-	
+
 	foreach DynamicActors(class'KFPawn_Monster', KFM)
 	{
 		if( FRand() < 0.800000 && KFM.CanDoSpecialMove( SM_Knockdown ) )
@@ -24,7 +24,7 @@ function ApplyEffect()
 {
 	local KFPawn_Human KFPH;
 	local WMSpecialWave_Earthquake_Effect UPG;
-	
+
 	foreach DynamicActors(class'KFPawn_Human', KFPH)
 	{
 		foreach KFPH.ChildActors(class'WMSpecialWave_Earthquake_Effect',UPG)
@@ -38,7 +38,7 @@ static simulated function InitiateWeapon(KFWeapon KFW, KFPawn OwnerPawn)
 {
 	local WMSpecialWave_Earthquake_Effect UPG;
 	local bool bFound;
-	
+
 	if (KFPawn_Human(OwnerPawn)!=none)
 	{
 		bFound = false;
@@ -51,11 +51,11 @@ static simulated function InitiateWeapon(KFWeapon KFW, KFPawn OwnerPawn)
 
 defaultproperties
 {
-   Title="Earthquake"
-   Description="The world is now shaking"
-   zedSpawnRateFactor=1.000000
-   waveValueFactor=1.050000
-   doshFactor=1.000000
-   
-   Name="Default__WMSpecialWave_Earthquake"
+	Title="Earthquake"
+	Description="The world is now shaking"
+	zedSpawnRateFactor=1.000000
+	waveValueFactor=1.050000
+	doshFactor=1.000000
+
+	Name="Default__WMSpecialWave_Earthquake"
 }

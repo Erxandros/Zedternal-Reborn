@@ -11,7 +11,7 @@ function PostBeginPlay()
 function UpdateZed()
 {
 	local KFPawn_Monster KFM;
-	
+
 	foreach DynamicActors(class'KFPawn_Monster', KFM)
 	{
 		if (KFM.IntendedHeadScale != default.ZedHeadScale && KFM.IntendedBodyScale > 0.6)
@@ -38,17 +38,17 @@ static function ModifyDamageTaken( out int InDamage, int DefaultDamage, KFPawn O
 
 defaultproperties
 {
-   Title="Titans"
-   Description="Slowly but surely!"
-   zedSpawnRateFactor=0.400000
-   waveValueFactor=0.220000
-   doshFactor=4.100000
-   
-   ZedScale=1.350000
-   ZedHeadScale=1.020000
-   DamageFactor=0.2500000
-   DamageHeadFactor=0.200000
-   DamageTakenFactor=1.200000
-   
-   Name="Default__WMSpecialWave_Titans"
+	Title="Titans"
+	Description="Slowly but surely!"
+	zedSpawnRateFactor=0.400000
+	waveValueFactor=0.220000
+	doshFactor=4.100000
+
+	ZedScale=1.350000
+	ZedHeadScale=1.020000
+	DamageFactor=0.2500000
+	DamageHeadFactor=0.200000
+	DamageTakenFactor=1.200000
+
+	Name="Default__WMSpecialWave_Titans"
 }

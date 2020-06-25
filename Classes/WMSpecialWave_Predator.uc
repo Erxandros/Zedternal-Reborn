@@ -3,7 +3,7 @@ class WMSpecialWave_Predator extends WMSpecialWave;
 var class<KFPawn_Monster> PredatorClass;
 
 function PostBeginPlay()
-{	
+{
 	SetTimer(6.000000,false,nameof(SpawnPredator));
 	super.PostBeginPlay();
 }
@@ -24,6 +24,7 @@ function SpawnPredator()
 function WaveEnded()
 {
 	local WMPawn_ZedFleshpound_Predator Predator;
+
 	foreach DynamicActors(class'WMPawn_ZedFleshpound_Predator', Predator)
 	{
 		Predator.Health = 5;
@@ -33,10 +34,10 @@ function WaveEnded()
 
 defaultproperties
 {
-   Title="Predator"
-   Description="The enemy of my enemy is my friend!"
-   zedSpawnRateFactor=1.200000
-   waveValueFactor=1.200000
-   PredatorClass=class'ZedternalReborn.WMPawn_ZedFleshpound_Predator'
-   Name="Default__WMSpecialWave_Predator"
+	Title="Predator"
+	Description="The enemy of my enemy is my friend!"
+	zedSpawnRateFactor=1.200000
+	waveValueFactor=1.200000
+	PredatorClass=class'ZedternalReborn.WMPawn_ZedFleshpound_Predator'
+	Name="Default__WMSpecialWave_Predator"
 }

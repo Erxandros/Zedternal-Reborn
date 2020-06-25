@@ -12,7 +12,7 @@ function PostBeginPlay()
 function UpdateZed()
 {
 	local KFPawn KFM;
-	
+
 	foreach DynamicActors(class'KFPawn', KFM)
 	{
 		if (KFM.IntendedHeadScale != Default.ZedSpawnHeadScale)
@@ -36,7 +36,7 @@ static function ModifyDamageGiven( out int InDamage, int DefaultDamage, optional
 function WaveEnded()
 {
 	local KFPawn KFM;
-	
+
 	foreach DynamicActors(class'KFPawn', KFM)
 	{
 		if (KFM.IntendedHeadScale == Default.ZedSpawnHeadScale)
@@ -49,14 +49,14 @@ function WaveEnded()
 
 defaultproperties
 {
-   Title="Bobble Zed"
-   Description="That must hurt their necks!"
-   zedSpawnRateFactor=0.750000
-   waveValueFactor=0.700000
-   doshFactor=1.400000
-   ZedSpawnHeadScale=2.700000
-   DamageFactor=0.800000
-   DamageHeadFactor=0.550000
-   
-   Name="Default__WMSpecialWave_BobbleZed"
+	Title="Bobble Zed"
+	Description="That must hurt their necks!"
+	zedSpawnRateFactor=0.750000
+	waveValueFactor=0.700000
+	doshFactor=1.400000
+	ZedSpawnHeadScale=2.700000
+	DamageFactor=0.800000
+	DamageHeadFactor=0.550000
+
+	Name="Default__WMSpecialWave_BobbleZed"
 }

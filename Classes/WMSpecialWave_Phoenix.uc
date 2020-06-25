@@ -10,7 +10,7 @@ var KFGameReplicationInfo KFGRI;
 function Killed(Controller Killer, Controller KilledPlayer, Pawn KilledPawn, class<DamageType> DT)
 {
 	local KFPawn_Monster KFPM;
-	
+
 	KFPM = KFPawn_Monster(KilledPawn);
 	if (KFPM != none && FRand() < default.prob && !IsTimerActive(nameof(ReviveZED)))
 	{
@@ -20,10 +20,9 @@ function Killed(Controller Killer, Controller KilledPlayer, Pawn KilledPawn, cla
 		lastRotation = KFPM.Rotation;
 		KFGRI = KFGameReplicationInfo(Killer.WorldInfo.GRI);
 		SetTimer(default.delay, false, nameof(ReviveZED));
-	}		
-	
+	}
 }
-	
+
 function ReviveZED()
 {
 	local KFPawn_Monster newKFPM;
@@ -47,14 +46,14 @@ function ReviveZED()
 
 defaultproperties
 {
-   Title="Phoenix"
-   Description="They revive from their ashes!"
-   zedSpawnRateFactor=0.950000
-   waveValueFactor=0.875000
-   doshFactor=0.875000
-   
-   prob=0.200000
-   delay=2.000000
-   
-   Name="Default__WMSpecialWave_Phoenix"
+	Title="Phoenix"
+	Description="They revive from their ashes!"
+	zedSpawnRateFactor=0.950000
+	waveValueFactor=0.875000
+	doshFactor=0.875000
+
+	prob=0.200000
+	delay=2.000000
+
+	Name="Default__WMSpecialWave_Phoenix"
 }

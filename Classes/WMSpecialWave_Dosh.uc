@@ -7,7 +7,7 @@ function Killed(Controller Killer, Controller KilledPlayer, Pawn KilledPawn, cla
 	local KFDroppedPickup_Cash KFDP;
 	local vector Vel;
 	local int i, HealthValue;
-	
+
 	HealthValue = KFPawn_Monster(KilledPawn).default.Health;
 	for (i=0;i<=HealthValue;i+=125)
 	{
@@ -27,8 +27,8 @@ function Killed(Controller Killer, Controller KilledPlayer, Pawn KilledPawn, cla
 
 defaultproperties
 {
-   Title="Dosh"
-   Description="It's raining Dosh!"
-   MaxDoshVelocity=600.000000
-   Name="Default__WMSpecialWave_Dosh"
+	Title="Dosh"
+	Description="It's raining Dosh!"
+	MaxDoshVelocity=600.000000
+	Name="Default__WMSpecialWave_Dosh"
 }

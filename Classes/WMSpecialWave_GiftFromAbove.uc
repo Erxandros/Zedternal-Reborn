@@ -11,7 +11,7 @@ function PostBeginPlay()
 function UpdatePickup()
 {
 	local KFGameInfo KFG;
-	
+
 	foreach DynamicActors(class'KFGame.KFGameInfo', KFG)
 	{
 		KFG.ResetPickups( KFG.ItemPickups, int(float(KFG.NumWeaponPickups) * PickupFactor) );
@@ -19,13 +19,12 @@ function UpdatePickup()
 	}
 }
 
-
 defaultproperties
 {
-   Title="Gift From Above"
-   Description="More gifts spawn during the wave!"
-   
-   PickupFactor=9.000000
-   
-   Name="Default__WMSpecialWave_GiftFromAbove"
+	Title="Gift From Above"
+	Description="More gifts spawn during the wave!"
+
+	PickupFactor=9.000000
+
+	Name="Default__WMSpecialWave_GiftFromAbove"
 }
