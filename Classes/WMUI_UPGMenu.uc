@@ -61,9 +61,9 @@ function UpdateText()
 		LocalizedObject.SetString("all", "Perk Upgrades");
 		LocalizedObject.SetString("weaponSkins", "Skill Upgrades");
 		LocalizedObject.SetString("cosmetics", "Weapon Upgrades");
-		LocalizedObject.SetString("items", "Knives");
+		LocalizedObject.SetString("items", "Coming Soon");
 		LocalizedObject.SetString("craftingMats", "Grenades");
-		LocalizedObject.SetString("emotes", "");
+		LocalizedObject.SetString("emotes", "Knives");
 		LocalizedObject.SetString("sfx", " ");
 
 		LocalizedObject.SetString("craftWeapon", "Skip Trader Time");
@@ -375,35 +375,6 @@ function Callback_InventoryFilter( int FilterIndex )
 			}
 		}
 	}
-	else if (FilterIndex == 3 && WMPC != none && WMPerk(WMPC.CurrentPerk) != none) //Knives
-	{
-		WMP = WMPerk(WMPC.CurrentPerk);
-		for (i = 0; i < WMP.KnivesWeaponDef.length; ++i)
-		{
-			ItemObject = CreateObject("Object");
-			ItemObject.SetInt("count", 1);
-			ItemObject.SetString("label", WMP.KnivesWeaponDef[i].static.GetItemName());
-			ItemObject.SetString("description", "");
-			ItemObject.SetString("iconURLSmall", "img://" $ WMP.KnivesWeaponDef[i].static.GetImagePath());
-			ItemObject.SetString("iconURLLarge", "img://" $ WMP.KnivesWeaponDef[i].static.GetImagePath());
-			ItemObject.SetString("price", "");
-			ItemObject.Setstring("typeRarity", "");
-			ItemObject.SetBool("exchangeable", false);
-			ItemObject.SetBool("recyclable", false);
-			ItemObject.SetInt("definition", j);
-			ItemObject.SetInt("type", 0);
-			if (i == WMPC.KnifeIndex)
-				ItemObject.SetBool("active", true);
-			else
-				ItemObject.SetBool("active", false);
-			if (WMPC.KnifeIndex == i)
-				ItemObject.SetInt("type", 1);
-			else
-				ItemObject.SetInt("type", 0);
-			ItemArray.SetElementObject(j, ItemObject);
-			++j;
-		}
-	}
 	else if (FilterIndex == 4 && WMPC != none) //Grenades
 	{
 		for (i = 0; i < WMGRI.Grenades.length; ++i)
@@ -430,6 +401,35 @@ function Callback_InventoryFilter( int FilterIndex )
 				GrenadeIndex.AddItem(i);
 				++j;
 			}
+		}
+	}
+	else if (FilterIndex == 5 && WMPC != none && WMPerk(WMPC.CurrentPerk) != none) //Knives
+	{
+		WMP = WMPerk(WMPC.CurrentPerk);
+		for (i = 0; i < WMP.KnivesWeaponDef.length; ++i)
+		{
+			ItemObject = CreateObject("Object");
+			ItemObject.SetInt("count", 1);
+			ItemObject.SetString("label", WMP.KnivesWeaponDef[i].static.GetItemName());
+			ItemObject.SetString("description", "");
+			ItemObject.SetString("iconURLSmall", "img://" $ WMP.KnivesWeaponDef[i].static.GetImagePath());
+			ItemObject.SetString("iconURLLarge", "img://" $ WMP.KnivesWeaponDef[i].static.GetImagePath());
+			ItemObject.SetString("price", "");
+			ItemObject.Setstring("typeRarity", "");
+			ItemObject.SetBool("exchangeable", false);
+			ItemObject.SetBool("recyclable", false);
+			ItemObject.SetInt("definition", j);
+			ItemObject.SetInt("type", 0);
+			if (i == WMPC.KnifeIndex)
+				ItemObject.SetBool("active", true);
+			else
+				ItemObject.SetBool("active", false);
+			if (WMPC.KnifeIndex == i)
+				ItemObject.SetInt("type", 1);
+			else
+				ItemObject.SetInt("type", 0);
+			ItemArray.SetElementObject(j, ItemObject);
+			++j;
 		}
 	}
 
@@ -607,7 +607,7 @@ function CallBack_ItemDetailsClicked(int ItemDefinition)
 		lvl = WMPRI.GetWeaponUpgrade(Index);
 		EquipButton.SetString("label", ""$WMGRI.weaponUpgrade_Price[Index] * (lvl + 1)$Chr(163));
 	}
-	else if(CurrentFilterIndex == 3 || CurrentFilterIndex == 4)//Knives and Grenades
+	else if(CurrentFilterIndex == 4 || CurrentFilterIndex == 5)//Knives and Grenades
 	{
 		EquipButton.SetString("label", "Equip");
 	}
@@ -713,13 +713,13 @@ function Callback_Equip( int ItemDefinition )
 				Owner.PlaySoundBase(default.weaponSound, true);
 		}
 	}
-	else if (CurrentFilterIndex == 3) //Knives
-	{
-		WMPC.ChangeKnife(Index);
-	}
 	else if (CurrentFilterIndex == 4) //Grenades
 	{
 		WMPC.ChangeGrenade(GrenadeIndex[Index]);
+	}
+	else if (CurrentFilterIndex == 5) //Knives
+	{
+		WMPC.ChangeKnife(Index);
 	}
 
 	Refresh();
