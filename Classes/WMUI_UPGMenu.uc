@@ -94,6 +94,60 @@ function UpdateText()
 	SetObject("localizedText", LocalizedObject);
 }
 
+function GFxObject Callback_FilterOneEnable(int FilterIndex)
+{
+	local GFxObject TempObject;
+
+	TempObject = CreateObject("Object");
+	switch (FilterIndex)
+	{
+		case 0:
+			TempObject.SetBool("enable", true);
+			break;
+		case 1:
+			TempObject.SetBool("enable", true);
+			break;
+		case 2:
+			TempObject.SetBool("enable", true);
+			break;
+		case 3:
+			TempObject.SetBool("enable", true);
+			break;
+		default:
+			TempObject.SetBool("enable", false);
+	}
+
+	return TempObject;
+}
+
+function GFxObject Callback_FilterTwoEnable(int FilterIndex)
+{
+	local GFxObject TempObject;
+
+	TempObject = CreateObject("Object");
+	switch (FilterIndex)
+	{
+		default:
+			TempObject.SetBool("enable", false);
+	}
+
+	return TempObject;
+}
+
+function GFxObject Callback_FilterThreeEnable(int FilterIndex)
+{
+	local GFxObject TempObject;
+
+	TempObject = CreateObject("Object");
+	switch (FilterIndex)
+	{
+		default:
+			TempObject.SetBool("enable", false);
+	}
+
+	return TempObject;
+}
+
 function Callback_InventoryFilter( int FilterIndex )
 {
 	local GFxObject ItemArray, ItemObject;
