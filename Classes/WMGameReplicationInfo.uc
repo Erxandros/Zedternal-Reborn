@@ -1,8 +1,10 @@
 class WMGameReplicationInfo extends KFGameReplicationInfo;
 
 //Replicated data
-var name KFWeaponName[255];
-var repnotify string KFWeaponDefPath[255];
+var name KFWeaponName_A[255];
+var name KFWeaponName_B[255];
+var repnotify string KFWeaponDefPath_A[255];
+var repnotify string KFWeaponDefPath_B[255];
 var repnotify string KFStartingWeaponPath[255];
 var repnotify string perkUpgradesStr[255];
 var repnotify string skillUpgradesStr[255];
@@ -13,7 +15,7 @@ var repnotify string zedBuffStr[255];
 var int SpecialWaveID[2];
 var repnotify bool bNewZedBuff;
 var int startingWeapon, newWeaponEachWave, maxWeapon, staticWeapon;
-var int ArmorPrice;
+var repnotify int ArmorPrice;
 var repnotify byte TraderVoiceGroupIndex;
 
 var int perkPrice[255];
@@ -62,7 +64,8 @@ var array< class<KFTraderVoiceGroupBase> > TraderVoiceGroupClasses;
 replication
 {
 	if ( bNetDirty )
-		KFWeaponName, KFWeaponDefPath, KFStartingWeaponPath, perkUpgradesStr, skillUpgradesStr, skillUpgradesStr_Perk, specialWavesStr, grenadesStr,
+		KFWeaponName_A, KFWeaponName_B, KFWeaponDefPath_A, KFWeaponDefPath_B, KFStartingWeaponPath,
+		perkUpgradesStr, skillUpgradesStr, skillUpgradesStr_Perk, specialWavesStr, grenadesStr,
 		zedBuffStr, SpecialWaveID, bNewZedBuff, startingWeapon, newWeaponEachWave, maxWeapon, staticWeapon, ArmorPrice, TraderVoiceGroupIndex,
 		perkPrice, perkMaxLevel, skillPrice, skillDeluxePrice, weaponMaxLevel, bZedBuffs,
 		weaponUpgrade_WeaponStr_A, weaponUpgrade_UpgradeStr_A, weaponUpgrade_PriceRep_A,
@@ -86,28 +89,52 @@ simulated event ReplicatedEvent(name VarName)
 			super.ReplicatedEvent(VarName);
 			break;
 
-		case 'KFWeaponDefPath':
+		case 'ArmorPrice':
+			if (TraderItems == none)
+				TraderItems = new class'KFGFxObject_TraderItems';
+
+			TraderItems.ArmorPrice = ArmorPrice;
+			break;
+
+		case 'KFWeaponDefPath_A':
 			if (TraderItems == none)
 				TraderItems = new class'KFGFxObject_TraderItems';
 
 			for (i = 0; i < 255; ++i)
 			{
-				if (KFWeaponDefPath[i] == "")
+				if (KFWeaponDefPath_A[i] == "")
 					break; //base case
 
-				if (i == TraderItems.SaleItems.Length)
+				if (i == TraderItems.SaleItems.Length || TraderItems.SaleItems[i].ItemID == -1 || PathName(TraderItems.SaleItems[i].WeaponDef) != KFWeaponDefPath_A[i])
 				{
-					newWeapon.WeaponDef = class<KFWeaponDefinition>(DynamicLoadObject(KFWeaponDefPath[i],class'Class'));
+					newWeapon.WeaponDef = class<KFWeaponDefinition>(DynamicLoadObject(KFWeaponDefPath_A[i],class'Class'));
 					newWeapon.ItemID = i;
-					TraderItems.SaleItems.AddItem(newWeapon);
+					TraderItems.SaleItems[i] = newWeapon;
 				}
 			}
+			TraderItems.SetItemsInfo(TraderItems.SaleItems);
+			break;
 
-			if (TraderItems != none)
+		case 'KFWeaponDefPath_B':
+			if (TraderItems == none)
+				TraderItems = new class'KFGFxObject_TraderItems';
+
+			if (255 > TraderItems.SaleItems.Length)
+				TraderItems.SaleItems.Length = 255;
+
+			for (i = 0; i < 255; ++i)
 			{
-				TraderItems.ArmorPrice = ArmorPrice;
-				TraderItems.SetItemsInfo(TraderItems.SaleItems);
+				if (KFWeaponDefPath_B[i] == "")
+					break; //base case
+
+				if ((i + 255) == TraderItems.SaleItems.Length || TraderItems.SaleItems[i + 255].ItemID == -1 || PathName(TraderItems.SaleItems[i + 255].WeaponDef) != KFWeaponDefPath_B[i])
+				{
+					newWeapon.WeaponDef = class<KFWeaponDefinition>(DynamicLoadObject(KFWeaponDefPath_B[i],class'Class'));
+					newWeapon.ItemID = i + 255;
+					TraderItems.SaleItems[i + 255] = newWeapon;
+				}
 			}
+			TraderItems.SetItemsInfo(TraderItems.SaleItems);
 			break;
 
 		case 'KFStartingWeaponPath':
@@ -345,7 +372,10 @@ simulated event ReplicatedEvent(name VarName)
 
 		case 'updateSkins':
 			if (updateSkins)
-				class'ZedternalReborn.WMCustomWeapon_Helper'.static.UpdateSkinsClient(KFWeaponDefPath);
+			{
+				class'ZedternalReborn.WMCustomWeapon_Helper'.static.UpdateSkinsClient(KFWeaponDefPath_A);
+				class'ZedternalReborn.WMCustomWeapon_Helper'.static.UpdateSkinsClient(KFWeaponDefPath_B);
+			}
 			break;
 
 		case 'printVersion':
@@ -476,10 +506,20 @@ simulated function bool IsItemAllowed(STraderItem Item)
 
 	for (i = 0; i < min(maxWeapon - staticWeapon, (startingWeapon + staticWeapon + (WaveNum + 1) * newWeaponEachWave)); ++i)
 	{
-		if (Item.ClassName == KFWeaponName[i])
-			return true;
-		else if (Item.SingleClassName == KFWeaponName[i])
-			return true;
+		if (i < 255)
+		{
+			if (Item.ClassName == KFWeaponName_A[i])
+				return true;
+			else if (Item.SingleClassName == KFWeaponName_A[i])
+				return true;
+		}
+		else
+		{
+			if (Item.ClassName == KFWeaponName_B[i - 255])
+				return true;
+			else if (Item.SingleClassName == KFWeaponName_B[i - 255])
+				return true;
+		}
 	}
 	return false;
 }

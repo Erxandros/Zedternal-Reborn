@@ -1066,11 +1066,19 @@ function RepGameInfo()
 	//Weapons
 	for (b = 0; b < Min(255, KFWeaponName.Length); ++b)
 	{
-		WMGRI.KFWeaponName[b] = KFWeaponName[b];
+		WMGRI.KFWeaponName_A[b] = KFWeaponName[b];
+	}
+	for (b = 0; b < Min(255, KFWeaponName.Length - 255); ++b)
+	{
+		WMGRI.KFWeaponName_B[b] = KFWeaponName[b + 255];
 	}
 	for (b = 0; b < Min(255, KFWeaponDefPath.Length); ++b)
 	{
-		WMGRI.KFWeaponDefPath[b] = KFWeaponDefPath[b];
+		WMGRI.KFWeaponDefPath_A[b] = KFWeaponDefPath[b];
+	}
+	for (b = 0; b < Min(255, KFWeaponDefPath.Length - 255); ++b)
+	{
+		WMGRI.KFWeaponDefPath_B[b] = KFWeaponDefPath[b + 255];
 	}
 
 	//Perk Upgrades
