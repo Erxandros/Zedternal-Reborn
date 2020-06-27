@@ -14,6 +14,7 @@ var int TimeBetweenWavesExtend;
 var bool bUseExtendedTraderTime;
 var int startingWave;
 var int startingDosh;
+var int startingWeaponCount;
 var byte traderVoiceIndex;
 
 var float CustomDifficulty;
@@ -730,6 +731,9 @@ function BuildWeaponList()
 		}
 	}
 
+	//Set the starting weapon count for replication
+	startingWeaponCount = count;
+
 	//Finishing WeaponList
 	TraderItems.SetItemsInfo(TraderItems.SaleItems);
 	MyKFGRI.TraderItems = TraderItems;
@@ -1129,7 +1133,7 @@ function RepGameInfo()
 		WMGRI.specialWaves[b] =		class<WMSpecialWave>(DynamicLoadObject(class'ZedternalReborn.Config_SpecialWave'.default.SpecialWave_SpecialWaves[b].Path, class'Class'));
 	}
 
-	WMGRI.startingWeapon =		class'ZedternalReborn.Config_Weapon'.default.Trader_StartingWeaponNumber;
+	WMGRI.startingWeapon =		min(class'ZedternalReborn.Config_Weapon'.default.Trader_StartingWeaponNumber, startingWeaponCount);
 	WMGRI.newWeaponEachWave =	class'ZedternalReborn.Config_Weapon'.default.Trader_NewWeaponEachWave;
 	WMGRI.maxWeapon =			class'ZedternalReborn.Config_Weapon'.default.Trader_MaxWeapon;
 	WMGRI.staticWeapon =		StaticWeaponList.length;

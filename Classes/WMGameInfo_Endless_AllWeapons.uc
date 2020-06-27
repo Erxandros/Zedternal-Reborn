@@ -114,6 +114,9 @@ function BuildWeaponList()
 		}
 	}
 
+	//Just set the starting weapon count so it is defined
+	startingWeaponCount = class'ZedternalReborn.Config_Weapon'.default.Trader_StartingWeaponNumber;
+
 	//Finishing WeaponList
 	TraderItems.SetItemsInfo(TraderItems.SaleItems);
 	MyKFGRI.TraderItems = TraderItems;
