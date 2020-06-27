@@ -86,6 +86,9 @@ event PostBeginPlay()
 	// Available weapon are random each wave. Need to build the list
 	BuildWeaponList();
 
+	// Set item pickups
+	SetupPickupItems();
+
 	// Select Trader voice
 	SelectRandomTraderVoice();
 
@@ -232,10 +235,6 @@ function StartMatch()
 
 function StartWave()
 {
-	local int i, j;
-	local KFPickupFactory_ItemDefault KFPFID;
-	local ItemPickup newPickup;
-
 	//closes trader on server
 	MyKFGRI.CloseTrader();
 
@@ -248,24 +247,6 @@ function StartWave()
 	NumAIFinishedSpawning = 0;
 	
 	MyKFGRI.bWaveStarted = true;
-
-	// Set Weapon PickupList
-	for (i = 0; i < ItemPickups.length; ++i)
-	{
-		KFPFID = KFPickupFactory_ItemDefault(ItemPickups[i]);
-		if (KFPFID != none)
-		{
-			KFPFID.ItemPickups.length = 0;
-			newPickup.ItemClass = Class'kfgamecontent.KFInventory_Armor';
-			KFPFID.ItemPickups.AddItem(newPickup);
-			
-			for (j = 0; j < PerkStartingWeapon.length; ++j)
-			{
-				newPickup.ItemClass = class<KFWeapon>(DynamicLoadObject(PerkStartingWeapon[j].default.WeaponClassPath, class'Class'));
-				KFPFID.ItemPickups.AddItem(newPickup);
-			}
-		}
-	}
 
 	SpawnManager.SetupNextWave(WaveNum);
 
@@ -333,6 +314,72 @@ function RestartPlayer(Controller NewPlayer)
 
 		WMPC.DelayedPerkUpdate(TimeOffset);
 	}
+}
+
+function SetupPickupItems()
+{
+	local int i;
+	local KFPickupFactory_ItemDefault KFPFID;
+	local array<ItemPickup> StartingItemPickups;
+	local class<KFWeapon> startingWeaponClass;
+	local class<KFWeap_DualBase> startingWeaponClassDual;
+	local ItemPickup newPickup;
+
+	// Set Weapon PickupFactory
+
+	//Add armor
+	newPickup.ItemClass = Class'KFGameContent.KFInventory_Armor';
+	StartingItemPickups.AddItem(newPickup);
+
+	//Add 9mm
+	newPickup.ItemClass = class'KFGameContent.KFWeap_Pistol_9mm';
+	StartingItemPickups.AddItem(newPickup);
+
+	//Add starting weapons
+	for (i = 0; i < PerkStartingWeapon.length; ++i)
+	{
+		startingWeaponClass = class<KFWeapon>(DynamicLoadObject(PerkStartingWeapon[i].default.WeaponClassPath, class'Class'));
+
+		//Test for dual weapon
+		startingWeaponClassDual = class<KFWeap_DualBase>(startingWeaponClass);
+		if (startingWeaponClassDual != none)
+		{
+			//Only allow single to spawn
+			startingWeaponClass = startingWeaponClassDual.default.SingleClass;
+		}
+
+		newPickup.ItemClass = startingWeaponClass;
+		StartingItemPickups.AddItem(newPickup);
+	}
+
+	//Set KFPickupFactory objects
+	for (i = 0; i < ItemPickups.length; ++i)
+	{
+		ItemPickups[i].StartSleeping();
+		KFPFID = KFPickupFactory_ItemDefault(ItemPickups[i]);
+		if (KFPFID != none)
+		{
+			KFPFID.ItemPickups.length = 0;
+			KFPFID.ItemPickups = StartingItemPickups;
+			ItemPickups[i] = KFPFID;
+			ItemPickups[i].Reset();
+		}
+	}
+
+	//Set KFPickupFactory objects on map to override Kismet
+	foreach DynamicActors( class'KFPickupFactory_ItemDefault', KFPFID )
+	{
+		if (KFPFID != none)
+		{
+			KFPFID.StartSleeping();
+			KFPFID.ItemPickups.length = 0;
+			KFPFID.ItemPickups = StartingItemPickups;
+			KFPFID.Reset();
+		}
+	}
+
+	//Cleanup and reset everything
+	ResetAllPickups();
 }
 
 function CheckZedBuff()

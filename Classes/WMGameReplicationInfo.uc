@@ -85,7 +85,6 @@ simulated event ReplicatedEvent(name VarName)
 		case 'WaveNum':
 			if (SpecialWaveID[0]!=-1 && WaveNum > 0)
 				TriggerSpecialWaveMessage();
-			SetWeaponPickupList();
 			super.ReplicatedEvent(VarName);
 			break;
 
@@ -146,6 +145,7 @@ simulated event ReplicatedEvent(name VarName)
 				if (i == KFStartingWeapon.Length || KFStartingWeapon[i] == none || PathName(KFStartingWeapon[i]) != KFStartingWeaponPath[i])
 					KFStartingWeapon[i] = class<KFWeapon>(DynamicLoadObject(KFStartingWeaponPath[i],class'Class'));
 			}
+			SetWeaponPickupList();
 			break;
 
 		case 'perkUpgradesStr':
@@ -391,26 +391,52 @@ simulated event ReplicatedEvent(name VarName)
 
 simulated function SetWeaponPickupList()
 {
-	local int j;
+	local int i;
 	local KFPickupFactory_ItemDefault KFPFID;
+	local array<ItemPickup> StartingItemPickups;
+	local class<KFWeapon> startingWeaponClass;
+	local class<KFWeap_DualBase> startingWeaponClassDual;
 	local ItemPickup newPickup;
 
+	// Set Weapon PickupFactory
+
+	//Add armor
+	newPickup.ItemClass = Class'KFGameContent.KFInventory_Armor';
+	StartingItemPickups.AddItem(newPickup);
+
+	//Add 9mm
+	newPickup.ItemClass = class'KFGameContent.KFWeap_Pistol_9mm';
+	StartingItemPickups.AddItem(newPickup);
+
+	//Add starting weapons
+	for (i = 0; i < KFStartingWeapon.length; ++i)
+	{
+		startingWeaponClass = KFStartingWeapon[i];
+
+		//Test for dual weapon
+		startingWeaponClassDual = class<KFWeap_DualBase>(startingWeaponClass);
+		if (startingWeaponClassDual != none)
+		{
+			//Only allow single to spawn
+			startingWeaponClass = startingWeaponClassDual.default.SingleClass;
+		}
+
+		newPickup.ItemClass = startingWeaponClass;
+		StartingItemPickups.AddItem(newPickup);
+	}
+
+	//Set KFPickupFactory objects on map to match server
 	foreach DynamicActors( class'KFPickupFactory_ItemDefault', KFPFID )
 	{
 		if (KFPFID != none)
 		{
+			KFPFID.StartSleeping();
 			KFPFID.ItemPickups.length = 0;
-			newPickup.ItemClass = Class'kfgamecontent.KFInventory_Armor';
-			KFPFID.ItemPickups.AddItem(newPickup);
-			
-			for (j = 0; j < KFStartingWeapon.length; ++j)
-			{
-				newPickup.ItemClass = KFStartingWeapon[j];
-				KFPFID.ItemPickups.AddItem(newPickup);
-			}
+			KFPFID.ItemPickups = StartingItemPickups;
+			KFPFID.Reset();
 		}
 	}
-}	
+}
 
 simulated function PlayZedBuffSoundAndEffect()
 {
