@@ -81,32 +81,24 @@ function BuildWeaponList()
 	weaponUpgradeArch.length = 0;
 
 	//create starting weapon list and adding them in the trader
-	for (i = 0; i < class'ZedternalReborn.Config_Weapon'.default.Weapon_PlayerStartingWeaponDefList.length; ++i)
+	for (i = 0; i < StartingWeaponList.length; ++i)
 	{
-		PerkStartingWeapon[i] = class<KFWeaponDefinition>(DynamicLoadObject(class'ZedternalReborn.Config_Weapon'.default.Weapon_PlayerStartingWeaponDefList[i],class'Class'));
+		PerkStartingWeapon[i] = StartingWeaponList[i];
 		KFStartingWeaponPath[i] = PerkStartingWeapon[i].default.WeaponClassPath;
 		
-		KFWeaponDefClass = PerkStartingWeapon[i];
-		if (KFWeaponDefClass != none)
-		{
-			if (bAllowWeaponVariant)
-				ApplyRandomWeaponVariant(class'ZedternalReborn.Config_Weapon'.default.Weapon_PlayerStartingWeaponDefList[i], true);
-			else
-				CheckForWeaponOverrides(KFWeaponDefClass);
-		}
+		if (bAllowWeaponVariant)
+			ApplyRandomWeaponVariant(PathName(StartingWeaponList[i]), true);
+		else
+			CheckForWeaponOverrides(StartingWeaponList[i]);
 	}
 
 	//adding static weapon in the trader
-	for (i = 0; i < class'ZedternalReborn.Config_Weapon'.default.Trader_StaticWeaponDefs.length; ++i)
+	for (i = 0; i < StaticWeaponList.length; ++i)
 	{
-		KFWeaponDefClass = class<KFWeaponDefinition>(DynamicLoadObject(class'ZedternalReborn.Config_Weapon'.default.Trader_StaticWeaponDefs[i],class'Class'));
-		if (KFWeaponDefClass != none)
-		{
-			if (bAllowWeaponVariant)
-				ApplyRandomWeaponVariant(class'ZedternalReborn.Config_Weapon'.default.Trader_StaticWeaponDefs[i], true);
-			else
-				CheckForWeaponOverrides(KFWeaponDefClass);
-		}
+		if (bAllowWeaponVariant)
+			ApplyRandomWeaponVariant(PathName(StaticWeaponList[i]), true);
+		else
+			CheckForWeaponOverrides(StaticWeaponList[i]);
 	}
 
 	//Adding other weapons
