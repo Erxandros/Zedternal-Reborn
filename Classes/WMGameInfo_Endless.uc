@@ -1086,6 +1086,9 @@ function RepGameInfo()
 	//Print game version
 	WMGRI.printVersion = true;
 
+	//Optimization
+	WMGRI.NumberOfTraderWeapons = TraderItems.SaleItems.Length;
+
 	//ZedBuff
 	for (b = 0; b < Min(255, class'ZedternalReborn.Config_ZedBuff'.default.ZedBuff_BuffPath.length); ++b)
 	{

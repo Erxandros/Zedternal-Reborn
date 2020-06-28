@@ -1,5 +1,8 @@
 class WMGameReplicationInfo extends KFGameReplicationInfo;
 
+//Optimization for replicated data
+var repnotify int NumberOfTraderWeapons;
+
 //Replicated data
 var name KFWeaponName_A[255];
 var name KFWeaponName_B[255];
@@ -64,7 +67,7 @@ var array< class<KFTraderVoiceGroupBase> > TraderVoiceGroupClasses;
 replication
 {
 	if ( bNetDirty )
-		KFWeaponName_A, KFWeaponName_B, KFWeaponDefPath_A, KFWeaponDefPath_B, KFStartingWeaponPath,
+		NumberOfTraderWeapons, KFWeaponName_A, KFWeaponName_B, KFWeaponDefPath_A, KFWeaponDefPath_B, KFStartingWeaponPath,
 		perkUpgradesStr, skillUpgradesStr, skillUpgradesStr_Perk, specialWavesStr, grenadesStr,
 		zedBuffStr, SpecialWaveID, bNewZedBuff, startingWeapon, newWeaponEachWave, maxWeapon, staticWeapon, ArmorPrice, TraderVoiceGroupIndex,
 		perkPrice, perkMaxLevel, skillPrice, skillDeluxePrice, weaponMaxLevel, bZedBuffs,
@@ -86,6 +89,10 @@ simulated event ReplicatedEvent(name VarName)
 			if (SpecialWaveID[0]!=-1 && WaveNum > 0)
 				TriggerSpecialWaveMessage();
 			super.ReplicatedEvent(VarName);
+			break;
+
+		case 'NumberOfTraderWeapons':
+			CheckAndSetTraderItems();
 			break;
 
 		case 'ArmorPrice':
@@ -111,7 +118,7 @@ simulated event ReplicatedEvent(name VarName)
 					TraderItems.SaleItems[i] = newWeapon;
 				}
 			}
-			TraderItems.SetItemsInfo(TraderItems.SaleItems);
+			CheckAndSetTraderItems();
 			break;
 
 		case 'KFWeaponDefPath_B':
@@ -133,7 +140,7 @@ simulated event ReplicatedEvent(name VarName)
 					TraderItems.SaleItems[i + 255] = newWeapon;
 				}
 			}
-			TraderItems.SetItemsInfo(TraderItems.SaleItems);
+			CheckAndSetTraderItems();
 			break;
 
 		case 'KFStartingWeaponPath':
@@ -389,6 +396,25 @@ simulated event ReplicatedEvent(name VarName)
 	}
 }
 
+simulated function CheckAndSetTraderItems()
+{
+	local int i;
+
+	if (TraderItems == none)
+		return; //TraderItems not created yet
+
+	if (NumberOfTraderWeapons == -1)
+		return; //Not yet replicated
+
+	for (i = 0; i < NumberOfTraderWeapons; ++i)
+	{
+		if (TraderItems.SaleItems.Length <= i || TraderItems.SaleItems[i].ItemID == -1)
+			return;
+	}
+
+	TraderItems.SetItemsInfo(TraderItems.SaleItems);
+}
+
 simulated function SetWeaponPickupList()
 {
 	local int i;
@@ -576,6 +602,7 @@ simulated function array<int> GetKFSeqEventLevelLoadedIndices()
 
 defaultproperties
 {
+	NumberOfTraderWeapons=-1
 	WaveMax=255
 	ArmorPrice=3
 	bEndlessMode=True
