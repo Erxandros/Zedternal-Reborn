@@ -760,7 +760,7 @@ function BuildWeaponList()
 	}
 
 	//Adding randomly other weapons
-	for (i = (StaticWeaponList.length + min(class'ZedternalReborn.Config_Weapon'.default.Trader_StartingWeaponNumber, count)); i < class'ZedternalReborn.Config_Weapon'.default.Trader_maxWeapon; ++i)
+	for (i = StaticWeaponList.length + PerkStartingWeapon.Length; i < class'ZedternalReborn.Config_Weapon'.default.Trader_maxWeapon; ++i)
 	{
 		if (weaponIndex.Length > 0)
 		{
@@ -779,7 +779,7 @@ function BuildWeaponList()
 	}
 
 	//Set the starting weapon count for replication
-	startingWeaponCount = count;
+	startingWeaponCount = PerkStartingWeapon.Length;
 
 	//Finishing WeaponList
 	TraderItems.SetItemsInfo(TraderItems.SaleItems);
@@ -1191,7 +1191,7 @@ function RepGameInfo()
 		WMGRI.specialWaves[b] =		class<WMSpecialWave>(DynamicLoadObject(class'ZedternalReborn.Config_SpecialWave'.default.SpecialWave_SpecialWaves[b].Path, class'Class'));
 	}
 
-	WMGRI.startingWeapon =		min(class'ZedternalReborn.Config_Weapon'.default.Trader_StartingWeaponNumber, startingWeaponCount);
+	WMGRI.NumberOfStartingWeapons = startingWeaponCount;
 	WMGRI.newWeaponEachWave =	class'ZedternalReborn.Config_Weapon'.default.Trader_NewWeaponEachWave;
 	WMGRI.maxWeapon =			class'ZedternalReborn.Config_Weapon'.default.Trader_MaxWeapon;
 	WMGRI.staticWeapon =		StaticWeaponList.length;
