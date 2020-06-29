@@ -476,10 +476,9 @@ simulated function SetWeaponPickupList()
 	{
 		if (KFPFID != none)
 		{
-			KFPFID.StartSleeping();
 			KFPFID.ItemPickups.length = 0;
 			KFPFID.ItemPickups = StartingItemPickups;
-			KFPFID.Reset();
+			KFPFID.SetPickupMesh();
 		}
 	}
 }
