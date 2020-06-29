@@ -2,6 +2,7 @@ class WMGameReplicationInfo extends KFGameReplicationInfo;
 
 //Optimization for replicated data
 var repnotify int NumberOfTraderWeapons;
+var repnotify int NumberOfStartingWeapons;
 
 //Replicated data
 var name KFWeaponName_A[255];
@@ -17,7 +18,7 @@ var repnotify string grenadesStr[255];
 var repnotify string zedBuffStr[255];
 var int SpecialWaveID[2];
 var repnotify bool bNewZedBuff;
-var int startingWeapon, newWeaponEachWave, maxWeapon, staticWeapon;
+var int newWeaponEachWave, maxWeapon, staticWeapon;
 var repnotify int ArmorPrice;
 var repnotify byte TraderVoiceGroupIndex;
 
@@ -67,9 +68,9 @@ var array< class<KFTraderVoiceGroupBase> > TraderVoiceGroupClasses;
 replication
 {
 	if ( bNetDirty )
-		NumberOfTraderWeapons, KFWeaponName_A, KFWeaponName_B, KFWeaponDefPath_A, KFWeaponDefPath_B, KFStartingWeaponPath,
+		NumberOfTraderWeapons, NumberOfStartingWeapons, KFWeaponName_A, KFWeaponName_B, KFWeaponDefPath_A, KFWeaponDefPath_B, KFStartingWeaponPath,
 		perkUpgradesStr, skillUpgradesStr, skillUpgradesStr_Perk, specialWavesStr, grenadesStr,
-		zedBuffStr, SpecialWaveID, bNewZedBuff, startingWeapon, newWeaponEachWave, maxWeapon, staticWeapon, ArmorPrice, TraderVoiceGroupIndex,
+		zedBuffStr, SpecialWaveID, bNewZedBuff, newWeaponEachWave, maxWeapon, staticWeapon, ArmorPrice, TraderVoiceGroupIndex,
 		perkPrice, perkMaxLevel, skillPrice, skillDeluxePrice, weaponMaxLevel, bZedBuffs,
 		weaponUpgrade_WeaponStr_A, weaponUpgrade_UpgradeStr_A, weaponUpgrade_PriceRep_A,
 		weaponUpgrade_WeaponStr_B, weaponUpgrade_UpgradeStr_B, weaponUpgrade_PriceRep_B,
@@ -93,6 +94,10 @@ simulated event ReplicatedEvent(name VarName)
 
 		case 'NumberOfTraderWeapons':
 			CheckAndSetTraderItems();
+			break;
+
+		case 'NumberOfStartingWeapons':
+			SetWeaponPickupList();
 			break;
 
 		case 'ArmorPrice':
@@ -406,9 +411,12 @@ simulated function CheckAndSetTraderItems()
 	if (NumberOfTraderWeapons == -1)
 		return; //Not yet replicated
 
+	if (TraderItems.SaleItems.Length != NumberOfTraderWeapons)
+		return; //Replication not done yet
+
 	for (i = 0; i < NumberOfTraderWeapons; ++i)
 	{
-		if (TraderItems.SaleItems.Length <= i || TraderItems.SaleItems[i].ItemID == -1)
+		if (TraderItems.SaleItems[i].ItemID == -1)
 			return;
 	}
 
@@ -423,6 +431,18 @@ simulated function SetWeaponPickupList()
 	local class<KFWeapon> startingWeaponClass;
 	local class<KFWeap_DualBase> startingWeaponClassDual;
 	local ItemPickup newPickup;
+
+	if (NumberOfStartingWeapons == -1)
+		return; //Not yet replicated
+
+	if (KFStartingWeapon.Length != NumberOfStartingWeapons)
+		return; //Replication not done yet
+
+	for (i = 0; i < NumberOfStartingWeapons; ++i)
+	{
+		if (KFStartingWeapon[i] == none)
+			return;
+	}
 
 	// Set Weapon PickupFactory
 
@@ -556,7 +576,7 @@ simulated function bool IsItemAllowed(STraderItem Item)
 {
 	local int i;
 
-	for (i = 0; i < min(maxWeapon - staticWeapon, (startingWeapon + staticWeapon + (WaveNum + 1) * newWeaponEachWave)); ++i)
+	for (i = 0; i < min(maxWeapon - staticWeapon, (NumberOfStartingWeapons + staticWeapon + (WaveNum + 1) * newWeaponEachWave)); ++i)
 	{
 		if (i < 255)
 		{
@@ -603,6 +623,7 @@ simulated function array<int> GetKFSeqEventLevelLoadedIndices()
 defaultproperties
 {
 	NumberOfTraderWeapons=-1
+	NumberOfStartingWeapons=-1
 	WaveMax=255
 	ArmorPrice=3
 	bEndlessMode=True
