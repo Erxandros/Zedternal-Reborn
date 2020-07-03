@@ -15,6 +15,7 @@ var int TimeBetweenWavesExtend;
 var bool bUseExtendedTraderTime;
 var int startingWave;
 var int startingDosh;
+var byte startingMaxPlayerCount;
 var int startingWeaponCount;
 var byte traderVoiceIndex;
 
@@ -30,7 +31,7 @@ struct S_Weapon_Upgrade
 var array<S_Weapon_Upgrade> weaponUpgradeArch;
 
 
-event InitGame( string Options, out string ErrorMessage )
+event InitGame(string Options, out string ErrorMessage)
 {
 	// starting wave can be set through the console while launching the mod (by adding : ?wave=XXX)
 	startingWave = Min(Max(class'GameInfo'.static.GetIntOption(Options, "wave", 1) - 1, 0), 254);
@@ -38,9 +39,14 @@ event InitGame( string Options, out string ErrorMessage )
 	// starting dosh can be set through the console while launching the mod (by adding : ?dosh=XXX)
 	startingDosh = class'GameInfo'.static.GetIntOption(Options, "dosh", 0);
 
+	// starting player count can be set through the console while launching the mod (by adding : ?players=XXX)
+	startingMaxPlayerCount = class'GameInfo'.static.GetIntOption(Options, "players", 6);
 
-	Super.InitGame( Options, ErrorMessage );
+	Super.InitGame(Options, ErrorMessage);
+
 	GameLength = 2;
+	MaxPlayers = Clamp(startingMaxPlayerCount, 1, MaxPlayersAllowed);
+	MaxPlayersAllowed = MaxPlayers;
 }
 
 static function PreloadGlobalContentClasses()
@@ -1550,6 +1556,8 @@ defaultproperties
 	MaxGameDifficulty=4
 	bIsEndlessGame=True
 	startingWave=0
+	startingMaxPlayerCount=6
+	MaxPlayersAllowed=128
 	SpawnManagerClasses(0)=Class'ZedternalReborn.WMAISpawnManager'
 	SpawnManagerClasses(1)=Class'ZedternalReborn.WMAISpawnManager'
 	SpawnManagerClasses(2)=Class'ZedternalReborn.WMAISpawnManager'
