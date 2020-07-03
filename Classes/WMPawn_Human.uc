@@ -29,7 +29,7 @@ event bool HealDamage(int Amount, Controller Healer, class<DamageType> DamageTyp
 			UpdateHealingShield_ZedternalReborn(WMP);
 		}
 	}
-	
+
 	return super.HealDamage(Amount, Healer, DamageType, bCanRepairArmor, bMessageHealer);
 }
 
@@ -58,7 +58,7 @@ simulated function UpdateHealingShield_ZedternalReborn(WMPerk WMP)
 simulated function ResetHealingDamageBoost()
 {
 	HealingDamageBoost_ZedternalReborn = 0;
-	
+
 	super.ResetHealingDamageBoost();
 }
 
@@ -141,16 +141,16 @@ simulated event Bump( Actor Other, PrimitiveComponent OtherComp, Vector HitNorma
 	{
 		MyPerk = WMPerk(GetPerk());
 		KFPM = KFPawn_Monster(Other);
-		
+
 		if( KFPM != none && MyPerk != none && MyPerk.CanKnockDownOnBump(KFPM) && Normal(Velocity) dot Vector(Rotation) > 0.7f )
 		{
-            //First priority is a knockdown if it is allowed
+			//First priority is a knockdown if it is allowed
 			if( KFPM.CanDoSpecialMove( SM_Knockdown ) )
 				KFPM.Knockdown( Velocity * 3, vect(1,1,1), KFPM.Location, 1000, 100 );
-            //If they can't be knocked down, but are headless, kill them outright
-            else if (KFPM.IsHeadless())
-                KFPM.TakeDamage(KFPM.HealthMax, Controller, Location, vect(0, 0, 0), class'KFDT_NPCBump_Large');
-            //Last priority is a stumble as a backup
+			//If they can't be knocked down, but are headless, kill them outright
+			else if (KFPM.IsHeadless())
+				KFPM.TakeDamage(KFPM.HealthMax, Controller, Location, vect(0, 0, 0), class'KFDT_NPCBump_Large');
+			//Last priority is a stumble as a backup
 			else if( KFPM.CanDoSpecialMove( SM_Stumble ) )
 				KFPM.DoSpecialMove(SM_Stumble,,, class'KFSM_Stumble'.static.PackRandomSMFlags(KFPM));
 		}
@@ -159,4 +159,6 @@ simulated event Bump( Actor Other, PrimitiveComponent OtherComp, Vector HitNorma
 
 defaultproperties
 {
+	InventoryManagerClass=class'WMInventoryManager'
+	Name="Default__WMPawn_Human"
 }
