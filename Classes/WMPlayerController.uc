@@ -314,6 +314,7 @@ simulated function UpdatePerkIcon()
 
 defaultproperties
 {
+	PurchaseHelperClass=class'WMAutoPurchaseHelper'
 	HUD_perkIndex=-1
 	bShouldUpdateHUDPerkIcon=true
 	bShouldUpdateGrenadeIcon=true
