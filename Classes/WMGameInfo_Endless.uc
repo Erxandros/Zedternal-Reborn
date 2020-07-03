@@ -1,7 +1,8 @@
 class WMGameInfo_Endless extends KFGameInfo_Survival
 	config(GameEndless);
 
-var KFGFxObject_TraderItems DefaultTraderItems, TraderItems;
+var KFGFxObject_TraderItems DefaultTraderItems;
+var WMGFxObject_TraderItems TraderItems;
 var array< name > KFWeaponName;
 var array< string > KFWeaponDefPath;
 var array< string > KFStartingWeaponPath;
@@ -658,7 +659,7 @@ function BuildWeaponList()
 
 	weaponIndex.Length = 0;
 
-	TraderItems = new class'KFGFxObject_TraderItems';
+	TraderItems = new class'WMGFxObject_TraderItems';
 
 	/////////////////
 	// Armor Price //

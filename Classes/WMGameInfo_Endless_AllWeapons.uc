@@ -11,7 +11,7 @@ function BuildWeaponList()
 
 	weaponIndex.Length = 0;
 
-	TraderItems = new class'KFGFxObject_TraderItems';
+	TraderItems = new class'WMGFxObject_TraderItems';
 
 	/////////////////
 	// Armor Price //

@@ -102,14 +102,14 @@ simulated event ReplicatedEvent(name VarName)
 
 		case 'ArmorPrice':
 			if (TraderItems == none)
-				TraderItems = new class'KFGFxObject_TraderItems';
+				TraderItems = new class'WMGFxObject_TraderItems';
 
 			TraderItems.ArmorPrice = ArmorPrice;
 			break;
 
 		case 'KFWeaponDefPath_A':
 			if (TraderItems == none)
-				TraderItems = new class'KFGFxObject_TraderItems';
+				TraderItems = new class'WMGFxObject_TraderItems';
 
 			for (i = 0; i < 255; ++i)
 			{
@@ -128,7 +128,7 @@ simulated event ReplicatedEvent(name VarName)
 
 		case 'KFWeaponDefPath_B':
 			if (TraderItems == none)
-				TraderItems = new class'KFGFxObject_TraderItems';
+				TraderItems = new class'WMGFxObject_TraderItems';
 
 			if (255 > TraderItems.SaleItems.Length)
 				TraderItems.SaleItems.Length = 255;
