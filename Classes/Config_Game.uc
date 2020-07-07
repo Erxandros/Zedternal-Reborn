@@ -13,6 +13,7 @@ var config float Game_ExtraNormalZedDoshFactorPerPlayer;	//extra amount of dosh 
 var config float Game_ExtraLargeZedDoshFactorPerPlayer;		//extra amount of dosh won based on number of players
 
 var config S_Difficulty_Int Game_ArmorPrice;
+var config S_Difficulty_Int Game_GrenadePrice;
 var config S_Difficulty_Float Game_AmmoPriceFactor;
 
 var config S_Difficulty_Int Game_TimeBetweenWave;
@@ -83,7 +84,16 @@ static function UpdateConfig()
 		default.Game_bAllowZedTeleport = false;
 		default.Game_bAllowFastSpawning = true;
 	}
-	
+
+	if (default.MODEVERSION < 5)
+	{
+		default.Game_GrenadePrice.Normal = 40;
+		default.Game_GrenadePrice.Hard = 40;
+		default.Game_GrenadePrice.Suicidal = 40;
+		default.Game_GrenadePrice.HoE = 40;
+		default.Game_GrenadePrice.Custom = 40;
+	}
+
 	if (default.MODEVERSION < class'ZedternalReborn.Config_Base'.default.currentVersion)
 	{
 		default.MODEVERSION = class'ZedternalReborn.Config_Base'.default.currentVersion;
@@ -124,6 +134,18 @@ static function int GetArmorPrice(int Difficulty)
 		case 2 :	return default.Game_ArmorPrice.Suicidal;
 		case 3 :	return default.Game_ArmorPrice.HoE;
 		default:	return default.Game_ArmorPrice.Custom;
+	}
+}
+
+static function int GetGrenadePrice(int Difficulty)
+{
+	switch (Difficulty)
+	{
+		case 0 :	return default.Game_GrenadePrice.Normal;
+		case 1 :	return default.Game_GrenadePrice.Hard;
+		case 2 :	return default.Game_GrenadePrice.Suicidal;
+		case 3 :	return default.Game_GrenadePrice.HoE;
+		default:	return default.Game_GrenadePrice.Custom;
 	}
 }
 

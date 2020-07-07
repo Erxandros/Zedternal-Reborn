@@ -20,6 +20,7 @@ var int SpecialWaveID[2];
 var repnotify bool bNewZedBuff;
 var int newWeaponEachWave, maxWeapon, staticWeapon;
 var repnotify int ArmorPrice;
+var repnotify int GrenadePrice;
 var repnotify byte TraderVoiceGroupIndex;
 
 var int perkPrice[255];
@@ -70,7 +71,7 @@ replication
 	if ( bNetDirty )
 		NumberOfTraderWeapons, NumberOfStartingWeapons, KFWeaponName_A, KFWeaponName_B, KFWeaponDefPath_A, KFWeaponDefPath_B, KFStartingWeaponPath,
 		perkUpgradesStr, skillUpgradesStr, skillUpgradesStr_Perk, specialWavesStr, grenadesStr,
-		zedBuffStr, SpecialWaveID, bNewZedBuff, newWeaponEachWave, maxWeapon, staticWeapon, ArmorPrice, TraderVoiceGroupIndex,
+		zedBuffStr, SpecialWaveID, bNewZedBuff, newWeaponEachWave, maxWeapon, staticWeapon, ArmorPrice, GrenadePrice, TraderVoiceGroupIndex,
 		perkPrice, perkMaxLevel, skillPrice, skillDeluxePrice, weaponMaxLevel, bZedBuffs,
 		weaponUpgrade_WeaponStr_A, weaponUpgrade_UpgradeStr_A, weaponUpgrade_PriceRep_A,
 		weaponUpgrade_WeaponStr_B, weaponUpgrade_UpgradeStr_B, weaponUpgrade_PriceRep_B,
@@ -105,6 +106,13 @@ simulated event ReplicatedEvent(name VarName)
 				TraderItems = new class'WMGFxObject_TraderItems';
 
 			TraderItems.ArmorPrice = ArmorPrice;
+			break;
+
+		case 'GrenadePrice':
+			if (TraderItems == none)
+				TraderItems = new class'WMGFxObject_TraderItems';
+
+			TraderItems.GrenadePrice = GrenadePrice;
 			break;
 
 		case 'KFWeaponDefPath_A':
