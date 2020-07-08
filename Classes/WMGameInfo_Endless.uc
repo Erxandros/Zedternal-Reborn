@@ -335,8 +335,11 @@ function SetupPickupItems()
 	// Set Weapon PickupFactory
 
 	//Add armor
-	newPickup.ItemClass = Class'KFGameContent.KFInventory_Armor';
-	StartingItemPickups.AddItem(newPickup);
+	if (class'ZedternalReborn.Config_Game'.default.Game_bArmorSpawnOnMap)
+	{
+		newPickup.ItemClass = Class'KFGameContent.KFInventory_Armor';
+		StartingItemPickups.AddItem(newPickup);
+	}
 
 	//Add 9mm
 	newPickup.ItemClass = class'KFGameContent.KFWeap_Pistol_9mm';
@@ -1113,6 +1116,9 @@ function RepGameInfo()
 
 	//Optimization
 	WMGRI.NumberOfStartingWeapons = startingWeaponCount;
+
+	//Armor pickup enable
+	WMGRI.bArmorPickup = class'ZedternalReborn.Config_Game'.default.Game_bArmorSpawnOnMap ? 2 : 1; //2 is true, 1 is false
 
 	//Starting/itempickup Weapon
 	for (b = 0; b < Min(255, KFStartingWeaponPath.Length); ++b)

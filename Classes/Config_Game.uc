@@ -15,6 +15,7 @@ var config float Game_ExtraLargeZedDoshFactorPerPlayer;		//extra amount of dosh 
 var config S_Difficulty_Int Game_ArmorPrice;
 var config S_Difficulty_Int Game_GrenadePrice;
 var config S_Difficulty_Float Game_AmmoPriceFactor;
+var config bool Game_bArmorSpawnOnMap;
 
 var config S_Difficulty_Int Game_TimeBetweenWave;
 var config S_Difficulty_Int Game_TimeBetweenWaveIfPlayerDead;
@@ -92,6 +93,7 @@ static function UpdateConfig()
 		default.Game_GrenadePrice.Suicidal = 40;
 		default.Game_GrenadePrice.HoE = 40;
 		default.Game_GrenadePrice.Custom = 40;
+		default.Game_bArmorSpawnOnMap = true;
 	}
 
 	if (default.MODEVERSION < class'ZedternalReborn.Config_Base'.default.currentVersion)

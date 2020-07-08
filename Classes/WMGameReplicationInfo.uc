@@ -22,6 +22,7 @@ var int newWeaponEachWave, maxWeapon, staticWeapon;
 var repnotify int ArmorPrice;
 var repnotify int GrenadePrice;
 var repnotify byte TraderVoiceGroupIndex;
+var repnotify byte bArmorPickup;
 
 var int perkPrice[255];
 var int perkMaxLevel;
@@ -70,8 +71,8 @@ replication
 {
 	if ( bNetDirty )
 		NumberOfTraderWeapons, NumberOfStartingWeapons, KFWeaponName_A, KFWeaponName_B, KFWeaponDefPath_A, KFWeaponDefPath_B, KFStartingWeaponPath,
-		perkUpgradesStr, skillUpgradesStr, skillUpgradesStr_Perk, specialWavesStr, grenadesStr,
-		zedBuffStr, SpecialWaveID, bNewZedBuff, newWeaponEachWave, maxWeapon, staticWeapon, ArmorPrice, GrenadePrice, TraderVoiceGroupIndex,
+		perkUpgradesStr, skillUpgradesStr, skillUpgradesStr_Perk, specialWavesStr, grenadesStr, zedBuffStr, SpecialWaveID, bNewZedBuff,
+		newWeaponEachWave, maxWeapon, staticWeapon, ArmorPrice, GrenadePrice, TraderVoiceGroupIndex, bArmorPickup,
 		perkPrice, perkMaxLevel, skillPrice, skillDeluxePrice, weaponMaxLevel, bZedBuffs,
 		weaponUpgrade_WeaponStr_A, weaponUpgrade_UpgradeStr_A, weaponUpgrade_PriceRep_A,
 		weaponUpgrade_WeaponStr_B, weaponUpgrade_UpgradeStr_B, weaponUpgrade_PriceRep_B,
@@ -98,6 +99,10 @@ simulated event ReplicatedEvent(name VarName)
 			break;
 
 		case 'NumberOfStartingWeapons':
+			SetWeaponPickupList();
+			break;
+
+		case 'bArmorPickup':
 			SetWeaponPickupList();
 			break;
 
@@ -443,6 +448,9 @@ simulated function SetWeaponPickupList()
 	if (NumberOfStartingWeapons == -1)
 		return; //Not yet replicated
 
+	if (bArmorPickup == 0)
+		return; //Not yet replicated
+
 	if (KFStartingWeapon.Length != NumberOfStartingWeapons)
 		return; //Replication not done yet
 
@@ -455,8 +463,11 @@ simulated function SetWeaponPickupList()
 	// Set Weapon PickupFactory
 
 	//Add armor
-	newPickup.ItemClass = Class'KFGameContent.KFInventory_Armor';
-	StartingItemPickups.AddItem(newPickup);
+	if (bArmorPickup == 2)
+	{
+		newPickup.ItemClass = Class'KFGameContent.KFInventory_Armor';
+		StartingItemPickups.AddItem(newPickup);
+	}
 
 	//Add 9mm
 	newPickup.ItemClass = class'KFGameContent.KFWeap_Pistol_9mm';
@@ -631,6 +642,7 @@ defaultproperties
 {
 	NumberOfTraderWeapons=-1
 	NumberOfStartingWeapons=-1
+	bArmorPickup=0
 	WaveMax=255
 	ArmorPrice=3
 	bEndlessMode=True
