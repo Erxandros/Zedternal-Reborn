@@ -96,6 +96,10 @@ event PostBeginPlay()
 	// Set item pickups
 	SetupPickupItems();
 
+	// Set objective zones
+	if (IsMapObjectiveEnabled())
+		SetupObjectiveZones();
+
 	// Select Trader voice
 	SelectRandomTraderVoice();
 
@@ -255,7 +259,14 @@ function StartWave()
 	
 	MyKFGRI.bWaveStarted = true;
 
+	if (IsMapObjectiveEnabled())
+	{
+		MyKFGRI.ClearPreviousObjective();
+		MyKFGRI.StartNextObjective();
+	}
+
 	SpawnManager.SetupNextWave(WaveNum);
+	MyKFGRI.bForceNextObjective = false;
 
 	if( WorldInfo.NetMode != NM_DedicatedServer && Role == ROLE_Authority )
 	{
@@ -390,6 +401,60 @@ function SetupPickupItems()
 
 	//Cleanup and reset everything
 	ResetAllPickups();
+}
+
+function SetupObjectiveZones()
+{
+	local byte b;
+	local array<float> DoshDifficultyMod;
+	local WMMapObjective_DoshHold NewObjective;
+	local KFMapObjective_DoshHold OldObjective;
+	local array<KFMapObjective_DoshHold> OldObjectiveZones;
+	local array<KFInterface_MapObjective> NewObjectiveZones;
+	local KFMapInfo KFMI;
+
+	//Set the dosh difficulty modifier
+	DoshDifficultyMod.AddItem(FMax(0.0f, class'ZedternalReborn.Config_Objective'.default.Objective_DoshDifficultyModifier.Normal));
+	DoshDifficultyMod.AddItem(FMax(0.0f, class'ZedternalReborn.Config_Objective'.default.Objective_DoshDifficultyModifier.Hard));
+	DoshDifficultyMod.AddItem(FMax(0.0f, class'ZedternalReborn.Config_Objective'.default.Objective_DoshDifficultyModifier.Suicidal));
+	DoshDifficultyMod.AddItem(FMax(0.0f, class'ZedternalReborn.Config_Objective'.default.Objective_DoshDifficultyModifier.HoE));
+	DoshDifficultyMod.AddItem(FMax(0.0f, class'ZedternalReborn.Config_Objective'.default.Objective_DoshDifficultyModifier.Custom));
+
+	//Get all the Dosh Hold objectives on the map
+	foreach DynamicActors( class'KFMapObjective_DoshHold', OldObjective )
+	{
+		if (OldObjective != none)
+		{
+			OldObjectiveZones.AddItem(OldObjective);
+		}
+	}
+
+	//Create new objectives
+	for (b = 0; b < OldObjectiveZones.Length; ++b)
+	{
+		NewObjective = Spawn(class'WMMapObjective_DoshHold', OldObjectiveZones[b]);
+		if (NewObjective != none && NewObjective.Owner != none && NewObjective.Owner.Name == OldObjectiveZones[b].Name)
+		{
+			NewObjective.DoshRewardsZedternal = Max(0, class'ZedternalReborn.Config_Objective'.default.Objective_BaseMoney);
+			NewObjective.DoshDifficultyScalarsZedternal = DoshDifficultyMod;
+			NewObjective.PctOfWaveZedsKilledForMaxRewardZedternal = FClamp(class'ZedternalReborn.Config_Objective'.default.Objective_PctOfWaveKilledForMaxReward, 0.01f, 1.0f);
+			NewObjective.ActivatePctChances = FClamp(class'ZedternalReborn.Config_Objective'.default.Objective_Probability, 0.01f, 1.0f);
+			NewObjective.Parent = KFMapObjective_DoshHold(NewObjective.Owner);
+			NewObjectiveZones.AddItem(NewObjective);
+		}
+		else
+		{
+			`log("Failed to override objective "$OldObjectiveZones[b].Name$" due to failure to spawn in new objective object");
+		}
+	}
+
+	KFMI = KFMapInfo(WorldInfo.GetMapInfo());
+	if (KFMI != none)
+	{
+		KFMI.RandomWaveObjectives.Length = 0;
+		KFMI.RandomWaveObjectives = NewObjectiveZones;
+		KFMI.CurrentAvailableRandomWaveObjectives = KFMI.RandomWaveObjectives;
+	}
 }
 
 function CheckZedBuff()
@@ -1558,6 +1623,11 @@ function ResetPickups( array<KFPickupFactory> PickupList, int NumPickups )
 function byte GetGameIntensityForMusic()
 {
 	return 255;
+}
+
+function bool IsMapObjectiveEnabled()
+{
+	return class'ZedternalReborn.Config_Objective'.default.Objective_bEnable;
 }
 
 defaultproperties
