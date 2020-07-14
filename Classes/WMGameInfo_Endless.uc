@@ -424,8 +424,8 @@ function SetupObjectiveZones()
 	//Create new objectives
 	for (b = 0; b < OldObjectiveZones.Length; ++b)
 	{
-		NewObjective = Spawn(class'WMMapObjective_DoshHold', OldObjectiveZones[b]);
-		if (NewObjective != none && NewObjective.Owner != none && NewObjective.Owner.Name == OldObjectiveZones[b].Name)
+		NewObjective = Spawn(class'WMMapObjective_DoshHold');
+		if (NewObjective != none)
 		{
 			NewObjective.DoshDifficultyScalarsZedternal[0] = FMax(0.0f, class'ZedternalReborn.Config_Objective'.default.Objective_DoshDifficultyModifier.Normal);
 			NewObjective.DoshDifficultyScalarsZedternal[1] = FMax(0.0f, class'ZedternalReborn.Config_Objective'.default.Objective_DoshDifficultyModifier.Hard);
@@ -435,8 +435,8 @@ function SetupObjectiveZones()
 			NewObjective.DoshRewardsZedternal = Max(0, class'ZedternalReborn.Config_Objective'.default.Objective_BaseMoney);
 			NewObjective.PctOfWaveZedsKilledForMaxRewardZedternal = FClamp(class'ZedternalReborn.Config_Objective'.default.Objective_PctOfWaveKilledForMaxReward, 0.01f, 1.0f);
 			NewObjective.ActivatePctChances = FClamp(class'ZedternalReborn.Config_Objective'.default.Objective_Probability, 0.01f, 1.0f);
-			NewObjective.Parent = KFMapObjective_DoshHold(NewObjective.Owner);
-			NewObjective.ParentName = KFMapObjective_DoshHold(NewObjective.Owner).Name;
+			NewObjective.Parent = OldObjectiveZones[b];
+			NewObjective.ParentName = OldObjectiveZones[b].Name;
 			NewObjectiveZones.AddItem(NewObjective);
 		}
 		else
