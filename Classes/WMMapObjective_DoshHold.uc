@@ -4,27 +4,47 @@ class WMMapObjective_DoshHold extends Actor
 
 var repnotify bool bActive;
 var KFMapObjective_DoshHold Parent;
+var repnotify Name ParentName;
 
 var float ActivatePctChances;
 var float PctOfWaveZedsKilledForMaxRewardZedternal;
 var int DoshRewardsZedternal;
-var array<float> DoshDifficultyScalarsZedternal;
+var float DoshDifficultyScalarsZedternal[5];
 
 // Replication
 replication
 {
+	if (bNetInitial)
+		ActivatePctChances, PctOfWaveZedsKilledForMaxRewardZedternal, DoshRewardsZedternal, DoshDifficultyScalarsZedternal, ParentName;
+
 	if (bNetDirty)
 		bActive;
 }
 
 simulated event ReplicatedEvent(name VarName)
 {
+	local KFMapObjective_DoshHold ParentObjective;
+
 	if (VarName == nameof(bActive))
 	{
 		if (!bActive)
 		{
 			DeactivateObjective();
 		}
+	}
+	else if (VarName == nameof(ParentName))
+	{
+		foreach DynamicActors(class'KFMapObjective_DoshHold', ParentObjective)
+		{
+			if (ParentObjective.Name == ParentName)
+			{
+				Parent = ParentObjective;
+				break;
+			}
+		}
+
+		if (Parent == None)
+			Destroy(); //Can not do anything without the parent class
 	}
 }
 
