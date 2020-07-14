@@ -110,14 +110,14 @@ simulated event ReplicatedEvent(name VarName)
 			if (TraderItems == none)
 				TraderItems = new class'WMGFxObject_TraderItems';
 
-			TraderItems.ArmorPrice = ArmorPrice;
+			CheckAndSetTraderItems();
 			break;
 
 		case 'GrenadePrice':
 			if (TraderItems == none)
 				TraderItems = new class'WMGFxObject_TraderItems';
 
-			TraderItems.GrenadePrice = GrenadePrice;
+			CheckAndSetTraderItems();
 			break;
 
 		case 'KFWeaponDefPath_A':
@@ -421,6 +421,12 @@ simulated function CheckAndSetTraderItems()
 	if (TraderItems == none)
 		return; //TraderItems not created yet
 
+	if (ArmorPrice == -1)
+		return; //Not yet replicated
+
+	if (GrenadePrice == -1)
+		return; //Not yet replicated
+
 	if (NumberOfTraderWeapons == -1)
 		return; //Not yet replicated
 
@@ -432,6 +438,10 @@ simulated function CheckAndSetTraderItems()
 		if (TraderItems.SaleItems[i].ItemID == -1)
 			return;
 	}
+
+	//Set armor and grenade price
+	TraderItems.ArmorPrice = ArmorPrice;
+	TraderItems.GrenadePrice = GrenadePrice;
 
 	TraderItems.SetItemsInfo(TraderItems.SaleItems);
 }
@@ -644,7 +654,8 @@ defaultproperties
 	NumberOfStartingWeapons=-1
 	bArmorPickup=0
 	WaveMax=255
-	ArmorPrice=3
+	ArmorPrice=-1
+	GrenadePrice=-1
 	bEndlessMode=True
 	bDrawSpecialWave=false
 	UpdateZedInfoInterval=0.500000
