@@ -427,11 +427,11 @@ function SetupObjectiveZones()
 		NewObjective = Spawn(class'WMMapObjective_DoshHold');
 		if (NewObjective != none)
 		{
-			NewObjective.DoshDifficultyScalarsZedternal[0] = FMax(0.0f, class'ZedternalReborn.Config_Objective'.default.Objective_DoshDifficultyModifier.Normal);
-			NewObjective.DoshDifficultyScalarsZedternal[1] = FMax(0.0f, class'ZedternalReborn.Config_Objective'.default.Objective_DoshDifficultyModifier.Hard);
-			NewObjective.DoshDifficultyScalarsZedternal[2] = FMax(0.0f, class'ZedternalReborn.Config_Objective'.default.Objective_DoshDifficultyModifier.Suicidal);
-			NewObjective.DoshDifficultyScalarsZedternal[3] = FMax(0.0f, class'ZedternalReborn.Config_Objective'.default.Objective_DoshDifficultyModifier.HoE);
-			NewObjective.DoshDifficultyScalarsZedternal[4] = FMax(0.0f, class'ZedternalReborn.Config_Objective'.default.Objective_DoshDifficultyModifier.Custom);
+			if (CustomMode)
+				NewObjective.DoshDifficultyScalarsZedternal = FMax(0.0f, class'ZedternalReborn.Config_Objective'.static.GetDoshDifficultyModifier(CustomDifficulty));
+			else
+				NewObjective.DoshDifficultyScalarsZedternal = FMax(0.0f, class'ZedternalReborn.Config_Objective'.static.GetDoshDifficultyModifier(GameDifficulty));
+
 			NewObjective.DoshRewardsZedternal = Max(0, class'ZedternalReborn.Config_Objective'.default.Objective_BaseMoney);
 			NewObjective.PctOfWaveZedsKilledForMaxRewardZedternal = FClamp(class'ZedternalReborn.Config_Objective'.default.Objective_PctOfWaveKilledForMaxReward, 0.01f, 1.0f);
 			NewObjective.ActivatePctChances = FClamp(class'ZedternalReborn.Config_Objective'.default.Objective_Probability, 0.01f, 1.0f);

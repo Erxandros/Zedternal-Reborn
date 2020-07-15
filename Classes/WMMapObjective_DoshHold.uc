@@ -9,7 +9,7 @@ var repnotify Name ParentName;
 var float ActivatePctChances;
 var float PctOfWaveZedsKilledForMaxRewardZedternal;
 var int DoshRewardsZedternal;
-var float DoshDifficultyScalarsZedternal[5];
+var float DoshDifficultyScalarsZedternal;
 
 // Replication
 replication
@@ -342,15 +342,7 @@ simulated function int GetDoshReward()
 
 simulated function int GetMaxDoshReward()
 {
-	local KFGameReplicationInfo KFGRI;
-
-	KFGRI = KFGameReplicationInfo(WorldInfo.GRI);
-	if (KFGRI != none)
-	{
-		return DoshRewardsZedternal * DoshDifficultyScalarsZedternal[KFGRI.GameDifficulty];
-	}
-
-	return DoshRewardsZedternal;
+	return DoshRewardsZedternal * DoshDifficultyScalarsZedternal;
 }
 
 simulated function int GetVoshReward()

@@ -34,6 +34,18 @@ static function UpdateConfig()
 	}
 }
 
+static function float GetDoshDifficultyModifier(int Difficulty)
+{
+	switch (Difficulty)
+	{
+		case 0 :	return default.Objective_DoshDifficultyModifier.Normal;
+		case 1 :	return default.Objective_DoshDifficultyModifier.Hard;
+		case 2 :	return default.Objective_DoshDifficultyModifier.Suicidal;
+		case 3 :	return default.Objective_DoshDifficultyModifier.HoE;
+		default:	return default.Objective_DoshDifficultyModifier.Custom;
+	}
+}
+
 defaultproperties
 {
 }
