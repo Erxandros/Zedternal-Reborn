@@ -1,8 +1,7 @@
 class WMGameDifficulty_Endless extends KFGameDifficulty_Survival;
 
 var WMGameReplicationInfo WMGRI;
-var float CustomDifficulty;
-var bool CustomMode;
+var float GameDifficultyZedternal;
 
 function SetDifficultySettings( float GameDifficulty )
 {
@@ -12,9 +11,12 @@ function SetDifficultySettings( float GameDifficulty )
 
 	if (GameDifficulty > `DIFFICULTY_HELLONEARTH)
 	{
-		CustomMode = true;
+		GameDifficultyZedternal = 4.0f;
 		GameDifficulty = `DIFFICULTY_HELLONEARTH;
 	}
+	else
+		GameDifficultyZedternal = GameDifficulty;
+
 	super.SetDifficultySettings(GameDifficulty);
 }
 
@@ -22,10 +24,7 @@ function GetAIHealthModifier(KFPawn_Monster P, float GameDifficulty, byte NumLiv
 {
 	local byte i;
 
-	if (CustomMode)
-	{
-		GameDifficulty = CustomDifficulty;
-	}
+	GameDifficulty = GameDifficultyZedternal;
 
 	if ( P != none )
 	{
@@ -116,10 +115,7 @@ function float GetAIDamageModifier(KFPawn_Monster P, float GameDifficulty, bool 
     local float ZedDamageMod;
 	local byte i;
 
-	if (CustomMode)
-	{
-		GameDifficulty = CustomDifficulty;
-	}
+	GameDifficulty = GameDifficultyZedternal;
 
     if(bSoloPlay)
         ZedDamageMod = class'ZedternalReborn.Config_Difficulty'.static.GetZedSoloDamageMod(GameDifficulty);
@@ -150,10 +146,7 @@ function float GetAISpeedMod(KFPawn_Monster P, float GameDifficulty)
 	local float SpeedMod;
 	local byte i;
 
-	if (CustomMode)
-	{
-		GameDifficulty = CustomDifficulty;
-	}
+	GameDifficulty = GameDifficultyZedternal;
 
 	SpeedMod = class'ZedternalReborn.Config_Difficulty'.static.GetZedSpeedMod(GameDifficulty) * RandRange(0.9f, 1.1f);
 
@@ -179,10 +172,7 @@ function float GetCharSprintChanceByDifficulty( KFPawn_Monster P, float GameDiff
 	local byte i;
 	local KFAIController_Monster KFAI;
 
-	if (CustomMode)
-	{
-		GameDifficulty = CustomDifficulty;
-	}
+	GameDifficulty = GameDifficultyZedternal;
 
 	// diable teleport ability
 	if (!class'ZedternalReborn.Config_Game'.default.Game_bAllowZedTeleport)
@@ -229,10 +219,7 @@ function float GetCharSprintWhenDamagedChanceByDifficulty( KFPawn_Monster P, flo
 	local float SprintChanceMod;
 	local byte i;
 
-	if (CustomMode)
-	{
-		GameDifficulty = CustomDifficulty;
-	}
+	GameDifficulty = GameDifficultyZedternal;
 
 	if ( GameDifficulty >= 3.0)
 	{
@@ -448,8 +435,7 @@ function float GetDamageResistanceModifier( byte NumLivingPlayers )
 
 defaultproperties
 {
-	CustomDifficulty=4.0
-	CustomMode=false
+	GameDifficultyZedternal=0.0f
 	Normal=(TraderTime=75,MovementSpeedMod=0.900000,WaveCountMod=0.850000,DoshKillMod=1.200000,StartingDosh=300,AmmoPickupsMod=0.400000,ItemPickupsMod=0.450000,SelfInflictedDamageMod=0.100000,SpawnRateModifier=0.800000)
 	Hard=(MovementSpeedMod=0.950000,RespawnDosh=300,AmmoPickupsMod=0.300000,ItemPickupsMod=0.350000,SelfInflictedDamageMod=0.200000,SpawnRateModifier=0.800000)
 	Suicidal=(MovementSpeedMod=0.950000,WaveCountMod=1.300000,AmmoPickupsMod=0.400000,ItemPickupsMod=0.250000,MediumAttackChance=1.000000,HardAttackChance=0.500000,SelfInflictedDamageMod=0.200000,SpawnRateModifier=0.700000)

@@ -19,8 +19,7 @@ var byte startingMaxPlayerCount;
 var int startingWeaponCount;
 var byte traderVoiceIndex;
 
-var float CustomDifficulty;
-var bool CustomMode;
+var float GameDifficultyZedternal;
 
 struct S_Weapon_Upgrade
 {
@@ -113,18 +112,10 @@ event PostBeginPlay()
 
 	lastSpecialWaveID = -1;
 
-	if (CustomMode)
-		TimeBetweenWaves = class'ZedternalReborn.Config_Game'.static.GetTimeBetweenWave(CustomDifficulty);
-	else
-		TimeBetweenWaves = class'ZedternalReborn.Config_Game'.static.GetTimeBetweenWave(GameDifficulty);
-
+	TimeBetweenWaves = class'ZedternalReborn.Config_Game'.static.GetTimeBetweenWave(GameDifficultyZedternal);
 	TimeBetweenWavesDefault = TimeBetweenWaves;
 
-	if (CustomMode)
-		TimeBetweenWavesExtend = class'ZedternalReborn.Config_Game'.static.GetTimeBetweenWaveHumanDied(CustomDifficulty);
-	else
-		TimeBetweenWavesExtend = class'ZedternalReborn.Config_Game'.static.GetTimeBetweenWaveHumanDied(GameDifficulty);
-
+	TimeBetweenWavesExtend = class'ZedternalReborn.Config_Game'.static.GetTimeBetweenWaveHumanDied(GameDifficultyZedternal);
 	bUseExtendedTraderTime = false;
 }
 
@@ -186,9 +177,11 @@ function InitSpawnManager()
 
 	if (GameDifficulty > `DIFFICULTY_HELLONEARTH)
 	{
-		CustomMode = true;
+		GameDifficultyZedternal = 4.0f;
 		GameDifficulty = `DIFFICULTY_HELLONEARTH;
 	}
+	else
+		GameDifficultyZedternal = GameDifficulty;
 
 	WaveMax = INDEX_NONE;
 	MyKFGRI.WaveMax = WaveMax;
@@ -427,11 +420,7 @@ function SetupObjectiveZones()
 		NewObjective = Spawn(class'WMMapObjective_DoshHold');
 		if (NewObjective != none)
 		{
-			if (CustomMode)
-				NewObjective.DoshDifficultyScalarsZedternal = FMax(0.0f, class'ZedternalReborn.Config_Objective'.static.GetDoshDifficultyModifier(CustomDifficulty));
-			else
-				NewObjective.DoshDifficultyScalarsZedternal = FMax(0.0f, class'ZedternalReborn.Config_Objective'.static.GetDoshDifficultyModifier(GameDifficulty));
-
+			NewObjective.DoshDifficultyScalarsZedternal = FMax(0.0f, class'ZedternalReborn.Config_Objective'.static.GetDoshDifficultyModifier(GameDifficultyZedternal));
 			NewObjective.DoshRewardsZedternal = Max(0, class'ZedternalReborn.Config_Objective'.default.Objective_BaseMoney);
 			NewObjective.PctOfWaveZedsKilledForMaxRewardZedternal = FClamp(class'ZedternalReborn.Config_Objective'.default.Objective_PctOfWaveKilledForMaxReward, 0.01f, 1.0f);
 			NewObjective.ActivatePctChances = FClamp(class'ZedternalReborn.Config_Objective'.default.Objective_Probability, 0.01f, 1.0f);
@@ -526,16 +515,11 @@ function ApplyRandomZedBuff(int Wave, bool bRewardPlayer, byte count)
 				{
 					if (KFPlayerReplicationInfo(KFPC.PlayerReplicationInfo) != none)
 					{
-						if (CustomMode)
-							KFPlayerReplicationInfo(KFPC.PlayerReplicationInfo).AddDosh(class'ZedternalReborn.Config_ZedBuff'.static.GetDoshBonus(CustomDifficulty) * doshMultiplier, true);
-						else
-							KFPlayerReplicationInfo(KFPC.PlayerReplicationInfo).AddDosh(class'ZedternalReborn.Config_ZedBuff'.static.GetDoshBonus(GameDifficulty) * doshMultiplier, true);
+						KFPlayerReplicationInfo(KFPC.PlayerReplicationInfo).AddDosh(class'ZedternalReborn.Config_ZedBuff'.static.GetDoshBonus(GameDifficultyZedternal) * doshMultiplier, true);
 					}
 				}
-				if (CustomMode)
-					doshNewPlayer += class'ZedternalReborn.Config_ZedBuff'.static.GetDoshBonus(CustomDifficulty) * doshMultiplier;
-				else
-					doshNewPlayer += class'ZedternalReborn.Config_ZedBuff'.static.GetDoshBonus(GameDifficulty) * doshMultiplier;
+
+				doshNewPlayer += class'ZedternalReborn.Config_ZedBuff'.static.GetDoshBonus(GameDifficultyZedternal) * doshMultiplier;
 			}
 
 			// play bosses music to stress players
@@ -591,10 +575,7 @@ function OpenTrader()
 		else
 			timeMultiplier = 1;
 
-		if (CustomMode)
-			TimeBetweenWaves += class'ZedternalReborn.Config_ZedBuff'.static.GetTraderTimeBonus(CustomDifficulty) * timeMultiplier;
-		else
-			TimeBetweenWaves += class'ZedternalReborn.Config_ZedBuff'.static.GetTraderTimeBonus(GameDifficulty) * timeMultiplier;
+		TimeBetweenWaves += class'ZedternalReborn.Config_ZedBuff'.static.GetTraderTimeBonus(GameDifficultyZedternal) * timeMultiplier;
 	}
 
 	MyKFGRI.OpenTrader(TimeBetweenWaves);
@@ -735,16 +716,8 @@ function BuildWeaponList()
 	/////////////////////////////
 	// Armor and Grenade Price //
 	/////////////////////////////
-	if (CustomMode)
-	{
-		TraderItems.ArmorPrice = class'ZedternalReborn.Config_Game'.static.GetArmorPrice(CustomDifficulty);
-		TraderItems.GrenadePrice = class'ZedternalReborn.Config_Game'.static.GetGrenadePrice(CustomDifficulty);
-	}
-	else
-	{
-		TraderItems.ArmorPrice = class'ZedternalReborn.Config_Game'.static.GetArmorPrice(GameDifficulty);
-		TraderItems.GrenadePrice = class'ZedternalReborn.Config_Game'.static.GetGrenadePrice(GameDifficulty);
-	}
+	TraderItems.ArmorPrice = class'ZedternalReborn.Config_Game'.static.GetArmorPrice(GameDifficultyZedternal);
+	TraderItems.GrenadePrice = class'ZedternalReborn.Config_Game'.static.GetGrenadePrice(GameDifficultyZedternal);
 
 	if (WMGameReplicationInfo(MyKFGRI) != none)
 	{
@@ -1153,10 +1126,7 @@ function RepGameInfo()
 	local byte b;
 
 	//AmmoPriceFactor
-	if (CustomMode)
-		MyKFGRI.GameAmmoCostScale = class'ZedternalReborn.Config_Game'.static.GetAmmoPriceFactor(CustomDifficulty);
-	else
-		MyKFGRI.GameAmmoCostScale = class'ZedternalReborn.Config_Game'.static.GetAmmoPriceFactor(GameDifficulty);
+	MyKFGRI.GameAmmoCostScale = class'ZedternalReborn.Config_Game'.static.GetAmmoPriceFactor(GameDifficultyZedternal);
 
 	WMGRI = WMGameReplicationInfo(MyKFGRI);
 	if (WMGRI == none)
@@ -1405,23 +1375,17 @@ function float GetAdjustedAIDoshValue( class<KFPawn_Monster> MonsterClass )
 
 	if (MonsterClass.default.bLargeZed)
 	{
-		if (CustomMode)
-			TempValue *= class'ZedternalReborn.Config_Game'.static.GetLargeZedDoshFactor(CustomDifficulty);
-		else
-			TempValue *= class'ZedternalReborn.Config_Game'.static.GetLargeZedDoshFactor(GameDifficulty);
-
+		TempValue *= class'ZedternalReborn.Config_Game'.static.GetLargeZedDoshFactor(GameDifficultyZedternal);
 		if (PlayerCount > 1)
 			tempValue *= (1.f + (PlayerCount - 1) * class'ZedternalReborn.Config_Game'.default.Game_ExtraLargeZedDoshFactorPerPlayer);
 	}
 	else
 	{
-		if (CustomMode)
-			TempValue *= class'ZedternalReborn.Config_Game'.static.GetNormalZedDoshFactor(CustomDifficulty);
-		else
-			TempValue *= class'ZedternalReborn.Config_Game'.static.GetNormalZedDoshFactor(GameDifficulty);
+		TempValue *= class'ZedternalReborn.Config_Game'.static.GetNormalZedDoshFactor(GameDifficultyZedternal);
 		if (PlayerCount > 1)
 			tempValue *= (1.f + (PlayerCount - 1) * class'ZedternalReborn.Config_Game'.default.Game_ExtraNormalZedDoshFactorPerPlayer);
 	}
+
 	return TempValue;
 }
 
@@ -1647,8 +1611,7 @@ defaultproperties
 	TraderVoiceGroupClass=Class'kfgamecontent.KFTraderVoiceGroup_Default'
 	traderVoiceIndex=0
 
-	CustomMode=false
-	CustomDifficulty=4.0
+	GameDifficultyZedternal=0.0f
 	Name="Default__WMGameInfo_Endless"
 
 	DefaultPawnClass=Class'ZedternalReborn.WMPawn_Human'

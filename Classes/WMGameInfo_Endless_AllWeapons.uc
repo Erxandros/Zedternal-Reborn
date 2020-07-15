@@ -16,16 +16,8 @@ function BuildWeaponList()
 	/////////////////////////////
 	// Armor and Grenade Price //
 	/////////////////////////////
-	if (CustomMode)
-	{
-		TraderItems.ArmorPrice = class'ZedternalReborn.Config_Game'.static.GetArmorPrice(CustomDifficulty);
-		TraderItems.GrenadePrice = class'ZedternalReborn.Config_Game'.static.GetGrenadePrice(CustomDifficulty);
-	}
-	else
-	{
-		TraderItems.ArmorPrice = class'ZedternalReborn.Config_Game'.static.GetArmorPrice(GameDifficulty);
-		TraderItems.GrenadePrice = class'ZedternalReborn.Config_Game'.static.GetGrenadePrice(GameDifficulty);
-	}
+	TraderItems.ArmorPrice = class'ZedternalReborn.Config_Game'.static.GetArmorPrice(GameDifficultyZedternal);
+	TraderItems.GrenadePrice = class'ZedternalReborn.Config_Game'.static.GetGrenadePrice(GameDifficultyZedternal);
 
 	if (WMGameReplicationInfo(MyKFGRI) != none)
 	{
