@@ -6,16 +6,18 @@ var repnotify bool bActive;
 var KFMapObjective_DoshHold Parent;
 var repnotify Name ParentName;
 
-var float ActivatePctChances;
-var float PctOfWaveZedsKilledForMaxRewardZedternal;
+var float ActivatePctChance;
 var int DoshRewardsZedternal;
-var float DoshDifficultyScalarsZedternal;
+var float PctOfWaveZedsKilledForMaxRewardZedternal;
+var float DoshDifficultyScalarZedternal;
+var float DoshDifficultyScalarIncPerWaveZedternal;
 
 // Replication
 replication
 {
 	if (bNetInitial)
-		ActivatePctChances, PctOfWaveZedsKilledForMaxRewardZedternal, DoshRewardsZedternal, DoshDifficultyScalarsZedternal, ParentName;
+		ActivatePctChance, DoshRewardsZedternal, PctOfWaveZedsKilledForMaxRewardZedternal,
+		DoshDifficultyScalarZedternal, DoshDifficultyScalarIncPerWaveZedternal, ParentName;
 
 	if (bNetDirty)
 		bActive;
@@ -342,7 +344,13 @@ simulated function int GetDoshReward()
 
 simulated function int GetMaxDoshReward()
 {
-	return DoshRewardsZedternal * DoshDifficultyScalarsZedternal;
+	local KFGameReplicationInfo KFGRI;
+
+	KFGRI = KFGameReplicationInfo(WorldInfo.GRI);
+	if (KFGRI != none)
+		return DoshRewardsZedternal * (DoshDifficultyScalarZedternal + DoshDifficultyScalarIncPerWaveZedternal * KFGRI.WaveNum);
+
+	return DoshRewardsZedternal * DoshDifficultyScalarZedternal;
 }
 
 simulated function int GetVoshReward()
@@ -418,7 +426,7 @@ simulated function float GetActivationPctChance()
 		return 0.0f; //Do not spawn an objective on the start round	
 	}
 
-	return ActivatePctChances;
+	return ActivatePctChance;
 }
 
 simulated function float GetSpawnRateMod()

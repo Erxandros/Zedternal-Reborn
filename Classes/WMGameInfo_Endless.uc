@@ -420,10 +420,12 @@ function SetupObjectiveZones()
 		NewObjective = Spawn(class'WMMapObjective_DoshHold');
 		if (NewObjective != none)
 		{
-			NewObjective.DoshDifficultyScalarsZedternal = FMax(0.0f, class'ZedternalReborn.Config_Objective'.static.GetDoshDifficultyModifier(GameDifficultyZedternal));
+			NewObjective.ActivatePctChance = FClamp(class'ZedternalReborn.Config_Objective'.default.Objective_Probability, 0.01f, 1.0f);
 			NewObjective.DoshRewardsZedternal = Max(0, class'ZedternalReborn.Config_Objective'.default.Objective_BaseMoney);
 			NewObjective.PctOfWaveZedsKilledForMaxRewardZedternal = FClamp(class'ZedternalReborn.Config_Objective'.default.Objective_PctOfWaveKilledForMaxReward, 0.01f, 1.0f);
-			NewObjective.ActivatePctChances = FClamp(class'ZedternalReborn.Config_Objective'.default.Objective_Probability, 0.01f, 1.0f);
+			NewObjective.DoshDifficultyScalarZedternal = FMax(0.0f, class'ZedternalReborn.Config_Objective'.static.GetDoshDifficultyModifier(GameDifficultyZedternal));
+			NewObjective.DoshDifficultyScalarIncPerWaveZedternal = FMax(0.0f, class'ZedternalReborn.Config_Objective'.static.GetDoshDifficultyModifierIncPerWave(GameDifficultyZedternal));
+
 			NewObjective.Parent = OldObjectiveZones[b];
 			NewObjective.ParentName = OldObjectiveZones[b].Name;
 			NewObjectiveZones.AddItem(NewObjective);

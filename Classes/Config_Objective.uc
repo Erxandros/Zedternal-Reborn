@@ -9,6 +9,7 @@ var config float Objective_Probability;
 var config float Objective_PctOfWaveKilledForMaxReward;
 var config int Objective_BaseMoney;
 var config S_Difficulty_Float Objective_DoshDifficultyModifier;
+var config S_Difficulty_Float Objective_DoshDifficultyModifierIncPerWave;
 
 static function UpdateConfig()
 {
@@ -25,6 +26,12 @@ static function UpdateConfig()
 		default.Objective_DoshDifficultyModifier.Suicidal = 1.5f;
 		default.Objective_DoshDifficultyModifier.HoE = 1.75f;
 		default.Objective_DoshDifficultyModifier.Custom = 2.0f;
+
+		default.Objective_DoshDifficultyModifierIncPerWave.Normal = 0.15f;
+		default.Objective_DoshDifficultyModifierIncPerWave.Hard = 0.10f;
+		default.Objective_DoshDifficultyModifierIncPerWave.Suicidal = 0.10f;
+		default.Objective_DoshDifficultyModifierIncPerWave.HoE = 0.05f;
+		default.Objective_DoshDifficultyModifierIncPerWave.Custom = 0.05f;
 	}
 
 	if (default.MODEVERSION < class'ZedternalReborn.Config_Base'.default.currentVersion)
@@ -43,6 +50,18 @@ static function float GetDoshDifficultyModifier(int Difficulty)
 		case 2 :	return default.Objective_DoshDifficultyModifier.Suicidal;
 		case 3 :	return default.Objective_DoshDifficultyModifier.HoE;
 		default:	return default.Objective_DoshDifficultyModifier.Custom;
+	}
+}
+
+static function float GetDoshDifficultyModifierIncPerWave(int Difficulty)
+{
+	switch (Difficulty)
+	{
+		case 0 :	return default.Objective_DoshDifficultyModifierIncPerWave.Normal;
+		case 1 :	return default.Objective_DoshDifficultyModifierIncPerWave.Hard;
+		case 2 :	return default.Objective_DoshDifficultyModifierIncPerWave.Suicidal;
+		case 3 :	return default.Objective_DoshDifficultyModifierIncPerWave.HoE;
+		default:	return default.Objective_DoshDifficultyModifierIncPerWave.Custom;
 	}
 }
 
