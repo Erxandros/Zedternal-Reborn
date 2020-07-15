@@ -1347,7 +1347,7 @@ function int GetAdjustedDeathPenalty( KFPlayerReplicationInfo KilledPlayerPRI, o
 
 	PlayerCut = Round(class'ZedternalReborn.Config_Game'.default.Game_ExtraDoshPerWavePerPlayer * PlayerCount) + class'ZedternalReborn.Config_Game'.default.Game_DoshPerWavePerPlayer;
 	perkBonus = Round(float(Min(WMPlayerReplicationInfo(KilledPlayerPRI).perkLvl, 25) * PlayerCut) / 100.f);
-	return Round(float(PlayerCut + perkBonus) * (1.f - DeathPenaltyModifiers[GameDifficulty]));
+	return Round(float(PlayerCut + perkBonus) * (1.f - FClamp(class'ZedternalReborn.Config_Game'.static.GetDeathPenaltyDoshPct(GameDifficultyZedternal), 0.0f, 1.0f)));
 }
 
 function float GetAdjustedAIDoshValue( class<KFPawn_Monster> MonsterClass )
