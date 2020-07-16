@@ -418,12 +418,6 @@ simulated function bool HasFailedObjective()
 
 simulated function float GetActivationPctChance()
 {
-	local KFGameReplicationInfo KFGRI;
-
-	KFGRI = KFGameReplicationInfo(WorldInfo.GRI);
-	if (KFGRI != none && KFGRI.WaveNum == 0)
-		return 0.0f; //Do not spawn an objective on the starting round
-
 	return ActivatePctChance;
 }
 

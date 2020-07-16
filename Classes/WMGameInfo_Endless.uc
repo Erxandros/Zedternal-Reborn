@@ -227,6 +227,9 @@ function StartMatch()
 
 		// update wave modificators
 		SetTimer(4.5f, false, NameOf(CheckForPreviousZedBuff));
+
+		// Set next wave objective
+		MyKFGRI.DeactivateObjective();
 	}
 
 	foreach WorldInfo.AllControllers(class'KFPlayerController', KFPC)
