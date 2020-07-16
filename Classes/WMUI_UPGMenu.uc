@@ -148,6 +148,22 @@ function GFxObject Callback_FilterThreeEnable(int FilterIndex)
 	return TempObject;
 }
 
+function GFxObject Callback_CheckForServerSync()
+{
+	local GFxObject TempObject;
+	local WMPlayerReplicationInfo WMPRI;
+
+	TempObject = CreateObject("Object");
+	WMPRI = WMPlayerReplicationInfo(KFPC.PlayerReplicationInfo);
+
+	if (WMPRI != none)
+		TempObject.SetBool("syncDone", !WMPRI.SyncTimerActive());
+	else
+		TempObject.SetBool("syncDone", true);
+
+	return TempObject;
+}
+
 function Callback_InventoryFilter( int FilterIndex )
 {
 	local GFxObject ItemArray, ItemObject;
