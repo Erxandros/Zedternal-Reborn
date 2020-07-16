@@ -254,7 +254,7 @@ function PlayDeactivationDialog()
 		}
 		else
 		{
-			class'KFTraderDialogManager'.static.PlayGlobalDialog(60, WorldInfo, true); //TRAD_ObjDefendAFailed
+			class'KFTraderDialogManager'.static.PlayGlobalDialog(`TRAD_ObjDefendAFailed, WorldInfo, true);
 		}
 		BroadcastLocalizedMessage(class'KFLocalMessage_Priority', GMT_ObjectiveLost);
 	}
@@ -268,7 +268,7 @@ function PlayDeactivationDialog()
 			}
 			else
 			{
-				class'KFTraderDialogManager'.static.PlayGlobalDialog(111, WorldInfo, true); //TRAD_ObjDefendAWonJust
+				class'KFTraderDialogManager'.static.PlayGlobalDialog(`TRAD_ObjDefendAWonJust, WorldInfo, true);
 			}
 		}
 		else if (GetProgress() <= Parent.StandardWinThreshold)
@@ -279,7 +279,7 @@ function PlayDeactivationDialog()
 			}
 			else
 			{
-				class'KFTraderDialogManager'.static.PlayGlobalDialog(58, WorldInfo, true); //TRAD_ObjDefendAWon
+				class'KFTraderDialogManager'.static.PlayGlobalDialog(`TRAD_ObjDefendAWon, WorldInfo, true);
 			}
 		}
 		else if (GetProgress() <= Parent.GoodWinThreshold)
@@ -290,7 +290,7 @@ function PlayDeactivationDialog()
 			}
 			else
 			{
-				class'KFTraderDialogManager'.static.PlayGlobalDialog(112, WorldInfo, true); //TRAD_ObjDefendAWonGood
+				class'KFTraderDialogManager'.static.PlayGlobalDialog(`TRAD_ObjDefendAWonGood, WorldInfo, true);
 			}
 		}
 		else
@@ -301,7 +301,7 @@ function PlayDeactivationDialog()
 			}
 			else
 			{
-				class'KFTraderDialogManager'.static.PlayGlobalDialog(113, WorldInfo, true); //TRAD_ObjDefendAWonPerf
+				class'KFTraderDialogManager'.static.PlayGlobalDialog(`TRAD_ObjDefendAWonPerf, WorldInfo, true);
 			}
 		}
 	}
@@ -422,9 +422,7 @@ simulated function float GetActivationPctChance()
 
 	KFGRI = KFGameReplicationInfo(WorldInfo.GRI);
 	if (KFGRI != none && KFGRI.WaveNum == 0)
-	{
-		return 0.0f; //Do not spawn an objective on the start round	
-	}
+		return 0.0f; //Do not spawn an objective on the starting round
 
 	return ActivatePctChance;
 }

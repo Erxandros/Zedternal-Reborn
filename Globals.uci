@@ -4,3 +4,10 @@
 
 //Zedternal Custom Difficulty
 `define DIFFICULTY_ZEDTERNALCUSTOM 4.0
+
+//WMMapObjective_DoshHold Dialogs
+`define TRAD_ObjDefendAWon		58
+`define TRAD_ObjDefendAFailed	60
+`define TRAD_ObjDefendAWonJust	111
+`define TRAD_ObjDefendAWonGood	112
+`define TRAD_ObjDefendAWonPerf	113
