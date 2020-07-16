@@ -53,12 +53,6 @@ static function UpdateConfig()
 		default.Game_ExtraNormalZedDoshFactorPerPlayer = 0.050000;
 		default.Game_ExtraLargeZedDoshFactorPerPlayer = 0.080000;
 
-		default.Game_DeathPenaltyDoshPct.Normal = 0.050000;
-		default.Game_DeathPenaltyDoshPct.Hard = 0.100000;
-		default.Game_DeathPenaltyDoshPct.Suicidal = 0.200000;
-		default.Game_DeathPenaltyDoshPct.HoE = 0.250000;
-		default.Game_DeathPenaltyDoshPct.Custom = 0.300000;
-
 		default.Game_ArmorPrice.Normal = 2;
 		default.Game_ArmorPrice.Hard = 2;
 		default.Game_ArmorPrice.Suicidal = 2;
@@ -95,11 +89,18 @@ static function UpdateConfig()
 
 	if (default.MODEVERSION < 5)
 	{
+		default.Game_DeathPenaltyDoshPct.Normal = 0.050000;
+		default.Game_DeathPenaltyDoshPct.Hard = 0.100000;
+		default.Game_DeathPenaltyDoshPct.Suicidal = 0.200000;
+		default.Game_DeathPenaltyDoshPct.HoE = 0.250000;
+		default.Game_DeathPenaltyDoshPct.Custom = 0.300000;
+
 		default.Game_GrenadePrice.Normal = 40;
 		default.Game_GrenadePrice.Hard = 40;
 		default.Game_GrenadePrice.Suicidal = 40;
 		default.Game_GrenadePrice.HoE = 40;
 		default.Game_GrenadePrice.Custom = 40;
+
 		default.Game_bArmorSpawnOnMap = true;
 	}
 
