@@ -6,8 +6,8 @@ var config int MODEVERSION;
 var config bool Objective_bEnable;
 
 var config float Objective_Probability;
-var config float Objective_PctOfWaveKilledForMaxReward;
 var config int Objective_BaseMoney;
+var config S_Difficulty_Float Objective_PctOfWaveKilledForMaxReward;
 var config S_Difficulty_Float Objective_DoshDifficultyModifier;
 var config S_Difficulty_Float Objective_DoshDifficultyModifierIncPerWave;
 
@@ -18,8 +18,13 @@ static function UpdateConfig()
 		default.Objective_bEnable = true;
 
 		default.Objective_Probability = 0.25f;
-		default.Objective_PctOfWaveKilledForMaxReward = 0.75f;
 		default.Objective_BaseMoney = 180;
+
+		default.Objective_PctOfWaveKilledForMaxReward.Normal = 0.65f;
+		default.Objective_PctOfWaveKilledForMaxReward.Hard = 0.70f;
+		default.Objective_PctOfWaveKilledForMaxReward.Suicidal = 0.75f;
+		default.Objective_PctOfWaveKilledForMaxReward.HoE = 0.80f;
+		default.Objective_PctOfWaveKilledForMaxReward.Custom = 0.80f;
 
 		default.Objective_DoshDifficultyModifier.Normal = 1.0f;
 		default.Objective_DoshDifficultyModifier.Hard = 1.25f;
@@ -38,6 +43,18 @@ static function UpdateConfig()
 	{
 		default.MODEVERSION = class'ZedternalReborn.Config_Base'.default.currentVersion;
 		static.StaticSaveConfig();
+	}
+}
+
+static function float GetPctOfWaveKilledForMaxReward(int Difficulty)
+{
+	switch (Difficulty)
+	{
+		case 0 :	return default.Objective_PctOfWaveKilledForMaxReward.Normal;
+		case 1 :	return default.Objective_PctOfWaveKilledForMaxReward.Hard;
+		case 2 :	return default.Objective_PctOfWaveKilledForMaxReward.Suicidal;
+		case 3 :	return default.Objective_PctOfWaveKilledForMaxReward.HoE;
+		default:	return default.Objective_PctOfWaveKilledForMaxReward.Custom;
 	}
 }
 
