@@ -177,7 +177,7 @@ function InitSpawnManager()
 
 	if (GameDifficulty > `DIFFICULTY_HELLONEARTH)
 	{
-		GameDifficultyZedternal = 4.0f;
+		GameDifficultyZedternal = `DIFFICULTY_ZEDTERNALCUSTOM;
 		GameDifficulty = `DIFFICULTY_HELLONEARTH;
 	}
 	else

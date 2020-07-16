@@ -32,7 +32,7 @@ var float GameDifficultyZedternal;
 function Initialize()
 {
 	if (GameDifficulty > `DIFFICULTY_HELLONEARTH)
-		GameDifficultyZedternal = 4.0f;
+		GameDifficultyZedternal = `DIFFICULTY_ZEDTERNALCUSTOM;
 	else
 		GameDifficultyZedternal = GameDifficulty;
 
