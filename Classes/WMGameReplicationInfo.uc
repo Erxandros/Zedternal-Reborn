@@ -449,7 +449,7 @@ simulated function CheckAndSetTraderItems()
 simulated function SetWeaponPickupList()
 {
 	local int i;
-	local KFPickupFactory_ItemDefault KFPFID;
+	local KFPickupFactory_Item KFPFID;
 	local array<ItemPickup> StartingItemPickups;
 	local class<KFWeapon> startingWeaponClass;
 	local class<KFWeap_DualBase> startingWeaponClassDual;
@@ -501,10 +501,12 @@ simulated function SetWeaponPickupList()
 	}
 
 	//Set KFPickupFactory objects on map to match server
-	foreach DynamicActors( class'KFPickupFactory_ItemDefault', KFPFID )
+	foreach DynamicActors(class'KFPickupFactory_Item', KFPFID)
 	{
 		if (KFPFID != none)
 		{
+			if (bArmorPickup == 2 && KFPFID.ItemPickups.length == 1 && KFPFID.ItemPickups[0].ItemClass == Class'KFGameContent.KFInventory_Armor')
+				continue; //Do not replace an armor only spawn, unless armor is disabled from pickups
 			KFPFID.ItemPickups.length = 0;
 			KFPFID.ItemPickups = StartingItemPickups;
 			KFPFID.SetPickupMesh();

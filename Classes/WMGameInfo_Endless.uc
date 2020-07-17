@@ -333,7 +333,7 @@ function RestartPlayer(Controller NewPlayer)
 function SetupPickupItems()
 {
 	local int i;
-	local KFPickupFactory_ItemDefault KFPFID;
+	local KFPickupFactory_Item KFPFID;
 	local array<ItemPickup> StartingItemPickups;
 	local class<KFWeapon> startingWeaponClass;
 	local class<KFWeap_DualBase> startingWeaponClassDual;
@@ -373,9 +373,12 @@ function SetupPickupItems()
 	for (i = 0; i < ItemPickups.length; ++i)
 	{
 		ItemPickups[i].StartSleeping();
-		KFPFID = KFPickupFactory_ItemDefault(ItemPickups[i]);
+		KFPFID = KFPickupFactory_Item(ItemPickups[i]);
 		if (KFPFID != none)
 		{
+			if (class'ZedternalReborn.Config_Game'.default.Game_bArmorSpawnOnMap && KFPFID.ItemPickups.length == 1
+				&& KFPFID.ItemPickups[0].ItemClass == Class'KFGameContent.KFInventory_Armor')
+				continue; //Do not replace an armor only spawn, unless armor is disabled from pickups
 			KFPFID.ItemPickups.length = 0;
 			KFPFID.ItemPickups = StartingItemPickups;
 			ItemPickups[i] = KFPFID;
@@ -384,10 +387,13 @@ function SetupPickupItems()
 	}
 
 	//Set KFPickupFactory objects on map to override Kismet
-	foreach DynamicActors( class'KFPickupFactory_ItemDefault', KFPFID )
+	foreach DynamicActors(class'KFPickupFactory_Item', KFPFID)
 	{
 		if (KFPFID != none)
 		{
+			if (class'ZedternalReborn.Config_Game'.default.Game_bArmorSpawnOnMap && KFPFID.ItemPickups.length == 1
+				&& KFPFID.ItemPickups[0].ItemClass == Class'KFGameContent.KFInventory_Armor')
+				continue; //Do not replace an armor only spawn, unless armor is disabled from pickups
 			KFPFID.StartSleeping();
 			KFPFID.ItemPickups.length = 0;
 			KFPFID.ItemPickups = StartingItemPickups;
