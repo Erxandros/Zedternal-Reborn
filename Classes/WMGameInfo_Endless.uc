@@ -415,7 +415,7 @@ function SetupObjectiveZones()
 	local KFMapInfo KFMI;
 
 	//Get all the Dosh Hold objectives on the map
-	foreach DynamicActors( class'KFMapObjective_DoshHold', OldObjective )
+	foreach DynamicActors(class'KFMapObjective_DoshHold', OldObjective)
 	{
 		if (OldObjective != none)
 		{
@@ -441,16 +441,24 @@ function SetupObjectiveZones()
 		}
 		else
 		{
-			`log("Failed to override objective "$OldObjectiveZones[b].Name$" due to failure to spawn in new objective object");
+			`log("Failed to override objective "$OldObjectiveZones[b].Name$" due to failure to spawn in new objective actor");
 		}
 	}
 
 	KFMI = KFMapInfo(WorldInfo.GetMapInfo());
 	if (KFMI != none)
 	{
-		KFMI.RandomWaveObjectives.Length = 0;
-		KFMI.RandomWaveObjectives = NewObjectiveZones;
-		KFMI.CurrentAvailableRandomWaveObjectives = KFMI.RandomWaveObjectives;
+		if (KFMI.bUseRandomObjectives)
+		{
+			KFMI.bUsePresetObjectives = false; //Just in case
+			KFMI.RandomWaveObjectives.Length = 0;
+			KFMI.RandomWaveObjectives = NewObjectiveZones;
+		}
+		else
+		{
+			`log("Not random objectives, currently not supported for ZedternalReborn");
+			KFMI.bUsePresetObjectives = false;
+		}
 	}
 }
 
