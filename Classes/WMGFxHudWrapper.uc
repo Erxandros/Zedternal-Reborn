@@ -2,7 +2,6 @@ class WMGFxHudWrapper extends KFGFxHudWrapper;
 
 var Texture2D backgroundIcon;
 var int zedBuffIndex;
-var int warningLevel;
 var float bgFactor;
 
 simulated function PostBeginPlay()
@@ -208,25 +207,10 @@ event DrawHUD()
 
 simulated function ResestWarningMessage()
 {
-	local WMGameReplicationInfo WMGRI;
-	local int i;
-	local int total;
+	ClearTimer(nameof(UpdateWarningString));
 
 	zedBuffIndex = 0;
 
-	WMGRI = WMGameReplicationInfo(KFGRI);
-	if (WMGRI == none || !WMGRI.bTraderIsOpen)
-		return;
-
-	total = 0;
-	for (i = 0; i < WMGRI.zedBuffs.length; ++i)
-	{
-		if (WMGRI.bZedBuffs[i] == 1)
-			++total;
-	}
-
-	warningLevel = total;
-	ClearTimer(nameof(UpdateWarningString));
 	SetTimer(4.000000, true, nameof(UpdateWarningString));
 }
 
@@ -256,7 +240,6 @@ defaultproperties
 {
 	HUDClass=Class'ZedternalReborn.WMGFxMoviePlayer_HUD'
 	backgroundIcon=Texture2D'ZedternalReborn_Resource.ZedBuff_Background'
-	warningLevel=1
 	zedBuffIndex=-1
 	bgFactor=0
 	Name="Default__WMGFxHudWrapper"
