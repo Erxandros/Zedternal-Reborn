@@ -153,7 +153,7 @@ function RemoveWeaponFromOwnedItemList( optional int OwnedListIdx = INDEX_NONE, 
 {
 	local SItemInformation ItemInfo;
 	local int ItemIndex;
-	local int SingleOwnedIndex;
+	//local int SingleOwnedIndex;
 
 	if( OwnedListIdx == INDEX_NONE && ClassName != '' )
 	{
@@ -220,7 +220,7 @@ function RemoveWeaponFromOwnedItemList( optional int OwnedListIdx = INDEX_NONE, 
 
 		if( WMGFxObject_TraderItems(TraderItems).GetItemIndicesFromArcheZedternal( ItemIndex, ItemInfo.DefaultItem.SingleClassName) )
 		{
-			SingleOwnedIndex = AddWeaponToOwnedItemList( TraderItems.SaleItems[ItemIndex], true, ItemInfo.ItemUpgradeLevel);
+			/*SingleOwnedIndex =*/ AddWeaponToOwnedItemList( TraderItems.SaleItems[ItemIndex], true, ItemInfo.ItemUpgradeLevel);
 
 			// modify default single ammo based on how much ammo dual had when sold
 			//      The now new single gun will spawn with default ammo.  We need to correct that down
@@ -228,7 +228,7 @@ function RemoveWeaponFromOwnedItemList( optional int OwnedListIdx = INDEX_NONE, 
 			//AddTransactionAmmo( ItemIndex, ItemInfo.SpareAmmoCount - (ItemInfo.MaxSpareAmmo / 2.0) + ((ItemInfo.MaxSpareAmmo / 2.0) - OwnedItemList[SingleOwnedIndex].SpareAmmoCount), false );
 
 			// update the values in the trader UI
-			OwnedItemList[SingleOwnedIndex].SpareAmmoCount = ItemInfo.SpareAmmoCount;
+			//OwnedItemList[SingleOwnedIndex].SpareAmmoCount = ItemInfo.SpareAmmoCount;
 		}
 	}
 
