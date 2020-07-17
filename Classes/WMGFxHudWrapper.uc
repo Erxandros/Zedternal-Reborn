@@ -6,7 +6,7 @@ var float bgFactor;
 
 simulated function PostBeginPlay()
 {
-	SetTimer(4.000000, true, nameof(UpdateWarningString));
+	SetTimer(1.5f, true, nameof(UpdateWarningString));
 
 	super.PostBeginPlay();
 }
@@ -211,7 +211,7 @@ simulated function ResestWarningMessage()
 
 	zedBuffIndex = 0;
 
-	SetTimer(4.000000, true, nameof(UpdateWarningString));
+	SetTimer(1.5f, true, nameof(UpdateWarningString));
 }
 
 simulated function UpdateWarningString()
