@@ -27,7 +27,6 @@ event DrawHUD()
 	if (WMGRI == none)
 		return;
 
-	//Canvas.Font = class'Engine'.static.GetLargeFont();
 	Canvas.Font = Font(DynamicLoadObject("UI_Canvas_Fonts.Font_General", class'Font'));
 
 	//////////////////////////////////////////////
