@@ -614,7 +614,7 @@ function SetupSpecialWave()
 
 	SWList.length = 0;
 
-	// Check if its a secial wave. If true, build Available Special Wave list (SWList)
+	// Check if it is a special wave. If true, build available special wave list (SWList)
 	if (class'ZedternalReborn.Config_SpecialWave'.default.SpecialWave_bAllowed && WaveNum > 0 && FRand() < class'ZedternalReborn.Config_SpecialWave'.default.SpecialWave_Probability)
 	{		
 		for (i = 0; i < class'ZedternalReborn.Config_SpecialWave'.default.SpecialWave_SpecialWaves.length; ++i)
