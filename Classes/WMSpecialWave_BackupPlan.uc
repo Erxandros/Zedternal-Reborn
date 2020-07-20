@@ -25,6 +25,7 @@ function WaveEnded()
 {
 	// give full ammo to all players
 	ChangeAmmo( true );
+	super.WaveEnded();
 }
 
 function ChangeAmmo(bool bAdd)

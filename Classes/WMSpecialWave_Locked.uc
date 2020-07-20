@@ -17,6 +17,8 @@ function WaveEnded()
 		if (!KFD.bIsDestroyed)
 			KFD.WeldIntegrity = 0;
 	}
+
+	super.WaveEnded();
 }
 
 function UpdateDoor()

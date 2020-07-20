@@ -45,6 +45,8 @@ function WaveEnded()
 			KFM.SetHeadScale(KFM.IntendedHeadScale,KFM.CurrentHeadScale);
 		}
 	}
+
+	super.WaveEnded();
 }
 
 defaultproperties
