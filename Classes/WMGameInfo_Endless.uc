@@ -686,7 +686,6 @@ function ClearSpecialWave()
 	foreach DynamicActors(class'WMSpecialWave', WMSW)
 	{
 		WMSW.WaveEnded();
-		WMSW.destroy();
 	}
 	foreach DynamicActors(class'WMPlayerController', WMPC)
 	{

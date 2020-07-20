@@ -15,8 +15,11 @@ var bool bReplaceMonstertoAdd;
 var float waveValueFactor;
 var float doshFactor;
 
+function WaveEnded()
+{
+	Destroy();
+}
 function Killed(Controller Killer, Controller KilledPlayer, Pawn KilledPawn, class<DamageType> DT);
-function WaveEnded();
 
 static function ModifyDamageGiven( out int InDamage, int DefaultDamage, optional Actor DamageCauser, optional KFPawn_Monster MyKFPM, optional KFPlayerController DamageInstigator, optional class<KFDamageType> DamageType, optional int HitZoneIdx, optional KFWeapon MyKFW);
 static function ModifyHardAttackDamage( out int InDamage, int DefaultDamage, KFPawn OwnerPawn);
