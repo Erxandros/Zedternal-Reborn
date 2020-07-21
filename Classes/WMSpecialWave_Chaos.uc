@@ -4,7 +4,7 @@ var float Bonus, BonusINV;
 
 function PostBeginPlay()
 {
-	SetTimer(1.f,true,nameof(UpdateZed));
+	SetTimer(1.0f, true, nameof(UpdateZed));
 	super.PostBeginPlay();
 }
 
@@ -14,14 +14,17 @@ function UpdateZed()
 
 	foreach DynamicActors(class'KFPawn_Monster', KFM)
 	{
-		if (KFM.IntendedBodyScale == 1.f)
+		if (KFM.IntendedBodyScale == 1.0f)
 		{
-			KFM.IntendedBodyScale = 1.f+0.4f*(FRand()-0.5f);
-			KFM.IntendedHeadScale = 1.f+0.2f*(FRand()-0.5f);
+			KFM.IntendedBodyScale = 1.0f + 0.4f * (FRand() - 0.5f);
+		}
+		if (KFM.IntendedHeadScale == 1.0f)
+		{
+			KFM.IntendedHeadScale = 1.0f + 0.2f * (FRand() - 0.5f);
 			KFM.SetHeadScale(KFM.IntendedHeadScale,KFM.CurrentHeadScale);
 		}
-		KFM.SprintSpeed=KFM.default.SprintSpeed * 1.4f;
-		KFM.GroundSpeed=KFM.default.GroundSpeed * 1.4f;
+		KFM.SprintSpeed = KFM.default.SprintSpeed * 1.4f;
+		KFM.GroundSpeed = KFM.default.GroundSpeed * 1.4f;
 		KFM.bIsSprinting = true;
 	}
 }
