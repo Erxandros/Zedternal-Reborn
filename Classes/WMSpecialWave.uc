@@ -15,6 +15,23 @@ var bool bReplaceMonstertoAdd;
 var float waveValueFactor;
 var float doshFactor;
 
+//Functions to mark if a zed body has been changed by a special wave already
+function bool CheckZedBodyChange(const out Pawn entity)
+{
+	return entity.bCanSwim;
+}
+
+function SetBodyChangeFlag(const out Pawn entity)
+{
+	entity.bCanSwim = true;
+}
+
+function UnSetBodyChangeFlag(const out Pawn entity)
+{
+	entity.bCanSwim = false;
+}
+////////
+
 function WaveEnded()
 {
 	Destroy();
