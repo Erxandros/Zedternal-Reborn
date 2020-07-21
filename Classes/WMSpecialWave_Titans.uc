@@ -4,7 +4,7 @@ var float ZedScale, ZedHeadScale, ZedSpeedGroundFactor, ZedSpeedRunningFactor, D
 
 function PostBeginPlay()
 {
-	SetTimer(2.f,true,nameof(UpdateZed));
+	SetTimer(1.0f, true, nameof(UpdateZed));
 	super.PostBeginPlay();
 }
 
@@ -14,18 +14,22 @@ function UpdateZed()
 
 	foreach DynamicActors(class'KFPawn_Monster', KFM)
 	{
-		if (KFM.IntendedHeadScale != default.ZedHeadScale && KFM.IntendedBodyScale > 0.6)
+		if (!CheckZedBodyChange(KFM))
+		{
+			SetBodyChangeFlag(KFM);
+			KFM.IntendedBodyScale = default.ZedScale;
+		}
+		if (KFM.IntendedHeadScale == 1.0f)
 		{
 			KFM.IntendedHeadScale = default.ZedHeadScale;
-			KFM.SetHeadScale(KFM.IntendedHeadScale,KFM.CurrentHeadScale);
-			KFM.IntendedBodyScale = default.ZedScale;
+			KFM.SetHeadScale(KFM.IntendedHeadScale, KFM.CurrentHeadScale);
 		}
 	}
 }
 
 static function ModifyDamageGiven( out int InDamage, int DefaultDamage, optional Actor DamageCauser, optional KFPawn_Monster MyKFPM, optional KFPlayerController DamageInstigator, optional class<KFDamageType> DamageType, optional int HitZoneIdx, optional KFWeapon MyKFW)
 {
-	if (HitZoneIdx==HZI_HEAD)
+	if (HitZoneIdx == HZI_HEAD)
 		InDamage = InDamage * default.DamageHeadFactor;
 	else
 		InDamage = InDamage * default.DamageFactor;
