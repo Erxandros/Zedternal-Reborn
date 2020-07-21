@@ -4,28 +4,36 @@ var float Bonus, BonusINV;
 
 function PostBeginPlay()
 {
-	SetTimer(1.0f, true, nameof(UpdateZed));
+	SetTimer(2.0f, true, nameof(UpdateZedStats));
+	SetTimer(12.0f, true, nameof(UpdateZedDimensions));
 	super.PostBeginPlay();
 }
 
-function UpdateZed()
+function UpdateZedStats()
 {
 	local KFPawn_Monster KFM;
 
 	foreach DynamicActors(class'KFPawn_Monster', KFM)
 	{
-		if (KFM.IntendedBodyScale == 1.0f)
-		{
-			KFM.IntendedBodyScale = 1.0f + 0.4f * (FRand() - 0.5f);
-		}
-		if (KFM.IntendedHeadScale == 1.0f)
+		KFM.SprintSpeed = KFM.default.SprintSpeed * 1.4f;
+		KFM.GroundSpeed = KFM.default.GroundSpeed * 1.4f;
+		KFM.bIsSprinting = true;
+	}
+}
+
+function UpdateZedDimensions()
+{
+	local KFPawn_Monster KFM;
+
+	foreach DynamicActors(class'KFPawn_Monster', KFM)
+	{
+		SetBodyChangeFlag(KFM);
+		KFM.IntendedBodyScale = 1.0f + 0.4f * (FRand() - 0.5f);
+		if (KFM.IntendedHeadScale >= 0.9f && KFM.IntendedHeadScale <= 1.1f)
 		{
 			KFM.IntendedHeadScale = 1.0f + 0.2f * (FRand() - 0.5f);
 			KFM.SetHeadScale(KFM.IntendedHeadScale,KFM.CurrentHeadScale);
 		}
-		KFM.SprintSpeed = KFM.default.SprintSpeed * 1.4f;
-		KFM.GroundSpeed = KFM.default.GroundSpeed * 1.4f;
-		KFM.bIsSprinting = true;
 	}
 }
 
