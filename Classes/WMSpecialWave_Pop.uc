@@ -4,10 +4,12 @@ var float damageBody;
 var float damageHead;
 var float damageOther;
 var float ZedHeadScale;
+var float ZedHeadScaleCombinedBobbleZed;
 
 function PostBeginPlay()
 {
-	SetTimer(2.f,true,nameof(UpdateZed));
+	ZedHeadScaleCombinedBobbleZed = (class'WMSpecialWave_BobbleZed'.default.ZedSpawnHeadScale + Default.ZedHeadScale) / 2;
+	SetTimer(1.20f, true, nameof(UpdateZed));
 	super.PostBeginPlay();
 }
 
@@ -17,21 +19,25 @@ function UpdateZed()
 
 	foreach DynamicActors(class'KFPawn_Monster', KFM)
 	{
-		if (KFM.IntendedHeadScale != default.ZedHeadScale)
+		if (KFM.IntendedHeadScale != default.ZedHeadScale && KFM.IntendedHeadScale != ZedHeadScaleCombinedBobbleZed)
 		{
-			KFM.IntendedHeadScale = default.ZedHeadScale;
-			KFM.SetHeadScale(KFM.IntendedHeadScale,KFM.CurrentHeadScale);
+			if (KFM.IntendedHeadScale == class'WMSpecialWave_BobbleZed'.default.ZedSpawnHeadScale)
+				KFM.IntendedHeadScale = ZedHeadScaleCombinedBobbleZed;
+			else
+				KFM.IntendedHeadScale = default.ZedHeadScale;
+
+			KFM.SetHeadScale(KFM.IntendedHeadScale, KFM.CurrentHeadScale);
 		}
 	}
 }
 
 static function ModifyDamageGiven( out int InDamage, int DefaultDamage, optional Actor DamageCauser, optional KFPawn_Monster MyKFPM, optional KFPlayerController DamageInstigator, optional class<KFDamageType> DamageType, optional int HitZoneIdx, optional KFWeapon MyKFW)
 {
-	if (HitZoneIdx!=HZI_HEAD && (ClassIsChildOf(DamageType, class'KFDT_Fire') || ClassIsChildOf(DamageType, class'KFDT_Explosive')))
+	if (HitZoneIdx != HZI_HEAD && (ClassIsChildOf(DamageType, class'KFDT_Fire') || ClassIsChildOf(DamageType, class'KFDT_Explosive')))
 		InDamage -= Round(float(InDamage) * default.damageOther);
 	else
 	{
-		if (HitZoneIdx==HZI_HEAD)
+		if (HitZoneIdx == HZI_HEAD)
 			InDamage += Round(float(InDamage) * default.damageHead);
 		else
 			InDamage -= Round(float(InDamage) * default.damageBody);
