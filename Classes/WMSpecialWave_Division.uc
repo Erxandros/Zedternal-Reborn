@@ -7,7 +7,7 @@ function Killed(Controller Killer, Controller KilledPlayer, Pawn KilledPawn, cla
 	local KFPawn_Monster KFPM, newKFPM1, newKFPM2;
 
 	KFPM = KFPawn_Monster(KilledPawn);
-	if (Killer != none && KFPM != none && KFPM.IntendedBodyScale != default.SmallZedSize)
+	if (Killer != none && KFPM != none && KFPM.IntendedBodyScale >= 0.65f)
 	{
 		if (Rand(2) == 1)
 		{
@@ -33,6 +33,7 @@ function AjustNewZed(KFPawn_Monster KFPM, class< KFAIController > KFAI)
 	if (KFPM != none && KFAI != none)
 	{
 		KFPM.MyKFAIC = Spawn(KFAI);
+		SetBodyChangeFlag(KFPM);
 		KFPM.MyKFAIC.Possess(KFPM, false);
 		KFPM.IntendedBodyScale = default.SmallZedSize;
 		KFPM.UpdateBodyScale(KFPM.IntendedBodyScale);
@@ -69,7 +70,7 @@ defaultproperties
 
 	SmallZedDamageGiven=0.800000
 	SmallZedDamageTaken=0.500000
-	SmallZedSize=0.5;
+	SmallZedSize=0.55
 
 	Name="Default__WMSpecialWave_Division"
 }
