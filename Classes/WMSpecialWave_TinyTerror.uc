@@ -4,7 +4,7 @@ var float Damage, Size, DamageTakenFactor;
 
 function PostBeginPlay()
 {
-	SetTimer(1.f,true,nameof(UpdateZed));
+	SetTimer(1.0f, true, nameof(UpdateZed));
 	super.PostBeginPlay();
 }
 
@@ -14,8 +14,11 @@ function UpdateZed()
 
 	foreach DynamicActors(class'KFPawn_Monster', KFM)
 	{
-		if (KFM.IntendedBodyScale >= default.Size)
+		if (!CheckZedBodyChange(KFM))
+		{
+			SetBodyChangeFlag(KFM);
 			KFM.IntendedBodyScale = default.Size;
+		}
 	}
 }
 
@@ -32,7 +35,7 @@ static function ModifyDamageTaken( out int InDamage, int DefaultDamage, KFPawn O
 
 static simulated function bool ShouldKnockDownOnBump(KFPawn_Monster KFPM, KFPawn OwnerPawn)
 {
-	if (KFPM != none && KFPM.IntendedBodyScale < 1.f)
+	if (KFPM != none && KFPM.IntendedBodyScale < 1.0f)
 		return true;
 	else
 		return false;
@@ -47,8 +50,8 @@ defaultproperties
 	doshFactor=0.750000
 
 	Damage=0.700000
-	DamageTakenFactor=0.700000;
-	Size=0.680000
+	DamageTakenFactor=0.700000
+	Size=0.650000
 
 	Name="Default__WMSpecialWave_TinyTerror"
 }
