@@ -1,10 +1,10 @@
 class WMSpecialWave_BuffUp extends WMSpecialWave;
 
-var float DamageSizeScale, ScaleMax, ScaleMin, ScaleDelta, Delay;
+var float DamageSizeScale, ScaleMax, ScaleDelta;
 
 function PostBeginPlay()
 {
-	SetTimer(Delay,true,nameof(UpdateZed));
+	SetTimer(6.0f, true, nameof(UpdateZed));
 	super.PostBeginPlay();
 }
 
@@ -14,9 +14,7 @@ function UpdateZed()
 
 	foreach DynamicActors(class'KFPawn_Monster', KFM)
 	{
-		if (KFM.IntendedBodyScale >= 1.f)
-			KFM.IntendedBodyScale = default.ScaleMin;
-		else if( KFM.IntendedBodyScale < default.ScaleMax)
+		if (KFM.IntendedBodyScale < default.ScaleMax)
 			KFM.IntendedBodyScale += default.ScaleDelta;
 	}
 }
@@ -39,11 +37,8 @@ defaultproperties
 	zedSpawnRateFactor=1.000000
 	waveValueFactor=1.000000
 	DamageSizeScale=1.000000
-	ScaleMax=1.500000
-	ScaleMin=0.800000
+	ScaleMax=1.600000
 	ScaleDelta=0.040000
-
-	Delay=6.000000
 
 	Name="Default__WMSpecialWave_BuffUp"
 }
