@@ -26,23 +26,23 @@ static function ModifyDamageTaken( out int InDamage, int DefaultDamage, KFPawn O
 	}
 }
 
-static function AdjustPawnScale(KFPawn_Monster Pawn)
+static function AdjustPawnScale(KFPawn_Monster entity)
 {
 	local float ScalePercent;
 	local int CurrentHealth;
 
-	CurrentHealth = Max(Pawn.Health, 0);
+	CurrentHealth = Max(entity.Health, 0);
 
-	if (Pawn != none)
+	if (entity != none)
 	{
-		ScalePercent = default.StartingDamageSizeScale - (default.StartingDamageSizeScale - default.DeadDamageSizeScale) * (1 - (float(CurrentHealth) / float(Pawn.HealthMax)));
-		Pawn.IntendedBodyScale = ScalePercent;
+		ScalePercent = default.StartingDamageSizeScale - (default.StartingDamageSizeScale - default.DeadDamageSizeScale) * (1 - (float(CurrentHealth) / float(entity.HealthMax)));
+		entity.IntendedBodyScale = (entity.IntendedBodyScale - default.DeadDamageSizeScale) * ScalePercent + default.DeadDamageSizeScale;
 	}
 }
 
 static simulated function bool ShouldKnockDownOnBump(KFPawn_Monster KFPM, KFPawn OwnerPawn)
 {
-	if (KFPM != none && KFPM.IntendedBodyScale < 0.600000)
+	if (KFPM != none && KFPM.IntendedBodyScale <= 0.6f)
 		return true;
 	else
 		return false;
