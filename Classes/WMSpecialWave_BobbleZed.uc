@@ -6,7 +6,7 @@ var float ZedHeadScaleCombinedPop;
 
 function PostBeginPlay()
 {
-	ZedHeadScaleCombinedPop = (class'WMSpecialWave_Pop'.default.ZedHeadScale + Default.ZedSpawnHeadScale) / 2;
+	ZedHeadScaleCombinedPop = (class'ZedternalReborn.WMSpecialWave_Pop'.default.ZedHeadScale + Default.ZedSpawnHeadScale) / 2;
 	SetTimer(0.80f, true, nameof(UpdateZed));
 	super.PostBeginPlay();
 }
@@ -19,7 +19,7 @@ function UpdateZed()
 	{
 		if (KFM.IntendedHeadScale != Default.ZedSpawnHeadScale && KFM.IntendedHeadScale != ZedHeadScaleCombinedPop)
 		{
-			if (KFM.IntendedHeadScale == class'WMSpecialWave_Pop'.default.ZedHeadScale)
+			if (KFM.IntendedHeadScale == class'ZedternalReborn.WMSpecialWave_Pop'.default.ZedHeadScale)
 				KFM.IntendedHeadScale = ZedHeadScaleCombinedPop;
 			else
 				KFM.IntendedHeadScale = Default.ZedSpawnHeadScale;
