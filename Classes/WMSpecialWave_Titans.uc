@@ -1,10 +1,11 @@
 class WMSpecialWave_Titans extends WMSpecialWave;
 
-var float ZedScale, ZedHeadScale, ZedSpeedGroundFactor, ZedSpeedRunningFactor, DamageFactor, DamageHeadFactor, DamageTakenFactor;
+var float ZedScale, ZedHeadScale, ZedSpeedGroundFactor, ZedSpeedRunningFactor, DamageFactor, DamageHeadFactor, DamageTakenFactor, TinyTitansScale;
 
 function PostBeginPlay()
 {
-	SetTimer(1.0f, true, nameof(UpdateZed));
+	TinyTitansScale = default.ZedScale * class'ZedternalReborn.WMSpecialWave_TinyTerror'.default.ZedScale;
+	SetTimer(1.5f, true, nameof(UpdateZed));
 	super.PostBeginPlay();
 }
 
@@ -19,6 +20,9 @@ function UpdateZed()
 			SetBodyChangeFlag(KFM);
 			KFM.IntendedBodyScale = default.ZedScale;
 		}
+		else if (KFM.IntendedBodyScale == class'ZedternalReborn.WMSpecialWave_TinyTerror'.default.ZedScale)
+			KFM.IntendedBodyScale = TinyTitansScale;
+
 		if (KFM.IntendedHeadScale == 1.0f)
 		{
 			KFM.IntendedHeadScale = default.ZedHeadScale;

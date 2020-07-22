@@ -1,9 +1,10 @@
 class WMSpecialWave_TinyTerror extends WMSpecialWave;
 
-var float Damage, Size, DamageTakenFactor;
+var float Damage, ZedScale, DamageTakenFactor, TinyTitansScale;
 
 function PostBeginPlay()
 {
+	TinyTitansScale = default.ZedScale * class'ZedternalReborn.WMSpecialWave_Titans'.default.ZedScale;
 	SetTimer(1.0f, true, nameof(UpdateZed));
 	super.PostBeginPlay();
 }
@@ -17,8 +18,10 @@ function UpdateZed()
 		if (!CheckZedBodyChange(KFM))
 		{
 			SetBodyChangeFlag(KFM);
-			KFM.IntendedBodyScale = default.Size;
+			KFM.IntendedBodyScale = default.ZedScale;
 		}
+		else if (KFM.IntendedBodyScale == class'ZedternalReborn.WMSpecialWave_Titans'.default.ZedScale)
+			KFM.IntendedBodyScale = TinyTitansScale;
 	}
 }
 
@@ -35,7 +38,7 @@ static function ModifyDamageTaken( out int InDamage, int DefaultDamage, KFPawn O
 
 static simulated function bool ShouldKnockDownOnBump(KFPawn_Monster KFPM, KFPawn OwnerPawn)
 {
-	if (KFPM != none && KFPM.IntendedBodyScale < 1.0f)
+	if (KFPM != none && KFPM.IntendedBodyScale <= default.ZedScale)
 		return true;
 	else
 		return false;
@@ -51,7 +54,7 @@ defaultproperties
 
 	Damage=0.700000
 	DamageTakenFactor=0.700000
-	Size=0.650000
+	ZedScale=0.650000
 
 	Name="Default__WMSpecialWave_TinyTerror"
 }
