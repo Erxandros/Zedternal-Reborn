@@ -27,8 +27,11 @@ function UpdateZedDimensions()
 
 	foreach DynamicActors(class'KFPawn_Monster', KFM)
 	{
-		SetBodyChangeFlag(KFM);
-		KFM.IntendedBodyScale = 1.0f + 0.4f * (FRand() - 0.5f);
+		if (KFM.IntendedBodyScale >= 0.8f && KFM.IntendedBodyScale <= 1.2f)
+		{
+			SetBodyChangeFlag(KFM);
+			KFM.IntendedBodyScale = 1.0f + 0.4f * (FRand() - 0.5f);
+		}
 		if (KFM.IntendedHeadScale >= 0.9f && KFM.IntendedHeadScale <= 1.1f)
 		{
 			KFM.IntendedHeadScale = 1.0f + 0.2f * (FRand() - 0.5f);
