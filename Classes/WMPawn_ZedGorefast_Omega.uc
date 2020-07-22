@@ -64,11 +64,11 @@ simulated function ApplySpecialFX()
 	
 	SocketBoneName = Mesh.GetSocketBoneName('FX_EYE_L');
 	if (SocketBoneName != '' && SocketBoneName != 'None')
-		SpecialFXPSCs[0] = WorldInfo.MyEmitterPool.SpawnEmitterMeshAttachment( ParticleSystem'ZED_Omega.FX_Omega', Mesh, 'FX_EYE_L', true, vect(0,0,0) );
+		SpecialFXPSCs[0] = WorldInfo.MyEmitterPool.SpawnEmitterMeshAttachment( ParticleSystem'ZedternalReborn_Zeds.FX_Omega', Mesh, 'FX_EYE_L', true, vect(0,0,0) );
 			
 	SocketBoneName = Mesh.GetSocketBoneName('FX_EYE_R');
 	if (SocketBoneName != '' && SocketBoneName != 'None')
-		SpecialFXPSCs[1] = WorldInfo.MyEmitterPool.SpawnEmitterMeshAttachment( ParticleSystem'ZED_Omega.FX_Omega', Mesh, 'FX_EYE_R', true, vect(0,0,0) );
+		SpecialFXPSCs[1] = WorldInfo.MyEmitterPool.SpawnEmitterMeshAttachment( ParticleSystem'ZedternalReborn_Zeds.FX_Omega', Mesh, 'FX_EYE_R', true, vect(0,0,0) );
 }
 
 simulated function EndSpecialFX()

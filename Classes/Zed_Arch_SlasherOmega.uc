@@ -53,7 +53,7 @@ simulated function updateZed()
 
 defaultproperties
 {
-   zedServerArch=KFCharacterInfo_Monster'ZED_Omega.ZED_Clot_Slasher_Omega_Archetype'
+   zedServerArch=KFCharacterInfo_Monster'ZedternalReborn_Zeds.ZED_Clot_Slasher_Omega_Archetype'
    NetUpdateFrequency=4.000000
    Name="Default__Zed_Arch_Base"
 }
