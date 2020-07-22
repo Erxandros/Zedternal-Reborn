@@ -35,14 +35,14 @@ static function AdjustPawnScale(KFPawn_Monster entity)
 
 	if (entity != none)
 	{
-		ScalePercent = default.StartingDamageSizeScale - (default.StartingDamageSizeScale - default.DeadDamageSizeScale) * (1 - (float(CurrentHealth) / float(entity.HealthMax)));
+		ScalePercent = default.StartingDamageSizeScale * (float(CurrentHealth) / float(entity.HealthMax));
 		entity.IntendedBodyScale = (entity.IntendedBodyScale - default.DeadDamageSizeScale) * ScalePercent + default.DeadDamageSizeScale;
 	}
 }
 
 static simulated function bool ShouldKnockDownOnBump(KFPawn_Monster KFPM, KFPawn OwnerPawn)
 {
-	if (KFPM != none && KFPM.IntendedBodyScale <= 0.6f)
+	if (KFPM != none && KFPM.IntendedBodyScale <= class'ZedternalReborn.WMSpecialWave_TinyTerror'.default.ZedScale)
 		return true;
 	else
 		return false;
