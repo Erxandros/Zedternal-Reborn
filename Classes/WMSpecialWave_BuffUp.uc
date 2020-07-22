@@ -14,7 +14,8 @@ function UpdateZed()
 
 	foreach DynamicActors(class'KFPawn_Monster', KFM)
 	{
-		if (KFM.IntendedBodyScale < default.ScaleMax)
+		if (KFM.IntendedBodyScale < default.ScaleMax
+			&& KFM.IntendedBodyScale != class'ZedternalReborn.WMSpecialWave_Division'.default.SmallZedSize)
 			KFM.IntendedBodyScale += default.ScaleDelta;
 	}
 }
