@@ -2,16 +2,15 @@ Class WMZedBuff_Speed extends WMZedBuff;
 
 var float Speed, SprintChance;
 
-static function ModifyZedSpeedMod( out float SpeedMod, KFPawn_Monster P, float GameDifficulty)
+static function ModifyZedSpeedMod(out float SpeedMod, KFPawn_Monster P, float GameDifficulty)
 {
 	SpeedMod += default.Speed;
 }
 
-static function ModifyZedSprintChanceMod( out float SprintChanceMod, KFPawn_Monster P, float GameDifficulty)
+static function ModifyZedSprintChanceMod(out float SprintChanceMod, KFPawn_Monster P, float GameDifficulty)
 {
 	SprintChanceMod += default.SprintChance;
 }
-
 
 defaultproperties
 {

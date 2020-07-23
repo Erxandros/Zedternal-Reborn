@@ -2,7 +2,7 @@ Class WMZedBuff_Husk_SuicideRate extends WMZedBuff;
 
 var float SuicideHealthRatio;
 
-static function ModifyZedSpeedMod( out float SpeedMod, KFPawn_Monster P, float GameDifficulty)
+static function ModifyZedSpeedMod(out float SpeedMod, KFPawn_Monster P, float GameDifficulty)
 {
 	if (KFPawn_ZedHusk(P) != none)
 	{

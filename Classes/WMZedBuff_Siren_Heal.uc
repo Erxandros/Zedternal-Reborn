@@ -2,7 +2,7 @@ Class WMZedBuff_Siren_Heal extends WMZedBuff;
 
 var float Damage;
 
-static function ModifyZedHealthMod( out float HealthMod, KFPawn_Monster P, float GameDifficulty, byte NumLivingPlayers)
+static function ModifyZedHealthMod(out float HealthMod, KFPawn_Monster P, float GameDifficulty, byte NumLivingPlayers)
 {
 	local WMZedBuff_Siren_Heal_Helper Helper;
 	local bool bFound;

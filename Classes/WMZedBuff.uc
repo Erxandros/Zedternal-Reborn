@@ -3,24 +3,23 @@ Class WMZedBuff extends Info;
 var string buffDescription;
 var Texture2D buffIcon;
 
+static function ModifyZedHealthMod(out float HealthMod, KFPawn_Monster P, float GameDifficulty, byte NumLivingPlayers);
+static function ModifyZedHeadHealthMod(out float HeadHealthMod, KFPawn_Monster P, float GameDifficulty, byte NumLivingPlayers);
+static function ModifyZedDamageMod(out float PerZedDamageMod, KFPawn_Monster P, float GameDifficulty);
+static function ModifyZedSoloDamageMod(out float SoloPlayDamageMod, KFPawn_Monster P, float GameDifficulty);
+static function ModifyZedSpeedMod(out float SpeedMod, KFPawn_Monster P, float GameDifficulty);
+static function ModifyZedSprintChanceMod(out float SprintChanceMod, KFPawn_Monster P, float GameDifficulty);
+static function ModifyDamagedZedSprintChanceMod(out float SprintChanceMod, KFPawn_Monster P, float GameDifficulty);
+static function ModifyZedDoshMod(out float DoshMod);
+static function ModifyItemPickupMod(out float ItemPickupMod);
+static function ModifyAmmoPickupMod(out float AmmoPickupMod);
+static function ModifyWeakAttackChanceMod(out float WeakAttackChanceMod);
+static function ModifyMediumAttackChanceMod(out float MediumAttackChanceMod);
+static function ModifyHardAttackChanceMod(out float HardAttackChanceMod);
+static function ModifySpawnRateMod(out float SpawnRateMod);
+static function ModifyDamageResistanceMod(out float ResistanceMod, byte NumLivingPlayers);
 
-static function ModifyZedHealthMod( out float HealthMod, KFPawn_Monster P, float GameDifficulty, byte NumLivingPlayers);
-static function ModifyZedHeadHealthMod( out float HeadHealthMod, KFPawn_Monster P, float GameDifficulty, byte NumLivingPlayers);
-static function ModifyZedDamageMod( out float PerZedDamageMod, KFPawn_Monster P, float GameDifficulty);
-static function ModifyZedSoloDamageMod( out float SoloPlayDamageMod, KFPawn_Monster P, float GameDifficulty);
-static function ModifyZedSpeedMod( out float SpeedMod, KFPawn_Monster P, float GameDifficulty);
-static function ModifyZedSprintChanceMod( out float SprintChanceMod, KFPawn_Monster P, float GameDifficulty);
-static function ModifyDamagedZedSprintChanceMod( out float SprintChanceMod, KFPawn_Monster P, float GameDifficulty);
-static function ModifyZedDoshMod( out float DoshMod);
-static function ModifyItemPickupMod( out float ItemPickupMod);
-static function ModifyAmmoPickupMod( out float AmmoPickupMod);
-static function ModifyWeakAttackChanceMod( out float WeakAttackChanceMod);
-static function ModifyMediumAttackChanceMod( out float MediumAttackChanceMod);
-static function ModifyHardAttackChanceMod( out float HardAttackChanceMod);
-static function ModifySpawnRateMod( out float SpawnRateMod);
-static function ModifyDamageResistanceMod( out float ResistanceMod, byte NumLivingPlayers);
-
-static function KilledPawn( Pawn Pawn );
+static function KilledPawn(Pawn entity);
 
 defaultproperties
 {

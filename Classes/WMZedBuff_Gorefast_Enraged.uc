@@ -2,19 +2,19 @@ Class WMZedBuff_Gorefast_Enraged extends WMZedBuff;
 
 var float Damage, Speed, SprintChance;
 
-static function ModifyZedDamageMod( out float PerZedDamageMod, KFPawn_Monster P, float GameDifficulty)
+static function ModifyZedDamageMod(out float PerZedDamageMod, KFPawn_Monster P, float GameDifficulty)
 {
 	if (KFPawn_ZedGorefast(P) != none)
 		PerZedDamageMod += default.Damage;
 }
 
-static function ModifyZedSpeedMod( out float SpeedMod, KFPawn_Monster P, float GameDifficulty)
+static function ModifyZedSpeedMod(out float SpeedMod, KFPawn_Monster P, float GameDifficulty)
 {
 	if (KFPawn_ZedGorefast(P) != none)
 		SpeedMod += default.Speed;
 }
 
-static function ModifyZedSprintChanceMod( out float SprintChanceMod, KFPawn_Monster P, float GameDifficulty)
+static function ModifyZedSprintChanceMod(out float SprintChanceMod, KFPawn_Monster P, float GameDifficulty)
 {
 	if (KFPawn_ZedGorefast(P) != none)
 		SprintChanceMod += default.SprintChance;

@@ -2,11 +2,10 @@ Class WMZedBuff_Damage_II extends WMZedBuff;
 
 var float Damage;
 
-static function ModifyZedDamageMod( out float PerZedDamageMod, KFPawn_Monster P, float GameDifficulty)
+static function ModifyZedDamageMod(out float PerZedDamageMod, KFPawn_Monster P, float GameDifficulty)
 {
 	PerZedDamageMod += default.Damage;
 }
-
 
 defaultproperties
 {

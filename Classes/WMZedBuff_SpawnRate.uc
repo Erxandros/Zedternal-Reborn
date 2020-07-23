@@ -2,11 +2,10 @@ Class WMZedBuff_SpawnRate extends WMZedBuff;
 
 var float SpawnRate;
 
-static function ModifySpawnRateMod( out float SpawnRateMod)
+static function ModifySpawnRateMod(out float SpawnRateMod)
 {
 	SpawnRateMod += default.SpawnRate;
 }
-
 
 defaultproperties
 {

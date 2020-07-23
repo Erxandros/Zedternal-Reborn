@@ -1,12 +1,11 @@
 Class WMZedBuff_Siren_Heal_Helper extends Info
 	transient;
 
-var float HealRadius;
-var float HealZed, HealLargeZed;
-	
+var float HealRadius, HealZed, HealLargeZed;
+
 function PostBeginPlay()
 {
-	SetTimer(1.f, true);
+	SetTimer(1.0f, true);
 }
 
 function Timer()
@@ -17,7 +16,7 @@ function Timer()
 	foreach DynamicActors(class'KFTrigger_SirenProjectileShield', Scream)
 	{
 		// Rally nearby zeds
-		foreach WorldInfo.GRI.VisibleCollidingActors( class'KFPawn_Monster', KFPM, HealRadius, Scream.Location )
+		foreach WorldInfo.GRI.VisibleCollidingActors(class'KFPawn_Monster', KFPM, HealRadius, Scream.Location)
 		{
 			if (KFPM.Health < KFPM.HealthMax)
 			{
@@ -33,8 +32,8 @@ function Timer()
 
 defaultproperties
 {
-   HealRadius=600.000000
-   HealZed = 0.300000;
-   HealLargeZed = 0.150000;
-   Name="Default__WMZedBuff_Siren_Heal_Helper"
+	HealRadius=600.000000
+	HealZed = 0.300000;
+	HealLargeZed = 0.150000;
+	Name="Default__WMZedBuff_Siren_Heal_Helper"
 }

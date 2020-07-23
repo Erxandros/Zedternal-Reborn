@@ -1,11 +1,10 @@
 Class WMZedBuff_Scrake_Enraged extends WMZedBuff;
 
-static function ModifyZedSprintChanceMod( out float SprintChanceMod, KFPawn_Monster P, float GameDifficulty)
+static function ModifyZedSprintChanceMod(out float SprintChanceMod, KFPawn_Monster P, float GameDifficulty)
 {
 	if (KFPawn_ZedScrake(P) != none)
 		KFPawn_ZedScrake(P).SetEnraged(true);
 }
-
 
 defaultproperties
 {

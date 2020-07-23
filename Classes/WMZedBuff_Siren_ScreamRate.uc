@@ -2,7 +2,7 @@ Class WMZedBuff_Siren_ScreamRate extends WMZedBuff;
 
 var float Damage;
 
-static function ModifyZedSpeedMod( out float SpeedMod, KFPawn_Monster P, float GameDifficulty)
+static function ModifyZedSpeedMod(out float SpeedMod, KFPawn_Monster P, float GameDifficulty)
 {
 	if (KFPawn_ZedSiren(P) != none)
 	{

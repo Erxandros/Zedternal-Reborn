@@ -2,23 +2,23 @@ Class WMZedBuff_Clot_Stronger extends WMZedBuff;
 
 var float Health, Damage;
 
-static function ModifyZedHealthMod( out float HealthMod, KFPawn_Monster P, float GameDifficulty, byte NumLivingPlayers)
+static function ModifyZedHealthMod(out float HealthMod, KFPawn_Monster P, float GameDifficulty, byte NumLivingPlayers)
 {
 	if (KFPawn_ZedClot(P) != none)
 		HealthMod += default.Health;
 }
-static function ModifyZedHeadHealthMod( out float HeadHealthMod, KFPawn_Monster P, float GameDifficulty, byte NumLivingPlayers)
+
+static function ModifyZedHeadHealthMod(out float HeadHealthMod, KFPawn_Monster P, float GameDifficulty, byte NumLivingPlayers)
 {
 	if (KFPawn_ZedClot(P) != none)
 		HeadHealthMod += default.Health;
 }
-static function ModifyZedDamageMod( out float PerZedDamageMod, KFPawn_Monster P, float GameDifficulty)
+
+static function ModifyZedDamageMod(out float PerZedDamageMod, KFPawn_Monster P, float GameDifficulty)
 {
 	if (KFPawn_ZedClot(P) != none)
 		PerZedDamageMod += default.Damage;
 }
-
-
 
 defaultproperties
 {

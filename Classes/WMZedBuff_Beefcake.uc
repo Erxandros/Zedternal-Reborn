@@ -1,10 +1,8 @@
 Class WMZedBuff_Beefcake extends WMZedBuff;
 
-var float Health, HeadHealth, Size, Damage;
-var float Speed;
-var float Prob;
+var float Health, HeadHealth, Size, Damage, Speed, Prob;
 
-static function ModifyZedHealthMod( out float HealthMod, KFPawn_Monster P, float GameDifficulty, byte NumLivingPlayers)
+static function ModifyZedHealthMod(out float HealthMod, KFPawn_Monster P, float GameDifficulty, byte NumLivingPlayers)
 {
 	if (!P.bLargeZed && P.IntendedBodyScale == 1 && FRand() < default.Prob)
 	{
@@ -12,22 +10,24 @@ static function ModifyZedHealthMod( out float HealthMod, KFPawn_Monster P, float
 		P.IntendedBodyScale = default.Size;
 	}
 }
-static function ModifyZedHeadHealthMod( out float HeadHealthMod, KFPawn_Monster P, float GameDifficulty, byte NumLivingPlayers)
+
+static function ModifyZedHeadHealthMod(out float HeadHealthMod, KFPawn_Monster P, float GameDifficulty, byte NumLivingPlayers)
 {
 	if (P.IntendedBodyScale == default.Size)
 		HeadHealthMod += default.HeadHealth;
 }
-static function ModifyZedSpeedMod( out float SpeedMod, KFPawn_Monster P, float GameDifficulty)
+
+static function ModifyZedSpeedMod(out float SpeedMod, KFPawn_Monster P, float GameDifficulty)
 {
 	if (P.IntendedBodyScale == default.Size)
 		SpeedMod += default.Speed;
 }
-static function ModifyZedDamageMod( out float PerZedDamageMod, KFPawn_Monster P, float GameDifficulty)
+
+static function ModifyZedDamageMod(out float PerZedDamageMod, KFPawn_Monster P, float GameDifficulty)
 {
 	if (P.IntendedBodyScale == default.Size)
 		PerZedDamageMod += default.Damage;
 }
-
 
 defaultproperties
 {

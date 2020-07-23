@@ -2,18 +2,18 @@ Class WMZedBuff_Health extends WMZedBuff;
 
 var float Health, LargeZedHealth, HeadHealth;
 
-static function ModifyZedHealthMod( out float HealthMod, KFPawn_Monster P, float GameDifficulty, byte NumLivingPlayers)
+static function ModifyZedHealthMod(out float HealthMod, KFPawn_Monster P, float GameDifficulty, byte NumLivingPlayers)
 {
 	if (P.bLargeZed)
 		HealthMod += default.LargeZedHealth;
 	else
 		HealthMod += default.Health;
 }
-static function ModifyZedHeadHealthMod( out float HeadHealthMod, KFPawn_Monster P, float GameDifficulty, byte NumLivingPlayers)
+
+static function ModifyZedHeadHealthMod(out float HeadHealthMod, KFPawn_Monster P, float GameDifficulty, byte NumLivingPlayers)
 {
 	HeadHealthMod += default.HeadHealth;
 }
-
 
 defaultproperties
 {

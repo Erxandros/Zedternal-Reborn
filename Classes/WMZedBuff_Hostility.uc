@@ -2,23 +2,25 @@ Class WMZedBuff_Hostility extends WMZedBuff;
 
 var float Damage, WeakAttack, HardAttack, SprintChance;
 
-static function ModifyZedDamageMod( out float PerZedDamageMod, KFPawn_Monster P, float GameDifficulty)
+static function ModifyZedDamageMod(out float PerZedDamageMod, KFPawn_Monster P, float GameDifficulty)
 {
 	PerZedDamageMod += default.Damage;
 }
-static function ModifyWeakAttackChanceMod( out float WeakAttackChanceMod)
+
+static function ModifyWeakAttackChanceMod(out float WeakAttackChanceMod)
 {
 	WeakAttackChanceMod -= default.WeakAttack;
 }
-static function ModifyHardAttackChanceMod( out float HardAttackChanceMod)
+
+static function ModifyHardAttackChanceMod(out float HardAttackChanceMod)
 {
 	HardAttackChanceMod += default.HardAttack;
 }
-static function ModifyDamagedZedSprintChanceMod( out float SprintChanceMod, KFPawn_Monster P, float GameDifficulty)
+
+static function ModifyDamagedZedSprintChanceMod(out float SprintChanceMod, KFPawn_Monster P, float GameDifficulty)
 {
 	SprintChanceMod += default.SprintChance;
 }
-
 
 defaultproperties
 {

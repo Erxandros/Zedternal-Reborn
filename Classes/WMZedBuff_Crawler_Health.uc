@@ -1,9 +1,8 @@
 Class WMZedBuff_Crawler_Health extends WMZedBuff;
 
-var float Health, HeadHealth, Size;
-var float Speed;
+var float Health, HeadHealth, Size, Speed;
 
-static function ModifyZedHealthMod( out float HealthMod, KFPawn_Monster P, float GameDifficulty, byte NumLivingPlayers)
+static function ModifyZedHealthMod(out float HealthMod, KFPawn_Monster P, float GameDifficulty, byte NumLivingPlayers)
 {
 	if (KFPawn_ZedCrawler(P) != none)
 	{
@@ -11,18 +10,18 @@ static function ModifyZedHealthMod( out float HealthMod, KFPawn_Monster P, float
 		P.IntendedBodyScale += default.Size;
 	}
 }
-static function ModifyZedHeadHealthMod( out float HeadHealthMod, KFPawn_Monster P, float GameDifficulty, byte NumLivingPlayers)
+
+static function ModifyZedHeadHealthMod(out float HeadHealthMod, KFPawn_Monster P, float GameDifficulty, byte NumLivingPlayers)
 {
 	if (KFPawn_ZedCrawler(P) != none)
 		HeadHealthMod += default.HeadHealth;
 }
 
-static function ModifyZedSpeedMod( out float SpeedMod, KFPawn_Monster P, float GameDifficulty)
+static function ModifyZedSpeedMod(out float SpeedMod, KFPawn_Monster P, float GameDifficulty)
 {
 	if (KFPawn_ZedCrawler(P) != none)
 		SpeedMod += default.Speed;
 }
-
 
 defaultproperties
 {

@@ -2,7 +2,7 @@ Class WMZedBuff_Stalker_Faster extends WMZedBuff;
 
 var float Speed;
 
-static function ModifyZedSpeedMod( out float SpeedMod, KFPawn_Monster P, float GameDifficulty)
+static function ModifyZedSpeedMod(out float SpeedMod, KFPawn_Monster P, float GameDifficulty)
 {
 	if (KFPawn_ZedStalker(P) != none)
 		SpeedMod += default.Speed;
