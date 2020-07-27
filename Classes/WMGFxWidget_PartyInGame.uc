@@ -2,5 +2,6 @@ class WMGFxWidget_PartyInGame extends KFGFxWidget_PartyInGame;
 
 defaultproperties
 {
-   Name="Default__WMGFxWidget_PartyInGame"
+	PlayerSlots=12
+	Name="Default__WMGFxWidget_PartyInGame"
 }
