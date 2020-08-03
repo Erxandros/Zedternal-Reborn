@@ -1646,5 +1646,5 @@ defaultproperties
 	GameReplicationInfoClass=Class'ZedternalReborn.WMGameReplicationInfo'
 
 	DefaultTraderItems=KFGFxObject_TraderItems'GP_Trader_ARCH.DefaultTraderItems'
-	HUDType=Class'ZedternalReborn.WMGFxHudWrapper'
+	HUDType=Class'ZedternalReborn.WMGFxScoreBoardWrapper'
 }

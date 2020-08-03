@@ -29,6 +29,12 @@ var byte syncLoopCounter;
 var array< byte > purchase_perkUpgrade, purchase_skillUpgrade;
 var array< int > purchase_weaponUpgrade;
 
+// For scoreboard updates
+var int UncompressedPing;
+var byte PlayerArmor;
+var byte PlayerArmorPercent;
+var byte PlatformType;
+
 replication
 {
 	if ( bNetDirty && (Role == Role_Authority) )
@@ -36,7 +42,7 @@ replication
 		bSkillUpgrade, bSkillUnlocked, bSkillDeluxe;
 
 	if ( bNetDirty )
-		perkIconIndex, perkLvl, syncTrigger;
+		perkIconIndex, perkLvl, syncTrigger, UncompressedPing, PlayerArmor, PlayerArmorPercent, PlatformType;
 }
 
 simulated event ReplicatedEvent(name VarName)
@@ -86,6 +92,22 @@ function CopyProperties(PlayerReplicationInfo PRI)
 	}
 
 	super.CopyProperties(PRI);
+}
+
+function UpdateReplicatedPlayerHealth()
+{
+	local WMPawn_Human OwnerPawn;
+	super.UpdateReplicatedPlayerHealth();
+
+	if (KFPlayerOwner != none)
+	{
+		OwnerPawn = WMPawn_Human(KFPlayerOwner.Pawn);
+		if (OwnerPawn != none && OwnerPawn.Armor != PlayerArmor)
+		{
+			PlayerArmor = OwnerPawn.Armor;
+			PlayerArmorPercent = FloatToByte(float(OwnerPawn.Armor) / float(OwnerPawn.MaxArmor));
+		}
+	}
 }
 
 simulated function byte GetActivePerkLevel()
@@ -321,6 +343,7 @@ defaultproperties
 	CurrentIconToDisplay=Texture2D'UI_PerkIcons_TEX.UI_Horzine_H_Logo'
 	syncTrigger=false
 	syncCompleted=true
+	PlatformType=0
 
 	Name="Default__WMPlayerReplicationInfo"
 }

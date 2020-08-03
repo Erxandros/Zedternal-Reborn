@@ -9,6 +9,9 @@ var bool bShouldUpdateGrenadeIcon;
 var config byte KnifeIndex;
 var config string GrenadePath;
 
+//For scoreboard
+var byte PlatformType;
+
 simulated event PostBeginPlay()
 {
 	super.PostBeginPlay();
@@ -16,8 +19,10 @@ simulated event PostBeginPlay()
 	PerkList[0].PerkClass = Class'ZedternalReborn.WMPerk';
 
 	SetTimer(2.f, true, nameof(UpdatePerkIcon));
-}
 
+	if (WorldInfo.NetMode != NM_Client)
+		SetTimer(0.5f, false, nameof(GetPlatform));
+}
 
 reliable client event ReceiveLocalizedMessage( class<LocalMessage> Message, optional int Switch, optional PlayerReplicationInfo RelatedPRI_1, optional PlayerReplicationInfo RelatedPRI_2, optional Object OptionalObject )
 {
@@ -312,6 +317,54 @@ simulated function UpdatePerkIcon()
 	bShouldUpdateHUDPerkIcon = true;
 }
 
+reliable client function GetPlatform()
+{
+	//If the server calls GetPlatform on the server and not the client, try again
+	if (WorldInfo.NetMode == NM_DedicatedServer)
+	{
+		SetTimer(1.0f, false, nameof(GetPlatform));
+		return;
+	}
+
+	if (WorldInfo.static.IsEOSBuild()) //Epic
+	{
+		PlatformType = 2;
+		UpdatePlatform(2);
+	}
+	else //Steam
+	{
+		PlatformType = 1;
+		UpdatePlatform(1);
+	}
+}
+
+reliable server function UpdatePlatform(byte Platform)
+{
+	PlatformType = Platform;
+	SetTimer(0.5f, false, nameof(SyncPlatform));
+}
+
+function SyncPlatform()
+{
+	local WMPlayerReplicationInfo WMPRI;
+
+	WMPRI = WMPlayerReplicationInfo(PlayerReplicationInfo);
+	if (WMPRI != None)
+		WMPRI.PlatformType = PlatformType;
+	else
+		SetTimer(1.0f, false, nameof(SyncPlatform));
+}
+
+unreliable server function ServerUpdatePing(int NewPing)
+{
+	local WMPlayerReplicationInfo WMPRI;
+	super.ServerUpdatePing(NewPing);
+
+	WMPRI = WMPlayerReplicationInfo(PlayerReplicationInfo);
+	if (WMPRI != None)
+		WMPRI.UncompressedPing = NewPing;
+}
+
 defaultproperties
 {
 	PurchaseHelperClass=class'WMAutoPurchaseHelper'
@@ -322,4 +375,5 @@ defaultproperties
 	PerkList(0)=(PerkClass=Class'ZedternalReborn.WMPerk')
 	ServPendingPerkBuild=-1
 	ServPendingPerkLevel=-1
+	PlatformType=0
 }
