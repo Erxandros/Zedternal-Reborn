@@ -10,6 +10,7 @@ var transient Canvas ScoreBoardCanvas; // The ScoreBoardCanvas canvas object
 //function InitStyle()
 function PostBeginPlay()
 {
+	ScoreBoardCanvas = new class 'Engine.Canvas';
 	ItemTex = Texture2D(DynamicLoadObject("UI_LevelChevrons_TEX.UI_LevelChevron_Icon_02", class'Texture2D'));
 	if (ItemTex == None)
 		ItemTex = Texture2D'EngineMaterials.DefaultWhiteGrid';
