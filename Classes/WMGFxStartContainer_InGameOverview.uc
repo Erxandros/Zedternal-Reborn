@@ -19,6 +19,18 @@ function UpdateLength(string Length)
 	SetString("lengthText", "Endless");
 }
 
+function UpdateServerType(string ServerType)
+{
+	local WorldInfo WI;
+
+	WI = class'WorldInfo'.static.GetWorldInfo();
+
+	if (WI != none && WI.NetMode != NM_Standalone && !GetPC().WorldInfo.IsConsoleBuild())
+	{
+		SetString("serverType", "Unranked");
+	}
+}
+
 defaultproperties
 {
 	Name="Default__WMGFxStartContainer_InGameOverview"
