@@ -174,7 +174,12 @@ event Draw(Canvas ca)
 	XPos = XPosCenter;
 	YPos += YL;
 
-	S = " " $Class'KFCommon_LocalizedStrings'.Static.GetDifficultyString(KFGRI.GameDifficulty) $"  |  WAVE " $KFGRI.WaveNum $"  |  " $PC.WorldInfo.Title $"  |  00 : 00 : 00 ";
+	S = Class'KFCommon_LocalizedStrings'.Static.GetDifficultyString(KFGRI.GameDifficulty);
+	// Change for Custom difficulty
+	if (S ~= "ANY")
+		S = "Custom";
+
+	S = " " $S $"  |  WAVE " $KFGRI.WaveNum $"  |  " $PC.WorldInfo.Title $"  |  00 : 00 : 00 ";
 	ScoreBoardCanvas.TextSize(S, XL, YL, FontScalar, FontScalar);
 
 	XPos -= (XL * 0.5);
