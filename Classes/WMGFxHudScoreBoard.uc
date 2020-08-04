@@ -186,6 +186,9 @@ event Draw(Canvas ca)
 	XPos += 5;
 
 	S = Class'KFCommon_LocalizedStrings'.Static.GetDifficultyString(KFGRI.GameDifficulty);
+	// Change for Custom difficulty
+	if (S ~= "ANY")
+		S = "Custom";
 	ScoreBoardCanvas.SetPos(XPos, YPos);
 	ScoreBoardCanvas.DrawText(S, , FontScalar, FontScalar);
 	ScoreBoardCanvas.TextSize(S, XL, YL, FontScalar, FontScalar);
