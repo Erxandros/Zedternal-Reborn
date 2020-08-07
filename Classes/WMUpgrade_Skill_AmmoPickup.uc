@@ -5,14 +5,17 @@ var array< float > Ammo;
 static simulated function InitiateWeapon(int upgLevel, KFWeapon KFW, KFPawn OwnerPawn)
 {
 	local byte i;
-	
+
 	if (KFW != none)
 	{
-		for (i=0; i<=1; i+=1)
+		for (i = 0; i <= 1; ++i)
 		{
-			KFW.AmmoPickupScale[i] = KFW.default.AmmoPickupScale[i] * default.Ammo[upgLevel-1];
+			KFW.AmmoPickupScale[i] = KFW.default.AmmoPickupScale[i] * default.Ammo[upgLevel - 1];
 		}
 	}
+
+	if (KFWeap_Thrown_C4(KFW) != none)
+		KFW.AmmoPickupScale[0] = FCeil(KFW.AmmoPickupScale[0]);
 }
 
 defaultproperties
