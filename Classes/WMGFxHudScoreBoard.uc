@@ -462,7 +462,9 @@ event Draw(Canvas ca)
 		//////
 
 		////// Platform
-		if (WMPRI.PlatformType == 2)
+		if (WMPRI.bBot)
+			S = "Bot";
+		else if (WMPRI.PlatformType == 2)
 			S = "Epic";
 		else if (WMPRI.PlatformType == 1)
 			S = "Steam";
