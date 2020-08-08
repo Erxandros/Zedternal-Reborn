@@ -67,6 +67,10 @@ var byte zedBuff_nextMusicTrackIndex;
 var array< KFMusicTrackInfo > ZedBuffMusic;
 var array< class<KFTraderVoiceGroupBase> > TraderVoiceGroupClasses;
 
+//For lobby pages
+var byte currentPage;
+var byte maxPage;
+
 //Private variable to get menu upk downloaded upon redirection
 var private Texture2D MenuLinker;
 
@@ -667,6 +671,8 @@ defaultproperties
 	UpdateHumanInfoInterval=0.500000
 	UpdatePickupInfoInterval=1.000000
 	zedBuff_nextMusicTrackIndex=0
+	currentPage=1
+	maxPage=1
 	MenuLinker=Texture2D'ZedternalReborn_Menus.Linker'
 	SpecialWaveID(0)=-1
 	SpecialWaveID(1)=-1
