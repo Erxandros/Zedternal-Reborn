@@ -68,7 +68,7 @@ var array< KFMusicTrackInfo > ZedBuffMusic;
 var array< class<KFTraderVoiceGroupBase> > TraderVoiceGroupClasses;
 
 //Private variable to get menu upk downloaded upon redirection
-var private Texture2D menuIcon;
+var private Texture2D MenuLinker;
 
 replication
 {
@@ -667,7 +667,7 @@ defaultproperties
 	UpdateHumanInfoInterval=0.500000
 	UpdatePickupInfoInterval=1.000000
 	zedBuff_nextMusicTrackIndex=0
-	menuIcon=Texture2D'ZedternalReborn_Menus.InventoryMenu_SWF_I25'
+	MenuLinker=Texture2D'ZedternalReborn_Menus.Linker'
 	SpecialWaveID(0)=-1
 	SpecialWaveID(1)=-1
 	TraderVoiceGroupClasses(0)=Class'kfgamecontent.KFTraderVoiceGroup_Default'

@@ -14,7 +14,7 @@ function Init(optional LocalPlayer LocPlay)
 	ManagerObject.SetBool("backgroundVisible", false);
 	ManagerObject.SetBool("IISMovieVisible", false);
 	
-	LoadMenu( "../ZedternalReborn_Menus/UpgradeMenu.swf", true );
+	LoadMenu( "../ZedternalReborn_Menus/ZedternalUpgrade/UpgradeMenu.swf", true );
 	
 	// controller?
 	bUsingGamepad = class'WorldInfo'.static.IsConsoleBuild();

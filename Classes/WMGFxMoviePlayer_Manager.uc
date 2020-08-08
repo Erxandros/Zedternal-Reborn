@@ -62,7 +62,7 @@ function bool ToggleMenus()
 defaultproperties
 {
 	WidgetPaths.Remove("../UI_Widgets/PartyWidget_SWF.swf")
-	WidgetPaths.Add("../UI_Widgets/VersusLobbyWidget_SWF.swf")
+	WidgetPaths.Add("../ZedternalReborn_Menus/ZedternalLobby/LobbyGUI.swf")
 	InGamePartyWidgetClass=Class'ZedternalReborn.WMGFxWidget_PartyInGame'
 	WidgetBindings(10)=(WidgetName="startMenu",WidgetClass=Class'ZedternalReborn.WMGFxMenu_StartGame')
 	WidgetBindings(21)=(WidgetName="traderMenu",WidgetClass=Class'ZedternalReborn.WMGFxMenu_Trader')
