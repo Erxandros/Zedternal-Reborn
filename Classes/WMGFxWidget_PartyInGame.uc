@@ -119,6 +119,62 @@ function GFxObject RefreshSlot(int SlotIndex, KFPlayerReplicationInfo KFPRI)
 	return WMPlayerInfoObject;
 }
 
+function ToggelMuteOnPlayer(int SlotIndex)
+{
+	local array<KFPlayerReplicationInfo> KFPRIArray;
+	local UniqueNetId PlayerNetID;
+	local PlayerController PC;
+	local int offset;
+
+	PC = GetPC();
+	GetKFPRIArray(KFPRIArray);
+
+	if (KFPRIArray.Length <= 0)
+	{
+		return;
+	}
+
+	offset = (WMGRI.currentPage - 1) * PlayerSlots;
+	if (KFPRIArray.Length > SlotIndex + offset)
+	{
+		PlayerNetID = KFPRIArray[SlotIndex + offset].UniqueId;
+		if (PC.IsPlayerMuted(PlayerNetID))
+		{
+			PC.ServerUnMutePlayer(PlayerNetID, !class'WorldInfo'.static.IsConsoleBuild());
+			if (MemberSlots[SlotIndex].MemberSlotObject != None)
+				MemberSlots[SlotIndex].MemberSlotObject.SetBool("isMuted", false);
+		}
+		else
+		{
+			PC.ServerMutePlayer(PlayerNetID, !class'WorldInfo'.static.IsConsoleBuild());
+			if (MemberSlots[SlotIndex].MemberSlotObject != None)
+				MemberSlots[SlotIndex].MemberSlotObject.SetBool("isMuted", true);
+		}
+	}
+	super.ToggelMuteOnPlayer(SlotIndex);
+}
+
+function ViewProfile(int SlotIndex)
+{
+	local int offset;
+	offset = (WMGRI.currentPage - 1) * PlayerSlots;
+	super.ViewProfile(SlotIndex + offset);
+}
+
+function AddFriend(int SlotIndex)
+{
+	local int offset;
+	offset = (WMGRI.currentPage - 1) * PlayerSlots;
+	super.AddFriend(SlotIndex + offset);
+}
+
+function KickPlayer(int SlotIndex)
+{
+	local int offset;
+	offset = (WMGRI.currentPage - 1) * PlayerSlots;
+	super.KickPlayer(SlotIndex + offset);
+}
+
 defaultproperties
 {
 	PlayerSlots=12
