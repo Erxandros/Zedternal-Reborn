@@ -29,21 +29,6 @@ function RefreshCycleButton()
 	SetString("switchTeamsString", "Cycle List" @ WMGRI.currentPage $ "/" $ WMGRI.maxPage);
 }
 
-function int GetOffsetSlotIndex(int Slots)
-{
-	local byte i;
-
-	for (i = WMGRI.currentPage - 1; i > 0; --i)
-	{
-		if (i * PlayerSlots < Slots)
-			return i * PlayerSlots;
-		else
-			--WMGRI.currentPage;
-	}
-
-	return 0;
-}
-
 function OneSecondLoop()
 {
 	super.OneSecondLoop();
@@ -52,6 +37,24 @@ function OneSecondLoop()
 		WMGRI = WMGameReplicationInfo(GetPC().WorldInfo.GRI);
 	}
 	RefreshCycleButton();
+}
+
+function int GetOffsetRefreshParty(int Slots)
+{
+	local byte i;
+
+	if (WMGRI != None)
+	{
+		for (i = WMGRI.currentPage - 1; i > 0; --i)
+		{
+			if (i * PlayerSlots < Slots)
+				return i * PlayerSlots;
+			else
+				--WMGRI.currentPage;
+		}
+	}
+
+	return 0;
 }
 
 function RefreshParty()
@@ -80,7 +83,7 @@ function RefreshParty()
 	UpdateInLobby(KFPRIArray.Length > 1);
 
 	OccupiedSlots = KFPRIArray.Length;
-	OffsetIndex = GetOffsetSlotIndex(KFPRIArray.Length);
+	OffsetIndex = GetOffsetRefreshParty(KFPRIArray.Length);
 
 	for (SlotIndex = 0; SlotIndex < PlayerSlots; ++SlotIndex)
 	{
@@ -119,6 +122,14 @@ function GFxObject RefreshSlot(int SlotIndex, KFPlayerReplicationInfo KFPRI)
 	return WMPlayerInfoObject;
 }
 
+function int GetPageOffset()
+{
+	if (WMGRI != None)
+		return (WMGRI.currentPage - 1) * PlayerSlots;
+	else
+		return 0;
+}
+
 function ToggelMuteOnPlayer(int SlotIndex)
 {
 	local array<KFPlayerReplicationInfo> KFPRIArray;
@@ -134,7 +145,7 @@ function ToggelMuteOnPlayer(int SlotIndex)
 		return;
 	}
 
-	offset = (WMGRI.currentPage - 1) * PlayerSlots;
+	offset = GetPageOffset();
 	if (KFPRIArray.Length > SlotIndex + offset)
 	{
 		PlayerNetID = KFPRIArray[SlotIndex + offset].UniqueId;
@@ -156,23 +167,17 @@ function ToggelMuteOnPlayer(int SlotIndex)
 
 function ViewProfile(int SlotIndex)
 {
-	local int offset;
-	offset = (WMGRI.currentPage - 1) * PlayerSlots;
-	super.ViewProfile(SlotIndex + offset);
+	super.ViewProfile(SlotIndex + GetPageOffset());
 }
 
 function AddFriend(int SlotIndex)
 {
-	local int offset;
-	offset = (WMGRI.currentPage - 1) * PlayerSlots;
-	super.AddFriend(SlotIndex + offset);
+	super.AddFriend(SlotIndex + GetPageOffset());
 }
 
 function KickPlayer(int SlotIndex)
 {
-	local int offset;
-	offset = (WMGRI.currentPage - 1) * PlayerSlots;
-	super.KickPlayer(SlotIndex + offset);
+	super.KickPlayer(SlotIndex + GetPageOffset());
 }
 
 defaultproperties
