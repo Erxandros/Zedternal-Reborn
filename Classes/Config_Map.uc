@@ -10,6 +10,7 @@ struct S_Map
 	var float zedSpawnRate;
 	var int zedStuckThreshold;
 	var int zedStuckTimeout;
+	var bool allTraders;
 	
 	structdefaultproperties
 	{
@@ -17,6 +18,7 @@ struct S_Map
 		zedSpawnRate = 1.000000;
 		zedStuckThreshold = 4;
 		zedStuckTimeout = 150;
+		allTraders = false;
 	}
 };
 
@@ -41,6 +43,14 @@ static function UpdateConfig()
 		{
 			default.Map_Settings[i].zedStuckThreshold = 4;
 			default.Map_Settings[i].zedStuckTimeout = 150;
+		}
+	}
+
+	if (default.MODEVERSION < 6)
+	{
+		for (i = 0; i < default.Map_Settings.length; ++i)
+		{
+			default.Map_Settings[i].allTraders = false;
 		}
 	}
 
@@ -93,6 +103,17 @@ static function int GetZedStuckTimeout(string mapName)
 		return default.Map_Settings[index].zedStuckTimeout;
 	else
 		return 150;
+}
+
+static function bool GetAllTraders(string mapName)
+{
+	local int index;
+
+	index = default.Map_Settings.Find('mapName', mapName);
+	if (index != -1)
+		return default.Map_Settings[index].allTraders;
+	else
+		return false;
 }
 
 defaultproperties

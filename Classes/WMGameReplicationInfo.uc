@@ -44,6 +44,7 @@ var repnotify string weaponUpgrade_WeaponStr_D[255];
 var repnotify string weaponUpgrade_UpgradeStr_D[255];
 var repnotify int weaponUpgrade_PriceRep_D[255];
 
+var repnotify bool bAllTraders;
 var repnotify bool updateSkins;
 var repnotify bool printVersion;
 
@@ -85,7 +86,7 @@ replication
 		weaponUpgrade_WeaponStr_B, weaponUpgrade_UpgradeStr_B, weaponUpgrade_PriceRep_B,
 		weaponUpgrade_WeaponStr_C, weaponUpgrade_UpgradeStr_C, weaponUpgrade_PriceRep_C,
 		weaponUpgrade_WeaponStr_D, weaponUpgrade_UpgradeStr_D, weaponUpgrade_PriceRep_D,
-		updateSkins, printVersion;
+		bAllTraders, updateSkins, printVersion;
 }
 
 simulated event ReplicatedEvent(name VarName)
@@ -402,6 +403,11 @@ simulated event ReplicatedEvent(name VarName)
 				TraderDialogManager.TraderVoiceGroupClass = default.TraderVoiceGroupClasses[TraderVoiceGroupIndex];
 			break;
 
+		case 'bAllTraders':
+			if (bAllTraders)
+				SetAllTradersTimer();
+			break;
+
 		case 'updateSkins':
 			if (updateSkins)
 			{
@@ -521,6 +527,88 @@ simulated function SetWeaponPickupList()
 	}
 }
 
+simulated function SetAllTradersTimer()
+{
+	//Only run UpdateNextTrader every 3 seconds as it is computationally heavy
+	SetTimer(3.0f, true, nameof(UpdateNextTrader));
+}
+
+simulated function UpdateNextTrader()
+{
+	local KFTraderTrigger MyTrader, ShortestDistanceTrader;
+	local float SmallestDistToTrader, CurrentDistToTrader;
+	local PlayerController PC;
+	local Actor LocActor;
+
+	PC = GetALocalPlayerController();
+
+	if (PC != None)
+	{
+		SmallestDistToTrader = 0;
+		LocActor = PC.ViewTarget != none ? PC.ViewTarget : PC;
+		foreach DynamicActors(class'KFTraderTrigger', MyTrader)
+		{
+			if (MyTrader.bEnabled)
+			{
+				CurrentDistToTrader = IsZero(MyTrader.Location) ? -1.f : VSize(MyTrader.Location - LocActor.Location) / 100.f;
+				if (CurrentDistToTrader <  SmallestDistToTrader || SmallestDistToTrader == 0)
+				{
+					SmallestDistToTrader = CurrentDistToTrader;
+					ShortestDistanceTrader = MyTrader;
+				}
+			}
+		}
+
+		NextTrader = ShortestDistanceTrader;
+	}
+}
+
+simulated function UpdateOpenedTrader()
+{
+	if (NextTrader != OpenedTrader)
+	{
+		OpenedTrader = NextTrader;
+		OpenedTrader.ShowTraderPath();
+	}
+}
+
+simulated function OpenTrader(optional int time)
+{
+	local KFTraderTrigger MyTrader;
+
+	super.OpenTrader(time);
+
+	if (bAllTraders)
+	{
+		foreach DynamicActors(class'KFTraderTrigger', MyTrader)
+		{
+			if (MyTrader.bEnabled && !MyTrader.bOpened)
+				MyTrader.OpenTrader();
+		}
+
+		SetTimer(1.0f, true, nameof(UpdateOpenedTrader));
+	}
+}
+
+simulated function CloseTrader()
+{
+	local KFTraderTrigger MyTrader;
+
+	if (IsTimerActive(nameof(UpdateOpenedTrader)))
+		ClearTimer(nameof(UpdateOpenedTrader));
+
+	super.CloseTrader();
+
+	if (bAllTraders)
+	{
+		foreach DynamicActors(class'KFTraderTrigger', MyTrader)
+		{
+			if (MyTrader.bOpened)
+				MyTrader.CloseTrader();
+		}
+	}
+}
+
 simulated function PlayZedBuffSoundAndEffect()
 {
 	if (WMGFxHudWrapper(KFPlayerController(GetALocalPlayerController()).myHUD) != none)
@@ -586,7 +674,6 @@ simulated function ShowSpecialWaveMessage()
 			SetTimer(1.250000, false, nameof(PlaySpecialWaveSound));
 		}
 	}
-	
 }
 
 simulated function PlaySpecialWaveSound()

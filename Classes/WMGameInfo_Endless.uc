@@ -10,14 +10,10 @@ var array < class<KFWeaponDefinition> > PerkStartingWeapon;
 var array < class<KFWeaponDefinition> > StaticWeaponList, StartingWeaponList;
 var float doshNewPlayer;
 var int lastSpecialWaveID_First, lastSpecialWaveID_Second;
-var int TimeBetweenWavesDefault;
-var int TimeBetweenWavesExtend;
-var bool bUseExtendedTraderTime;
-var int startingWave;
-var int startingDosh;
-var byte startingMaxPlayerCount;
-var int startingWeaponCount;
-var byte traderVoiceIndex;
+var int TimeBetweenWavesDefault, TimeBetweenWavesExtend;
+var bool bUseExtendedTraderTime, bUseAllTraders;
+var int startingWave, startingDosh, startingWeaponCount;
+var byte startingMaxPlayerCount, traderVoiceIndex;
 
 var float GameDifficultyZedternal;
 
@@ -88,6 +84,9 @@ event PostBeginPlay()
 
 	// Optimization
 	InitializeStaticAndStartingWeapons();
+
+	//Set all traders toggle
+	bUseAllTraders = class'ZedternalReborn.Config_Map'.static.GetAllTraders(WorldInfo.GetMapName(true));
 
 	// Available weapon are random each wave. Need to build the list
 	BuildWeaponList();
@@ -329,6 +328,12 @@ function RestartPlayer(Controller NewPlayer)
 
 		WMPC.DelayedPerkUpdate(TimeOffset);
 	}
+}
+
+function SetupNextTrader()
+{
+	if (!bUseAllTraders)
+		super.SetupNextTrader();
 }
 
 function SetupPickupItems()
@@ -1160,9 +1165,15 @@ function RepGameInfo()
 	//Print game version
 	WMGRI.printVersion = true;
 
+	//Trader voice
 	WMGRI.TraderVoiceGroupIndex = traderVoiceIndex;
 	if (WorldInfo.NetMode != NM_DedicatedServer)
 		WMGRI.TraderDialogManager.TraderVoiceGroupClass = WMGRI.default.TraderVoiceGroupClasses[traderVoiceIndex];
+
+	//All traders
+	WMGRI.bAllTraders = bUseAllTraders;
+	if (WorldInfo.NetMode != NM_DedicatedServer && bUseAllTraders)
+		WMGRI.SetAllTradersTimer();
 
 	//Grenades
 	for (b = 0; b < Min(255, class'ZedternalReborn.Config_Weapon'.default.Trader_grenadesDef.length); ++b)
