@@ -102,7 +102,7 @@ event PostBeginPlay()
 	SelectRandomTraderVoice();
 
 	// Replicate new information from this game mode (weapon list, skill, monster...)
-	SetTimer(3.0f, false, 'RepGameInfo');
+	RepGameInfoHighPriority();
 
 	if (startingDosh > 0)
 		doshNewPlayer = startingDosh;
@@ -1150,13 +1150,9 @@ function SelectRandomTraderVoice()
 		traderVoiceIndex = default.traderVoiceIndex;
 }
 
-function RepGameInfo()
+function RepGameInfoHighPriority()
 {
 	local WMGameReplicationInfo WMGRI;
-	local byte b;
-
-	//AmmoPriceFactor
-	MyKFGRI.GameAmmoCostScale = class'ZedternalReborn.Config_Game'.static.GetAmmoPriceFactor(GameDifficultyZedternal);
 
 	WMGRI = WMGameReplicationInfo(MyKFGRI);
 	if (WMGRI == none)
@@ -1175,15 +1171,31 @@ function RepGameInfo()
 	if (WorldInfo.NetMode != NM_DedicatedServer && bUseAllTraders)
 		WMGRI.SetAllTradersTimer();
 
+	//Optimization
+	WMGRI.NumberOfStartingWeapons = startingWeaponCount;
+	WMGRI.NumberOfTraderWeapons = TraderItems.SaleItems.Length;
+
+	SetTimer(3.0f, false, 'RepGameInfoNormalPriority');
+}
+
+function RepGameInfoNormalPriority()
+{
+	local WMGameReplicationInfo WMGRI;
+	local byte b;
+
+	//AmmoPriceFactor
+	MyKFGRI.GameAmmoCostScale = class'ZedternalReborn.Config_Game'.static.GetAmmoPriceFactor(GameDifficultyZedternal);
+
+	WMGRI = WMGameReplicationInfo(MyKFGRI);
+	if (WMGRI == none)
+		return;
+
 	//Grenades
 	for (b = 0; b < Min(255, class'ZedternalReborn.Config_Weapon'.default.Trader_grenadesDef.length); ++b)
 	{
 		WMGRI.grenadesStr[b] =	class'ZedternalReborn.Config_Weapon'.default.Trader_grenadesDef[b];
 		WMGRI.Grenades[b] =		class<KFWeaponDefinition>(DynamicLoadObject(class'ZedternalReborn.Config_Weapon'.default.Trader_grenadesDef[b], class'Class'));
 	}
-
-	//Optimization
-	WMGRI.NumberOfStartingWeapons = startingWeaponCount;
 
 	//Armor pickup enable
 	WMGRI.bArmorPickup = class'ZedternalReborn.Config_Game'.default.Game_bArmorSpawnOnMap ? 2 : 1; //2 is true, 1 is false
@@ -1220,9 +1232,6 @@ function RepGameInfoLowPriority()
 	WMGRI = WMGameReplicationInfo(MyKFGRI);
 	if (WMGRI == none)
 		return;
-
-	//Optimization
-	WMGRI.NumberOfTraderWeapons = TraderItems.SaleItems.Length;
 
 	//Weapons
 	for (i = 0; i < Min(255, KFWeaponName.Length); ++i)
