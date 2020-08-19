@@ -317,6 +317,21 @@ simulated event ReplicatedEvent(name VarName)
 	}
 }
 
+function RepGameInfoWeaponUpgrades(out WeaponUpgradeRepStruct weaponUpgradeRepArray[255], int indexMultiplier)
+{
+	local int i, indexOffset;
+
+	indexOffset = 255 * indexMultiplier;
+
+	for (i = 0; i < Min(255, weaponUpgradeList.length - indexOffset); ++i)
+	{
+		weaponUpgradeRepArray[i].WeaponPathName = PathName(weaponUpgradeList[i + indexOffset].KFWeapon);
+		weaponUpgradeRepArray[i].UpgradePathName = PathName(weaponUpgradeList[i + indexOffset].KFWeaponUpgrade);
+		weaponUpgradeRepArray[i].BasePrice = weaponUpgradeList[i + indexOffset].BasePrice;
+		weaponUpgradeRepArray[i].bValid = true;
+	}
+}
+
 simulated function SyncWeaponUpgrades(const out WeaponUpgradeRepStruct weaponUpgradeRepArray[255], int indexMultiplier)
 {
 	local int i, indexOffset;

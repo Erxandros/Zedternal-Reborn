@@ -1269,34 +1269,10 @@ function RepGameInfoLowPriority()
 	}
 
 	//Weapon Upgrades
-	for (i = 0; i < Min(255, weaponUpgradeArch.length); ++i)
-	{
-		WMGRI.weaponUpgradeRepArray_1[i].WeaponPathName = PathName(weaponUpgradeArch[i].KFWeapon);
-		WMGRI.weaponUpgradeRepArray_1[i].UpgradePathName = PathName(weaponUpgradeArch[i].KFWeaponUpgrade);
-		WMGRI.weaponUpgradeRepArray_1[i].BasePrice = weaponUpgradeArch[i].Price;
-		WMGRI.weaponUpgradeRepArray_1[i].bValid = true;
-	}
-	for (i = 0; i < Min(255, weaponUpgradeArch.length - 255); ++i)
-	{
-		WMGRI.weaponUpgradeRepArray_2[i].WeaponPathName = PathName(weaponUpgradeArch[i + 255].KFWeapon);
-		WMGRI.weaponUpgradeRepArray_2[i].UpgradePathName = PathName(weaponUpgradeArch[i + 255].KFWeaponUpgrade);
-		WMGRI.weaponUpgradeRepArray_2[i].BasePrice = weaponUpgradeArch[i + 255].Price;
-		WMGRI.weaponUpgradeRepArray_2[i].bValid = true;
-	}
-	for (i = 0; i < Min(255, weaponUpgradeArch.length - 510); ++i)
-	{
-		WMGRI.weaponUpgradeRepArray_3[i].WeaponPathName = PathName(weaponUpgradeArch[i + 510].KFWeapon);
-		WMGRI.weaponUpgradeRepArray_3[i].UpgradePathName = PathName(weaponUpgradeArch[i + 510].KFWeaponUpgrade);
-		WMGRI.weaponUpgradeRepArray_3[i].BasePrice = weaponUpgradeArch[i + 510].Price;
-		WMGRI.weaponUpgradeRepArray_3[i].bValid = true;
-	}
-	for (i = 0; i < Min(255, weaponUpgradeArch.length - 765); ++i)
-	{
-		WMGRI.weaponUpgradeRepArray_4[i].WeaponPathName = PathName(weaponUpgradeArch[i + 765].KFWeapon);
-		WMGRI.weaponUpgradeRepArray_4[i].UpgradePathName = PathName(weaponUpgradeArch[i + 765].KFWeaponUpgrade);
-		WMGRI.weaponUpgradeRepArray_4[i].BasePrice = weaponUpgradeArch[i + 765].Price;
-		WMGRI.weaponUpgradeRepArray_4[i].bValid = true;
-	}
+	WMGRI.RepGameInfoWeaponUpgrades(WMGRI.weaponUpgradeRepArray_1, 0);
+	WMGRI.RepGameInfoWeaponUpgrades(WMGRI.weaponUpgradeRepArray_2, 1);
+	WMGRI.RepGameInfoWeaponUpgrades(WMGRI.weaponUpgradeRepArray_3, 2);
+	WMGRI.RepGameInfoWeaponUpgrades(WMGRI.weaponUpgradeRepArray_4, 3);
 
 	//Skill Upgrades
 	for (b = 0; b < Min(255, class'ZedternalReborn.Config_SkillUpgrade'.default.SkillUpgrade_SkillUpgrades.length); ++b)
