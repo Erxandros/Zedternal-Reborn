@@ -11,3 +11,6 @@
 `define TRAD_ObjDefendAWonJust	111
 `define TRAD_ObjDefendAWonGood	112
 `define TRAD_ObjDefendAWonPerf	113
+
+//Max weapon upgrades that can be replicated
+`define MAXWEAPONUPGRADES 1020
