@@ -52,6 +52,18 @@ var repnotify WeaponUpgradeRepStruct weaponUpgradeRepArray_1[255];
 var repnotify WeaponUpgradeRepStruct weaponUpgradeRepArray_2[255];
 var repnotify WeaponUpgradeRepStruct weaponUpgradeRepArray_3[255];
 var repnotify WeaponUpgradeRepStruct weaponUpgradeRepArray_4[255];
+var repnotify WeaponUpgradeRepStruct weaponUpgradeRepArray_5[255];
+var repnotify WeaponUpgradeRepStruct weaponUpgradeRepArray_6[255];
+var repnotify WeaponUpgradeRepStruct weaponUpgradeRepArray_7[255];
+var repnotify WeaponUpgradeRepStruct weaponUpgradeRepArray_8[255];
+var repnotify WeaponUpgradeRepStruct weaponUpgradeRepArray_9[255];
+var repnotify WeaponUpgradeRepStruct weaponUpgradeRepArray_10[255];
+var repnotify WeaponUpgradeRepStruct weaponUpgradeRepArray_11[255];
+var repnotify WeaponUpgradeRepStruct weaponUpgradeRepArray_12[255];
+var repnotify WeaponUpgradeRepStruct weaponUpgradeRepArray_13[255];
+var repnotify WeaponUpgradeRepStruct weaponUpgradeRepArray_14[255];
+var repnotify WeaponUpgradeRepStruct weaponUpgradeRepArray_15[255];
+var repnotify WeaponUpgradeRepStruct weaponUpgradeRepArray_16[255];
 
 var repnotify bool bAllTraders;
 var repnotify bool updateSkins;
@@ -106,6 +118,9 @@ replication
 		newWeaponEachWave, maxWeapon, staticWeapon, ArmorPrice, GrenadePrice, TraderVoiceGroupIndex, bArmorPickup,
 		perkPrice, perkMaxLevel, skillPrice, skillDeluxePrice, weaponMaxLevel, bZedBuffs,
 		weaponUpgradeRepArray_1, weaponUpgradeRepArray_2, weaponUpgradeRepArray_3, weaponUpgradeRepArray_4,
+		weaponUpgradeRepArray_5, weaponUpgradeRepArray_6, weaponUpgradeRepArray_7, weaponUpgradeRepArray_8,
+		weaponUpgradeRepArray_9, weaponUpgradeRepArray_10, weaponUpgradeRepArray_11, weaponUpgradeRepArray_12,
+		weaponUpgradeRepArray_13, weaponUpgradeRepArray_14, weaponUpgradeRepArray_15, weaponUpgradeRepArray_16,
 		bAllTraders, updateSkins, printVersion;
 }
 
@@ -226,6 +241,54 @@ simulated event ReplicatedEvent(name VarName)
 
 		case 'weaponUpgradeRepArray_4':
 			SyncWeaponUpgrades(weaponUpgradeRepArray_4, 3);
+			break;
+
+		case 'weaponUpgradeRepArray_5':
+			SyncWeaponUpgrades(weaponUpgradeRepArray_5, 4);
+			break;
+
+		case 'weaponUpgradeRepArray_6':
+			SyncWeaponUpgrades(weaponUpgradeRepArray_6, 5);
+			break;
+
+		case 'weaponUpgradeRepArray_7':
+			SyncWeaponUpgrades(weaponUpgradeRepArray_7, 6);
+			break;
+
+		case 'weaponUpgradeRepArray_8':
+			SyncWeaponUpgrades(weaponUpgradeRepArray_8, 7);
+			break;
+
+		case 'weaponUpgradeRepArray_9':
+			SyncWeaponUpgrades(weaponUpgradeRepArray_9, 8);
+			break;
+
+		case 'weaponUpgradeRepArray_10':
+			SyncWeaponUpgrades(weaponUpgradeRepArray_10, 9);
+			break;
+
+		case 'weaponUpgradeRepArray_11':
+			SyncWeaponUpgrades(weaponUpgradeRepArray_11, 10);
+			break;
+
+		case 'weaponUpgradeRepArray_12':
+			SyncWeaponUpgrades(weaponUpgradeRepArray_12, 11);
+			break;
+
+		case 'weaponUpgradeRepArray_13':
+			SyncWeaponUpgrades(weaponUpgradeRepArray_13, 12);
+			break;
+
+		case 'weaponUpgradeRepArray_14':
+			SyncWeaponUpgrades(weaponUpgradeRepArray_14, 13);
+			break;
+
+		case 'weaponUpgradeRepArray_15':
+			SyncWeaponUpgrades(weaponUpgradeRepArray_15, 14);
+			break;
+
+		case 'weaponUpgradeRepArray_16':
+			SyncWeaponUpgrades(weaponUpgradeRepArray_16, 15);
 			break;
 
 		case 'skillUpgradesStr':

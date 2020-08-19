@@ -1273,6 +1273,18 @@ function RepGameInfoLowPriority()
 	WMGRI.RepGameInfoWeaponUpgrades(WMGRI.weaponUpgradeRepArray_2, 1);
 	WMGRI.RepGameInfoWeaponUpgrades(WMGRI.weaponUpgradeRepArray_3, 2);
 	WMGRI.RepGameInfoWeaponUpgrades(WMGRI.weaponUpgradeRepArray_4, 3);
+	WMGRI.RepGameInfoWeaponUpgrades(WMGRI.weaponUpgradeRepArray_5, 4);
+	WMGRI.RepGameInfoWeaponUpgrades(WMGRI.weaponUpgradeRepArray_6, 5);
+	WMGRI.RepGameInfoWeaponUpgrades(WMGRI.weaponUpgradeRepArray_7, 6);
+	WMGRI.RepGameInfoWeaponUpgrades(WMGRI.weaponUpgradeRepArray_8, 7);
+	WMGRI.RepGameInfoWeaponUpgrades(WMGRI.weaponUpgradeRepArray_9, 8);
+	WMGRI.RepGameInfoWeaponUpgrades(WMGRI.weaponUpgradeRepArray_10, 9);
+	WMGRI.RepGameInfoWeaponUpgrades(WMGRI.weaponUpgradeRepArray_11, 10);
+	WMGRI.RepGameInfoWeaponUpgrades(WMGRI.weaponUpgradeRepArray_12, 11);
+	WMGRI.RepGameInfoWeaponUpgrades(WMGRI.weaponUpgradeRepArray_13, 12);
+	WMGRI.RepGameInfoWeaponUpgrades(WMGRI.weaponUpgradeRepArray_14, 13);
+	WMGRI.RepGameInfoWeaponUpgrades(WMGRI.weaponUpgradeRepArray_15, 14);
+	WMGRI.RepGameInfoWeaponUpgrades(WMGRI.weaponUpgradeRepArray_16, 15);
 
 	//Skill Upgrades
 	for (b = 0; b < Min(255, class'ZedternalReborn.Config_SkillUpgrade'.default.SkillUpgrade_SkillUpgrades.length); ++b)

@@ -3,10 +3,22 @@ class WMPlayerReplicationInfo extends KFPlayerReplicationInfo;
 //Replicated arrays
 var repnotify byte bPerkUpgrade[255];
 var byte bPerkUpgradeAvailable[255];
-var repnotify byte bWeaponUpgrade_A[255];
-var repnotify byte bWeaponUpgrade_B[255];
-var repnotify byte bWeaponUpgrade_C[255];
-var repnotify byte bWeaponUpgrade_D[255];
+var repnotify byte bWeaponUpgrade_1[255];
+var repnotify byte bWeaponUpgrade_2[255];
+var repnotify byte bWeaponUpgrade_3[255];
+var repnotify byte bWeaponUpgrade_4[255];
+var repnotify byte bWeaponUpgrade_5[255];
+var repnotify byte bWeaponUpgrade_6[255];
+var repnotify byte bWeaponUpgrade_7[255];
+var repnotify byte bWeaponUpgrade_8[255];
+var repnotify byte bWeaponUpgrade_9[255];
+var repnotify byte bWeaponUpgrade_10[255];
+var repnotify byte bWeaponUpgrade_11[255];
+var repnotify byte bWeaponUpgrade_12[255];
+var repnotify byte bWeaponUpgrade_13[255];
+var repnotify byte bWeaponUpgrade_14[255];
+var repnotify byte bWeaponUpgrade_15[255];
+var repnotify byte bWeaponUpgrade_16[255];
 var repnotify byte bSkillUpgrade[255];
 var byte bSkillUnlocked[255];
 var byte bSkillDeluxe[255];
@@ -38,8 +50,10 @@ var byte PlatformType;
 replication
 {
 	if ( bNetDirty && (Role == Role_Authority) )
-		bPerkUpgrade, bPerkUpgradeAvailable, bWeaponUpgrade_A, bWeaponUpgrade_B, bWeaponUpgrade_C, bWeaponUpgrade_D,
-		bSkillUpgrade, bSkillUnlocked, bSkillDeluxe;
+		bPerkUpgrade, bPerkUpgradeAvailable, bSkillUpgrade, bSkillUnlocked, bSkillDeluxe,
+		bWeaponUpgrade_1, bWeaponUpgrade_2, bWeaponUpgrade_3, bWeaponUpgrade_4, bWeaponUpgrade_5,
+		bWeaponUpgrade_6, bWeaponUpgrade_7, bWeaponUpgrade_8, bWeaponUpgrade_9, bWeaponUpgrade_10, bWeaponUpgrade_11,
+		bWeaponUpgrade_12, bWeaponUpgrade_13, bWeaponUpgrade_14, bWeaponUpgrade_15, bWeaponUpgrade_16;
 
 	if ( bNetDirty )
 		perkIconIndex, perkLvl, syncTrigger, UncompressedPing, PlayerArmor, PlayerArmorPercent, PlatformType;
@@ -49,21 +63,42 @@ simulated event ReplicatedEvent(name VarName)
 {
 	local WMGameReplicationInfo WMGRI;
 
-	if (VarName == 'syncTrigger')
-		return; //do nothing
-	else if (VarName == 'perkIconIndex')
+	switch (VarName)
 	{
-		WMGRI = WMGameReplicationInfo(WorldInfo.GRI);
-		if (WMGRI != none)
-			CurrentIconToDisplay = WMGRI.perkUpgrades[perkIconIndex].static.GetUpgradeIcon( bPerkUpgrade[perkIconIndex] - 1 );
+		case 'syncTrigger':
+			return; //do nothing
+
+		case 'perkIconIndex':
+			WMGRI = WMGameReplicationInfo(WorldInfo.GRI);
+			if (WMGRI != none)
+				CurrentIconToDisplay = WMGRI.perkUpgrades[perkIconIndex].static.GetUpgradeIcon(bPerkUpgrade[perkIconIndex] - 1);
+			break;
+
+		case 'bPerkUpgrade':
+		case 'bSkillUpgrade':
+		case 'bWeaponUpgrade_1':
+		case 'bWeaponUpgrade_2':
+		case 'bWeaponUpgrade_3':
+		case 'bWeaponUpgrade_4':
+		case 'bWeaponUpgrade_5':
+		case 'bWeaponUpgrade_6':
+		case 'bWeaponUpgrade_7':
+		case 'bWeaponUpgrade_8':
+		case 'bWeaponUpgrade_9':
+		case 'bWeaponUpgrade_10':
+		case 'bWeaponUpgrade_11':
+		case 'bWeaponUpgrade_12':
+		case 'bWeaponUpgrade_13':
+		case 'bWeaponUpgrade_14':
+		case 'bWeaponUpgrade_15':
+		case 'bWeaponUpgrade_16':
+			syncCompleted = true;
+			break;
+
+		default:
+			super.ReplicatedEvent(VarName);
+			break;
 	}
-	else if (VarName == 'bPerkUpgrade' || VarName == 'bWeaponUpgrade_A' || VarName == 'bWeaponUpgrade_B' ||
-			VarName == 'bWeaponUpgrade_C' || VarName == 'bWeaponUpgrade_D' || VarName == 'bSkillUpgrade')
-	{
-		syncCompleted = true;
-	}
-	else
-		super.ReplicatedEvent(VarName);
 }
 
 function CopyProperties(PlayerReplicationInfo PRI)
@@ -79,10 +114,22 @@ function CopyProperties(PlayerReplicationInfo PRI)
 		{
 			WMPRI.bPerkUpgrade[i] = bPerkUpgrade[i];
 			WMPRI.bPerkUpgradeAvailable[i] = bPerkUpgradeAvailable[i];
-			WMPRI.bWeaponUpgrade_A[i] = bWeaponUpgrade_A[i];
-			WMPRI.bWeaponUpgrade_B[i] = bWeaponUpgrade_B[i];
-			WMPRI.bWeaponUpgrade_C[i] = bWeaponUpgrade_C[i];
-			WMPRI.bWeaponUpgrade_D[i] = bWeaponUpgrade_D[i];
+			WMPRI.bWeaponUpgrade_1[i] = bWeaponUpgrade_1[i];
+			WMPRI.bWeaponUpgrade_2[i] = bWeaponUpgrade_2[i];
+			WMPRI.bWeaponUpgrade_3[i] = bWeaponUpgrade_3[i];
+			WMPRI.bWeaponUpgrade_4[i] = bWeaponUpgrade_4[i];
+			WMPRI.bWeaponUpgrade_5[i] = bWeaponUpgrade_5[i];
+			WMPRI.bWeaponUpgrade_6[i] = bWeaponUpgrade_6[i];
+			WMPRI.bWeaponUpgrade_7[i] = bWeaponUpgrade_7[i];
+			WMPRI.bWeaponUpgrade_8[i] = bWeaponUpgrade_8[i];
+			WMPRI.bWeaponUpgrade_9[i] = bWeaponUpgrade_9[i];
+			WMPRI.bWeaponUpgrade_10[i] = bWeaponUpgrade_10[i];
+			WMPRI.bWeaponUpgrade_11[i] = bWeaponUpgrade_11[i];
+			WMPRI.bWeaponUpgrade_12[i] = bWeaponUpgrade_12[i];
+			WMPRI.bWeaponUpgrade_13[i] = bWeaponUpgrade_13[i];
+			WMPRI.bWeaponUpgrade_14[i] = bWeaponUpgrade_14[i];
+			WMPRI.bWeaponUpgrade_15[i] = bWeaponUpgrade_15[i];
+			WMPRI.bWeaponUpgrade_16[i] = bWeaponUpgrade_16[i];
 			WMPRI.bSkillUpgrade[i] = bSkillUpgrade[i];
 			WMPRI.bSkillUnlocked[i] = bSkillUnlocked[i];
 			WMPRI.bSkillDeluxe[i] = bSkillDeluxe[i];
@@ -252,64 +299,221 @@ simulated function CreateUPGMenu()
 
 simulated function byte GetWeaponUpgrade(int index)
 {
-	if (index < 255)
+	local int div, indexOffset;
+
+	div = index / 255;
+	indexOffset = div * 255;
+
+	switch (div)
 	{
-		return bWeaponUpgrade_A[index];
-	}
-	else if (index < 510)
-	{
-		return bWeaponUpgrade_B[index - 255];
-	}
-	else if (index < 765)
-	{
-		return bWeaponUpgrade_C[index - 510];
-	}
-	else
-	{
-		return bWeaponUpgrade_D[index - 765];
+		case 0:
+			return bWeaponUpgrade_1[index - indexOffset];
+
+		case 1:
+			return bWeaponUpgrade_2[index - indexOffset];
+
+		case 2:
+			return bWeaponUpgrade_3[index - indexOffset];
+
+		case 3:
+			return bWeaponUpgrade_4[index - indexOffset];
+
+		case 4:
+			return bWeaponUpgrade_5[index - indexOffset];
+
+		case 5:
+			return bWeaponUpgrade_6[index - indexOffset];
+
+		case 6:
+			return bWeaponUpgrade_7[index - indexOffset];
+
+		case 7:
+			return bWeaponUpgrade_8[index - indexOffset];
+
+		case 8:
+			return bWeaponUpgrade_9[index - indexOffset];
+
+		case 9:
+			return bWeaponUpgrade_10[index - indexOffset];
+
+		case 10:
+			return bWeaponUpgrade_11[index - indexOffset];
+
+		case 11:
+			return bWeaponUpgrade_12[index - indexOffset];
+
+		case 12:
+			return bWeaponUpgrade_13[index - indexOffset];
+
+		case 13:
+			return bWeaponUpgrade_14[index - indexOffset];
+
+		case 14:
+			return bWeaponUpgrade_15[index - indexOffset];
+
+		case 15:
+			return bWeaponUpgrade_16[index - indexOffset];
+
+		default:
+			return 0;
 	}
 }
 
 simulated function IncermentWeaponUpgrade(int index)
 {
-	if (index < 255)
+	local int div, indexOffset;
+
+	div = index / 255;
+	indexOffset = div * 255;
+
+	switch (div)
 	{
-		++bWeaponUpgrade_A[index];
-	}
-	else if (index < 510)
-	{
-		++bWeaponUpgrade_B[index - 255];
-	}
-	else if (index < 765)
-	{
-		++bWeaponUpgrade_C[index - 510];
-	}
-	else
-	{
-		++bWeaponUpgrade_D[index - 765];
+		case 0:
+			++bWeaponUpgrade_1[index - indexOffset];
+			break;
+
+		case 1:
+			++bWeaponUpgrade_2[index - indexOffset];
+			break;
+
+		case 2:
+			++bWeaponUpgrade_3[index - indexOffset];
+			break;
+
+		case 3:
+			++bWeaponUpgrade_4[index - indexOffset];
+			break;
+
+		case 4:
+			++bWeaponUpgrade_5[index - indexOffset];
+			break;
+
+		case 5:
+			++bWeaponUpgrade_6[index - indexOffset];
+			break;
+
+		case 6:
+			++bWeaponUpgrade_7[index - indexOffset];
+			break;
+
+		case 7:
+			++bWeaponUpgrade_8[index - indexOffset];
+			break;
+
+		case 8:
+			++bWeaponUpgrade_9[index - indexOffset];
+			break;
+
+		case 9:
+			++bWeaponUpgrade_10[index - indexOffset];
+			break;
+
+		case 10:
+			++bWeaponUpgrade_11[index - indexOffset];
+			break;
+
+		case 11:
+			++bWeaponUpgrade_12[index - indexOffset];
+			break;
+
+		case 12:
+			++bWeaponUpgrade_13[index - indexOffset];
+			break;
+
+		case 13:
+			++bWeaponUpgrade_14[index - indexOffset];
+			break;
+
+		case 14:
+			++bWeaponUpgrade_15[index - indexOffset];
+			break;
+
+		case 15:
+			++bWeaponUpgrade_16[index - indexOffset];
+			break;
+
+		default:
+			return;
 	}
 }
 
 simulated function SetWeaponUpgrade(int index, int value)
 {
-	if (index < 255)
+	local int div, indexOffset;
+
+	div = index / 255;
+	indexOffset = div * 255;
+
+	switch (div)
 	{
-		bWeaponUpgrade_A[index] = value;
-	}
-	else if (index < 510)
-	{
-		bWeaponUpgrade_B[index - 255] = value;
-	}
-	else if (index < 765)
-	{
-		bWeaponUpgrade_C[index - 510] = value;
-	}
-	else
-	{
-		bWeaponUpgrade_D[index - 765] = value;
+		case 0:
+			bWeaponUpgrade_1[index - indexOffset] = value;
+			break;
+
+		case 1:
+			bWeaponUpgrade_2[index - indexOffset] = value;
+			break;
+
+		case 2:
+			bWeaponUpgrade_3[index - indexOffset] = value;
+			break;
+
+		case 3:
+			bWeaponUpgrade_4[index - indexOffset] = value;
+			break;
+
+		case 4:
+			bWeaponUpgrade_5[index - indexOffset] = value;
+			break;
+
+		case 5:
+			bWeaponUpgrade_6[index - indexOffset] = value;
+			break;
+
+		case 6:
+			bWeaponUpgrade_7[index - indexOffset] = value;
+			break;
+
+		case 7:
+			bWeaponUpgrade_8[index - indexOffset] = value;
+			break;
+
+		case 8:
+			bWeaponUpgrade_9[index - indexOffset] = value;
+			break;
+
+		case 9:
+			bWeaponUpgrade_10[index - indexOffset] = value;
+			break;
+
+		case 10:
+			bWeaponUpgrade_11[index - indexOffset] = value;
+			break;
+
+		case 11:
+			bWeaponUpgrade_12[index - indexOffset] = value;
+			break;
+
+		case 12:
+			bWeaponUpgrade_13[index - indexOffset] = value;
+			break;
+
+		case 13:
+			bWeaponUpgrade_14[index - indexOffset] = value;
+			break;
+
+		case 14:
+			bWeaponUpgrade_15[index - indexOffset] = value;
+			break;
+
+		case 15:
+			bWeaponUpgrade_16[index - indexOffset] = value;
+			break;
+
+		default:
+			return;
 	}
 }
-
 
 simulated function SetSyncTimer(const WMUI_UPGMenu menu, int ItemDefinition)
 {
