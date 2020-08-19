@@ -1,5 +1,22 @@
 class WMGameReplicationInfo extends KFGameReplicationInfo;
 
+//Replication Data Structures
+struct WeaponUpgradeRepStruct
+{
+	var string WeaponPathName;
+	var string UpgradePathName;
+	var int BasePrice;
+	var bool bValid;
+
+	structdefaultproperties
+	{
+		WeaponPathName=""
+		UpgradePathName=""
+		BasePrice=0
+		bValid=false
+	}
+};
+
 //Optimization for replicated data
 var repnotify int NumberOfTraderWeapons;
 var repnotify int NumberOfStartingWeapons;
@@ -31,27 +48,33 @@ var int skillDeluxePrice;
 var int weaponMaxLevel;
 var byte bZedBuffs[255];
 
-var repnotify string weaponUpgrade_WeaponStr_A[255];
-var repnotify string weaponUpgrade_UpgradeStr_A[255];
-var repnotify int weaponUpgrade_PriceRep_A[255];
-var repnotify string weaponUpgrade_WeaponStr_B[255];
-var repnotify string weaponUpgrade_UpgradeStr_B[255];
-var repnotify int weaponUpgrade_PriceRep_B[255];
-var repnotify string weaponUpgrade_WeaponStr_C[255];
-var repnotify string weaponUpgrade_UpgradeStr_C[255];
-var repnotify int weaponUpgrade_PriceRep_C[255];
-var repnotify string weaponUpgrade_WeaponStr_D[255];
-var repnotify string weaponUpgrade_UpgradeStr_D[255];
-var repnotify int weaponUpgrade_PriceRep_D[255];
+var repnotify WeaponUpgradeRepStruct weaponUpgradeRepArray_A[255];
+var repnotify WeaponUpgradeRepStruct weaponUpgradeRepArray_B[255];
+var repnotify WeaponUpgradeRepStruct weaponUpgradeRepArray_C[255];
+var repnotify WeaponUpgradeRepStruct weaponUpgradeRepArray_D[255];
 
 var repnotify bool bAllTraders;
 var repnotify bool updateSkins;
 var repnotify bool printVersion;
 
 //Non-replicated data
-var array< class<KFWeapon> > weaponUpgrade_Weapon;
-var array< class<WMUpgrade_Weapon> > weaponUpgrade_Upgrade;
-var array< int > weaponUpgrade_Price;
+struct WeaponUpgradeStruct
+{
+	var class<KFWeapon> KFWeapon;
+	var class<WMUpgrade_Weapon> KFWeaponUpgrade;
+	var int BasePrice;
+	var bool bDone;
+
+	structdefaultproperties
+	{
+		KFWeapon=None
+		KFWeaponUpgrade=None
+		BasePrice=0
+		bDone=false
+	}
+};
+
+var array< WeaponUpgradeStruct > weaponUpgradeList;
 
 var array< class<KFWeapon> > KFStartingWeapon;
 var array< class<WMUpgrade_Perk> > perkUpgrades;
@@ -82,10 +105,7 @@ replication
 		perkUpgradesStr, skillUpgradesStr, skillUpgradesStr_Perk, specialWavesStr, grenadesStr, zedBuffStr, SpecialWaveID, bNewZedBuff,
 		newWeaponEachWave, maxWeapon, staticWeapon, ArmorPrice, GrenadePrice, TraderVoiceGroupIndex, bArmorPickup,
 		perkPrice, perkMaxLevel, skillPrice, skillDeluxePrice, weaponMaxLevel, bZedBuffs,
-		weaponUpgrade_WeaponStr_A, weaponUpgrade_UpgradeStr_A, weaponUpgrade_PriceRep_A,
-		weaponUpgrade_WeaponStr_B, weaponUpgrade_UpgradeStr_B, weaponUpgrade_PriceRep_B,
-		weaponUpgrade_WeaponStr_C, weaponUpgrade_UpgradeStr_C, weaponUpgrade_PriceRep_C,
-		weaponUpgrade_WeaponStr_D, weaponUpgrade_UpgradeStr_D, weaponUpgrade_PriceRep_D,
+		weaponUpgradeRepArray_A, weaponUpgradeRepArray_B, weaponUpgradeRepArray_C, weaponUpgradeRepArray_D,
 		bAllTraders, updateSkins, printVersion;
 }
 
@@ -192,149 +212,88 @@ simulated event ReplicatedEvent(name VarName)
 			}
 			break;
 
-		case 'weaponUpgrade_WeaponStr_A':
+		case 'weaponUpgradeRepArray_A':
 			for (i = 0; i < 255; ++i)
 			{
-				if (weaponUpgrade_WeaponStr_A[i] == "")
+				if (!weaponUpgradeRepArray_A[i].bValid)
 					break; //base case
 
-				if (i == weaponUpgrade_Weapon.Length || weaponUpgrade_Weapon[i] == none || PathName(weaponUpgrade_Weapon[i]) != weaponUpgrade_WeaponStr_A[i])
-					weaponUpgrade_Weapon[i] = class<KFWeapon>(DynamicLoadObject(weaponUpgrade_WeaponStr_A[i],class'Class'));
+				if (i == weaponUpgradeList.Length)
+					weaponUpgradeList.Add(1);
+
+				if (!weaponUpgradeList[i].bDone)
+				{
+					weaponUpgradeList[i].KFWeapon = class<KFWeapon>(DynamicLoadObject(weaponUpgradeRepArray_A[i].WeaponPathName, class'Class'));
+					weaponUpgradeList[i].KFWeaponUpgrade = class<WMUpgrade_Weapon>(DynamicLoadObject(weaponUpgradeRepArray_A[i].UpgradePathName, class'Class'));
+					weaponUpgradeList[i].BasePrice = weaponUpgradeRepArray_A[i].BasePrice;
+					weaponUpgradeList[i].bDone = true;
+				}
 			}
 			break;
 
-		case 'weaponUpgrade_UpgradeStr_A':
+		case 'weaponUpgradeRepArray_B':
+			if (255 > weaponUpgradeList.Length)
+				weaponUpgradeList.Length = 255;
+
 			for (i = 0; i < 255; ++i)
 			{
-				if (weaponUpgrade_UpgradeStr_A[i] == "")
+				if (!weaponUpgradeRepArray_B[i].bValid)
 					break; //base case
 
-				if (i == weaponUpgrade_Upgrade.Length || weaponUpgrade_Upgrade[i] == none || PathName(weaponUpgrade_Upgrade[i]) != weaponUpgrade_UpgradeStr_A[i])
-					weaponUpgrade_Upgrade[i] = class<WMUpgrade_Weapon>(DynamicLoadObject(weaponUpgrade_UpgradeStr_A[i],class'Class'));
+				if (i + 255 == weaponUpgradeList.Length)
+					weaponUpgradeList.Add(1);
+
+				if (!weaponUpgradeList[i + 255].bDone)
+				{
+					weaponUpgradeList[i + 255].KFWeapon = class<KFWeapon>(DynamicLoadObject(weaponUpgradeRepArray_B[i].WeaponPathName, class'Class'));
+					weaponUpgradeList[i + 255].KFWeaponUpgrade = class<WMUpgrade_Weapon>(DynamicLoadObject(weaponUpgradeRepArray_B[i].UpgradePathName, class'Class'));
+					weaponUpgradeList[i + 255].BasePrice = weaponUpgradeRepArray_B[i].BasePrice;
+					weaponUpgradeList[i + 255].bDone = true;
+				}
 			}
 			break;
 
-		case 'weaponUpgrade_PriceRep_A':
+		case 'weaponUpgradeRepArray_C':
+			if (510 > weaponUpgradeList.Length)
+				weaponUpgradeList.Length = 510;
+
 			for (i = 0; i < 255; ++i)
 			{
-				if (weaponUpgrade_PriceRep_A[i] == 0)
+				if (!weaponUpgradeRepArray_C[i].bValid)
 					break; //base case
 
-				weaponUpgrade_Price[i] = weaponUpgrade_PriceRep_A[i];
+				if (i + 510 == weaponUpgradeList.Length)
+					weaponUpgradeList.Add(1);
+
+				if (!weaponUpgradeList[i + 510].bDone)
+				{
+					weaponUpgradeList[i + 510].KFWeapon = class<KFWeapon>(DynamicLoadObject(weaponUpgradeRepArray_C[i].WeaponPathName, class'Class'));
+					weaponUpgradeList[i + 510].KFWeaponUpgrade = class<WMUpgrade_Weapon>(DynamicLoadObject(weaponUpgradeRepArray_C[i].UpgradePathName, class'Class'));
+					weaponUpgradeList[i + 510].BasePrice = weaponUpgradeRepArray_C[i].BasePrice;
+					weaponUpgradeList[i + 510].bDone = true;
+				}
 			}
 			break;
 
-		case 'weaponUpgrade_WeaponStr_B':
-			if (255 > weaponUpgrade_Weapon.Length)
-				weaponUpgrade_Weapon.Length = 255;
+		case 'weaponUpgradeRepArray_D':
+			if (765 > weaponUpgradeList.Length)
+				weaponUpgradeList.Length = 765;
+
 			for (i = 0; i < 255; ++i)
 			{
-				if (weaponUpgrade_WeaponStr_B[i] == "")
+				if (!weaponUpgradeRepArray_D[i].bValid)
 					break; //base case
 
-				if ((i + 255) == weaponUpgrade_Weapon.Length || weaponUpgrade_Weapon[i + 255] == none || PathName(weaponUpgrade_Weapon[i + 255]) != weaponUpgrade_WeaponStr_B[i])
-					weaponUpgrade_Weapon[i + 255] = class<KFWeapon>(DynamicLoadObject(weaponUpgrade_WeaponStr_B[i],class'Class'));
-			}
-			break;
+				if (i + 765 == weaponUpgradeList.Length)
+					weaponUpgradeList.Add(1);
 
-		case 'weaponUpgrade_UpgradeStr_B':
-			if (255 > weaponUpgrade_Upgrade.Length)
-				weaponUpgrade_Upgrade.Length = 255;
-			for (i = 0; i < 255; ++i)
-			{
-				if (weaponUpgrade_UpgradeStr_B[i] == "")
-					break; //base case
-
-				if ((i + 255) == weaponUpgrade_Upgrade.Length || weaponUpgrade_Upgrade[i + 255] == none || PathName(weaponUpgrade_Upgrade[i + 255]) != weaponUpgrade_UpgradeStr_B[i])
-					weaponUpgrade_Upgrade[i + 255] = class<WMUpgrade_Weapon>(DynamicLoadObject(weaponUpgrade_UpgradeStr_B[i],class'Class'));
-			}
-			break;
-
-		case 'weaponUpgrade_PriceRep_B':
-			if (255 > weaponUpgrade_Price.Length)
-				weaponUpgrade_Price.Length = 255;
-			for (i = 0; i < 255; ++i)
-			{
-				if (weaponUpgrade_PriceRep_B[i] == 0)
-					break; //base case
-
-				weaponUpgrade_Price[i + 255] = weaponUpgrade_PriceRep_B[i];
-			}
-			break;
-
-		case 'weaponUpgrade_WeaponStr_C':
-			if (510 > weaponUpgrade_Weapon.Length)
-				weaponUpgrade_Weapon.Length = 510;
-			for (i = 0; i < 255; ++i)
-			{
-				if (weaponUpgrade_WeaponStr_C[i] == "")
-					break; //base case
-
-				if ((i + 510) == weaponUpgrade_Weapon.Length || weaponUpgrade_Weapon[i + 510] == none || PathName(weaponUpgrade_Weapon[i + 510]) != weaponUpgrade_WeaponStr_C[i])
-					weaponUpgrade_Weapon[i + 510] = class<KFWeapon>(DynamicLoadObject(weaponUpgrade_WeaponStr_C[i],class'Class'));
-			}
-			break;
-
-		case 'weaponUpgrade_UpgradeStr_C':
-			if (510 > weaponUpgrade_Upgrade.Length)
-				weaponUpgrade_Upgrade.Length = 510;
-			for (i = 0; i < 255; ++i)
-			{
-				if (weaponUpgrade_UpgradeStr_C[i] == "")
-					break; //base case
-
-				if ((i + 510) == weaponUpgrade_Upgrade.Length || weaponUpgrade_Upgrade[i + 510] == none || PathName(weaponUpgrade_Upgrade[i + 510]) != weaponUpgrade_UpgradeStr_C[i])
-					weaponUpgrade_Upgrade[i + 510] = class<WMUpgrade_Weapon>(DynamicLoadObject(weaponUpgrade_UpgradeStr_C[i],class'Class'));
-			}
-			break;
-
-		case 'weaponUpgrade_PriceRep_C':
-			if (510 > weaponUpgrade_Price.Length)
-				weaponUpgrade_Price.Length = 510;
-			for (i = 0; i < 255; ++i)
-			{
-				if (weaponUpgrade_PriceRep_C[i] == 0)
-					break; //base case
-
-				weaponUpgrade_Price[i + 510] = weaponUpgrade_PriceRep_C[i];
-			}
-			break;
-
-		case 'weaponUpgrade_WeaponStr_D':
-			if (765 > weaponUpgrade_Weapon.Length)
-				weaponUpgrade_Weapon.Length = 765;
-			for (i = 0; i < 255; ++i)
-			{
-				if (weaponUpgrade_WeaponStr_D[i] == "")
-					break; //base case
-
-				if ((i + 765) == weaponUpgrade_Weapon.Length || weaponUpgrade_Weapon[i + 765] == none || PathName(weaponUpgrade_Weapon[i + 765]) != weaponUpgrade_WeaponStr_D[i])
-					weaponUpgrade_Weapon[i + 765] = class<KFWeapon>(DynamicLoadObject(weaponUpgrade_WeaponStr_D[i],class'Class'));
-			}
-			break;
-
-		case 'weaponUpgrade_UpgradeStr_D':
-			if (765 > weaponUpgrade_Upgrade.Length)
-				weaponUpgrade_Upgrade.Length = 765;
-			for (i = 0; i < 255; ++i)
-			{
-				if (weaponUpgrade_UpgradeStr_D[i] == "")
-					break; //base case
-
-				if ((i + 765) == weaponUpgrade_Upgrade.Length || weaponUpgrade_Upgrade[i + 765] == none || PathName(weaponUpgrade_Upgrade[i + 765]) != weaponUpgrade_UpgradeStr_D[i])
-					weaponUpgrade_Upgrade[i + 765] = class<WMUpgrade_Weapon>(DynamicLoadObject(weaponUpgrade_UpgradeStr_D[i],class'Class'));
-			}
-			break;
-
-		case 'weaponUpgrade_PriceRep_D':
-			if (765 > weaponUpgrade_Price.Length)
-				weaponUpgrade_Price.Length = 765;
-			for (i = 0; i < 255; ++i)
-			{
-				if (weaponUpgrade_PriceRep_D[i] == 0)
-					break; //base case
-
-				weaponUpgrade_Price[i + 765] = weaponUpgrade_PriceRep_D[i];
+				if (!weaponUpgradeList[i + 765].bDone)
+				{
+					weaponUpgradeList[i + 765].KFWeapon = class<KFWeapon>(DynamicLoadObject(weaponUpgradeRepArray_D[i].WeaponPathName, class'Class'));
+					weaponUpgradeList[i + 765].KFWeaponUpgrade = class<WMUpgrade_Weapon>(DynamicLoadObject(weaponUpgradeRepArray_D[i].UpgradePathName, class'Class'));
+					weaponUpgradeList[i + 765].BasePrice = weaponUpgradeRepArray_D[i].BasePrice;
+					weaponUpgradeList[i + 765].bDone = true;
+				}
 			}
 			break;
 

@@ -329,9 +329,9 @@ function Callback_InventoryFilter( int FilterIndex )
 	}
 	else if (FilterIndex == 2) //Weapon Upgrades
 	{
-		for (i = 0; i < WMGRI.weaponUpgrade_Weapon.Length; ++i)
+		for (i = 0; i < WMGRI.weaponUpgradeList.Length; ++i)
 		{
-			if (isWeaponInInventory(WMGRI.weaponUpgrade_Weapon[i]))
+			if (isWeaponInInventory(WMGRI.weaponUpgradeList[i].KFWeapon))
 			{
 				lvl = WMPRI.GetWeaponUpgrade(i);
 				if (CurrentBuyType == "weapon" && CurrentBuyIndex == i)
@@ -351,14 +351,14 @@ function Callback_InventoryFilter( int FilterIndex )
 					if (bPurchased)
 						--lvl;
 					ItemObject = CreateObject("Object");
-					ItemObject.SetInt("count", WMGRI.weaponUpgrade_Price[i] * (lvl + 1));
+					ItemObject.SetInt("count", WMGRI.weaponUpgradeList[i].BasePrice * (lvl + 1));
 
 					if (maxLevel > 1)
 					{
 						if (bPurchased)
-							ItemObject.SetString("label", WMGRI.weaponUpgrade_Upgrade[i].default.upgradeName $ " (" $ maxLevel $ "/" $ maxLevel $ ")");
+							ItemObject.SetString("label", WMGRI.weaponUpgradeList[i].KFWeaponUpgrade.default.upgradeName $ " (" $ maxLevel $ "/" $ maxLevel $ ")");
 						else
-							ItemObject.SetString("label", WMGRI.weaponUpgrade_Upgrade[i].default.upgradeName $ " (" $ lvl $ "/" $ maxLevel $ ")");
+							ItemObject.SetString("label", WMGRI.weaponUpgradeList[i].KFWeaponUpgrade.default.upgradeName $ " (" $ lvl $ "/" $ maxLevel $ ")");
 					}
 
 					ItemObject.SetString("price", "");
@@ -374,14 +374,14 @@ function Callback_InventoryFilter( int FilterIndex )
 					}
 					else
 					{
-						if (KFPRI.Score<WMGRI.weaponUpgrade_Price[i] * (lvl + 1))
+						if (KFPRI.Score < WMGRI.weaponUpgradeList[i].BasePrice * (lvl + 1))
 							ItemObject.SetInt("type", 1);
 						else
 							ItemObject.SetInt("type", 0);
 						ItemObject.SetBool("active", false);
 					}
-					S = "img://"$PathName(WMGRI.weaponUpgrade_Weapon[i].default.WeaponSelectTexture);
-					ItemObject.SetString("description", repl(WMGRI.weaponUpgrade_Upgrade[i].default.upgradeDescription[0], "%x%", WMGRI.weaponUpgrade_Upgrade[i].static.GetBonusValue(lvl + 1)));
+					S = "img://"$PathName(WMGRI.weaponUpgradeList[i].KFWeapon.default.WeaponSelectTexture);
+					ItemObject.SetString("description", repl(WMGRI.weaponUpgradeList[i].KFWeaponUpgrade.default.upgradeDescription[0], "%x%", WMGRI.weaponUpgradeList[i].KFWeaponUpgrade.static.GetBonusValue(lvl + 1)));
 					ItemObject.SetString("iconURLSmall", S);
 					ItemObject.SetString("iconURLLarge", S);
 					ItemArray.SetElementObject(j, ItemObject);
@@ -621,7 +621,7 @@ function CallBack_ItemDetailsClicked(int ItemDefinition)
 	{
 		Index = weaponUPGIndex[Index];
 		lvl = WMPRI.GetWeaponUpgrade(Index);
-		EquipButton.SetString("label", ""$WMGRI.weaponUpgrade_Price[Index] * (lvl + 1)$Chr(163));
+		EquipButton.SetString("label", ""$WMGRI.weaponUpgradeList[Index].BasePrice * (lvl + 1)$Chr(163));
 	}
 	else if(CurrentFilterIndex == 4 || CurrentFilterIndex == 5)//Knives and Grenades
 	{
@@ -709,7 +709,7 @@ function Callback_Equip( int ItemDefinition )
 	{
 		Index = weaponUPGIndex[Index];
 		lvl = WMPRI.GetWeaponUpgrade(Index);
-		price = WMGRI.weaponUpgrade_Price[Index] * (lvl + 1);
+		price = WMGRI.weaponUpgradeList[Index].BasePrice * (lvl + 1);
 
 		if (KFPRI.Score >= price)
 		{
