@@ -192,7 +192,7 @@ simulated function UpdatePurchase()
 	}
 
 	purchase_weaponUpgrade.length = 0;
-	for (i = 0; i < 1020; ++i)
+	for (i = 0; i < `MAXWEAPONUPGRADES; ++i)
 	{
 		if (GetWeaponUpgrade(i) > 0)
 			purchase_weaponUpgrade.AddItem(i);
