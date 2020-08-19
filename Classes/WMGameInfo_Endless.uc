@@ -1263,10 +1263,10 @@ function RepGameInfoLowPriority()
 	//Weapon Upgrades
 	for (i = 0; i < Min(255, weaponUpgradeArch.length); ++i)
 	{
-		WMGRI.weaponUpgradeRepArray_A[i].WeaponPathName = PathName(weaponUpgradeArch[i].KFWeapon);
-		WMGRI.weaponUpgradeRepArray_A[i].UpgradePathName = PathName(weaponUpgradeArch[i].KFWeaponUpgrade);
-		WMGRI.weaponUpgradeRepArray_A[i].BasePrice = weaponUpgradeArch[i].Price;
-		WMGRI.weaponUpgradeRepArray_A[i].bValid = true;
+		WMGRI.weaponUpgradeRepArray_1[i].WeaponPathName = PathName(weaponUpgradeArch[i].KFWeapon);
+		WMGRI.weaponUpgradeRepArray_1[i].UpgradePathName = PathName(weaponUpgradeArch[i].KFWeaponUpgrade);
+		WMGRI.weaponUpgradeRepArray_1[i].BasePrice = weaponUpgradeArch[i].Price;
+		WMGRI.weaponUpgradeRepArray_1[i].bValid = true;
 
 		WMGRI.weaponUpgradeList[i].KFWeapon = weaponUpgradeArch[i].KFWeapon;
 		WMGRI.weaponUpgradeList[i].KFWeaponUpgrade = weaponUpgradeArch[i].KFWeaponUpgrade;
@@ -1275,10 +1275,10 @@ function RepGameInfoLowPriority()
 	}
 	for (i = 0; i < Min(255, weaponUpgradeArch.length - 255); ++i)
 	{
-		WMGRI.weaponUpgradeRepArray_B[i].WeaponPathName = PathName(weaponUpgradeArch[i + 255].KFWeapon);
-		WMGRI.weaponUpgradeRepArray_B[i].UpgradePathName = PathName(weaponUpgradeArch[i + 255].KFWeaponUpgrade);
-		WMGRI.weaponUpgradeRepArray_B[i].BasePrice = weaponUpgradeArch[i + 255].Price;
-		WMGRI.weaponUpgradeRepArray_B[i].bValid = true;
+		WMGRI.weaponUpgradeRepArray_2[i].WeaponPathName = PathName(weaponUpgradeArch[i + 255].KFWeapon);
+		WMGRI.weaponUpgradeRepArray_2[i].UpgradePathName = PathName(weaponUpgradeArch[i + 255].KFWeaponUpgrade);
+		WMGRI.weaponUpgradeRepArray_2[i].BasePrice = weaponUpgradeArch[i + 255].Price;
+		WMGRI.weaponUpgradeRepArray_2[i].bValid = true;
 
 		WMGRI.weaponUpgradeList[i + 255].KFWeapon = weaponUpgradeArch[i + 255].KFWeapon;
 		WMGRI.weaponUpgradeList[i + 255].KFWeaponUpgrade = weaponUpgradeArch[i + 255].KFWeaponUpgrade;
@@ -1287,10 +1287,10 @@ function RepGameInfoLowPriority()
 	}
 	for (i = 0; i < Min(255, weaponUpgradeArch.length - 510); ++i)
 	{
-		WMGRI.weaponUpgradeRepArray_C[i].WeaponPathName = PathName(weaponUpgradeArch[i + 510].KFWeapon);
-		WMGRI.weaponUpgradeRepArray_C[i].UpgradePathName = PathName(weaponUpgradeArch[i + 510].KFWeaponUpgrade);
-		WMGRI.weaponUpgradeRepArray_C[i].BasePrice = weaponUpgradeArch[i + 510].Price;
-		WMGRI.weaponUpgradeRepArray_C[i].bValid = true;
+		WMGRI.weaponUpgradeRepArray_3[i].WeaponPathName = PathName(weaponUpgradeArch[i + 510].KFWeapon);
+		WMGRI.weaponUpgradeRepArray_3[i].UpgradePathName = PathName(weaponUpgradeArch[i + 510].KFWeaponUpgrade);
+		WMGRI.weaponUpgradeRepArray_3[i].BasePrice = weaponUpgradeArch[i + 510].Price;
+		WMGRI.weaponUpgradeRepArray_3[i].bValid = true;
 
 		WMGRI.weaponUpgradeList[i + 510].KFWeapon = weaponUpgradeArch[i + 510].KFWeapon;
 		WMGRI.weaponUpgradeList[i + 510].KFWeaponUpgrade = weaponUpgradeArch[i + 510].KFWeaponUpgrade;
@@ -1299,10 +1299,10 @@ function RepGameInfoLowPriority()
 	}
 	for (i = 0; i < Min(255, weaponUpgradeArch.length - 765); ++i)
 	{
-		WMGRI.weaponUpgradeRepArray_D[i].WeaponPathName = PathName(weaponUpgradeArch[i + 765].KFWeapon);
-		WMGRI.weaponUpgradeRepArray_D[i].UpgradePathName = PathName(weaponUpgradeArch[i + 765].KFWeaponUpgrade);
-		WMGRI.weaponUpgradeRepArray_D[i].BasePrice = weaponUpgradeArch[i + 765].Price;
-		WMGRI.weaponUpgradeRepArray_D[i].bValid = true;
+		WMGRI.weaponUpgradeRepArray_4[i].WeaponPathName = PathName(weaponUpgradeArch[i + 765].KFWeapon);
+		WMGRI.weaponUpgradeRepArray_4[i].UpgradePathName = PathName(weaponUpgradeArch[i + 765].KFWeaponUpgrade);
+		WMGRI.weaponUpgradeRepArray_4[i].BasePrice = weaponUpgradeArch[i + 765].Price;
+		WMGRI.weaponUpgradeRepArray_4[i].bValid = true;
 
 		WMGRI.weaponUpgradeList[i + 765].KFWeapon = weaponUpgradeArch[i + 765].KFWeapon;
 		WMGRI.weaponUpgradeList[i + 765].KFWeaponUpgrade = weaponUpgradeArch[i + 765].KFWeaponUpgrade;
