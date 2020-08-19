@@ -495,7 +495,7 @@ function ModifyHardAttackDamage(out int InDamage)
 		for (i = 0; i < MyWMPRI.purchase_weaponUpgrade.length; ++i)
 		{
 			index = MyWMPRI.purchase_weaponUpgrade[i];
-			if (isValidWeapon(MyWMGRI.weaponUpgradeList[i].KFWeapon, MyKFW))
+			if (isValidWeapon(MyWMGRI.weaponUpgradeList[index].KFWeapon, MyKFW))
 				MyWMGRI.weaponUpgradeList[index].KFWeaponUpgrade.static.ModifyHardAttackDamage(InDamage, DefaultDamage, MyWMPRI.GetWeaponUpgrade(index), OwnerPawn);
 		}
 		for (i = 0; i < MyWMPRI.purchase_skillUpgrade.length; ++i)
@@ -568,7 +568,7 @@ function ModifyDamageTaken(out int InDamage, optional class<DamageType> DamageTy
 		for (i = 0; i < MyWMPRI.purchase_weaponUpgrade.length; ++i)
 		{
 			index = MyWMPRI.purchase_weaponUpgrade[i];
-			if (isValidWeapon(MyWMGRI.weaponUpgradeList[i].KFWeapon, MyKFW))
+			if (isValidWeapon(MyWMGRI.weaponUpgradeList[index].KFWeapon, MyKFW))
 				MyWMGRI.weaponUpgradeList[index].KFWeaponUpgrade.static.ModifyDamageTaken(InDamage, DefaultDamage, MyWMPRI.GetWeaponUpgrade(index), OwnerPawn, DamageType, InstigatedBy, MyKFW);
 		}
 		for (i = 0; i < MyWMPRI.purchase_skillUpgrade.length; ++i)
@@ -754,7 +754,7 @@ function bool ModifyHealAmount(out float HealAmount)
 		for (i = 0; i < MyWMPRI.purchase_weaponUpgrade.length; ++i)
 		{
 			index = MyWMPRI.purchase_weaponUpgrade[i];
-			if (isValidWeapon(MyWMGRI.weaponUpgradeList[i].KFWeapon, MyKFW))
+			if (isValidWeapon(MyWMGRI.weaponUpgradeList[index].KFWeapon, MyKFW))
 				MyWMGRI.weaponUpgradeList[index].KFWeaponUpgrade.static.ModifyHealAmount(HealAmount, DefaultHealAmount, MyWMPRI.GetWeaponUpgrade(index));
 		}
 		for (i = 0; i < MyWMPRI.purchase_skillUpgrade.length; ++i)
@@ -1267,7 +1267,7 @@ simulated function float GetPenetrationModifier(byte Level, class<KFDamageType> 
 		for (i = 0; i < MyWMPRI.purchase_weaponUpgrade.length; ++i)
 		{
 			index = MyWMPRI.purchase_weaponUpgrade[i];
-			if (isValidWeapon(MyWMGRI.weaponUpgradeList[i].KFWeapon, MyKFW))
+			if (isValidWeapon(MyWMGRI.weaponUpgradeList[index].KFWeapon, MyKFW))
 				MyWMGRI.weaponUpgradeList[index].KFWeaponUpgrade.static.ModifyPenetration(InPenetration, DefaultPenetration, MyWMPRI.GetWeaponUpgrade(index), DamageType, OwnerPawn, bForce);
 		}
 		for (i = 0; i < MyWMPRI.purchase_skillUpgrade.length; ++i)
@@ -1308,7 +1308,7 @@ function float GetStunPowerModifier(optional class<DamageType> DamageType, optio
 		for (i = 0; i < MyWMPRI.purchase_weaponUpgrade.length; ++i)
 		{
 			index = MyWMPRI.purchase_weaponUpgrade[i];
-			if (isValidWeapon(MyWMGRI.weaponUpgradeList[i].KFWeapon, MyKFW))
+			if (isValidWeapon(MyWMGRI.weaponUpgradeList[index].KFWeapon, MyKFW))
 				MyWMGRI.weaponUpgradeList[index].KFWeaponUpgrade.static.ModifyStunPower(InStunPower, DefaultStunPower, MyWMPRI.GetWeaponUpgrade(index), DamageType, HitZoneIdx);
 		}
 		for (i = 0; i < MyWMPRI.purchase_skillUpgrade.length; ++i)
@@ -1350,7 +1350,7 @@ function float GetStumblePowerModifier(optional KFPawn KFP, optional class<KFDam
 		for (i = 0; i < MyWMPRI.purchase_weaponUpgrade.length; ++i)
 		{
 			index = MyWMPRI.purchase_weaponUpgrade[i];
-			if (isValidWeapon(MyWMGRI.weaponUpgradeList[i].KFWeapon, MyKFW))
+			if (isValidWeapon(MyWMGRI.weaponUpgradeList[index].KFWeapon, MyKFW))
 				MyWMGRI.weaponUpgradeList[index].KFWeaponUpgrade.static.ModifyStumblePower(InStumblePower, DefaultStumblePower, MyWMPRI.GetWeaponUpgrade(index), KFP, DamageType, CooldownModifier, BodyPart, OwnerPawn);
 		}
 		for (i = 0; i < MyWMPRI.purchase_skillUpgrade.length; ++i)
@@ -1391,7 +1391,7 @@ function float GetKnockdownPowerModifier(optional class<DamageType> DamageType, 
 		for (i = 0; i < MyWMPRI.purchase_weaponUpgrade.length; ++i)
 		{
 			index = MyWMPRI.purchase_weaponUpgrade[i];
-			if (isValidWeapon(MyWMGRI.weaponUpgradeList[i].KFWeapon, MyKFW))
+			if (isValidWeapon(MyWMGRI.weaponUpgradeList[index].KFWeapon, MyKFW))
 				MyWMGRI.weaponUpgradeList[index].KFWeaponUpgrade.static.ModifyKnockdownPower(InKnockdownPower, DefaultKnockdownPower, MyWMPRI.GetWeaponUpgrade(index), OwnerPawn, DamageType, BodyPart, bIsSprinting);
 		}
 		for (i = 0; i < MyWMPRI.purchase_skillUpgrade.length; ++i)
