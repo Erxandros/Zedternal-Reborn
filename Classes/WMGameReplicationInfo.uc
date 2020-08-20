@@ -10,9 +10,6 @@ struct WeaponUpgradeRepStruct
 
 	structdefaultproperties
 	{
-		WeaponPathName=""
-		UpgradePathName=""
-		BasePrice=0
 		bValid=false
 	}
 };
@@ -79,9 +76,6 @@ struct WeaponUpgradeStruct
 
 	structdefaultproperties
 	{
-		KFWeapon=None
-		KFWeaponUpgrade=None
-		BasePrice=0
 		bDone=false
 	}
 };
