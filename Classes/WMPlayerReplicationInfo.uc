@@ -268,9 +268,9 @@ function UpdatePerkAndSkillPurchases()
 
 		foreach purchase_skillUpgrade(index)
 		{
-			for (level = 0; level < WMGRI.skillUpgrades_Perk.length; ++level)
+			for (level = 0; level < WMGRI.perkUpgrades.length; ++level)
 			{
-				if (WMGRI.perkUpgrades[level] == WMGRI.skillUpgrades_Perk[index])
+				if (PathName(WMGRI.perkUpgrades[level]) ~= WMGRI.skillUpgrades[index].PerkPathName)
 					break;
 			}
 

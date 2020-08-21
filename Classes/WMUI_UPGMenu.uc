@@ -282,22 +282,22 @@ function Callback_InventoryFilter( int FilterIndex )
 
 					if (WMPRI.bSkillDeluxe[i] == 1)
 					{
-						ItemObject.SetString("label", WMGRI.skillUpgrades[i].default.upgradeName $ " [Deluxe]");
-						ItemObject.SetString("description", WMGRI.skillUpgrades[i].default.upgradeDescription[1]);
-						S = "img://"$PathName(WMGRI.skillUpgrades[i].static.GetupgradeIcon(1));
+						ItemObject.SetString("label", WMGRI.skillUpgrades[i].SkillUpgrade.default.upgradeName $ " [Deluxe]");
+						ItemObject.SetString("description", WMGRI.skillUpgrades[i].SkillUpgrade.default.upgradeDescription[1]);
+						S = "img://"$PathName(WMGRI.skillUpgrades[i].SkillUpgrade.static.GetupgradeIcon(1));
 						tempPrice = WMGRI.skillDeluxePrice;
 					}
 					else
 					{
-						ItemObject.SetString("label", WMGRI.skillUpgrades[i].default.upgradeName);
-						ItemObject.SetString("description", WMGRI.skillUpgrades[i].default.upgradeDescription[0]);
-						S = "img://"$PathName(WMGRI.skillUpgrades[i].static.GetupgradeIcon(0));
+						ItemObject.SetString("label", WMGRI.skillUpgrades[i].SkillUpgrade.default.upgradeName);
+						ItemObject.SetString("description", WMGRI.skillUpgrades[i].SkillUpgrade.default.upgradeDescription[0]);
+						S = "img://"$PathName(WMGRI.skillUpgrades[i].SkillUpgrade.static.GetupgradeIcon(0));
 						tempPrice = WMGRI.skillPrice;
 					}
 					ItemObject.SetInt("count", tempPrice);
 
 					ItemObject.SetString("iconURLSmall", S);
-					S = "img://"$PathName(WMGRI.skillUpgrades_Perk[i].static.GetupgradeIcon(0));
+					S = "img://"$PathName(WMGRI.perkUpgrades[GetPerkRelatedIndex(i)].static.GetupgradeIcon(0));
 					ItemObject.SetString("iconURLLarge", S);
 
 					ItemObject.SetString("price", "");
@@ -474,7 +474,7 @@ function string GetUpgradeDescription(int index, int lvl, WMGameReplicationInfo 
 	str = str $ "\n\n\n\n Buying this upgrade will unlocked one of these skills :\n";
 	for (i = 0; i < WMGRI.skillUpgrades.length; ++i)
 	{
-		if (WMGRI.skillUpgrades_Perk[i] == WMGRI.perkUpgrades[index])
+		if (WMGRI.skillUpgrades[i].PerkPathName ~= PathName(WMGRI.perkUpgrades[index]))
 		{
 			if (WMPRI.bSkillUpgrade[i] != 0)
 			{
@@ -495,11 +495,11 @@ function string GetUpgradeDescription(int index, int lvl, WMGameReplicationInfo 
 
 			if (bFirstSkill)
 			{
-				str = str $ "\n   <font color=\"#" $textColor$ "\">" $WMGRI.skillUpgrades[i].default.upgradeName$ "</font>";
+				str = str $ "\n   <font color=\"#" $textColor$ "\">" $WMGRI.skillUpgrades[i].SkillUpgrade.default.upgradeName$ "</font>";
 				bFirstSkill = false;
 			}
 			else
-				str = str $ ", <font color=\"#" $textColor$ "\">" $WMGRI.skillUpgrades[i].default.upgradeName$ "</font>";
+				str = str $ ", <font color=\"#" $textColor$ "\">" $WMGRI.skillUpgrades[i].SkillUpgrade.default.upgradeName$ "</font>";
 		}
 	}
 	if (!bFirstSkill)
@@ -673,7 +673,7 @@ function Callback_Equip( int ItemDefinition )
 			CurrentBuyIndex = Index;
 			CurrentBuyType = "perk";
 			CurrentBuyLvl = lvl + 1;
-			UnlockRandomSkill(WMGRI.perkUpgrades[Index], ((lvl + 1) == maxLevel));
+			UnlockRandomSkill(PathName(WMGRI.perkUpgrades[Index]), ((lvl + 1) == maxLevel));
 			if (Owner != none)
 				Owner.PlaySoundBase(default.perkSound, true);
 		}
@@ -744,20 +744,20 @@ function Callback_Equip( int ItemDefinition )
 function int GetPerkRelatedIndex(int SkillIndex)
 {
 	//return Skill perk related index
-	local byte i;
+	local byte b;
 	local WMGameReplicationInfo WMGRI;
 
 	WMGRI = WMGameReplicationInfo(GetPC().WorldInfo.GRI);
-	for (i = 0; i < WMGRI.skillUpgrades_Perk.length; ++i)
+	for (b = 0; b < WMGRI.perkUpgrades.length; ++b)
 	{
-		if (WMGRI.perkUpgrades[i] == WMGRI.skillUpgrades_Perk[SkillIndex])
-			return i;
+		if (PathName(WMGRI.perkUpgrades[b]) ~= WMGRI.skillUpgrades[SkillIndex].PerkPathName)
+			return b;
 	}
 
 	return 0;
 }
 
-function UnlockRandomSkill(Class< WMUpgrade_Perk > perkClass, bool bShouldBeDeluxe)
+function UnlockRandomSkill(string perkPathName, bool bShouldBeDeluxe)
 {
 	local array< int > availableIndex;
 	local int i, choice;
@@ -771,7 +771,7 @@ function UnlockRandomSkill(Class< WMUpgrade_Perk > perkClass, bool bShouldBeDelu
 
 	for (i = 0; i < WMGRI.skillUpgrades.length; ++i)
 	{
-		if (WMGRI.skillUpgrades_Perk[i] == perkClass && WMPRI.bSkillUnlocked[i] == 0)
+		if (WMGRI.skillUpgrades[i].PerkPathName ~= perkPathName && WMPRI.bSkillUnlocked[i] == 0)
 			availableIndex.AddItem(i);
 	}
 	if (availableIndex.length > 0)

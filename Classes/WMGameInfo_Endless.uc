@@ -1287,12 +1287,16 @@ function RepGameInfoLowPriority()
 	WMGRI.RepGameInfoWeaponUpgrades(WMGRI.weaponUpgradeRepArray_16, 15);
 
 	//Skill Upgrades
+	WMGRI.skillUpgrades.Length = Min(255, class'ZedternalReborn.Config_SkillUpgrade'.default.SkillUpgrade_SkillUpgrades.length);
 	for (b = 0; b < Min(255, class'ZedternalReborn.Config_SkillUpgrade'.default.SkillUpgrade_SkillUpgrades.length); ++b)
 	{
-		WMGRI.skillUpgradesStr[b] =			class'ZedternalReborn.Config_SkillUpgrade'.default.SkillUpgrade_SkillUpgrades[b].SkillPath;
-		WMGRI.skillUpgrades[b] =			class<WMUpgrade_Skill>(DynamicLoadObject(class'ZedternalReborn.Config_SkillUpgrade'.default.SkillUpgrade_SkillUpgrades[b].SkillPath, class'Class'));
-		WMGRI.skillUpgradesStr_Perk[b] =	class'ZedternalReborn.Config_SkillUpgrade'.default.SkillUpgrade_SkillUpgrades[b].PerkPath;
-		WMGRI.skillUpgrades_Perk[b] =		class<WMUpgrade_Perk>(DynamicLoadObject(class'ZedternalReborn.Config_SkillUpgrade'.default.SkillUpgrade_SkillUpgrades[b].PerkPath, class'Class'));
+		WMGRI.skillUpgradesRepArray[b].SkillPathName = class'ZedternalReborn.Config_SkillUpgrade'.default.SkillUpgrade_SkillUpgrades[b].SkillPath;
+		WMGRI.skillUpgradesRepArray[b].PerkPathName = class'ZedternalReborn.Config_SkillUpgrade'.default.SkillUpgrade_SkillUpgrades[b].PerkPath;
+		WMGRI.skillUpgradesRepArray[b].bValid = true;
+
+		WMGRI.skillUpgrades[b].SkillUpgrade = class<WMUpgrade_Skill>(DynamicLoadObject(class'ZedternalReborn.Config_SkillUpgrade'.default.SkillUpgrade_SkillUpgrades[b].SkillPath, class'Class'));
+		WMGRI.skillUpgrades[b].PerkPathName = class'ZedternalReborn.Config_SkillUpgrade'.default.SkillUpgrade_SkillUpgrades[b].PerkPath;
+		WMGRI.skillUpgrades[b].bDone = true;
 	}
 
 	//Weapon unlocks

@@ -14,6 +14,18 @@ struct WeaponUpgradeRepStruct
 	}
 };
 
+struct SkillUpgradeRepStruct
+{
+	var string SkillPathName;
+	var string PerkPathName;
+	var bool bValid;
+
+	structdefaultproperties
+	{
+		bValid=false
+	}
+};
+
 //Optimization for replicated data
 var repnotify int NumberOfTraderWeapons;
 var repnotify int NumberOfStartingWeapons;
@@ -25,8 +37,7 @@ var repnotify string KFWeaponDefPath_A[255];
 var repnotify string KFWeaponDefPath_B[255];
 var repnotify string KFStartingWeaponPath[255];
 var repnotify string perkUpgradesStr[255];
-var repnotify string skillUpgradesStr[255];
-var repnotify string skillUpgradesStr_Perk[255];
+var repnotify SkillUpgradeRepStruct skillUpgradesRepArray[255];
 var repnotify string specialWavesStr[255];
 var repnotify string grenadesStr[255];
 var repnotify string zedBuffStr[255];
@@ -80,12 +91,23 @@ struct WeaponUpgradeStruct
 	}
 };
 
+struct SkillUpgradeStruct
+{
+	var class<WMUpgrade_Skill> SkillUpgrade;
+	var string PerkPathName;
+	var bool bDone;
+
+	structdefaultproperties
+	{
+		bDone=false
+	}
+};
+
 var array< WeaponUpgradeStruct > weaponUpgradeList;
 
 var array< class<KFWeapon> > KFStartingWeapon;
 var array< class<WMUpgrade_Perk> > perkUpgrades;
-var array< class<WMUpgrade_Skill> > skillUpgrades;
-var array< class<WMUpgrade_Perk> > skillUpgrades_Perk;
+var array< SkillUpgradeStruct > skillUpgrades;
 var array< class<WMSpecialWave> > specialWaves;
 var array< class<KFWeaponDefinition> > Grenades;
 
@@ -108,7 +130,7 @@ replication
 {
 	if ( bNetDirty )
 		NumberOfTraderWeapons, NumberOfStartingWeapons, KFWeaponName_A, KFWeaponName_B, KFWeaponDefPath_A, KFWeaponDefPath_B, KFStartingWeaponPath,
-		perkUpgradesStr, skillUpgradesStr, skillUpgradesStr_Perk, specialWavesStr, grenadesStr, zedBuffStr, SpecialWaveID, bNewZedBuff,
+		perkUpgradesStr, skillUpgradesRepArray, specialWavesStr, grenadesStr, zedBuffStr, SpecialWaveID, bNewZedBuff,
 		newWeaponEachWave, maxWeapon, staticWeapon, ArmorPrice, GrenadePrice, TraderVoiceGroupIndex, bArmorPickup,
 		perkPrice, perkMaxLevel, skillPrice, skillDeluxePrice, weaponMaxLevel, bZedBuffs,
 		weaponUpgradeRepArray_1, weaponUpgradeRepArray_2, weaponUpgradeRepArray_3, weaponUpgradeRepArray_4,
@@ -285,25 +307,21 @@ simulated event ReplicatedEvent(name VarName)
 			SyncWeaponUpgrades(weaponUpgradeRepArray_16, 15);
 			break;
 
-		case 'skillUpgradesStr':
+		case 'skillUpgradesRepArray':
 			for (i = 0; i < 255; ++i)
 			{
-				if (skillUpgradesStr[i] == "")
+				if (!skillUpgradesRepArray[i].bValid)
 					break; //base case
 
-				if (i == skillUpgrades.Length || skillUpgrades[i] == none || PathName(skillUpgrades[i]) != skillUpgradesStr[i])
-					skillUpgrades[i] = class<WMUpgrade_Skill>(DynamicLoadObject(skillUpgradesStr[i],class'Class'));
-			}
-			break;
+				if (i == skillUpgrades.Length)
+					skillUpgrades.Add(1);
 
-		case 'skillUpgradesStr_Perk':
-			for (i = 0; i < 255; ++i)
-			{
-				if (skillUpgradesStr_Perk[i] == "")
-					break; //base case
-
-				if (i == skillUpgrades_Perk.Length || skillUpgrades_Perk[i] == none || PathName(skillUpgrades_Perk[i]) != skillUpgradesStr_Perk[i])
-					skillUpgrades_Perk[i] = class<WMUpgrade_Perk>(DynamicLoadObject(skillUpgradesStr_Perk[i],class'Class'));
+				if (!skillUpgrades[i].bDone)
+				{
+					skillUpgrades[i].SkillUpgrade = class<WMUpgrade_Skill>(DynamicLoadObject(skillUpgradesRepArray[i].SkillPathName, class'Class'));
+					skillUpgrades[i].PerkPathName = skillUpgradesRepArray[i].PerkPathName;
+					skillUpgrades[i].bDone = true;
+				}
 			}
 			break;
 
