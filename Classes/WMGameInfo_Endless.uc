@@ -1665,7 +1665,6 @@ defaultproperties
 	DifficultyInfoConsoleClass=Class'kfgamecontent.KFGameDifficulty_Survival_Console'
 	MaxGameDifficulty=4
 	bIsEndlessGame=True
-	startingMaxPlayerCount=6
 	MaxPlayersAllowed=128
 	SpawnManagerClasses(0)=Class'ZedternalReborn.WMAISpawnManager'
 	SpawnManagerClasses(1)=Class'ZedternalReborn.WMAISpawnManager'
