@@ -1169,8 +1169,14 @@ function RepGameInfoHighPriority()
 		WMGRI.SetAllTradersTimer();
 
 	//Optimization
-	WMGRI.NumberOfStartingWeapons = KFStartingWeaponPath.Length;
-	WMGRI.NumberOfTraderWeapons = TraderItems.SaleItems.Length;
+	WMGRI.NumberOfTraderWeapons = Min(510, TraderItems.SaleItems.Length);
+	WMGRI.NumberOfStartingWeapons = Min(255, KFStartingWeaponPath.Length);
+	WMGRI.NumberOfSkillUpgrades = Min(255, class'ZedternalReborn.Config_SkillUpgrade'.default.SkillUpgrade_SkillUpgrades.length);
+	WMGRI.NumberOfWeaponUpgrades =  Min(`MAXWEAPONUPGRADES, weaponUpgradeArch.Length);
+
+	//Preinitialize the array size for the sever/standalone
+	WMGRI.skillUpgrades.Length = WMGRI.NumberOfSkillUpgrades;
+	WMGRI.weaponUpgradeList.Length = WMGRI.NumberOfWeaponUpgrades;
 
 	SetTimer(3.0f, false, 'RepGameInfoNormalPriority');
 }
@@ -1255,8 +1261,7 @@ function RepGameInfoLowPriority()
 		WMGRI.perkUpgrades[b] =		class<WMUpgrade_Perk>(DynamicLoadObject(class'ZedternalReborn.Config_PerkUpgrade'.default.PerkUpgrade_PerkUpgrades[b], class'Class'));
 	}
 
-	//Weapon Upgrades for the local client/server
-	WMGRI.weaponUpgradeList.Length = weaponUpgradeArch.Length;
+	//Weapon Upgrades for the local standalone/server
 	for (i = 0; i < Min(`MAXWEAPONUPGRADES, weaponUpgradeArch.Length); ++i)
 	{
 		WMGRI.weaponUpgradeList[i].KFWeapon = weaponUpgradeArch[i].KFWeapon;
@@ -1284,7 +1289,6 @@ function RepGameInfoLowPriority()
 	WMGRI.RepGameInfoWeaponUpgrades(WMGRI.weaponUpgradeRepArray_16, 15);
 
 	//Skill Upgrades
-	WMGRI.skillUpgrades.Length = Min(255, class'ZedternalReborn.Config_SkillUpgrade'.default.SkillUpgrade_SkillUpgrades.length);
 	for (b = 0; b < Min(255, class'ZedternalReborn.Config_SkillUpgrade'.default.SkillUpgrade_SkillUpgrades.length); ++b)
 	{
 		WMGRI.skillUpgradesRepArray[b].SkillPathName = class'ZedternalReborn.Config_SkillUpgrade'.default.SkillUpgrade_SkillUpgrades[b].SkillPath;
