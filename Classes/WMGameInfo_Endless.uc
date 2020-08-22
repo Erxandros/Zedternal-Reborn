@@ -29,10 +29,10 @@ var array<S_Weapon_Upgrade> weaponUpgradeArch;
 event InitGame(string Options, out string ErrorMessage)
 {
 	// starting wave can be set through the console while launching the mod (by adding : ?wave=XXX)
-	startingWave = Min(Max(class'GameInfo'.static.GetIntOption(Options, "wave", 1) - 1, 0), 254);
+	startingWave = Min(class'GameInfo'.static.GetIntOption(Options, "wave", 0) - 1, 254);
 
 	// starting dosh can be set through the console while launching the mod (by adding : ?dosh=XXX)
-	startingDosh = class'GameInfo'.static.GetIntOption(Options, "dosh", 0);
+	startingDosh = class'GameInfo'.static.GetIntOption(Options, "dosh", -1);
 
 	// starting player count can be set through the console while launching the mod (by adding : ?players=XXX)
 	startingMaxPlayerCount = class'GameInfo'.static.GetIntOption(Options, "players", 6);
@@ -104,10 +104,10 @@ event PostBeginPlay()
 	// Replicate new information from this game mode (weapon list, skill, monster...)
 	RepGameInfoHighPriority();
 
-	if (startingDosh > 0)
+	if (startingDosh >= 0)
 		doshNewPlayer = startingDosh;
 	else
-		doshNewPlayer = 400;
+		doshNewPlayer = class'ZedternalReborn.Config_Map'.static.GetStartingDosh(WorldInfo.GetMapName(true));
 
 	lastSpecialWaveID_First = -1;
 	lastSpecialWaveID_Second = -1;
@@ -191,7 +191,12 @@ function StartMatch()
 {
 	local KFPlayerController KFPC;
 	local WMGameReplicationInfo WMGRI;
-	WaveNum = startingWave;
+
+	if (startingWave >= 0)
+		WaveNum = startingWave;
+	else
+		WaveNum = class'ZedternalReborn.Config_Map'.static.GetStartingWave(WorldInfo.GetMapName(true));
+
 	MyKFGRI.WaveNum = WaveNum;
 
 	super(KFGameInfo).StartMatch();
@@ -235,8 +240,10 @@ function StartMatch()
 	foreach WorldInfo.AllControllers(class'KFPlayerController', KFPC)
 	{
 		KFPC.ClientMatchStarted();
-		if (startingDosh > 0)
+		if (startingDosh >= 0)
 			KFPlayerReplicationInfo(KFPC.PlayerReplicationInfo).Score = startingDosh;
+		else
+			KFPlayerReplicationInfo(KFPC.PlayerReplicationInfo).Score = class'ZedternalReborn.Config_Map'.static.GetStartingDosh(WorldInfo.GetMapName(true));
 	}
 }
 
@@ -1641,7 +1648,6 @@ defaultproperties
 	DifficultyInfoConsoleClass=Class'kfgamecontent.KFGameDifficulty_Survival_Console'
 	MaxGameDifficulty=4
 	bIsEndlessGame=True
-	startingWave=0
 	startingMaxPlayerCount=6
 	MaxPlayersAllowed=128
 	SpawnManagerClasses(0)=Class'ZedternalReborn.WMAISpawnManager'

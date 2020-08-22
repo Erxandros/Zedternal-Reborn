@@ -6,19 +6,23 @@ var config int MODEVERSION;
 struct S_Map
 {
 	var string mapName;
+	var int startingDosh;
+	var int startingWave;
 	var float zedNumberScale;
 	var float zedSpawnRate;
 	var int zedStuckThreshold;
 	var int zedStuckTimeout;
 	var bool allTraders;
-	
+
 	structdefaultproperties
 	{
-		zedNumberScale = 1.000000;
-		zedSpawnRate = 1.000000;
-		zedStuckThreshold = 4;
-		zedStuckTimeout = 150;
-		allTraders = false;
+		startingDosh=400
+		startingWave=1
+		zedNumberScale=1.000000
+		zedSpawnRate=1.000000
+		zedStuckThreshold=4
+		zedStuckTimeout=150
+		allTraders=false
 	}
 };
 
@@ -50,6 +54,8 @@ static function UpdateConfig()
 	{
 		for (i = 0; i < default.Map_Settings.length; ++i)
 		{
+			default.Map_Settings[i].startingDosh = 400;
+			default.Map_Settings[i].startingWave = 1;
 			default.Map_Settings[i].allTraders = false;
 		}
 	}
@@ -59,6 +65,28 @@ static function UpdateConfig()
 		default.MODEVERSION = class'ZedternalReborn.Config_Base'.default.currentVersion;
 		static.StaticSaveConfig();
 	}
+}
+
+static function int GetStartingDosh(string mapName)
+{
+	local int index;
+
+	index = default.Map_Settings.Find('mapName', mapName);
+	if (index != -1)
+		return Max(default.Map_Settings[index].startingDosh, 0);
+	else
+		return 400;
+}
+
+static function int GetStartingWave(string mapName)
+{
+	local int index;
+
+	index = default.Map_Settings.Find('mapName', mapName);
+	if (index != -1)
+		return Min(Max(default.Map_Settings[index].startingWave - 1, 0), 254);
+	else
+		return 0;
 }
 
 static function float GetZedNumberScale(string mapName)
