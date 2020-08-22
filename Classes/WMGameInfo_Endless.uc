@@ -230,7 +230,7 @@ function StartMatch()
 	else
 	{
 		MyKFGRI.UpdateHUDWaveCount();
-		if (startingTraderTime > 0)
+		if (startingTraderTime > 0 || class'ZedternalReborn.Config_Map'.static.GetStartingTraderTime(WorldInfo.GetMapName(true)) > 0)
 			bUseStartingTraderTime = true;
 		else
 			bUseExtendedTraderTime = true;
@@ -587,7 +587,11 @@ function OpenTrader()
 
 	if (bUseStartingTraderTime)
 	{
-		TimeBetweenWaves = startingTraderTime;
+		if (startingTraderTime > 0)
+			TimeBetweenWaves = startingTraderTime;
+		else
+			TimeBetweenWaves = class'ZedternalReborn.Config_Map'.static.GetStartingTraderTime(WorldInfo.GetMapName(true));
+
 		bUseStartingTraderTime = false;
 	}
 	else if (bUseExtendedTraderTime)

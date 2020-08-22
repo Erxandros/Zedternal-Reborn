@@ -8,6 +8,7 @@ struct S_Map
 	var string mapName;
 	var int startingDosh;
 	var int startingWave;
+	var int startingTraderTime;
 	var float zedNumberScale;
 	var float zedSpawnRate;
 	var int zedStuckThreshold;
@@ -18,6 +19,7 @@ struct S_Map
 	{
 		startingDosh=400
 		startingWave=1
+		startingTraderTime=0
 		zedNumberScale=1.000000
 		zedSpawnRate=1.000000
 		zedStuckThreshold=4
@@ -56,6 +58,7 @@ static function UpdateConfig()
 		{
 			default.Map_Settings[i].startingDosh = 400;
 			default.Map_Settings[i].startingWave = 1;
+			default.Map_Settings[i].startingTraderTime = 0;
 			default.Map_Settings[i].allTraders = false;
 		}
 	}
@@ -85,6 +88,17 @@ static function int GetStartingWave(string mapName)
 	index = default.Map_Settings.Find('mapName', mapName);
 	if (index != -1)
 		return Min(Max(default.Map_Settings[index].startingWave - 1, 0), 254);
+	else
+		return 0;
+}
+
+static function int GetStartingTraderTime(string mapName)
+{
+	local int index;
+
+	index = default.Map_Settings.Find('mapName', mapName);
+	if (index != -1)
+		return Max(default.Map_Settings[index].startingTraderTime, 0);
 	else
 		return 0;
 }
