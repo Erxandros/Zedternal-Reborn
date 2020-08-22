@@ -11,8 +11,8 @@ var array < class<KFWeaponDefinition> > StaticWeaponList, StartingWeaponList;
 var float doshNewPlayer;
 var int lastSpecialWaveID_First, lastSpecialWaveID_Second;
 var int TimeBetweenWavesDefault, TimeBetweenWavesExtend;
-var bool bUseExtendedTraderTime, bUseAllTraders;
-var int startingWave, startingDosh;
+var bool bUseExtendedTraderTime, bUseStartingTraderTime, bUseAllTraders;
+var int startingWave, startingTraderTime, startingDosh;
 var byte startingMaxPlayerCount, traderVoiceIndex;
 
 var float GameDifficultyZedternal;
@@ -30,6 +30,9 @@ event InitGame(string Options, out string ErrorMessage)
 {
 	// starting wave can be set through the console while launching the mod (by adding : ?wave=XXX)
 	startingWave = Min(class'GameInfo'.static.GetIntOption(Options, "wave", 0) - 1, 254);
+
+	// starting trader time can be set through the console while launching the mod only with starting wave as well (by adding : ?tradertime=XXX)
+	startingTraderTime = class'GameInfo'.static.GetIntOption(Options, "tradertime", 0);
 
 	// starting dosh can be set through the console while launching the mod (by adding : ?dosh=XXX)
 	startingDosh = class'GameInfo'.static.GetIntOption(Options, "dosh", -1);
@@ -117,6 +120,7 @@ event PostBeginPlay()
 
 	TimeBetweenWavesExtend = class'ZedternalReborn.Config_Game'.static.GetTimeBetweenWaveHumanDied(GameDifficultyZedternal);
 	bUseExtendedTraderTime = false;
+	bUseStartingTraderTime = false;
 }
 
 event PreLogin(string Options, string Address, const UniqueNetId UniqueId, bool bSupportsAuth, out string ErrorMessage)
@@ -226,7 +230,11 @@ function StartMatch()
 	else
 	{
 		MyKFGRI.UpdateHUDWaveCount();
-		bUseExtendedTraderTime = true;
+		if (startingTraderTime > 0)
+			bUseStartingTraderTime = true;
+		else
+			bUseExtendedTraderTime = true;
+
 		SetupNextTrader();
 		GotoState( 'TraderOpen', 'Begin' );
 
@@ -577,7 +585,12 @@ function OpenTrader()
 	local WMGameReplicationInfo WMGRI;
 	local byte i, count, timeMultiplier;
 
-	if (bUseExtendedTraderTime)
+	if (bUseStartingTraderTime)
+	{
+		TimeBetweenWaves = startingTraderTime;
+		bUseStartingTraderTime = false;
+	}
+	else if (bUseExtendedTraderTime)
 	{
 		TimeBetweenWaves = TimeBetweenWavesExtend;
 		bUseExtendedTraderTime = false;
