@@ -115,9 +115,6 @@ function BuildWeaponList()
 		}
 	}
 
-	//Set the starting weapon count
-	startingWeaponCount = StartingWeaponList.length;
-
 	//Finishing WeaponList
 	TraderItems.SetItemsInfo(TraderItems.SaleItems);
 	MyKFGRI.TraderItems = TraderItems;

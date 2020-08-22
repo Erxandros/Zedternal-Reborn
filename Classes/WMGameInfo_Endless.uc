@@ -12,7 +12,7 @@ var float doshNewPlayer;
 var int lastSpecialWaveID_First, lastSpecialWaveID_Second;
 var int TimeBetweenWavesDefault, TimeBetweenWavesExtend;
 var bool bUseExtendedTraderTime, bUseAllTraders;
-var int startingWave, startingDosh, startingWeaponCount;
+var int startingWave, startingDosh;
 var byte startingMaxPlayerCount, traderVoiceIndex;
 
 var float GameDifficultyZedternal;
@@ -862,9 +862,6 @@ function BuildWeaponList()
 		}
 	}
 
-	//Set the starting weapon count for replication
-	startingWeaponCount = PerkStartingWeapon.Length;
-
 	//Finishing WeaponList
 	TraderItems.SetItemsInfo(TraderItems.SaleItems);
 	MyKFGRI.TraderItems = TraderItems;
@@ -1172,7 +1169,7 @@ function RepGameInfoHighPriority()
 		WMGRI.SetAllTradersTimer();
 
 	//Optimization
-	WMGRI.NumberOfStartingWeapons = startingWeaponCount;
+	WMGRI.NumberOfStartingWeapons = KFStartingWeaponPath.Length;
 	WMGRI.NumberOfTraderWeapons = TraderItems.SaleItems.Length;
 
 	SetTimer(3.0f, false, 'RepGameInfoNormalPriority');
