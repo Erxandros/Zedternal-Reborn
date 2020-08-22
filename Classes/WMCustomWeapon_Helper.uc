@@ -158,4 +158,8 @@ defaultproperties
 	WeaponDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_Nailgun_HRG_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_Nailgun_HRG"));
 	WeaponDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_G18_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_G18"));
 	WeaponDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_LazerCutter_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_LazerCutter"));
+	WeaponDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_HRG_Kaboomstick_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_HRG_Kaboomstick"));
+	WeaponDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_Blunderbuss_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_Blunderbuss"));
+	WeaponDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_HRGTeslauncher_Precious",OriginalWeaponDefPath="KFGameContent.KFWeapDef_HRGTeslauncher"));
+	WeaponDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_Pistol_G18C_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_Pistol_G18C"));
 }
