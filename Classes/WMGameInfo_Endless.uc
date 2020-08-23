@@ -224,7 +224,6 @@ function StartMatch()
 	}
 	else if (WaveNum == 0)
 	{
-		MyKFGRI.bWaveStarted = true;
 		GotoState('PlayingWave');
 	}
 	else
@@ -257,51 +256,65 @@ function StartMatch()
 
 function StartWave()
 {
-	//closes trader on server
+	//Closes trader on server
 	MyKFGRI.CloseTrader();
+	NotifyTraderClosed();
 
+	//Check and set special wave
 	SetupSpecialWave();
 
+	//Increment wave
 	++WaveNum;
 	MyKFGRI.WaveNum = WaveNum;
-	NumAISpawnsQueued = 0;
-	AIAliveCount = 0;
-	NumAIFinishedSpawning = 0;
-	
-	MyKFGRI.bWaveStarted = true;
 
+	//Check and set objectives
 	if (IsMapObjectiveEnabled())
 	{
 		MyKFGRI.ClearPreviousObjective();
 		MyKFGRI.StartNextObjective();
 	}
 
-	SpawnManager.SetupNextWave(WaveNum);
+	//Reset zed wave counters
+	NumAIFinishedSpawning = 0;
+	NumAISpawnsQueued = 0;
+	AIAliveCount = 0;
 	MyKFGRI.bForceNextObjective = false;
 
-	if( WorldInfo.NetMode != NM_DedicatedServer && Role == ROLE_Authority )
+	//Set up spawns for next wave
+	SpawnManager.SetupNextWave(WaveNum);
+
+	//Set the HUD for standalone
+	if (WorldInfo.NetMode != NM_DedicatedServer && Role == ROLE_Authority)
 	{
 		MyKFGRI.UpdateHUDWaveCount();
 	}
 
+	//Start the wave
 	WaveStarted();
 	MyKFGRI.NotifyWaveStart();
 	MyKFGRI.AIRemaining = SpawnManager.WaveTotalAI;
 	MyKFGRI.WaveTotalAICount = SpawnManager.WaveTotalAI;
 
+	//Announce the start
 	BroadcastLocalizedMessage(class'KFLocalMessage_Priority', GMT_WaveStart);
 
+	//Setup the next trader
 	SetupNextTrader();
+
+	//Reset all ammo and item pickups
 	ResetAllPickups();
 
+	//Reset the zed buff indicator
 	if (WMGameReplicationInfo(MyKFGRI) != none)
 		WMGameReplicationInfo(MyKFGRI).bNewZedBuff = false;
 
-	if( Role == ROLE_Authority && KFGameInfo(WorldInfo.Game) != none && KFGameInfo(WorldInfo.Game).DialogManager != none) KFGameInfo(WorldInfo.Game).DialogManager.SetTraderTime( false );
+	//Disable trader dialog
+	if (Role == ROLE_Authority && KFGameInfo(WorldInfo.Game) != none && KFGameInfo(WorldInfo.Game).DialogManager != none)
+		KFGameInfo(WorldInfo.Game).DialogManager.SetTraderTime(false);
 
 	// first spawn and music are delayed 5 seconds (KFAISpawnManager.TimeUntilNextSpawn == 5 initially), so line up dialog with them;
 	// fixes problem of clients not being ready to receive dialog at the instant the match starts;
-	SetTimer( 5.f, false, nameof(PlayWaveStartDialog) );
+	SetTimer(5.0f, false, nameof(PlayWaveStartDialog));
 }
 
 function WaveEnded(EWaveEndCondition WinCondition)
