@@ -75,7 +75,7 @@ var repnotify WeaponUpgradeRepStruct weaponUpgradeRepArray_14[255];
 var repnotify WeaponUpgradeRepStruct weaponUpgradeRepArray_15[255];
 var repnotify WeaponUpgradeRepStruct weaponUpgradeRepArray_16[255];
 
-var repnotify bool bAllTraders;
+var repnotify byte bAllTraders;
 var repnotify bool updateSkins;
 var repnotify bool printVersion;
 
@@ -152,6 +152,12 @@ simulated event ReplicatedEvent(name VarName)
 		case 'WaveNum':
 			if (SpecialWaveID[0]!=-1 && WaveNum > 0)
 				TriggerSpecialWaveMessage();
+			super.ReplicatedEvent(VarName);
+			break;
+
+		case 'bTraderIsOpen':
+			if (bTraderIsOpen && bAllTraders == 0)
+				break; //Not done replicating bAllTraders
 			super.ReplicatedEvent(VarName);
 			break;
 
@@ -336,7 +342,7 @@ simulated event ReplicatedEvent(name VarName)
 			break;
 
 		case 'bAllTraders':
-			if (bAllTraders)
+			if (bAllTraders == 2)
 				SetAllTradersTimer();
 			break;
 
@@ -557,6 +563,11 @@ simulated function SetWeaponPickupList()
 
 simulated function SetAllTradersTimer()
 {
+	//Run it immediately and check if we should open the trader now
+	UpdateNextTrader();
+	if (bTraderIsOpen)
+		OpenTrader();
+
 	//Only run UpdateNextTrader every 3 seconds as it is computationally heavy
 	SetTimer(3.0f, true, nameof(UpdateNextTrader));
 }
@@ -604,9 +615,7 @@ simulated function OpenTrader(optional int time)
 {
 	local KFTraderTrigger MyTrader;
 
-	super.OpenTrader(time);
-
-	if (bAllTraders)
+	if (bAllTraders == 2)
 	{
 		foreach DynamicActors(class'KFTraderTrigger', MyTrader)
 		{
@@ -616,6 +625,8 @@ simulated function OpenTrader(optional int time)
 
 		SetTimer(1.0f, true, nameof(UpdateOpenedTrader));
 	}
+
+	super.OpenTrader(time);
 }
 
 simulated function CloseTrader()
@@ -625,16 +636,17 @@ simulated function CloseTrader()
 	if (IsTimerActive(nameof(UpdateOpenedTrader)))
 		ClearTimer(nameof(UpdateOpenedTrader));
 
-	super.CloseTrader();
-
-	if (bAllTraders)
+	if (bAllTraders == 2)
 	{
+		bStopCountDown = true;
 		foreach DynamicActors(class'KFTraderTrigger', MyTrader)
 		{
 			if (MyTrader.bOpened)
 				MyTrader.CloseTrader();
 		}
 	}
+
+	super.CloseTrader();
 }
 
 simulated function PlayZedBuffSoundAndEffect()
@@ -779,6 +791,7 @@ defaultproperties
 	NumberOfSkillUpgrades=-1
 	NumberOfWeaponUpgrades=-1
 	bArmorPickup=0
+	bAllTraders=0
 	WaveMax=255
 	ArmorPrice=-1
 	GrenadePrice=-1

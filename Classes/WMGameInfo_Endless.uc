@@ -1201,7 +1201,7 @@ function RepGameInfoHighPriority()
 		WMGRI.TraderDialogManager.TraderVoiceGroupClass = WMGRI.default.TraderVoiceGroupClasses[traderVoiceIndex];
 
 	//All traders
-	WMGRI.bAllTraders = bUseAllTraders;
+	WMGRI.bAllTraders = bUseAllTraders ? 2 : 1; //2 is true, 1 is false;
 	if (WorldInfo.NetMode != NM_DedicatedServer && bUseAllTraders)
 		WMGRI.SetAllTradersTimer();
 
