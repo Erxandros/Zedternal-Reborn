@@ -1233,8 +1233,8 @@ function RepGameInfoNormalPriority()
 	//Grenades
 	for (b = 0; b < Min(255, class'ZedternalReborn.Config_Weapon'.default.Trader_grenadesDef.length); ++b)
 	{
-		WMGRI.grenadesStr[b] =	class'ZedternalReborn.Config_Weapon'.default.Trader_grenadesDef[b];
-		WMGRI.Grenades[b] =		class<KFWeaponDefinition>(DynamicLoadObject(class'ZedternalReborn.Config_Weapon'.default.Trader_grenadesDef[b], class'Class'));
+		WMGRI.grenadesStr[b] = class'ZedternalReborn.Config_Weapon'.default.Trader_grenadesDef[b];
+		WMGRI.Grenades[b] = class<KFWeaponDefinition>(DynamicLoadObject(class'ZedternalReborn.Config_Weapon'.default.Trader_grenadesDef[b], class'Class'));
 	}
 
 	//Armor pickup enable
@@ -1249,15 +1249,15 @@ function RepGameInfoNormalPriority()
 	//ZedBuff
 	for (b = 0; b < Min(255, class'ZedternalReborn.Config_ZedBuff'.default.ZedBuff_BuffPath.length); ++b)
 	{
-		WMGRI.zedBuffStr[b] =	class'ZedternalReborn.Config_ZedBuff'.default.ZedBuff_BuffPath[b].Path;
-		WMGRI.zedBuffs[b] =		class<WMZedBuff>(DynamicLoadObject(class'ZedternalReborn.Config_ZedBuff'.default.ZedBuff_BuffPath[b].Path, class'Class'));
+		WMGRI.zedBuffStr[b] = class'ZedternalReborn.Config_ZedBuff'.default.ZedBuff_BuffPath[b].Path;
+		WMGRI.zedBuffs[b] = class<WMZedBuff>(DynamicLoadObject(class'ZedternalReborn.Config_ZedBuff'.default.ZedBuff_BuffPath[b].Path, class'Class'));
 	}
 
 	//Special Waves
 	for (b = 0; b < Min(255, class'ZedternalReborn.Config_SpecialWave'.default.SpecialWave_SpecialWaves.length); ++b)
 	{
-		WMGRI.specialWavesStr[b] =	class'ZedternalReborn.Config_SpecialWave'.default.SpecialWave_SpecialWaves[b].Path;
-		WMGRI.specialWaves[b] =		class<WMSpecialWave>(DynamicLoadObject(class'ZedternalReborn.Config_SpecialWave'.default.SpecialWave_SpecialWaves[b].Path, class'Class'));
+		WMGRI.specialWavesStr[b] = class'ZedternalReborn.Config_SpecialWave'.default.SpecialWave_SpecialWaves[b].Path;
+		WMGRI.specialWaves[b] = class<WMSpecialWave>(DynamicLoadObject(class'ZedternalReborn.Config_SpecialWave'.default.SpecialWave_SpecialWaves[b].Path, class'Class'));
 	}
 
 	SetTimer(3.0f, false, 'RepGameInfoLowPriority');
@@ -1294,8 +1294,8 @@ function RepGameInfoLowPriority()
 	//Perk Upgrades
 	for (b = 0; b < Min(255, class'ZedternalReborn.Config_PerkUpgrade'.default.PerkUpgrade_perkUpgrades.length); ++b)
 	{
-		WMGRI.perkUpgradesStr[b] =	class'ZedternalReborn.Config_PerkUpgrade'.default.PerkUpgrade_PerkUpgrades[b];
-		WMGRI.perkUpgrades[b] =		class<WMUpgrade_Perk>(DynamicLoadObject(class'ZedternalReborn.Config_PerkUpgrade'.default.PerkUpgrade_PerkUpgrades[b], class'Class'));
+		WMGRI.perkUpgradesStr[b] = class'ZedternalReborn.Config_PerkUpgrade'.default.PerkUpgrade_PerkUpgrades[b];
+		WMGRI.perkUpgrades[b] = class<WMUpgrade_Perk>(DynamicLoadObject(class'ZedternalReborn.Config_PerkUpgrade'.default.PerkUpgrade_PerkUpgrades[b], class'Class'));
 	}
 
 	//Weapon Upgrades for the local standalone/server
@@ -1338,9 +1338,9 @@ function RepGameInfoLowPriority()
 	}
 
 	//Weapon unlocks
-	WMGRI.newWeaponEachWave =	class'ZedternalReborn.Config_Weapon'.default.Trader_NewWeaponEachWave;
-	WMGRI.maxWeapon =			class'ZedternalReborn.Config_Weapon'.default.Trader_MaxWeapon;
-	WMGRI.staticWeapon =		StaticWeaponList.length;
+	WMGRI.newWeaponEachWave = class'ZedternalReborn.Config_Weapon'.default.Trader_NewWeaponEachWave;
+	WMGRI.maxWeapon = class'ZedternalReborn.Config_Weapon'.default.Trader_MaxWeapon;
+	WMGRI.staticWeapon = StaticWeaponList.length;
 
 	//Perks, Skills and Weapons upgrades custom prices
 	WMGRI.perkMaxLevel = class'ZedternalReborn.Config_PerkUpgrade'.default.PerkUpgrade_Price.Length;
@@ -1349,9 +1349,12 @@ function RepGameInfoLowPriority()
 		WMGRI.perkPrice[b] = class'ZedternalReborn.Config_PerkUpgrade'.default.PerkUpgrade_Price[b];
 	}
 
-	WMGRI.skillPrice =			class'ZedternalReborn.Config_SkillUpgrade'.default.SkillUpgrade_Price;
-	WMGRI.skillDeluxePrice =	class'ZedternalReborn.Config_SkillUpgrade'.default.SkillUpgrade_DeluxePrice;
-	WMGRI.weaponMaxLevel =		class'ZedternalReborn.Config_WeaponUpgrade'.default.WeaponUpgrade_MaxLevel;
+	WMGRI.skillPrice = class'ZedternalReborn.Config_SkillUpgrade'.default.SkillUpgrade_Price;
+	WMGRI.skillDeluxePrice = class'ZedternalReborn.Config_SkillUpgrade'.default.SkillUpgrade_DeluxePrice;
+	WMGRI.weaponMaxLevel = class'ZedternalReborn.Config_WeaponUpgrade'.default.WeaponUpgrade_MaxLevel;
+
+	WMGRI.bZRUMenuCommand = class'ZedternalReborn.Config_Game'.default.Game_bAllowZedternalUpgradeMenuCommand;
+	WMGRI.bZRUMenuAllWave = class'ZedternalReborn.Config_Game'.default.Game_bZedternalUpgradeMenuCommandAllWave;
 }
 
 function RepPlayerInfo(WMPlayerReplicationInfo WMPRI)

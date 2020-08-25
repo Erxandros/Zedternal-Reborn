@@ -365,6 +365,21 @@ unreliable server function ServerUpdatePing(int NewPing)
 		WMPRI.UncompressedPing = NewPing;
 }
 
+exec function OpenZedternalUpgradeMenu()
+{
+	local WMPlayerReplicationInfo WMPRI;
+	local WMGameReplicationInfo WMGRI;
+
+	WMPRI = WMPlayerReplicationInfo(PlayerReplicationInfo);
+	WMGRI = WMGameReplicationInfo(WorldInfo.GRI);
+
+	if (WMPRI != None && WMGRI != None)
+	{
+		if (WMGRI.bZRUMenuCommand && (WMGRI.bTraderIsOpen || WMGRI.bZRUMenuAllWave) && !WMPRI.bIsSpectator && !WMPRI.bWaitingPlayer && !GetMenuInfo().bMenusOpen)
+			WMPRI.CreateUPGMenu();
+	}
+}
+
 defaultproperties
 {
 	PurchaseHelperClass=class'WMAutoPurchaseHelper'

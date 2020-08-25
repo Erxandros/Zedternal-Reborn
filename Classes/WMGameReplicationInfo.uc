@@ -79,6 +79,10 @@ var repnotify byte bAllTraders;
 var repnotify bool updateSkins;
 var repnotify bool printVersion;
 
+//For Zedternal Reborn Upgrade Menu commands
+var bool bZRUMenuCommand;
+var bool bZRUMenuAllWave;
+
 //Non-replicated data
 struct WeaponUpgradeStruct
 {
@@ -140,7 +144,7 @@ replication
 		weaponUpgradeRepArray_5, weaponUpgradeRepArray_6, weaponUpgradeRepArray_7, weaponUpgradeRepArray_8,
 		weaponUpgradeRepArray_9, weaponUpgradeRepArray_10, weaponUpgradeRepArray_11, weaponUpgradeRepArray_12,
 		weaponUpgradeRepArray_13, weaponUpgradeRepArray_14, weaponUpgradeRepArray_15, weaponUpgradeRepArray_16,
-		bAllTraders, updateSkins, printVersion;
+		bAllTraders, updateSkins, printVersion, bZRUMenuCommand, bZRUMenuAllWave;
 }
 
 simulated event ReplicatedEvent(name VarName)
@@ -792,6 +796,8 @@ defaultproperties
 	NumberOfWeaponUpgrades=-1
 	bArmorPickup=0
 	bAllTraders=0
+	bZRUMenuCommand=false
+	bZRUMenuAllWave=false
 	WaveMax=255
 	ArmorPrice=-1
 	GrenadePrice=-1

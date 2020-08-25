@@ -30,6 +30,9 @@ var config bool Game_bUseSantaTraderVoice;
 var config bool Game_bAllowZedTeleport;
 var config bool Game_bAllowFastSpawning;
 
+var config bool Game_bAllowZedternalUpgradeMenuCommand;
+var config bool Game_bZedternalUpgradeMenuCommandAllWave;
+
 static function UpdateConfig()
 {
 	if (default.MODEVERSION < 1)
@@ -102,6 +105,12 @@ static function UpdateConfig()
 		default.Game_GrenadePrice.Custom = 40;
 
 		default.Game_bArmorSpawnOnMap = true;
+	}
+
+	if (default.MODEVERSION < 6)
+	{
+		default.Game_bAllowZedternalUpgradeMenuCommand = false;
+		default.Game_bZedternalUpgradeMenuCommandAllWave = false;
 	}
 
 	if (default.MODEVERSION < class'ZedternalReborn.Config_Base'.default.currentVersion)
