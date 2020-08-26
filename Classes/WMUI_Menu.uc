@@ -113,7 +113,9 @@ event OnClose()
 final function CloseMenu( optional bool bExternal )
 {
 	SetMenuVisibility(false);
-	
+
+	WMPlayerController(GetPC()).bUpgradeMenuOpen = false;
+
 	if( GetPC().PlayerInput != none )
 		GetPC().PlayerInput.ResetInput();
 	GetPC().SetTimer(0.1,false,'FinishedAnim',Self);

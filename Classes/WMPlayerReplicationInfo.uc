@@ -286,6 +286,11 @@ simulated function CreateUPGMenu()
 {
 	local WMUI_Menu UPGMenu;
 	local KFPlayerController KFPC;
+	local WMPlayerController WMPC;
+
+	WMPC = WMPlayerController(Owner);
+	if (WMPC == None || WMPC.bUpgradeMenuOpen)
+		return;
 
 	KFPC = KFPlayerController(Owner);
 
@@ -295,6 +300,8 @@ simulated function CreateUPGMenu()
 	UPGMenu.KFPRI = KFPlayerReplicationInfo(KFPC.PlayerReplicationInfo);
 	UPGMenu.SetTimingMode(TM_Real);
 	UPGMenu.Init(LocalPLayer(KFPC.Player));
+
+	WMPC.bUpgradeMenuOpen = true;
 }
 
 simulated function byte GetWeaponUpgrade(int index)

@@ -12,6 +12,9 @@ var config string GrenadePath;
 //For scoreboard
 var byte PlatformType;
 
+//For command
+var bool bUpgradeMenuOpen;
+
 simulated event PostBeginPlay()
 {
 	super.PostBeginPlay();
@@ -384,6 +387,7 @@ defaultproperties
 {
 	PurchaseHelperClass=class'WMAutoPurchaseHelper'
 	HUD_perkIndex=-1
+	bUpgradeMenuOpen=false
 	bShouldUpdateHUDPerkIcon=true
 	bShouldUpdateGrenadeIcon=true
 	UPG_UpgradeListIndex=1

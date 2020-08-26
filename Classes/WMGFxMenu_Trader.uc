@@ -1,6 +1,5 @@
 class WMGFxMenu_Trader extends KFGFxMenu_Trader;
 
-var WMUI_Menu UPGMenu;
 var bool bBlinkPerkButton;
 
 var int SelectedItemIndexInt;
@@ -22,12 +21,21 @@ event OnClose()
 
 function CreateUPGMenu()
 {
+	local WMUI_Menu UPGMenu;
+	local WMPlayerController WMPC;
+
+	WMPC = WMPlayerController(MyKFPC);
+	if (WMPC == None || WMPC.bUpgradeMenuOpen)
+		return;
+
 	UPGMenu = new class'ZedternalReborn.WMUI_Menu';
 	UPGMenu.Owner = KFPawn_Human(MyKFPC.Pawn);
 	UPGMenu.KFPC = MyKFPC;
 	UPGMenu.KFPRI = KFPlayerReplicationInfo(MyKFPC.PlayerReplicationInfo);
 	UPGMenu.SetTimingMode(TM_Real);
 	UPGMenu.Init(LocalPLayer(MyKFPC.Player));
+
+	WMPC.bUpgradeMenuOpen = true;
 }
 
 ////////
