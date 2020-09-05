@@ -15,6 +15,17 @@ struct SSpecialWave
 
 var config array< SSpecialWave > SpecialWave_SpecialWaves;
 
+var config bool SpecialWaveOverride_bAllowed;
+
+struct SSpecialWaveOverride
+{
+	var int Wave;
+	var string FirstPath, SecondPath;
+	var float Probability;
+};
+
+var config array< SSpecialWaveOverride > SpecialWaveOverride_SpecialWaves;
+
 static function UpdateConfig()
 {
 	local int i;
@@ -111,6 +122,17 @@ static function UpdateConfig()
 			sWave.MaxWave = 15;
 			default.SpecialWave_SpecialWaves.AddItem(sWave);
 		}
+	}
+
+	if (default.MODEVERSION < 6)
+	{
+		default.SpecialWaveOverride_bAllowed = false;
+		default.SpecialWaveOverride_SpecialWaves.length = 1;
+
+		default.SpecialWaveOverride_SpecialWaves[0].Wave = 5;
+		default.SpecialWaveOverride_SpecialWaves[0].FirstPath = "ZedternalReborn.WMSpecialWave_InstaKill";
+		default.SpecialWaveOverride_SpecialWaves[0].SecondPath = "ZedternalReborn.WMSpecialWave_UnlimitedAmmo";
+		default.SpecialWaveOverride_SpecialWaves[0].Probability = 0.8;
 	}
 
 	if (default.MODEVERSION < class'ZedternalReborn.Config_Base'.default.currentVersion)
