@@ -62,12 +62,12 @@ function BuildWeaponList()
 				if (IsWeaponDefCanBeRandom(CustomWeaponDef))
 					weaponIndex[weaponIndex.Length] = count - 1;
 
-				`log("Custom weapon added: "$class'ZedternalReborn.Config_Weapon'.default.Weapon_CustomWeaponDef[i]);
+				`log("Custom weapon added:"@class'ZedternalReborn.Config_Weapon'.default.Weapon_CustomWeaponDef[i]);
 			}
 			else
 			{
-				`log("Custom weapon "$class'ZedternalReborn.Config_Weapon'.default.Weapon_CustomWeaponDef[i]$
-					" does not exist, please check spelling or make sure the workshop item is correctly installed");
+				`log("Custom weapon"@class'ZedternalReborn.Config_Weapon'.default.Weapon_CustomWeaponDef[i]@
+					"does not exist, please check spelling or make sure the workshop item is correctly installed");
 			}
 		}
 	}
@@ -119,7 +119,7 @@ function BuildWeaponList()
 	TraderItems.SetItemsInfo(TraderItems.SaleItems);
 	MyKFGRI.TraderItems = TraderItems;
 
-	`log("Weapon List : ");
+	`log("ZR Weapon List:");
 	for (i = 0; i < KFWeaponName.length; ++i)
 	{
 		`log(KFWeaponName[i] $ "(" $ i $ ")");

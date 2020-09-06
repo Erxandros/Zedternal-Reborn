@@ -158,7 +158,7 @@ event PreLogin(string Options, string Address, const UniqueNetId UniqueId, bool 
 	// If this player is banned, reject him
 	if (AccessControl != none && AccessControl.IsIDBanned(UniqueId))
 	{
-		`Log(Address@"is banned, rejecting...");
+		`Log("ZR Info:"@Address@"is banned, rejecting...");
 		ErrorMessage = "<Strings:KFGame.KFLocalMessage.BannedFromServerString>";
 		return;
 	}
@@ -495,7 +495,7 @@ function SetupObjectiveZones()
 		}
 		else
 		{
-			`log("Failed to override objective "$OldObjectiveZones[b].Name$" due to failure to spawn in new objective actor");
+			`log("ZR Warning: Failed to override objective"@OldObjectiveZones[b].Name@"due to failure to spawn in new objective actor");
 		}
 	}
 
@@ -510,7 +510,7 @@ function SetupObjectiveZones()
 		}
 		else
 		{
-			`log("Not random objectives, currently not supported for ZedternalReborn");
+			`log("ZR Warning: Not random objectives, currently not supported for ZedternalReborn");
 			KFMI.bUsePresetObjectives = false;
 		}
 	}
@@ -689,7 +689,7 @@ function CheckAndSetupSpecialWave()
 			SpecialWaveObjects.AddItem(SW);
 		}
 		else
-			`log("Warning: Special wave on line"@i + 1@"has an invalid special wave pathname for Path:"@class'ZedternalReborn.Config_SpecialWave'.default.SpecialWave_SpecialWaves[i].Path);
+			`log("ZR Warning: Special wave on line"@i + 1@"has an invalid special wave pathname for Path:"@class'ZedternalReborn.Config_SpecialWave'.default.SpecialWave_SpecialWaves[i].Path);
 	}
 
 	for (i = 0; i < class'ZedternalReborn.Config_SpecialWave'.default.SpecialWaveOverride_SpecialWaves.length; ++i)
@@ -710,10 +710,10 @@ function CheckAndSetupSpecialWave()
 		}
 
 		if (SWO.FirstID == -1)
-			`log("Warning: Special wave override on line"@i + 1@"has an invalid special wave pathname for FirstPath:"@class'ZedternalReborn.Config_SpecialWave'.default.SpecialWaveOverride_SpecialWaves[i].FirstPath);
+			`log("ZR Warning: Special wave override on line"@i + 1@"has an invalid special wave pathname for FirstPath:"@class'ZedternalReborn.Config_SpecialWave'.default.SpecialWaveOverride_SpecialWaves[i].FirstPath);
 
 		if (SWO.SecondID == -1)
-			`log("Warning: Special wave override on line"@i + 1@"has an invalid special wave pathname for SecondPath:"@class'ZedternalReborn.Config_SpecialWave'.default.SpecialWaveOverride_SpecialWaves[i].SecondPath);
+			`log("ZR Warning: Special wave override on line"@i + 1@"has an invalid special wave pathname for SecondPath:"@class'ZedternalReborn.Config_SpecialWave'.default.SpecialWaveOverride_SpecialWaves[i].SecondPath);
 
 		if (SWO.FirstID == -1 && SWO.SecondID == -1)
 			continue;
@@ -868,7 +868,7 @@ function InitializeStaticAndStartingWeapons()
 		if (KFWeaponDefClass != none)
 			StaticWeaponList.AddItem(KFWeaponDefClass);
 		else
-			`log("Static weapon "$class'ZedternalReborn.Config_Weapon'.default.Trader_StaticWeaponDefs[i]$" does not exist, please check spelling or make sure the workshop item is correctly installed");
+			`log("ZR Warning: Static weapon"@class'ZedternalReborn.Config_Weapon'.default.Trader_StaticWeaponDefs[i]@"does not exist, please check spelling or make sure the workshop item is correctly installed");
 	}
 
 	for (i = 0; i < class'ZedternalReborn.Config_Weapon'.default.Weapon_PlayerStartingWeaponDefList.length; ++i)
@@ -877,7 +877,7 @@ function InitializeStaticAndStartingWeapons()
 		if (KFWeaponDefClass != none)
 			StartingWeaponList.AddItem(KFWeaponDefClass);
 		else
-			`log("Starting weapon "$class'ZedternalReborn.Config_Weapon'.default.Weapon_PlayerStartingWeaponDefList[i]$" does not exist, please check spelling or make sure the workshop item is correctly installed");
+			`log("ZR Warning: Starting weapon"@class'ZedternalReborn.Config_Weapon'.default.Weapon_PlayerStartingWeaponDefList[i]@"does not exist, please check spelling or make sure the workshop item is correctly installed");
 	}
 }
 
@@ -943,17 +943,17 @@ function BuildWeaponList()
 				if (IsWeaponDefCanBeRandom(CustomWeaponDef))
 					weaponIndex[weaponIndex.Length] = count - 1;
 
-				`log("Custom weapon added: "$class'ZedternalReborn.Config_Weapon'.default.Weapon_CustomWeaponDef[i]);
+				`log("ZR Info: Custom weapon added:"@class'ZedternalReborn.Config_Weapon'.default.Weapon_CustomWeaponDef[i]);
 			}
 			else
 			{
-				`log("Custom weapon "$class'ZedternalReborn.Config_Weapon'.default.Weapon_CustomWeaponDef[i]$
-					" does not exist, please check spelling or make sure the workshop item is correctly installed");
+				`log("ZR Warning: Custom weapon"@class'ZedternalReborn.Config_Weapon'.default.Weapon_CustomWeaponDef[i]@
+					"does not exist, please check spelling or make sure the workshop item is correctly installed");
 			}
 		}
 	}
 
-	//get WeaponVariant Probablity/Allowed
+	//get WeaponVariant Probability/Allowed
 	bAllowWeaponVariant = class'ZedternalReborn.Config_Weapon'.default.WeaponVariant_bAllowWeaponVariant;
 
 	////////////////////////
@@ -1017,7 +1017,7 @@ function BuildWeaponList()
 	TraderItems.SetItemsInfo(TraderItems.SaleItems);
 	MyKFGRI.TraderItems = TraderItems;
 
-	`log("Weapon List : ");
+	`log("ZR Weapon List:");
 	for (i = 0; i < KFWeaponName.length; ++i)
 	{
 		`log(KFWeaponName[i] $ "(" $ i $ ")");
@@ -1272,7 +1272,7 @@ function TraderItemsReplacementHelper(string OldWeaponDefPath, const out class<K
 		KFWeaponDefPath[i] = PathName(newWeapon.WeaponDef); //for clients
 
 	// log
-	`log("Replace weapon variant : " $ OldWeaponDefPath $ " => " $ PathName(NewWeaponDefClass));
+	`log("ZR Info: Replace weapon variant:"@OldWeaponDefPath@"=>"@PathName(NewWeaponDefClass));
 }
 
 function SelectRandomTraderVoice()
@@ -1477,7 +1477,7 @@ function RepPlayerInfo(WMPlayerReplicationInfo WMPRI)
 	local byte i, j, choice;
 	local bool bFound;
 
-	`log("Reconnect : " $WMPRI.NumTimesReconnected);
+	`log("Reconnect:"@WMPRI.NumTimesReconnected);
 
 	if (WMPRI.NumTimesReconnected < 1 && class'ZedternalReborn.Config_PerkUpgrade'.default.PerkUpgrade_NbAvailablePerks > 0)
 	{
@@ -1681,7 +1681,7 @@ function RewardSurvivingPlayers()
 		}
 	}
 
-	// Reset team score afte the wave ends
+	// Reset team score after the wave ends
 	T.AddScore( 0, true );
 }
 
