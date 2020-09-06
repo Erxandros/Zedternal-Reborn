@@ -68,10 +68,10 @@ function CheckForBadZedClasses()
 				"does not have a value defined under Zed_Value in the config, defaulting to the class's default dosh value.");
 		}
 
-		if (class'ZedternalReborn.Config_Zed'.default.Zed_Monsters[i].MClass.default.MinSpawnSquadSizeType == EST_Boss)
+		if (class'ZedternalReborn.Config_Zed'.default.Zed_Monsters[i].MClass.default.MinSpawnSquadSizeType == EST_Boss || class'ZedternalReborn.Config_Zed'.default.Zed_Monsters[i].MClass.static.IsABoss())
 		{
 			`log("ZR Warning: Zed class"@string(class'ZedternalReborn.Config_Zed'.default.Zed_Monsters[i].MClass)@
-				"is defined as a boss, it will almost certainly break zedternal spawning.");
+				"is defined as a boss, it will almost certainly break zedternal spawning or something else.");
 		}
 	}
 }
@@ -421,6 +421,18 @@ function SetupNextWave(byte NextWaveIndex, int TimeToNextWaveBuffer = 0)
 	LastAISpawnVolume = none;
 
 	`Log("WaveTotalAI = " $ WaveTotalAI);
+}
+
+function ESquadType GetDesiredSquadTypeForZedList(array< class<KFPawn_Monster> >  NewSquad)
+{
+	local ESquadType LargestMonsterSquadType;
+
+	LargestMonsterSquadType = super.GetDesiredSquadTypeForZedList(NewSquad);
+
+	if (LargestMonsterSquadType == EST_Boss)
+		return EST_Large;
+
+	return LargestMonsterSquadType;
 }
 
 function int GetMaxMonsters()
