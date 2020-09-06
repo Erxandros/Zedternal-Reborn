@@ -25,6 +25,14 @@ struct S_Weapon_Upgrade
 };
 var array< S_Weapon_Upgrade > weaponUpgradeArch;
 
+struct S_Special_Wave
+{
+	var class<WMSpecialWave> SWave;
+	var int MinWave, MaxWave;
+};
+
+var array< S_Special_Wave > SpecialWaveObjects;
+
 struct S_Special_Wave_Override
 {
 	var int Wave;
@@ -102,9 +110,9 @@ event PostBeginPlay()
 	// Available weapon are random each wave. Need to build the list
 	BuildWeaponList();
 
-	// Setup special wave overrides
-	if (class'ZedternalReborn.Config_SpecialWave'.default.SpecialWaveOverride_bAllowed)
-		SetupSpecialWaveOverrides();
+	// Setup special wave and overrides
+	if (class'ZedternalReborn.Config_SpecialWave'.default.SpecialWave_bAllowed || class'ZedternalReborn.Config_SpecialWave'.default.SpecialWaveOverride_bAllowed)
+		CheckAndSetupSpecialWave();
 
 	// Set item pickups
 	SetupPickupItems();
@@ -661,22 +669,40 @@ function BossDied(Controller Killer, optional bool bCheckWaveEnded = true)
 	CheckWaveEnd();
 }
 
-function SetupSpecialWaveOverrides()
+function CheckAndSetupSpecialWave()
 {
 	local int i, j;
 	local S_Special_Wave_Override SWO;
+	local S_Special_Wave SW;
+	local class<WMSpecialWave> WMSW;
+
+	for (i = 0; i < class'ZedternalReborn.Config_SpecialWave'.default.SpecialWave_SpecialWaves.length; ++i)
+	{
+		WMSW = class<WMSpecialWave>(DynamicLoadObject(class'ZedternalReborn.Config_SpecialWave'.default.SpecialWave_SpecialWaves[i].Path, class'Class'));
+
+		if (WMSW != None)
+		{
+			SW.SWave = WMSW;
+			SW.MinWave = class'ZedternalReborn.Config_SpecialWave'.default.SpecialWave_SpecialWaves[i].MinWave;
+			SW.MaxWave = class'ZedternalReborn.Config_SpecialWave'.default.SpecialWave_SpecialWaves[i].MaxWave;
+
+			SpecialWaveObjects.AddItem(SW);
+		}
+		else
+			`log("Warning: Special wave on line"@i + 1@"has an invalid special wave pathname for Path:"@class'ZedternalReborn.Config_SpecialWave'.default.SpecialWave_SpecialWaves[i].Path);
+	}
 
 	for (i = 0; i < class'ZedternalReborn.Config_SpecialWave'.default.SpecialWaveOverride_SpecialWaves.length; ++i)
 	{
 		SWO.FirstID = -1;
 		SWO.SecondID = -1;
 
-		for (j = 0; j < class'ZedternalReborn.Config_SpecialWave'.default.SpecialWave_SpecialWaves.length; ++j)
+		for (j = 0; j < SpecialWaveObjects.length; ++j)
 		{
-			if (class'ZedternalReborn.Config_SpecialWave'.default.SpecialWave_SpecialWaves[j].Path ~= class'ZedternalReborn.Config_SpecialWave'.default.SpecialWaveOverride_SpecialWaves[i].FirstPath)
+			if (PathName(SpecialWaveObjects[j].SWave) ~= class'ZedternalReborn.Config_SpecialWave'.default.SpecialWaveOverride_SpecialWaves[i].FirstPath)
 				SWO.FirstID = j;
 
-			if (class'ZedternalReborn.Config_SpecialWave'.default.SpecialWave_SpecialWaves[j].Path ~= class'ZedternalReborn.Config_SpecialWave'.default.SpecialWaveOverride_SpecialWaves[i].SecondPath)
+			if (PathName(SpecialWaveObjects[j].SWave) ~= class'ZedternalReborn.Config_SpecialWave'.default.SpecialWaveOverride_SpecialWaves[i].SecondPath)
 				SWO.SecondID = j;
 
 			if (SWO.FirstID != -1 && SWO.SecondID != -1)
@@ -748,9 +774,9 @@ function SetupSpecialWave()
 	// Check if it is a special wave. If true, build available special wave list (SWList)
 	if (class'ZedternalReborn.Config_SpecialWave'.default.SpecialWave_bAllowed && WaveNum > 0 && FRand() < class'ZedternalReborn.Config_SpecialWave'.default.SpecialWave_Probability)
 	{
-		for (i = 0; i < class'ZedternalReborn.Config_SpecialWave'.default.SpecialWave_SpecialWaves.length; ++i)
+		for (i = 0; i < SpecialWaveObjects.length; ++i)
 		{
-			if (class'ZedternalReborn.Config_SpecialWave'.default.SpecialWave_SpecialWaves[i].MinWave <= (WaveNum + 1) && class'ZedternalReborn.Config_SpecialWave'.default.SpecialWave_SpecialWaves[i].MaxWave >= (WaveNum + 1))
+			if (SpecialWaveObjects[i].MinWave <= (WaveNum + 1) && SpecialWaveObjects[i].MaxWave >= (WaveNum + 1))
 				SWList.AddItem(i);
 		}
 	}
@@ -1342,10 +1368,10 @@ function RepGameInfoNormalPriority()
 	}
 
 	//Special Waves
-	for (b = 0; b < Min(255, class'ZedternalReborn.Config_SpecialWave'.default.SpecialWave_SpecialWaves.length); ++b)
+	for (b = 0; b < Min(255, SpecialWaveObjects.length); ++b)
 	{
-		WMGRI.specialWavesStr[b] = class'ZedternalReborn.Config_SpecialWave'.default.SpecialWave_SpecialWaves[b].Path;
-		WMGRI.specialWaves[b] = class<WMSpecialWave>(DynamicLoadObject(class'ZedternalReborn.Config_SpecialWave'.default.SpecialWave_SpecialWaves[b].Path, class'Class'));
+		WMGRI.specialWavesStr[b] = PathName(SpecialWaveObjects[b].SWave);
+		WMGRI.specialWaves[b] = SpecialWaveObjects[b].SWave;
 	}
 
 	SetTimer(3.0f, false, 'RepGameInfoLowPriority');
