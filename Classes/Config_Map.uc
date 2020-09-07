@@ -5,26 +5,26 @@ var config int MODEVERSION;
 
 struct S_Map
 {
-	var string mapName;
-	var int startingDosh;
-	var int startingWave;
-	var int startingTraderTime;
-	var float zedNumberScale;
-	var float zedSpawnRate;
-	var int zedStuckThreshold;
-	var int zedStuckTimeout;
-	var bool allTraders;
+	var string MapName;
+	var int StartingDosh;
+	var int StartingWave;
+	var int StartingTraderTime;
+	var float ZedNumberScale;
+	var float ZedSpawnRate;
+	var int ZedStuckThreshold;
+	var int ZedStuckTimeout;
+	var bool AllTraders;
 
 	structdefaultproperties
 	{
-		startingDosh=400
-		startingWave=1
-		startingTraderTime=0
-		zedNumberScale=1.000000
-		zedSpawnRate=1.000000
-		zedStuckThreshold=4
-		zedStuckTimeout=150
-		allTraders=false
+		StartingDosh=400
+		StartingWave=1
+		StartingTraderTime=0
+		ZedNumberScale=1.000000
+		ZedSpawnRate=1.000000
+		ZedStuckThreshold=4
+		ZedStuckTimeout=150
+		AllTraders=false
 	}
 };
 
@@ -38,17 +38,17 @@ static function UpdateConfig()
 	{
 		default.Map_Settings.length = 1;
 
-		default.Map_Settings[0].mapName = "KF-BioticsLab";
-		default.Map_Settings[0].zedNumberScale = 1.000000;
-		default.Map_Settings[0].zedSpawnRate = 1.000000;
+		default.Map_Settings[0].MapName = "KF-BioticsLab";
+		default.Map_Settings[0].ZedNumberScale = 1.000000;
+		default.Map_Settings[0].ZedSpawnRate = 1.000000;
 	}
 
 	if (default.MODEVERSION < 2)
 	{
 		for (i = 0; i < default.Map_Settings.length; ++i)
 		{
-			default.Map_Settings[i].zedStuckThreshold = 4;
-			default.Map_Settings[i].zedStuckTimeout = 150;
+			default.Map_Settings[i].ZedStuckThreshold = 4;
+			default.Map_Settings[i].ZedStuckTimeout = 150;
 		}
 	}
 
@@ -56,10 +56,10 @@ static function UpdateConfig()
 	{
 		for (i = 0; i < default.Map_Settings.length; ++i)
 		{
-			default.Map_Settings[i].startingDosh = 400;
-			default.Map_Settings[i].startingWave = 1;
-			default.Map_Settings[i].startingTraderTime = 0;
-			default.Map_Settings[i].allTraders = false;
+			default.Map_Settings[i].StartingDosh = 400;
+			default.Map_Settings[i].StartingWave = 1;
+			default.Map_Settings[i].StartingTraderTime = 0;
+			default.Map_Settings[i].AllTraders = false;
 		}
 	}
 
@@ -70,90 +70,90 @@ static function UpdateConfig()
 	}
 }
 
-static function int GetStartingDosh(string mapName)
+static function int GetStartingDosh(string MapName)
 {
 	local int index;
 
-	index = default.Map_Settings.Find('mapName', mapName);
+	index = default.Map_Settings.Find('MapName', MapName);
 	if (index != -1)
-		return Max(default.Map_Settings[index].startingDosh, 0);
+		return Max(default.Map_Settings[index].StartingDosh, 0);
 	else
 		return 400;
 }
 
-static function int GetStartingWave(string mapName)
+static function int GetStartingWave(string MapName)
 {
 	local int index;
 
-	index = default.Map_Settings.Find('mapName', mapName);
+	index = default.Map_Settings.Find('MapName', MapName);
 	if (index != -1)
-		return Min(Max(default.Map_Settings[index].startingWave - 1, 0), 254);
+		return Min(Max(default.Map_Settings[index].StartingWave - 1, 0), 254);
 	else
 		return 0;
 }
 
-static function int GetStartingTraderTime(string mapName)
+static function int GetStartingTraderTime(string MapName)
 {
 	local int index;
 
-	index = default.Map_Settings.Find('mapName', mapName);
+	index = default.Map_Settings.Find('MapName', MapName);
 	if (index != -1)
-		return Max(default.Map_Settings[index].startingTraderTime, 0);
+		return Max(default.Map_Settings[index].StartingTraderTime, 0);
 	else
 		return 0;
 }
 
-static function float GetZedNumberScale(string mapName)
+static function float GetZedNumberScale(string MapName)
 {
 	local int index;
 
-	index = default.Map_Settings.Find('mapName', mapName);
+	index = default.Map_Settings.Find('MapName', MapName);
 	if (index != -1)
-		return default.Map_Settings[index].zedNumberScale;
+		return default.Map_Settings[index].ZedNumberScale;
 	else
 		return 1.f;
 }
 
-static function float GetZedSpawnRate(string mapName)
+static function float GetZedSpawnRate(string MapName)
 {
 	local int index;
 
-	index = default.Map_Settings.Find('mapName', mapName);
+	index = default.Map_Settings.Find('MapName', MapName);
 	if (index != -1)
-		return default.Map_Settings[index].zedSpawnRate;
+		return default.Map_Settings[index].ZedSpawnRate;
 	else
 		return 1.f;
 }
 
-static function int GetZedStuckThreshold(string mapName)
+static function int GetZedStuckThreshold(string MapName)
 {
 	local int index;
 
-	index = default.Map_Settings.Find('mapName', mapName);
+	index = default.Map_Settings.Find('MapName', MapName);
 	if (index != -1)
-		return default.Map_Settings[index].zedStuckThreshold;
+		return default.Map_Settings[index].ZedStuckThreshold;
 	else
 		return 4;
 }
 
-static function int GetZedStuckTimeout(string mapName)
+static function int GetZedStuckTimeout(string MapName)
 {
 	local int index;
 
-	index = default.Map_Settings.Find('mapName', mapName);
+	index = default.Map_Settings.Find('MapName', MapName);
 	if (index != -1)
-		return default.Map_Settings[index].zedStuckTimeout;
+		return default.Map_Settings[index].ZedStuckTimeout;
 	else
 		return 150;
 }
 
-static function bool GetAllTraders(string mapName)
+static function bool GetAllTraders(string MapName)
 {
 	local int index;
 
-	index = default.Map_Settings.Find('mapName', mapName);
+	index = default.Map_Settings.Find('MapName', MapName);
 	if (index != -1)
-		return default.Map_Settings[index].allTraders;
+		return default.Map_Settings[index].AllTraders;
 	else
 		return false;
 }
