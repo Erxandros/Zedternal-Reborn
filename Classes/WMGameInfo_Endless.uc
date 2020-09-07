@@ -80,6 +80,14 @@ static function PreloadGlobalContentClasses()
 		if (default.AIClassList.Find(tempClass) == INDEX_NONE && NewClassList.Find(tempClass) == INDEX_NONE)
 			NewClassList.AddItem(tempClass);
 	}
+
+	for (i = 0; i < class'ZedternalReborn.Config_Zed'.default.Zed_Value.length; ++i)
+	{
+		tempClass = class'ZedternalReborn.Config_Zed'.default.Zed_Value[i].ZedClass;
+		if (default.AIClassList.Find(tempClass) == INDEX_NONE && NewClassList.Find(tempClass) == INDEX_NONE)
+			NewClassList.AddItem(tempClass);
+	}
+
 	for (i = 0; i < class'ZedternalReborn.Config_Zed'.default.Zed_ZedVariant.length; ++i)
 	{
 		tempClass = class'ZedternalReborn.Config_Zed'.default.Zed_ZedVariant[i].variantClass;
