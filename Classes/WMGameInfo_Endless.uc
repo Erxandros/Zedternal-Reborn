@@ -1638,10 +1638,6 @@ function ScoreDamage( int DamageAmount, int HealthBeforeDamage, Controller Insti
 	super.ScoreDamage(DamageAmount, HealthBeforeDamage, InstigatedBy, DamagedPawn, damageType);
 }
 
-function GiveExpToPlayer(Controller Player, int XPValue)
-{
-}
-
 function RewardSurvivingPlayers()
 {
 	local int PlayerCut;
