@@ -21,6 +21,6 @@ defaultproperties
 {
 	WeaponClassPath="ZedternalReborn.WMWeap_Pistol_HRGWinterbite_Precious"
 	BuyPrice=650 //2x
-	AmmoPricePerMag=26 //40% more per bullet (round up)
+	AmmoPricePerMag=28 //40% more per bullet (round up)
 	Name="Default__WMWeapDef_HRGWinterbite_Precious"
 }
