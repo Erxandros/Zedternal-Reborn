@@ -35,7 +35,7 @@ reliable server private function ServerBuyAmmoZedternal(int AmountPurchased, byt
 {
 	local STraderItem WeaponItem;
 	local KFWeapon KFW;
-	local byte ClientMaxMagCapacity;
+	local int ClientMaxMagCapacity;
 
 	if( Role == ROLE_Authority && bServerTraderMenuOpen )
 	{

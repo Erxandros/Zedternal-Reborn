@@ -903,14 +903,14 @@ simulated function ModifyWeaponBopDamping(out float BobDamping, KFWeapon PawnWea
 	BobDamping = InBobDamping;
 }
 
-simulated function ModifyMagSizeAndNumber(KFWeapon KFW, out byte MagazineCapacity, optional array< Class<KFPerk> > WeaponPerkClass, optional bool bSecondary=false, optional name WeaponClassname)
+simulated function ModifyMagSizeAndNumber(KFWeapon KFW, out int MagazineCapacity, optional array< Class<KFPerk> > WeaponPerkClass, optional bool bSecondary=false, optional name WeaponClassname)
 {
 	local int DefaultMagazineCapacity;
 	local int MagCapacity;
 	local int i;
 	local int index;
 
-	MagCapacity = int(MagazineCapacity);
+	MagCapacity = MagazineCapacity;
 	DefaultMagazineCapacity = MagCapacity;
 
 	if (MyWMPRI != none && KFWeap_Healer_Syringe(KFW) == none)
@@ -940,8 +940,8 @@ simulated function ModifyMagSizeAndNumber(KFWeapon KFW, out byte MagazineCapacit
 			MyWMGRI.specialWaves[MyWMGRI.SpecialWaveID[i]].static.ModifyMagSizeAndNumber(MagCapacity, DefaultMagazineCapacity, KFW, WeaponPerkClass, bSecondary, WeaponClassname);
 	}
 
-	if (KFWeap_Bow_Crossbow(KFW) == none || KFWeap_Bow_CompoundBow(KFW) == none) // crossbow and bow doesn't work with more than 1 ammo per clip :(
-		MagazineCapacity = byte(max(0, min(255, MagCapacity)));
+	if (KFWeap_Bow_Crossbow(KFW) == none || KFWeap_Bow_CompoundBow(KFW) == none) // crossbow and bow does not work well with more than 1 ammo per clip
+		MagazineCapacity = max(1, MagCapacity); //Prevent overflow
 	else
 		MagazineCapacity = 1;
 
