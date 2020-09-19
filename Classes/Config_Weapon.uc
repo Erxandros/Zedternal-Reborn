@@ -429,6 +429,11 @@ static function UpdateConfig()
 		newVariant.DualWeaponDefVariant = "";
 		default.WeaponVariant_VariantList.AddItem(newVariant);
 
+		newVariant.WeaponDef = "KFGame.KFWeapDef_HRGScorcher";
+		newVariant.WeaponDefVariant = "ZedternalReborn.WMWeapDef_HRGScorcher_Precious";
+		newVariant.DualWeaponDefVariant = "";
+		default.WeaponVariant_VariantList.AddItem(newVariant);
+
 		for (i = i; i < default.WeaponVariant_VariantList.length; ++i)
 		{
 			default.WeaponVariant_VariantList[i].Probability = 0.017500;
