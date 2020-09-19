@@ -424,6 +424,11 @@ static function UpdateConfig()
 		newVariant.DualWeaponDefVariant = "";
 		default.WeaponVariant_VariantList.AddItem(newVariant);
 
+		newVariant.WeaponDef = "KFGame.KFWeapDef_HRG_EMP_ArcGenerator";
+		newVariant.WeaponDefVariant = "ZedternalReborn.WMWeapDef_HRG_EMP_ArcGenerator_Precious";
+		newVariant.DualWeaponDefVariant = "";
+		default.WeaponVariant_VariantList.AddItem(newVariant);
+
 		for (i = i; i < default.WeaponVariant_VariantList.length; ++i)
 		{
 			default.WeaponVariant_VariantList[i].Probability = 0.017500;
