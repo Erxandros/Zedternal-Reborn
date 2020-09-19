@@ -410,6 +410,21 @@ static function UpdateConfig()
 		}
 	}
 
+	if (default.MODEVERSION < 6)
+	{
+		i = default.WeaponVariant_VariantList.length;
+
+		newVariant.WeaponDef = "KFGame.KFWeapDef_Minigun";
+		newVariant.WeaponDefVariant = "ZedternalReborn.WMWeapDef_Minigun_Precious";
+		newVariant.DualWeaponDefVariant = "";
+		default.WeaponVariant_VariantList.AddItem(newVariant);
+
+		for (i = i; i < default.WeaponVariant_VariantList.length; ++i)
+		{
+			default.WeaponVariant_VariantList[i].Probability = 0.017500;
+		}
+	}
+
 	if (default.MODEVERSION < class'ZedternalReborn.Config_Base'.default.currentVersion)
 	{
 		default.MODEVERSION = class'ZedternalReborn.Config_Base'.default.currentVersion;
