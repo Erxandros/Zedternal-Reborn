@@ -1,22 +1,24 @@
 Class WMUpgrade_Perk_FieldMedic extends WMUpgrade_Perk
 	config(ZedternalReborn_Upgrade);
-	
+
 var float Damage;
 var float Health;
 var float HealRate;
 
-static function ModifyDamageGiven( out int InDamage, int DefaultDamage, int upgLevel, optional Actor DamageCauser, optional KFPawn_Monster MyKFPM, optional KFPlayerController DamageInstigator, optional class<KFDamageType> DamageType, optional int HitZoneIdx, optional KFWeapon MyKFW)
+static function ModifyDamageGiven(out int InDamage, int DefaultDamage, int upgLevel, optional Actor DamageCauser, optional KFPawn_Monster MyKFPM, optional KFPlayerController DamageInstigator, optional class<KFDamageType> DamageType, optional int HitZoneIdx, optional KFWeapon MyKFW)
 {
-	if (IsWeaponOnSpecificPerk( MyKFW, class'KFgame.KFPerk_FieldMedic') || IsDamageTypeOnSpecificPerk( DamageType, class'KFgame.KFPerk_FieldMedic'))
+	if (IsWeaponOnSpecificPerk(MyKFW, class'KFgame.KFPerk_FieldMedic') || IsDamageTypeOnSpecificPerk(DamageType, class'KFgame.KFPerk_FieldMedic'))
 		InDamage += Round(float(DefaultDamage) * default.Damage * upgLevel);
 }
-static function ModifyHealth( out int InHealth, int DefaultHealth, int upgLevel)
+
+static function ModifyHealth(out int InHealth, int DefaultHealth, int upgLevel)
 {
-	InHealth += Round(float(DefaultHealth) * FMin(default.Health * upgLevel, 1.f));
+	InHealth += Round(float(DefaultHealth) * FMin(default.Health * upgLevel, 1.0f));
 }
-static simulated function ModifyHealerRechargeTime( out float InRechargeTime, float DefaultRechargeTime, int upgLevel)
+
+static simulated function ModifyHealerRechargeTime(out float InRechargeTime, float DefaultRechargeTime, int upgLevel)
 {
-	InRechargeTime = DefaultRechargeTime / (DefaultRechargeTime/InRechargeTime + default.HealRate * upgLevel);
+	InRechargeTime = DefaultRechargeTime / (DefaultRechargeTime / InRechargeTime + default.HealRate * upgLevel);
 }
 
 defaultproperties

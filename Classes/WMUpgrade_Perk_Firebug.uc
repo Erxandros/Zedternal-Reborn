@@ -1,39 +1,41 @@
 Class WMUpgrade_Perk_Firebug extends WMUpgrade_Perk
 	config(ZedternalReborn_Upgrade);
-	
+
 var float Damage;
 var float Defense;
 var float Ammo;
-	
-static function ModifyDamageGiven( out int InDamage, int DefaultDamage, int upgLevel, optional Actor DamageCauser, optional KFPawn_Monster MyKFPM, optional KFPlayerController DamageInstigator, optional class<KFDamageType> DamageType, optional int HitZoneIdx, optional KFWeapon MyKFW)
+
+static function ModifyDamageGiven(out int InDamage, int DefaultDamage, int upgLevel, optional Actor DamageCauser, optional KFPawn_Monster MyKFPM, optional KFPlayerController DamageInstigator, optional class<KFDamageType> DamageType, optional int HitZoneIdx, optional KFWeapon MyKFW)
 {
-	if (IsWeaponOnSpecificPerk( MyKFW, class'KFgame.KFPerk_Firebug') || IsDamageTypeOnSpecificPerk( DamageType, class'KFgame.KFPerk_Firebug'))
+	if (IsWeaponOnSpecificPerk(MyKFW, class'KFgame.KFPerk_Firebug') || IsDamageTypeOnSpecificPerk(DamageType, class'KFgame.KFPerk_Firebug'))
 		InDamage += Round(float(DefaultDamage) * default.Damage * upgLevel);
 }
-static function ModifyDamageTaken( out int InDamage, int DefaultDamage, int upgLevel, KFPawn OwnerPawn, optional class<DamageType> DamageType, optional Controller InstigatedBy, optional KFWeapon MyKFW)
+
+static function ModifyDamageTaken(out int InDamage, int DefaultDamage, int upgLevel, KFPawn OwnerPawn, optional class<DamageType> DamageType, optional Controller InstigatedBy, optional KFWeapon MyKFW)
 {
 	if (ClassIsChildOf(DamageType, class'KFDT_Fire') || ClassIsChildOf(DamageType, class'KFDT_Explosive') || ClassIsChildOf(DamageType, class'KFDT_Toxic') || ClassIsChildOf(DamageType, class'KFDT_Sonic'))
 		InDamage -= Round(float(DefaultDamage) * FMin(default.Defense * upgLevel, 0.400000));
 }
-static function WaveEnd( int upgLevel, KFPlayerController KFPC )
+
+static function WaveEnd(int upgLevel, KFPlayerController KFPC)
 {
 	local KFWeapon W;
 	local KFPawn Player;
 	local byte i;
 	local int extraAmmo;
-	
+
 	Player = KFPawn(KFPC.Pawn);
-	
-	if( Player!=None && Player.Health>0 && Player.InvManager!=None )
+
+	if (Player != None && Player.Health > 0 && Player.InvManager != None)
 	{
-		foreach Player.InvManager.InventoryActors(class'KFWeapon',W)
+		foreach Player.InvManager.InventoryActors(class'KFWeapon', W)
 		{
-			for(i=0;i<2;++i)
+			for(i = 0; i < 2; ++i)
 			{
 				if(W.SpareAmmoCount[i] < W.SpareAmmoCapacity[i])
 				{
-					extraAmmo = Round( float(W.SpareAmmoCapacity[i]) * FMin(default.Ammo * upgLevel, 0.4f) );
-					if (i==0)
+					extraAmmo = Round(float(W.SpareAmmoCapacity[i]) * FMin(default.Ammo * upgLevel, 0.4f));
+					if (i == 0)
 						W.AddAmmo(extraAmmo);
 					else
 					{
@@ -45,7 +47,6 @@ static function WaveEnd( int upgLevel, KFPlayerController KFPC )
 		}
 	}
 }
-
 
 defaultproperties
 {

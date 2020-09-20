@@ -1,20 +1,22 @@
 Class WMUpgrade_Perk_Commando extends WMUpgrade_Perk
 	config(ZedternalReborn_Upgrade);
-	
+
 var float Damage;
 var float ReloadRate;
 var float MagSize;
-	
-static function ModifyDamageGiven( out int InDamage, int DefaultDamage, int upgLevel, optional Actor DamageCauser, optional KFPawn_Monster MyKFPM, optional KFPlayerController DamageInstigator, optional class<KFDamageType> DamageType, optional int HitZoneIdx, optional KFWeapon MyKFW)
+
+static function ModifyDamageGiven(out int InDamage, int DefaultDamage, int upgLevel, optional Actor DamageCauser, optional KFPawn_Monster MyKFPM, optional KFPlayerController DamageInstigator, optional class<KFDamageType> DamageType, optional int HitZoneIdx, optional KFWeapon MyKFW)
 {
-	if (IsWeaponOnSpecificPerk( MyKFW, class'KFgame.KFPerk_Commando') || IsDamageTypeOnSpecificPerk( DamageType, class'KFgame.KFPerk_Commando'))
+	if (IsWeaponOnSpecificPerk(MyKFW, class'KFgame.KFPerk_Commando') || IsDamageTypeOnSpecificPerk(DamageType, class'KFgame.KFPerk_Commando'))
 		InDamage += Round(float(DefaultDamage) * default.Damage * upgLevel);
 }
-static simulated function GetReloadRateScalePassive( out float reloadRateFactor, int upgLevel)
+
+static simulated function GetReloadRateScalePassive(out float reloadRateFactor, int upgLevel)
 {
-	reloadRateFactor = 1.f / (1.f/reloadRateFactor + default.ReloadRate * upgLevel);
+	reloadRateFactor = 1.0f / (1.0f / reloadRateFactor + default.ReloadRate * upgLevel);
 }
-static simulated function GetZedTimeExtension( out float InExtension, float DefaultExtension, int upgLevel)
+
+static simulated function GetZedTimeExtension(out float InExtension, float DefaultExtension, int upgLevel)
 {
 	InExtension += float(Min(upgLevel, 5));
 }

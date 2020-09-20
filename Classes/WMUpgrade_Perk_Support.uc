@@ -1,30 +1,29 @@
 Class WMUpgrade_Perk_Support extends WMUpgrade_Perk
 	config(ZedternalReborn_Upgrade);
-	
+
 var float Penetration, LZDamage;
 var float StoppingPower;
-	
-static function ModifyDamageGiven( out int InDamage, int DefaultDamage, int upgLevel, optional Actor DamageCauser, optional KFPawn_Monster MyKFPM, optional KFPlayerController DamageInstigator, optional class<KFDamageType> DamageType, optional int HitZoneIdx, optional KFWeapon MyKFW)
+
+static function ModifyDamageGiven(out int InDamage, int DefaultDamage, int upgLevel, optional Actor DamageCauser, optional KFPawn_Monster MyKFPM, optional KFPlayerController DamageInstigator, optional class<KFDamageType> DamageType, optional int HitZoneIdx, optional KFWeapon MyKFW)
 {
 	if (MyKFPM != none && MyKFPM.bLargeZed)
 		InDamage += Round(float(DefaultDamage) * default.LZDamage * upgLevel);
 }
 
-static function ModifyStumblePowerPassive( out float stumblePowerFactor, int upgLevel)
+static function ModifyStumblePowerPassive(out float stumblePowerFactor, int upgLevel)
 {
 	stumblePowerFactor += default.StoppingPower * upgLevel;
 }
 
-static function ModifyKnockdownPowerPassive( out float knockdownPowerFactor, int upgLevel)
+static function ModifyKnockdownPowerPassive(out float knockdownPowerFactor, int upgLevel)
 {
 	knockdownPowerFactor += default.StoppingPower * upgLevel;
 }
 
-static simulated function ModifyPenetrationPassive( out float penetrationFactor, int upgLevel)
+static simulated function ModifyPenetrationPassive(out float penetrationFactor, int upgLevel)
 {
 	penetrationFactor += default.Penetration * upgLevel;
 }
-
 
 defaultproperties
 {

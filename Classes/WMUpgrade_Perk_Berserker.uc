@@ -1,28 +1,31 @@
 Class WMUpgrade_Perk_Berserker extends WMUpgrade_Perk
 	config(ZedternalReborn_Upgrade);
-	
+
 var float Damage;
 var float Defense;
 var float Health;
 var float MeleeAttackSpeed;
-	
-static function ModifyDamageGiven( out int InDamage, int DefaultDamage, int upgLevel, optional Actor DamageCauser, optional KFPawn_Monster MyKFPM, optional KFPlayerController DamageInstigator, optional class<KFDamageType> DamageType, optional int HitZoneIdx, optional KFWeapon MyKFW)
-{	
-	if (IsWeaponOnSpecificPerk( MyKFW, class'KFgame.KFPerk_Berserker') || IsDamageTypeOnSpecificPerk( DamageType, class'KFgame.KFPerk_Berserker'))
+
+static function ModifyDamageGiven(out int InDamage, int DefaultDamage, int upgLevel, optional Actor DamageCauser, optional KFPawn_Monster MyKFPM, optional KFPlayerController DamageInstigator, optional class<KFDamageType> DamageType, optional int HitZoneIdx, optional KFWeapon MyKFW)
+{
+	if (IsWeaponOnSpecificPerk(MyKFW, class'KFgame.KFPerk_Berserker') || IsDamageTypeOnSpecificPerk(DamageType, class'KFgame.KFPerk_Berserker'))
 		InDamage += Round(float(DefaultDamage) * default.Damage * upgLevel);
 }
-static function ModifyDamageTaken( out int InDamage, int DefaultDamage, int upgLevel, KFPawn OwnerPawn, optional class<DamageType> DamageType, optional Controller InstigatedBy, optional KFWeapon MyKFW)
+
+static function ModifyDamageTaken(out int InDamage, int DefaultDamage, int upgLevel, KFPawn OwnerPawn, optional class<DamageType> DamageType, optional Controller InstigatedBy, optional KFWeapon MyKFW)
 {
 	if (class<KFDT_Bludgeon>(DamageType) != none || class<KFDT_Piercing>(DamageType) != none || class<KFDT_Slashing>(DamageType) != none)
 		InDamage -= Round(float(DefaultDamage) * FMin(default.Defense * upgLevel, 0.150000));
 }
-static simulated function ModifyMeleeAttackSpeedPassive( out float durationFactor, int upgLevel)
+
+static simulated function ModifyMeleeAttackSpeedPassive(out float durationFactor, int upgLevel)
 {
-	durationFactor = 1.f / (1.f/durationFactor + default.MeleeAttackSpeed * upgLevel);
+	durationFactor = 1.0f / (1.0f / durationFactor + default.MeleeAttackSpeed * upgLevel);
 }
-static simulated function ModifyRateOfFirePassive( out float rateOfFireFactor, int upgLevel)
+
+static simulated function ModifyRateOfFirePassive(out float rateOfFireFactor, int upgLevel)
 {
-	rateOfFireFactor = 1.f / (1.f/rateOfFireFactor + default.MeleeAttackSpeed * upgLevel);
+	rateOfFireFactor = 1.0f / (1.0f / rateOfFireFactor + default.MeleeAttackSpeed * upgLevel);
 }
 
 defaultproperties

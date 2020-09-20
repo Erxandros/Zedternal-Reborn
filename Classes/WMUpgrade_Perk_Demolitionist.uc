@@ -1,43 +1,43 @@
 Class WMUpgrade_Perk_Demolitionist extends WMUpgrade_Perk
 	config(ZedternalReborn_Upgrade);
-	
+
 var float Damage, GrenadeDamage;
-	
-static function ModifyDamageGiven( out int InDamage, int DefaultDamage, int upgLevel, optional Actor DamageCauser, optional KFPawn_Monster MyKFPM, optional KFPlayerController DamageInstigator, optional class<KFDamageType> DamageType, optional int HitZoneIdx, optional KFWeapon MyKFW)
+
+static function ModifyDamageGiven(out int InDamage, int DefaultDamage, int upgLevel, optional Actor DamageCauser, optional KFPawn_Monster MyKFPM, optional KFPlayerController DamageInstigator, optional class<KFDamageType> DamageType, optional int HitZoneIdx, optional KFWeapon MyKFW)
 {
-	if (IsWeaponOnSpecificPerk( MyKFW, class'KFgame.KFPerk_Demolitionist') || IsDamageTypeOnSpecificPerk( DamageType, class'KFgame.KFPerk_Demolitionist'))
+	if (IsWeaponOnSpecificPerk(MyKFW, class'KFgame.KFPerk_Demolitionist') || IsDamageTypeOnSpecificPerk(DamageType, class'KFgame.KFPerk_Demolitionist'))
 		InDamage += Round(float(DefaultDamage) * default.Damage * upgLevel);
 	if (DamageType != none && isGrenadeDT(DamageType))
 		InDamage += Round(float(DefaultDamage) * default.GrenadeDamage * upgLevel);
 }
+
 static simulated function ModifySpareGrenadeAmount(out int SpareGrenade, int DefaultSpareGrenade, int upgLevel)
 {
 	SpareGrenade += Min(upgLevel, 4);
 }
 
-static function bool isGrenadeDT( class<KFDamageType> DamageType )
+static function bool isGrenadeDT(class<KFDamageType> DamageType)
 {
-	if ( class< KFDT_Explosive_DynamiteGrenade >(DamageType) != none)
+	if (class< KFDT_Explosive_DynamiteGrenade >(DamageType) != none)
 		return true;
-	if ( class< KFDT_Explosive_FlashBangGrenade >(DamageType) != none)
+	if (class< KFDT_Explosive_FlashBangGrenade >(DamageType) != none)
 		return true;
-	if ( class< KFDT_EMP_EMPGrenade >(DamageType) != none)
+	if (class< KFDT_EMP_EMPGrenade >(DamageType) != none)
 		return true;
-	if ( class< KFDT_Explosive_FragGrenade >(DamageType) != none)
+	if (class< KFDT_Explosive_FragGrenade >(DamageType) != none)
 		return true;
-	if ( class< KFDT_Explosive_HEGrenade >(DamageType) != none)
+	if (class< KFDT_Explosive_HEGrenade >(DamageType) != none)
 		return true;
-	if ( class< KFDT_Healing_MedicGrenade >(DamageType) != none)
+	if (class< KFDT_Healing_MedicGrenade >(DamageType) != none)
 		return true;
-	if ( class< KFDT_Fire_MolotovGrenade >(DamageType) != none)
+	if (class< KFDT_Fire_MolotovGrenade >(DamageType) != none)
 		return true;
-	if ( class< KFDT_Freeze_FreezeGrenade >(DamageType) != none)
+	if (class< KFDT_Freeze_FreezeGrenade >(DamageType) != none)
 		return true;
-	if ( class< KFDT_Explosive_NailBombGrenade >(DamageType) != none)
+	if (class< KFDT_Explosive_NailBombGrenade >(DamageType) != none)
 		return true;
 	return false;
 }
-
 
 defaultproperties
 {

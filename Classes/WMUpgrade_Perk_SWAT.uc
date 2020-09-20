@@ -1,23 +1,24 @@
 Class WMUpgrade_Perk_SWAT extends WMUpgrade_Perk;
-	
+
 var float Damage;
 var float Armor;
 var float MagSize;
 
-static function ModifyDamageGiven( out int InDamage, int DefaultDamage, int upgLevel, optional Actor DamageCauser, optional KFPawn_Monster MyKFPM, optional KFPlayerController DamageInstigator, optional class<KFDamageType> DamageType, optional int HitZoneIdx, optional KFWeapon MyKFW)
+static function ModifyDamageGiven(out int InDamage, int DefaultDamage, int upgLevel, optional Actor DamageCauser, optional KFPawn_Monster MyKFPM, optional KFPlayerController DamageInstigator, optional class<KFDamageType> DamageType, optional int HitZoneIdx, optional KFWeapon MyKFW)
 {
-	if (IsWeaponOnSpecificPerk( MyKFW, class'KFgame.KFPerk_SWAT') || IsDamageTypeOnSpecificPerk( DamageType, class'KFgame.KFPerk_SWAT'))
+	if (IsWeaponOnSpecificPerk(MyKFW, class'KFgame.KFPerk_SWAT') || IsDamageTypeOnSpecificPerk(DamageType, class'KFgame.KFPerk_SWAT'))
 		InDamage += Round(float(DefaultDamage) * default.Damage * upgLevel);
 }
-static function ModifyArmor( out byte MaxArmor, byte DefaultArmor, int upgLevel)
+
+static function ModifyArmor(out byte MaxArmor, byte DefaultArmor, int upgLevel)
 {
 	MaxArmor += Min(Round(float(DefaultArmor) * default.Armor * upgLevel), 150);
 }
-static simulated function ModifyMagSizeAndNumberPassive( out float magazineCapacityFactor, int upgLevel)
+
+static simulated function ModifyMagSizeAndNumberPassive(out float magazineCapacityFactor, int upgLevel)
 {
 	magazineCapacityFactor += default.MagSize * upgLevel;
 }
-
 
 defaultproperties
 {

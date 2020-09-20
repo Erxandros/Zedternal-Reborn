@@ -1,23 +1,24 @@
 Class WMUpgrade_Perk_Gunslinger extends WMUpgrade_Perk
 	config(ZedternalReborn_Upgrade);
-	
+
 var float Damage;
 var float Speed;
 var float Switch;
 
-	
-static function ModifyDamageGiven( out int InDamage, int DefaultDamage, int upgLevel, optional Actor DamageCauser, optional KFPawn_Monster MyKFPM, optional KFPlayerController DamageInstigator, optional class<KFDamageType> DamageType, optional int HitZoneIdx, optional KFWeapon MyKFW)
+static function ModifyDamageGiven(out int InDamage, int DefaultDamage, int upgLevel, optional Actor DamageCauser, optional KFPawn_Monster MyKFPM, optional KFPlayerController DamageInstigator, optional class<KFDamageType> DamageType, optional int HitZoneIdx, optional KFWeapon MyKFW)
 {
-	if (IsWeaponOnSpecificPerk(MyKFW, class'KFgame.KFPerk_Gunslinger') || IsDamageTypeOnSpecificPerk( DamageType, class'KFgame.KFPerk_Gunslinger'))
+	if (IsWeaponOnSpecificPerk(MyKFW, class'KFgame.KFPerk_Gunslinger') || IsDamageTypeOnSpecificPerk(DamageType, class'KFgame.KFPerk_Gunslinger'))
 		InDamage += Round(float(DefaultDamage) * default.Damage * upgLevel);
 }
-static simulated function ModifySpeedPassive( out float speedFactor, int upgLevel)
+
+static simulated function ModifySpeedPassive(out float speedFactor, int upgLevel)
 {
 	speedFactor += default.Speed * upgLevel;
 }
+
 static simulated function ModifyWeaponSwitchTimePassive(out float switchTimeFactor, int upgLevel)
 {
-	switchTimeFactor = 1.f / (1.f/switchTimeFactor + default.Switch);
+	switchTimeFactor = 1.0f / (1.0f / switchTimeFactor + default.Switch);
 }
 
 defaultproperties

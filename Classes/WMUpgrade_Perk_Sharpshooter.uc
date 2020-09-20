@@ -1,24 +1,22 @@
 Class WMUpgrade_Perk_Sharpshooter extends WMUpgrade_Perk
 	config(ZedternalReborn_Upgrade);
-	
+
 var float Damage;
 var float DamageHead;
 var float Recoil;
-	
-static function ModifyDamageGiven( out int InDamage, int DefaultDamage, int upgLevel, optional Actor DamageCauser, optional KFPawn_Monster MyKFPM, optional KFPlayerController DamageInstigator, optional class<KFDamageType> DamageType, optional int HitZoneIdx, optional KFWeapon MyKFW)
+
+static function ModifyDamageGiven(out int InDamage, int DefaultDamage, int upgLevel, optional Actor DamageCauser, optional KFPawn_Monster MyKFPM, optional KFPlayerController DamageInstigator, optional class<KFDamageType> DamageType, optional int HitZoneIdx, optional KFWeapon MyKFW)
 {
-	if (IsWeaponOnSpecificPerk( MyKFW, class'KFgame.KFPerk_Sharpshooter') || IsDamageTypeOnSpecificPerk( DamageType, class'KFgame.KFPerk_Sharpshooter'))
+	if (IsWeaponOnSpecificPerk(MyKFW, class'KFgame.KFPerk_Sharpshooter') || IsDamageTypeOnSpecificPerk(DamageType, class'KFgame.KFPerk_Sharpshooter'))
 		InDamage += Round(float(DefaultDamage) * default.Damage * upgLevel);
 	if (HitZoneIdx == HZI_HEAD)
 		InDamage += Round(float(DefaultDamage) * default.DamageHead * upgLevel);
 }
 
-static simulated function ModifyRecoilPassive( out float recoilFactor, int upgLevel)
+static simulated function ModifyRecoilPassive(out float recoilFactor, int upgLevel)
 {
 	recoilFactor -= default.Recoil * upgLevel;
 }
-
-
 
 defaultproperties
 {
