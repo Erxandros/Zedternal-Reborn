@@ -13,8 +13,8 @@ static function ModifyDamageTaken( out int InDamage, int DefaultDamage, int upgL
 defaultproperties
 {
 	upgradeName="Front Line"
-	upgradeDescription(0)="Increase resistance to your own exlosives 35%. Increase other damage resistances 5%"
-	upgradeDescription(1)="Increase resistance to your own exlosives <font color=\"#b346ea\">75%</font>. Increase other damage resistances <font color=\"#b346ea\">10%</font>"
+	upgradeDescription(0)="Increase resistance to your own explosives by 35%. Increase other damage resistances by 5%"
+	upgradeDescription(1)="Increase resistance to your own explosives by <font color=\"#b346ea\">75%</font>. Increase other damage resistances by <font color=\"#b346ea\">10%</font>"
 	Damage(0)=0.350000;
 	Damage(1)=0.750000;
 	Resistance(0)=0.050000;
