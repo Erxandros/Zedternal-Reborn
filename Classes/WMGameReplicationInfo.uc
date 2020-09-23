@@ -77,7 +77,6 @@ var repnotify WeaponUpgradeRepStruct weaponUpgradeRepArray_16[255];
 
 var repnotify byte bAllTraders;
 var repnotify bool updateSkins;
-var repnotify bool printVersion;
 
 //For Zedternal Reborn Upgrade Menu commands
 var bool bZRUMenuCommand;
@@ -144,7 +143,7 @@ replication
 		weaponUpgradeRepArray_5, weaponUpgradeRepArray_6, weaponUpgradeRepArray_7, weaponUpgradeRepArray_8,
 		weaponUpgradeRepArray_9, weaponUpgradeRepArray_10, weaponUpgradeRepArray_11, weaponUpgradeRepArray_12,
 		weaponUpgradeRepArray_13, weaponUpgradeRepArray_14, weaponUpgradeRepArray_15, weaponUpgradeRepArray_16,
-		bAllTraders, updateSkins, printVersion, bZRUMenuCommand, bZRUMenuAllWave;
+		bAllTraders, updateSkins, bZRUMenuCommand, bZRUMenuAllWave;
 }
 
 simulated event ReplicatedEvent(name VarName)
@@ -358,15 +357,18 @@ simulated event ReplicatedEvent(name VarName)
 			}
 			break;
 
-		case 'printVersion':
-			if (printVersion)
-				class'ZedternalReborn.Config_Base'.static.PrintVersion();
-			break;
-
 		default:
 			super.ReplicatedEvent(VarName);
 			break;
 	}
+}
+
+simulated event PostBeginPlay()
+{
+	super.PostBeginPlay();
+
+	if (WorldInfo.NetMode == NM_Client)
+		class'ZedternalReborn.Config_Base'.static.PrintVersion();
 }
 
 function RepGameInfoWeaponUpgrades(out WeaponUpgradeRepStruct weaponUpgradeRepArray[255], int indexMultiplier)

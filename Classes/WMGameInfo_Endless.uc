@@ -1363,9 +1363,6 @@ function RepGameInfoHighPriority()
 	if (WMGRI == none)
 		return;
 
-	//Print game version
-	WMGRI.printVersion = true;
-
 	//Trader voice
 	WMGRI.TraderVoiceGroupIndex = traderVoiceIndex;
 	if (WorldInfo.NetMode != NM_DedicatedServer)
