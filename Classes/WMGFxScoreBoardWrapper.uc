@@ -26,6 +26,5 @@ exec function SetShowScores(bool show)
 
 defaultproperties
 {
-	ObjectArchetype=KFGFxHudWrapper'KFGame.Default__KFGFxHudWrapper'
 	Name="Default__WMGFxScoreBoardWrapper"
 }

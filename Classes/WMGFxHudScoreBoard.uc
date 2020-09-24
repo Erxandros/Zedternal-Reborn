@@ -479,6 +479,5 @@ event Draw(Canvas ca)
 
 defaultproperties
 {
-	ObjectArchetype=WMGFxScoreBoardStyle'ZedternalReborn.Default__WMGFxScoreBoardStyle'
 	Name="Default__WMGFxHudScoreBoard"
 }

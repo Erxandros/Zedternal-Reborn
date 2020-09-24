@@ -163,6 +163,5 @@ final function DrawRectBox(int X, int Y, int XS, int YS, int Edge, optional byte
 
 defaultproperties
 {
-	ObjectArchetype=Actor'Engine.Default__Actor'
 	Name="Default__WMGFxScoreBoardStyleBase"
 }

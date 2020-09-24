@@ -68,6 +68,5 @@ function float AdjustPlayerNameScaler(float Scaler, byte NameLength, byte FontTy
 defaultproperties
 {
 	MaxFontScale=5
-	ObjectArchetype=WMGFxScoreBoardStyleBase'ZedternalReborn.Default__WMGFxScoreBoardStyleBase'
 	Name="Default__WMGFxScoreBoardStyle"
 }
