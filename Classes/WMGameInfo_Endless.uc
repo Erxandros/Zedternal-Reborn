@@ -1708,9 +1708,9 @@ function RewardSurvivingPlayers()
 
 	PlayerCut = Round(float(class'ZedternalReborn.Config_Game'.default.Game_ExtraDoshPerWavePerPlayer) * float(PlayerCount)) + class'ZedternalReborn.Config_Game'.default.Game_DoshPerWavePerPlayer;
 
-	`log("SCORING: Team dosh earned this round:" @ T.Score);
-	`log("SCORING: Number of surviving players:" @ PlayerCount);
-	`log("SCORING: Dosh/survivng player:" @ PlayerCut);
+	`log("ZR Info: SCORING: Team dosh earned this round:" @ T.Score);
+	`log("ZR Info: SCORING: Number of surviving players:" @ PlayerCount);
+	`log("ZR Info: SCORING: Dosh/survivng player:" @ PlayerCut);
 
 	foreach WorldInfo.AllControllers(class'KFPlayerController', KFPC)
 	{
@@ -1721,7 +1721,7 @@ function RewardSurvivingPlayers()
 			doshNewPlayer += (PlayerCut + perkBonus) / PlayerCount;
 			T.AddScore(-PlayerCut);
 
-			`log("Player" @ KFPC.PlayerReplicationInfo.PlayerName @ "got" @ PlayerCut @ "for surviving the wave");
+			`log("ZR Info: Player" @ KFPC.PlayerReplicationInfo.PlayerName @ "got" @ PlayerCut @ "for surviving the wave");
 		}
 	}
 
