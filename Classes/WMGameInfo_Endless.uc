@@ -1151,34 +1151,17 @@ function CheckForWeaponOverrides(class<KFWeaponDefinition> KFWD, optional int in
 	}
 
 	if (weapDefinitionPath ~= "KFGame.KFWeapDef_Nailgun")
-	{
 		overrideWeapon = class<KFWeaponDefinition>(DynamicLoadObject("ZedternalReborn.WMWeapDef_Nailgun", class'Class'));
-	}
-
 	else if (weapDefinitionPath ~= "KFGame.KFWeapDef_Nailgun_HRG")
-	{
 		overrideWeapon = class<KFWeaponDefinition>(DynamicLoadObject("ZedternalReborn.WMWeapDef_Nailgun_HRG", class'Class'));
-	}
-
 	else if (weapDefinitionPath ~= "KFGame.KFWeapDef_M16M203")
-	{
 		overrideWeapon = class<KFWeaponDefinition>(DynamicLoadObject("ZedternalReborn.WMWeapDef_M16M203", class'Class'));
-	}
-
 	else if (weapDefinitionPath ~= "KFGame.KFWeapDef_HRGIncendiaryRifle")
-	{
 		overrideWeapon = class<KFWeaponDefinition>(DynamicLoadObject("ZedternalReborn.WMWeapDef_HRGIncendiaryRifle", class'Class'));
-	}
-
 	else if (weapDefinitionPath ~= "KFGameContent.KFWeapDef_HRGTeslauncher")
-	{
 		overrideWeapon = class<KFWeaponDefinition>(DynamicLoadObject("ZedternalReborn.WMWeapDef_HRGTeslauncher", class'Class'));
-	}
-
 	else if (weapDefinitionPath ~= "KFGame.KFWeapDef_MedicRifleGrenadeLauncher")
-	{
 		overrideWeapon = class<KFWeaponDefinition>(DynamicLoadObject("ZedternalReborn.WMWeapDef_MedicRifleGrenadeLauncher", class'Class'));
-	}
 
 	if (overrideWeapon != none)
 	{
