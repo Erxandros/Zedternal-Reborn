@@ -1,6 +1,6 @@
 class WMWeap_Shotgun_Nailgun extends KFWeap_Shotgun_Nailgun;
 
-simulated function ConsumeAmmo( byte FireModeNum )
+simulated function ConsumeAmmo(byte FireModeNum)
 {
 	local KFPerk InstigatorPerk;
 
@@ -23,17 +23,18 @@ simulated function ConsumeAmmo( byte FireModeNum )
 /** Returns number of projectiles to fire from SpawnProjectile */
 simulated function byte GetNumProjectilesToFire(byte FireModeNum)
 {
-    local KFPerk InstigatorPerk;
-	
+	local KFPerk InstigatorPerk;
+
 	InstigatorPerk = GetPerk();
-	if( InstigatorPerk != none && InstigatorPerk.GetIsUberAmmoActive( self ) )
+	if(InstigatorPerk != none && InstigatorPerk.GetIsUberAmmoActive(self))
 	{
 		return NumPellets[CurrentFireMode];
 	}
-	
+
 	return super.GetNumProjectilesToFire(FireModeNum);
 }
 
 defaultproperties
 {
+	Name="Default__WMWeap_Shotgun_Nailgun"
 }

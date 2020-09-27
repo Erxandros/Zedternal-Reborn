@@ -13,4 +13,5 @@ static function string GetItemLocalization(string KeyName)
 DefaultProperties
 {
 	WeaponClassPath="ZedternalReborn.WMWeap_HRG_Nailgun"
+	Name="Default__WMWeapDef_Nailgun_HRG"
 }
