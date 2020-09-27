@@ -1,4 +1,4 @@
-class WMWeap_HighExplosive_M16M203_Precious extends KFWeap_AssaultRifle_M16M203;
+class WMWeap_AssaultRifle_M16M203_Precious extends WMWeap_AssaultRifle_M16M203;
 
 defaultproperties
 {
@@ -13,5 +13,5 @@ defaultproperties
 	InstantHitDamage(ALTFIRE_FIREMODE)=288.0 //25% increase (round up)
 	InstantHitDamage(BASH_FIREMODE)=33.0 //25% increase (round up)
 	DroppedPickupClass=class'ZedternalReborn.WMPreciousDroppedPickup'
-	Name="Default__WMWeap_HighExplosive_M16M203_Precious"
+	Name="Default__WMWeap_AssaultRifle_M16M203_Precious"
 }

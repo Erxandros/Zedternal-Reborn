@@ -1160,6 +1160,10 @@ function CheckForWeaponOverrides(class<KFWeaponDefinition> KFWD, optional int in
 		overrideWeapon = class<KFWeaponDefinition>(DynamicLoadObject("ZedternalReborn.WMWeapDef_Nailgun_HRG", class'Class'));
 	}
 
+	else if (weapDefinitionPath ~= "KFGame.KFWeapDef_M16M203")
+	{
+		overrideWeapon = class<KFWeaponDefinition>(DynamicLoadObject("ZedternalReborn.WMWeapDef_M16M203", class'Class'));
+	}
 
 	if (overrideWeapon != none)
 	{
