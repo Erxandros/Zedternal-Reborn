@@ -1,4 +1,4 @@
-class WMWeap_AssaultRifle_HRGTeslauncher_Precious extends KFWeap_AssaultRifle_HRGTeslauncher;
+class WMWeap_AssaultRifle_HRGTeslauncher_Precious extends WMWeap_AssaultRifle_HRGTeslauncher;
 
 defaultproperties
 {
