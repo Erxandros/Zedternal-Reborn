@@ -1,4 +1,4 @@
-class WMWeap_AssaultRifle_HRGIncendiaryRifle_Precious extends KFWeap_AssaultRifle_HRGIncendiaryRifle;
+class WMWeap_AssaultRifle_HRGIncendiaryRifle_Precious extends WMWeap_AssaultRifle_HRGIncendiaryRifle;
 
 defaultproperties
 {
