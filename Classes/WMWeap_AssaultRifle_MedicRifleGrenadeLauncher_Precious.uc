@@ -1,4 +1,4 @@
-class WMWeap_AssaultRifle_MedicRifleGrenadeLauncher_Precious extends KFWeap_AssaultRifle_MedicRifleGrenadeLauncher;
+class WMWeap_AssaultRifle_MedicRifleGrenadeLauncher_Precious extends WMWeap_AssaultRifle_MedicRifleGrenadeLauncher;
 
 defaultproperties
 {

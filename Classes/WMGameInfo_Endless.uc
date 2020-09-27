@@ -1175,6 +1175,11 @@ function CheckForWeaponOverrides(class<KFWeaponDefinition> KFWD, optional int in
 		overrideWeapon = class<KFWeaponDefinition>(DynamicLoadObject("ZedternalReborn.WMWeapDef_HRGTeslauncher", class'Class'));
 	}
 
+	else if (weapDefinitionPath ~= "KFGame.KFWeapDef_MedicRifleGrenadeLauncher")
+	{
+		overrideWeapon = class<KFWeaponDefinition>(DynamicLoadObject("ZedternalReborn.WMWeapDef_MedicRifleGrenadeLauncher", class'Class'));
+	}
+
 	if (overrideWeapon != none)
 	{
 		TraderItemsReplacementHelper(weapDefinitionPath, overrideWeapon, index);
