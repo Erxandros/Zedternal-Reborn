@@ -1235,53 +1235,72 @@ function class<KFWeaponDefinition> ApplyRandomWeaponVariantStartingWeapon(const 
 	local int i, x;
 	local bool bIsDual;
 	local string WeapDefinitionPath;
-	local class<KFWeaponDefinition> WeaponVariantDefClass, WeaponVariantDualDefClass, BaseWeaponDefClass, BaseWeaponDualDefClass;
+	local class<KFWeaponDefinition> WeaponVariantDef, WeaponVariantDualDef, BaseWeaponDef, BaseWeaponDualDef;
+	local class<KFWeapon> BaseWeaponClass;
+	local STraderItem NewVariantDualWeapon;
 
 	if (class<KFWeap_DualBase>(class<KFWeapon>(DynamicLoadObject(KFWD.default.WeaponClassPath, class'Class'))) != none)
 	{
 		bIsDual = true;
-		BaseWeaponDefClass = FindSingleWeaponFromDual(KFWD);
+		BaseWeaponDef = FindSingleWeaponFromDual(KFWD);
 	}
 	else
 	{
 		bIsDual = false;
-		BaseWeaponDefClass = KFWD;
+		BaseWeaponDef = KFWD;
 	}
 
-	WeapDefinitionPath = PathName(BaseWeaponDefClass);
+	WeapDefinitionPath = PathName(BaseWeaponDef);
 
 	for (i = 0; i < class'ZedternalReborn.Config_Weapon'.default.WeaponVariant_VariantList.length; ++i)
 	{
 		if (class'ZedternalReborn.Config_Weapon'.default.WeaponVariant_VariantList[i].WeaponDef ~= WeapDefinitionPath && FRand() <= class'ZedternalReborn.Config_Weapon'.default.WeaponVariant_VariantList[i].Probability)
 		{
-			WeaponVariantDefClass = class<KFWeaponDefinition>(DynamicLoadObject(class'ZedternalReborn.Config_Weapon'.default.WeaponVariant_VariantList[i].WeaponDefVariant, class'Class'));
-			if (WeaponVariantDefClass != none)
+			WeaponVariantDef = class<KFWeaponDefinition>(DynamicLoadObject(class'ZedternalReborn.Config_Weapon'.default.WeaponVariant_VariantList[i].WeaponDefVariant, class'Class'));
+			if (WeaponVariantDef != none)
 			{
-				TraderItemsReplacementHelper(BaseWeaponDefClass, WeaponVariantDefClass, -1, false);
+				TraderItemsReplacementHelper(BaseWeaponDef, WeaponVariantDef, -1, false);
 
+				//Adding dual weapon class to the trader
 				if (class'ZedternalReborn.Config_Weapon'.default.WeaponVariant_VariantList[i].DualWeaponDefVariant != "")
 				{
-					WeaponVariantDualDefClass = class<KFWeaponDefinition>(DynamicLoadObject(class'ZedternalReborn.Config_Weapon'.default.WeaponVariant_VariantList[i].DualWeaponDefVariant, class'Class'));
-					if (WeaponVariantDualDefClass != none)
+					WeaponVariantDualDef = class<KFWeaponDefinition>(DynamicLoadObject(class'ZedternalReborn.Config_Weapon'.default.WeaponVariant_VariantList[i].DualWeaponDefVariant, class'Class'));
+					if (WeaponVariantDualDef != none)
 					{
-						for (x = 0; x < TraderItems.SaleItems.length; ++x)
+						//Check the base weapon to see if it has a dual class, if it does then replace the original dual with the variant dual
+						BaseWeaponClass = class<KFWeapon>(DynamicLoadObject(BaseWeaponDef.default.WeaponClassPath, class'Class'));
+						if (BaseWeaponClass != none && BaseWeaponClass.default.DualClass != none)
 						{
-							if (ClassIsChildOf(WeaponVariantDualDefClass, TraderItems.SaleItems[x].WeaponDef))
+							for (x = 0; x < TraderItems.SaleItems.length; ++x)
 							{
-								BaseWeaponDualDefClass = TraderItems.SaleItems[x].WeaponDef;
-								break;
+								if (PathName(BaseWeaponClass.default.DualClass) ~= TraderItems.SaleItems[x].WeaponDef.default.WeaponClassPath)
+								{
+									BaseWeaponDualDef = TraderItems.SaleItems[x].WeaponDef;
+									break;
+								}
 							}
 						}
 
-						if (BaseWeaponDualDefClass != none)
-							TraderItemsReplacementHelper(BaseWeaponDualDefClass, WeaponVariantDualDefClass, x, false);
+						if (BaseWeaponDualDef != none)
+							TraderItemsReplacementHelper(BaseWeaponDualDef, WeaponVariantDualDef, x, false);
+						else
+						{
+							//Add the dual weapon variant to the end of the TraderItems list
+							NewVariantDualWeapon.WeaponDef = WeaponVariantDualDef;
+							NewVariantDualWeapon.ItemID = TraderItems.SaleItems.Length;
+							TraderItems.SaleItems.AddItem(NewVariantDualWeapon);
+
+							KFWeaponDefPath.AddItem(PathName(NewVariantDualWeapon.WeaponDef)); //for clients
+
+							`log("ZR Info: Added dual weapon variant:"@PathName(WeaponVariantDualDef)@"to the TraderItems");
+						}
 
 						if (bIsDual)
-							return WeaponVariantDualDefClass;
+							return WeaponVariantDualDef;
 					}
 				}
 
-				return WeaponVariantDefClass;
+				return WeaponVariantDef;
 			}
 		}
 	}
@@ -1293,7 +1312,9 @@ function ApplyRandomWeaponVariant(class<KFWeaponDefinition> KFWD, optional int i
 {
 	local int i, x;
 	local string WeapDefinitionPath;
-	local class<KFWeaponDefinition> WeaponVariantDefClass, BaseWeaponDualDefClass;
+	local class<KFWeaponDefinition> WeaponVariantDef, BaseWeaponDualDef;
+	local class<KFWeapon> BaseWeaponClass;
+	local STraderItem NewVariantDualWeapon;
 
 	if (class<KFWeap_DualBase>(class<KFWeapon>(DynamicLoadObject(KFWD.default.WeaponClassPath, class'Class'))) != none)
 		KFWD = FindSingleWeaponFromDual(KFWD);
@@ -1304,28 +1325,44 @@ function ApplyRandomWeaponVariant(class<KFWeaponDefinition> KFWD, optional int i
 	{
 		if (class'ZedternalReborn.Config_Weapon'.default.WeaponVariant_VariantList[i].WeaponDef ~= WeapDefinitionPath && FRand() <= class'ZedternalReborn.Config_Weapon'.default.WeaponVariant_VariantList[i].Probability)
 		{
-			WeaponVariantDefClass = class<KFWeaponDefinition>(DynamicLoadObject(class'ZedternalReborn.Config_Weapon'.default.WeaponVariant_VariantList[i].WeaponDefVariant, class'Class'));
-			if (WeaponVariantDefClass != none)
+			WeaponVariantDef = class<KFWeaponDefinition>(DynamicLoadObject(class'ZedternalReborn.Config_Weapon'.default.WeaponVariant_VariantList[i].WeaponDefVariant, class'Class'));
+			if (WeaponVariantDef != none)
 			{
-				TraderItemsReplacementHelper(KFWD, WeaponVariantDefClass, index);
+				TraderItemsReplacementHelper(KFWD, WeaponVariantDef, index);
 
-				// adding dual weapon class in trader
+				//Adding dual weapon class to the trader
 				if (class'ZedternalReborn.Config_Weapon'.default.WeaponVariant_VariantList[i].DualWeaponDefVariant != "")
 				{
-					WeaponVariantDefClass = class<KFWeaponDefinition>(DynamicLoadObject(class'ZedternalReborn.Config_Weapon'.default.WeaponVariant_VariantList[i].DualWeaponDefVariant, class'Class'));
-					if (WeaponVariantDefClass != none)
+					WeaponVariantDef = class<KFWeaponDefinition>(DynamicLoadObject(class'ZedternalReborn.Config_Weapon'.default.WeaponVariant_VariantList[i].DualWeaponDefVariant, class'Class'));
+					if (WeaponVariantDef != none)
 					{
-						for (x = 0; x < TraderItems.SaleItems.length; ++x)
+						//Check the base weapon to see if it has a dual class, if it does then replace the original dual with the variant dual
+						BaseWeaponClass = class<KFWeapon>(DynamicLoadObject(KFWD.default.WeaponClassPath, class'Class'));
+						if (BaseWeaponClass != none && BaseWeaponClass.default.DualClass != none)
 						{
-							if (ClassIsChildOf(WeaponVariantDefClass, TraderItems.SaleItems[x].WeaponDef))
+							for (x = 0; x < TraderItems.SaleItems.length; ++x)
 							{
-								BaseWeaponDualDefClass = TraderItems.SaleItems[x].WeaponDef;
-								break;
+								if (PathName(BaseWeaponClass.default.DualClass) ~= TraderItems.SaleItems[x].WeaponDef.default.WeaponClassPath)
+								{
+									BaseWeaponDualDef = TraderItems.SaleItems[x].WeaponDef;
+									break;
+								}
 							}
 						}
 
-						if (BaseWeaponDualDefClass != none)
-							TraderItemsReplacementHelper(BaseWeaponDualDefClass, WeaponVariantDefClass, x, false);
+						if (BaseWeaponDualDef != none)
+							TraderItemsReplacementHelper(BaseWeaponDualDef, WeaponVariantDef, x, false);
+						else
+						{
+							//Add the dual weapon variant to the end of the TraderItems list
+							NewVariantDualWeapon.WeaponDef = WeaponVariantDef;
+							NewVariantDualWeapon.ItemID = TraderItems.SaleItems.Length;
+							TraderItems.SaleItems.AddItem(NewVariantDualWeapon);
+
+							KFWeaponDefPath.AddItem(PathName(NewVariantDualWeapon.WeaponDef)); //for clients
+
+							`log("ZR Info: Added dual weapon variant:"@PathName(WeaponVariantDef)@"to the TraderItems");
+						}
 					}
 				}
 
