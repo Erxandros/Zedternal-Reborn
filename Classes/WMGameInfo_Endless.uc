@@ -1116,31 +1116,36 @@ function AddWeaponInTrader(const out class<KFWeaponDefinition> KFWD)
 	}
 }
 
-function string FindSingleWeaponFromDual(const out class<KFWeaponDefinition> KFDW)
+function class<KFWeaponDefinition> FindSingleWeaponFromDual(const out class<KFWeaponDefinition> KFDW)
 {
 	local int i;
 	local string SingleWeaponDef;
+	local class<KFWeaponDefinition> WeaponVariantDefClass;
 	local class<KFWeap_DualBase> KFWeapDual;
 
 	KFWeapDual = class<KFWeap_DualBase>(class<KFWeapon>(DynamicLoadObject(KFDW.default.WeaponClassPath, class'Class')));
 	if (KFWeapDual != none)
 		SingleWeaponDef = PathName(KFWeapDual.default.SingleClass);
 	else
-		return PathName(KFDW);
+		return KFDW;
 
 	for (i = 0; i < TraderItems.SaleItems.Length; ++i)
 	{
 		if (SingleWeaponDef ~= TraderItems.SaleItems[i].WeaponDef.default.WeaponClassPath)
-			return PathName(TraderItems.SaleItems[i].WeaponDef);
+			return TraderItems.SaleItems[i].WeaponDef;
 	}
 
 	for (i = 0; i < class'ZedternalReborn.Config_Weapon'.default.WeaponVariant_VariantList.length; ++i)
 	{
 		if (PathName(KFDW) ~= class'ZedternalReborn.Config_Weapon'.default.WeaponVariant_VariantList[i].DualWeaponDefVariant)
-			return class'ZedternalReborn.Config_Weapon'.default.WeaponVariant_VariantList[i].WeaponDefVariant;
+		{
+			WeaponVariantDefClass = class<KFWeaponDefinition>(DynamicLoadObject(class'ZedternalReborn.Config_Weapon'.default.WeaponVariant_VariantList[i].WeaponDefVariant, class'Class'));
+			if (WeaponVariantDefClass != none)
+				return WeaponVariantDefClass;
+		}
 	}
 
-	return PathName(KFDW);
+	return KFDW;
 }
 
 // To fix broken weapons using our own overrides, like nailguns
@@ -1153,8 +1158,8 @@ function CheckForWeaponOverrides(class<KFWeaponDefinition> KFWD, optional int in
 
 	if (class<KFWeap_DualBase>(class<KFWeapon>(DynamicLoadObject(KFWD.default.WeaponClassPath, class'Class'))) != none)
 	{
-		weapDefinitionPath = FindSingleWeaponFromDual(KFWD);
-		KFWD = class<KFWeaponDefinition>(DynamicLoadObject(weapDefinitionPath, class'Class'));
+		KFWD = FindSingleWeaponFromDual(KFWD);
+		weapDefinitionPath = PathName(KFWD);
 	}
 
 	if (weapDefinitionPath ~= "KFGame.KFWeapDef_Nailgun")
@@ -1238,7 +1243,7 @@ function class<KFWeaponDefinition> ApplyRandomWeaponVariantStartingWeapon(const 
 	if (class<KFWeap_DualBase>(class<KFWeapon>(DynamicLoadObject(KFWD.default.WeaponClassPath, class'Class'))) != none)
 	{
 		bIsDual = true;
-		weapDefinitionPath = FindSingleWeaponFromDual(KFWD);
+		weapDefinitionPath = PathName(FindSingleWeaponFromDual(KFWD));
 	}
 	else
 	{
@@ -1291,7 +1296,7 @@ function ApplyRandomWeaponVariant(string weapDefinitionPath, optional int index 
 
 	KFWeaponDefClass = class<KFWeaponDefinition>(DynamicLoadObject(weapDefinitionPath, class'Class'));
 	if (class<KFWeap_DualBase>(class<KFWeapon>(DynamicLoadObject(KFWeaponDefClass.default.WeaponClassPath, class'Class'))) != none)
-		weapDefinitionPath = FindSingleWeaponFromDual(KFWeaponDefClass);
+		weapDefinitionPath = PathName(FindSingleWeaponFromDual(KFWeaponDefClass));
 
 	KFWeaponDefClass = none;
 
