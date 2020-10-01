@@ -952,14 +952,19 @@ function InitializeStaticAndStartingWeapons()
 	{
 		KFWeaponDefClass = class<KFWeaponDefinition>(DynamicLoadObject(class'ZedternalReborn.Config_Weapon'.default.Weapon_PlayerStartingWeaponDefList[i], class'Class'));
 		if (KFWeaponDefClass != none)
-		{
-			if (class'ZedternalReborn.Config_Weapon'.default.WeaponVariant_bAllowWeaponVariant)
-				StartingWeaponList.AddItem(ApplyRandomWeaponVariantStartingWeapon(KFWeaponDefClass));
-			else
-				StartingWeaponList.AddItem(KFWeaponDefClass);
-		}
+			StartingWeaponList.AddItem(KFWeaponDefClass);
 		else
 			`log("ZR Warning: Starting weapon"@class'ZedternalReborn.Config_Weapon'.default.Weapon_PlayerStartingWeaponDefList[i]@"does not exist, please check spelling or make sure the workshop item is correctly installed");
+	}
+}
+
+function CheckForStartingWeaponVariants()
+{
+	local int i;
+
+	for (i = 0; i < StartingWeaponList.Length; ++i)
+	{
+		StartingWeaponList[i] = ApplyRandomWeaponVariantStartingWeapon(StartingWeaponList[i]);
 	}
 }
 
@@ -971,11 +976,13 @@ function BuildWeaponList()
 	local class<KFWeaponDefinition> KFWeaponDefClass;
 	local array< int > tempList;
 
-	weaponIndex = InitializeTraderItems();
-	InitializeStaticAndStartingWeapons();
-
 	//get WeaponVariant Probability/Allowed
 	bAllowWeaponVariant = class'ZedternalReborn.Config_Weapon'.default.WeaponVariant_bAllowWeaponVariant;
+
+	InitializeStaticAndStartingWeapons();
+	weaponIndex = InitializeTraderItems();
+	if (bAllowWeaponVariant)
+		CheckForStartingWeaponVariants();
 
 	////////////////////////
 	// Create weapon list //
@@ -1221,12 +1228,12 @@ function bool IsWeaponDefCanBeRandom(const Class<KFWeaponDefinition> KFWepDef)
 	return true;
 }
 
-function class<KFWeaponDefinition> ApplyRandomWeaponVariantStartingWeapon(const out class<KFWeaponDefinition> KFWD)
+function class<KFWeaponDefinition> ApplyRandomWeaponVariantStartingWeapon(const class<KFWeaponDefinition> KFWD)
 {
-	local int i;
+	local int i, x;
 	local bool bIsDual;
 	local string weapDefinitionPath;
-	local class<KFWeaponDefinition> KFWeaponDefClass;
+	local class<KFWeaponDefinition> KFWeaponDefClass, KFWeaponDualDefClass;
 
 	if (class<KFWeap_DualBase>(class<KFWeapon>(DynamicLoadObject(KFWD.default.WeaponClassPath, class'Class'))) != none)
 	{
@@ -1240,21 +1247,37 @@ function class<KFWeaponDefinition> ApplyRandomWeaponVariantStartingWeapon(const 
 	}
 
 	KFWeaponDefClass = none;
+	KFWeaponDualDefClass = none;
 
 	for (i = 0; i < class'ZedternalReborn.Config_Weapon'.default.WeaponVariant_VariantList.length; ++i)
 	{
 		if (class'ZedternalReborn.Config_Weapon'.default.WeaponVariant_VariantList[i].WeaponDef ~= weapDefinitionPath && FRand() <= class'ZedternalReborn.Config_Weapon'.default.WeaponVariant_VariantList[i].Probability)
 		{
-			if (bIsDual && class'ZedternalReborn.Config_Weapon'.default.WeaponVariant_VariantList[i].DualWeaponDefVariant != "")
-			{
-				KFWeaponDefClass = class<KFWeaponDefinition>(DynamicLoadObject(class'ZedternalReborn.Config_Weapon'.default.WeaponVariant_VariantList[i].DualWeaponDefVariant, class'Class'));
-				if (KFWeaponDefClass != none)
-					return KFWeaponDefClass;
-			}
-
 			KFWeaponDefClass = class<KFWeaponDefinition>(DynamicLoadObject(class'ZedternalReborn.Config_Weapon'.default.WeaponVariant_VariantList[i].WeaponDefVariant, class'Class'));
 			if (KFWeaponDefClass != none)
+			{
+				TraderItemsReplacementHelper(weapDefinitionPath, KFWeaponDefClass, -1, false);
+
+				if (class'ZedternalReborn.Config_Weapon'.default.WeaponVariant_VariantList[i].DualWeaponDefVariant != "")
+				{
+					KFWeaponDualDefClass = class<KFWeaponDefinition>(DynamicLoadObject(class'ZedternalReborn.Config_Weapon'.default.WeaponVariant_VariantList[i].DualWeaponDefVariant, class'Class'));
+					if (KFWeaponDualDefClass != none)
+					{
+						for (x = 0; x < TraderItems.SaleItems.length; ++x)
+						{
+							if (ClassIsChildOf(KFWeaponDualDefClass, TraderItems.SaleItems[x].WeaponDef))
+								break;
+						}
+
+						TraderItemsReplacementHelper(PathName(TraderItems.SaleItems[x].WeaponDef), KFWeaponDualDefClass, x, false);
+
+						if (bIsDual)
+							return KFWeaponDualDefClass;
+					}
+				}
+
 				return KFWeaponDefClass;
+			}
 		}
 	}
 
