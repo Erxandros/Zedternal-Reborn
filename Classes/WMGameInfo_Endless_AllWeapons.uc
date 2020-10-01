@@ -35,7 +35,7 @@ function BuildWeaponList()
 	for (i = 0; i < StaticWeaponList.length; ++i)
 	{
 		if (bAllowWeaponVariant)
-			ApplyRandomWeaponVariant(PathName(StaticWeaponList[i]));
+			ApplyRandomWeaponVariant(StaticWeaponList[i]);
 		else
 			CheckForWeaponOverrides(StaticWeaponList[i]);
 	}
@@ -47,7 +47,7 @@ function BuildWeaponList()
 		if (KFWeaponDefClass != none)
 		{
 			if (bAllowWeaponVariant)
-				ApplyRandomWeaponVariant(PathName(TraderItems.SaleItems[weaponIndex[i]].WeaponDef), weaponIndex[i]);
+				ApplyRandomWeaponVariant(TraderItems.SaleItems[weaponIndex[i]].WeaponDef, weaponIndex[i]);
 			else
 				CheckForWeaponOverrides(TraderItems.SaleItems[weaponIndex[i]].WeaponDef, weaponIndex[i]);
 		}
