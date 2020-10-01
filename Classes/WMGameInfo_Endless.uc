@@ -1174,7 +1174,7 @@ function CheckForWeaponOverrides(class<KFWeaponDefinition> KFWD, optional int in
 
 	if (OverrideWeapon != none)
 	{
-		TraderItemsReplacementHelper(WeapDefinitionPath, OverrideWeapon, index);
+		TraderItemsReplacementHelper(KFWD, OverrideWeapon, index);
 		return;
 	}
 
@@ -1235,18 +1235,20 @@ function class<KFWeaponDefinition> ApplyRandomWeaponVariantStartingWeapon(const 
 	local int i, x;
 	local bool bIsDual;
 	local string WeapDefinitionPath;
-	local class<KFWeaponDefinition> WeaponVariantDefClass, WeaponVariantDualDefClass;
+	local class<KFWeaponDefinition> WeaponVariantDefClass, WeaponVariantDualDefClass, BaseWeaponDefClass, BaseWeaponDualDefClass;
 
 	if (class<KFWeap_DualBase>(class<KFWeapon>(DynamicLoadObject(KFWD.default.WeaponClassPath, class'Class'))) != none)
 	{
 		bIsDual = true;
-		WeapDefinitionPath = PathName(FindSingleWeaponFromDual(KFWD));
+		BaseWeaponDefClass = FindSingleWeaponFromDual(KFWD);
 	}
 	else
 	{
 		bIsDual = false;
-		WeapDefinitionPath = PathName(KFWD);
+		BaseWeaponDefClass = KFWD;
 	}
+
+	WeapDefinitionPath = PathName(BaseWeaponDefClass);
 
 	for (i = 0; i < class'ZedternalReborn.Config_Weapon'.default.WeaponVariant_VariantList.length; ++i)
 	{
@@ -1255,7 +1257,7 @@ function class<KFWeaponDefinition> ApplyRandomWeaponVariantStartingWeapon(const 
 			WeaponVariantDefClass = class<KFWeaponDefinition>(DynamicLoadObject(class'ZedternalReborn.Config_Weapon'.default.WeaponVariant_VariantList[i].WeaponDefVariant, class'Class'));
 			if (WeaponVariantDefClass != none)
 			{
-				TraderItemsReplacementHelper(WeapDefinitionPath, WeaponVariantDefClass, -1, false);
+				TraderItemsReplacementHelper(BaseWeaponDefClass, WeaponVariantDefClass, -1, false);
 
 				if (class'ZedternalReborn.Config_Weapon'.default.WeaponVariant_VariantList[i].DualWeaponDefVariant != "")
 				{
@@ -1265,10 +1267,14 @@ function class<KFWeaponDefinition> ApplyRandomWeaponVariantStartingWeapon(const 
 						for (x = 0; x < TraderItems.SaleItems.length; ++x)
 						{
 							if (ClassIsChildOf(WeaponVariantDualDefClass, TraderItems.SaleItems[x].WeaponDef))
+							{
+								BaseWeaponDualDefClass = TraderItems.SaleItems[x].WeaponDef;
 								break;
+							}
 						}
 
-						TraderItemsReplacementHelper(PathName(TraderItems.SaleItems[x].WeaponDef), WeaponVariantDualDefClass, x, false);
+						if (BaseWeaponDualDefClass != none)
+							TraderItemsReplacementHelper(BaseWeaponDualDefClass, WeaponVariantDualDefClass, x, false);
 
 						if (bIsDual)
 							return WeaponVariantDualDefClass;
@@ -1287,7 +1293,7 @@ function ApplyRandomWeaponVariant(class<KFWeaponDefinition> KFWD, optional int i
 {
 	local int i, x;
 	local string WeapDefinitionPath;
-	local class<KFWeaponDefinition> WeaponVariantDefClass;
+	local class<KFWeaponDefinition> WeaponVariantDefClass, BaseWeaponDualDefClass;
 
 	if (class<KFWeap_DualBase>(class<KFWeapon>(DynamicLoadObject(KFWD.default.WeaponClassPath, class'Class'))) != none)
 		KFWD = FindSingleWeaponFromDual(KFWD);
@@ -1301,7 +1307,7 @@ function ApplyRandomWeaponVariant(class<KFWeaponDefinition> KFWD, optional int i
 			WeaponVariantDefClass = class<KFWeaponDefinition>(DynamicLoadObject(class'ZedternalReborn.Config_Weapon'.default.WeaponVariant_VariantList[i].WeaponDefVariant, class'Class'));
 			if (WeaponVariantDefClass != none)
 			{
-				TraderItemsReplacementHelper(WeapDefinitionPath, WeaponVariantDefClass, index);
+				TraderItemsReplacementHelper(KFWD, WeaponVariantDefClass, index);
 
 				// adding dual weapon class in trader
 				if (class'ZedternalReborn.Config_Weapon'.default.WeaponVariant_VariantList[i].DualWeaponDefVariant != "")
@@ -1312,10 +1318,14 @@ function ApplyRandomWeaponVariant(class<KFWeaponDefinition> KFWD, optional int i
 						for (x = 0; x < TraderItems.SaleItems.length; ++x)
 						{
 							if (ClassIsChildOf(WeaponVariantDefClass, TraderItems.SaleItems[x].WeaponDef))
+							{
+								BaseWeaponDualDefClass = TraderItems.SaleItems[x].WeaponDef;
 								break;
+							}
 						}
 
-						TraderItemsReplacementHelper(PathName(TraderItems.SaleItems[x].WeaponDef), WeaponVariantDefClass, x, false);
+						if (BaseWeaponDualDefClass != none)
+							TraderItemsReplacementHelper(BaseWeaponDualDefClass, WeaponVariantDefClass, x, false);
 					}
 				}
 
@@ -1327,7 +1337,7 @@ function ApplyRandomWeaponVariant(class<KFWeaponDefinition> KFWD, optional int i
 	CheckForWeaponOverrides(KFWD, index);
 }
 
-function TraderItemsReplacementHelper(string OldWeaponDefPath, const out class<KFWeaponDefinition> NewWeaponDefClass, optional int index = -1, optional bool putInTrader = true)
+function TraderItemsReplacementHelper(const out class<KFWeaponDefinition> OldWeaponDefClass, const out class<KFWeaponDefinition> NewWeaponDefClass, optional int index = -1, optional bool putInTrader = true)
 {
 	local int i;
 	local STraderItem newWeapon;
@@ -1336,7 +1346,7 @@ function TraderItemsReplacementHelper(string OldWeaponDefPath, const out class<K
 	{
 		for (i = 0; i < TraderItems.SaleItems.length; ++i)
 		{
-			if (PathName(TraderItems.SaleItems[i].WeaponDef) ~= OldWeaponDefPath)
+			if (PathName(TraderItems.SaleItems[i].WeaponDef) ~= PathName(OldWeaponDefClass))
 				break;
 		}
 	}
@@ -1353,7 +1363,7 @@ function TraderItemsReplacementHelper(string OldWeaponDefPath, const out class<K
 	KFWeaponDefPath[i] = PathName(newWeapon.WeaponDef); //for clients
 
 	// log
-	`log("ZR Info: Replace weapon variant:"@OldWeaponDefPath@"=>"@PathName(NewWeaponDefClass));
+	`log("ZR Info: Replace weapon variant:"@PathName(OldWeaponDefClass)@"=>"@PathName(NewWeaponDefClass));
 }
 
 function SelectRandomTraderVoice()
