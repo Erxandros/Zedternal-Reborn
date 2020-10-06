@@ -7,8 +7,8 @@ function Killed(Controller Killer, Controller KilledPlayer, Pawn KilledPawn, cla
 	local KFPawn_Monster KFPM, newKFPM1, newKFPM2;
 
 	KFPM = KFPawn_Monster(KilledPawn);
-	if (Killer != none && KFPM != none && (KFPM.IntendedBodyScale >= class'ZedternalReborn.WMSpecialWave_TinyTerror'.default.ZedScale
-		|| !CheckZedBodyChange(KFPM)))
+	if (Killer != none && KFPM != none && KFPM.MyKFAIC != none &&
+		(KFPM.IntendedBodyScale >= class'ZedternalReborn.WMSpecialWave_TinyTerror'.default.ZedScale || !CheckZedBodyChange(KFPM)))
 	{
 		if (Rand(2) == 1)
 		{
