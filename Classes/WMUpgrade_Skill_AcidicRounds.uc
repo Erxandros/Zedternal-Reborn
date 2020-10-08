@@ -1,21 +1,23 @@
-Class WMUpgrade_Skill_AcidicRounds extends WMUpgrade_Skill;
-	
+class WMUpgrade_Skill_AcidicRounds extends WMUpgrade_Skill;
+
+var const class<KFDamageType> KFDT;
+
 var float maxProbability;
 var float maxDamage;
 var array<float> damageFactor;
-	
-static function ModifyDamageGiven( out int InDamage, int DefaultDamage, int upgLevel, optional Actor DamageCauser, optional KFPawn_Monster MyKFPM, optional KFPlayerController DamageInstigator, optional class<KFDamageType> DamageType, optional int HitZoneIdx, optional KFWeapon MyKFW)
+
+static function ModifyDamageGiven(out int InDamage, int DefaultDamage, int upgLevel, optional Actor DamageCauser, optional KFPawn_Monster MyKFPM, optional KFPlayerController DamageInstigator, optional class<KFDamageType> DamageType, optional int HitZoneIdx, optional KFWeapon MyKFW)
 {
-	if (DamageType != none && DamageType != Class'ZedternalReborn.WMDT_AcidicRounds_DoT' && DamageInstigator != none && MyKFPM != none && !MyKFPM.bIsPoisoned && FRand() < (float(DefaultDamage) * default.maxProbability / default.maxDamage))
+	if (DamageType != none && DamageType != default.KFDT && DamageInstigator != none && MyKFPM != none && !MyKFPM.bIsPoisoned && FRand() < (float(DefaultDamage) * default.maxProbability / default.maxDamage))
 	{
 		//add poison effects on zed
-		MyKFPM.ApplyDamageOverTime(int(float(DefaultDamage)*default.damageFactor[upgLevel-1]), DamageInstigator, Class'ZedternalReborn.WMDT_AcidicRounds_DoT');
+		MyKFPM.ApplyDamageOverTime(int(float(DefaultDamage) * default.damageFactor[upgLevel - 1]), DamageInstigator, default.KFDT);
 	}
 }
 
-
 defaultproperties
 {
+	KFDT=class'ZedternalReborn.WMDT_AcidicRounds_DoT'
 	upgradeName="Acidic Rounds"
 	upgradeDescription(0)="<font color=\"#eaeff7\">All weapons</font> can poison ZEDs, inflicting poison damage over time"
 	upgradeDescription(1)="<font color=\"#eaeff7\">All weapons</font> can poison ZEDs, inflicting <font color=\"#b346ea\">high</font> poison damage over time"
