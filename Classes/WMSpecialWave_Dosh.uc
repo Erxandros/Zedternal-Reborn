@@ -5,23 +5,29 @@ var float MaxDoshVelocity;
 function Killed(Controller Killer, Controller KilledPlayer, Pawn KilledPawn, class<DamageType> DT)
 {
 	local KFDroppedPickup_Cash KFDP;
+	local KFInventory_Money KFIM;
 	local vector Vel;
 	local int i, HealthValue;
 
 	HealthValue = KFPawn_Monster(KilledPawn).default.Health;
-	for (i=0;i<=HealthValue;i+=125)
+	for (i = 0; i <= HealthValue; i += 125)
 	{
-		KFDP = Spawn(Class'KFGame.KFDroppedPickup_Cash',Killer,, KilledPawn.Location,,,true);
-		KFDP.SetPhysics(PHYS_Falling);
-		Vel.X = MaxDoshVelocity*(fRand()-0.500000);
-		Vel.Y = MaxDoshVelocity*(fRand()-0.500000);
-		Vel.Z = MaxDoshVelocity*(0.500000*fRand()+0.500000);
-		KFDP.Velocity = Vel;
-		KFDP.Inventory = none;
-		KFDP.InventoryClass = class'KFGameContent.KFInventory_Money';
-		KFDP.SetPickupMesh(class'KFGameContent.KFInventory_Money'.default.DroppedPickupMesh);
-		KFDP.SetPickupParticles(class'KFGameContent.KFInventory_Money'.default.DroppedPickupParticles);
-		KFDP.CashAmount = 2;
+		KFDP = Spawn(class'KFGame.KFDroppedPickup_Cash', Killer, , KilledPawn.Location, , , true);
+		KFIM = Spawn(class'KFGameContent.KFInventory_Money');
+		if (KFDP != none && KFIM != none)
+		{
+			Vel.X = MaxDoshVelocity * (fRand() - 0.5f);
+			Vel.Y = MaxDoshVelocity * (fRand() - 0.5f);
+			Vel.Z = MaxDoshVelocity * (0.5f * fRand() + 0.5f);
+
+			KFDP.SetPhysics(PHYS_Falling);
+			KFDP.Velocity = Vel;
+			KFDP.Inventory = KFIM;
+			KFDP.InventoryClass = KFIM.class;
+			KFDP.SetPickupMesh(KFIM.default.DroppedPickupMesh);
+			KFDP.SetPickupParticles(KFIM.default.DroppedPickupParticles);
+			KFDP.CashAmount = 2;
+		}
 	}
 }
 
