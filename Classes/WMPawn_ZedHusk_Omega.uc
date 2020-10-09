@@ -107,30 +107,6 @@ function ANIMNOTIFY_HuskRandomFireballAttack()
 	}
 }
 
-/** AnimNotify which launches the fireball projectile */
-function simulated ANIMNOTIFY_HuskFireballAttack()
-{
-	local KFAIController_ZedHusk HuskAIC;
-	local KFSM_Husk_FireballAttack FireballSM;
-
-	if (MyKFAIC != None)
-	{
-		HuskAIC = KFAIController_ZedHusk(MyKFAIC);
-		FireballSM = KFSM_Husk_FireBallAttack(SpecialMoves[SpecialMove]);
-		if (HuskAIC != None)
-		{
-			HuskAIC.ShootFireball(Fireballclass,FireballSM.GetFireOffset());
-		}
-
-		FireballSM = KFSM_Husk_FireBallAttack(SpecialMoves[SpecialMove]);
-		if (FireballSM != None)
-		{
-			FireballSM.NotifyFireballFired();
-		}
-	}
-}
-
-
 /** Called when husk backpack is exploded or when husk suicides */
 function TriggerExplosion(optional bool bIgnoreHumans)
 {
