@@ -89,7 +89,7 @@ function bool ShouldSprint()
 
 function ShootRandomFireball(class<KFProj_Husk_Fireball> FireballClass)
 {
-	local vector		SocketLocation, DirToEnemy;
+	local vector SocketLocation, DirToEnemy;
 	local KFProj_Husk_Fireball MyFireball;
 	local vector randVectorDraw;
 	local KFPawn_ZedHusk MyHuskPawn;
@@ -99,23 +99,23 @@ function ShootRandomFireball(class<KFProj_Husk_Fireball> FireballClass)
 		return;
 	}
 
-	SocketLocation = MyKFPawn.GetPawnViewLocation();// + (FireballOffset >> Pawn.GetViewRotation());
+	SocketLocation = MyKFPawn.GetPawnViewLocation();
 	if (Role == ROLE_Authority)
 	{
-		randVectorDraw.X = FRand()*2.f-1.f;
-		randVectorDraw.Y = FRand()*2.f-1.f;
-		randVectorDraw.Z = FRand()+0.100000;
+		randVectorDraw.X = FRand() * 2.0f - 1.0f;
+		randVectorDraw.Y = FRand() * 2.0f - 1.0f;
+		randVectorDraw.Z = FRand() + 0.1f;
 		DirToEnemy = normal(randVectorDraw);
 
 		MyHuskPawn = KFPawn_ZedHusk(MyKFPawn);
 
 		// Shoot the fireball
-		MyFireball = Spawn(FireballClass, MyKFPawn,, SocketLocation, Rotator(DirToEnemy));
-		MyFireball.Instigator			= MyKFPawn;
-		MyFireball.InstigatorController	= self;
+		MyFireball = Spawn(FireballClass, MyKFPawn, , SocketLocation, Rotator(DirToEnemy));
+		MyFireball.Instigator = MyKFPawn;
+		MyFireball.InstigatorController = self;
 
 		// Set our difficulty setings
-		MyFireball.ExplosionTemplate.MomentumTransferScale = MyHuskPawn.FireballSettings.ExplosionMomentum*0.500000;
+		MyFireball.ExplosionTemplate.MomentumTransferScale = MyHuskPawn.FireballSettings.ExplosionMomentum * 0.5f;
 		MyFireball.bSpawnGroundFire = false;
 
 		// Fire
@@ -125,7 +125,7 @@ function ShootRandomFireball(class<KFProj_Husk_Fireball> FireballClass)
 
 function ShootFireballB(class<KFProj_Husk_Fireball> FireballClass, vector FireballOffset)
 {
-	local vector		SocketLocation, DirToEnemy;
+	local vector SocketLocation, DirToEnemy;
 	local KFProj_Husk_Fireball MyFireball;
 	local Vector AimLocation, GroundAimLocation;
 	local float SplashAimChance;
@@ -139,15 +139,13 @@ function ShootFireballB(class<KFProj_Husk_Fireball> FireballClass, vector Fireba
 	}
 
 	SocketLocation = MyKFPawn.GetPawnViewLocation() + (FireballOffset >> Pawn.GetViewRotation());
-	if (MyKFPawn.Health > 0.f && Role == ROLE_Authority)
+	if (MyKFPawn.Health > 0.0f && Role == ROLE_Authority)
 	{
 		AimLocation = Enemy.Location;
 
-		SplashAimChance = 0.600000;
+		SplashAimChance = 0.6f;
 
 		randDraw = FRand();
-
-		if (!class'Engine'.static.GetEngine().bDIsableAILogging && self!= None) { self.AILog_Internal(GetFuncName() @ " SplashAimChance: " @ SplashAimChance @ " randDraw: " @ randDraw,'FireBall'); };
 
 		if (randDraw < SplashAimChance)
 		{
@@ -163,18 +161,17 @@ function ShootFireballB(class<KFProj_Husk_Fireball> FireballClass, vector Fireba
 		randVectorDraw = VRand();
 		DirToEnemy = normal(AimLocation - SocketLocation) + randVectorDraw * FireballAimError;
 
-		DirToEnemy.Z = 1.100000+FRand()*0.300000;
-		DirToEnemy.X += FRand()*0.200000-0.100000;
-		DirToEnemy.Y += FRand()*0.200000-0.100000;
+		DirToEnemy.Z = 1.1f + FRand() * 0.3f;
+		DirToEnemy.X += FRand() * 0.2f - 0.1f;
+		DirToEnemy.Y += FRand() * 0.2f - 0.1f;
 		DirToEnemy = normal(DirToEnemy);
 
-		//DrawDebugLine(SocketLocation, SocketLocation + DirToEnemy * 5000.0, 255, 0, 0, true);
 		MyHuskPawn = KFPawn_ZedHusk(MyKFPawn);
 
 		// Shoot the fireball
 		MyFireball = Spawn(FireballClass, MyKFPawn,, SocketLocation, Rotator(DirToEnemy));
-		MyFireball.Instigator			= MyKFPawn;
-		MyFireball.InstigatorController	= self;
+		MyFireball.Instigator = MyKFPawn;
+		MyFireball.InstigatorController = self;
 
 		// Set our difficulty setings
 		MyFireball.ExplosionTemplate.MomentumTransferScale = MyHuskPawn.FireballSettings.ExplosionMomentum;
