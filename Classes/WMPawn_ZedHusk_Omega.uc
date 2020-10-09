@@ -1,5 +1,8 @@
 class WMPawn_ZedHusk_Omega extends WMPawn_ZedHusk_NoDAR;
 
+var const AnimSet FireballBarrage;
+var const KFPawnAnimInfo HuskOmegaAnimArch;
+
 var int nbProjSuicide;
 var class<KFProj_Husk_Fireball> SuicideFireballclass;
 
@@ -16,9 +19,9 @@ static function string GetLocalizedName()
 simulated function PostBeginPlay()
 {
 	IntendedBodyScale = 1.140000;
-	ZedArch = class'Zed_Arch_HuskOmega'.static.GetArch(WorldInfo);
-	if (ZedArch != None)
-		updateArch();
+	Mesh.AnimSets.AddItem(default.FireballBarrage);
+	PawnAnimInfo = default.HuskOmegaAnimArch;
+	UpdateGameplayMICParams();
 
 	if (WorldInfo.NetMode != NM_DedicatedServer)
 		ApplySpecialFX();
@@ -58,19 +61,6 @@ simulated function EndSpecialFX()
 	if (SpecialFXPSCs[1] != None && SpecialFXPSCs[1].bIsActive)
 	{
 		SpecialFXPSCs[1].DeactivateSystem();
-	}
-}
-simulated function updateArch()
-{
-	ZedArch = class'Zed_Arch_HuskOmega'.Static.GetArch(WorldInfo);
-	if (ZedArch != None)
-	{
-		Mesh.AnimSets = ZedArch.zedClientArch.AnimSets;
-		Mesh.SetAnimTreeTemplate(ZedArch.zedClientArch.AnimTreeTemplate);
-		PawnAnimInfo = ZedArch.zedClientArch.AnimArchetype;
-
-		// update texture effects
-		UpdateGameplayMICParams();
 	}
 }
 
@@ -232,6 +222,9 @@ defaultproperties
 
 	omegaColor=(R=0.500000,G=0.250000,B=1.000000)
 	omegaFresnelColor=(R=0.400000,G=0.250000,B=0.700000)
+
+	FireballBarrage=AnimSet'ZedternalReborn_Zeds.Husk_Omega_Anim_Master'
+	HuskOmegaAnimArch=KFPawnAnimInfo'ZedternalReborn_Zeds.Husk_Omega_AnimGroup'
 
 	DifficultySettings=class'ZedternalReborn.WMDifficulty_Husk_Omega'
 	LocalizationKey="WMPawn_ZedHusk_Omega"
