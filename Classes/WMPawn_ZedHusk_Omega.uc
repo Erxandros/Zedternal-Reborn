@@ -122,6 +122,8 @@ function TriggerExplosion(optional bool bIgnoreHumans)
 	if (!bHasExploded && (!bPlayedDeath || bExplodeOnDeath))
 	{
 		OldController = Controller;
+		bHasExploded = True;
+		bHasSuicideExploded = !bIgnoreHumans;
 
 		if (Role == ROLE_Authority)
 		{
@@ -140,22 +142,22 @@ function TriggerExplosion(optional bool bIgnoreHumans)
 				{
 					ExplosionTemplate.ActorclassToIgnoreForDamage = class'KFPawn_Human';
 				}
+				else
+				{
+					ExplosionTemplate.ActorClassToIgnoreForDamage = None;
+				}
 
 				ExploActor.Explode(ExplosionTemplate, vect(0,0,1));
 			}
 
-			//Make ground on fire if husk commits suicide
-			//if (HitZones[BackpackZoneIndex].GoreHealth>0)
-			//{
-				HuskAIC = WMAIController_ZedHusk_Omega(MyKFAIC);
-				if (!bIgnoreHumans && MyKFAIC != None && HuskAIC != None)
+			HuskAIC = WMAIController_ZedHusk_Omega(MyKFAIC);
+			if (!bIgnoreHumans && MyKFAIC != None && HuskAIC != None)
+			{
+				for (i = 0; i < nbProjSuicide; ++i)
 				{
-					for (i=0;i<nbProjSuicide;i+=1)
-					{
-						HuskAIC.ShootRandomFireball(SuicideFireballclass);
-					}
+					HuskAIC.ShootRandomFireball(SuicideFireballclass);
 				}
-			//}
+			}
 
 			// Make sure we're dead!
 			if (!bPlayedDeath || bExplodeOnDeath)
@@ -165,8 +167,6 @@ function TriggerExplosion(optional bool bIgnoreHumans)
 		}
 
 		OnExploded(OldController);
-
-		bHasExploded = True;
 	}
 }
 
