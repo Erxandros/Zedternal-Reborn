@@ -2,11 +2,9 @@ class WMPawn_ZedHusk_Omega extends WMPawn_ZedHusk_NoDAR;
 
 var const AnimSet FireballBarrage;
 var const KFPawnAnimInfo HuskOmegaAnimArch;
+var const class<KFProj_Husk_Fireball> SuicideFireballClass;
+var const int ProjSuicideAmount;
 
-var int nbProjSuicide;
-var class<KFProj_Husk_Fireball> SuicideFireballclass;
-
-var transient Zed_Arch_HuskOmega ZedArch;
 var transient ParticleSystemComponent SpecialFXPSCs[2];
 var float ExtraResistance;
 var linearColor omegaColor, omegaFresnelColor;
@@ -153,7 +151,7 @@ function TriggerExplosion(optional bool bIgnoreHumans)
 			HuskAIC = WMAIController_ZedHusk_Omega(MyKFAIC);
 			if (!bIgnoreHumans && MyKFAIC != None && HuskAIC != None)
 			{
-				for (i = 0; i < nbProjSuicide; ++i)
+				for (i = 0; i < ProjSuicideAmount; ++i)
 				{
 					HuskAIC.ShootRandomFireball(SuicideFireballclass);
 				}
@@ -178,67 +176,37 @@ simulated event bool UsePlayerControlledZedSkin()
 defaultproperties
 {
 	ParryResistance=3
-	SuicideFireballclass=class'ZedternalReborn.WMProj_Husk_Fireball_Suicide'
-	Begin Object Name=MeleeHelper_0 Archetype=KFMeleeHelperAI'KFGame.Default__KFPawn_Monster:MeleeHelper_0'
-		BaseDamage=20.000000
-		MyDamageType=class'kfgamecontent.KFDT_Slashing_ZedWeak'
-		MomentumTransfer=30000.000000
-		MaxHitRange=180.000000
-		Name="MeleeHelper_0"
+	PenetrationResistance=3.0f
+	ExtraResistance=0.2f
+	ProjSuicideAmount=12;
+	Begin Object Name=MeleeHelper_0
+		BaseDamage=20.0f
+		MaxHitRange=180.0f
+		MomentumTransfer=30000.0f
+		MyDamageType=class'KFDT_Slashing_ZedWeak'
 	End Object
-	DoshValue=34
-	XPValues(0)=30.000000
-	XPValues(1)=40.000000
-	XPValues(2)=54.000000
-	XPValues(3)=62.000000
-	SprintSpeed=580.000000
-	GroundSpeed=230.000000
+	SprintSpeed=580.0f
+	GroundSpeed=230.0f
 	Health=820
-	ExtraResistance=0.200000
+	DoshValue=34
+	bVersusZed=False
+
+	FireballBarrage=AnimSet'ZedternalReborn_Zeds.Husk_Omega_Anim_Master'
+	HuskOmegaAnimArch=KFPawnAnimInfo'ZedternalReborn_Zeds.Husk_Omega_AnimGroup'
+	SuicideFireballClass=class'ZedternalReborn.WMProj_Husk_Fireball_Suicide'
 
 	omegaColor=(R=0.500000,G=0.250000,B=1.000000)
 	omegaFresnelColor=(R=0.400000,G=0.250000,B=0.700000)
 
-	FireballBarrage=AnimSet'ZedternalReborn_Zeds.Husk_Omega_Anim_Master'
-	HuskOmegaAnimArch=KFPawnAnimInfo'ZedternalReborn_Zeds.Husk_Omega_AnimGroup'
-
+	ControllerClass=class'ZedternalReborn.WMAIController_ZedHusk_Omega'
 	DifficultySettings=class'ZedternalReborn.WMDifficulty_Husk_Omega'
 	LocalizationKey="WMPawn_ZedHusk_Omega"
-	HitZones(0)=(GoreHealth=430,DmgScale=1.001000)
-	HitZones(1)=()
-	HitZones(2)=()
-	HitZones(3)=(GoreHealth=180,DmgScale=1.500000,SkinID=2)
-	PenetrationResistance=3.000000
-	bVersusZed=False
-	nbProjSuicide=12;
-	Controllerclass=class'ZedternalReborn.WMAIController_ZedHusk_Omega'
-	Begin Object Name=KFPawnSkeletalMeshComponent Archetype=KFSkeletalMeshComponent'KFGame.Default__KFPawn_Monster:KFPawnSkeletalMeshComponent'
-		WireframeColor=(B=0,G=255,R=255,A=255)
-		MinDistFactorForKinematicUpdate=0.200000
-		bSkipAllUpdateWhenPhysicsAsleep=True
-		bIgnoreControllersWhenNotRendered=True
-		bHasPhysicsAssetInstance=True
-		bUpdateKinematicBonesFromAnimation=False
-		bPerBoneMotionBlur=True
-		bOverrideAttachmentOwnerVisibility=True
-		bChartDistanceFactor=True
-		ReplacementPrimitive=None
-		RBChannel=RBCC_Pawn
-		RBDominanceGroup=20
-		bOwnerNoSee=True
-		bAcceptsDynamicDecals=True
-		bUseOnePassLightingOnTranslucency=True
-		CollideActors=True
-		BlockZeroExtent=True
-		BlockRigidBody=True
-		RBCollideWithChannels=(Default=True,Pawn=True,Vehicle=True,BlockingVolume=True)
-		Translation=(X=0.000000,Y=0.000000,Z=-86.000000)
-		ScriptRigidBodyCollisionThreshold=200.000000
-		PerObjectShadowCullDistance=2500.000000
-		bAllowPerObjectShadows=True
-		TickGroup=TG_DuringAsyncWork
-		Name="KFPawnSkeletalMeshComponent"
-	End Object
+	HitZones(0)=(GoreHealth=430,DmgScale=1.0f)
+	HitZones(3)=(GoreHealth=180,DmgScale=1.5f,SkinID=2)
+	XPValues(0)=30
+	XPValues(1)=40
+	XPValues(2)=54
+	XPValues(3)=62
 
 	Name="Default__WMPawn_ZedHusk_Omega"
 }
