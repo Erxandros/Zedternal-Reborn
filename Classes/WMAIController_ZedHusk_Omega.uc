@@ -4,46 +4,24 @@ var float BaseHealthPercentForSprint, RequiredHealthPercentForSprintNormal, Requ
 
 event PostBeginPlay()
 {
-	local KFGameInfo KFGI;
-
 	super.PostBeginPlay();
 
-	if (WorldInfo.Game != none)
-	{
-		KFGI = KFGameInfo(WorldInfo.Game);
-		// If the difficulty is hard or higher, enable the flamethrower
-		if (KFGI != none && KFGI.GameDifficulty >= KFGI.DifficultyInfo.GetDifficultyValue(2))
-		{
-			bCanUseFlameThrower = true;
-		}
-	}
-
-	// Determine the interval of allowing fireballs to be fired
 	if (Skill == class'KFGameDifficultyInfo'.static.GetDifficultyValue(0)) // Normal
 	{
-		BaseTimeBetweenFireBalls = FireballFireIntervalNormal;
 		BaseHealthPercentForSprint = RequiredHealthPercentForSprintNormal;
 	}
 	else if (Skill <= class'KFGameDifficultyInfo'.static.GetDifficultyValue(1)) // Hard
 	{
-		BaseTimeBetweenFireBalls = FireballFireIntervalHard;
 		BaseHealthPercentForSprint = RequiredHealthPercentForSprintHard;
 	}
 	else if (Skill <= class'KFGameDifficultyInfo'.static.GetDifficultyValue(2)) // Suicidal
 	{
-		BaseTimeBetweenFireBalls = FireballFireIntervalSuicidal;
 		BaseHealthPercentForSprint = RequiredHealthPercentForSprintSuicidal;
 	}
 	else // Hell on Earth
 	{
-		BaseTimeBetweenFireBalls = FireballFireIntervalHellOnEarth;
 		BaseHealthPercentForSprint = RequiredHealthPercentForSprintHellOnEarth;
 	}
-
-	// Set the low intensity attack cooldown based off the current fireball interval
-	LowIntensityAttackCooldown = BaseTimeBetweenFireBalls * LowIntensityAttackScaleOfFireballInterval;
-
-	TimeBetweenFireBalls = BaseTimeBetweenFireBalls + RandRange(-FireballRandomizedValue, FireballRandomizedValue);
 }
 
 simulated function Tick(FLOAT DeltaTime)
