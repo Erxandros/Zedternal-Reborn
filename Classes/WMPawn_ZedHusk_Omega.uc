@@ -16,7 +16,7 @@ static function string GetLocalizedName()
 
 simulated function PostBeginPlay()
 {
-	IntendedBodyScale = 1.140000;
+	IntendedBodyScale = 1.14f;
 	Mesh.AnimSets.AddItem(default.FireballBarrage);
 	PawnAnimInfo = default.HuskOmegaAnimArch;
 	UpdateGameplayMICParams();
@@ -78,7 +78,6 @@ simulated function UpdateGameplayMICParams()
 	}
 }
 
-/** Returns damage multiplier for an incoming damage type @todo: c++?*/
 function float GetDamageTypeModifier(class<DamageType> DT)
 {
 	local float currentMod;
@@ -100,7 +99,7 @@ function ANIMNOTIFY_HuskRandomFireballAttack()
 		if (HuskAIC != None)
 		{
 			FireballSM = KFSM_Husk_FireBallAttack(SpecialMoves[SpecialMove]);
-			HuskAIC.ShootFireballB(SuicideFireballclass,FireballSM.GetFireOffset());
+			HuskAIC.ShootFireballB(SuicideFireballClass,FireballSM.GetFireOffset());
 		}
 	}
 }
@@ -138,7 +137,7 @@ function TriggerExplosion(optional bool bIgnoreHumans)
 				ExploActor.Attachee = self;
 				if (bIgnoreHumans)
 				{
-					ExplosionTemplate.ActorclassToIgnoreForDamage = class'KFPawn_Human';
+					ExplosionTemplate.ActorClassToIgnoreForDamage = class'KFPawn_Human';
 				}
 				else
 				{
@@ -153,7 +152,7 @@ function TriggerExplosion(optional bool bIgnoreHumans)
 			{
 				for (i = 0; i < ProjSuicideAmount; ++i)
 				{
-					HuskAIC.ShootRandomFireball(SuicideFireballclass);
+					HuskAIC.ShootRandomFireball(SuicideFireballClass);
 				}
 			}
 
