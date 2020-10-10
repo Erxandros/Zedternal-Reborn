@@ -1,12 +1,13 @@
 class WMPawn_ZedGorefast_Omega extends WMPawn_ZedGorefast_NoDualBlade;
 
-var transient Zed_Arch_GoreFastOmega ZedArch;
 var transient ParticleSystemComponent SpecialFXPSCs[2];
 var float ExtraResistance;
-
-var KFSkinTypeEffects ShieldImpactEffects;
 var bool bShieldOn;
 var vector EffectOffset;
+
+var const KFSkinTypeEffects ShieldImpactEffects;
+var const AnimSet GorefastOmegaAnimSet;
+var const KFPawnAnimInfo GorefastOmegaAnimInfo;
 
 replication
 {
@@ -22,16 +23,16 @@ static function string GetLocalizedName()
 simulated function PostBeginPlay()
 {
 	IntendedBodyScale = 1.14f;
-	ZedArch = class'Zed_Arch_GoreFastOmega'.static.GetArch(WorldInfo);
-	if (ZedArch!=None)
-		updateArch();
-
-	if (WorldInfo.NetMode != NM_DedicatedServer)
-		ApplySpecialFX();
-
 	bVersusZed = True;
 
+	Mesh.AnimSets.AddItem(GorefastOmegaAnimSet);
+	PawnAnimInfo = GorefastOmegaAnimInfo;
+
 	super.PostBeginPlay();
+
+	UpdateGameplayMICParams();
+	if (WorldInfo.NetMode != NM_DedicatedServer)
+		ApplySpecialFX();
 }
 
 simulated function PlayDying(class<DamageType> DamageType, vector HitLoc)
@@ -64,20 +65,6 @@ simulated function EndSpecialFX()
 	if (SpecialFXPSCs[1] != None && SpecialFXPSCs[1].bIsActive)
 	{
 		SpecialFXPSCs[1].DeactivateSystem();
-	}
-}
-
-simulated function updateArch()
-{
-	ZedArch = class'Zed_Arch_GoreFastOmega'.Static.GetArch(WorldInfo);
-	if (ZedArch != None)
-	{
-		Mesh.AnimSets = ZedArch.zedClientArch.AnimSets;
-		Mesh.SetAnimTreeTemplate(ZedArch.zedClientArch.AnimTreeTemplate);
-		PawnAnimInfo = ZedArch.zedClientArch.AnimArchetype;
-
-		// update texture effects
-		UpdateGameplayMICParams();
 	}
 }
 
@@ -166,7 +153,10 @@ defaultproperties
 
 	bShieldOn=False
 	EffectOffset=(X=0.0f, Y=0.0f, Z=0.0f)
+
 	ShieldImpactEffects=KFSkinTypeEffects_InvulnerabilityShield'KFGameContent.Default__KFPawn_ZedHans:ShieldEffects'
+	GorefastOmegaAnimSet=AnimSet'ZedternalReborn_Zeds.Gorefast_Omega_anim'
+	GorefastOmegaAnimInfo=KFPawnAnimInfo'ZedternalReborn_Zeds.Gorefast_Omega_AnimGroup'
 
 	DoshValue=24
 	XPValues(0)=22
