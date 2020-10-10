@@ -7,5 +7,5 @@ static event class<KFPawn_Monster> GetAIPawnClassToSpawn()
 
 defaultproperties
 {
-   Name="Default__WMPawn_ZedStalker_NoDAR"
+	Name="Default__WMPawn_ZedStalker_NoDAR"
 }
