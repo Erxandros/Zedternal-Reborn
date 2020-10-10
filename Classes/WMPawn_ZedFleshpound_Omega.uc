@@ -1,6 +1,5 @@
 class WMPawn_ZedFleshpound_Omega extends KFPawn_ZedFleshpound;
 
-var transient Zed_Arch_FleshpoundOmega ZedArch;
 var transient ParticleSystemComponent SpecialFXPSCs[2];
 var float ExtraResistance;
 
@@ -10,7 +9,9 @@ var const name RallyEffectBoneName;
 var const name AltRallyEffectBoneNames[2];
 var const vector RallyEffectOffset, AltRallyEffectOffset;
 
-var KFGameExplosion OmegaExplosionTemplate;
+var const KFGameExplosion OmegaExplosionTemplate;
+var const AnimSet FleshpoundOmegaAnimSet;
+var const KFPawnAnimInfo FleshpoundOmegaAnimInfo;
 
 static function string GetLocalizedName()
 {
@@ -20,16 +21,16 @@ static function string GetLocalizedName()
 simulated function PostBeginPlay()
 {
 	IntendedBodyScale = 1.15f;
-	ZedArch = class'Zed_Arch_FleshpoundOmega'.static.GetArch(WorldInfo);
-	if (ZedArch!=None)
-		updateArch();
-
-	if (WorldInfo.NetMode != NM_DedicatedServer)
-		ApplySpecialFX();
-
 	bVersusZed = True;
 
+	Mesh.AnimSets.AddItem(FleshpoundOmegaAnimSet);
+	PawnAnimInfo = FleshpoundOmegaAnimInfo;
+
 	super.PostBeginPlay();
+
+	UpdateGameplayMICParams();
+	if (WorldInfo.NetMode != NM_DedicatedServer)
+		ApplySpecialFX();
 }
 
 simulated function PlayDying(class<DamageType> DamageType, vector HitLoc)
@@ -62,19 +63,6 @@ simulated function EndSpecialFX()
 	if (SpecialFXPSCs[1] != None && SpecialFXPSCs[1].bIsActive)
 	{
 		SpecialFXPSCs[1].DeactivateSystem();
-	}
-}
-simulated function updateArch()
-{
-	ZedArch = class'Zed_Arch_FleshpoundOmega'.Static.GetArch(WorldInfo);
-	if (ZedArch!=None)
-	{
-		Mesh.AnimSets = ZedArch.zedClientArch.AnimSets;
-		Mesh.SetAnimTreeTemplate(ZedArch.zedClientArch.AnimTreeTemplate);
-		PawnAnimInfo = ZedArch.zedClientArch.AnimArchetype;
-
-		// update texture effects
-		UpdateGameplayMICParams();
 	}
 }
 
@@ -206,6 +194,9 @@ defaultproperties
 	HitZones(0)=(GoreHealth=1950)
 
 	OmegaExplosionTemplate=KFGameExplosion'KFGameContent.Default__KFPawn_ZedFleshpoundKing:ExploTemplate1'
+	FleshpoundOmegaAnimSet=AnimSet'ZedternalReborn_Zeds.Fleshpound_Omega_Anim'
+	FleshpoundOmegaAnimInfo=KFPawnAnimInfo'ZedternalReborn_Zeds.Fleshpound_Omega_AnimGroup'
+
 	Mass=220.0f
 	Begin Object Class=KFMeleeHelperAI Name=WMMeleeHelper_0
 		BaseDamage=30.0f
