@@ -108,24 +108,23 @@ defaultproperties
 	XPValues(1)=22
 	XPValues(2)=22
 	XPValues(3)=22
+
 	Health=250
 	ExtraResistance=0.15f
+	ParryResistance=1
+	GrabAttackFrequency=0.6f
 	GroundSpeed=340.0f
 	SprintSpeed=580.0f
+	bVersusZed=False
 	LocalizationKey="WMPawn_ZedSlasher_Omega"
 
-	Begin Object Class=KFMeleeHelperAI Name=WMMeleeHelper_0 Archetype=KFMeleeHelperAI'KFGame.Default__KFPawn_Monster:MeleeHelper_0'
+	Begin Object Class=KFMeleeHelperAI Name=WMMeleeHelper_0
 		BaseDamage=10.0f
 		MyDamageType=Class'kfgamecontent.KFDT_Slashing_ZedWeak'
 		MomentumTransfer=25000.0f
 		MaxHitRange=180.0f
-		Name="MeleeHelper_0"
 	End Object
-	MeleeAttackHelper=KFMeleeHelperAI'ZedternalReborn.Default__WMPawn_ZedClot_Slasher_Omega:WMMeleeHelper_0'
-
-	bVersusZed=False
-	ParryResistance=1
-	GrabAttackFrequency=0.6f
+	MeleeAttackHelper=WMMeleeHelper_0
 
 	HitZones(0)=(GoreHealth=150)
 
