@@ -1,6 +1,18 @@
 class WMAIController_ZedHusk_Omega extends KFAIController_ZedHusk;
 
+var float LastFireBallBarrageTime;
+var float BaseTimeBetweenFireBallBarrages;
+var float TimeBetweenFireBallBarrages;
+var float FireballBarrageRandomizedValue;
+var int MinDistanceForFireBallBarrage;
+var int MaxDistanceForFireBallBarrage;
+
 var float BaseHealthPercentForSprint;
+
+var const float FireballBarrageFireIntervalNormal;
+var const float FireballBarrageFireIntervalHard;
+var const float FireballBarrageFireIntervalSuicidal;
+var const float FireballBarrageFireIntervalHellOnEarth;
 
 var const float RequiredHealthPercentForSprintNormal;
 var const float RequiredHealthPercentForSprintHard;
@@ -13,25 +25,85 @@ event PostBeginPlay()
 
 	if (Skill == class'KFGameDifficultyInfo'.static.GetDifficultyValue(0)) // Normal
 	{
+		BaseTimeBetweenFireBallBarrages = FireballBarrageFireIntervalNormal;
 		BaseHealthPercentForSprint = RequiredHealthPercentForSprintNormal;
 	}
 	else if (Skill <= class'KFGameDifficultyInfo'.static.GetDifficultyValue(1)) // Hard
 	{
+		BaseTimeBetweenFireBallBarrages = FireballBarrageFireIntervalHard;
 		BaseHealthPercentForSprint = RequiredHealthPercentForSprintHard;
 	}
 	else if (Skill <= class'KFGameDifficultyInfo'.static.GetDifficultyValue(2)) // Suicidal
 	{
+		BaseTimeBetweenFireBallBarrages = FireballBarrageFireIntervalSuicidal;
 		BaseHealthPercentForSprint = RequiredHealthPercentForSprintSuicidal;
 	}
 	else // Hell on Earth
 	{
+		BaseTimeBetweenFireBallBarrages = FireballBarrageFireIntervalHellOnEarth;
 		BaseHealthPercentForSprint = RequiredHealthPercentForSprintHellOnEarth;
 	}
 }
 
 simulated function Tick(float DeltaTime)
 {
+	local float DistToTargetSq;
+
+	if (Role == ROLE_Authority && Enemy != None && MyKFPawn != None)
+	{
+		if (`TimeSince(LastCheckSpecialMoveTime) >= CheckSpecialMoveTime && !MyKFPawn.IsDoingSpecialMove())
+		{
+			if (GetActiveCommand() != None && !GetActiveCommand().IsA('AICommand_SpecialMove'))
+			{
+				if (WorldInfo.FastTrace(Enemy.Location, Pawn.Location, , True))
+				{
+					DistToTargetSq = VSizeSq(Enemy.Location - Pawn.Location);
+					if (!IsSuicidal() && CanDoFireballBarrage(DistToTargetSq))
+					{
+						if (KFGameInfo(WorldInfo.Game) != None && KFGameInfo(WorldInfo.Game).GameConductor != None)
+						{
+							KFGameInfo(WorldInfo.Game).GameConductor.UpdateOverallAttackCoolDowns(self);
+						}
+
+						class'WMAICommand_HuskOmegaFireBallBarrageAttack'.static.FireBallBarrageAttack(self);
+						TimeBetweenFireBallBarrages = BaseTimeBetweenFireBallBarrages + RandRange(-FireballBarrageRandomizedValue, FireballBarrageRandomizedValue);
+					}
+				}
+			}
+		}
+	}
+
 	super.Tick(DeltaTime);
+}
+
+function bool CanDoFireballBarrage(float DistToTargetSq)
+{
+	if(!CheckOverallCooldownTimer())
+		return false;
+
+	return ((LastFireBallBarrageTime == 0 || (`TimeSince(LastFireBallBarrageTime) > TimeBetweenFireBallBarrages))
+		&& DistToTargetSq >= Square(MinDistanceForFireBallBarrage)
+		&& DistToTargetSq <= Square(MaxDistanceForFireBallBarrage)
+		&& MyKFPawn.CanDoSpecialMove(SM_Custom1))
+		&& IsCeilingClear();
+}
+
+function bool IsCeilingClear()
+{
+	local vector TraceStart, TraceEnd, Extent;
+
+	if (MyKFPawn == None)
+	{
+		return False;
+	}
+
+	TraceStart = MyKFPawn.Location + vect(0,0,1) * MyKFPawn.GetCollisionHeight();
+	TraceEnd = TraceStart + vect(0,0,1) * 175.0f;
+	Extent.X = MyKFPawn.GetCollisionRadius() * 2.0f;
+	Extent.Y = Extent.X;
+	Extent.Z = 1.0f;
+
+	return MyKFPawn.FastTrace(TraceEnd, TraceStart, Extent, True);
 }
 
 function bool ShouldSprint()
@@ -78,7 +150,7 @@ function ShootRandomFireball(class<KFProj_Husk_Fireball> FireballClass)
 	}
 }
 
-function ShootFireballB(class<KFProj_Husk_Fireball> FireballClass, vector FireballOffset)
+function ShootFireballBarrage(class<KFProj_Husk_Fireball> FireballClass, vector FireballOffset)
 {
 	local vector SocketLocation, DirToEnemy;
 	local KFProj_Husk_Fireball MyFireball;
@@ -134,6 +206,8 @@ function ShootFireballB(class<KFProj_Husk_Fireball> FireballClass, vector Fireba
 
 		// Fire
 		MyFireball.Init(DirToEnemy);
+
+		LastFireBallBarrageTime = WorldInfo.TimeSeconds;
 	}
 }
 
@@ -167,6 +241,17 @@ defaultproperties
 	FireballLeadTargetAimError=0.03f
 	bDebugAimError=False
 	bCanLeadTarget=False
+
+	// Fireball Barrage
+	MinDistanceForFireBallBarrage=600
+	MaxDistanceForFireBallBarrage=750
+
+	FireballBarrageFireIntervalNormal=3.5f
+	FireballBarrageFireIntervalHard=3.0f
+	FireballBarrageFireIntervalSuicidal=2.5f
+	FireballBarrageFireIntervalHellOnEarth=2.0f
+
+	FireballBarrageRandomizedValue=2.0f
 
 	// Sprint
 	RequiredHealthPercentForSprintNormal=0.7f

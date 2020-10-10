@@ -1,7 +1,6 @@
 class WMPawn_ZedHusk_Omega extends WMPawn_ZedHusk_NoDAR;
 
 var const AnimSet FireballBarrage;
-var const KFPawnAnimInfo HuskOmegaAnimArch;
 var const class<KFProj_Husk_Fireball> SuicideFireballClass;
 var const int ProjSuicideAmount;
 
@@ -18,7 +17,6 @@ simulated function PostBeginPlay()
 {
 	IntendedBodyScale = 1.14f;
 	Mesh.AnimSets.AddItem(default.FireballBarrage);
-	PawnAnimInfo = default.HuskOmegaAnimArch;
 	UpdateGameplayMICParams();
 
 	if (WorldInfo.NetMode != NM_DedicatedServer)
@@ -91,15 +89,15 @@ function float GetDamageTypeModifier(class<DamageType> DT)
 function ANIMNOTIFY_HuskRandomFireballAttack()
 {
 	local WMAIController_ZedHusk_Omega HuskAIC;
-	local KFSM_Husk_FireballAttack FireballSM;
+	local WMSM_Husk_Omega_FireBallBarrageAttack FireballBarrageSM;
 
 	if (MyKFAIC != None)
 	{
 		HuskAIC = WMAIController_ZedHusk_Omega(MyKFAIC);
 		if (HuskAIC != None)
 		{
-			FireballSM = KFSM_Husk_FireBallAttack(SpecialMoves[SpecialMove]);
-			HuskAIC.ShootFireballB(SuicideFireballClass,FireballSM.GetFireOffset());
+			FireballBarrageSM = WMSM_Husk_Omega_FireBallBarrageAttack(SpecialMoves[SpecialMove]);
+			HuskAIC.ShootFireballBarrage(SuicideFireballClass, FireballBarrageSM.GetFireOffset());
 		}
 	}
 }
@@ -190,8 +188,11 @@ defaultproperties
 	DoshValue=34
 	bVersusZed=False
 
+	Begin Object Name=SpecialMoveHandler_0
+		SpecialMoveClasses(SM_Custom1) = class'ZedternalReborn.WMSM_Husk_Omega_FireBallBarrageAttack'
+	End Object
+
 	FireballBarrage=AnimSet'ZedternalReborn_Zeds.Husk_Omega_Anim_Master'
-	HuskOmegaAnimArch=KFPawnAnimInfo'ZedternalReborn_Zeds.Husk_Omega_AnimGroup'
 	SuicideFireballClass=class'ZedternalReborn.WMProj_Husk_Fireball_Suicide'
 
 	omegaColor=(R=0.500000,G=0.250000,B=1.000000)
