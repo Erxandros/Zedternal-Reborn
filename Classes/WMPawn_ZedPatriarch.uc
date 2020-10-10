@@ -22,23 +22,23 @@ function PlayBossMusic()
 
 static simulated event bool IsABoss()
 {
-	return false;
+	return False;
 }
 
 function bool CanBeGrabbed(KFPawn GrabbingPawn, optional bool bIgnoreFalling, optional bool bAllowSameTeamGrab)
 {
-	return false;
+	return False;
 }
 
 defaultproperties
 {
 	EntranceSound=AkEvent'WW_ZED_Patriarch.Play_Pat_Intro_Roar'
-	bLargeZed=true
+	bLargeZed=True
 	DoshValue=500
-	XPValues(0)=250.000000
-	XPValues(1)=250.000000
-	XPValues(2)=250.000000
-	XPValues(3)=250.000000
+	XPValues(0)=250
+	XPValues(1)=250
+	XPValues(2)=250
+	XPValues(3)=250
 	MinSpawnSquadSizeType=EST_Large
 	Name="Default__WMPawn_ZedPatriarch"
 }

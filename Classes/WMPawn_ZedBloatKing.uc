@@ -22,23 +22,23 @@ function PlayBossMusic()
 
 static simulated event bool IsABoss()
 {
-	return false;
+	return False;
 }
 
 function bool CanBeGrabbed(KFPawn GrabbingPawn, optional bool bIgnoreFalling, optional bool bAllowSameTeamGrab)
 {
-	return false;
+	return False;
 }
 
 defaultproperties
 {
 	EntranceSound=AkEvent'WW_ZED_Abomination.Play_Abomination_Intro_Land'
-	bLargeZed=true
+	bLargeZed=True
 	DoshValue=300
-	XPValues(0)=150.000000
-	XPValues(1)=150.000000
-	XPValues(2)=150.000000
-	XPValues(3)=150.000000
+	XPValues(0)=150
+	XPValues(1)=150
+	XPValues(2)=150
+	XPValues(3)=150
 	MinSpawnSquadSizeType=EST_Large
 	Name="Default__WMPawn_ZedBloatKing"
 }
