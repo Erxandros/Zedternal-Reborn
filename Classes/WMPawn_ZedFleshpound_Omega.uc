@@ -19,7 +19,7 @@ static function string GetLocalizedName()
 
 simulated function PostBeginPlay()
 {
-	IntendedBodyScale = 1.15;
+	IntendedBodyScale = 1.15f;
 	ZedArch = class'Zed_Arch_FleshpoundOmega'.static.GetArch(WorldInfo);
 	if (ZedArch!=None)
 		updateArch();
@@ -146,7 +146,7 @@ simulated function RallyZeds()
 		}
 		//Force this ZEDs to sprint
 		// Set Rally setting
-		WMGRI = WMGameReplicationInfo(Class'WorldInfo'.static.GetWorldInfo().GRI);
+		WMGRI = WMGameReplicationInfo(class'WorldInfo'.static.GetWorldInfo().GRI);
 		if (WMGRI != None)
 		{
 			NewRallyInfo = KFPM.DifficultySettings.static.GetRallySettings(KFPM, WMGRI);
@@ -172,110 +172,48 @@ simulated event bool UsePlayerControlledZedSkin()
 
 defaultproperties
 {
-	DefaultGlowColor=(R=1.000000,G=0.250000,B=0.000000,A=1.000000)
-	EnragedGlowColor=(R=1.000000,G=0.000000,B=0.000000,A=1.000000)
-	DeadGlowColor=(R=0.000000,G=0.000000,B=0.000000,A=1.000000)
-	RageBumpDamageType=Class'kfgamecontent.KFDT_HeavyZedBump'
+	DefaultGlowColor=(R=1.0f,G=0.25f,B=0.0f,A=1.0f)
+	EnragedGlowColor=(R=1.0f,G=0.0f,B=0.0f,A=1.0f)
+	DeadGlowColor=(R=0.0f,G=0.0f,B=0.0f,A=1.0f)
+	RageBumpDamageType=class'KFGameContent.KFDT_HeavyZedBump'
 
 	bVersusZed=False
 
-	RallyRadius=1750.000000
+	RallyRadius=1750.0f
 	RallyEffect=ParticleSystem'ZedternalReborn_Zeds.FX_Fleshpound_Rage_01'
 	AltRallyEffect=ParticleSystem'ZedternalReborn_Zeds.FX_Fleshpound_Buff_01'
 	RallyEffectBoneName="Root"
 	AltRallyEffectBoneNames(0)="FX_EYE_L"
 	AltRallyEffectBoneNames(1)="FX_EYE_R"
-	RallyEffectOffset=(X=0.000000,Y=0.000000,Z=0.000000)
-	AltRallyEffectOffset=(X=0.000000,Y=0.000000,Z=0.000000)
+	RallyEffectOffset=(X=0.0f,Y=0.0f,Z=0.0f)
+	AltRallyEffectOffset=(X=0.0f,Y=0.0f,Z=0.0f)
 
 	DoshValue=400
-	XPValues(0)=70.000000
-	XPValues(1)=94.000000
-	XPValues(2)=126.000000
-	XPValues(3)=144.000000
+	XPValues(0)=70
+	XPValues(1)=94
+	XPValues(2)=126
+	XPValues(3)=144
 	Health=4000
-	ExtraResistance=0.200000
-	GroundSpeed=460.000000
-	SprintSpeed=615.000000
+	ExtraResistance=0.2f
+	GroundSpeed=460.0f
+	SprintSpeed=615.0f
 
-	FootstepCameraShakeInnerRadius=230.000000
-	FootstepCameraShakeOuterRadius=1035.000000
+	FootstepCameraShakeInnerRadius=230.0f
+	FootstepCameraShakeOuterRadius=1035.0f
 
 	LocalizationKey="WMPawn_ZedFleshpound_Omega"
 
 	HitZones(0)=(GoreHealth=1950)
 
-	OmegaExplosionTemplate=KFGameExplosion'kfgamecontent.Default__KFPawn_ZedFleshpoundKing:ExploTemplate1'
-	Begin Object Class=KFSpecialMoveHandler Name=SpecialMoveHandler_0 Archetype=KFSpecialMoveHandler'KFGame.Default__KFPawn_Monster:SpecialMoveHandler_0'
-		SpecialMoveClasses(0)=None
-		SpecialMoveClasses(1)=Class'KFGame.KFSM_MeleeAttack'
-		SpecialMoveClasses(2)=Class'KFGame.KFSM_DoorMeleeAttack'
-		SpecialMoveClasses(3)=Class'KFGame.KFSM_GrappleCombined'
-		SpecialMoveClasses(4)=Class'KFGame.KFSM_Stumble'
-		SpecialMoveClasses(5)=Class'KFGame.KFSM_RecoverFromRagdoll'
-		SpecialMoveClasses(6)=Class'KFGame.KFSM_RagdollKnockdown'
-		SpecialMoveClasses(7)=Class'KFGame.KFSM_DeathAnim'
-		SpecialMoveClasses(8)=Class'KFGame.KFSM_Stunned'
-		SpecialMoveClasses(9)=Class'KFGame.KFSM_Frozen'
-		SpecialMoveClasses(10)=None
-		SpecialMoveClasses(11)=None
-		SpecialMoveClasses(12)=Class'kfgamecontent.KFSM_PlayerFleshpound_Rage'
-		SpecialMoveClasses(13)=Class'kfgamecontent.KFSM_PlayerFleshpound_Rage'
-		SpecialMoveClasses(14)=Class'KFGame.KFSM_Evade'
-		SpecialMoveClasses(15)=None
-		SpecialMoveClasses(16)=Class'KFGame.KFSM_Block'
-		SpecialMoveClasses(17)=None
-		SpecialMoveClasses(18)=None
-		SpecialMoveClasses(19)=None
-		SpecialMoveClasses(20)=None
-		SpecialMoveClasses(21)=None
-		SpecialMoveClasses(22)=None
-		SpecialMoveClasses(23)=None
-		SpecialMoveClasses(24)=None
-		SpecialMoveClasses(25)=None
-		SpecialMoveClasses(26)=None
-		SpecialMoveClasses(27)=None
-		SpecialMoveClasses(28)=None
-		SpecialMoveClasses(29)=Class'KFGame.KFSM_GrappleVictim'
-		SpecialMoveClasses(30)=Class'KFGame.KFSM_HansGrappleVictim'
-	Name="SpecialMoveHandler_0"
+	OmegaExplosionTemplate=KFGameExplosion'KFGameContent.Default__KFPawn_ZedFleshpoundKing:ExploTemplate1'
+	Mass=220.0f
+	Begin Object Class=KFMeleeHelperAI Name=WMMeleeHelper_0
+		BaseDamage=30.0f
+		MyDamageType=class'KFGameContent.KFDT_Bludgeon_Fleshpound'
+		MomentumTransfer=65000.0f
+		MaxHitRange=260.0f
 	End Object
-	Mass=220.000000
-	Begin Object Class=KFMeleeHelperAI Name=WMMeleeHelper_0 Archetype=KFMeleeHelperAI'KFGame.Default__KFPawn_Monster:MeleeHelper_0'
-		BaseDamage=30.000000
-		MyDamageType=Class'kfgamecontent.KFDT_Bludgeon_Fleshpound'
-		MomentumTransfer=65000.000000
-		MaxHitRange=260.000000
-		Name="MeleeHelper_0"
-	End Object
-	MeleeAttackHelper=KFMeleeHelperAI'ZedternalReborn.Default__WMPawn_ZedFleshpound_Omega:WMMeleeHelper_0'
-	Begin Object Name=KFPawnSkeletalMeshComponent Archetype=KFSkeletalMeshComponent'KFGame.Default__KFPawn_Monster:KFPawnSkeletalMeshComponent'
-		WireframeColor=(B=0,G=255,R=255,A=255)
-		MinDistFactorForKinematicUpdate=0.200000
-		bSkipAllUpdateWhenPhysicsAsleep=True
-		bIgnoreControllersWhenNotRendered=True
-		bHasPhysicsAssetInstance=True
-		bPerBoneMotionBlur=True
-		bOverrideAttachmentOwnerVisibility=True
-		bChartDistanceFactor=True
-		ReplacementPrimitive=None
-		RBChannel=RBCC_Pawn
-		RBDominanceGroup=20
-		bOwnerNoSee=True
-		bAcceptsDynamicDecals=True
-		bUseOnePassLightingOnTranslucency=True
-		CollideActors=True
-		BlockZeroExtent=True
-		BlockRigidBody=True
-		RBCollideWithChannels=(Default=True,Pawn=True,Vehicle=True,BlockingVolume=True)
-		Translation=(X=0.000000,Y=0.000000,Z=-86.000000)
-		ScriptRigidBodyCollisionThreshold=200.000000
-		PerObjectShadowCullDistance=2500.000000
-		bAllowPerObjectShadows=True
-		TickGroup=TG_DuringAsyncWork
-		Name="KFPawnSkeletalMeshComponent"
-	End Object
-	Mesh=KFPawnSkeletalMeshComponent
+	MeleeAttackHelper=WMMeleeHelper_0
 
 	Name="Default__WMPawn_ZedFleshpound_Omega"
 }
