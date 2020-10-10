@@ -1,6 +1,11 @@
 class WMAIController_ZedHusk_Omega extends KFAIController_ZedHusk;
 
-var float BaseHealthPercentForSprint, RequiredHealthPercentForSprintNormal, RequiredHealthPercentForSprintHard, RequiredHealthPercentForSprintSuicidal, RequiredHealthPercentForSprintHellOnEarth;
+var float BaseHealthPercentForSprint;
+
+var const float RequiredHealthPercentForSprintNormal;
+var const float RequiredHealthPercentForSprintHard;
+var const float RequiredHealthPercentForSprintSuicidal;
+var const float RequiredHealthPercentForSprintHellOnEarth;
 
 event PostBeginPlay()
 {
