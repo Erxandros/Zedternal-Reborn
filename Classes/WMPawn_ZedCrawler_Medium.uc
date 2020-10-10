@@ -7,12 +7,12 @@ static function string GetLocalizedName()
 
 simulated function PostBeginPlay()
 {
-	IntendedBodyScale = 1.15;
+	IntendedBodyScale = 1.15f;
+
 	super.PostBeginPlay();
 }
 
-
 defaultproperties
 {
-   Name="Default__WMPawn_ZedCrawler_Medium"
+	Name="Default__WMPawn_ZedCrawler_Medium"
 }
