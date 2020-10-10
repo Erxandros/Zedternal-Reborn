@@ -139,34 +139,49 @@ function ShootFireballB(class<KFProj_Husk_Fireball> FireballClass, vector Fireba
 
 defaultproperties
 {
-	MinDistanceToSuicide=425.000000
-	RequiredHealthPercentForSuicide=0.200000
-	RequiredHealthPercentForSprintNormal=0.700000
-	RequiredHealthPercentForSprintHard=0.800000
-	RequiredHealthPercentForSprintSuicidal=0.870000
-	RequiredHealthPercentForSprintHellOnEarth=0.950000
-	TimeBetweenFlameThrower=8.000000
-	FireballRandomizedValue=2.500000
-	MaxDistanceForFlameThrower=450
-	MaxDistanceForFireBall=3000
-	CheckSpecialMoveTime=0.250000
-	FireballSocketName="FireballSocket"
-	FireballAimError=0.030000
-	FireballLeadTargetAimError=0.030000
-	FireballSpeed=4100.000000
-	SplashAimChanceNormal=0.250000
-	SplashAimChanceHard=0.350000
-	SplashAimChanceSuicidal=0.500000
-	SplashAimChanceHellOnEarth=0.750000
-	FireballFireIntervalNormal=4.000000
-	FireballFireIntervalHard=3.300000
-	FireballFireIntervalSuicidal=2.800000
-	FireballFireIntervalHellOnEarth=2.200000
-	LowIntensityAttackScaleOfFireballInterval=1.250000
-	bCanTeleportCloser=False
 	bUseDesiredRotationForMelee=False
-	EvadeGrenadeChance=0.800000
-	BaseShapeOfProjectileForCalc=(X=10.000000,Y=10.000000,Z=10.000000)
+	bCanTeleportCloser=False
+
+	// Behaviors
+	EvadeGrenadeChance=0.8f
+	CheckSpecialMoveTime=0.25f
+
+	// Fireball
+	MinDistanceForFireBall=300
+	MaxDistanceForFireBall=3000
+
+	FireballFireIntervalNormal=4.0f
+	FireballFireIntervalHard=3.3f
+	FireballFireIntervalSuicidal=2.8f
+	FireballFireIntervalHellOnEarth=2.2f
+
+	FireballRandomizedValue=2.5f
+
+	SplashAimChanceNormal=0.25f
+	SplashAimChanceHard=0.35f
+	SplashAimChanceSuicidal=0.5f
+	SplashAimChanceHellOnEarth=0.75f
+
+	FireballSpeed=4100.0f
+	FireballAimError=0.03f
+	FireballLeadTargetAimError=0.03f
+	bDebugAimError=False
+	bCanLeadTarget=False
+
+	// Sprint
+	RequiredHealthPercentForSprintNormal=0.7f
+	RequiredHealthPercentForSprintHard=0.8f
+	RequiredHealthPercentForSprintSuicidal=0.87f
+	RequiredHealthPercentForSprintHellOnEarth=0.95f
+
+	// FlameThrower
+	TimeBetweenFlameThrower=8.0f
+	MaxDistanceForFlameThrower=450
+	LowIntensityAttackScaleOfFireballInterval=1.25f
+
+	// Suicide
+	MinDistanceToSuicide=425
+	RequiredHealthPercentForSuicide=0.2f
 
 	Name="Default__WMAIController_ZedHusk_Omega"
 }
