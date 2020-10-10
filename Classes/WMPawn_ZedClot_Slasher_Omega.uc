@@ -3,7 +3,6 @@ class WMPawn_ZedClot_Slasher_Omega extends KFPawn_ZedClot_Slasher;
 var transient Zed_Arch_SlasherOmega ZedArch;
 var transient ParticleSystemComponent SpecialFXPSCs[2];
 var float ExtraResistance;
-var linearColor omegaColor, omegaFresnelColor;
 
 static function string GetLocalizedName()
 {
@@ -96,8 +95,8 @@ simulated function UpdateGameplayMICParams()
 	{
 		for (i=0; i<CharacterMICs.length; i++)
 		{
-			CharacterMICs[i].SetVectorParameterValue('Vector_GlowColor', omegaColor);
-			CharacterMICs[i].SetVectorParameterValue('Vector_FresnelGlowColor', omegaFresnelColor);
+			CharacterMICs[i].SetVectorParameterValue('Vector_GlowColor', class'WMPawn_OmegaConstants'.default.OmegaColor);
+			CharacterMICs[i].SetVectorParameterValue('Vector_FresnelGlowColor', class'WMPawn_OmegaConstants'.default.OmegaFresnelColor);
 		}
 	}
 }
@@ -146,8 +145,6 @@ defaultproperties
 
    HitZones(0)=(GoreHealth=150)
    
-   omegaColor=(R=0.500000,G=0.250000,B=1.000000)
-   omegaFresnelColor=(R=0.400000,G=0.250000,B=0.700000)
 
    Name="Default__WMPawn_ZedClot_Slasher_Omega"
 }

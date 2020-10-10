@@ -3,7 +3,6 @@ class WMPawn_ZedGorefast_Omega extends WMPawn_ZedGorefast_NoDualBlade;
 var transient Zed_Arch_GoreFastOmega ZedArch;
 var transient ParticleSystemComponent SpecialFXPSCs[2];
 var float ExtraResistance;
-var linearColor omegaColor, omegaFresnelColor;
 
 var KFSkinTypeEffects ShieldImpactEffects;
 var bool bShieldOn;
@@ -106,8 +105,8 @@ simulated function UpdateGameplayMICParams()
 	{
 		for (i=0; i<CharacterMICs.length; i++)
 		{
-			CharacterMICs[i].SetVectorParameterValue('Vector_GlowColor', omegaColor);
-			CharacterMICs[i].SetVectorParameterValue('Vector_FresnelGlowColor', omegaColor);
+			CharacterMICs[i].SetVectorParameterValue('Vector_GlowColor', class'WMPawn_OmegaConstants'.default.OmegaColor);
+			CharacterMICs[i].SetVectorParameterValue('Vector_FresnelGlowColor', class'WMPawn_OmegaConstants'.default.OmegaFresnelColor);
 		}
 	}
 }
@@ -202,8 +201,6 @@ defaultproperties
 
    HitZones(0)=(GoreHealth=400)
    
-   omegaColor=(R=0.500000,G=0.250000,B=1.000000)
-   omegaFresnelColor=(R=0.400000,G=0.250000,B=0.700000)
 
    PenetrationResistance=2.250000
    

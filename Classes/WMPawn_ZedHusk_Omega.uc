@@ -6,7 +6,6 @@ var const int ProjSuicideAmount;
 
 var transient ParticleSystemComponent SpecialFXPSCs[2];
 var float ExtraResistance;
-var linearColor omegaColor, omegaFresnelColor;
 
 static function string GetLocalizedName()
 {
@@ -83,8 +82,8 @@ simulated function UpdateGameplayMICParams()
 	{
 		for (i = 0; i < CharacterMICs.length; ++i)
 		{
-			CharacterMICs[i].SetVectorParameterValue('Vector_GlowColor', omegaColor);
-			CharacterMICs[i].SetVectorParameterValue('Vector_FresnelGlowColor', omegaColor);
+			CharacterMICs[i].SetVectorParameterValue('Vector_GlowColor', class'WMPawn_OmegaConstants'.default.OmegaColor);
+			CharacterMICs[i].SetVectorParameterValue('Vector_FresnelGlowColor', class'WMPawn_OmegaConstants'.default.OmegaFresnelColor);
 		}
 	}
 }
@@ -207,9 +206,6 @@ defaultproperties
 
 	FireballBarrage=AnimSet'ZedternalReborn_Zeds.Husk_Omega_Anim_Master'
 	SuicideFireballClass=class'ZedternalReborn.WMProj_Husk_Fireball_Suicide'
-
-	omegaColor=(R=0.500000,G=0.250000,B=1.000000)
-	omegaFresnelColor=(R=0.400000,G=0.250000,B=0.700000)
 
 	ControllerClass=class'ZedternalReborn.WMAIController_ZedHusk_Omega'
 	DifficultySettings=class'ZedternalReborn.WMDifficulty_Husk_Omega'

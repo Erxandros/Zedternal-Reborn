@@ -3,7 +3,6 @@ class WMPawn_ZedFleshpound_Omega extends KFPawn_ZedFleshpound;
 var transient Zed_Arch_FleshpoundOmega ZedArch;
 var transient ParticleSystemComponent SpecialFXPSCs[2];
 var float ExtraResistance;
-var linearColor omegaColor, omegaFresnelColor;
 
 var const float RallyRadius;
 var const ParticleSystem RallyEffect, AltRallyEffect;
@@ -104,8 +103,8 @@ simulated function UpdateGameplayMICParams()
 	{
 		for (i=0; i<CharacterMICs.length; i++)
 		{
-			CharacterMICs[i].SetVectorParameterValue('Vector_GlowColor', omegaColor);
-			CharacterMICs[i].SetVectorParameterValue('Vector_FresnelGlowColor', omegaColor);
+			CharacterMICs[i].SetVectorParameterValue('Vector_GlowColor', class'WMPawn_OmegaConstants'.default.OmegaColor);
+			CharacterMICs[i].SetVectorParameterValue('Vector_FresnelGlowColor', class'WMPawn_OmegaConstants'.default.OmegaFresnelColor);
 		}
 	}
 }
@@ -222,8 +221,6 @@ defaultproperties
 
    HitZones(0)=(GoreHealth=1950)
    
-   omegaColor=(R=0.500000,G=0.250000,B=1.000000)
-   omegaFresnelColor=(R=0.400000,G=0.250000,B=0.700000)
 
    OmegaExplosionTemplate=KFGameExplosion'kfgamecontent.Default__KFPawn_ZedFleshpoundKing:ExploTemplate1'
    Begin Object Class=KFSpecialMoveHandler Name=SpecialMoveHandler_0 Archetype=KFSpecialMoveHandler'KFGame.Default__KFPawn_Monster:SpecialMoveHandler_0'

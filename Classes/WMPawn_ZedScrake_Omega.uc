@@ -3,7 +3,6 @@ class WMPawn_ZedScrake_Omega extends KFPawn_ZedScrake;
 var transient Zed_Arch_ScrakeOmega ZedArch;
 var transient ParticleSystemComponent SpecialFXPSCs[2];
 var float ExtraResistance;
-var linearColor omegaColor, omegaFresnelColor;
 
 static function string GetLocalizedName()
 {
@@ -96,8 +95,8 @@ simulated function UpdateGameplayMICParams()
 	{
 		for (i=0; i<CharacterMICs.length; i++)
 		{
-			CharacterMICs[i].SetVectorParameterValue('Vector_GlowColor', omegaColor);
-			CharacterMICs[i].SetVectorParameterValue('Vector_FresnelGlowColor', omegaColor);
+			CharacterMICs[i].SetVectorParameterValue('Vector_GlowColor', class'WMPawn_OmegaConstants'.default.OmegaColor);
+			CharacterMICs[i].SetVectorParameterValue('Vector_FresnelGlowColor', class'WMPawn_OmegaConstants'.default.OmegaFresnelColor);
 		}
 	}
 }
@@ -238,8 +237,6 @@ defaultproperties
 
    HitZones(0)=(GoreHealth=1800)
    
-   omegaColor=(R=0.500000,G=0.250000,B=1.000000)
-   omegaFresnelColor=(R=0.400000,G=0.250000,B=0.700000)
 
    Mass=150.000000
    Begin Object Name=KFPawnSkeletalMeshComponent Archetype=KFSkeletalMeshComponent'KFGame.Default__KFPawn_Monster:KFPawnSkeletalMeshComponent'
