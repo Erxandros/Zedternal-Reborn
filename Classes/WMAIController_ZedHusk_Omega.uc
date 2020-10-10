@@ -24,59 +24,9 @@ event PostBeginPlay()
 	}
 }
 
-simulated function Tick(FLOAT DeltaTime)
+simulated function Tick(float DeltaTime)
 {
-	local float DistToTargetSq;
-
 	super.Tick(DeltaTime);
-
-	if (Role == ROLE_Authority && Enemy != none && MyKFPawn != none)
-	{
-		// Do not check every tick
-		if ((WorldInfo.TimeSeconds - LastCheckSpecialMoveTime) >= CheckSpecialMoveTime && !MyKFPawn.IsDoingSpecialMove())
-		{
-			if (GetActiveCommand() != none && !GetActiveCommand().IsA('AICommand_SpecialMove'))
-			{
-				// Trace from worldinfo, open doors ignore traces from zeds
-				if (WorldInfo.FastTrace(Enemy.Location, Pawn.Location,, true))
-				{
-					DistToTargetSq = VSizeSq(Enemy.Location - Pawn.Location);
-
-					// If you are suicidal, do not even try to use the flamethrower or fireball
-					if (IsSuicidal())
-					{
-						if (CanDoSuicide(DistToTargetSq))
-						{
-							class'AICommand_Husk_Suicide'.static.Suicide(self);
-						}
-					}
-					// Check if i can use my flamethrower
-					else if (CanDoFlamethrower(DistToTargetSq))
-					{
-						if (KFGameInfo(WorldInfo.Game) != none && KFGameInfo(WorldInfo.Game).GameConductor != none)
-						{
-							KFGameInfo(WorldInfo.Game).GameConductor.UpdateOverallAttackCoolDowns(self);
-						}
-
-						class'AICommand_HuskFlameThrowerAttack'.static.FlameThrowerAttack(self);
-					}
-					// Check if i can use my projectile
-					else if (CanDoFireball(DistToTargetSq))
-					{
-						if (KFGameInfo(WorldInfo.Game) != none && KFGameInfo(WorldInfo.Game).GameConductor != none)
-						{
-							KFGameInfo(WorldInfo.Game).GameConductor.UpdateOverallAttackCoolDowns(self);
-						}
-
-						class'AICommand_HuskFireBallAttack'.static.FireBallAttack(self);
-						// Randomize the next fireball time
-						TimeBetweenFireBalls = BaseTimeBetweenFireBalls + RandRange(-FireballRandomizedValue, FireballRandomizedValue);
-					}
-				}
-			}
-			LastCheckSpecialMoveTime = WorldInfo.TimeSeconds;
-		}
-	}
 }
 
 function bool ShouldSprint()
