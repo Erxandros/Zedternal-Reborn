@@ -7,11 +7,11 @@ static function string GetLocalizedName()
 
 defaultproperties
 {
-	glowColor=(R=5.000000, G=0.600000, B=1.800000)
+	glowColor=(R=5.0f, G=0.6f, B=1.8f)
 
 	Begin Object Class=PointLightComponent Name=ExplosionPointLightPink
 		LightColor=(R=255, G=31, B=92, A=255)
-		bCastPerObjectShadows=false
+		bCastPerObjectShadows=False
 	End Object
 
 	Begin Object Class=WMExplosion_TinyHusk Name=TinyExploTemplatePink0
