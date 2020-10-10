@@ -17,20 +17,6 @@ static function string GetLocalizedName()
 	return "Fleshpound Omega";
 }
 
-function PossessedBy(Controller C, bool bVehicleTransition)
-{
-	local string NPCName;
-
-	super.PossessedBy(C, bVehicleTransition);
-
-	if (MyKFAIC != None && MyKFAIC.PlayerReplicationInfo != None)
-	{
-		NPCName = GetLocalizedName();
-		PlayerReplicationInfo.PlayerName = NPCName;
-		MyKFAIC.PlayerReplicationInfo.PlayerName = NPCName;
-	}
-}
-
 simulated function PostBeginPlay()
 {
 	IntendedBodyScale = 1.15;
