@@ -13,6 +13,20 @@ static function string GetLocalizedName()
 	return "Husk Omega";
 }
 
+function PossessedBy(Controller C, bool bVehicleTransition)
+{
+	local KFGameReplicationInfo KFGRI;
+
+	super(KFPawn_Monster).PossessedBy(C, bVehicleTransition);
+
+	// Set our difficulty-based settings
+	KFGRI = KFGameReplicationInfo(WorldInfo.GRI);
+	if(KFGRI != None)
+	{
+		FireballSettings = class<KFDifficulty_Husk>(DifficultySettings).static.GetFireballSettings(self, KFGRI);
+	}
+}
+
 simulated function PostBeginPlay()
 {
 	IntendedBodyScale = 1.14f;
