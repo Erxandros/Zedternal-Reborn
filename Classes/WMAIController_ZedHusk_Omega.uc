@@ -79,7 +79,7 @@ simulated function Tick(float DeltaTime)
 function bool CanDoFireballBarrage(float DistToTargetSq)
 {
 	if(!CheckOverallCooldownTimer())
-		return false;
+		return False;
 
 	return ((LastFireBallBarrageTime == 0 || (`TimeSince(LastFireBallBarrageTime) > TimeBetweenFireBallBarrages))
 		&& DistToTargetSq >= Square(MinDistanceForFireBallBarrage)
@@ -109,7 +109,7 @@ function bool IsCeilingClear()
 function bool ShouldSprint()
 {
 	if (GetHealthPercentage() <= BaseHealthPercentForSprint)
-		return true;
+		return True;
 	else
 		return super.ShouldSprint();
 }
@@ -121,7 +121,7 @@ function ShootRandomFireball(class<KFProj_Husk_Fireball> FireballClass)
 	local vector randVectorDraw;
 	local KFPawn_ZedHusk MyHuskPawn;
 
-	if (MyKFPawn == none)
+	if (MyKFPawn == None)
 	{
 		return;
 	}
@@ -143,7 +143,7 @@ function ShootRandomFireball(class<KFProj_Husk_Fireball> FireballClass)
 
 		// Set our difficulty setings
 		MyFireball.ExplosionTemplate.MomentumTransferScale = MyHuskPawn.FireballSettings.ExplosionMomentum * 0.5f;
-		MyFireball.bSpawnGroundFire = false;
+		MyFireball.bSpawnGroundFire = False;
 
 		// Fire
 		MyFireball.Init(DirToEnemy);
@@ -160,7 +160,7 @@ function ShootFireballBarrage(class<KFProj_Husk_Fireball> FireballClass, vector 
 	local float randDraw;
 	local KFPawn_ZedHusk MyHuskPawn;
 
-	if (MyKFPawn == none)
+	if (MyKFPawn == None)
 	{
 		return;
 	}
