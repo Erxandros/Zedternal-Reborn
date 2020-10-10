@@ -9,13 +9,13 @@ static function string GetLocalizedName()
 	return "Slasher Omega";
 }
 
-function PossessedBy( Controller C, bool bVehicleTransition )
+function PossessedBy(Controller C, bool bVehicleTransition)
 {
 	local string NPCName;
-	
-	super.PossessedBy( C, bVehicleTransition );
-	
-	if( MyKFAIC != none && MyKFAIC.PlayerReplicationInfo != None )
+
+	super.PossessedBy(C, bVehicleTransition);
+
+	if (MyKFAIC != None && MyKFAIC.PlayerReplicationInfo != None)
 	{
 		NPCName = GetLocalizedName();
 		PlayerReplicationInfo.PlayerName = NPCName;
@@ -25,16 +25,16 @@ function PossessedBy( Controller C, bool bVehicleTransition )
 
 simulated function PostBeginPlay()
 {
-	IntendedBodyScale = 1.125000;
+	IntendedBodyScale = 1.125f;
 	ZedArch = class'Zed_Arch_SlasherOmega'.static.GetArch(WorldInfo);
-	if (ZedArch!=none)
+	if (ZedArch != None)
 		updateArch();
-	
+
 	if (WorldInfo.NetMode != NM_DedicatedServer)
 		ApplySpecialFX();
-	
-	bVersusZed = true;
-	
+
+	bVersusZed = True;
+
 	super.PostBeginPlay();
 }
 
@@ -42,30 +42,30 @@ simulated function PlayDying(class<DamageType> DamageType, vector HitLoc)
 {
 	if (WorldInfo.NetMode != NM_DedicatedServer)
 		EndSpecialFX();
-	
+
 	super.PlayDying(DamageType, HitLoc);
 }
 
 simulated function ApplySpecialFX()
 {
 	local Name SocketBoneName;
-	
+
 	SocketBoneName = Mesh.GetSocketBoneName('FX_EYE_L');
 	if (SocketBoneName != '' && SocketBoneName != 'None')
-		SpecialFXPSCs[0] = WorldInfo.MyEmitterPool.SpawnEmitterMeshAttachment( ParticleSystem'ZedternalReborn_Zeds.FX_Omega', Mesh, 'FX_EYE_L', true, vect(0,0,0) );
-			
+		SpecialFXPSCs[0] = WorldInfo.MyEmitterPool.SpawnEmitterMeshAttachment(ParticleSystem'ZedternalReborn_Zeds.FX_Omega', Mesh, 'FX_EYE_L', True, vect(0,0,0));
+
 	SocketBoneName = Mesh.GetSocketBoneName('FX_EYE_R');
 	if (SocketBoneName != '' && SocketBoneName != 'None')
-		SpecialFXPSCs[1] = WorldInfo.MyEmitterPool.SpawnEmitterMeshAttachment( ParticleSystem'ZedternalReborn_Zeds.FX_Omega', Mesh, 'FX_EYE_R', true, vect(0,0,0) );
+		SpecialFXPSCs[1] = WorldInfo.MyEmitterPool.SpawnEmitterMeshAttachment(ParticleSystem'ZedternalReborn_Zeds.FX_Omega', Mesh, 'FX_EYE_R', True, vect(0,0,0));
 }
 
 simulated function EndSpecialFX()
 {
-	if( SpecialFXPSCs[0] != none && SpecialFXPSCs[0].bIsActive )
+	if (SpecialFXPSCs[0] != None && SpecialFXPSCs[0].bIsActive)
 	{
 		SpecialFXPSCs[0].DeactivateSystem();
 	}
-	if( SpecialFXPSCs[1] != none && SpecialFXPSCs[1].bIsActive )
+	if (SpecialFXPSCs[1] != None && SpecialFXPSCs[1].bIsActive)
 	{
 		SpecialFXPSCs[1].DeactivateSystem();
 	}
@@ -74,12 +74,12 @@ simulated function EndSpecialFX()
 simulated function updateArch()
 {
 	ZedArch = class'Zed_Arch_SlasherOmega'.Static.GetArch(WorldInfo);
-	if(ZedArch!=None)
+	if (ZedArch != None)
 	{
 		Mesh.AnimSets = ZedArch.zedClientArch.AnimSets;
 		Mesh.SetAnimTreeTemplate(ZedArch.zedClientArch.AnimTreeTemplate);
 		PawnAnimInfo = ZedArch.zedClientArch.AnimArchetype;
-		
+
 		// update texture effects
 		UpdateGameplayMICParams();
 	}
@@ -88,12 +88,12 @@ simulated function updateArch()
 simulated function UpdateGameplayMICParams()
 {
 	local byte i;
-	
+
 	super.UpdateGameplayMICParams();
-	
-	if(WorldInfo.NetMode != NM_DedicatedServer)
+
+	if (WorldInfo.NetMode != NM_DedicatedServer)
 	{
-		for (i=0; i<CharacterMICs.length; i++)
+		for (i = 0; i < CharacterMICs.length; ++i)
 		{
 			CharacterMICs[i].SetVectorParameterValue('Vector_GlowColor', class'WMPawn_OmegaConstants'.default.OmegaColor);
 			CharacterMICs[i].SetVectorParameterValue('Vector_FresnelGlowColor', class'WMPawn_OmegaConstants'.default.OmegaFresnelColor);
@@ -101,11 +101,10 @@ simulated function UpdateGameplayMICParams()
 	}
 }
 
-/** Returns damage multiplier for an incoming damage type @todo: c++?*/
 function float GetDamageTypeModifier(class<DamageType> DT)
 {
 	local float currentMod;
-	
+
 	// Omega ZEDs have extra resistance against all damage type
 	currentMod = super.GetDamageTypeModifier(DT);
 	return FMax(0.01f, currentMod - ExtraResistance);
@@ -113,38 +112,36 @@ function float GetDamageTypeModifier(class<DamageType> DT)
 
 simulated event bool UsePlayerControlledZedSkin()
 {
-    return true;
+	return True;
 }
 
 defaultproperties
 {
-   //MonsterArchPath=KFCharacterInfo_Monster'ZedternalReborn_Zeds.ZED_Clot_Slasher_Omega_Archetype'
-   DoshValue=15
-   XPValues(0)=16.000000
-   XPValues(1)=22.000000
-   XPValues(2)=22.000000
-   XPValues(3)=22.000000
-   Health=250
-   ExtraResistance=0.150000
-   GroundSpeed=340.000000
-   SprintSpeed=580.000000
-   LocalizationKey="WMPawn_ZedSlasher_Omega"
-   
-   Begin Object Class=KFMeleeHelperAI Name=WMMeleeHelper_0 Archetype=KFMeleeHelperAI'KFGame.Default__KFPawn_Monster:MeleeHelper_0'
-      BaseDamage=10.000000
-      MyDamageType=Class'kfgamecontent.KFDT_Slashing_ZedWeak'
-      MomentumTransfer=25000.000000
-      MaxHitRange=180.000000
-      Name="MeleeHelper_0"
-   End Object
-   MeleeAttackHelper=KFMeleeHelperAI'ZedternalReborn.Default__WMPawn_ZedClot_Slasher_Omega:WMMeleeHelper_0'
-   
-   bVersusZed=False
-   ParryResistance=1
-   GrabAttackFrequency=0.600000
+	DoshValue=15
+	XPValues(0)=16
+	XPValues(1)=22
+	XPValues(2)=22
+	XPValues(3)=22
+	Health=250
+	ExtraResistance=0.15f
+	GroundSpeed=340.0f
+	SprintSpeed=580.0f
+	LocalizationKey="WMPawn_ZedSlasher_Omega"
 
-   HitZones(0)=(GoreHealth=150)
-   
+	Begin Object Class=KFMeleeHelperAI Name=WMMeleeHelper_0 Archetype=KFMeleeHelperAI'KFGame.Default__KFPawn_Monster:MeleeHelper_0'
+		BaseDamage=10.0f
+		MyDamageType=Class'kfgamecontent.KFDT_Slashing_ZedWeak'
+		MomentumTransfer=25000.0f
+		MaxHitRange=180.0f
+		Name="MeleeHelper_0"
+	End Object
+	MeleeAttackHelper=KFMeleeHelperAI'ZedternalReborn.Default__WMPawn_ZedClot_Slasher_Omega:WMMeleeHelper_0'
 
-   Name="Default__WMPawn_ZedClot_Slasher_Omega"
+	bVersusZed=False
+	ParryResistance=1
+	GrabAttackFrequency=0.6f
+
+	HitZones(0)=(GoreHealth=150)
+
+	Name="Default__WMPawn_ZedClot_Slasher_Omega"
 }
