@@ -30,15 +30,14 @@ function PossessedBy(Controller C, bool bVehicleTransition)
 simulated function PostBeginPlay()
 {
 	IntendedBodyScale = 1.14f;
-	Mesh.AnimSets.AddItem(default.FireballBarrage);
-	UpdateGameplayMICParams();
-
-	if (WorldInfo.NetMode != NM_DedicatedServer)
-		ApplySpecialFX();
-
 	bVersusZed = True;
+	Mesh.AnimSets.AddItem(default.FireballBarrage);
 
 	super.PostBeginPlay();
+
+	UpdateGameplayMICParams();
+	if (WorldInfo.NetMode != NM_DedicatedServer)
+		ApplySpecialFX();
 }
 
 simulated function PlayDying(class<DamageType> DamageType, vector HitLoc)
@@ -111,7 +110,7 @@ function ANIMNOTIFY_HuskRandomFireballAttack()
 		if (HuskAIC != None)
 		{
 			FireballBarrageSM = WMSM_Husk_Omega_FireBallBarrageAttack(SpecialMoves[SpecialMove]);
-			HuskAIC.ShootFireballBarrage(SuicideFireballClass, FireballBarrageSM.GetFireOffset());
+			HuskAIC.ShootFireballBarrage(default.SuicideFireballClass, FireballBarrageSM.GetFireOffset());
 		}
 	}
 }
@@ -164,7 +163,7 @@ function TriggerExplosion(optional bool bIgnoreHumans)
 			{
 				for (i = 0; i < ProjSuicideAmount; ++i)
 				{
-					HuskAIC.ShootRandomFireball(SuicideFireballClass);
+					HuskAIC.ShootRandomFireball(default.SuicideFireballClass);
 				}
 			}
 
