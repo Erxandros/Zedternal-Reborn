@@ -1,6 +1,8 @@
 class WMPawn_ZedClot_Slasher_Omega extends KFPawn_ZedClot_Slasher;
 
-var transient Zed_Arch_SlasherOmega ZedArch;
+var const AnimSet SlasherOmegaAnimSet;
+var const KFPawnAnimInfo SlasherOmegaAnimInfo;
+
 var transient ParticleSystemComponent SpecialFXPSCs[2];
 var float ExtraResistance;
 
@@ -12,16 +14,16 @@ static function string GetLocalizedName()
 simulated function PostBeginPlay()
 {
 	IntendedBodyScale = 1.125f;
-	ZedArch = class'Zed_Arch_SlasherOmega'.static.GetArch(WorldInfo);
-	if (ZedArch != None)
-		updateArch();
-
-	if (WorldInfo.NetMode != NM_DedicatedServer)
-		ApplySpecialFX();
-
 	bVersusZed = True;
 
+	Mesh.AnimSets.AddItem(default.SlasherOmegaAnimSet);
+	PawnAnimInfo = default.SlasherOmegaAnimInfo;
+
 	super.PostBeginPlay();
+
+	UpdateGameplayMICParams();
+	if (WorldInfo.NetMode != NM_DedicatedServer)
+		ApplySpecialFX();
 }
 
 simulated function PlayDying(class<DamageType> DamageType, vector HitLoc)
@@ -54,20 +56,6 @@ simulated function EndSpecialFX()
 	if (SpecialFXPSCs[1] != None && SpecialFXPSCs[1].bIsActive)
 	{
 		SpecialFXPSCs[1].DeactivateSystem();
-	}
-}
-
-simulated function updateArch()
-{
-	ZedArch = class'Zed_Arch_SlasherOmega'.Static.GetArch(WorldInfo);
-	if (ZedArch != None)
-	{
-		Mesh.AnimSets = ZedArch.zedClientArch.AnimSets;
-		Mesh.SetAnimTreeTemplate(ZedArch.zedClientArch.AnimTreeTemplate);
-		PawnAnimInfo = ZedArch.zedClientArch.AnimArchetype;
-
-		// update texture effects
-		UpdateGameplayMICParams();
 	}
 }
 
@@ -117,6 +105,9 @@ defaultproperties
 	SprintSpeed=580.0f
 	bVersusZed=False
 	LocalizationKey="WMPawn_ZedSlasher_Omega"
+
+	SlasherOmegaAnimSet=AnimSet'ZedternalReborn_Zeds.Slasher_Clot_Omega_Anim'
+	SlasherOmegaAnimInfo=KFPawnAnimInfo'ZedternalReborn_Zeds.SlasherClot_Omega_AnimGroup'
 
 	Begin Object Class=KFMeleeHelperAI Name=WMMeleeHelper_0
 		BaseDamage=10.0f
