@@ -1,6 +1,6 @@
 class WMPawn_ZedStalker_Omega extends WMPawn_ZedStalker_NoDAR;
 
-var transient Zed_Arch_StalkerOmega ZedArch;
+var const AnimSet StalkerOmegaAnimSet;
 
 static function string GetLocalizedName()
 {
@@ -9,27 +9,14 @@ static function string GetLocalizedName()
 
 simulated function PostBeginPlay()
 {
-	ZedArch = class'Zed_Arch_StalkerOmega'.static.GetArch(WorldInfo);
-	if (ZedArch != None)
-		updateArch();
-
 	bVersusZed = True;
 
+	//Replace the master AnimSet with the omega master AnimSet
+	Mesh.AnimSets[0] = StalkerOmegaAnimSet;
+
 	super.PostBeginPlay();
-}
 
-simulated function updateArch()
-{
-	ZedArch = class'Zed_Arch_StalkerOmega'.Static.GetArch(WorldInfo);
-	if (ZedArch != None)
-	{
-		Mesh.AnimSets = ZedArch.zedClientArch.AnimSets;
-		Mesh.SetAnimTreeTemplate(ZedArch.zedClientArch.AnimTreeTemplate);
-		PawnAnimInfo = ZedArch.zedClientArch.AnimArchetype;
-
-		// update texture effects
-		UpdateGameplayMICParams();
-	}
+	UpdateGameplayMICParams();
 }
 
 simulated function UpdateGameplayMICParams()
@@ -62,6 +49,7 @@ defaultproperties
 	XPValues(1)=14
 	XPValues(2)=14
 	XPValues(3)=16
+	StalkerOmegaAnimSet=AnimSet'ZedternalReborn_Zeds.Stalker_Omega_Anim'
 	DifficultySettings=Class'ZedternalReborn.WMDifficulty_Stalker'
 	PenetrationResistance=0.8f
 	SprintSpeed=565.0f
