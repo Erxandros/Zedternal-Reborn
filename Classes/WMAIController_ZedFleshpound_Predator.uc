@@ -11,10 +11,9 @@ simulated event byte ScriptGetTeamNum()
 
 defaultproperties
 {
-	TeleportCooldown=4.000000
-	HiddenRelocateTeleportThreshold=7.000000
-	EvadeGrenadeChance=1.000000
-	bAllowScriptTeamCheck=true
+	bAllowScriptTeamCheck=True
+	TeleportCooldown=4.0f
+	EvadeGrenadeChance=1.0f
 
 	Name="Default__WMAIController_ZedFleshpound_Predator"
 }

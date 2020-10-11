@@ -1,6 +1,6 @@
 class WMPawn_ZedFleshpound_Predator extends KFPawn_ZedFleshpound;
 
-var linearColor predatorColor;
+var linearColor PredatorColor;
 
 static function string GetLocalizedName()
 {
@@ -9,7 +9,12 @@ static function string GetLocalizedName()
 
 simulated function PostBeginPlay()
 {
-	Mesh.SetScale(1.30);
+	IntendedBodyScale = 1.3f;
+	bVersusZed = True;
+
+	super.PostBeginPlay();
+
+	UpdateGameplayMICParams();
 }
 
 simulated function UpdateGameplayMICParams()
@@ -22,42 +27,44 @@ simulated function UpdateGameplayMICParams()
 	{
 		for (i = 0; i < CharacterMICs.length; ++i)
 		{
-			CharacterMICs[i].SetVectorParameterValue('Vector_GlowColor', predatorColor);
-			CharacterMICs[i].SetVectorParameterValue('Vector_FresnelGlowColor', predatorColor);
+			CharacterMICs[i].SetVectorParameterValue('Vector_GlowColor', PredatorColor);
+			CharacterMICs[i].SetVectorParameterValue('Vector_FresnelGlowColor', PredatorColor);
 		}
 	}
 }
 
 function bool CanBeGrabbed(KFPawn GrabbingPawn, optional bool bIgnoreFalling, optional bool bAllowSameTeamGrab)
 {
-	return false;
+	return False;
+}
+
+simulated event bool UsePlayerControlledZedSkin()
+{
+	return True;
 }
 
 defaultproperties
 {
-	DefaultGlowColor=(R=1.000000,G=0.250000,B=0.000000,A=1.000000)
-	EnragedGlowColor=(R=1.000000,G=0.000000,B=0.000000,A=1.000000)
-	DeadGlowColor=(R=0.000000,G=0.000000,B=0.000000,A=1.000000)
-	RageBumpDamageType=Class'kfgamecontent.KFDT_HeavyZedBump'
-
 	ControllerClass=Class'ZedternalReborn.WMAIController_ZedFleshpound_Predator'
-	bVersusZed=True
-	predatorColor=(R=0.200000,G=1.000000,B=0.100000,A=1.000000)
 
+	DefaultGlowColor=(G=0.25f)
+	PredatorColor=(R=0.2f,G=1.0f,B=0.1f,A=1.0f)
+	FootstepCameraShakeInnerRadius=230.0f
+	FootstepCameraShakeOuterRadius=1035.0f
+
+	bVersusZed=False
 	DoshValue=0
-	XPValues(0)=20.000000
-	XPValues(1)=25.000000
-	XPValues(2)=25.000000
-	XPValues(3)=30.000000
+	Health=9999
+	Mass=250.0f
+	GroundSpeed=500.0f
+	SprintSpeed=660.0f
 
-	FootstepCameraShakeInnerRadius=230.000000
-	FootstepCameraShakeOuterRadius=1035.000000
+	XPValues(0)=20
+	XPValues(1)=25
+	XPValues(2)=25
+	XPValues(3)=30
 
 	HitZones(0)=(GoreHealth=9999)
-	SprintSpeed=660.000000
-	Mass=250.000000
-	GroundSpeed=500.000000
-	Health=9999
 
 	Name="Default__WMPawn_ZedFleshpound_Predator"
 }
