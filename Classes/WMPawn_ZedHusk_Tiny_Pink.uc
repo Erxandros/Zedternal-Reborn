@@ -14,11 +14,10 @@ defaultproperties
 		bCastPerObjectShadows=False
 	End Object
 
-	Begin Object Class=WMExplosion_TinyHusk Name=TinyExploTemplatePink0
+	Begin Object Name=TinyExploTemplate0
 		ExplosionEffects=KFImpactEffectInfo'ZedternalReborn_Resource.FX_Husk_Tiny_Explosion_Pink'
 		ExploLight=ExplosionPointLightPink
 	End Object
-	ExplosionTemplate=TinyExploTemplatePink0
 
 	Name="Default__WMPawn_ZedHusk_Tiny_Pink"
 }
