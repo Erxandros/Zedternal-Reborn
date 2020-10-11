@@ -8,5 +8,5 @@ defaultproperties
 	Suicidal=(MovementSpeedMod=1.1f, EvadeOnDamageSettings=(Chance=0.0f))
 	HellOnEarth=(MovementSpeedMod=1.15f, EvadeOnDamageSettings=(Chance=0.0f))
 
-	Name="Default__KFDifficulty_Crawler"
+	Name="Default__WMDifficulty_Crawler_Big"
 }
