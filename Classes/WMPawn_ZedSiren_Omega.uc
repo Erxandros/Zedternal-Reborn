@@ -1,6 +1,5 @@
 class WMPawn_ZedSiren_Omega extends KFPawn_ZedSiren;
 
-var transient Zed_Arch_SirenOmega ZedArch;
 var transient ParticleSystemComponent SpecialFXPSCs[2];
 var float ExtraResistance;
 
@@ -12,17 +11,13 @@ static function string GetLocalizedName()
 simulated function PostBeginPlay()
 {
 	IntendedBodyScale = 0.92f;
-
-	ZedArch = class'Zed_Arch_SirenOmega'.static.GetArch(WorldInfo);
-	if (ZedArch != None)
-		updateArch();
-
-	if (WorldInfo.NetMode != NM_DedicatedServer)
-		ApplySpecialFX();
-
 	bVersusZed = True;
 
 	super.PostBeginPlay();
+
+	UpdateGameplayMICParams();
+	if (WorldInfo.NetMode != NM_DedicatedServer)
+		ApplySpecialFX();
 }
 
 simulated function PlayDying(class<DamageType> DamageType, vector HitLoc)
@@ -64,20 +59,6 @@ function SetSprinting(bool bNewSprintStatus)
 		super.SetSprinting(False);
 	else
 		super.SetSprinting(bNewSprintStatus);
-}
-
-simulated function updateArch()
-{
-	ZedArch = class'Zed_Arch_SirenOmega'.Static.GetArch(WorldInfo);
-	if (ZedArch != None)
-	{
-		Mesh.AnimSets = ZedArch.zedClientArch.AnimSets;
-		Mesh.SetAnimTreeTemplate(ZedArch.zedClientArch.AnimTreeTemplate);
-		PawnAnimInfo = ZedArch.zedClientArch.AnimArchetype;
-
-		// update texture effects
-		UpdateGameplayMICParams();
-	}
 }
 
 simulated function UpdateGameplayMICParams()
