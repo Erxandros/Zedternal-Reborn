@@ -147,8 +147,8 @@ simulated event bool UsePlayerControlledZedSkin()
 
 defaultproperties
 {
-	GorefastOmegaAnimSet=AnimSet'ZedternalReborn_Zeds.Gorefast_Omega_anim'
-	GorefastOmegaAnimInfo=KFPawnAnimInfo'ZedternalReborn_Zeds.Gorefast_Omega_AnimGroup'
+	GorefastOmegaAnimSet=AnimSet'ZedternalReborn_Zeds.Gorefast.Gorefast_Omega_AnimSet'
+	GorefastOmegaAnimInfo=KFPawnAnimInfo'ZedternalReborn_Zeds.Gorefast.Gorefast_Omega_AnimGroup'
 	ShieldImpactEffects=KFSkinTypeEffects_InvulnerabilityShield'KFGameContent.Default__KFPawn_ZedHans:ShieldEffects'
 	ControllerClass=class'ZedternalReborn.WMAIController_ZedGorefast_Omega'
 	DifficultySettings=class'ZedternalReborn.WMDifficulty_Gorefast_Omega'

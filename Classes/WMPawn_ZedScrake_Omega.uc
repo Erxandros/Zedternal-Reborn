@@ -134,8 +134,8 @@ simulated event bool UsePlayerControlledZedSkin()
 
 defaultproperties
 {
-	ScrakeOmegaAnimSet=AnimSet'ZedternalReborn_Zeds.Scrake_Omega_anim'
-	ScrakeOmegaAnimInfo=KFPawnAnimInfo'ZedternalReborn_Zeds.Scrake_Omega_AnimGroup'
+	ScrakeOmegaAnimSet=AnimSet'ZedternalReborn_Zeds.Scrake.Scrake_Omega_AnimSet'
+	ScrakeOmegaAnimInfo=KFPawnAnimInfo'ZedternalReborn_Zeds.Scrake.Scrake_Omega_AnimGroup'
 	LocalizationKey="WMPawn_ZedScrake_Omega"
 
 	RageHealthThresholdNormal=0.6f

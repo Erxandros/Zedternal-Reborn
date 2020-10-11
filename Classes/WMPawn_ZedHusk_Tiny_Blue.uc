@@ -15,7 +15,7 @@ defaultproperties
 	End Object
 
 	Begin Object Name=TinyExploTemplate0
-		ExplosionEffects=KFImpactEffectInfo'ZedternalReborn_Resource.FX_Husk_Tiny_Explosion_Blue'
+		ExplosionEffects=KFImpactEffectInfo'ZedternalReborn_Zeds.Husk.FX_Husk_Tiny_Explosion_Blue'
 		ExploLight=ExplosionPointLightBlue
 	End Object
 

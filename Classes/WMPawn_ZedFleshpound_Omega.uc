@@ -160,12 +160,12 @@ simulated event bool UsePlayerControlledZedSkin()
 
 defaultproperties
 {
-	FleshpoundOmegaAnimSet=AnimSet'ZedternalReborn_Zeds.Fleshpound_Omega_Anim'
-	FleshpoundOmegaAnimInfo=KFPawnAnimInfo'ZedternalReborn_Zeds.Fleshpound_Omega_AnimGroup'
+	FleshpoundOmegaAnimSet=AnimSet'ZedternalReborn_Zeds.Fleshpound.Fleshpound_Omega_AnimSet'
+	FleshpoundOmegaAnimInfo=KFPawnAnimInfo'ZedternalReborn_Zeds.Fleshpound.Fleshpound_Omega_AnimGroup'
 	OmegaExplosionTemplate=KFGameExplosion'KFGameContent.Default__KFPawn_ZedFleshpoundKing:ExploTemplate1'
 	RallyRadius=1750.0f
-	RallyEffect=ParticleSystem'ZedternalReborn_Zeds.FX_Fleshpound_Rage_01'
-	AltRallyEffect=ParticleSystem'ZedternalReborn_Zeds.FX_Fleshpound_Buff_01'
+	RallyEffect=ParticleSystem'ZedternalReborn_Zeds.Fleshpound.FX_Fleshpound_Rage_01'
+	AltRallyEffect=ParticleSystem'ZedternalReborn_Zeds.Fleshpound.FX_Fleshpound_Buff_01'
 	RallyEffectBoneName="Root"
 	AltRallyEffectBoneNames(0)="FX_EYE_L"
 	AltRallyEffectBoneNames(1)="FX_EYE_R"

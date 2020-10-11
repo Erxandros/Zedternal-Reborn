@@ -91,8 +91,8 @@ simulated event bool UsePlayerControlledZedSkin()
 
 defaultproperties
 {
-	SlasherOmegaAnimSet=AnimSet'ZedternalReborn_Zeds.Slasher_Clot_Omega_Anim'
-	SlasherOmegaAnimInfo=KFPawnAnimInfo'ZedternalReborn_Zeds.SlasherClot_Omega_AnimGroup'
+	SlasherOmegaAnimSet=AnimSet'ZedternalReborn_Zeds.Slasher.Slasher_Clot_Omega_AnimSet'
+	SlasherOmegaAnimInfo=KFPawnAnimInfo'ZedternalReborn_Zeds.Slasher.Slasher_Clot_Omega_AnimGroup'
 	LocalizationKey="WMPawn_ZedSlasher_Omega"
 
 	bVersusZed=False

@@ -67,9 +67,9 @@ function CauseHeadTrauma(float BleedOutTime = 5.0f)
 
 defaultproperties
 {
-	ScrakeTinyAnimSet=AnimSet'ZedternalReborn_Resource.Tiny_Scrake_Anim'
-	ScrakeOmegaAnimSet=AnimSet'ZedternalReborn_Zeds.Scrake_Omega_anim'
-	ScrakeTinyAnimInfo=KFPawnAnimInfo'ZedternalReborn_Resource.Tiny_Scrake_AnimGroup'
+	ScrakeTinyAnimSet=AnimSet'ZedternalReborn_Zeds.Scrake.Tiny_Scrake_AnimSet'
+	ScrakeOmegaAnimSet=AnimSet'ZedternalReborn_Zeds.Scrake.Scrake_Omega_AnimSet'
+	ScrakeTinyAnimInfo=KFPawnAnimInfo'ZedternalReborn_Zeds.Scrake.Tiny_Scrake_AnimGroup'
 	LocalizationKey="WMPawn_ZedScrake_Omega"
 
 	RageHealthThresholdNormal=0.99f

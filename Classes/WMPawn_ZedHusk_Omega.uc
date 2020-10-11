@@ -1,6 +1,6 @@
 class WMPawn_ZedHusk_Omega extends WMPawn_ZedHusk_NoDAR;
 
-var const AnimSet FireballBarrage;
+var const AnimSet HuskOmegaAnimSet;
 var const class<KFProj_Husk_Fireball> SuicideFireballClass;
 var const int ProjSuicideAmount;
 
@@ -30,7 +30,7 @@ simulated function PostBeginPlay()
 {
 	IntendedBodyScale = 1.14f;
 	bVersusZed = True;
-	Mesh.AnimSets.AddItem(default.FireballBarrage);
+	Mesh.AnimSets.AddItem(HuskOmegaAnimSet);
 
 	super.PostBeginPlay();
 
@@ -184,7 +184,7 @@ simulated event bool UsePlayerControlledZedSkin()
 
 defaultproperties
 {
-	FireballBarrage=AnimSet'ZedternalReborn_Zeds.Husk_Omega_Anim_Master'
+	HuskOmegaAnimSet=AnimSet'ZedternalReborn_Zeds.Husk.Husk_Omega_AnimSet'
 	SuicideFireballClass=class'ZedternalReborn.WMProj_Husk_Fireball_Suicide'
 	ControllerClass=class'ZedternalReborn.WMAIController_ZedHusk_Omega'
 	DifficultySettings=class'ZedternalReborn.WMDifficulty_Husk_Omega'
