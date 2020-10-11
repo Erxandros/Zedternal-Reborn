@@ -94,38 +94,25 @@ simulated event bool UsePlayerControlledZedSkin()
 
 defaultproperties
 {
-	Begin Object Class=PointLightComponent Name=NeckLightComponentOmega
-		FalloffExponent=2.0f
-		Brightness=0.8f
-		Radius=35.0f
-		LightColor=(R=255,G=64,B=128,A=255)
-		CastShadows=False
-		bCastPerObjectShadows=False
-		bEnabled=False
-		LightingChannels=(Indoor=True,Outdoor=True,bInitialized=True)
-
-		// light anim
-		AnimationType=1
-		AnimationFrequency=5.0f
-		MinBrightness=0.75f
-		MaxBrightness=1.2f
-	End Object
-	NeckLightComponent=NeckLightComponentOmega
-
-	bVersusZed=False
-
 	DifficultySettings=Class'ZedternalReborn.WMDifficulty_Siren_Omega'
 
-	DoshValue=32
+	bVersusZed=False
+	DoshValue=50
+	Health=275
+	GroundSpeed=180.0f
+	SprintSpeed=245.0f
+	ExtraResistance=0.1f
+
+	Begin Object Name=NeckLightComponent0
+		LightColor=(R=255,G=64,B=128,A=255)
+	End Object
+
 	XPValues(0)=22
 	XPValues(1)=30
 	XPValues(2)=30
 	XPValues(3)=30
 
-	SprintSpeed=140.0f
-	GroundSpeed=290.0f
-	Health=170
-	ExtraResistance=0.1f
+	HitZones(0)=(GoreHealth=180)
 
 	Name="Default__WMPawn_ZedSiren_Omega"
 }
