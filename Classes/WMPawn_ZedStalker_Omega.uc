@@ -45,7 +45,7 @@ simulated event bool UsePlayerControlledZedSkin()
 defaultproperties
 {
 	StalkerOmegaAnimSet=AnimSet'ZedternalReborn_Zeds.Stalker_Omega_Anim'
-	DifficultySettings=class'ZedternalReborn.WMDifficulty_Stalker'
+	DifficultySettings=class'ZedternalReborn.WMDifficulty_Stalker_Omega'
 
 	bVersusZed=False
 	DoshValue=22

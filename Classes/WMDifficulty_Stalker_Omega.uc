@@ -1,4 +1,4 @@
-class WMDifficulty_Stalker extends KFDifficulty_Stalker
+class WMDifficulty_Stalker_Omega extends KFDifficulty_Stalker
 	abstract;
 
 defaultproperties
@@ -8,5 +8,5 @@ defaultproperties
 	Suicidal=(EvadeOnDamageSettings=(Chance=0.7f))
 	HellOnEarth=(EvadeOnDamageSettings=(Chance=0.8f))
 
-	Name="Default__WMDifficulty_Stalker"
+	Name="Default__WMDifficulty_Stalker_Omega"
 }
