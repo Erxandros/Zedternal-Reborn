@@ -14,22 +14,22 @@ replication
 function PostBeginPlay()
 {
 	Player = KFPawn_Human(Owner);
-	if(Player == none)
+	if (Player == None)
 		Destroy();
 }
 
 reliable client function PlayLocalEffects()
 {
-	if(Player == none)
+	if (Player == None)
 		Destroy();
 
-	Player.PlaySoundBase(default.earthquakeSound, true);
-	class'Camera'.static.PlayWorldCameraShake(cameraShake, Player, Player.Location, 400.f, 1500.f, 3.0f, true);
+	Player.PlaySoundBase(default.earthquakeSound, True);
+	class'Camera'.static.PlayWorldCameraShake(cameraShake, Player, Player.Location, 400.0f, 1500.0f, 3.0f, True);
 }
 
 defaultproperties
 {
-	bOnlyRelevantToOwner=true
-	cameraShake=KFCameraShake'ZedternalReborn_Resource.FX_CameraShake_Earthquake'
+	bOnlyRelevantToOwner=True
+	cameraShake=KFCameraShake'ZedternalReborn_Resource.Effects.FX_CameraShake_Earthquake'
 	earthquakeSound=AkEvent'ww_zed_fleshpound_2.Play_Fleshpound_Pound'
 }

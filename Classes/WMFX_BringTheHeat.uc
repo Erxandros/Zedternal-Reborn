@@ -1,8 +1,7 @@
 class WMFX_BringTheHeat extends WMFX_Base;
-	
 
 defaultproperties
 {
-	Duration=3.000000
-	PSEffect=ParticleSystem'ZedternalReborn_Resource.FX_BringTheHeat_Effect'
+	Duration=3.0f
+	PSEffect=ParticleSystem'ZedternalReborn_Resource.Effects.FX_BringTheHeat_Effect'
 }

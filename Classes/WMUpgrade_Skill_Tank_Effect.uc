@@ -21,36 +21,36 @@ replication
 function PostBeginPlay()
 {
 	Player = KFPawn_Human(Owner);
-	if(Player==none)
+	if (Player == None)
 		Destroy();
 }
 
-simulated function Tick( float Delta )
+simulated function Tick(float Delta)
 {
 	local WorldInfo WI;
 	local float limit;
 
-	if (Player == none)
+	if (Player == None)
 		Destroy();
-	
+
 	WI = class'WorldInfo'.static.GetWorldInfo();
 
-	if(WI.NetMode == NM_Client)
+	if (WI.NetMode == NM_Client)
 	{
 		if (oldHealth == 0)
 			oldHealth = Player.Health;
-		
+
 		if (bDeluxe)
 			limit = default.critical[1];
 		else
 			limit = default.critical[0];
-		
+
 		if (!bOn && oldHealth > Player.Health && Player.Health >= int(float(Player.HealthMax) * limit))
 		{
 			oldHealth = Player.Health;
-			bOn = true;
+			bOn = True;
 			PlayLocalEffects();
-			SetTimer(default.minDelay, false, nameof(ResetEffect));
+			SetTimer(default.minDelay, False, nameof(ResetEffect));
 		}
 		else if (!bOn && oldHealth > Player.Health)
 			oldHealth = Player.Health;
@@ -59,7 +59,7 @@ simulated function Tick( float Delta )
 
 simulated function ResetEffect()
 {
-	bOn = false;
+	bOn = False;
 }
 
 simulated function PlayLocalEffects()
@@ -67,34 +67,34 @@ simulated function PlayLocalEffects()
 	local vector Loc, View;
 	local rotator Rot;
 	local ParticleSystemComponent PSC;
-	
-	if(Player==none)
+
+	if (Player == None)
 		Destroy();
-	
-	Player.PlaySoundBase(default.BlockSound, true);
-	
+
+	Player.PlaySoundBase(default.BlockSound, True);
+
 	Loc = Player.Location;
 	Rot = Player.Rotation;
 	View = vector(Player.Rotation);
-	
-	Loc.X += 50.f*View.X;
-	Loc.Y += 50.f*View.Y;
-	Loc.Z += 50.f*View.Z;
-	
-	PSC = Player.WorldInfo.MyEmitterPool.SpawnEmitter(default.PSShield, Loc,  Rot);
+
+	Loc.X += 50.0f * View.X;
+	Loc.Y += 50.0f * View.Y;
+	Loc.Z += 50.0f * View.Z;
+
+	PSC = Player.WorldInfo.MyEmitterPool.SpawnEmitter(default.PSShield, Loc, Rot);
 		PSC.SetDepthPriorityGroup(SDPG_Foreground);
 }
 
 defaultproperties
 {
-   bOnlyRelevantToOwner = true
-   bOn = false
-   minDelay = 1.000000
-   oldHealth = 0
-   critical(0) = 0.900000
-   critical(1) = 0.700000
-   bDeluxe = false
-   PSShield=ParticleSystem'ZedternalReborn_Resource.FX_Tank_effect'
-   BlockSound=AkEvent'WW_WEP_Bullet_Impacts.Play_Parry_Metal'
-   Name="Default__WMUpgrade_Skill_Tank_Effect"
+	bOnlyRelevantToOwner=True
+	bOn=False
+	minDelay=1.0f
+	oldHealth=0
+	critical(0)=0.9f
+	critical(1)=0.7f
+	bDeluxe=False
+	PSShield=ParticleSystem'ZedternalReborn_Resource.Effects.FX_Tank_effect'
+	BlockSound=AkEvent'WW_WEP_Bullet_Impacts.Play_Parry_Metal'
+	Name="Default__WMUpgrade_Skill_Tank_Effect"
 }
