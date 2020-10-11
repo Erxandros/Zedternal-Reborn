@@ -134,33 +134,26 @@ simulated event bool UsePlayerControlledZedSkin()
 
 defaultproperties
 {
+	ScrakeOmegaAnimSet=AnimSet'ZedternalReborn_Zeds.Scrake_Omega_anim'
+	ScrakeOmegaAnimInfo=KFPawnAnimInfo'ZedternalReborn_Zeds.Scrake_Omega_AnimGroup'
+	LocalizationKey="WMPawn_ZedScrake_Omega"
+
 	RageHealthThresholdNormal=0.6f
 	RageHealthThresholdHard=0.7f
 	RageHealthThresholdSuicidal=0.75f
 	RageHealthThresholdHellOnEarth=0.8f
 
 	bVersusZed=False
-	bLargeZed=True
-	bCanRage=True
 	DoshValue=150
-
 	Health=3800
-	ExtraResistance=0.3f
+	Mass=150.0f
 	GroundSpeed=215.0f
 	SprintSpeed=700.0f
-	Mass=150.0f
+	ExtraResistance=0.3f
 
-	ScrakeOmegaAnimSet=AnimSet'ZedternalReborn_Zeds.Scrake_Omega_anim'
-	ScrakeOmegaAnimInfo=KFPawnAnimInfo'ZedternalReborn_Zeds.Scrake_Omega_AnimGroup'
-	LocalizationKey="WMPawn_ZedScrake_Omega"
-
-	Begin Object Class=KFMeleeHelperAI Name=WMMeleeHelper_0
+	Begin Object Name=MeleeHelper_0
 		BaseDamage=50.0f
-		MaxHitRange=200.0f
-		MomentumTransfer=45000.0f
-		MyDamageType=class'KFGameContent.KFDT_Slashing_Scrake'
 	End Object
-	MeleeAttackHelper=WMMeleeHelper_0
 
 	XPValues(0)=68
 	XPValues(1)=90
