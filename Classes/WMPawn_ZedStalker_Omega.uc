@@ -36,29 +36,30 @@ simulated function UpdateGameplayMICParams()
 
 simulated event bool UsePlayerControlledZedSkin()
 {
+	if (class'KFGameEngine'.static.GetSeasonalEventID() % 10 == SEI_Fall)
+		return False;
+
 	return True;
 }
 
 defaultproperties
 {
-	CloakPercent=1.0f
-	CloakSpeed=4.0f
-	DeCloakSpeed=4.5f
+	StalkerOmegaAnimSet=AnimSet'ZedternalReborn_Zeds.Stalker_Omega_Anim'
+	DifficultySettings=Class'ZedternalReborn.WMDifficulty_Stalker'
+
+	bVersusZed=False
 	DoshValue=22
+	Mass=55.0f
+	SprintSpeed=565.0f
+	GroundSpeed=425.0f
+	Health=250
+	PenetrationResistance=0.8f
+
 	XPValues(0)=11
 	XPValues(1)=14
 	XPValues(2)=14
 	XPValues(3)=16
-	StalkerOmegaAnimSet=AnimSet'ZedternalReborn_Zeds.Stalker_Omega_Anim'
-	DifficultySettings=Class'ZedternalReborn.WMDifficulty_Stalker'
-	PenetrationResistance=0.8f
-	SprintSpeed=565.0f
 
-	bVersusZed=False
-
-	Mass=55.0f
-	GroundSpeed=425.0f
-	Health=250
 	HitZones(0)=(GoreHealth=100)
 
 	Name="Default__WMPawn_ZedStalker_Omega"
