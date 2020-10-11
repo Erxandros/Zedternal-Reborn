@@ -18,20 +18,6 @@ simulated function PostBeginPlay()
 	super.PostBeginPlay();
 }
 
-function PossessedBy(Controller C, bool bVehicleTransition)
-{
-	local string NPCName;
-
-	super.PossessedBy(C, bVehicleTransition);
-
-	if (MyKFAIC != None && MyKFAIC.PlayerReplicationInfo != None)
-	{
-		NPCName = GetLocalizedName();
-		PlayerReplicationInfo.PlayerName = NPCName;
-		MyKFAIC.PlayerReplicationInfo.PlayerName = NPCName;
-	}
-}
-
 simulated function updateArch()
 {
 	ZedArch = class'Zed_Arch_StalkerOmega'.Static.GetArch(WorldInfo);
