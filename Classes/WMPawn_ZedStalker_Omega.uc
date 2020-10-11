@@ -32,39 +32,17 @@ simulated function updateArch()
 	}
 }
 
-/** Handle cloaking materials */
 simulated function UpdateGameplayMICParams()
 {
-	local bool bIsSpotted;
 	local byte i;
 
-	//super.UpdateGameplayMICParams();
+	super.UpdateGameplayMICParams();
 
-	// Cannot cloak after stalker has been gored
-	if (!bIsGoreMesh && WorldInfo.NetMode != NM_DedicatedServer)
-	{
-		// visible by local player or team (must go after ServerCallOutCloaking)
-		bIsSpotted = (bIsCloakingSpottedByLP || bIsCloakingSpottedByTeam);
-
-		if (bIsSpotted && bIsCloaking)
-		{
-			Mesh.SetMaterial(0, SpottedMaterial);
-		}
-		else if (Mesh.SkeletalMesh.Materials[0] == SpottedMaterial)
-		{
-			for (i = 0; i < ZedArch.zedClientArch.PlayerControlledSkins.length; ++i)
-			{
-				Mesh.SetMaterial(i, ZedArch.zedClientArch.PlayerControlledSkins[i]);
-			}
-			PlayStealthSoundLoop();
-		}
-	}
-	else if (WorldInfo.NetMode != NM_DedicatedServer)
+	if ((!bIsCloaking || bIsGoreMesh) && WorldInfo.NetMode != NM_DedicatedServer)
 	{
 		for (i = 0; i < CharacterMICs.length; ++i)
 		{
-			CharacterMICs[i].SetVectorParameterValue('Vector_GlowColor', class'WMPawn_OmegaConstants'.default.OmegaColor);
-			CharacterMICs[i].SetVectorParameterValue('Vector_FresnelGlowColor', class'WMPawn_OmegaConstants'.default.OmegaFresnelColor);
+			CharacterMICs[i].SetVectorParameterValue('Emissive Color', class'WMPawn_OmegaConstants'.default.OmegaColor);
 		}
 	}
 }
@@ -76,7 +54,6 @@ simulated event bool UsePlayerControlledZedSkin()
 
 defaultproperties
 {
-	SpottedMaterial=MaterialInstanceConstant'ZED_Stalker_MAT.ZED_Stalker_Visible_MAT'
 	CloakPercent=1.0f
 	CloakSpeed=4.0f
 	DeCloakSpeed=4.5f
