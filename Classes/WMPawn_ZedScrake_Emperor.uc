@@ -1,6 +1,7 @@
 class WMPawn_ZedScrake_Emperor extends KFPawn_ZedScrake;
 
-var transient Zed_Arch_ScrakeOmega ZedArch;
+var const AnimSet ScrakeOmegaAnimSet;
+var const KFPawnAnimInfo ScrakeOmegaAnimInfo;
 
 static function string GetLocalizedName()
 {
@@ -10,26 +11,17 @@ static function string GetLocalizedName()
 simulated function PostBeginPlay()
 {
 	IntendedBodyScale = 1.4f;
-	ZedArch = class'Zed_Arch_ScrakeOmega'.static.GetArch(WorldInfo);
-	if (ZedArch != None)
-		updateArch();
-	super.PostBeginPlay();
-}
 
-simulated function updateArch()
-{
-	ZedArch = class'Zed_Arch_ScrakeOmega'.Static.GetArch(WorldInfo);
-	if (ZedArch != None)
-	{
-		Mesh.SetSkeletalMesh(ZedArch.zedClientArch.CharacterMesh);
-		Mesh.AnimSets = ZedArch.zedClientArch.AnimSets;
-		Mesh.SetAnimTreeTemplate(ZedArch.zedClientArch.AnimTreeTemplate);
-		PawnAnimInfo = ZedArch.zedClientArch.AnimArchetype;
-	}
+	Mesh.AnimSets.AddItem(ScrakeOmegaAnimSet);
+	PawnAnimInfo = ScrakeOmegaAnimInfo;
+
+	super.PostBeginPlay();
 }
 
 defaultproperties
 {
+	ScrakeOmegaAnimSet=AnimSet'ZedternalReborn_Zeds.Scrake_Omega_anim'
+	ScrakeOmegaAnimInfo=KFPawnAnimInfo'ZedternalReborn_Zeds.Scrake_Omega_AnimGroup'
 	DifficultySettings=Class'ZedternalReborn.WMDifficulty_Scrake_Emperor'
 
 	RageHealthThresholdNormal=0.2f
