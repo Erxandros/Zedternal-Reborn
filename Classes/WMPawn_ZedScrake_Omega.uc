@@ -9,20 +9,6 @@ static function string GetLocalizedName()
 	return "Scrake Omega";
 }
 
-function PossessedBy(Controller C, bool bVehicleTransition)
-{
-	local string NPCName;
-
-	super.PossessedBy(C, bVehicleTransition);
-
-	if (MyKFAIC != None && MyKFAIC.PlayerReplicationInfo != None)
-	{
-		NPCName = GetLocalizedName();
-		PlayerReplicationInfo.PlayerName = NPCName;
-		MyKFAIC.PlayerReplicationInfo.PlayerName = NPCName;
-	}
-}
-
 simulated function PostBeginPlay()
 {
 	IntendedBodyScale = 1.16f;
@@ -108,45 +94,6 @@ function float GetDamageTypeModifier(class<DamageType> DT)
 	// Omega ZEDs have extra resistance against all damage type
 	currentMod = super.GetDamageTypeModifier(DT);
 	return FMax(0.01f, currentMod - ExtraResistance);
-}
-
-event TakeDamage(int Damage, Controller InstigatedBy, vector HitLocation, vector Momentum, class<DamageType> DamageType, optional TraceHitInfo HitInfo, optional Actor DamageCauser)
-{
-	super.TakeDamage(Damage, InstigatedBy, HitLocation, Momentum, DamageType, HitInfo, DamageCauser);
-
-	if (bCanRage && !bPlayedDeath && (GetHealthPercentage() < RageHealthThreshold || GetHeadHealthPercent() < RageHealthThreshold))
-	{
-		SetEnraged(True);
-	}
-}
-
-/*********************************************************************************************
-* Movement
-********************************************************************************************* */
-
-function SetSprinting(bool bNewSprintStatus)
-{
-	if (bEmpDisrupted && (MyKFAIC == None || !MyKFAIC.bHasDebugCommand))
-	{
-		return;
-	}
-
-	super.SetSprinting(bNewSprintStatus);
-}
-
-/*********************************************************************************************
-* Notifications
-********************************************************************************************* */
-
-/** Interrupt certain moves when bEmpDisrupted is set */
-function OnStackingAfflictionChanged(byte Id)
-{
-	Super.OnStackingAfflictionChanged(Id);
-
-	if (bEMPDisrupted && bIsSprinting && MyKFAIC != None && IsAliveAndWell())
-	{
-		SetSprinting(False);
-	}
 }
 
 function CauseHeadTrauma(float BleedOutTime=5.f)
@@ -236,35 +183,6 @@ defaultproperties
 	HitZones(0)=(GoreHealth=1800)
 
 	Mass=150.0f
-	Begin Object Name=KFPawnSkeletalMeshComponent Archetype=KFSkeletalMeshComponent'KFGame.Default__KFPawn_Monster:KFPawnSkeletalMeshComponent'
-		WireframeColor=(B=0,G=255,R=255,A=255)
-		MinDistFactorForKinematicUpdate=0.200000
-		bSkipAllUpdateWhenPhysicsAsleep=True
-		bIgnoreControllersWhenNotRendered=True
-		bHasPhysicsAssetInstance=True
-		bPerBoneMotionBlur=True
-		bOverrideAttachmentOwnerVisibility=True
-		bChartDistanceFactor=True
-		ReplacementPrimitive=None
-		RBChannel=RBCC_Pawn
-		RBDominanceGroup=20
-		bOwnerNoSee=True
-		bAcceptsDynamicDecals=True
-		bUseOnePassLightingOnTranslucency=True
-		CollideActors=True
-		BlockZeroExtent=True
-		BlockRigidBody=True
-		RBCollideWithChannels=(Default=True,Pawn=True,Vehicle=True,BlockingVolume=True)
-		Translation=(X=0.000000,Y=0.000000,Z=-86.000000)
-		ScriptRigidBodyCollisionThreshold=200.000000
-		PerObjectShadowCullDistance=2500.000000
-		bAllowPerObjectShadows=True
-		TickGroup=TG_DuringAsyncWork
-		Scale=1.200000
-		Name="KFPawnSkeletalMeshComponent"
-	End Object
-	Mesh=KFPawnSkeletalMeshComponent
-	RotationRate=(Pitch=50000,Yaw=50000,Roll=50000)
 
 	Name="Default__WMPawn_ZedScrake_Omega"
 }
