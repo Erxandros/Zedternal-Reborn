@@ -1,13 +1,12 @@
 class WMPawn_ZedGorefast_Omega extends WMPawn_ZedGorefast_NoDualBlade;
 
+var const AnimSet GorefastOmegaAnimSet;
+var const KFPawnAnimInfo GorefastOmegaAnimInfo;
+var const KFSkinTypeEffects ShieldImpactEffects;
+
 var transient ParticleSystemComponent SpecialFXPSCs[2];
 var float ExtraResistance;
 var bool bShieldOn;
-var vector EffectOffset;
-
-var const KFSkinTypeEffects ShieldImpactEffects;
-var const AnimSet GorefastOmegaAnimSet;
-var const KFPawnAnimInfo GorefastOmegaAnimInfo;
 
 replication
 {
@@ -148,30 +147,27 @@ simulated event bool UsePlayerControlledZedSkin()
 
 defaultproperties
 {
-	bVersusZed=False
-	ParryResistance=3
-
-	bShieldOn=False
-	EffectOffset=(X=0.0f, Y=0.0f, Z=0.0f)
-
-	ShieldImpactEffects=KFSkinTypeEffects_InvulnerabilityShield'KFGameContent.Default__KFPawn_ZedHans:ShieldEffects'
 	GorefastOmegaAnimSet=AnimSet'ZedternalReborn_Zeds.Gorefast_Omega_anim'
 	GorefastOmegaAnimInfo=KFPawnAnimInfo'ZedternalReborn_Zeds.Gorefast_Omega_AnimGroup'
+	ShieldImpactEffects=KFSkinTypeEffects_InvulnerabilityShield'KFGameContent.Default__KFPawn_ZedHans:ShieldEffects'
+	ControllerClass=class'ZedternalReborn.WMAIController_ZedGorefast_Omega'
+	DifficultySettings=class'ZedternalReborn.WMDifficulty_Gorefast_Omega'
+	LocalizationKey="WMPawn_ZedGorefast_Omega"
 
+	bShieldOn=False
+	bVersusZed=False
 	DoshValue=24
+	Health=600
+	GroundSpeed=285.0f
+	SprintSpeed=435.0f
+	ParryResistance=3
+	PenetrationResistance=2.25f
+	ExtraResistance=0.2f
+
 	XPValues(0)=22
 	XPValues(1)=28
 	XPValues(2)=28
 	XPValues(3)=28
-	SprintSpeed=435.0f
-	GroundSpeed=285.0f
-	Health=600
-	PenetrationResistance=2.25f
-	ExtraResistance=0.2f
-
-	ControllerClass=class'ZedternalReborn.WMAIController_ZedGorefast_Omega'
-	DifficultySettings=class'ZedternalReborn.WMDifficulty_Gorefast_Omega'
-	LocalizationKey="WMPawn_ZedGorefast_Omega"
 
 	HitZones(0)=(GoreHealth=400)
 
