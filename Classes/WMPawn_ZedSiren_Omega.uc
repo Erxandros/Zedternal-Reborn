@@ -43,15 +43,16 @@ simulated function ApplySpecialFX()
 
 simulated function EndSpecialFX()
 {
-	if(SpecialFXPSCs[0] != None && SpecialFXPSCs[0].bIsActive)
+	if (SpecialFXPSCs[0] != None && SpecialFXPSCs[0].bIsActive)
 	{
 		SpecialFXPSCs[0].DeactivateSystem();
 	}
-	if(SpecialFXPSCs[1] != None && SpecialFXPSCs[1].bIsActive)
+	if (SpecialFXPSCs[1] != None && SpecialFXPSCs[1].bIsActive)
 	{
 		SpecialFXPSCs[1].DeactivateSystem();
 	}
 }
+
 function SetSprinting(bool bNewSprintStatus)
 {
 
@@ -67,7 +68,7 @@ simulated function UpdateGameplayMICParams()
 
 	super.UpdateGameplayMICParams();
 
-	if(WorldInfo.NetMode != NM_DedicatedServer)
+	if (WorldInfo.NetMode != NM_DedicatedServer)
 	{
 		for (i = 0; i < CharacterMICs.length; ++i)
 		{
@@ -83,7 +84,7 @@ function float GetDamageTypeModifier(class<DamageType> DT)
 
 	// Omega ZEDs have extra resistance against all damage type
 	currentMod = super.GetDamageTypeModifier(DT);
-	return FMax(0.f, currentMod - ExtraResistance);
+	return FMax(0.01f, currentMod - ExtraResistance);
 }
 
 simulated event bool UsePlayerControlledZedSkin()
@@ -94,9 +95,9 @@ simulated event bool UsePlayerControlledZedSkin()
 defaultproperties
 {
 	Begin Object Class=PointLightComponent Name=NeckLightComponentOmega
-		FalloffExponent=2.f
+		FalloffExponent=2.0f
 		Brightness=0.8f
-		Radius=35.f
+		Radius=35.0f
 		LightColor=(R=255,G=64,B=128,A=255)
 		CastShadows=False
 		bCastPerObjectShadows=False
@@ -105,7 +106,7 @@ defaultproperties
 
 		// light anim
 		AnimationType=1
-		AnimationFrequency=5.f
+		AnimationFrequency=5.0f
 		MinBrightness=0.75f
 		MaxBrightness=1.2f
 	End Object
@@ -125,4 +126,6 @@ defaultproperties
 	GroundSpeed=290.0f
 	Health=170
 	ExtraResistance=0.1f
+
+	Name="Default__WMPawn_ZedSiren_Omega"
 }
