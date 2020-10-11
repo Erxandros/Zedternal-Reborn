@@ -1,7 +1,8 @@
 class WMPawn_ZedFleshpound_Omega extends KFPawn_ZedFleshpound;
 
-var transient ParticleSystemComponent SpecialFXPSCs[2];
-var float ExtraResistance;
+var const AnimSet FleshpoundOmegaAnimSet;
+var const KFPawnAnimInfo FleshpoundOmegaAnimInfo;
+var const KFGameExplosion OmegaExplosionTemplate;
 
 var const float RallyRadius;
 var const ParticleSystem RallyEffect, AltRallyEffect;
@@ -9,9 +10,8 @@ var const name RallyEffectBoneName;
 var const name AltRallyEffectBoneNames[2];
 var const vector RallyEffectOffset, AltRallyEffectOffset;
 
-var const KFGameExplosion OmegaExplosionTemplate;
-var const AnimSet FleshpoundOmegaAnimSet;
-var const KFPawnAnimInfo FleshpoundOmegaAnimInfo;
+var transient ParticleSystemComponent SpecialFXPSCs[2];
+var float ExtraResistance;
 
 static function string GetLocalizedName()
 {
@@ -160,13 +160,9 @@ simulated event bool UsePlayerControlledZedSkin()
 
 defaultproperties
 {
-	DefaultGlowColor=(R=1.0f,G=0.25f,B=0.0f,A=1.0f)
-	EnragedGlowColor=(R=1.0f,G=0.0f,B=0.0f,A=1.0f)
-	DeadGlowColor=(R=0.0f,G=0.0f,B=0.0f,A=1.0f)
-	RageBumpDamageType=class'KFGameContent.KFDT_HeavyZedBump'
-
-	bVersusZed=False
-
+	FleshpoundOmegaAnimSet=AnimSet'ZedternalReborn_Zeds.Fleshpound_Omega_Anim'
+	FleshpoundOmegaAnimInfo=KFPawnAnimInfo'ZedternalReborn_Zeds.Fleshpound_Omega_AnimGroup'
+	OmegaExplosionTemplate=KFGameExplosion'KFGameContent.Default__KFPawn_ZedFleshpoundKing:ExploTemplate1'
 	RallyRadius=1750.0f
 	RallyEffect=ParticleSystem'ZedternalReborn_Zeds.FX_Fleshpound_Rage_01'
 	AltRallyEffect=ParticleSystem'ZedternalReborn_Zeds.FX_Fleshpound_Buff_01'
@@ -175,36 +171,32 @@ defaultproperties
 	AltRallyEffectBoneNames(1)="FX_EYE_R"
 	RallyEffectOffset=(X=0.0f,Y=0.0f,Z=0.0f)
 	AltRallyEffectOffset=(X=0.0f,Y=0.0f,Z=0.0f)
+	LocalizationKey="WMPawn_ZedFleshpound_Omega"
 
+	DefaultGlowColor=(G=0.25f)
+	FootstepCameraShakeInnerRadius=230.0f
+	FootstepCameraShakeOuterRadius=1035.0f
+
+	bVersusZed=False
 	DoshValue=400
+	Health=4000
+	Mass=220.0f
+	GroundSpeed=460.0f
+	SprintSpeed=615.0f
+	ExtraResistance=0.2f
+
+	Begin Object Name=MeleeHelper_0
+		BaseDamage=30.0f
+		MaxHitRange=260.0f
+		MomentumTransfer=65000.0f
+	End Object
+
 	XPValues(0)=70
 	XPValues(1)=94
 	XPValues(2)=126
 	XPValues(3)=144
-	Health=4000
-	ExtraResistance=0.2f
-	GroundSpeed=460.0f
-	SprintSpeed=615.0f
-
-	FootstepCameraShakeInnerRadius=230.0f
-	FootstepCameraShakeOuterRadius=1035.0f
-
-	LocalizationKey="WMPawn_ZedFleshpound_Omega"
 
 	HitZones(0)=(GoreHealth=1950)
-
-	OmegaExplosionTemplate=KFGameExplosion'KFGameContent.Default__KFPawn_ZedFleshpoundKing:ExploTemplate1'
-	FleshpoundOmegaAnimSet=AnimSet'ZedternalReborn_Zeds.Fleshpound_Omega_Anim'
-	FleshpoundOmegaAnimInfo=KFPawnAnimInfo'ZedternalReborn_Zeds.Fleshpound_Omega_AnimGroup'
-
-	Mass=220.0f
-	Begin Object Class=KFMeleeHelperAI Name=WMMeleeHelper_0
-		BaseDamage=30.0f
-		MyDamageType=class'KFGameContent.KFDT_Bludgeon_Fleshpound'
-		MomentumTransfer=65000.0f
-		MaxHitRange=260.0f
-	End Object
-	MeleeAttackHelper=WMMeleeHelper_0
 
 	Name="Default__WMPawn_ZedFleshpound_Omega"
 }
