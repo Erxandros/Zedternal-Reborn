@@ -33,12 +33,14 @@ function bool CanBeGrabbed(KFPawn GrabbingPawn, optional bool bIgnoreFalling, op
 defaultproperties
 {
 	EntranceSound=AkEvent'WW_ZED_Hans.Play_Hans_Intro_Land'
+	MinSpawnSquadSizeType=EST_Large
 	bLargeZed=True
 	DoshValue=500
+
 	XPValues(0)=250
 	XPValues(1)=250
 	XPValues(2)=250
 	XPValues(3)=250
-	MinSpawnSquadSizeType=EST_Large
+
 	Name="Default__WMPawn_ZedHans"
 }

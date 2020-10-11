@@ -33,12 +33,14 @@ function bool CanBeGrabbed(KFPawn GrabbingPawn, optional bool bIgnoreFalling, op
 defaultproperties
 {
 	EntranceSound=AkEvent'WW_ZED_Abomination.Play_Abomination_Intro_Land'
+	MinSpawnSquadSizeType=EST_Large
 	bLargeZed=True
 	DoshValue=300
+
 	XPValues(0)=150
 	XPValues(1)=150
 	XPValues(2)=150
 	XPValues(3)=150
-	MinSpawnSquadSizeType=EST_Large
+
 	Name="Default__WMPawn_ZedBloatKing"
 }
