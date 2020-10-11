@@ -184,38 +184,38 @@ simulated event bool UsePlayerControlledZedSkin()
 
 defaultproperties
 {
+	FireballBarrage=AnimSet'ZedternalReborn_Zeds.Husk_Omega_Anim_Master'
+	SuicideFireballClass=class'ZedternalReborn.WMProj_Husk_Fireball_Suicide'
+	ControllerClass=class'ZedternalReborn.WMAIController_ZedHusk_Omega'
+	DifficultySettings=class'ZedternalReborn.WMDifficulty_Husk_Omega'
+	LocalizationKey="WMPawn_ZedHusk_Omega"
+
+	bVersusZed=False
+	DoshValue=34
+	Health=820
+	GroundSpeed=230.0f
+	SprintSpeed=580.0f
 	ParryResistance=3
 	PenetrationResistance=3.0f
 	ExtraResistance=0.2f
 	ProjSuicideAmount=12;
+
 	Begin Object Name=MeleeHelper_0
 		BaseDamage=20.0f
-		MaxHitRange=180.0f
 		MomentumTransfer=30000.0f
-		MyDamageType=class'KFDT_Slashing_ZedWeak'
 	End Object
-	SprintSpeed=580.0f
-	GroundSpeed=230.0f
-	Health=820
-	DoshValue=34
-	bVersusZed=False
 
 	Begin Object Name=SpecialMoveHandler_0
 		SpecialMoveClasses(SM_Custom1) = class'ZedternalReborn.WMSM_Husk_Omega_FireBallBarrageAttack'
 	End Object
 
-	FireballBarrage=AnimSet'ZedternalReborn_Zeds.Husk_Omega_Anim_Master'
-	SuicideFireballClass=class'ZedternalReborn.WMProj_Husk_Fireball_Suicide'
-
-	ControllerClass=class'ZedternalReborn.WMAIController_ZedHusk_Omega'
-	DifficultySettings=class'ZedternalReborn.WMDifficulty_Husk_Omega'
-	LocalizationKey="WMPawn_ZedHusk_Omega"
-	HitZones(0)=(GoreHealth=430,DmgScale=1.0f)
-	HitZones(3)=(GoreHealth=180,DmgScale=1.5f,SkinID=2)
 	XPValues(0)=30
 	XPValues(1)=40
 	XPValues(2)=54
 	XPValues(3)=62
+
+	HitZones(0)=(GoreHealth=430)
+	HitZones(3)=(GoreHealth=180)
 
 	Name="Default__WMPawn_ZedHusk_Omega"
 }
