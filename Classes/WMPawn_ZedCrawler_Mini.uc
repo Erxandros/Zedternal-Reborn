@@ -15,15 +15,15 @@ simulated function PostBeginPlay()
 defaultproperties
 {
 	DoshValue=6
+	Health=45
+	Mass=30.0f
+	GroundSpeed=575.0f
+	SprintSpeed=675.0f
+
 	XPValues(0)=6
 	XPValues(1)=8
 	XPValues(2)=8
 	XPValues(3)=8
-
-	Mass=30.0f
-	GroundSpeed=575.0f
-	SprintSpeed=675.0f
-	Health=45
 
 	Name="Default__WMPawn_ZedCrawler_Mini"
 }

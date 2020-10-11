@@ -24,21 +24,22 @@ function float GetDamageTypeModifier(class<DamageType> DT)
 
 defaultproperties
 {
-	DoshValue=24
-	XPValues(0)=20
-	XPValues(1)=24
-	XPValues(2)=24
-	XPValues(3)=26
-
-	bKnockdownWhenJumpedOn=False
 	DifficultySettings=Class'ZedternalReborn.WMDifficulty_Crawler_Big'
 
+	bKnockdownWhenJumpedOn=False
+	DoshValue=24
+	Health=375
 	Mass=300.0f
 	GroundSpeed=340.0f
 	SprintSpeed=420.0f
-	Health=375
-	HitZones(0)=(GoreHealth=200)
 	ExtraResistance=0.55f
+
+	XPValues(0)=16
+	XPValues(1)=20
+	XPValues(2)=20
+	XPValues(3)=20
+
+	HitZones(0)=(GoreHealth=200)
 
 	Name="Default__WMPawn_ZedCrawler_Huge"
 }
