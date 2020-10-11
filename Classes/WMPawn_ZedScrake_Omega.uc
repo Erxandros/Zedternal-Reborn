@@ -96,14 +96,13 @@ function float GetDamageTypeModifier(class<DamageType> DT)
 	return FMax(0.01f, currentMod - ExtraResistance);
 }
 
-function CauseHeadTrauma(float BleedOutTime=5.f)
+function CauseHeadTrauma(float BleedOutTime = 5.0f)
 {
 	if (!bIsHeadless && !bPlayedDeath && !bDisableHeadless)
 	{
 		if (MyKFAIC != None && KFGameInfo(WorldInfo.Game) != None && MyKFAIC.TimeFirstSawPlayer >= 0)
 		{
-			KFGameInfo(WorldInfo.Game).GameConductor.HandleZedKill(FMax((WorldInfo.TimeSeconds - MyKFAIC.TimeFirstSawPlayer),0.0));
-			// Set this so we know we already logged a kill for our pawn
+			KFGameInfo(WorldInfo.Game).GameConductor.HandleZedKill(FMax(`TimeSince(MyKFAIC.TimeFirstSawPlayer), 0.0f));
 			MyKFAIC.TimeFirstSawPlayer = -1;
 		}
 
@@ -115,23 +114,18 @@ function CauseHeadTrauma(float BleedOutTime=5.f)
 			MyKFAIC.SetSprintingDisabled(True);
 		}
 
-		// No more auto aiming to this zed
 		bCanBeAdheredTo = False;
 		bCanBeFrictionedTo = False;
 
 		StopAkEventsOnBone('head');
 
-		// insti-kill while doing a root motion SM (uninterruptable)
 		if (IsDoingSpecialMove() && Mesh.RootMotionMode == RMM_Accel)
 		{
 			Died(LastHitBy, class'DamageType', Location);
 		}
 
-		// initiate the "headless wander" AICommand
 		if (IsAliveAndWell() && MyKFAIC != None)
 		{
-			// Only allow headless wander if were doing an SM that allows a wander interupt
-			// otherwise wait until the end of the move
 			if (SpecialMove == SM_None || !SpecialMoves[SpecialMove].bCanOnlyWanderAtEnd)
 			{
 				MyKFAIC.DoHeadlessWander();
@@ -157,17 +151,16 @@ defaultproperties
 	RageHealthThresholdSuicidal=0.75f
 	RageHealthThresholdHellOnEarth=0.8f
 
+	bVersusZed=False
 	bLargeZed=True
 	bCanRage=True
 	DoshValue=150
-	XPValues(0)=68
-	XPValues(1)=90
-	XPValues(2)=120
-	XPValues(3)=138
+
 	Health=3800
 	ExtraResistance=0.3f
 	GroundSpeed=215.0f
 	SprintSpeed=700.0f
+	Mass=150.0f
 	LocalizationKey="WMPawn_ZedScrake_Omega"
 
 	Begin Object Class=KFMeleeHelperAI Name=WMMeleeHelper_0
@@ -178,11 +171,12 @@ defaultproperties
 	End Object
 	MeleeAttackHelper=WMMeleeHelper_0
 
-	bVersusZed=False
+	XPValues(0)=68
+	XPValues(1)=90
+	XPValues(2)=120
+	XPValues(3)=138
 
 	HitZones(0)=(GoreHealth=1800)
-
-	Mass=150.0f
 
 	Name="Default__WMPawn_ZedScrake_Omega"
 }
