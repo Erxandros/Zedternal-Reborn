@@ -77,21 +77,17 @@ defaultproperties
 	RageHealthThresholdSuicidal=0.99f
 	RageHealthThresholdHellOnEarth=0.99f
 
-	Begin Object Class=KFMeleeHelperAI Name=WMMeleeHelper_0
-		BaseDamage=15.0f
-		MyDamageType=Class'kfgamecontent.KFDT_Slashing_Scrake'
-		MomentumTransfer=30000.0f
-		MaxHitRange=180.0f
-	End Object
-	MeleeAttackHelper=WMMeleeHelper_0
-
-	bLargeZed=True
-	bCanRage=True
 	DoshValue=55
 	Health=600
 	Mass=150.0f
 	GroundSpeed=540.0f
 	SprintSpeed=680.0f
+
+	Begin Object Name=MeleeHelper_0
+		BaseDamage=15.0f
+		MaxHitRange=180.0f
+		MomentumTransfer=30000.0f
+	End Object
 
 	XPValues(0)=35
 	XPValues(1)=42
@@ -99,7 +95,7 @@ defaultproperties
 	XPValues(3)=52
 
 	HitZones(0)=(GoreHealth=400)
-	HitZones(8)=(GoreHealth=25, DmgScale=0.2f)
+	HitZones(8)=(GoreHealth=25)
 
 	Name="Default__WMPawn_ZedScrake_Tiny"
 }
