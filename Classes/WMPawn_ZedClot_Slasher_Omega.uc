@@ -91,31 +91,28 @@ simulated event bool UsePlayerControlledZedSkin()
 
 defaultproperties
 {
+	SlasherOmegaAnimSet=AnimSet'ZedternalReborn_Zeds.Slasher_Clot_Omega_Anim'
+	SlasherOmegaAnimInfo=KFPawnAnimInfo'ZedternalReborn_Zeds.SlasherClot_Omega_AnimGroup'
+	LocalizationKey="WMPawn_ZedSlasher_Omega"
+
+	bVersusZed=False
 	DoshValue=15
+	Health=250
+	GroundSpeed=340.0f
+	SprintSpeed=580.0f
+	ParryResistance=1
+	ExtraResistance=0.15f
+	GrabAttackFrequency=0.6f
+
+	Begin Object Name=MeleeHelper_0
+		BaseDamage=10.0f
+		MaxHitRange=180.0f
+	End Object
+
 	XPValues(0)=16
 	XPValues(1)=22
 	XPValues(2)=22
 	XPValues(3)=22
-
-	Health=250
-	ExtraResistance=0.15f
-	ParryResistance=1
-	GrabAttackFrequency=0.6f
-	GroundSpeed=340.0f
-	SprintSpeed=580.0f
-	bVersusZed=False
-	LocalizationKey="WMPawn_ZedSlasher_Omega"
-
-	SlasherOmegaAnimSet=AnimSet'ZedternalReborn_Zeds.Slasher_Clot_Omega_Anim'
-	SlasherOmegaAnimInfo=KFPawnAnimInfo'ZedternalReborn_Zeds.SlasherClot_Omega_AnimGroup'
-
-	Begin Object Class=KFMeleeHelperAI Name=WMMeleeHelper_0
-		BaseDamage=10.0f
-		MyDamageType=Class'kfgamecontent.KFDT_Slashing_ZedWeak'
-		MomentumTransfer=25000.0f
-		MaxHitRange=180.0f
-	End Object
-	MeleeAttackHelper=WMMeleeHelper_0
 
 	HitZones(0)=(GoreHealth=150)
 
