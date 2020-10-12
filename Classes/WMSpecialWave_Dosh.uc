@@ -26,7 +26,7 @@ function Killed(Controller Killer, Controller KilledPlayer, Pawn KilledPawn, cla
 			KFDP.InventoryClass = KFIM.class;
 			KFDP.SetPickupMesh(KFIM.default.DroppedPickupMesh);
 			KFDP.SetPickupParticles(KFIM.default.DroppedPickupParticles);
-			KFDP.CashAmount = 2;
+			KFDP.CashAmount = 3;
 		}
 	}
 }
@@ -35,6 +35,6 @@ defaultproperties
 {
 	Title="Dosh"
 	Description="It's raining Dosh!"
-	MaxDoshVelocity=600.000000
+	MaxDoshVelocity=600.0f
 	Name="Default__WMSpecialWave_Dosh"
 }
