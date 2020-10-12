@@ -536,10 +536,18 @@ function bool isWeaponInInventory(class< KFWeapon > weaponClass)
 function CallBack_RequestWeaponCraftInfo() // Vote to skip trader
 {
 	local KFGameReplicationInfo KFGRI;
+	local WMPlayerReplicationInfo WMPRI;
 
 	KFGRI = KFGameReplicationInfo(KFPC.WorldInfo.GRI);
-	if (KFPRI != none &&KFGRI != none && KFGRI.bTraderIsOpen)
-		KFPRI.RequestSkiptTrader( KFPRI );
+	WMPRI = WMPlayerReplicationInfo(KFPC.PlayerReplicationInfo);
+
+	if (WMPRI != none && KFGRI != none && KFGRI.bTraderIsOpen)
+	{
+		if (!WMPRI.bVotingActive)
+			KFPRI.RequestSkiptTrader(KFPRI);
+		else
+			KFPRI.CastSkipTraderVote(KFPRI, true);
+	}
 
 	//refresh button
 	UpdateCraftButtons();
@@ -550,13 +558,16 @@ function CallBack_RequestWeaponCraftInfo() // Vote to skip trader
 function UpdateCraftButtons()
 {
 	local GFxObject ItemListContainer, CraftWeaponButton;
+	local WMPlayerReplicationInfo WMPRI;
+
+	WMPRI = WMPlayerReplicationInfo(KFPC.PlayerReplicationInfo);
 
 	ItemListContainer = GetObject("inventoryListContainer");
-	if(ItemListContainer != none && KFPRI != none)
+	if(ItemListContainer != none && WMPRI != none)
 	{
 		CraftWeaponButton = ItemListContainer.GetObject("craftWeaponsButton");
 		if(CraftWeaponButton != none)
-			CraftWeaponButton.SetBool("enabled", !KFPRI.bVotedToSkipTraderTime);
+			CraftWeaponButton.SetBool("enabled", !WMPRI.bHasVoted);
 	}
 }
 

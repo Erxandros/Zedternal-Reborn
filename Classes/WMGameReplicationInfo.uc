@@ -812,6 +812,7 @@ defaultproperties
 	currentPage=1
 	maxPage=1
 	MenuLinker=Texture2D'ZedternalReborn_Menus.Linker'
+	VoteCollectorClass=class'ZedternalReborn.WMVoteCollector'
 	SpecialWaveID(0)=-1
 	SpecialWaveID(1)=-1
 	TraderVoiceGroupClasses(0)=Class'kfgamecontent.KFTraderVoiceGroup_Default'
@@ -824,4 +825,6 @@ defaultproperties
 	ZedBuffMusic(2)=KFMusicTrackInfo'WW_MACT_Default.TI_RG_Abomination'
 	ZedBuffMusic(3)=KFMusicTrackInfo'WW_MACT_Default.TI_RG_KingFP'
 	ZedBuffMusic(4)=KFMusicTrackInfo'WW_MACT_Default.TI_Boss_Matriarch'
+
+	Name="Default__WMGameReplicationInfo"
 }

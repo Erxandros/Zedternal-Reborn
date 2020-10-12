@@ -47,6 +47,10 @@ var byte PlayerArmor;
 var byte PlayerArmorPercent;
 var byte PlatformType;
 
+// For skip trader voting
+var bool bHasVoted;
+var bool bVotingActive;
+
 replication
 {
 	if ( bNetDirty && (Role == Role_Authority) )
@@ -304,6 +308,31 @@ simulated function CreateUPGMenu()
 	WMPC.bUpgradeMenuOpen = true;
 }
 
+reliable client function ShowSkipTraderVote(PlayerReplicationInfo PRI, byte VoteDuration, bool bShowChoices)
+{
+	super.ShowSkipTraderVote(PRI, VoteDuration, bShowChoices);
+	bVotingActive = true;
+}
+
+reliable client function HideSkipTraderVote()
+{
+	super.HideSkipTraderVote();
+	bHasVoted = false;
+	bVotingActive = false;
+}
+
+simulated function RequestSkiptTrader(PlayerReplicationInfo PRI)
+{
+	super.RequestSkiptTrader(PRI);
+	bHasVoted = true;
+}
+
+simulated function CastSkipTraderVote(PlayerReplicationInfo PRI, bool bSkipTrader)
+{
+	super.CastSkipTraderVote(PRI, bSkipTrader);
+	bHasVoted = true;
+}
+
 simulated function byte GetWeaponUpgrade(int index)
 {
 	local int div, indexOffset;
@@ -555,6 +584,8 @@ defaultproperties
 	syncTrigger=false
 	syncCompleted=true
 	PlatformType=0
+	bHasVoted=false
+	bVotingActive=false
 
 	Name="Default__WMPlayerReplicationInfo"
 }
