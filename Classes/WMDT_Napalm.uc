@@ -1,4 +1,4 @@
-class WMUpgrade_Napalm_DT extends KFDT_Fire
+class WMDT_Napalm extends KFDT_Fire
 	abstract;
 
 static function int GetKillerDialogID()
@@ -24,5 +24,5 @@ defaultproperties
    BurnPower=20.000000
    MicrowavePower=5.000000
    StumblePower=3.000000
-   Name="Default__WMUpgrade_Napalm_DT"
+   Name="Default__WMDT_Napalm"
 }

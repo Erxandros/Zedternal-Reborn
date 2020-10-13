@@ -7,10 +7,10 @@ var array<float> damageFactor;
 	
 static function ModifyDamageGiven( out int InDamage, int DefaultDamage, int upgLevel, optional Actor DamageCauser, optional KFPawn_Monster MyKFPM, optional KFPlayerController DamageInstigator, optional class<KFDamageType> DamageType, optional int HitZoneIdx, optional KFWeapon MyKFW)
 {
-	if (DamageType != none && DamageType != Class'ZedternalReborn.WMUpgrade_Napalm_DT' && DamageInstigator != none && MyKFPM != none && FRand() < (float(DefaultDamage) * default.maxProbability / default.maxDamage))
+	if (DamageType != none && DamageType != Class'ZedternalReborn.WMDT_Napalm' && DamageInstigator != none && MyKFPM != none && FRand() < (float(DefaultDamage) * default.maxProbability / default.maxDamage))
 	{
 		//add fire/microwave effects on zed
-		MyKFPM.ApplyDamageOverTime(int(float(DefaultDamage)*default.damageFactor[upgLevel-1]), DamageInstigator, Class'ZedternalReborn.WMUpgrade_Napalm_DT');
+		MyKFPM.ApplyDamageOverTime(int(float(DefaultDamage)*default.damageFactor[upgLevel-1]), DamageInstigator, Class'ZedternalReborn.WMDT_Napalm');
 	}
 }
 
