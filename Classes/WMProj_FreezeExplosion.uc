@@ -8,22 +8,17 @@ simulated function PostBeginPlay()
 	ExplodeTimer();
 }
 
-simulated event GrenadeIsAtRest()
-{
-	super.GrenadeIsAtRest();
-}
-	
 defaultproperties
 {
-   FuseTime=0.050000
-   Begin Object Name=ExploTemplate0
-      Damage=10.000000
-      DamageRadius=500.000000
-      MyDamageType=Class'ZedternalReborn.WMDT_FreezeExplosion'
-	  ActorClassToIgnoreForDamage=class'KFGame.KFPawn_Human'
-      Name="ExploTemplate0"
-   End Object
-   ExplosionTemplate=ExploTemplate0
-   AssociatedPerkClass=Class'ZedternalReborn.WMPerk'
-   Name="Default__WMProj_FreezeExplosion"
+	AssociatedPerkClass=Class'ZedternalReborn.WMPerk'
+	FuseTime=0.05f
+
+	Begin Object Name=ExploTemplate0
+		Damage=10.0f
+		DamageRadius=500.0f
+		MyDamageType=Class'ZedternalReborn.WMDT_FreezeExplosion'
+		ActorClassToIgnoreForDamage=class'KFGame.KFPawn_Human'
+	End Object
+
+	Name="Default__WMProj_FreezeExplosion"
 }

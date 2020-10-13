@@ -1,29 +1,12 @@
-class WMProj_FreezeExplosion_Deluxe extends KFProj_FreezeGrenade
+class WMProj_FreezeExplosion_Deluxe extends WMProj_FreezeExplosion
 	hidedropdown;
-
-simulated function PostBeginPlay()
-{
-	super.PostBeginPlay();
-
-	ExplodeTimer();
-}
-
-simulated event GrenadeIsAtRest()
-{
-	super.GrenadeIsAtRest();
-}
 	
 defaultproperties
 {
-   FuseTime=0.050000
-   Begin Object Name=ExploTemplate0
-      Damage=10.000000
-      DamageRadius=1250.000000
-      MyDamageType=Class'ZedternalReborn.WMDT_FreezeExplosion'
-	  ActorClassToIgnoreForDamage=class'KFGame.KFPawn_Human'
-      Name="ExploTemplate0"
-   End Object
-   ExplosionTemplate=ExploTemplate0
-   AssociatedPerkClass=Class'ZedternalReborn.WMPerk'
-   Name="Default__WMProj_FreezeExplosion_Deluxe"
+	Begin Object Name=ExploTemplate0
+		Damage=10.0f
+		DamageRadius=1250.0f
+	End Object
+
+	Name="Default__WMProj_FreezeExplosion_Deluxe"
 }
