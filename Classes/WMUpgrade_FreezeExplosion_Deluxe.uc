@@ -19,7 +19,7 @@ defaultproperties
    Begin Object Name=ExploTemplate0
       Damage=10.000000
       DamageRadius=1250.000000
-      MyDamageType=Class'ZedternalReborn.WMUpgrade_FreezeExplosion_DT'
+      MyDamageType=Class'ZedternalReborn.WMDT_FreezeExplosion'
 	  ActorClassToIgnoreForDamage=class'KFGame.KFPawn_Human'
       Name="ExploTemplate0"
    End Object

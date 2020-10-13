@@ -1,4 +1,4 @@
-class WMUpgrade_FreezeExplosion_DT extends KFDT_Freeze_FreezeGrenade
+class WMDT_FreezeExplosion extends KFDT_Freeze_FreezeGrenade
 	abstract
 	hidedropdown;
 
@@ -9,5 +9,5 @@ defaultproperties
    bIgnoreSelfInflictedScale=true
    MeleeHitPower=100.000000
    FreezePower=100.000000
-   Name="Default__KFDT_Freeze_FreezeGrenade"
+   Name="Default__WMDT_FreezeExplosion"
 }
