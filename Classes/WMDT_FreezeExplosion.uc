@@ -4,10 +4,11 @@ class WMDT_FreezeExplosion extends KFDT_Freeze_FreezeGrenade
 
 defaultproperties
 {
-   WeaponDef=Class'KFGame.KFWeapDef_Grenade_Sharpshooter'
-   bNoPain=true
-   bIgnoreSelfInflictedScale=true
-   MeleeHitPower=100.000000
-   FreezePower=100.000000
-   Name="Default__WMDT_FreezeExplosion"
+	bAnyPerk=True
+	bNoPain=True
+	bIgnoreSelfInflictedScale=True
+
+	FreezePower=100.0f
+
+	Name="Default__WMDT_FreezeExplosion"
 }
