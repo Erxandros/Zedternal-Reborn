@@ -1,28 +1,34 @@
 class WMExplosion_Virus extends KFExplosion_PlayerCrawlerSuicide;
 
+var const class<DamageType> DamageTypeClass;
+
 function PostBeginPlay()
 {
 	local KFGameExplosion KFGExp;
-	
+
 	super.PostBeginPlay();
-	clientExplode();
-	
+	ClientExplode();
+
 	KFGExp = class'KFGameContent.KFPawn_ZedHans'.default.NerveGasAttackTemplate;
-	KFGExp.MyDamageType = class'ZedternalReborn.WMDT_Explosive_Virus';
+	KFGExp.MyDamageType = default.DamageTypeClass;
 	Explode(KFGExp);
 }
 
-reliable client function clientExplode()
+reliable client function ClientExplode()
 {
 	local KFGameExplosion KFGExp;
-	
+
 	KFGExp = class'KFGameContent.KFPawn_ZedHans'.default.NerveGasAttackTemplate;
-	KFGExp.MyDamageType = class'ZedternalReborn.WMDT_Explosive_Virus';
+	KFGExp.MyDamageType = default.DamageTypeClass;
 	Explode(KFGExp);
 }
 
 defaultproperties
 {
-   interval=1.000000
-   maxTime=6.000000
+	DamageTypeClass=class'ZedternalReborn.WMDT_Explosive_Virus'
+
+	interval=1.0f
+	maxTime=6.0f
+
+	Name="Default__WMExplosion_Virus"
 }
