@@ -4,15 +4,21 @@ class WMDT_Explosive_Virus extends KFDT_Explosive_CrawlerSuicide
 
 defaultproperties
 {
-   bStackDoT=True
-   DoT_Type=DOT_Bleeding
-   DoT_Duration=5.000000
-   DoT_Interval=1.000000
-   DoT_DamageScale=0.500000
-   StumblePower=200.000000
-   GunHitPower=0.000000
-   BleedPower=125.000000
-   KDamageImpulse=900.000000
-   KDeathVel=450.000000
-   KDeathUpKick=400.000000
+	bAnyPerk=True
+	bStackDoT=True
+
+	DoT_Type=DOT_Bleeding
+	DoT_Duration=5.0f
+	DoT_Interval=1.0f
+	DoT_DamageScale=0.5f
+
+	StumblePower=200.0f
+	GunHitPower=0.0f
+	BleedPower=125.0f
+
+	KDeathUpKick=400.0f
+	KDeathVel=450.0f
+	KDamageImpulse=900.0f
+
+	Name="Default__WMDT_Explosive_Virus"
 }
