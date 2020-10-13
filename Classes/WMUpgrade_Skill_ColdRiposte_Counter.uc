@@ -20,9 +20,9 @@ function Explosion(KFPawn OwnerPawn)
 		Loc = OwnerPawn.Location;
 		Loc.Z -= OwnerPawn.GetCollisionHeight();
 		if (bDeluxe)
-			OwnerPawn.Controller.Spawn(class'ZedternalReborn.WMUpgrade_FreezeExplosion_Deluxe', OwnerPawn.Controller, , Loc, Rot, , True);
+			OwnerPawn.Controller.Spawn(class'ZedternalReborn.WMProj_FreezeExplosion_Deluxe', OwnerPawn.Controller, , Loc, Rot, , True);
 		else
-			OwnerPawn.Controller.Spawn(class'ZedternalReborn.WMUpgrade_FreezeExplosion', OwnerPawn.Controller, , Loc, Rot, , True);
+			OwnerPawn.Controller.Spawn(class'ZedternalReborn.WMProj_FreezeExplosion', OwnerPawn.Controller, , Loc, Rot, , True);
 		PlayLocalEffects(OwnerPawn);
 		SetTimer(Delay,True,nameof(UpdateColdRiposte));
 	}

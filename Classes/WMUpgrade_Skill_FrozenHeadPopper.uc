@@ -15,9 +15,9 @@ static function ModifyDamageGiven( out int InDamage, int DefaultDamage, int upgL
 		Loc.Z -= MyKFPM.GetCollisionHeight();
 		Rot.Pitch = 0;
 		if (upgLevel == 1)
-			DamageInstigator.Spawn(class'ZedternalReborn.WMUpgrade_FreezeExplosion', DamageInstigator,, Loc, Rot,, true);
+			DamageInstigator.Spawn(class'ZedternalReborn.WMProj_FreezeExplosion', DamageInstigator,, Loc, Rot,, true);
 		else
-			DamageInstigator.Spawn(class'ZedternalReborn.WMUpgrade_FreezeExplosion_Deluxe', DamageInstigator,, Loc, Rot,, true);
+			DamageInstigator.Spawn(class'ZedternalReborn.WMProj_FreezeExplosion_Deluxe', DamageInstigator,, Loc, Rot,, true);
 	}
 }
 
