@@ -1,4 +1,4 @@
-class WMUpgrade_Weapon_DT_HeatWave_Base extends KFDT_Fire_MolotovGrenade
+class WMDT_BringTheHeat extends KFDT_Fire_MolotovGrenade
 	abstract
 	hidedropdown;
 
@@ -11,5 +11,5 @@ defaultproperties
 	DoT_DamageScale=0.500000
 	StumblePower=100.000000
 	BurnPower=10.000000
-	Name="Default__WMUpgrade_Weapon_DT_HeatWave_Base"
+	Name="Default__WMDT_BringTheHeat"
 }

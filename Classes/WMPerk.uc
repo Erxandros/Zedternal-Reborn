@@ -521,7 +521,7 @@ function ModifyDamageTaken(out int InDamage, optional class<DamageType> DamageTy
 	local int i;
 	local int index;
 
-	if (InDamage == 0 || class<WMUpgrade_Weapon_DT_HeatWave_Base>(DamageType) != none)
+	if (InDamage == 0 || class<WMDT_BringTheHeat>(DamageType) != none)
 	{
 		InDamage = 0;
 		return;

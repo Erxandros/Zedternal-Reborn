@@ -16,7 +16,7 @@ static function ModifyDamageGiven( out int InDamage, int DefaultDamage, int upgL
 
 static function ModifyDamageTaken( out int InDamage, int DefaultDamage, int upgLevel, KFPawn OwnerPawn, optional class<DamageType> DamageType, optional Controller InstigatedBy, optional KFWeapon MyKFW)
 {
-	if (class<WMUpgrade_Weapon_DT_HeatWave_Base>(DamageType) != none)
+	if (class<WMDT_BringTheHeat>(DamageType) != none)
 		InDamage = 0;
 }
 
