@@ -2,7 +2,6 @@ class WMDT_Hemogoblin extends KFDT_Bleeding
 	abstract
 	hidedropdown;
 
-
 defaultproperties
 {
 	bAnyPerk=True
