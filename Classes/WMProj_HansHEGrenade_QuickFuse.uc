@@ -3,5 +3,7 @@ class WMProj_HansHEGrenade_QuickFuse extends KFProj_HansHEGrenade
 
 defaultproperties
 {
-   FuseTime=1.500000
+	FuseTime=1.5f
+
+	Name="Default__WMProj_HansHEGrenade_QuickFuse"
 }

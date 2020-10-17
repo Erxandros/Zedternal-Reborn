@@ -1,6 +1,6 @@
 class WMProj_FreezeExplosion_Deluxe extends WMProj_FreezeExplosion
 	hidedropdown;
-	
+
 defaultproperties
 {
 	Begin Object Name=ExploTemplate0

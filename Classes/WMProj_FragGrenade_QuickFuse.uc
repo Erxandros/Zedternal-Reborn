@@ -3,5 +3,7 @@ class WMProj_FragGrenade_QuickFuse extends KFProj_FragGrenade
 
 defaultproperties
 {
-   FuseTime=1.000000
+	FuseTime=1.0f
+
+	Name="Default__WMProj_FragGrenade_QuickFuse"
 }

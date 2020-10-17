@@ -3,5 +3,7 @@ class WMProj_EMPGrenade_QuickFuse extends KFProj_EMPGrenade
 
 defaultproperties
 {
-   FuseTime=0.125000
+	FuseTime=0.125f
+
+	Name="Default__WMProj_EMPGrenade_QuickFuse"
 }
