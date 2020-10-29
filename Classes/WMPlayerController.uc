@@ -378,7 +378,7 @@ exec function OpenZedternalUpgradeMenu()
 
 	if (WMPRI != None && WMGRI != None)
 	{
-		if (WMGRI.bZRUMenuCommand && (WMGRI.bTraderIsOpen || WMGRI.bZRUMenuAllWave) && !WMPRI.bIsSpectator && !WMPRI.bWaitingPlayer && !GetMenuInfo().bMenusOpen)
+		if (WMGRI.bZRUMenuCommand && (WMGRI.bTraderIsOpen || WMGRI.bZRUMenuAllWave) && Pawn.IsAliveAndWell() && !WMPRI.bIsSpectator && !WMPRI.bWaitingPlayer && !GetMenuInfo().bMenusOpen)
 			WMPRI.CreateUPGMenu();
 	}
 }
