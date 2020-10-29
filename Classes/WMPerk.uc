@@ -57,9 +57,14 @@ struct WM_PassivePerk
 
 var byte KnifeIndexFromClient;
 
+//Timers class to keep track of cached variables and flags
+var private WMPerk_Timers WMTimers;
+
 simulated function PreBeginPlay()
 {
 	super.PreBeginPlay();
+
+	WMTimers = Spawn(class'WMPerk_Timers', self);
 
 	if (WMPlayerController(OwnerPC) != none)
 		GetKnifeIndexFromClient();
@@ -76,6 +81,9 @@ simulated function PostBeginPlay()
 			MyWMPRI = WMPlayerReplicationInfo(MyPRI);
 	}
 	MyWMGRI = WMGameReplicationInfo(WorldInfo.GRI);
+
+	if (WMTimers == None)
+		WMTimers = Spawn(class'WMPerk_Timers', self); //Try again just in case
 }
 
 function bool ShouldGetAllTheXP()
@@ -1202,6 +1210,11 @@ simulated function float GetTightChokeModifier()
 	local KFWeapon KFW;
 	local KFInventoryManager KFIM;
 
+	if (WMTimers.TightChokeModifierFlag)
+	{
+		return WMTimers.SavedTightChokeModifierValue;
+	}
+
 	KFW = GetOwnerWeapon();
 	if (KFW == none && CheckOwnerPawn())
 	{
@@ -1240,6 +1253,9 @@ simulated function float GetTightChokeModifier()
 	if (InTight <= 0.005)
 		InTight = 0.005;
 
+	WMTimers.SavedTightChokeModifierValue = InTight;
+	WMTimers.SetTightChokeModifierTimer();
+
 	return InTight;
 }
 
@@ -1250,6 +1266,11 @@ simulated function float GetPenetrationModifier(byte Level, class<KFDamageType> 
 	local float InPenetration;
 	local int i;
 	local int index;
+
+	if (WMTimers.PenetrationModifierFlag)
+	{
+		return WMTimers.SavedPenetrationModifierValue;
+	}
 
 	InPenetration = 1.0f;
 	DefaultPenetration = InPenetration;
@@ -1281,6 +1302,10 @@ simulated function float GetPenetrationModifier(byte Level, class<KFDamageType> 
 		if (MyWMGRI.SpecialWaveID[i] != -1)
 			MyWMGRI.specialWaves[MyWMGRI.SpecialWaveID[i]].static.ModifyPenetration(InPenetration, DefaultPenetration, DamageType, OwnerPawn, bForce);
 	}
+
+	WMTimers.SavedPenetrationModifierValue = InPenetration;
+	WMTimers.SetPenetrationModifierTimer();
+
 	return InPenetration;
 }
 
@@ -1291,6 +1316,11 @@ function float GetStunPowerModifier(optional class<DamageType> DamageType, optio
 	local float InStunPower;
 	local int i;
 	local int index;
+
+	if (WMTimers.StunPowerModifierFlag)
+	{
+		return WMTimers.SavedStunPowerModifierValue;
+	}
 
 	InStunPower = 1.0f;
 	DefaultStunPower = InStunPower;
@@ -1323,6 +1353,9 @@ function float GetStunPowerModifier(optional class<DamageType> DamageType, optio
 			MyWMGRI.specialWaves[MyWMGRI.SpecialWaveID[i]].static.ModifyStunPower(InStunPower, DefaultStunPower, DamageType, HitZoneIdx);
 	}
 
+	WMTimers.SavedStunPowerModifierValue = InStunPower;
+	WMTimers.SetStunPowerModifierTimer();
+
 	return InStunPower;
 }
 
@@ -1333,6 +1366,11 @@ function float GetStumblePowerModifier(optional KFPawn KFP, optional class<KFDam
 	local float InStumblePower;
 	local int i;
 	local int index;
+
+	if (WMTimers.StumblePowerModifierFlag)
+	{
+		return WMTimers.SavedStumblePowerModifierValue;
+	}
 
 	InStumblePower = 1.0f;
 	DefaultStumblePower = InStumblePower;
@@ -1364,6 +1402,10 @@ function float GetStumblePowerModifier(optional KFPawn KFP, optional class<KFDam
 		if (MyWMGRI.SpecialWaveID[i] != -1)
 			MyWMGRI.specialWaves[MyWMGRI.SpecialWaveID[i]].static.ModifyStumblePower(InStumblePower, DefaultStumblePower, KFP, DamageType, CooldownModifier, BodyPart, OwnerPawn);
 	}
+
+	WMTimers.SavedStumblePowerModifierValue = InStumblePower;
+	WMTimers.SetStumblePowerModifierTimer();
+
 	return InStumblePower;
 }
 
@@ -1374,6 +1416,11 @@ function float GetKnockdownPowerModifier(optional class<DamageType> DamageType, 
 	local float InKnockdownPower;
 	local int i;
 	local int index;
+
+	if (WMTimers.KnockdownPowerModifierFlag)
+	{
+		return WMTimers.SavedKnockdownPowerModifierValue;
+	}
 
 	InKnockdownPower = 1.0f;
 	DefaultKnockdownPower = InKnockdownPower;
@@ -1405,6 +1452,10 @@ function float GetKnockdownPowerModifier(optional class<DamageType> DamageType, 
 		if (MyWMGRI.SpecialWaveID[i] != -1)
 			MyWMGRI.specialWaves[MyWMGRI.SpecialWaveID[i]].static.ModifyKnockdownPower(InKnockdownPower, DefaultKnockdownPower, OwnerPawn, DamageType, BodyPart, bIsSprinting);
 	}
+
+	WMTimers.SavedKnockdownPowerModifierValue = InKnockdownPower;
+	WMTimers.SetKnockdownPowerModifierTimer();
+
 	return InKnockdownPower;
 }
 
