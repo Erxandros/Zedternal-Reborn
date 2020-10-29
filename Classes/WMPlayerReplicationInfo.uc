@@ -29,10 +29,13 @@ var texture2D CurrentIconToDisplay;
 var array< int > doshSpentOnPerk;
 var int perkLvl;
 
+//UI Menu
+var private WMUI_Menu UPGMenu;
+
 // Sync variables
 var repnotify bool syncTrigger;
 var bool syncCompleted;
-var WMUI_UPGMenu syncMenuObject;
+var private WMUI_UPGMenu syncMenuObject;
 var int syncItemDefinition;
 var byte syncLoopCounter;
 
@@ -288,24 +291,31 @@ function UpdatePerkAndSkillPurchases()
 
 simulated function CreateUPGMenu()
 {
-	local WMUI_Menu UPGMenu;
-	local KFPlayerController KFPC;
 	local WMPlayerController WMPC;
 
 	WMPC = WMPlayerController(Owner);
 	if (WMPC == None || WMPC.bUpgradeMenuOpen)
 		return;
 
-	KFPC = KFPlayerController(Owner);
+	WMPC.bUpgradeMenuOpen = true;
 
 	UPGMenu = new class'ZedternalReborn.WMUI_Menu';
-	UPGMenu.Owner = KFPawn_Human(KFPC.Pawn);
-	UPGMenu.KFPC = KFPC;
-	UPGMenu.KFPRI = KFPlayerReplicationInfo(KFPC.PlayerReplicationInfo);
+	UPGMenu.Owner = KFPawn_Human(WMPC.Pawn);
+	UPGMenu.KFPC = WMPC;
+	UPGMenu.KFPRI = KFPlayerReplicationInfo(WMPC.PlayerReplicationInfo);
 	UPGMenu.SetTimingMode(TM_Real);
-	UPGMenu.Init(LocalPLayer(KFPC.Player));
+	UPGMenu.Init(LocalPLayer(WMPC.Player));
+}
 
-	WMPC.bUpgradeMenuOpen = true;
+simulated function CloseUPGMenu()
+{
+	//If a sync is in progress, cancel it before it can go through
+	syncItemDefinition = -1;
+	ClearTimer('SyncTimerLoop');
+	syncCompleted = true;
+
+	if (UPGMenu != None)
+		UPGMenu.CloseMenu();
 }
 
 reliable client function ShowSkipTraderVote(PlayerReplicationInfo PRI, byte VoteDuration, bool bShowChoices)

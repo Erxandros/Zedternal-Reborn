@@ -648,6 +648,9 @@ function Callback_Equip( int ItemDefinition )
 	local WMPlayerController WMPC;
 	local WMPlayerReplicationInfo WMPRI;
 
+	if (ItemDefinition == -1)
+		return;
+
 	WMPRI = WMPlayerReplicationInfo(KFPC.PlayerReplicationInfo);
 
 	if (!WMPRI.syncCompleted)

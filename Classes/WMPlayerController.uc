@@ -383,6 +383,26 @@ exec function OpenZedternalUpgradeMenu()
 	}
 }
 
+function PawnDied(Pawn inPawn)
+{
+	if (inPawn == Pawn)
+	{
+		PawnDiedCloseUPGMenu();
+	}
+
+	super.PawnDied(inPawn);
+}
+
+reliable client function PawnDiedCloseUPGMenu()
+{
+	local WMPlayerReplicationInfo WMPRI;
+
+	WMPRI = WMPlayerReplicationInfo(PlayerReplicationInfo);
+
+	if (WMPRI != None && bUpgradeMenuOpen)
+		WMPRI.CloseUPGMenu();
+}
+
 defaultproperties
 {
 	PurchaseHelperClass=class'WMAutoPurchaseHelper'
