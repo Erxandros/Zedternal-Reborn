@@ -1461,10 +1461,10 @@ function float GetKnockdownPowerModifier(optional class<DamageType> DamageType, 
 
 simulated function float GetSnareSpeedModifier()
 {
-	return 0.650000;
+	return 0.65f;
 }
 
-function float GetSnarePower(optional class<DamageType> DamageType, optional byte BodyPart)
+simulated function float GetSnarePowerModifier(optional class<DamageType> DamageType, optional byte HitZoneIdx)
 {
 	local float DefaultSnarePower;
 	local float InSnarePower;
@@ -1480,18 +1480,18 @@ function float GetSnarePower(optional class<DamageType> DamageType, optional byt
 		for (i = 0; i < MyWMPRI.purchase_perkUpgrade.length; ++i)
 		{
 			index = MyWMPRI.purchase_perkUpgrade[i];
-			MyWMGRI.perkUpgrades[index].static.ModifySnarePower(InSnarePower, DefaultSnarePower, MyWMPRI.bPerkUpgrade[index], DamageType, BodyPart);
+			MyWMGRI.perkUpgrades[index].static.ModifySnarePower(InSnarePower, DefaultSnarePower, MyWMPRI.bPerkUpgrade[index], DamageType, HitZoneIdx);
 		}
 		for (i = 0; i < MyWMPRI.purchase_skillUpgrade.length; ++i)
 		{
 			index = MyWMPRI.purchase_skillUpgrade[i];
-			MyWMGRI.skillUpgrades[index].SkillUpgrade.static.ModifySnarePower(InSnarePower, DefaultSnarePower, MyWMPRI.bSkillUpgrade[index], DamageType, BodyPart);
+			MyWMGRI.skillUpgrades[index].SkillUpgrade.static.ModifySnarePower(InSnarePower, DefaultSnarePower, MyWMPRI.bSkillUpgrade[index], DamageType, HitZoneIdx);
 		}
 	}
 	for (i = 0; i <= 1; ++i)
 	{
 		if (MyWMGRI.SpecialWaveID[i] != -1)
-			MyWMGRI.specialWaves[MyWMGRI.SpecialWaveID[i]].static.ModifySnarePower(InSnarePower, DefaultSnarePower, DamageType, BodyPart);
+			MyWMGRI.specialWaves[MyWMGRI.SpecialWaveID[i]].static.ModifySnarePower(InSnarePower, DefaultSnarePower, DamageType, HitZoneIdx);
 	}
 	return FMax(0.f, InSnarePower - 1.0f);
 }
