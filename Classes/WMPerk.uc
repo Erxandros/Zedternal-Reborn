@@ -1471,6 +1471,11 @@ simulated function float GetSnarePowerModifier(optional class<DamageType> Damage
 	local byte i;
 	local byte index;
 
+	if (WMTimers.SnarePowerModifierFlag)
+	{
+		return WMTimers.SavedSnarePowerModifierValue;
+	}
+
 	InSnarePower = 1.0f;
 	DefaultSnarePower = InSnarePower;
 	InSnarePower *= passiveSnarePower;
@@ -1493,6 +1498,10 @@ simulated function float GetSnarePowerModifier(optional class<DamageType> Damage
 		if (MyWMGRI.SpecialWaveID[i] != -1)
 			MyWMGRI.specialWaves[MyWMGRI.SpecialWaveID[i]].static.ModifySnarePower(InSnarePower, DefaultSnarePower, DamageType, HitZoneIdx);
 	}
+
+	WMTimers.SavedSnarePowerModifierValue = FMax(0.f, InSnarePower - 1.0f);
+	WMTimers.SetSnarePowerModifierTimer();
+
 	return FMax(0.f, InSnarePower - 1.0f);
 }
 

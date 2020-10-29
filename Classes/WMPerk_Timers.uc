@@ -9,6 +9,7 @@ var bool PenetrationModifierFlag;
 var bool StunPowerModifierFlag;
 var bool StumblePowerModifierFlag;
 var bool KnockdownPowerModifierFlag;
+var bool SnarePowerModifierFlag;
 
 //Cached variables
 var float SavedTightChokeModifierValue;
@@ -16,6 +17,7 @@ var float SavedPenetrationModifierValue;
 var float SavedStunPowerModifierValue;
 var float SavedStumblePowerModifierValue;
 var float SavedKnockdownPowerModifierValue;
+var float SavedSnarePowerModifierValue;
 
 simulated function SetTightChokeModifierTimer()
 {
@@ -77,6 +79,18 @@ function KnockdownPowerModifierTimer()
 	KnockdownPowerModifierFlag = False;
 }
 
+simulated function SetSnarePowerModifierTimer()
+{
+	SnarePowerModifierFlag = True;
+	if (!IsTimerActive('SnarePowerModifierTimer'))
+		SetTimer(TimerDuration, False, 'SnarePowerModifierTimer');
+}
+
+simulated function SnarePowerModifierTimer()
+{
+	SnarePowerModifierFlag = False;
+}
+
 defaultproperties
 {
 	TightChokeModifierFlag=False
@@ -84,6 +98,7 @@ defaultproperties
 	StunPowerModifierFlag=False
 	StumblePowerModifierFlag=False
 	KnockdownPowerModifierFlag=False
+	SnarePowerModifierFlag=False
 
 	bOnlyRelevantToOwner=True
 
