@@ -11,14 +11,16 @@ replication
 
 function PostBeginPlay()
 {
+	super.PostBeginPlay();
+
 	Player = KFPawn_Human(Owner);
-	if(Player==none || Player.Health <= 0)
+	if (Player == None || Player.Health <= 0)
 		Destroy();
 }
 
 function GiveArmor(float Armor)
 {
-	Player.Armor = Min( Player.Armor + Round(Armor*Player.MaxArmor),  Player.MaxArmor );
+	Player.Armor = Min(Player.Armor + Round(Armor * Player.MaxArmor), Player.MaxArmor);
 	SetClientArmor(Min(255, Player.Armor));
 }
 
@@ -29,5 +31,5 @@ reliable client function SetClientArmor(byte Armor)
 
 defaultproperties
 {
-   Name="Default__WMUpgrade_Skill_AssaultArmor_Counter"
+	Name="Default__WMUpgrade_Skill_AssaultArmor_Counter"
 }
