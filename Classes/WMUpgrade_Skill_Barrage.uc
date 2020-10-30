@@ -9,7 +9,7 @@ static function ModifyDamageGiven(out int InDamage, int DefaultDamage, int upgLe
 
 	if (MyKFPM != None && DamageInstigator != None && DamageInstigator.Pawn != None && VSizeSQ(DamageInstigator.Pawn.Location - MyKFPM.Location) <= default.RadiusSQ)
 	{
-		InDamage += round(float(DefaultDamage) * default.Damage[upgLevel - 1]);
+		InDamage += Round(float(DefaultDamage) * default.Damage[upgLevel - 1]);
 		if (InDamage > 5)
 		{
 			UPG = GetCounter(DamageInstigator.Pawn);
