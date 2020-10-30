@@ -408,7 +408,7 @@ event Draw(Canvas ca)
 		{
 			S = "-";
 		}
-		else if (WMPRI.PlayerArmor <= 0 || WMPRI.PlayerArmorPercent <= 0)
+		else if (WMPRI.PlayerArmor <= 0 || WMPRI.PlayerArmorPercent <= 0 || WMPRI.PlayerHealth <= 0 || WMPRI.PlayerHealthPercent <= 0)
 		{
 			ScoreBoardCanvas.DrawColor = MakeColor(255, 0, 0, 255);
 			if (WMPRI.PlayerHealth <= 0 || WMPRI.PlayerHealthPercent <= 0)
