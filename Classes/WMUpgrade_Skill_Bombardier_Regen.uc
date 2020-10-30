@@ -8,32 +8,39 @@ var KFInventoryManager KFIM;
 
 function PostBeginPlay()
 {
+	super.PostBeginPlay();
+
 	Player = KFPawn_Human(Owner);
-	if(Player == none || Player.InvManager == none)
+	if (Player == None || Player.InvManager == None)
 		Destroy();
 	else
 	{
 		KFIM = KFInventoryManager(Player.InvManager);
-		SetTimer(TimeRegen,false);
+		SetTimer(TimeRegen, False);
 	}
 }
+
 function Timer()
 {
-	if(Player==None || Player.Health<=0 || KFIM==None)
+	if (Player == None || Player.Health <= 0 || KFIM == None)
+	{
 		Destroy();
-	
-	KFIM.AddGrenades( 1 );
+		return;
+	}
+
+	KFIM.AddGrenades(1);
 
 	if (bDeluxe)
-		SetTimer(TimeRegenDeluxe,false);
+		SetTimer(TimeRegenDeluxe, False);
 	else
-		SetTimer(TimeRegen,false);
+		SetTimer(TimeRegen, False);
 }
 
 defaultproperties
 {
-   TimeRegen=45.000000
-   TimeRegenDeluxe=20.000000
-   bDeluxe=false
-   Name="Default__WMUpgrade_Skill_Bombardier_Regen"
+	TimeRegen=45.0f
+	TimeRegenDeluxe=20.0f
+	bDeluxe=False
+
+	Name="Default__WMUpgrade_Skill_Bombardier_Regen"
 }
