@@ -8,61 +8,67 @@ var float Recharge, Update;
 
 simulated function PostBeginPlay()
 {
-	SetTimer(default.Update, false);
+	SetTimer(default.Update, False);
+
 	super.PostBeginPlay();
 }
 
 function Timer()
 {
-	local KFPawn_Human H;
+	local KFPawn_Human KFPH;
 	local bool bActivate;
-	
-	if (Player == none || Player.Health<=0)
-		Destroy();
-	
-	bActivate = false;
-	if (Player != none)
+
+	if (Player == None || Player.Health <= 0)
 	{
-		if (Player.Health <= criticalHealth && Player.Health > 0 )
-			bActivate = true;
-		else
+		Destroy();
+		return;
+	}
+
+	bActivate = False;
+	if (Player.Health <= criticalHealth && Player.Health > 0)
+		bActivate = True;
+	else
+	{
+		foreach DynamicActors(class'KFPawn_Human', KFPH)
 		{
-			foreach DynamicActors(class'KFPawn_Human', H)
+			if (KFPH.Health <= criticalHealth && KFPH.Health > 0 && VSizeSQ(Player.Location - KFPH.Location) <= RadiusSQ)
 			{
-				if (H.Health <= criticalHealth && H.Health > 0 && VSizeSQ( Player.Location - H.Location ) <= RadiusSQ)
-					bActivate = true;
+				bActivate = True;
+				break;
 			}
 		}
 	}
-	
+
 	if (!bActivate)
-		SetTimer(default.Update, false);
+		SetTimer(default.Update, False);
 	else
 	{
 		Player.StartAirBorneAgentEvent();
-		Spawn(class'ZedternalReborn.WMFX_AirborneAgent',,, Player.Location, Player.Rotation,,true);
-		
+		Spawn(class'ZedternalReborn.WMFX_AirborneAgent', , , Player.Location, Player.Rotation, , True);
+
 		if (bDeluxe)
 		{
 			Player.HealDamage(35, Player.Controller, class'KFGameContent.KFDT_Healing_MedicGrenade');
-			foreach DynamicActors(class'KFPawn_Human', H)
+			foreach DynamicActors(class'KFPawn_Human', KFPH)
 			{
-				if (H != Player && VSizeSQ( Player.Location - H.Location ) <= RadiusSQ)
-					H.HealDamage(20, Player.Controller, class'KFGameContent.KFDT_Healing_MedicGrenade');
+				if (KFPH != Player && VSizeSQ(Player.Location - KFPH.Location) <= RadiusSQ)
+					KFPH.HealDamage(20, Player.Controller, class'KFGameContent.KFDT_Healing_MedicGrenade');
 			}
 		}
 		else
 			Player.HealDamage(15, Player.Controller, class'KFGameContent.KFDT_Healing_MedicGrenade');
-		SetTimer(default.Recharge);
+
+		SetTimer(default.Recharge, False);
 	}
 }
 
 defaultproperties
 {
-   Recharge = 40.000000
-   Update = 0.500000
-   RadiusSQ = 60000
-   criticalHealth = 60
-   bDeluxe = false;
-   Name="Default__WMUpgrade_Skill_AirborneAgent_Counter"
+	Recharge=40.0f
+	Update=0.5f
+	RadiusSQ=60000
+	criticalHealth=60
+	bDeluxe=False
+
+	Name="Default__WMUpgrade_Skill_AirborneAgent_Counter"
 }
