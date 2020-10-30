@@ -6,34 +6,37 @@ var bool bCanCreateEffect;
 
 function PostBeginPlay()
 {
+	super.PostBeginPlay();
+
 	Player = KFPawn_Human(Owner);
-	if(Player==none)
+	if (Player == None)
 		Destroy();
 	else
-		bCanCreateEffect = true;
+		bCanCreateEffect = True;
 }
 
 function CreateEffect()
 {
 	local vector Loc;
-	
+
 	if (bCanCreateEffect)
 	{
 		Loc = Player.Location;
 		Loc.Z -= Player.GetCollisionHeight() - 1;
-		Spawn(class'ZedternalReborn.WMFX_Barrage',,, Loc, Player.Rotation,,true);
-		bCanCreateEffect = false;
-		SetTimer(0.8f, false, nameof(ResetEffect));
+		Spawn(class'ZedternalReborn.WMFX_Barrage', , , Loc, Player.Rotation, , True);
+		bCanCreateEffect = False;
+		SetTimer(0.8f, False, nameof(ResetEffect));
 	}
 }
 
 function ResetEffect()
 {
-	bCanCreateEffect = true;
+	bCanCreateEffect = True;
 }
 
 defaultproperties
 {
-   bCanCreateEffect=true
-   Name="Default__WMUpgrade_Skill_Barrage_Effect"
+	bCanCreateEffect=True
+
+	Name="Default__WMUpgrade_Skill_Barrage_Effect"
 }
