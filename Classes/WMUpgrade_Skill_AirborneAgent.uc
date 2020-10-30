@@ -4,16 +4,22 @@ static simulated function InitiateWeapon(int upgLevel, KFWeapon KFW, KFPawn Owne
 {
 	local WMUpgrade_Skill_AirborneAgent_Counter UPG;
 	local bool bFound;
-	
-	if (KFPawn_Human(OwnerPawn)!=none)
+
+	if (KFPawn_Human(OwnerPawn) != None)
 	{
-		bFound = false;
-		foreach OwnerPawn.ChildActors(class'WMUpgrade_Skill_AirborneAgent_Counter',UPG)
-			bFound = true;
-		
+		bFound = False;
+		foreach OwnerPawn.ChildActors(class'WMUpgrade_Skill_AirborneAgent_Counter', UPG)
+		{
+			if (UPG != None)
+			{
+				bFound = True;
+				break;
+			}
+		}
+
 		if (!bFound)
 		{
-			UPG = OwnerPawn.Spawn(class'WMUpgrade_Skill_AirborneAgent_Counter',OwnerPawn);
+			UPG = OwnerPawn.Spawn(class'WMUpgrade_Skill_AirborneAgent_Counter', OwnerPawn);
 			UPG.Player = KFPawn_Human(OwnerPawn);
 			UPG.bDeluxe = (upgLevel > 1);
 		}
@@ -23,8 +29,10 @@ static simulated function InitiateWeapon(int upgLevel, KFWeapon KFW, KFPawn Owne
 defaultproperties
 {
 	upgradeName="Airborne Agent"
-	upgradeDescription(0)="Release heal gas when you or nearby friends are in danger"
-	upgradeDescription(1)="Release <font color=\"#b346ea\">strong</font> heal gas when you or nearby friends are in danger"
+	upgradeDescription(0)="Releases healing gas when you or nearby friends are in danger"
+	upgradeDescription(1)="Releases <font color=\"#b346ea\">strong</font> healing gas when you or nearby friends are in danger"
 	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_AirborneAgent'
 	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_AirborneAgent_Deluxe'
+
+	Name="Default__WMUpgrade_Skill_AirborneAgent"
 }
