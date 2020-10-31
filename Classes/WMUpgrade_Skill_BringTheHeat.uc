@@ -12,9 +12,9 @@ static function ModifyDamageGiven(out int InDamage, int DefaultDamage, int upgLe
 		if (UPG != None)
 		{
 			if (ClassIsChildOf(DamageType, class'KFDT_Fire'))
-				UPG.cumulDamage += Round(InDamage * default.FireBonus * upgLevel);
+				UPG.CumulativeDamage += Round(InDamage * default.FireBonus * upgLevel);
 			else
-				UPG.cumulDamage += InDamage * upgLevel;
+				UPG.CumulativeDamage += InDamage * upgLevel;
 		}
 	}
 }

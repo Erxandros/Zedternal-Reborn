@@ -2,42 +2,43 @@ Class WMUpgrade_Skill_BringTheHeat_Counter extends Info
 	transient;
 
 var KFPawn_Human Player;
-var int cumulDamage;
-var int deltaCumul;
-var int maxCumulDamage;
-var float heatWaveDelay;
-var array< int > costHeatWave;
-var array< class< WMUpgrade_Skill_BringTheHeat_Flame_Base > > classHeatWave;
-var float fireBonus;
+var int CumulativeDamage;
+var int MaxCumulativeDamage;
+var int DeltaCumulativeDamage;
+var float HeatWaveDelay;
+var array<int> CostHeatWave;
+var array< class< WMUpgrade_Skill_BringTheHeat_Flame_Base > > ClassHeatWave;
 var ParticleSystem PSBuff;
 
 function PostBeginPlay()
 {
+	super.PostBeginPlay();
+
 	Player = KFPawn_Human(Owner);
 	if (Player == None)
 		Destroy();
 	else
-		SetTimer(heatWaveDelay, True);
+		SetTimer(HeatWaveDelay, True);
 }
 
 function Timer()
 {
 	local byte i;
 
-	cumulDamage = min(maxCumulDamage, cumulDamage);
+	CumulativeDamage = min(default.MaxCumulativeDamage, CumulativeDamage);
 
 	//check if player can create heat waves
-	for (i = costHeatWave.length; i > 0; --i)
+	for (i = CostHeatWave.length; i > 0; --i)
 	{
-		if (cumulDamage >= costHeatWave[i - 1])
+		if (CumulativeDamage >= CostHeatWave[i - 1])
 		{
-			cumulDamage -= costHeatWave[i - 1] - deltaCumul;
+			CumulativeDamage -= CostHeatWave[i - 1] - DeltaCumulativeDamage;
 			CreateHeatWave(i - 1);
-			i = 1;
+			break;
 		}
 	}
 
-	cumulDamage = max(0,cumulDamage - deltaCumul);
+	CumulativeDamage = max(0, CumulativeDamage - DeltaCumulativeDamage);
 }
 
 function CreateHeatWave(byte force)
@@ -50,37 +51,25 @@ function CreateHeatWave(byte force)
 	Loc = Player.Location;
 	Loc.Z -= Player.GetCollisionHeight() - 1;
 
-	Spawn(default.classHeatWave[force], Player.Controller, , Loc, Rot, ,True);
+	Spawn(default.ClassHeatWave[force], Player.Controller, , Loc, Rot, ,True);
 
-	//CreateClientHeatWave(force, Player);
 	Spawn(class'ZedternalReborn.WMFX_BringTheHeat', , , Player.Location, Rot, ,True);
-}
-
-reliable client function CreateClientHeatWave(byte force, KFPawn_Human KFOwner)
-{
-	local rotator Rot;
-	local ParticleSystemComponent PSC;
-
-	Rot = rotator(KFOwner.Velocity);
-	Rot.Pitch = 0;
-
-	PSC = KFOwner.WorldInfo.MyEmitterPool.SpawnEmitter(default.PSBuff, KFOwner.Location, Rot);
-	PSC.SetDepthPriorityGroup(SDPG_Foreground);
 }
 
 defaultproperties
 {
-	fireBonus=1.4f
-	cumulDamage=0
-	maxCumulDamage=2500
-	deltaCumul=20
-	heatWaveDelay=1.0f
-	costHeatWave(0)=400
-	costHeatWave(1)=750
-	costHeatWave(2)=1500
-	classHeatWave(0)=class'ZedternalReborn.WMUpgrade_Skill_BringTheHeat_Flame_Low'
-	classHeatWave(1)=class'ZedternalReborn.WMUpgrade_Skill_BringTheHeat_Flame_Medium'
-	classHeatWave(2)=class'ZedternalReborn.WMUpgrade_Skill_BringTheHeat_Flame_High'
+	CumulativeDamage=0
+	MaxCumulativeDamage=2500
+	DeltaCumulativeDamage=20
+	HeatWaveDelay=1.0f
+
+	CostHeatWave(0)=400
+	CostHeatWave(1)=750
+	CostHeatWave(2)=1500
+	ClassHeatWave(0)=class'ZedternalReborn.WMUpgrade_Skill_BringTheHeat_Flame_Low'
+	ClassHeatWave(1)=class'ZedternalReborn.WMUpgrade_Skill_BringTheHeat_Flame_Medium'
+	ClassHeatWave(2)=class'ZedternalReborn.WMUpgrade_Skill_BringTheHeat_Flame_High'
 	PSBuff=ParticleSystem'ZedternalReborn_Resource.Effects.FX_BringTheHeat_Effect'
+
 	Name="Default__WMUpgrade_Skill_BringTheHeat_Counter"
 }
