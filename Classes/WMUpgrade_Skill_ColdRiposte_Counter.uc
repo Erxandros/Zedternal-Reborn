@@ -24,7 +24,7 @@ function Explosion(KFPawn OwnerPawn)
 		else
 			OwnerPawn.Controller.Spawn(class'ZedternalReborn.WMProj_FreezeExplosion', OwnerPawn.Controller, , Loc, Rot, , True);
 		PlayLocalEffects(OwnerPawn);
-		SetTimer(Delay,True,nameof(UpdateColdRiposte));
+		SetTimer(Delay, False, nameof(UpdateColdRiposte));
 	}
 	else
 		Destroy();
@@ -63,5 +63,6 @@ defaultproperties
 	Delay=40.0f
 	bDeluxe=False
 	PSBuff=ParticleSystem'ZedternalReborn_Resource.Effects.FX_ColdRiposte_Effect'
+
 	Name="Default__WMUpgrade_Skill_ColdRiposte_Counter"
 }
