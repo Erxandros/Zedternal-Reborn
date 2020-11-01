@@ -7,8 +7,7 @@ var int MaxCumulativeDamage;
 var int DeltaCumulativeDamage;
 var float HeatWaveDelay;
 var array<int> CostHeatWave;
-var array< class< WMUpgrade_Skill_BringTheHeat_Flame_Base > > ClassHeatWave;
-var ParticleSystem PSBuff;
+var array< class<WMUpgrade_Skill_BringTheHeat_Flame_Base> > ClassHeatWave;
 
 function PostBeginPlay()
 {
@@ -69,7 +68,6 @@ defaultproperties
 	ClassHeatWave(0)=class'ZedternalReborn.WMUpgrade_Skill_BringTheHeat_Flame_Low'
 	ClassHeatWave(1)=class'ZedternalReborn.WMUpgrade_Skill_BringTheHeat_Flame_Medium'
 	ClassHeatWave(2)=class'ZedternalReborn.WMUpgrade_Skill_BringTheHeat_Flame_High'
-	PSBuff=ParticleSystem'ZedternalReborn_Resource.Effects.FX_BringTheHeat_Effect'
 
 	Name="Default__WMUpgrade_Skill_BringTheHeat_Counter"
 }
