@@ -1,26 +1,29 @@
 Class WMUpgrade_Skill_Cripple extends WMUpgrade_Skill;
-	
+
 var float Snare;
 var array<float> Damage;
 
-static function ModifySnarePowerPassive( out float snarePowerFactor, int upgLevel)
+static function ModifySnarePowerPassive(out float snarePowerFactor, int upgLevel)
 {
 	snarePowerFactor += default.Snare;
 }
 
-static function ModifyDamageGiven( out int InDamage, int DefaultDamage, int upgLevel, optional Actor DamageCauser, optional KFPawn_Monster MyKFPM, optional KFPlayerController DamageInstigator, optional class<KFDamageType> DamageType, optional int HitZoneIdx, optional KFWeapon MyKFW)
+static function ModifyDamageGiven(out int InDamage, int DefaultDamage, int upgLevel, optional Actor DamageCauser, optional KFPawn_Monster MyKFPM, optional KFPlayerController DamageInstigator, optional class<KFDamageType> DamageType, optional int HitZoneIdx, optional KFWeapon MyKFW)
 {
-	InDamage += Round(float(DefaultDamage) * default.Damage[upgLevel-1]);
+	InDamage += Round(float(DefaultDamage) * default.Damage[upgLevel - 1]);
 }
 
 defaultproperties
 {
+	Snare=10.0f
+	Damage(0)=0.1f
+	Damage(1)=0.25f
+
 	upgradeName="Cripple"
-	upgradeDescription(0)="Multiple hits with <font color=\"#eaeff7\">all weapon</font> will slow ZEDs down up to 30%. Increase damage you dealt with <font color=\"#eaeff7\">all weapons</font> 10%"
-	upgradeDescription(1)="Multiple hits with <font color=\"#eaeff7\">all weapon</font> will slow ZEDs down up to 30%. Increase damage you dealt with <font color=\"#eaeff7\">all weapons</font> <font color=\"#b346ea\">25%</font>"
-	Snare=10.00000;
-	Damage(0)=0.10000;
-	Damage(1)=0.25000;
+	upgradeDescription(0)="Multiple hits with <font color=\"#eaeff7\">all weapon</font> will slow ZEDs down up to 30%. Increase damage you deal with <font color=\"#eaeff7\">all weapons</font> by 10%"
+	upgradeDescription(1)="Multiple hits with <font color=\"#eaeff7\">all weapon</font> will slow ZEDs down up to 30%. Increase damage you deal with <font color=\"#eaeff7\">all weapons</font> by <font color=\"#b346ea\">25%</font>"
 	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Destruction'
 	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Destruction_Deluxe'
+
+	Name="Default__WMUpgrade_Skill_Cripple"
 }
