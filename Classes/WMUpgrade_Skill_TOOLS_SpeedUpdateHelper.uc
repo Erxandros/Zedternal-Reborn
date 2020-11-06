@@ -5,15 +5,17 @@ var KFPawn_Human Player;
 
 function PostBeginPlay()
 {
+	super.PostBeginPlay();
+
 	Player = KFPawn_Human(Owner);
-	if(Player==none)
+	if (Player == None)
 		Destroy();
 	else
-		SetTimer(1.f, true);
+		SetTimer(1.0f, True);
 }
 function Timer()
 {
-	if(Player==None)
+	if (Player == None)
 		Destroy();
 	else
 		Player.UpdateGroundSpeed();
@@ -21,5 +23,5 @@ function Timer()
 
 defaultproperties
 {
-   Name="Default__WMUpgrade_Skill_TOOLS_SpeedUpdateHelper"
+	Name="Default__WMUpgrade_Skill_TOOLS_SpeedUpdateHelper"
 }
