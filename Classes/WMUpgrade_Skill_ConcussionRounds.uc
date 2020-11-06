@@ -1,29 +1,32 @@
 Class WMUpgrade_Skill_ConcussionRounds extends WMUpgrade_Skill;
-	
+
 var array<float> Effect;
 
-static function ModifyStumblePowerPassive( out float stumblePowerFactor, int upgLevel)
+static function ModifyStumblePowerPassive(out float stumblePowerFactor, int upgLevel)
 {
-	stumblePowerFactor += default.Effect[upgLevel-1];
+	stumblePowerFactor += default.Effect[upgLevel - 1];
 }
 
-static function ModifyStunPowerPassive( out float stunPowerFactor, int upgLevel)
+static function ModifyStunPowerPassive(out float stunPowerFactor, int upgLevel)
 {
-	stunPowerFactor += default.Effect[upgLevel-1];
+	stunPowerFactor += default.Effect[upgLevel - 1];
 }
 
-static function ModifyKnockdownPowerPassive( out float knockdownPowerFactor, int upgLevel)
+static function ModifyKnockdownPowerPassive(out float knockdownPowerFactor, int upgLevel)
 {
-	knockdownPowerFactor += default.Effect[upgLevel-1];
+	knockdownPowerFactor += default.Effect[upgLevel - 1];
 }
 
 defaultproperties
 {
+	Effect(0)=0.5f
+	Effect(1)=1.25f
+
 	upgradeName="Concussion Rounds"
-	upgradeDescription(0)="Increase stumble, stun and knockdown powers for <font color=\"#eaeff7\">all weapons</font> 50%"
-	upgradeDescription(1)="Increase stumble, stun and knockdown powers for <font color=\"#eaeff7\">all weapons</font> <font color=\"#b346ea\">125%</font>"
-	Effect(0)=0.500000
-	Effect(1)=1.250000
+	upgradeDescription(0)="Increase stumble, stun and knockdown powers for <font color=\"#eaeff7\">all weapons</font> by 50%"
+	upgradeDescription(1)="Increase stumble, stun and knockdown powers for <font color=\"#eaeff7\">all weapons</font> by <font color=\"#b346ea\">125%</font>"
 	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_ConcussionRounds'
 	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_ConcussionRounds_Deluxe'
+
+	Name="Default__WMUpgrade_Skill_ConcussionRounds"
 }
