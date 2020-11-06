@@ -13,9 +13,9 @@ static simulated function InitiateWeapon(int upgLevel, KFWeapon KFW, KFPawn Owne
 	local WMUpgrade_Skill_Bombardier_Regen UPG;
 	local bool bFound;
 
-	bFound = False;
 	if (KFPawn_Human(OwnerPawn) != None)
 	{
+		bFound = False;
 		foreach OwnerPawn.ChildActors(class'WMUpgrade_Skill_Bombardier_Regen', UPG)
 		{
 			if (UPG != None)
