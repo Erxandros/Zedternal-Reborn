@@ -222,6 +222,20 @@ static function bool IsMeleeDamageType(class<DamageType> DT)
 		class<KFDT_Piercing_NailFragment>(DT) == None;
 }
 
+static function bool IsGrenadeDT(class<DamageType> DT)
+{
+	if (ClassIsChildOf(DT, class'KFDT_Explosive_DynamiteGrenade') || ClassIsChildOf(DT, class'KFDT_Explosive_FlashBangGrenade') ||
+		ClassIsChildOf(DT, class'KFDT_EMP_EMPGrenade') || ClassIsChildOf(DT, class'KFDT_Explosive_FragGrenade') ||
+		ClassIsChildOf(DT, class'KFDT_Explosive_HEGrenade') || ClassIsChildOf(DT, class'KFDT_Healing_MedicGrenade') ||
+		ClassIsChildOf(DT, class'KFDT_Fire_MolotovGrenade') || ClassIsChildOf(DT, class'KFDT_Freeze_FreezeGrenade') ||
+		ClassIsChildOf(DT, class'KFDT_Explosive_NailBombGrenade'))
+	{
+		return True;
+	}
+
+	return False;
+}
+
 defaultproperties
 {
 	upgradeIcon(0)=Texture2D'CHR_Cosmetics_Item_TEX.3DGlasses.3DGlasses_Color02'

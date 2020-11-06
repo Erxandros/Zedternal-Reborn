@@ -4,22 +4,8 @@ var array<float> Damage;
 
 static function ModifyDamageGiven(out int InDamage, int DefaultDamage, int upgLevel, optional Actor DamageCauser, optional KFPawn_Monster MyKFPM, optional KFPlayerController DamageInstigator, optional class<KFDamageType> DamageType, optional int HitZoneIdx, optional KFWeapon MyKFW)
 {
-	if (DamageType != None && isGrenadeDT(DamageType))
+	if (DamageType != None && static.IsGrenadeDT(DamageType))
 		InDamage += DefaultDamage * default.Damage[upgLevel - 1];
-}
-
-static function bool isGrenadeDT(class<KFDamageType> DamageType)
-{
-	if (ClassIsChildOf(DamageType, class'KFDT_Explosive_DynamiteGrenade') || ClassIsChildOf(DamageType, class'KFDT_Explosive_FlashBangGrenade') ||
-		ClassIsChildOf(DamageType, class'KFDT_EMP_EMPGrenade') || ClassIsChildOf(DamageType, class'KFDT_Explosive_FragGrenade') ||
-		ClassIsChildOf(DamageType, class'KFDT_Explosive_HEGrenade') || ClassIsChildOf(DamageType, class'KFDT_Healing_MedicGrenade') ||
-		ClassIsChildOf(DamageType, class'KFDT_Fire_MolotovGrenade') || ClassIsChildOf(DamageType, class'KFDT_Freeze_FreezeGrenade') ||
-		ClassIsChildOf(DamageType, class'KFDT_Explosive_NailBombGrenade'))
-	{
-		return True;
-	}
-
-	return False;
 }
 
 static simulated function InitiateWeapon(int upgLevel, KFWeapon KFW, KFPawn OwnerPawn)
