@@ -210,7 +210,7 @@ static function bool IsDamageTypeOnSpecificPerk(class<KFDamageType> KFDT, class<
 
 static function bool IsMeleeDamageType(class<DamageType> DT)
 {
-	return DT != None && (ClassIsChildOf(DT, class'KFDT_Bludgeon') || ClassIsChildOf(DT, class'KFDT_Slashing') || ClassIsChildOf(DT, class'KFDT_Piercing')) &&
+	return (ClassIsChildOf(DT, class'KFDT_Bludgeon') || ClassIsChildOf(DT, class'KFDT_Slashing') || ClassIsChildOf(DT, class'KFDT_Piercing')) &&
 		class<KFDT_Slashing_EvisceratorProj>(DT) == None &&
 		class<KFDT_Ballistic_BlunderbussShards>(DT) == None &&
 		class<KFDT_Ballistic_HRGNailgun>(DT) == None &&

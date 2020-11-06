@@ -4,7 +4,7 @@ var array<int> meleeVampire, weapVampire;
 
 static function AddVampireHealth( out int InHealth, int DefaultHealth, int upgLevel, KFPlayerController KFPC, class<DamageType> DT )
 {
-	if (class<KFDamageType>(DT) != none && static.IsMeleeDamageType(DT))
+	if (DT != none && static.IsMeleeDamageType(DT))
 		InHealth += default.meleeVampire[upgLevel-1];
 	else
 		InHealth += default.weapVampire[upgLevel-1];

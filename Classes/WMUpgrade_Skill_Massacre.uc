@@ -4,7 +4,7 @@ var array<float> meleeDamage, damage;
 
 static function ModifyDamageGiven( out int InDamage, int DefaultDamage, int upgLevel, optional Actor DamageCauser, optional KFPawn_Monster MyKFPM, optional KFPlayerController DamageInstigator, optional class<KFDamageType> DamageType, optional int HitZoneIdx, optional KFWeapon MyKFW)
 {
-	if (IsMeleeDamageType(DamageType))
+	if (DamageType != None && static.IsMeleeDamageType(DamageType))
 		InDamage += int(float(DefaultDamage) * default.meleeDamage[upgLevel-1]);
 	else
 		InDamage += int(float(DefaultDamage) * default.damage[upgLevel-1]);
