@@ -7,28 +7,36 @@ var bool bDeluxe;
 
 function PostBeginPlay()
 {
+	super.PostBeginPlay();
+
 	Player = KFPawn_Human(Owner);
-	if(Player==none)
+	if (Player == None)
 		Destroy();
 	else
-		SetTimer(2.f,false);
+		SetTimer(2.0f, False);
 }
+
 function Timer()
 {
-	if(Player==None || Player.Health<=0)
+	if (Player == None || Player.Health <= 0)
+	{
 		Destroy();
-	else if(Player.Health<Player.HealthMax )
-		Player.Health = Min(Player.Health+default.Regen,Player.HealthMax);
-	
+		return;
+	}
+
+	if (Player.Health < Player.HealthMax)
+		Player.Health = Min(Player.Health + default.Regen, Player.HealthMax);
+
 	if (bDeluxe)
-		SetTimer(1.f,false);
+		SetTimer(1.0f, False);
 	else
-		SetTimer(2.f,false);
+		SetTimer(2.0f, False);
 }
 
 defaultproperties
 {
-   Regen=1
-   bDeluxe=false
-   Name="Default__WMUpgrade_Skill_Fortitude_Regen"
+	Regen=1
+	bDeluxe=False
+
+	Name="Default__WMUpgrade_Skill_Fortitude_Regen"
 }
