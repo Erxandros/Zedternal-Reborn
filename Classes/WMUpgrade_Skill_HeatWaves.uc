@@ -16,15 +16,15 @@ static simulated function bool IsGroundFireActive(int upgLevel, KFPawn OwnerPawn
 
 defaultproperties
 {
+	Stumble=3.0f
+	RadiusSQ(0)=70000
+	RadiusSQ(1)=280000
+
 	upgradeName="Heat Waves"
 	upgradeDescription(0)="Greatly increase stumble effect at point blank range with <font color=\"#eaeff7\">all weapons</font>. Increase <font color=\"#caab05\">ground fire</font> damage"
 	upgradeDescription(1)="Greatly increase stumble effect at <font color=\"#b346ea\">short and medium ranges</font> with <font color=\"#eaeff7\">all weapons</font>. Increase <font color=\"#caab05\">ground fire</font> damage"
 	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_HeatWaves'
 	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_HeatWaves_Deluxe'
-
-	Stumble=3.0f
-	RadiusSQ(0)=70000
-	RadiusSQ(1)=280000
 
 	Name="Default__WMUpgrade_Skill_HeatWaves"
 }
