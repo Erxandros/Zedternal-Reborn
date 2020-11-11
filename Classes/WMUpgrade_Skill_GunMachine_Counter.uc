@@ -7,31 +7,36 @@ var bool bActive;
 
 function PostBeginPlay()
 {
+	super.PostBeginPlay();
+
 	Player = KFPawn_Human(Owner);
-	if(Player==none)
+	if (Player == None)
 		Destroy();
+	else
+		SetTimer(1.0f, True);
 }
 
 function SetActive()
 {
-	Delay = MaxDelay;
-	bActive = true;
+	Delay = default.MaxDelay;
+	bActive = True;
 }
 
 function Timer()
 {
 	if (Delay > 0)
 	{
-		Delay -= 1;
-		if (Delay == 0)
-			bActive = false;
+		--Delay;
+		if (Delay <= 0)
+			bActive = False;
 	}
 }
 
 defaultproperties
 {
-   bActive=false
-   MaxDelay=5
-   Delay=0
-   Name="Default__WMUpgrade_Skill_GunMachine_Counter"
+	bActive=False
+	MaxDelay=5
+	Delay=0
+
+	Name="Default__WMUpgrade_Skill_GunMachine_Counter"
 }
