@@ -1,20 +1,25 @@
 Class WMUpgrade_Skill_HotPepper extends WMUpgrade_Skill;
-	
+
 static simulated function InitiateWeapon(int upgLevel, KFWeapon KFW, KFPawn OwnerPawn)
 {
 	local WMUpgrade_Skill_HotPepper_Counter UPG;
 	local bool bFound;
-	
-	if (KFPawn_Human(OwnerPawn)!=none)
+
+	if (KFPawn_Human(OwnerPawn) != None)
 	{
-		bFound = false;
-		foreach OwnerPawn.ChildActors(class'WMUpgrade_Skill_HotPepper_Counter',UPG)
+		bFound = False;
+		foreach OwnerPawn.ChildActors(class'WMUpgrade_Skill_HotPepper_Counter', UPG)
 		{
-			bFound = true;
+			if (UPG != None)
+			{
+				bFound = True;
+				break;
+			}
 		}
+
 		if (!bFound)
 		{
-			UPG = OwnerPawn.Spawn(class'WMUpgrade_Skill_HotPepper_Counter',OwnerPawn);
+			UPG = OwnerPawn.Spawn(class'WMUpgrade_Skill_HotPepper_Counter', OwnerPawn);
 			UPG.bDeluxe = (upgLevel > 1);
 		}
 	}
@@ -27,4 +32,6 @@ defaultproperties
 	upgradeDescription(1)="ZEDs near you can catch on <font color=\"#b346ea\">heavy</font> fire"
 	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_HotPepper'
 	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_HotPepper_Deluxe'
+
+	Name="Default__WMUpgrade_Skill_HotPepper"
 }
