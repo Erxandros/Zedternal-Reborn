@@ -2,56 +2,56 @@ Class WMUpgrade_Skill_HotPepper_Counter extends Info
 	transient;
 
 var KFPawn_Human Player;
-var float pyromaniacLength, Delay;
-var float radius;
-var array<int> damage;
 var bool bDeluxe;
-
+var array<int> Damage;
+var float Radius;
 
 function PostBeginPlay()
 {
+	super.PostBeginPlay();
+
 	Player = KFPawn_Human(Owner);
-	if(Player==none)
+	if(Player == None)
 		Destroy();
-	SetTimer(0.5f, true);
+	else
+		SetTimer(0.5f, True);
 }
 
 function Timer()
 {
 	local KFPawn_Monster KFM;
 	local KFPlayerController KFPC;
-	local int dmg;
-	
-	if (Player != none)
+	local int Dmg;
+
+	if (Player != None)
 	{
 		KFPC = KFPlayerController(Player.Controller);
-		if (KFPC != none)
+		if (KFPC != None)
 		{
 			foreach DynamicActors(class'KFPawn_Monster', KFM)
 			{
-				if ( KFM.IsAliveAndWell() && VSizeSQ( Player.Location - KFM.Location ) <= Radius )
+				if (KFM.IsAliveAndWell() && VSizeSQ(Player.Location - KFM.Location) <= Radius)
 				{
 					if (bDeluxe)
-						dmg = default.damage[1];
+						Dmg = default.Damage[1];
 					else
-						dmg = default.damage[0];
-					KFM.ApplyDamageOverTime(dmg, KFPC, Class'ZedternalReborn.WMDT_Napalm');
+						Dmg = default.Damage[0];
+
+					KFM.ApplyDamageOverTime(Dmg, KFPC, Class'ZedternalReborn.WMDT_Napalm');
 				}
 			}
 		}
 	}
 	else
-	{
 		Destroy();
-	}
 }
-
 
 defaultproperties
 {
-   damage(0)=10;
-   damage(1)=25;
-   radius=25600;
-   bDeluxe=false
-   Name="Default__WMUpgrade_Skill_HotPepper_Counter"
+	bDeluxe=False
+	Damage(0)=10
+	Damage(1)=25
+	Radius=25600
+
+	Name="Default__WMUpgrade_Skill_HotPepper_Counter"
 }
