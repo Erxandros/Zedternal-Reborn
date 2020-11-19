@@ -440,6 +440,15 @@ static function UpdateConfig()
 		}
 	}
 
+	if (default.MODEVERSION < 7)
+	{
+		i = default.WeaponVariant_VariantList.Find('WeaponDef', "KFGameContent.KFWeapDef_HRGTeslauncher");
+		if (i != -1)
+		{
+			default.WeaponVariant_VariantList[i].WeaponDef = "KFGame.KFWeapDef_HRGTeslauncher";
+		}
+	}
+
 	if (default.MODEVERSION < class'ZedternalReborn.Config_Base'.default.currentVersion)
 	{
 		default.MODEVERSION = class'ZedternalReborn.Config_Base'.default.currentVersion;
