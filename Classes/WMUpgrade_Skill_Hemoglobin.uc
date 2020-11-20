@@ -1,6 +1,6 @@
 Class WMUpgrade_Skill_Hemoglobin extends WMUpgrade_Skill;
 
-var const class<DamageType> HemoDT;
+var const class<KFDamageType> WMDT;
 
 var Vector VectZero;
 var array<int> Damage;
@@ -10,13 +10,13 @@ static function ModifyDamageGiven(out int InDamage, int DefaultDamage, int upgLe
 	if (ClassIsChildOf(DamageType, class'KFDT_Toxic') && DamageInstigator != None && MyKFPM != None && !MyKFPM.bIsPoisoned)
 	{
 		//add poison effects on zed
-		MyKFPM.TakeDamage(default.Damage[upgLevel - 1], DamageInstigator, MyKFPM.Location, default.VectZero, default.HemoDT);
+		MyKFPM.TakeDamage(default.Damage[upgLevel - 1], DamageInstigator, MyKFPM.Location, default.VectZero, default.WMDT);
 	}
 }
 
 defaultproperties
 {
-	HemoDT=class'ZedternalReborn.WMDT_Hemogoblin'
+	WMDT=class'ZedternalReborn.WMDT_Hemogoblin'
 	VectZero=(x=0.0f,y=0.0f,z=0.0f)
 	Damage(0)=10
 	Damage(1)=50
