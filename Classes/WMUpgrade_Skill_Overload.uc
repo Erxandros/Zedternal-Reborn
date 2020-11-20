@@ -1,26 +1,29 @@
 Class WMUpgrade_Skill_Overload extends WMUpgrade_Skill;
-	
-var array<float> magCapacity, maxAmmo;
-	
-static simulated function ModifyMagSizeAndNumberPassive( out float magazineCapacityFactor, int upgLevel)
+
+var array<float> MagCapacity, MaxAmmo;
+
+static simulated function ModifyMagSizeAndNumberPassive(out float magazineCapacityFactor, int upgLevel)
 {
-	magazineCapacityFactor += default.magCapacity[upgLevel-1];
+	magazineCapacityFactor += default.MagCapacity[upgLevel - 1];
 }
 
-static simulated function ModifySpareAmmoAmountPassive( out float spareAmmoFactor, int upgLevel)
+static simulated function ModifySpareAmmoAmountPassive(out float spareAmmoFactor, int upgLevel)
 {
-	spareAmmoFactor += default.maxAmmo[upgLevel-1];
+	spareAmmoFactor += default.MaxAmmo[upgLevel - 1];
 }
 
 defaultproperties
 {
+	MagCapacity(0)=0.2f
+	MagCapacity(1)=0.5f
+	MaxAmmo(0)=0.2f
+	MaxAmmo(1)=0.5f
+
 	upgradeName="Overload"
-	upgradeDescription(0)="Increase magazine capacity and max ammo of <font color=\"#eaeff7\">all weapons</font> 20%"
-	upgradeDescription(1)="Increase magazine capacity and max ammo of <font color=\"#eaeff7\">all weapons</font> <font color=\"#b346ea\">50%</font>"
-	magCapacity(0)=0.200000;
-	magCapacity(1)=0.500000;
-	maxAmmo(0)=0.200000;
-	maxAmmo(1)=0.500000;
+	upgradeDescription(0)="Increase magazine capacity and max ammo of <font color=\"#eaeff7\">all weapons</font> by 20%"
+	upgradeDescription(1)="Increase magazine capacity and max ammo of <font color=\"#eaeff7\">all weapons</font> by <font color=\"#b346ea\">50%</font>"
 	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Overload'
 	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Overload_Deluxe'
+
+	Name="Default__WMUpgrade_Skill_Overload"
 }
