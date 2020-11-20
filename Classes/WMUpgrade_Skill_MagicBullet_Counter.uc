@@ -11,8 +11,10 @@ replication
 
 function PostBeginPlay()
 {
+	super.PostBeginPlay();
+
 	Player = KFPawn_Human(Owner);
-	if(Player==none || Player.Health <= 0)
+	if(Player == None || Player.Health <= 0)
 		Destroy();
 }
 
@@ -22,7 +24,7 @@ function int UpdateAmmo(int AmmoIn, KFWeapon MyKFWeapon)
 
 	// cap ammo
 	Ammo = Min(AmmoIn, MyKFWeapon.MagazineCapacity[0] - MyKFWeapon.AmmoCount[0]);
-	
+
 	if (MyKFWeapon.MagazineCapacity[0] > 1 && Ammo > 0 && MyKFWeapon.SpareAmmoCount[0] >= Ammo)
 	{
 		MyKFWeapon.AmmoCount[0] += Ammo;
@@ -37,10 +39,10 @@ reliable client function StandaloneUpdateAmmo(int Ammo)
 {
 	local KFWeapon MyKFWeapon;
 
-	if (Player != none && Player.Health > 0)
+	if (Player != None && Player.Health > 0)
 	{
 		MyKFWeapon = KFWeapon(Player.Weapon);
-		if (MyKFWeapon != none)
+		if (MyKFWeapon != None)
 		{
 			UpdateAmmo(Ammo, MyKFWeapon);
 		}
@@ -53,11 +55,11 @@ reliable server function ServerUpdateAmmo(int Ammo)
 {
 	local KFWeapon MyKFWeapon;
 	local int ClientAmmo;
-	
-	if (Player != none && Player.Health > 0)
+
+	if (Player != None && Player.Health > 0)
 	{
 		MyKFWeapon = KFWeapon(Player.Weapon);
-		if (MyKFWeapon != none)
+		if (MyKFWeapon != None)
 		{
 			ClientAmmo = UpdateAmmo(Ammo, MyKFWeapon);
 			ClientUpdateAmmo(ClientAmmo);
@@ -71,10 +73,10 @@ reliable client function ClientUpdateAmmo(int Ammo)
 {
 	local KFWeapon MyKFWeapon;
 
-	if (Player != none && Player.Health > 0)
+	if (Player != None && Player.Health > 0)
 	{
 		MyKFWeapon = KFWeapon(Player.Weapon);
-		if (MyKFWeapon != none)
+		if (MyKFWeapon != None)
 		{
 			if (Ammo > 0)
 			{
@@ -89,5 +91,5 @@ reliable client function ClientUpdateAmmo(int Ammo)
 
 defaultproperties
 {
-   Name="Default__WMUpgrade_Skill_MagicBullet_Counter"
+	Name="Default__WMUpgrade_Skill_MagicBullet_Counter"
 }
