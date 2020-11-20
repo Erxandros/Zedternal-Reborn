@@ -447,6 +447,18 @@ static function UpdateConfig()
 		{
 			default.WeaponVariant_VariantList[i].WeaponDef = "KFGame.KFWeapDef_HRGTeslauncher";
 		}
+
+		i = default.WeaponVariant_VariantList.length;
+
+		newVariant.WeaponDef = "KFGame.KFWeapDef_HRG_Vampire";
+		newVariant.WeaponDefVariant = "ZedternalReborn.WMWeapDef_HRG_Vampire_Precious";
+		newVariant.DualWeaponDefVariant = "";
+		default.WeaponVariant_VariantList.AddItem(newVariant);
+
+		for (i = i; i < default.WeaponVariant_VariantList.length; ++i)
+		{
+			default.WeaponVariant_VariantList[i].Probability = 0.017500;
+		}
 	}
 
 	if (default.MODEVERSION < class'ZedternalReborn.Config_Base'.default.currentVersion)
