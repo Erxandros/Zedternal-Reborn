@@ -22,8 +22,8 @@ var float SavedSnarePowerModifierValue;
 simulated function SetTightChokeModifierTimer()
 {
 	TightChokeModifierFlag = True;
-	if (!IsTimerActive('TightChokeModifierTimer'))
-		SetTimer(TimerDuration, False, 'TightChokeModifierTimer');
+	if (!IsTimerActive(nameof(TightChokeModifierTimer)))
+		SetTimer(TimerDuration, False, nameof(TightChokeModifierTimer));
 }
 
 simulated function TightChokeModifierTimer()
@@ -34,8 +34,8 @@ simulated function TightChokeModifierTimer()
 simulated function SetPenetrationModifierTimer()
 {
 	PenetrationModifierFlag = True;
-	if (!IsTimerActive('PenetrationModifierTimer'))
-		SetTimer(TimerDuration, False, 'PenetrationModifierTimer');
+	if (!IsTimerActive(nameof(PenetrationModifierTimer)))
+		SetTimer(TimerDuration, False, nameof(PenetrationModifierTimer));
 }
 
 simulated function PenetrationModifierTimer()
@@ -46,8 +46,8 @@ simulated function PenetrationModifierTimer()
 function SetStunPowerModifierTimer()
 {
 	StunPowerModifierFlag = True;
-	if (!IsTimerActive('StunPowerModifierTimer'))
-		SetTimer(TimerDuration, False, 'StunPowerModifierTimer');
+	if (!IsTimerActive(nameof(StunPowerModifierTimer)))
+		SetTimer(TimerDuration, False, nameof(StunPowerModifierTimer));
 }
 
 function StunPowerModifierTimer()
@@ -58,8 +58,8 @@ function StunPowerModifierTimer()
 function SetStumblePowerModifierTimer()
 {
 	StumblePowerModifierFlag = True;
-	if (!IsTimerActive('StumblePowerModifierTimer'))
-		SetTimer(TimerDuration, False, 'StumblePowerModifierTimer');
+	if (!IsTimerActive(nameof(StumblePowerModifierTimer)))
+		SetTimer(TimerDuration, False, nameof(StumblePowerModifierTimer));
 }
 
 function StumblePowerModifierTimer()
@@ -70,8 +70,8 @@ function StumblePowerModifierTimer()
 function SetKnockdownPowerModifierTimer()
 {
 	KnockdownPowerModifierFlag = True;
-	if (!IsTimerActive('KnockdownPowerModifierTimer'))
-		SetTimer(TimerDuration, False, 'KnockdownPowerModifierTimer');
+	if (!IsTimerActive(nameof(KnockdownPowerModifierTimer)))
+		SetTimer(TimerDuration, False, nameof(KnockdownPowerModifierTimer));
 }
 
 function KnockdownPowerModifierTimer()
@@ -82,8 +82,8 @@ function KnockdownPowerModifierTimer()
 simulated function SetSnarePowerModifierTimer()
 {
 	SnarePowerModifierFlag = True;
-	if (!IsTimerActive('SnarePowerModifierTimer'))
-		SetTimer(TimerDuration, False, 'SnarePowerModifierTimer');
+	if (!IsTimerActive(nameof(SnarePowerModifierTimer)))
+		SetTimer(TimerDuration, False, nameof(SnarePowerModifierTimer));
 }
 
 simulated function SnarePowerModifierTimer()
