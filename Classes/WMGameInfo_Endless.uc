@@ -1646,9 +1646,7 @@ function RepPlayerInfo(WMPlayerReplicationInfo WMPRI)
 
 function int GetAdjustedDeathPenalty(KFPlayerReplicationInfo KilledPlayerPRI, optional bool bLateJoiner=false)
 {
-	local int PlayerCut;
-	local int PlayerCount;
-	local int perkBonus;
+	local int PlayerBase, PlayerWave, PlayerCount, PlayerPerkBonus;
 	local KFPlayerController KFPC;
 
 	// new player (dosh is based on what team won during the game
@@ -1663,9 +1661,18 @@ function int GetAdjustedDeathPenalty(KFPlayerReplicationInfo KilledPlayerPRI, op
 			++PlayerCount;
 	}
 
-	PlayerCut = Round(class'ZedternalReborn.Config_Game'.default.Game_ExtraDoshPerWavePerPlayer * PlayerCount) + class'ZedternalReborn.Config_Game'.default.Game_DoshPerWavePerPlayer;
-	perkBonus = Round(float(Min(WMPlayerReplicationInfo(KilledPlayerPRI).perkLvl, 25) * PlayerCut) / 100.f);
-	return Round(float(PlayerCut + perkBonus) * (1.f - FClamp(class'ZedternalReborn.Config_Game'.static.GetDeathPenaltyDoshPct(GameDifficultyZedternal), 0.0f, 1.0f)));
+	PlayerBase = class'ZedternalReborn.Config_Game'.default.Game_DoshPerWavePerPlayer + (class'ZedternalReborn.Config_Game'.default.Game_ExtraDoshPerWavePerPlayer * PlayerCount);
+	PlayerWave = WaveNum * class'ZedternalReborn.Config_Game'.default.Game_ExtraDoshWaveBonusMultiplier;
+
+	PlayerPerkBonus = 0;
+	if (class'ZedternalReborn.Config_Game'.default.Game_ExtraDoshPerkBonusDivider > 0 && class'ZedternalReborn.Config_Game'.default.Game_ExtraDoshPerkBonusMaxThreshold > 0)
+	{
+		PlayerPerkBonus = Min(WMPlayerReplicationInfo(KFPC.PlayerReplicationInfo).perkLvl, class'ZedternalReborn.Config_Game'.default.Game_ExtraDoshPerkBonusMaxThreshold)
+		* class'ZedternalReborn.Config_Game'.default.Game_DoshPerWavePerPlayer
+		/ (class'ZedternalReborn.Config_Game'.default.Game_ExtraDoshPerkBonusDivider * class'ZedternalReborn.Config_Game'.default.Game_ExtraDoshPerkBonusMaxThreshold);
+	}
+
+	return Round(float(PlayerBase + PlayerWave + PlayerPerkBonus) * (1.0f - FClamp(class'ZedternalReborn.Config_Game'.static.GetDeathPenaltyDoshPct(GameDifficultyZedternal), 0.0f, 1.0f)));
 }
 
 function float GetAdjustedAIDoshValue(class<KFPawn_Monster> MonsterClass)
@@ -1751,12 +1758,11 @@ function Killed(Controller Killer, Controller KilledPlayer, Pawn KilledPawn, cla
 
 function RewardSurvivingPlayers()
 {
-	local int PlayerCut;
-	local int PlayerCount;
-	local int perkBonus;
+	local int PlayerBase, PlayerWave, PlayerCount, PlayerPerkBonus;
 	local KFPlayerController KFPC;
 	Local KFTeamInfo_Human T;
 
+	PlayerCount = 0;
 	foreach WorldInfo.AllControllers(class'KFPlayerController', KFPC)
 	{
 		if (KFPC.Pawn != none && KFPC.Pawn.IsAliveAndWell())
@@ -1771,33 +1777,39 @@ function RewardSurvivingPlayers()
 		}
 	}
 
-	// No dosh to distribute if there is no team or score
-	if (T == none || T.Score <= 0)
+	if (T != none)
 	{
-		return;
+		// Reset team score even though we do not use it
+		T.AddScore(0, true);
 	}
 
-	PlayerCut = Round(float(class'ZedternalReborn.Config_Game'.default.Game_ExtraDoshPerWavePerPlayer) * float(PlayerCount)) + class'ZedternalReborn.Config_Game'.default.Game_DoshPerWavePerPlayer;
+	PlayerBase = class'ZedternalReborn.Config_Game'.default.Game_DoshPerWavePerPlayer + (class'ZedternalReborn.Config_Game'.default.Game_ExtraDoshPerWavePerPlayer * PlayerCount);
+	PlayerWave = WaveNum * class'ZedternalReborn.Config_Game'.default.Game_ExtraDoshWaveBonusMultiplier;
 
-	`log("ZR Info: SCORING: Team dosh earned this round:" @ T.Score);
 	`log("ZR Info: SCORING: Number of surviving players:" @ PlayerCount);
-	`log("ZR Info: SCORING: Dosh/survivng player:" @ PlayerCut);
+	`log("ZR Info: SCORING: Base Dosh/survivng player:" @ PlayerBase);
+	`log("ZR Info: SCORING: Wave Dosh/survivng player:" @ PlayerWave);
+
+	// Add dosh for new players
+	doshNewPlayer += PlayerBase + class'ZedternalReborn.Config_Game'.default.Game_ExtraDoshPerWavePerPlayer + PlayerWave;
 
 	foreach WorldInfo.AllControllers(class'KFPlayerController', KFPC)
 	{
 		if (KFPC.Pawn != none && KFPC.Pawn.IsAliveAndWell())
 		{
-			perkBonus = Round(float(Min(WMPlayerReplicationInfo(KFPC.PlayerReplicationInfo).perkLvl, 25) * PlayerCut) / 100.f);
-			KFPlayerReplicationInfo(KFPC.PlayerReplicationInfo).AddDosh(PlayerCut + perkBonus, true);
-			doshNewPlayer += (PlayerCut + perkBonus) / PlayerCount;
-			T.AddScore(-PlayerCut);
+			PlayerPerkBonus = 0;
+			if (class'ZedternalReborn.Config_Game'.default.Game_ExtraDoshPerkBonusDivider > 0 && class'ZedternalReborn.Config_Game'.default.Game_ExtraDoshPerkBonusMaxThreshold > 0)
+			{
+				PlayerPerkBonus = Min(WMPlayerReplicationInfo(KFPC.PlayerReplicationInfo).perkLvl, class'ZedternalReborn.Config_Game'.default.Game_ExtraDoshPerkBonusMaxThreshold)
+				* class'ZedternalReborn.Config_Game'.default.Game_DoshPerWavePerPlayer
+				/ (class'ZedternalReborn.Config_Game'.default.Game_ExtraDoshPerkBonusDivider * class'ZedternalReborn.Config_Game'.default.Game_ExtraDoshPerkBonusMaxThreshold);
+			}
 
-			`log("ZR Info: Player" @ KFPC.PlayerReplicationInfo.PlayerName @ "got" @ PlayerCut @ "for surviving the wave");
+			KFPlayerReplicationInfo(KFPC.PlayerReplicationInfo).AddDosh(PlayerBase + PlayerWave + PlayerPerkBonus, true);
+
+			`log("ZR Info: Player" @ KFPC.PlayerReplicationInfo.PlayerName @ "got" @ PlayerBase + PlayerWave + PlayerPerkBonus @ "dosh for surviving the wave. Player perk level:" @ WMPlayerReplicationInfo(KFPC.PlayerReplicationInfo).perkLvl);
 		}
 	}
-
-	// Reset team score after the wave ends
-	T.AddScore(0, true);
 }
 
 /** Trigger DramaticEvent/ZedTime when pawn is killed */

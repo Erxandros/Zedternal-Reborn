@@ -3,9 +3,12 @@ class Config_Game extends Config_Base
 
 var config int MODEVERSION;
 
-var config int Game_DoshPerWavePerPlayer; 			//each player win that amount of dosh every wave
-var config int Game_ExtraDoshPerWavePerPlayer; 		//extra amount of dosh won based on number of player
-var config float Game_LateJoinerTotalDoshFactor;		//when new player join in mid-game, give him dosh won (by other players) * this variable
+var config int Game_DoshPerWavePerPlayer; //Base amount of Dosh granted to every player
+var config int Game_ExtraDoshPerWavePerPlayer; //Extra Dosh granted base on the number of players, PlayerCount * this variable
+var config int Game_ExtraDoshWaveBonusMultiplier; //Extra Dosh granted base on the current wave number, WaveNum * this variable
+var config int Game_ExtraDoshPerkBonusDivider; //Extra Dosh granted base on the player's current perk level, this variable divides the DoshPerWavePerPlayer variable and sets the result as the max possible bonus Dosh.
+var config int Game_ExtraDoshPerkBonusMaxThreshold; //Extra Dosh granted base on the player's current perk level, this variable determines the minimum perk level needed to get the maximum bonus Dosh.
+var config float Game_LateJoinerTotalDoshFactor; //When a new player joins mid-game, give him Dosh won (by other players) * this variable
 
 var config S_Difficulty_Float Game_NormalZedDoshFactor;
 var config S_Difficulty_Float Game_LargeZedDoshFactor;
@@ -40,7 +43,7 @@ static function UpdateConfig()
 		default.Game_DoshPerWavePerPlayer = 660;
 		default.Game_ExtraDoshPerWavePerPlayer = 20;
 		default.Game_LateJoinerTotalDoshFactor = 0.700000;
-		
+
 		default.Game_NormalZedDoshFactor.Normal = 1.250000;
 		default.Game_NormalZedDoshFactor.Hard = 1.225000;
 		default.Game_NormalZedDoshFactor.Suicidal = 1.200000;
@@ -111,6 +114,13 @@ static function UpdateConfig()
 	{
 		default.Game_bAllowZedternalUpgradeMenuCommand = false;
 		default.Game_bZedternalUpgradeMenuCommandAllWave = false;
+	}
+
+	if (default.MODEVERSION < 7)
+	{
+		default.Game_ExtraDoshWaveBonusMultiplier = 5;
+		default.Game_ExtraDoshPerkBonusDivider = 2;
+		default.Game_ExtraDoshPerkBonusMaxThreshold = 140;
 	}
 
 	if (default.MODEVERSION < class'ZedternalReborn.Config_Base'.default.currentVersion)
