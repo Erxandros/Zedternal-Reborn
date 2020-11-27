@@ -320,6 +320,14 @@ simulated function UpdatePerkIcon()
 	bShouldUpdateHUDPerkIcon = true;
 }
 
+function NotifyAddInventory(Inventory NewItem)
+{
+	super.NotifyAddInventory(NewItem);
+
+	if (KFWeapon(NewItem) != None)
+		Spawn(class'WMWeaponAmmoFix', NewItem);
+}
+
 reliable client function GetPlatform()
 {
 	//If the server calls GetPlatform on the server and not the client, try again
