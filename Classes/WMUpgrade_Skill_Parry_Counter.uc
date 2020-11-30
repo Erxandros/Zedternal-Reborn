@@ -16,51 +16,68 @@ replication
 
 function PostBeginPlay()
 {
+	super.PostBeginPlay();
+
 	Player = KFPawn_Human(Owner);
-	if(Player==none || Player.Health <= 0)
+	if (Player == None || Player.Health <= 0)
 		Destroy();
 }
 
 simulated function ActiveEffect()
 {
-	if(Player==none || Player.Health <= 0)
+	if (Player == None || Player.Health <= 0)
+	{
 		Destroy();
+		return;
+	}
 	
 	if (!bOn)
 	{
 		Player.UpdateGroundSpeed();
-		bOn = true;
-		if (KFPlayerController(Player.Controller) != none)
-			KFPlayerController(Player.Controller).SetPerkEffect(true);
+		bOn = True;
+		if (KFPlayerController(Player.Controller) != None)
+			KFPlayerController(Player.Controller).SetPerkEffect(True);
 	}
-	SetTimer(Delay,false, NameOf(ResetEffect));
+	SetTimer(Delay, False, NameOf(ResetEffect));
 }
 
 simulated function ResetEffect()
 {
-	if(Player==none || Player.Health <= 0)
+	if (Player == None || Player.Health <= 0)
+	{
 		Destroy();
+		return;
+	}
+
 	if (bOn)
 	{
-		bOn = false;
+		bOn = False;
 		Player.UpdateGroundSpeed();
-		if (KFPlayerController(Player.Controller) != none)
-			KFPlayerController(Player.Controller).SetPerkEffect(false);
+		if (KFPlayerController(Player.Controller) != None)
+			KFPlayerController(Player.Controller).SetPerkEffect(False);
 	}
 }
 
 simulated function PlayLocalEffects(AKBaseSoundObject Sound)
 {
-	if(Player==none || Player.Health <= 0)
+	if (Player == None || Player.Health <= 0)
+	{
 		Destroy();
-	if ( Sound != None )
-		Player.PlaySoundBase( ParrySkillSoundModeStart, true );
+		return;
+	}
+
+	if (Sound != None)
+		Player.PlaySoundBase(ParrySkillSoundModeStart, True);
 }
 
 defaultproperties
 {
-   bOnlyRelevantToOwner = true
-   bOn = false
-   Delay = 8.000000
-   Name="Default__WMUpgrade_Skill_Parry_Counter"
+	bOnlyRelevantToOwner=True
+	bOn=False
+	Delay=8.0f
+
+	ParrySkillSoundModeStart=AkEvent'WW_GLO_Runtime.Play_Beserker_Parry_Mode'
+	ParrySkillSoundModeStop=AkEvent'WW_GLO_Runtime.Stop_Beserker_Parry_Mode'
+
+	Name="Default__WMUpgrade_Skill_Parry_Counter"
 }
