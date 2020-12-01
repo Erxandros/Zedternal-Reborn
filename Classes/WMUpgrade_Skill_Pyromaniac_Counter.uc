@@ -2,11 +2,8 @@ Class WMUpgrade_Skill_Pyromaniac_Counter extends Info
 	transient;
 
 var KFPawn_Human Player;
-
-var bool bEnable;
-var float pyromaniacLength, Delay;
-var float Radius;
-var bool bDeluxe;
+var bool bEnable, bDeluxe;
+var float PyromaniacLength, Delay, Radius;
 
 replication
 {
@@ -16,16 +13,18 @@ replication
 
 function PostBeginPlay()
 {
-	Player = KFPawn_Human(Owner);
-	if(Player==none)
-		Destroy();
+	super.PostBeginPlay();
 
-	SetCheckEnableTimer();
+	Player = KFPawn_Human(Owner);
+	if (Player == None)
+		Destroy();
+	else
+		SetCheckEnableTimer();
 }
 
 function SetCheckEnableTimer()
 {
-	SetTimer(1.0f, true, nameof(CheckEnable));
+	SetTimer(1.0f, True, NameOf(CheckEnable));
 }
 
 function CheckEnable()
@@ -33,34 +32,35 @@ function CheckEnable()
 	local int Count;
 	local KFPawn_Monster KFM;
 
-	if (Player == none)
-		Destroy();
-	else
+	if (Player == None)
 	{
-		Count = 0;
-		foreach DynamicActors(class'KFPawn_Monster', KFM)
-		{
-			if (KFM.IsAliveAndWell() && VSizeSQ(Player.Location - KFM.Location) <= Radius)
-				++Count;
-		}
+		Destroy();
+		return;
+	}
 
-		if ((bDeluxe && Count >= 3) || (!bDeluxe && Count >= 4))
+	Count = 0;
+	foreach DynamicActors(class'KFPawn_Monster', KFM)
+	{
+		if (KFM.IsAliveAndWell() && VSizeSQ(Player.Location - KFM.Location) <= Radius)
+			++Count;
+	}
+
+	if ((bDeluxe && Count >= 3) || Count >= 4)
+	{
+		if (!bEnable)
 		{
-			if (!bEnable)
-			{
-				ClearTimer(nameof(CheckEnable));
-				ActiveEffect();
-				bEnable = true;
-				SetTimer(pyromaniacLength, true, nameof(CheckEnable));
-			}
+			ClearTimer(NameOf(CheckEnable));
+			ActiveEffect();
+			bEnable = True;
+			SetTimer(PyromaniacLength, True, NameOf(CheckEnable));
 		}
-		else if (bEnable)
-		{
-			ClearTimer(nameof(CheckEnable));
-			ResetEffect();
-			bEnable = false;
-			SetTimer(Delay, false, nameof(SetCheckEnableTimer));
-		}
+	}
+	else if (bEnable)
+	{
+		ClearTimer(NameOf(CheckEnable));
+		ResetEffect();
+		bEnable = False;
+		SetTimer(Delay, False, NameOf(SetCheckEnableTimer));
 	}
 }
 
@@ -68,30 +68,31 @@ function EndWaveReset()
 {
 	ClearAllTimers();
 	ResetEffect();
-	bEnable = false;
-	SetTimer(Delay, false, nameof(SetCheckEnableTimer));
+	bEnable = False;
+	SetTimer(Delay, False, NameOf(SetCheckEnableTimer));
 }
 
 // client effects
 reliable client function ActiveEffect()
 {
-	if (KFPlayerController(Player.Controller) != none)
-		KFPlayerController(Player.Controller).SetPerkEffect(true);
+	if (KFPlayerController(Player.Controller) != None)
+		KFPlayerController(Player.Controller).SetPerkEffect(True);
 }
 
 reliable client function ResetEffect()
 {
-	if (KFPlayerController(Player.Controller) != none)
-		KFPlayerController(Player.Controller).SetPerkEffect(false);
+	if (KFPlayerController(Player.Controller) != None)
+		KFPlayerController(Player.Controller).SetPerkEffect(False);
 }
 
 defaultproperties
 {
-	bOnlyRelevantToOwner=true
-	bEnable=false
-	pyromaniacLength=4.0f
+	bOnlyRelevantToOwner=True
+	bEnable=False
+	bDeluxe=False
+	PyromaniacLength=4.0f
 	Delay=8.0f
 	Radius=150000
-	bDeluxe=false
+
 	Name="Default__WMUpgrade_Skill_Pyromaniac_Counter"
 }
