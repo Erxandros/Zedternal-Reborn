@@ -1,24 +1,27 @@
 Class WMUpgrade_Skill_RiotShield extends WMUpgrade_Skill;
 
-var array<float> Damage, otherDamage;
+var array<float> Damage, OtherDamage;
 
-static function ModifyDamageTaken( out int InDamage, int DefaultDamage, int upgLevel, KFPawn OwnerPawn, optional class<DamageType> DamageType, optional Controller InstigatedBy, optional KFWeapon MyKFW)
+static function ModifyDamageTaken(out int InDamage, int DefaultDamage, int upgLevel, KFPawn OwnerPawn, optional class<DamageType> DamageType, optional Controller InstigatedBy, optional KFWeapon MyKFW)
 {
-	if( class<KFDT_Ballistic>(Damagetype) != none )
-		InDamage -= Round(float(DefaultDamage) * default.Damage[upgLevel-1]);
+	if (ClassIsChildOf(Damagetype, class'KFDT_Ballistic'))
+		InDamage -= Round(float(DefaultDamage) * default.Damage[upgLevel - 1]);
 	else
-		InDamage -= Round(float(DefaultDamage) * default.otherDamage[upgLevel-1]);
+		InDamage -= Round(float(DefaultDamage) * default.OtherDamage[upgLevel - 1]);
 }
 
 defaultproperties
 {
+	Damage(0)=0.5f
+	Damage(1)=0.9f
+	OtherDamage(0)=0.05f
+	OtherDamage(1)=0.1f
+
 	upgradeName="Riot Shield"
-	upgradeDescription(0)="Increase resistance to projectile damage 50%. Increase resistance to other damages 5%"
-	upgradeDescription(1)="Increase resistance to projectile damage <font color=\"#b346ea\">90%</font>. Increase resistance to other damages <font color=\"#b346ea\">10%</font>"
-	Damage(0)=0.500000
-	Damage(1)=0.900000
-	otherDamage(0)=0.050000
-	otherDamage(1)=0.100000
+	upgradeDescription(0)="Increase resistance to projectile damage by 50%. Increase resistance to other damage by 5%"
+	upgradeDescription(1)="Increase resistance to projectile damage by <font color=\"#b346ea\">90%</font>. Increase resistance to other damage by <font color=\"#b346ea\">10%</font>"
 	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_RiotShield'
 	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_RiotShield_Deluxe'
+
+	Name="Default__WMUpgrade_Skill_RiotShield"
 }
