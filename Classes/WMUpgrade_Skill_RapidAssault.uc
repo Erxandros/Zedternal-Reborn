@@ -1,24 +1,27 @@
 Class WMUpgrade_Skill_RapidAssault extends WMUpgrade_Skill;
 
-var array<float> rateOfFire;
+var array<float> RateOfFire;
 
-static simulated function ModifyRateOfFirePassive( out float rateOfFireFactor, int upgLevel)
+static simulated function ModifyRateOfFirePassive(out float rateOfFireFactor, int upgLevel)
 {
-	rateOfFireFactor = 1.f / (1.f/rateOfFireFactor + default.rateOfFire[upgLevel-1]);
+	rateOfFireFactor = 1.0f / (1.0f / rateOfFireFactor + default.RateOfFire[upgLevel - 1]);
 }
 
-static simulated function ModifyMeleeAttackSpeedPassive( out float durationFactor, int upgLevel)
+static simulated function ModifyMeleeAttackSpeedPassive(out float durationFactor, int upgLevel)
 {
-	durationFactor = 1.f / (1.f/durationFactor + default.rateOfFire[upgLevel-1]);
+	durationFactor = 1.0f / (1.0f / durationFactor + default.RateOfFire[upgLevel - 1]);
 }
 
 defaultproperties
 {
+	RateOfFire(0)=0.2f
+	RateOfFire(1)=0.5f
+
 	upgradeName="Rapid Assault"
 	upgradeDescription(0)="Attack and shoot 20% faster with <font color=\"#eaeff7\">all weapons</font>"
 	upgradeDescription(1)="Attack and shoot <font color=\"#b346ea\">50%</font> faster with <font color=\"#eaeff7\">all weapons</font>"
-	rateOfFire(0)=0.2000000
-	rateOfFire(1)=0.5000000
 	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_RapidAssault'
 	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_RapidAssault_Deluxe'
+
+	Name="Default__WMUpgrade_Skill_RapidAssault"
 }
