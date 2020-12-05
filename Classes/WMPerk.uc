@@ -949,7 +949,12 @@ simulated function ModifyMagSizeAndNumber(KFWeapon KFW, out int MagazineCapacity
 	}
 
 	if (KFWeap_Bow_Crossbow(KFW) == none || KFWeap_Bow_CompoundBow(KFW) == none) // crossbow and bow does not work well with more than 1 ammo per clip
-		MagazineCapacity = max(1, MagCapacity); //Prevent overflow
+	{
+		if (!bSecondary)
+			MagazineCapacity = Clamp(MagCapacity, 0, MaxInt); //Prevent integer overflow
+		else
+			MagazineCapacity = Clamp(MagCapacity, 0, 255); //Prevent byte overflow
+	}
 	else
 		MagazineCapacity = 1;
 
@@ -990,8 +995,14 @@ simulated function ModifySpareAmmoAmount(KFWeapon KFW, out int PrimarySpareAmmo,
 			if (MyWMGRI.SpecialWaveID[i] != -1)
 				MyWMGRI.specialWaves[MyWMGRI.SpecialWaveID[i]].static.ModifySpareAmmoAmount(PrimarySpareAmmo, DefaultSpareAmmo, KFW, TraderItem, bSecondary);
 		}
+
+		if (!bSecondary)
+			PrimarySpareAmmo = Clamp(PrimarySpareAmmo, 0, MaxInt); //Prevent integer overflow
+		else
+			PrimarySpareAmmo = Clamp(PrimarySpareAmmo, 0, 255); //Prevent byte overflow
 	}
 }
+
 simulated function ModifyMaxSpareAmmoAmount(KFWeapon KFW, out int MaxSpareAmmo, optional const out STraderItem TraderItem, optional bool bSecondary=false)
 {
 	ModifySpareAmmoAmount(KFW, MaxSpareAmmo, TraderItem, bSecondary);
