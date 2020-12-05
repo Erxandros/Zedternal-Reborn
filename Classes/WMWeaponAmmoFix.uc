@@ -1,5 +1,5 @@
 class WMWeaponAmmoFix extends Actor;
-//This class fixes the issue with the functions ClientForceAmmoUpdate and ClientForceSecondaryAmmoUpdate
+//This class fixes the issue with the function ClientForceAmmoUpdate
 //within KFWeapon where the main input parameter is a byte and not an int, so the byte sometimes overflows and syncs bad data with the client
 
 //Timer Precision
@@ -11,7 +11,7 @@ const AmmoPrecision = 3;
 
 //Vars
 var KFWeapon KFW;
-var int AmmoCountPrimary, AmmoCountSecondary;
+var int AmmoCountPrimary;
 var byte Counter;
 var bool bShouldRefreshGUI;
 
@@ -33,7 +33,6 @@ function InitTimer()
 	else
 	{
 		AmmoCountPrimary = KFW.AmmoCount[0];
-		AmmoCountSecondary = KFW.AmmoCount[1];
 
 		SetTimer(TimerDuration, True);
 	}
@@ -52,14 +51,6 @@ function Timer()
 	else
 	{
 		KFW.AmmoCount[0] = AmmoCountPrimary;
-		bShouldRefreshGUI = True;
-	}
-
-	if (AmmoCountSecondary - KFW.AmmoCount[1] < 256 - AmmoPrecision)
-		AmmoCountSecondary = KFW.AmmoCount[1];
-	else
-	{
-		KFW.AmmoCount[1] = AmmoCountSecondary;
 		bShouldRefreshGUI = True;
 	}
 
