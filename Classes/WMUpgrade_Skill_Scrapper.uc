@@ -1,34 +1,39 @@
 Class WMUpgrade_Skill_Scrapper extends WMUpgrade_Skill;
 
-var array<float> Prob;
+var array<float> Probability;
 
-static function AddVampireHealth( out int InHealth, int DefaultHealth, int upgLevel, KFPlayerController KFPC, class<DamageType> DT )
+static function AddVampireHealth(out int InHealth, int DefaultHealth, int upgLevel, KFPlayerController KFPC, class<DamageType> DT)
 {
-	if (KFPawn(KFPC.Pawn) != none)
-		AddAmmunition(KFPawn(KFPC.Pawn), upgLevel);
+	if (KFPC.Pawn != None)
+		AddAmmunition(KFPC.Pawn, upgLevel);
 }
 
-static function AddAmmunition(KFPawn Player, int upgLevel)
+static function AddAmmunition(Pawn Player, int upgLevel)
 {
-	local KFWeapon W;
+	local KFWeapon KFW;
 	local byte i;
-	local int extraAmmo;
-	
-	if( Player!=None && Player.Health>0 && Player.InvManager!=None )
+	local int ExtraAmmo;
+
+	if (Player != None && Player.Health > 0 && Player.InvManager != None)
 	{
-		foreach Player.InvManager.InventoryActors(class'KFWeapon',W)
+		foreach Player.InvManager.InventoryActors(class'KFWeapon', KFW)
 		{
-			for(i=0;i<2;++i)
+			for (i = 0; i < 2; ++i)
 			{
-				if(W != KFWeapon(Player.Weapon) && W.SpareAmmoCount[i] < W.SpareAmmoCapacity[i] && FRand() <= float(W.SpareAmmoCapacity[i]) * default.Prob[upgLevel-1])
+				if (KFW != KFWeapon(Player.Weapon))
 				{
-					extraAmmo = Max(Round(float(W.SpareAmmoCapacity[i]) * default.Prob[upgLevel-1]), 1);
-					if (i==0)
-						W.AddAmmo(extraAmmo);
-					else
+					if (KFW.SpareAmmoCount[i] < KFW.SpareAmmoCapacity[i] && FRand() <= float(KFW.SpareAmmoCapacity[i]) * default.Probability[upgLevel - 1])
 					{
-						W.AddSecondaryAmmo(extraAmmo);
-						W.ClientForceSecondaryAmmoUpdate(W.AmmoCount[i]);
+						ExtraAmmo = Max(Round(float(KFW.SpareAmmoCapacity[i]) * default.Probability[upgLevel - 1]), 1);
+						if (i == 0)
+							KFW.AddAmmo(ExtraAmmo);
+						else
+							KFW.AddSecondaryAmmo(ExtraAmmo);
+					}
+					else if (i == 1 && KFW.AmmoCount[i] < KFW.MagazineCapacity[i] && FRand() <= float(KFW.MagazineCapacity[i]) * default.Probability[upgLevel - 1])
+					{
+						ExtraAmmo = Max(Round(float(KFW.MagazineCapacity[i]) * default.Probability[upgLevel - 1]), 1);
+						KFW.AddSecondaryAmmo(ExtraAmmo);
 					}
 				}
 			}
@@ -38,11 +43,14 @@ static function AddAmmunition(KFPawn Player, int upgLevel)
 
 defaultproperties
 {
+	Probability(0)=0.01f
+	Probability(1)=0.025f
+
 	upgradeName="Scrapper"
 	upgradeDescription(0)="Generate ammunition for your other weapons while killing ZEDs"
 	upgradeDescription(1)="<font color=\"#b346ea\">Greatly</font> generate ammunition for your other weapons while killing ZEDs"
-	Prob(0)=0.010000
-	Prob(1)=0.025000
 	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Scrapper'
 	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Scrapper_Deluxe'
+
+	Name="Default__WMUpgrade_Skill_Scrapper"
 }
