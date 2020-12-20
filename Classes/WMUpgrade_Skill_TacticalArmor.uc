@@ -4,24 +4,27 @@ var array<float> Armor;
 
 static function bool CanNotBeGrabbed(int upgLevel, KFPawn OwnerPawn)
 {
-	if (KFPawn_Human(OwnerPawn) != none && KFPawn_Human(OwnerPawn).Armor > 0)
-		return true;
+	if (KFPawn_Human(OwnerPawn) != None && KFPawn_Human(OwnerPawn).Armor > 0)
+		return True;
 	else
-		return false;
+		return False;
 }
 
-static function ModifyArmor( out byte MaxArmor, byte DefaultArmor, int upgLevel)
+static function ModifyArmor(out byte MaxArmor, byte DefaultArmor, int upgLevel)
 {
-	MaxArmor = min(255, MaxArmor + Round(float(DefaultArmor) * default.Armor[upgLevel-1]));
+	MaxArmor = Min(255, MaxArmor + Round(float(DefaultArmor) * default.Armor[upgLevel - 1]));
 }
 
 defaultproperties
 {
+	Armor(0)=0.2f
+	Armor(1)=0.5f
+
 	upgradeName="Heavy Armor Training"
-	upgradeDescription(0)="While you have body armor, Clots can't grab you. Increase max armor 20%"
-	upgradeDescription(1)="While you have body armor, Clots can't grab you. Increase max armor <font color=\"#b346ea\">50%</font>"
-	Armor(0)=0.2000000
-	Armor(1)=0.5000000
+	upgradeDescription(0)="While you have body armor, Clots can't grab you. Increase max armor by 20%"
+	upgradeDescription(1)="While you have body armor, Clots can't grab you. Increase max armor by <font color=\"#b346ea\">50%</font>"
 	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_TacticalArmor'
 	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_TacticalArmor_Deluxe'
+
+	Name="Default__WMUpgrade_Skill_TacticalArmor"
 }
