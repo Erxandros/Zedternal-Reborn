@@ -1,4 +1,4 @@
-Class WMUpgrade_Skill_BringTheHeat_Counter extends Info
+class WMUpgrade_Skill_BringTheHeat_Counter extends Info
 	transient;
 
 var KFPawn_Human Player;
@@ -24,7 +24,7 @@ function Timer()
 {
 	local byte i;
 
-	CumulativeDamage = min(default.MaxCumulativeDamage, CumulativeDamage);
+	CumulativeDamage = Min(default.MaxCumulativeDamage, CumulativeDamage);
 
 	//check if player can create heat waves
 	for (i = CostHeatWave.length; i > 0; --i)
@@ -37,7 +37,7 @@ function Timer()
 		}
 	}
 
-	CumulativeDamage = max(0, CumulativeDamage - DeltaCumulativeDamage);
+	CumulativeDamage = Max(0, CumulativeDamage - DeltaCumulativeDamage);
 }
 
 function CreateHeatWave(byte force)

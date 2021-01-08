@@ -1,4 +1,4 @@
-Class WMUpgrade_Skill_Tank_Effect extends Info
+class WMUpgrade_Skill_Tank_Effect extends Info
 	transient;
 
 var bool bDeluxe, bOn;

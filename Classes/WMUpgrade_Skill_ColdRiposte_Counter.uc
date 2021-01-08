@@ -1,4 +1,4 @@
-Class WMUpgrade_Skill_ColdRiposte_Counter extends Info
+class WMUpgrade_Skill_ColdRiposte_Counter extends Info
 	transient;
 
 var float Delay;

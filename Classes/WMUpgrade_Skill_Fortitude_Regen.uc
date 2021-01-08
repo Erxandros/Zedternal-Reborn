@@ -1,4 +1,4 @@
-Class WMUpgrade_Skill_Fortitude_Regen extends Info
+class WMUpgrade_Skill_Fortitude_Regen extends Info
 	transient;
 
 var KFPawn_Human Player;

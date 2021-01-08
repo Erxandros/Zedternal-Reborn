@@ -1,4 +1,4 @@
-Class WMUpgrade_Skill_Ranger extends WMUpgrade_Skill;
+class WMUpgrade_Skill_Ranger extends WMUpgrade_Skill;
 
 var float Stun, Chance;
 var array<float> Damage;

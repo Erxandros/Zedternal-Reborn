@@ -1,4 +1,4 @@
-Class WMUpgrade_Skill_SuppressionRounds extends WMUpgrade_Skill;
+class WMUpgrade_Skill_SuppressionRounds extends WMUpgrade_Skill;
 
 var array<float> KnockDown, Prob;
 var array<byte> BodyParts;

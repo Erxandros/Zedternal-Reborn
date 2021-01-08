@@ -1,4 +1,4 @@
-Class WMUpgrade_Skill_Tank extends WMUpgrade_Skill;
+class WMUpgrade_Skill_Tank extends WMUpgrade_Skill;
 
 var array<float> Resistance, Critical;
 

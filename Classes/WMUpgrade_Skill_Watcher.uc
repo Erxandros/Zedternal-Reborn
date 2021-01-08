@@ -1,4 +1,4 @@
-Class WMUpgrade_Skill_Watcher extends WMUpgrade_Skill;
+class WMUpgrade_Skill_Watcher extends WMUpgrade_Skill;
 
 var float CriticalHealth;
 var array<float> Damage;

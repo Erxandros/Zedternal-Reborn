@@ -1,4 +1,4 @@
-Class WMUpgrade_Skill_Pyromaniac_Counter extends Info
+class WMUpgrade_Skill_Pyromaniac_Counter extends Info
 	transient;
 
 var KFPawn_Human Player;

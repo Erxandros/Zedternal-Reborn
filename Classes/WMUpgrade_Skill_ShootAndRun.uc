@@ -1,4 +1,4 @@
-Class WMUpgrade_Skill_ShootAndRun extends WMUpgrade_Skill;
+class WMUpgrade_Skill_ShootAndRun extends WMUpgrade_Skill;
 
 var array<float> MaxReloadSpeedBonus;
 var array<float> MaxMoveSpeedBonus;

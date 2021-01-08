@@ -1,4 +1,4 @@
-Class WMUpgrade_Skill_HotPepper extends WMUpgrade_Skill;
+class WMUpgrade_Skill_HotPepper extends WMUpgrade_Skill;
 
 static simulated function InitiateWeapon(int upgLevel, KFWeapon KFW, KFPawn OwnerPawn)
 {

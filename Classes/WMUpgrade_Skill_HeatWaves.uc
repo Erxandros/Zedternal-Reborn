@@ -1,4 +1,4 @@
-Class WMUpgrade_Skill_HeatWaves extends WMUpgrade_Skill;
+class WMUpgrade_Skill_HeatWaves extends WMUpgrade_Skill;
 
 var float Stumble;
 var array<int> RadiusSQ;

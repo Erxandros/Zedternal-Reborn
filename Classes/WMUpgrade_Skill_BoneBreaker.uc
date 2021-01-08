@@ -1,4 +1,4 @@
-Class WMUpgrade_Skill_BoneBreaker extends WMUpgrade_Skill;
+class WMUpgrade_Skill_BoneBreaker extends WMUpgrade_Skill;
 
 var array<float> Stumble, Knockdown;
 var const array<byte> BoneBreakerBodyParts;

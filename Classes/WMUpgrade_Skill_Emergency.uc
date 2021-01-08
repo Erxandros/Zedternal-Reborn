@@ -1,4 +1,4 @@
-Class WMUpgrade_Skill_Emergency extends WMUpgrade_Skill;
+class WMUpgrade_Skill_Emergency extends WMUpgrade_Skill;
 
 var int MinHealth;
 var float MinHealthInv;

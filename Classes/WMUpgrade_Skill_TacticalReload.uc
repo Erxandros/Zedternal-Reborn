@@ -1,4 +1,4 @@
-Class WMUpgrade_Skill_TacticalReload extends WMUpgrade_Skill;
+class WMUpgrade_Skill_TacticalReload extends WMUpgrade_Skill;
 
 var float ReloadRateDeluxe;
 

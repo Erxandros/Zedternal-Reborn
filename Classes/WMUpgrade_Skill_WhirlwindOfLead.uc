@@ -1,4 +1,4 @@
-Class WMUpgrade_Skill_WhirlwindOfLead extends WMUpgrade_Skill;
+class WMUpgrade_Skill_WhirlwindOfLead extends WMUpgrade_Skill;
 
 var array<float> FireRate, SpecialRate;
 var array<name> ZedTimeModifyingStates;

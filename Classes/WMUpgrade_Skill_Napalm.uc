@@ -1,4 +1,4 @@
-Class WMUpgrade_Skill_Napalm extends WMUpgrade_Skill;
+class WMUpgrade_Skill_Napalm extends WMUpgrade_Skill;
 
 var const class<KFDamageType> WMDT;
 

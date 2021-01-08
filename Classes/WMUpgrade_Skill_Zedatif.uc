@@ -1,4 +1,4 @@
-Class WMUpgrade_Skill_Zedatif extends WMUpgrade_Skill;
+class WMUpgrade_Skill_Zedatif extends WMUpgrade_Skill;
 
 var float Snare;
 var array<float> Bonus;

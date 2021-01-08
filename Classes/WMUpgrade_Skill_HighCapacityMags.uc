@@ -1,8 +1,8 @@
-Class WMUpgrade_Skill_HighCapacityMags extends WMUpgrade_Skill;
+class WMUpgrade_Skill_HighCapacityMags extends WMUpgrade_Skill;
 
 var array<float> MagCapacity;
 
-static simulated function ModifyMagSizeAndNumber(out int InMagazineCapacity, int DefaultMagazineCapacity, int upgLevel, KFWeapon KFW, optional array< Class<KFPerk> > WeaponPerkClass, optional bool bSecondary=False, optional name WeaponClassname)
+static simulated function ModifyMagSizeAndNumber(out int InMagazineCapacity, int DefaultMagazineCapacity, int upgLevel, KFWeapon KFW, optional array< class<KFPerk> > WeaponPerkClass, optional bool bSecondary=False, optional name WeaponClassname)
 {
 	InMagazineCapacity += Round(float(DefaultMagazineCapacity) * default.MagCapacity[upgLevel - 1]);
 }

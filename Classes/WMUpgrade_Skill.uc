@@ -1,4 +1,4 @@
-Class WMUpgrade_Skill extends WMUpgrade
+class WMUpgrade_Skill extends WMUpgrade
 	abstract;
 
 // Last Skill unlocked from a perk upgrade will always be "Deluxe"

@@ -1,4 +1,4 @@
-Class WMUpgrade_Skill_ColdRiposte extends WMUpgrade_Skill;
+class WMUpgrade_Skill_ColdRiposte extends WMUpgrade_Skill;
 
 static function ModifyDamageTaken(out int InDamage, int DefaultDamage, int upgLevel, KFPawn OwnerPawn, optional class<DamageType> DamageType, optional Controller InstigatedBy, optional KFWeapon MyKFW)
 {

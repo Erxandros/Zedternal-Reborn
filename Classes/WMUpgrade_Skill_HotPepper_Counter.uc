@@ -1,4 +1,4 @@
-Class WMUpgrade_Skill_HotPepper_Counter extends Info
+class WMUpgrade_Skill_HotPepper_Counter extends Info
 	transient;
 
 var KFPawn_Human Player;
@@ -37,7 +37,7 @@ function Timer()
 					else
 						Dmg = default.Damage[0];
 
-					KFM.ApplyDamageOverTime(Dmg, KFPC, Class'ZedternalReborn.WMDT_Napalm');
+					KFM.ApplyDamageOverTime(Dmg, KFPC, class'ZedternalReborn.WMDT_Napalm');
 				}
 			}
 		}

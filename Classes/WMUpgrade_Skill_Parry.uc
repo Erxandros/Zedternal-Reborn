@@ -1,4 +1,4 @@
-Class WMUpgrade_Skill_Parry extends WMUpgrade_Skill;
+class WMUpgrade_Skill_Parry extends WMUpgrade_Skill;
 
 var array<float> Damage, Resistance;
 
@@ -50,7 +50,7 @@ static simulated function InitiateWeapon(int upgLevel, KFWeapon KFW, KFPawn Owne
 		{
 			if (UPG != None)
 			{
-				bFound = true;
+				bFound = True;
 				break;
 			}
 		}

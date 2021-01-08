@@ -1,4 +1,4 @@
-Class WMUpgrade_Skill_QuickDraw extends WMUpgrade_Skill;
+class WMUpgrade_Skill_QuickDraw extends WMUpgrade_Skill;
 
 var array<float> SwitchSpeed;
 

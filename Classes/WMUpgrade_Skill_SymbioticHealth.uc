@@ -1,4 +1,4 @@
-Class WMUpgrade_Skill_SymbioticHealth extends WMUpgrade_Skill;
+class WMUpgrade_Skill_SymbioticHealth extends WMUpgrade_Skill;
 
 var array<float> Health;
 var array<float> Healing;

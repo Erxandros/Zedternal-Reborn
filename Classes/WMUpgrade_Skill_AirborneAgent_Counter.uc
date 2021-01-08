@@ -1,4 +1,4 @@
-Class WMUpgrade_Skill_AirborneAgent_Counter extends Info
+class WMUpgrade_Skill_AirborneAgent_Counter extends Info
 	transient;
 
 var KFPawn_Human Player;

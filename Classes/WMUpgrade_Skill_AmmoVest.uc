@@ -1,4 +1,4 @@
-Class WMUpgrade_Skill_AmmoVest extends WMUpgrade_Skill;
+class WMUpgrade_Skill_AmmoVest extends WMUpgrade_Skill;
 
 var array<int> Weight;
 var array<float> Ammo;

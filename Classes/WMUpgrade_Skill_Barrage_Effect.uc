@@ -1,4 +1,4 @@
-Class WMUpgrade_Skill_Barrage_Effect extends Info
+class WMUpgrade_Skill_Barrage_Effect extends Info
 	transient;
 
 var KFPawn_Human Player;

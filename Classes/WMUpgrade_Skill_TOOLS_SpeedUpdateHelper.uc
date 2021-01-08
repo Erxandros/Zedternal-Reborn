@@ -1,4 +1,4 @@
-Class WMUpgrade_Skill_TOOLS_SpeedUpdateHelper extends Info
+class WMUpgrade_Skill_TOOLS_SpeedUpdateHelper extends Info
 	transient;
 
 var KFPawn_Human Player;

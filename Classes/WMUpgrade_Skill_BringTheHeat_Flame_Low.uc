@@ -7,7 +7,7 @@ defaultproperties
 	Begin Object Name=ExploTemplate0
 		Damage=10.0f
 		DamageRadius=125.0f
-		MyDamageType=Class'ZedternalReborn.WMDT_BringTheHeat'
+		MyDamageType=class'ZedternalReborn.WMDT_BringTheHeat'
 
 		ExplosionEffects=KFImpactEffectInfo'WEP_Flamethrower_ARCH.GroundFire_Impacts'
 		ExplosionSound=AkEvent'WW_WEP_Flare_Gun.Play_WEP_Flare_Gun_Explode'
