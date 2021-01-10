@@ -7,14 +7,14 @@ var float Ammo;
 
 static function ModifyDamageGiven(out int InDamage, int DefaultDamage, int upgLevel, optional Actor DamageCauser, optional KFPawn_Monster MyKFPM, optional KFPlayerController DamageInstigator, optional class<KFDamageType> DamageType, optional int HitZoneIdx, optional KFWeapon MyKFW)
 {
-	if (IsWeaponOnSpecificPerk(MyKFW, class'KFgame.KFPerk_Firebug') || IsDamageTypeOnSpecificPerk(DamageType, class'KFgame.KFPerk_Firebug'))
+	if (IsWeaponOnSpecificPerk(MyKFW, class'KFGame.KFPerk_Firebug') || IsDamageTypeOnSpecificPerk(DamageType, class'KFGame.KFPerk_Firebug'))
 		InDamage += Round(float(DefaultDamage) * default.Damage * upgLevel);
 }
 
 static function ModifyDamageTaken(out int InDamage, int DefaultDamage, int upgLevel, KFPawn OwnerPawn, optional class<DamageType> DamageType, optional Controller InstigatedBy, optional KFWeapon MyKFW)
 {
 	if (ClassIsChildOf(DamageType, class'KFDT_Fire') || ClassIsChildOf(DamageType, class'KFDT_Explosive') || ClassIsChildOf(DamageType, class'KFDT_Toxic') || ClassIsChildOf(DamageType, class'KFDT_Sonic'))
-		InDamage -= Round(float(DefaultDamage) * FMin(default.Defense * upgLevel, 0.400000));
+		InDamage -= Round(float(DefaultDamage) * FMin(default.Defense * upgLevel, 0.4f));
 }
 
 static function WaveEnd(int upgLevel, KFPlayerController KFPC)
@@ -50,6 +50,10 @@ static function WaveEnd(int upgLevel, KFPlayerController KFPC)
 
 defaultproperties
 {
+	Damage=0.05f
+	Defense=0.05f
+	Ammo=0.1f
+
 	upgradeName="FireBug"
 	upgradeDescription(0)="+%x%% Fire, Explosive, Bloat Bile and Siren Sonic Damage Resistance"
 	upgradeDescription(1)="+%x%% Ammo Refill after completing a wave with <font color=\"#eaeff7\">any weapon</font>"
@@ -57,13 +61,12 @@ defaultproperties
 	PerkBonus(0)=(baseValue=0, incValue=5, maxValue=40)
 	PerkBonus(1)=(baseValue=0, incValue=10, maxValue=40)
 	PerkBonus(2)=(baseValue=0, incValue=5, maxValue=-1)
-	Damage=0.050000
-	Defense=0.050000
-	Ammo=0.100000
 	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Perks.UI_Perk_Firebug_Rank_0'
 	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Perks.UI_Perk_Firebug_Rank_1'
 	upgradeIcon(2)=Texture2D'ZedternalReborn_Resource.Perks.UI_Perk_Firebug_Rank_2'
 	upgradeIcon(3)=Texture2D'ZedternalReborn_Resource.Perks.UI_Perk_Firebug_Rank_3'
 	upgradeIcon(4)=Texture2D'ZedternalReborn_Resource.Perks.UI_Perk_Firebug_Rank_4'
 	upgradeIcon(5)=Texture2D'ZedternalReborn_Resource.Perks.UI_Perk_Firebug_Rank_5'
+
+	Name="Default__WMUpgrade_Perk_Firebug"
 }
