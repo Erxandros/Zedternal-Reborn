@@ -1,4 +1,4 @@
-Class WMUpgrade_Perk extends WMUpgrade
+class WMUpgrade_Perk extends WMUpgrade
 	abstract;
 
 struct SPerkBonus
@@ -18,7 +18,7 @@ static function string GetBonusValue(int Index, int Level)
 		if (default.PerkBonus[Index].maxValue == -1)
 			return string(default.PerkBonus[Index].baseValue + default.PerkBonus[Index].incValue * Level);
 		else
-			return string(min(default.PerkBonus[Index].baseValue + default.PerkBonus[Index].incValue * Level, default.PerkBonus[Index].maxValue));
+			return string(Min(default.PerkBonus[Index].baseValue + default.PerkBonus[Index].incValue * Level, default.PerkBonus[Index].maxValue));
 	}
 }
 
@@ -33,4 +33,6 @@ defaultproperties
 	upgradeName="default"
 	upgradeDescription(0)="default"
 	upgradeIcon(0)=Texture2D'CHR_Cosmetics_Item_TEX.3DGlasses.3DGlasses_Color02'
+
+	Name="Default__WMUpgrade_Perk"
 }
