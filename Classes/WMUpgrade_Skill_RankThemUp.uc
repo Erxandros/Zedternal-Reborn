@@ -32,11 +32,8 @@ static simulated function InitiateWeapon(int upgLevel, KFWeapon KFW, KFPawn Owne
 		bFound = False;
 		foreach OwnerPawn.ChildActors(class'WMUpgrade_Skill_RankThemUp_Counter', UPG)
 		{
-			if (UPG != None)
-			{
-				bFound = True;
-				break;
-			}
+			bFound = True;
+			break;
 		}
 
 		if (!bFound)
@@ -55,8 +52,7 @@ static function WMUpgrade_Skill_RankThemUp_Counter GetCounter(Pawn OwnerPawn)
 	{
 		foreach OwnerPawn.ChildActors(class'WMUpgrade_Skill_RankThemUp_Counter', UPG)
 		{
-			if (UPG != None)
-				return UPG;
+			return UPG;
 		}
 
 		//Should have one

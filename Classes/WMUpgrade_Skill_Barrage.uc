@@ -27,8 +27,7 @@ static function WMUpgrade_Skill_Barrage_Effect GetCounter(Pawn OwnerPawn)
 	{
 		foreach OwnerPawn.ChildActors(class'WMUpgrade_Skill_Barrage_Effect', UPG)
 		{
-			if (UPG != None)
-				return UPG;
+			return UPG;
 		}
 
 		//Should have one

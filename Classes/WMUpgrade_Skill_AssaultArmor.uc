@@ -22,8 +22,7 @@ static simulated function WMUpgrade_Skill_AssaultArmor_Counter GetCounter(Pawn O
 	{
 		foreach OwnerPawn.ChildActors(class'WMUpgrade_Skill_AssaultArmor_Counter', UPG)
 		{
-			if (UPG != None)
-				return UPG;
+			return UPG;
 		}
 
 		//Should have one

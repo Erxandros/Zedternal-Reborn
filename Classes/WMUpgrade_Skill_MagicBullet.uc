@@ -10,8 +10,7 @@ static simulated function WMUpgrade_Skill_MagicBullet_Counter GetCounter(Pawn Ow
 	{
 		foreach OwnerPawn.ChildActors(class'WMUpgrade_Skill_MagicBullet_Counter', UPG)
 		{
-			if (UPG != None)
-				return UPG;
+			return UPG;
 		}
 
 		//Should have one

@@ -52,8 +52,7 @@ static function WMUpgrade_Skill_FirstBlood_Counter GetCounter(KFPawn OwnerPawn)
 	{
 		foreach OwnerPawn.ChildActors(class'WMUpgrade_Skill_FirstBlood_Counter', UPG)
 		{
-			if (UPG != None)
-				return UPG;
+			return UPG;
 		}
 
 		//Should have one

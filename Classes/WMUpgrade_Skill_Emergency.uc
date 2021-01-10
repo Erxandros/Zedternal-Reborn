@@ -20,11 +20,8 @@ static simulated function InitiateWeapon(int upgLevel, KFWeapon KFW, KFPawn Owne
 		bFound = False;
 		foreach OwnerPawn.ChildActors(class'WMUpgrade_Skill_TOOLS_SpeedUpdateHelper', UPG)
 		{
-			if (UPG != None)
-			{
-				bFound = True;
-				break;
-			}
+			bFound = True;
+			break;
 		}
 
 		if (!bFound)

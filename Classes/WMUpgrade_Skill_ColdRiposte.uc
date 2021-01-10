@@ -20,8 +20,7 @@ static function WMUpgrade_Skill_ColdRiposte_Counter GetCounter(KFPawn OwnerPawn,
 	{
 		foreach OwnerPawn.ChildActors(class'WMUpgrade_Skill_ColdRiposte_Counter', UPG)
 		{
-			if (UPG != None)
-				return UPG;
+			return UPG;
 		}
 
 		//Should have one

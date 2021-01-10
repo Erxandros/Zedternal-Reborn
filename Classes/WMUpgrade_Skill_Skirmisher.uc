@@ -15,8 +15,7 @@ static simulated function InitiateWeapon(int upgLevel, KFWeapon KFW, KFPawn Owne
 	{
 		foreach OwnerPawn.ChildActors(class'WMUpgrade_Skill_Skirmisher_Regen', UPG)
 		{
-			if (UPG != None)
-				UPG.Destroy();
+			UPG.Destroy();
 		}
 
 		UPG = OwnerPawn.Spawn(class'WMUpgrade_Skill_Skirmisher_Regen', OwnerPawn);

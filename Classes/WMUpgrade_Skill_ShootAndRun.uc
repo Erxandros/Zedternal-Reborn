@@ -43,12 +43,10 @@ static simulated function InitiateWeapon(int upgLevel, KFWeapon KFW, KFPawn Owne
 		bFound = False;
 		foreach OwnerPawn.ChildActors(class'WMUpgrade_Skill_ShootAndRun_Counter', UPG)
 		{
-			if (UPG != None)
-			{
-				bFound = True;
-				break;
-			}
+			bFound = True;
+			break;
 		}
+
 		if (!bFound)
 			UPG = OwnerPawn.Spawn(class'WMUpgrade_Skill_ShootAndRun_Counter', OwnerPawn);
 	}
@@ -62,8 +60,7 @@ static simulated function WMUpgrade_Skill_ShootAndRun_Counter GetCounter(KFPawn 
 	{
 		foreach OwnerPawn.ChildActors(class'WMUpgrade_Skill_ShootAndRun_Counter', UPG)
 		{
-			if (UPG != None)
-				return UPG;
+			return UPG;
 		}
 
 		//Should have one
