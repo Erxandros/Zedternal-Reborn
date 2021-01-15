@@ -1,9 +1,6 @@
-Class WMUpgrade_Perk_Gunslinger extends WMUpgrade_Perk
-	config(ZedternalReborn_Upgrade);
+Class WMUpgrade_Perk_Gunslinger extends WMUpgrade_Perk;
 
-var float Damage;
-var float MoveSpeed;
-var float SwitchSpeed;
+var float Damage, MoveSpeed, SwitchSpeed;
 
 static function ModifyDamageGiven(out int InDamage, int DefaultDamage, int upgLevel, optional Actor DamageCauser, optional KFPawn_Monster MyKFPM, optional KFPlayerController DamageInstigator, optional class<KFDamageType> DamageType, optional int HitZoneIdx, optional KFWeapon MyKFW)
 {

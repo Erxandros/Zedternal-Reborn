@@ -1,9 +1,6 @@
-Class WMUpgrade_Perk_Berserker extends WMUpgrade_Perk
-	config(ZedternalReborn_Upgrade);
+Class WMUpgrade_Perk_Berserker extends WMUpgrade_Perk;
 
-var float Damage;
-var float Defense;
-var float MeleeAttackSpeed;
+var float Damage, Defense, MeleeAttackSpeed;
 
 static function ModifyDamageGiven(out int InDamage, int DefaultDamage, int upgLevel, optional Actor DamageCauser, optional KFPawn_Monster MyKFPM, optional KFPlayerController DamageInstigator, optional class<KFDamageType> DamageType, optional int HitZoneIdx, optional KFWeapon MyKFW)
 {

@@ -1,9 +1,6 @@
-Class WMUpgrade_Perk_Sharpshooter extends WMUpgrade_Perk
-	config(ZedternalReborn_Upgrade);
+Class WMUpgrade_Perk_Sharpshooter extends WMUpgrade_Perk;
 
-var float Damage;
-var float DamageHead;
-var float Recoil;
+var float Damage, DamageHead, Recoil;
 
 static function ModifyDamageGiven(out int InDamage, int DefaultDamage, int upgLevel, optional Actor DamageCauser, optional KFPawn_Monster MyKFPM, optional KFPlayerController DamageInstigator, optional class<KFDamageType> DamageType, optional int HitZoneIdx, optional KFWeapon MyKFW)
 {

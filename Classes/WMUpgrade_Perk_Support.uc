@@ -1,8 +1,6 @@
-Class WMUpgrade_Perk_Support extends WMUpgrade_Perk
-	config(ZedternalReborn_Upgrade);
+Class WMUpgrade_Perk_Support extends WMUpgrade_Perk;
 
-var float Penetration, LZDamage;
-var float StoppingPower;
+var float LZDamage, Penetration, StoppingPower;
 
 static function ModifyDamageGiven(out int InDamage, int DefaultDamage, int upgLevel, optional Actor DamageCauser, optional KFPawn_Monster MyKFPM, optional KFPlayerController DamageInstigator, optional class<KFDamageType> DamageType, optional int HitZoneIdx, optional KFWeapon MyKFW)
 {
@@ -27,8 +25,8 @@ static simulated function ModifyPenetrationPassive(out float penetrationFactor, 
 
 defaultproperties
 {
-	Penetration=0.5f
 	LZDamage=0.05f
+	Penetration=0.5f
 	StoppingPower=0.1f
 
 	upgradeName="Support"

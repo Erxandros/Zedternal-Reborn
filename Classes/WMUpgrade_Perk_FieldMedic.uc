@@ -1,9 +1,6 @@
-Class WMUpgrade_Perk_FieldMedic extends WMUpgrade_Perk
-	config(ZedternalReborn_Upgrade);
+Class WMUpgrade_Perk_FieldMedic extends WMUpgrade_Perk;
 
-var float Damage;
-var float Health;
-var float HealRate;
+var float Damage, Health, HealRate;
 
 static function ModifyDamageGiven(out int InDamage, int DefaultDamage, int upgLevel, optional Actor DamageCauser, optional KFPawn_Monster MyKFPM, optional KFPlayerController DamageInstigator, optional class<KFDamageType> DamageType, optional int HitZoneIdx, optional KFWeapon MyKFW)
 {

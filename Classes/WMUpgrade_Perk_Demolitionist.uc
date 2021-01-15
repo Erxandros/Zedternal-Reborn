@@ -1,5 +1,4 @@
-Class WMUpgrade_Perk_Demolitionist extends WMUpgrade_Perk
-	config(ZedternalReborn_Upgrade);
+Class WMUpgrade_Perk_Demolitionist extends WMUpgrade_Perk;
 
 var float Damage, GrenadeDamage;
 

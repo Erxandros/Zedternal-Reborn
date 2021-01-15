@@ -1,8 +1,6 @@
 Class WMUpgrade_Perk_SWAT extends WMUpgrade_Perk;
 
-var float Damage;
-var float Armor;
-var float MagSize;
+var float Armor, Damage, MagSize;
 
 static function ModifyDamageGiven(out int InDamage, int DefaultDamage, int upgLevel, optional Actor DamageCauser, optional KFPawn_Monster MyKFPM, optional KFPlayerController DamageInstigator, optional class<KFDamageType> DamageType, optional int HitZoneIdx, optional KFWeapon MyKFW)
 {
@@ -22,8 +20,8 @@ static simulated function ModifyMagSizeAndNumberPassive(out float magazineCapaci
 
 defaultproperties
 {
-	Damage=0.05f
 	Armor=0.1f
+	Damage=0.05f
 	MagSize=0.1f
 
 	upgradeName="SWAT"

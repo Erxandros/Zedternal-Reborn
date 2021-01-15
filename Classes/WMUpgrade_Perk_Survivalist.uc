@@ -1,7 +1,6 @@
-Class WMUpgrade_Perk_Survivalist extends WMUpgrade_Perk
-	config(ZedternalReborn_Upgrade);
+Class WMUpgrade_Perk_Survivalist extends WMUpgrade_Perk;
 
-var float SpareAmmo, Damage;
+var float Damage, SpareAmmo;
 
 static function ModifyDamageGivenPassive(out float damageFactor, int upgLevel)
 {
@@ -20,8 +19,8 @@ static simulated function ModifySpareAmmoAmountPassive(out float spareAmmoFactor
 
 defaultproperties
 {
-	SpareAmmo=0.2f
 	Damage=0.03f
+	SpareAmmo=0.2f
 
 	upgradeName="Survivalist"
 	upgradeDescription(0)="+%x% Weight Capacity"

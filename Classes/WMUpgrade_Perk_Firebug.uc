@@ -1,9 +1,6 @@
-Class WMUpgrade_Perk_Firebug extends WMUpgrade_Perk
-	config(ZedternalReborn_Upgrade);
+Class WMUpgrade_Perk_Firebug extends WMUpgrade_Perk;
 
-var float Damage;
-var float Defense;
-var float Ammo;
+var float Ammo, Damage, Defense;
 
 static function ModifyDamageGiven(out int InDamage, int DefaultDamage, int upgLevel, optional Actor DamageCauser, optional KFPawn_Monster MyKFPM, optional KFPlayerController DamageInstigator, optional class<KFDamageType> DamageType, optional int HitZoneIdx, optional KFWeapon MyKFW)
 {
@@ -50,9 +47,9 @@ static function WaveEnd(int upgLevel, KFPlayerController KFPC)
 
 defaultproperties
 {
+	Ammo=0.1f
 	Damage=0.05f
 	Defense=0.05f
-	Ammo=0.1f
 
 	upgradeName="FireBug"
 	upgradeDescription(0)="+%x%% Fire, Explosive, Bloat Bile and Siren Sonic Damage Resistance"
