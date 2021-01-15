@@ -1,6 +1,5 @@
 class WMAICommand_HuskOmegaFireBallBarrageAttack extends AICommand_RangedAttack
-	within WMAIController_ZedHusk_Omega
-	config(AI);
+	within WMAIController_ZedHusk_Omega;
 
 /** Simple constructor that pushes a new instance of the command for the AI */
 static function bool FireBallBarrageAttack(WMAIController_ZedHusk_Omega AI)

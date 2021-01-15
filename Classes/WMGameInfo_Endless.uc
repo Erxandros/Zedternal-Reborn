@@ -1,5 +1,4 @@
-class WMGameInfo_Endless extends KFGameInfo_Survival
-	config(GameEndless);
+class WMGameInfo_Endless extends KFGameInfo_Survival;
 
 var KFGFxObject_TraderItems DefaultTraderItems;
 var WMGFxObject_TraderItems TraderItems;

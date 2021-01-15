@@ -1,5 +1,4 @@
-class WMGameInfo_Endless_AllWeapons extends WMGameInfo_Endless
-	config(GameEndless);
+class WMGameInfo_Endless_AllWeapons extends WMGameInfo_Endless;
 
 function BuildWeaponList()
 {

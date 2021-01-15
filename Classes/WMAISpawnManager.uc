@@ -1,5 +1,4 @@
-class WMAISpawnManager extends KFAISpawnManager
-	config(GameEndlessSpawn);
+class WMAISpawnManager extends KFAISpawnManager;
 
 struct SMonster
 {
