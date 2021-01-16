@@ -10,7 +10,7 @@ static function ModifyDamageGiven(out int InDamage, int DefaultDamage, int upgLe
 
 static function ModifyHealth(out int InHealth, int DefaultHealth, int upgLevel)
 {
-	InHealth += Round(float(DefaultHealth) * FMin(default.Health * upgLevel, 1.0f));
+	InHealth += Round(float(DefaultHealth) * FMin(default.Health * upgLevel, 0.5f));
 }
 
 static simulated function ModifyHealerRechargeTime(out float InRechargeTime, float DefaultRechargeTime, int upgLevel)
@@ -28,7 +28,7 @@ defaultproperties
 	upgradeDescription(0)="+%x%% Max Health"
 	upgradeDescription(1)="+%x%% Syringe and Healing Darts Recharge Rate"
 	upgradeDescription(2)="+%x%% Damage with <font color=\"#caab05\">Medic's weapons</font>"
-	PerkBonus(0)=(baseValue=0, incValue=5, maxValue=100)
+	PerkBonus(0)=(baseValue=0, incValue=5, maxValue=50)
 	PerkBonus(1)=(baseValue=0, incValue=20, maxValue=-1)
 	PerkBonus(2)=(baseValue=0, incValue=5, maxValue=-1)
 	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Perks.UI_Perk_Medic_Rank_0'
