@@ -21,17 +21,17 @@ simulated event PostBeginPlay()
 	PerkList.Length = 1;
 	PerkList[0].PerkClass = Class'ZedternalReborn.WMPerk';
 
-	SetTimer(2.f, true, nameof(UpdatePerkIcon));
+	SetTimer(2.0f, True, nameof(UpdatePerkIcon));
 
 	if (WorldInfo.NetMode != NM_Client)
-		SetTimer(0.5f, false, nameof(GetPlatform));
+		SetTimer(0.5f, False, nameof(GetPlatform));
 }
 
-reliable client event ReceiveLocalizedMessage( class<LocalMessage> Message, optional int Switch, optional PlayerReplicationInfo RelatedPRI_1, optional PlayerReplicationInfo RelatedPRI_2, optional Object OptionalObject )
+reliable client event ReceiveLocalizedMessage(class<LocalMessage> Message, optional int Switch, optional PlayerReplicationInfo RelatedPRI_1, optional PlayerReplicationInfo RelatedPRI_2, optional Object OptionalObject)
 {
-	if (WMPerk(CurrentPerk) != none)
-		WMPerk(CurrentPerk).ReceiveLocalizedMessage( Message, Switch );
-	super.ReceiveLocalizedMessage( Message, Switch, RelatedPRI_1, RelatedPRI_2, OptionalObject );
+	if (WMPerk(CurrentPerk) != None)
+		WMPerk(CurrentPerk).ReceiveLocalizedMessage(Message, Switch);
+	super.ReceiveLocalizedMessage(Message, Switch, RelatedPRI_1, RelatedPRI_2, OptionalObject);
 }
 
 reliable server function BuyPerkUpgrade(int ItemDefinition, int Cost)
@@ -40,7 +40,7 @@ reliable server function BuyPerkUpgrade(int ItemDefinition, int Cost)
 
 	WMPRI = WMPlayerReplicationInfo(Pawn.PlayerReplicationInfo);
 
-	if (WMPRI != none && Pawn.PlayerReplicationInfo.Score >= Cost && WMPRI.bPerkUpgrade[ItemDefinition] < WMGameReplicationInfo(WorldInfo.GRI).perkMaxLevel)
+	if (WMPRI != None && Pawn.PlayerReplicationInfo.Score >= Cost && WMPRI.bPerkUpgrade[ItemDefinition] < WMGameReplicationInfo(WorldInfo.GRI).perkMaxLevel)
 	{
 		++WMPRI.bPerkUpgrade[ItemDefinition];
 		if (WMPRI.purchase_perkUpgrade.Find(ItemDefinition) == -1)
@@ -64,7 +64,7 @@ reliable server function BuyWeaponUpgrade(int ItemDefinition, int Cost)
 
 	WMPRI = WMPlayerReplicationInfo(Pawn.PlayerReplicationInfo);
 
-	if (WMPRI != none && Pawn.PlayerReplicationInfo.Score >= Cost && WMPRI.GetWeaponUpgrade(ItemDefinition) < WMGameReplicationInfo(WorldInfo.GRI).weaponMaxLevel)
+	if (WMPRI != None && Pawn.PlayerReplicationInfo.Score >= Cost && WMPRI.GetWeaponUpgrade(ItemDefinition) < WMGameReplicationInfo(WorldInfo.GRI).weaponMaxLevel)
 	{
 		WMPRI.IncermentWeaponUpgrade(ItemDefinition);
 		if (WMPRI.purchase_weaponUpgrade.Find(ItemDefinition) == -1)
@@ -86,7 +86,7 @@ reliable server function BuySkillUpgrade(int ItemDefinition, int PerkItemDefinit
 
 	WMPRI = WMPlayerReplicationInfo(Pawn.PlayerReplicationInfo);
 
-	if (WMPRI != none && Pawn.PlayerReplicationInfo.Score >= Cost)
+	if (WMPRI != None && Pawn.PlayerReplicationInfo.Score >= Cost)
 	{
 		WMPRI.bSkillUpgrade[ItemDefinition] = min(WMPRI.bSkillUpgrade[ItemDefinition] + lvl, 2);
 		if (WMPRI.purchase_skillUpgrade.Find(ItemDefinition) == -1)
@@ -113,7 +113,7 @@ reliable server function UnlockSkill(int index, bool deluxe)
 
 	WMPRI = WMPlayerReplicationInfo(Pawn.PlayerReplicationInfo);
 
-	if (WMPRI != none)
+	if (WMPRI != None)
 	{
 		WMPRI.bSkillUnlocked[index] = 1;
 		if (deluxe)
@@ -130,23 +130,23 @@ function UpdateWeaponMagAndCap()
 
 	// Compile passive bonuses
 	WMP = WMPerk(CurrentPerk);
-	if (WMP != none)
+	if (WMP != None)
 		WMP.ClientAndServerComputePassiveBonuses();
 	UpdateClientPerkBonuses();
 
 	//New Weight, Mag Size and max capacity
-	if (CurrentPerk != none)
+	if (CurrentPerk != None)
 	{
 		CurrentPerk.ApplyWeightLimits();
 		KFP = KFPawn_Human(Pawn);
-		if( KFP != none)
+		if (KFP != None)
 		{
-			if ( KFP.InvManager != none )
+			if (KFP.InvManager != None)
 			{
-				for( Inv = KFP.InvManager.InventoryChain; Inv != none; Inv = Inv.Inventory )
+				for (Inv = KFP.InvManager.InventoryChain; Inv != None; Inv = Inv.Inventory)
 				{
 					KFW = KFWeapon(Inv);
-					if( KFW != none )
+					if (KFW != None)
 					{
 					// Reinitialize ammo counts
 					KFW.ReInitializeAmmoCounts(CurrentPerk);
@@ -170,7 +170,7 @@ reliable client function UpdateClientPerkBonuses()
 	local WMPerk WMP;
 
 	WMP = WMPerk(CurrentPerk);
-	if (WMP != none)
+	if (WMP != None)
 	{
 		WMP.ClientAndServerComputePassiveBonuses();
 		WMP.ModifyMaxSpareGrenadeAmount();
@@ -179,12 +179,12 @@ reliable client function UpdateClientPerkBonuses()
 
 function DelayedPerkUpdate(float TimeOffset)
 {
-	SetTimer(TimeOffset + 2.5f, false, nameof(UpdateWeaponMagAndCap));
+	SetTimer(TimeOffset + 2.5f, False, nameof(UpdateWeaponMagAndCap));
 }
 
 reliable client function SetPreferredGrenadeTimer()
 {
-	SetTimer(3.0f, true, nameof(CheckPreferredGrenade));
+	SetTimer(3.0f, True, nameof(CheckPreferredGrenade));
 }
 
 simulated function CheckPreferredGrenade()
@@ -194,11 +194,11 @@ simulated function CheckPreferredGrenade()
 	local bool bFound;
 
 	WMGRI = WMGameReplicationInfo(WorldInfo.GRI);
-	if (WMGRI != none && WMGRI.Grenades.length > 0)
+	if (WMGRI != None && WMGRI.Grenades.length > 0)
 	{
 		ClearTimer(nameof(CheckPreferredGrenade));
 
-		bFound = false;
+		bFound = False;
 		for (i = 0; i < 255; ++i)
 		{
 			if (WMGRI.grenadesStr[i] ~= "")
@@ -206,7 +206,7 @@ simulated function CheckPreferredGrenade()
 
 			if (WMGRI.grenadesStr[i] ~= GrenadePath)
 			{
-				bFound = true;
+				bFound = True;
 				break;
 			}
 		}
@@ -222,7 +222,7 @@ simulated function ChangeGrenade(int Index)
 	CurrentPerk.GrenadeClass = class<KFProj_Grenade>(DynamicLoadObject(CurrentPerk.GrenadeWeaponDef.default.WeaponClassPath, class'Class'));
 	ChangeGrenadeServer(Index);
 
-	bShouldUpdateGrenadeIcon = true;
+	bShouldUpdateGrenadeIcon = True;
 
 	GrenadePath = WMGameReplicationInfo(WorldInfo.GRI).grenadesStr[Index];
 	SaveConfig();
@@ -240,16 +240,16 @@ simulated function ChangeKnife(int Index)
 	local KFWeapon KFW;
 	local class<Inventory> KnifeClass;
 
-	if (WMPerk(CurrentPerk) != none)
+	if (WMPerk(CurrentPerk) != None)
 	{
 		KnifeClass = class<Inventory>(DynamicLoadObject(WMPerk(CurrentPerk).KnivesWeaponDef[Index].default.WeaponClassPath, class'Class'));
 		if (!KFInventoryManager(Pawn.InvManager).ClassIsInInventory(KnifeClass, Inv))
 		{
 			// remove all backup knives from inventory
-			for( Inv = Pawn.InvManager.InventoryChain; Inv != none; Inv = Inv.Inventory ) 
+			for (Inv = Pawn.InvManager.InventoryChain; Inv != None; Inv = Inv.Inventory)
 			{
 				KFW = KFWeapon(Inv);
-				if( KFW != none && !KFW.CanThrow() && KFWeap_Edged_Knife(KFW) != none && KFW.class != KnifeClass)
+				if (KFW != None && !KFW.CanThrow() && KFWeap_Edged_Knife(KFW) != None && KFW.class != KnifeClass)
 					Pawn.InvManager.RemoveFromInventory(Inv);
 			}
 
@@ -270,7 +270,7 @@ reliable server function ChangeKnifeServer(int index)
 
 function float GetPerkLevelProgressPercentage(Class<KFPerk> PerkClass, optional out int CurrentLevelEXP, optional out int NextLevelEXP)
 {
-	return 0.f;
+	return 0.0f;
 }
 
 simulated function int GetCurrentLevel()
@@ -278,7 +278,7 @@ simulated function int GetCurrentLevel()
 	local WMPlayerReplicationInfo WMPRI;
 
 	WMPRI = WMPlayerReplicationInfo(PlayerReplicationInfo);
-	if (WMPRI != none)
+	if (WMPRI != None)
 		return WMPRI.perkLvl;
 	else
 		return 0;
@@ -290,16 +290,16 @@ simulated function string GetPerkIconPath()
 	local WMGameReplicationInfo WMGRI;
 	local int tries;
 
-	if (Pawn != none)
+	if (Pawn != None)
 		WMPRI = WMPlayerReplicationInfo(Pawn.PlayerReplicationInfo);
 	WMGRI = WMGameReplicationInfo(WorldInfo.GRI);
 
-	bShouldUpdateHUDPerkIcon = false;
+	bShouldUpdateHUDPerkIcon = False;
 
-	if (WMPRI != none && WMGRI != none && WMPRI.perkLvl > 0)
+	if (WMPRI != None && WMGRI != None && WMPRI.perkLvl > 0)
 	{
 		tries = WMGRI.perkUpgrades.length;
-		while(tries > 0)
+		while (tries > 0)
 		{
 			++HUD_perkIndex;
 			--tries;
@@ -307,9 +307,8 @@ simulated function string GetPerkIconPath()
 				HUD_perkIndex = 0;
 
 			if (WMPRI.bPerkUpgrade[HUD_perkIndex] > 0)
-				return PathName(WMGRI.perkUpgrades[HUD_perkIndex].static.GetUpgradeIcon( WMPRI.bPerkUpgrade[HUD_perkIndex] - 1 ));
+				return PathName(WMGRI.perkUpgrades[HUD_perkIndex].static.GetUpgradeIcon(WMPRI.bPerkUpgrade[HUD_perkIndex] - 1));
 		}
-		
 	}
 
 	return CurrentPerk.GetPerkIconPath();
@@ -317,7 +316,7 @@ simulated function string GetPerkIconPath()
 
 simulated function UpdatePerkIcon()
 {
-	bShouldUpdateHUDPerkIcon = true;
+	bShouldUpdateHUDPerkIcon = True;
 }
 
 function NotifyAddInventory(Inventory NewItem)
@@ -333,7 +332,7 @@ reliable client function GetPlatform()
 	//If the server calls GetPlatform on the server and not the client, try again
 	if (WorldInfo.NetMode == NM_DedicatedServer)
 	{
-		SetTimer(1.0f, false, nameof(GetPlatform));
+		SetTimer(1.0f, False, nameof(GetPlatform));
 		return;
 	}
 
@@ -352,7 +351,7 @@ reliable client function GetPlatform()
 reliable server function UpdatePlatform(byte Platform)
 {
 	PlatformType = Platform;
-	SetTimer(0.5f, false, nameof(SyncPlatform));
+	SetTimer(0.5f, False, nameof(SyncPlatform));
 }
 
 function SyncPlatform()
@@ -363,7 +362,7 @@ function SyncPlatform()
 	if (WMPRI != None)
 		WMPRI.PlatformType = PlatformType;
 	else
-		SetTimer(1.0f, false, nameof(SyncPlatform));
+		SetTimer(1.0f, False, nameof(SyncPlatform));
 }
 
 unreliable server function ServerUpdatePing(int NewPing)
@@ -415,12 +414,14 @@ defaultproperties
 {
 	PurchaseHelperClass=class'WMAutoPurchaseHelper'
 	HUD_perkIndex=-1
-	bUpgradeMenuOpen=false
-	bShouldUpdateHUDPerkIcon=true
-	bShouldUpdateGrenadeIcon=true
+	bUpgradeMenuOpen=False
+	bShouldUpdateHUDPerkIcon=True
+	bShouldUpdateGrenadeIcon=True
 	UPG_UpgradeListIndex=1
 	PerkList(0)=(PerkClass=Class'ZedternalReborn.WMPerk')
 	ServPendingPerkBuild=-1
 	ServPendingPerkLevel=-1
 	PlatformType=0
+
+	Name="Default__WMPlayerController"
 }
