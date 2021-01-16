@@ -15,7 +15,7 @@ static simulated function GetReloadRateScalePassive(out float reloadRateFactor, 
 
 static simulated function GetZedTimeExtension(out float InExtension, float DefaultExtension, int upgLevel)
 {
-	InExtension += float(Min(upgLevel, 5));
+	InExtension += float(Min(upgLevel, 10));
 }
 
 defaultproperties
@@ -27,7 +27,7 @@ defaultproperties
 	upgradeDescription(0)="+%x%s. Zed Time Extension with <font color=\"#eaeff7\">any weapon</font>"
 	upgradeDescription(1)="+%x%% Reload Speed with <font color=\"#eaeff7\">any weapon</font>"
 	upgradeDescription(2)="+%x%% Damage with <font color=\"#caab05\">Commando's weapons</font>"
-	PerkBonus(0)=(baseValue=0, incValue=1, maxValue=5)
+	PerkBonus(0)=(baseValue=0, incValue=1, maxValue=10)
 	PerkBonus(1)=(baseValue=0, incValue=15, maxValue=-1)
 	PerkBonus(2)=(baseValue=0, incValue=5, maxValue=-1)
 	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Perks.UI_Perk_Commando_Rank_0'
