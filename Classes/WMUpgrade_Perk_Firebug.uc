@@ -31,7 +31,7 @@ static function WaveEnd(int upgLevel, KFPlayerController KFPC)
 			{
 				if(W.SpareAmmoCount[i] < W.SpareAmmoCapacity[i])
 				{
-					extraAmmo = Round(float(W.SpareAmmoCapacity[i]) * FMin(default.Ammo * upgLevel, 0.4f));
+					extraAmmo = Round(float(W.SpareAmmoCapacity[i]) * FMin(default.Ammo * upgLevel, 0.5f));
 					if (i == 0)
 						W.AddAmmo(extraAmmo);
 					else
@@ -47,16 +47,16 @@ static function WaveEnd(int upgLevel, KFPlayerController KFPC)
 
 defaultproperties
 {
-	Ammo=0.1f
+	Ammo=0.05f
 	Damage=0.05f
-	Defense=0.05f
+	Defense=0.04f
 
 	upgradeName="FireBug"
 	upgradeDescription(0)="+%x%% Fire, Explosive, Bloat Bile and Siren Sonic Damage Resistance"
 	upgradeDescription(1)="+%x%% Ammo Refill after completing a wave with <font color=\"#eaeff7\">any weapon</font>"
 	upgradeDescription(2)="+%x%% Damage with <font color=\"#caab05\">Firebug's weapons</font>"
-	PerkBonus(0)=(baseValue=0, incValue=5, maxValue=40)
-	PerkBonus(1)=(baseValue=0, incValue=10, maxValue=40)
+	PerkBonus(0)=(baseValue=0, incValue=4, maxValue=40)
+	PerkBonus(1)=(baseValue=0, incValue=5, maxValue=50)
 	PerkBonus(2)=(baseValue=0, incValue=5, maxValue=-1)
 	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Perks.UI_Perk_Firebug_Rank_0'
 	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Perks.UI_Perk_Firebug_Rank_1'
