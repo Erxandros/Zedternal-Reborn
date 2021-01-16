@@ -1,5 +1,47 @@
 class WMInventoryManager extends KFInventoryManager;
 
+function bool AddArmorFromPickup()
+{
+	local WMPawn_Human WMPH;
+
+	WMPH = WMPawn_Human(Instigator);
+	if (WMPH != None && WMPH.ZedternalArmor != WMPH.GetMaxArmor())
+	{
+		PlayerController(Instigator.Owner).ReceiveLocalizedMessage(class'KFLocalMessage_Game', GMT_PickedupArmor);
+		PlayGiveInventorySound(ArmorPickupSound);
+		WMPH.GiveMaxArmor();
+		return True;
+	}
+	else
+	{
+		PlayerController(Instigator.Owner).ReceiveLocalizedMessage(class'KFLocalMessage_Game', GMT_FullArmor);
+		return False;
+	}
+}
+
+function bool AddArmor(int Amount)
+{
+	local WMPawn_Human WMPH;
+
+	WMPH = WMPawn_Human(Instigator);
+	if (WMPH != None && WMPH.ZedternalArmor != WMPH.GetMaxArmor())
+	{
+		PlayerController(Instigator.Owner).ReceiveLocalizedMessage(class'KFLocalMessage_Game', GMT_PickedupArmor);
+		PlayGiveInventorySound(ArmorPickupSound);
+		WMPH.AddArmor(Amount);
+		return True;
+	}
+	else
+	{
+		PlayerController(Instigator.Owner).ReceiveLocalizedMessage(class'KFLocalMessage_Game', GMT_FullArmor);
+		return False;
+	}
+}
+
+////////
+//Copy and pasted from KFInventoryManager, but converted to Zedternal functions to turn bytes into ints to support a larger trader weapon list
+////////
+
 simulated function BuyAmmoZedternal( float AmountPurchased, EItemType ItemType, optional int ItemIndex, optional bool bSecondaryAmmo )
 {
 	local STraderItem WeaponItem;

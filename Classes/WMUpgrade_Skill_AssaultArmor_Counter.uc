@@ -1,7 +1,7 @@
 class WMUpgrade_Skill_AssaultArmor_Counter extends Info
 	transient;
 
-var KFPawn_Human Player;
+var WMPawn_Human Player;
 
 replication
 {
@@ -13,20 +13,20 @@ function PostBeginPlay()
 {
 	super.PostBeginPlay();
 
-	Player = KFPawn_Human(Owner);
+	Player = WMPawn_Human(Owner);
 	if (Player == None || Player.Health <= 0)
 		Destroy();
 }
 
 function GiveArmor(float Armor)
 {
-	Player.Armor = Min(Player.Armor + Round(Armor * Player.MaxArmor), Player.MaxArmor);
-	SetClientArmor(Min(255, Player.Armor));
+	Player.ZedternalArmor = Min(Player.ZedternalArmor + Round(Armor * Player.GetMaxArmor()), Player.GetMaxArmor());
+	SetClientArmor(Player.ZedternalArmor);
 }
 
-reliable client function SetClientArmor(byte Armor)
+reliable client function SetClientArmor(int Armor)
 {
-	Player.Armor = Armor;
+	Player.ZedternalArmor = Armor;
 }
 
 defaultproperties

@@ -107,6 +107,72 @@ simulated function PlayerDied()
 	}
 }
 
+function SetPlayerDefaults(Pawn PlayerPawn)
+{
+	OwnerPawn = KFPawn_Human(PlayerPawn);
+	bForceNetUpdate = true;
+
+	OwnerPC = KFPlayerController(Owner);
+	if (OwnerPC != none)
+	{
+		MyPRI = KFPlayerReplicationInfo(OwnerPC.PlayerReplicationInfo);
+	}
+
+	PerkSetOwnerHealthAndArmorZedternal(true);
+
+	// apply all other pawn changes
+	ApplySkillsToPawn();
+}
+
+simulated function PerkSetOwnerHealthAndArmorZedternal(optional bool bModifyHealth)
+{
+	local WMPawn_Human WMPH;
+	local WMPlayerReplicationInfo WMPRI;
+
+	// don't allow clients to set health, since health/healthmax/playerhealth/playerhealthpercent is replicated
+	if (Role < ROLE_Authority)
+		return;
+
+	if (CheckOwnerPawn())
+		WMPH = WMPawn_Human(OwnerPawn);
+
+	if (WMPH != none)
+	{
+		if (bModifyHealth)
+		{
+			WMPH.Health = WMPH.default.Health;
+			ModifyHealth(WMPH.Health);
+		}
+
+		WMPH.HealthMax = WMPH.default.Health;
+		ModifyHealth(WMPH.HealthMax);
+		WMPH.Health = Min(WMPH.Health, WMPH.HealthMax);
+
+		if (OwnerPC == none)
+			OwnerPC = KFPlayerController(Owner);
+
+		MyPRI = KFPlayerReplicationInfo(OwnerPC.PlayerReplicationInfo);
+		if (MyPRI != none)
+			WMPRI = WMPlayerReplicationInfo(MyPRI);
+
+		if (WMPRI != none)
+		{
+			WMPRI.PlayerHealth = WMPH.Health;
+			WMPRI.PlayerHealthPercent = FloatToByte(float(WMPH.Health) / float(WMPH.HealthMax));
+		}
+
+		WMPH.ZedternalMaxArmor = WMPH.default.ZedternalMaxArmor;
+		ModifyArmorInt(WMPH.ZedternalMaxArmor);
+		WMPH.ZedternalArmor = Min(WMPH.ZedternalArmor, WMPH.ZedternalMaxArmor);
+
+		if (WMPRI != none)
+		{
+			WMPRI.PlayerArmor = WMPH.ZedternalArmor;
+			WMPRI.PlayerHealthPercent = FloatToByte(float(WMPH.ZedternalArmor) / float(WMPH.ZedternalMaxArmor));
+		}
+	}
+}
+
 function ApplySkillsToPawn()
 {
 	local KFGameReplicationInfo KFGRI;
@@ -630,13 +696,18 @@ function ModifyHealth(out int InHealth)
 
 function ModifyArmor(out byte MaxArmor)
 {
-	local byte DefaultArmor;
+	return;
+}
+
+function ModifyArmorInt(out int MaxArmor)
+{
+	local int DefaultArmor;
 	local byte i;
 	local byte index;
 
 	// Server Custom Balance
-	MaxArmor = Max(0, Min(class'ZedternalReborn.Config_Player'.default.Player_Armor, 255));
-	if (MaxArmor == 0)
+	MaxArmor = class'ZedternalReborn.Config_Player'.default.Player_Armor;
+	if (MaxArmor <= 0)
 		MaxArmor = 100;
 
 	DefaultArmor = MaxArmor;

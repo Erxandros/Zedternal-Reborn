@@ -4,13 +4,13 @@ var array<float> Damage, Speed;
 
 static function ModifyDamageGiven(out int InDamage, int DefaultDamage, int upgLevel, optional Actor DamageCauser, optional KFPawn_Monster MyKFPM, optional KFPlayerController DamageInstigator, optional class<KFDamageType> DamageType, optional int HitZoneIdx, optional KFWeapon MyKFW)
 {
-	if (DamageInstigator != None && KFPawn_Human(DamageInstigator.Pawn) != None && KFPawn_Human(DamageInstigator.Pawn).Armor > 0)
+	if (DamageInstigator != None && WMPawn_Human(DamageInstigator.Pawn) != None && WMPawn_Human(DamageInstigator.Pawn).ZedternalArmor > 0)
 		InDamage += DefaultDamage * default.Damage[upgLevel - 1];
 }
 
 static simulated function ModifySpeed(out float InSpeed, float DefaultSpeed, int upgLevel, KFPawn OwnerPawn)
 {
-	if (KFPawn_Human(OwnerPawn) != None && KFPawn_Human(OwnerPawn).Armor <= 0)
+	if (WMPawn_Human(OwnerPawn) != None && WMPawn_Human(OwnerPawn).ZedternalArmor <= 0)
 		InSpeed += DefaultSpeed * default.Speed[upgLevel - 1];
 }
 

@@ -123,7 +123,7 @@ reliable server function UnlockSkill(int index, bool deluxe)
 
 function UpdateWeaponMagAndCap()
 {
-	local KFPawn_Human KFP;
+	local WMPawn_Human WMPH;
 	local KFWeapon KFW;
 	local Inventory Inv;
 	local WMPerk WMP;
@@ -135,33 +135,33 @@ function UpdateWeaponMagAndCap()
 	UpdateClientPerkBonuses();
 
 	//New Weight, Mag Size and max capacity
-	if (CurrentPerk != None)
+	if (WMP != None)
 	{
-		CurrentPerk.ApplyWeightLimits();
-		KFP = KFPawn_Human(Pawn);
-		if (KFP != None)
+		WMP.ApplyWeightLimits();
+		WMPH = WMPawn_Human(Pawn);
+		if (WMPH != None)
 		{
-			if (KFP.InvManager != None)
+			if (WMPH.InvManager != None)
 			{
-				for (Inv = KFP.InvManager.InventoryChain; Inv != None; Inv = Inv.Inventory)
+				for (Inv = WMPH.InvManager.InventoryChain; Inv != None; Inv = Inv.Inventory)
 				{
 					KFW = KFWeapon(Inv);
 					if (KFW != None)
 					{
-					// Reinitialize ammo counts
-					KFW.ReInitializeAmmoCounts(CurrentPerk);
+						// Reinitialize ammo counts
+						KFW.ReInitializeAmmoCounts(CurrentPerk);
 					}
 				}
 			}
 			// Also modify Health and Armor
-			CurrentPerk.ModifyHealth(KFP.Health);
-			CurrentPerk.ModifyHealth(KFP.HealthMax);
-			CurrentPerk.ModifyArmor(KFP.MaxArmor);
-			WMPerk(CurrentPerk).ModifyMaxSpareGrenadeAmount();
+			WMP.ModifyHealth(WMPH.Health);
+			WMP.ModifyHealth(WMPH.HealthMax);
+			WMP.ModifyArmorInt(WMPH.ZedternalMaxArmor);
+			WMP.ModifyMaxSpareGrenadeAmount();
 		}
 
 		// Also update perk info
-		CurrentPerk.ApplySkillsToPawn();
+		WMP.ApplySkillsToPawn();
 	}
 }
 

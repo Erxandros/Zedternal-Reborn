@@ -18,7 +18,7 @@ static function ModifyDamageGiven(out int InDamage, int DefaultDamage, int upgLe
 static function ModifyDamageTaken(out int InDamage, int DefaultDamage, int upgLevel, KFPawn OwnerPawn, optional class<DamageType> DamageType, optional Controller InstigatedBy, optional KFWeapon MyKFW);
 
 static function ModifyHealth(out int InHealth, int DefaultHealth, int upgLevel);
-static function ModifyArmor(out byte MaxArmor, byte DefaultArmor, int upgLevel);
+static function ModifyArmor(out int MaxArmor, int DefaultArmor, int upgLevel);
 static function ModifyHealAmount(out float InHealAmount, float DefaultHealAmount, int upgLevel);
 static simulated function ModifyHealerRechargeTime(out float InRechargeTime, float DefaultRechargeTime, int upgLevel);
 static function HealingDamage(int upgLevel, int HealAmount, KFPawn HealedPawn, KFPawn InstigatorPawn, class<DamageType> DamageType);

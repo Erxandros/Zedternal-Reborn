@@ -7,7 +7,7 @@ var int SelectedItemIndexInt;
 function InitializeMenu( KFGFxMoviePlayer_Manager InManager )
 {
 	super.InitializeMenu(InManager);
-	
+
 	SetString("exitMenuString", "PERK MENU");
 	SetString("backPromptString", Localize("KFGFxWidget_ButtonPrompt","CancelString","KFGame"));
 	LocalizeText();
@@ -36,6 +36,26 @@ function CreateUPGMenu()
 	UPGMenu.Init(LocalPLayer(MyKFPC.Player));
 
 	WMPC.bUpgradeMenuOpen = true;
+}
+
+function OneSecondLoop()
+{
+	local WMPawn_Human WMPH;
+
+	if (GameInfoContainer != None)
+	{
+		GameInfoContainer.UpdateTraderTimer();
+	}
+
+	// update armor amount if pawn gains armor while in trader (e.g. from medic heal skills)
+	WMPH = WMPawn_Human(MyKFPC.Pawn);
+	if (WMPH != None && PrevArmor != WMPH.ZedternalArmor)
+	{
+		MyKFPC.GetPurchaseHelper().ArmorItem.SpareAmmoCount = WMPH.ZedternalArmor;
+		PrevArmor = WMPH.ZedternalArmor;
+
+		RefreshItemComponents();
+	}
 }
 
 ////////

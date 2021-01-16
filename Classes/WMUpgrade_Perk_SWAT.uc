@@ -4,13 +4,13 @@ var float Armor, Damage, MagSize;
 
 static function ModifyDamageGiven(out int InDamage, int DefaultDamage, int upgLevel, optional Actor DamageCauser, optional KFPawn_Monster MyKFPM, optional KFPlayerController DamageInstigator, optional class<KFDamageType> DamageType, optional int HitZoneIdx, optional KFWeapon MyKFW)
 {
-	if (IsWeaponOnSpecificPerk(MyKFW, class'KFGame.KFPerk_SWAT') || IsDamageTypeOnSpecificPerk(DamageType, class'KFGame.KFPerk_SWAT'))
+	if (IsWeaponOnSpecificPerk(MyKFW, class'KFGame.KFPerk_Swat') || IsDamageTypeOnSpecificPerk(DamageType, class'KFGame.KFPerk_Swat'))
 		InDamage += Round(float(DefaultDamage) * default.Damage * upgLevel);
 }
 
-static function ModifyArmor(out byte MaxArmor, byte DefaultArmor, int upgLevel)
+static function ModifyArmor(out int MaxArmor, int DefaultArmor, int upgLevel)
 {
-	MaxArmor += Min(Round(float(DefaultArmor) * default.Armor * upgLevel), 150);
+	MaxArmor += Round(float(DefaultArmor) * FMin(default.Armor * upgLevel, 1.0f));
 }
 
 static simulated function ModifyMagSizeAndNumberPassive(out float magazineCapacityFactor, int upgLevel)

@@ -3,11 +3,14 @@ class WMPawn_Human extends KFPawn_Human;
 var byte HealingDamageBoost_ZedternalReborn;
 var byte HealingShield_ZedternalReborn;
 
+var int ZedternalMaxArmor;
+var int ZedternalArmor;
+
 replication
 {
 	// Replicated to ALL
 	if (bNetDirty)
-		HealingDamageBoost_ZedternalReborn, HealingShield_ZedternalReborn;
+		HealingDamageBoost_ZedternalReborn, HealingShield_ZedternalReborn, ZedternalArmor, ZedternalMaxArmor;
 }
 
 event bool HealDamage(int Amount, Controller Healer, class<DamageType> DamageType, optional bool bCanRepairArmor=True, optional bool bMessageHealer=True)
@@ -151,9 +154,80 @@ simulated event Bump(Actor Other, PrimitiveComponent OtherComp, Vector HitNormal
 	}
 }
 
+/*********************************************************************************************
+* Zedternal Armor
+********************************************************************************************* */
+function AddArmor(int Amount)
+{
+	if (Amount > 0)
+	{
+		ZedternalArmor = Min(ZedternalArmor + Amount, ZedternalMaxArmor);
+		AdjustArmorPct();
+	}
+}
+
+function GiveMaxArmor()
+{
+	ZedternalArmor = ZedternalMaxArmor;
+	AdjustArmorPct();
+}
+
+function int GetMaxArmor()
+{
+	return ZedternalMaxArmor;
+}
+
+//This is for GUI percent elements
+function AdjustArmorPct()
+{
+	Armor = Round(float(ZedternalArmor) / float(ZedternalMaxArmor) * float(MaxArmor));
+}
+
+function ShieldAbsorb(out int InDamage)
+{
+	local float AbsorbedPct;
+	local int AbsorbedDmg;
+	local WMPerk MyPerk;
+
+	MyPerk = WMPerk(GetPerk());
+	if (MyPerk != None && MyPerk.HasHeavyArmor())
+	{
+		AbsorbedDmg = Min(InDamage, ZedternalArmor);
+		ZedternalArmor -= MyPerk.GetArmorDamageAmount(AbsorbedDmg);
+		InDamage -= AbsorbedDmg;
+		AdjustArmorPct();
+		return;
+	}
+
+	// Three levels of armor integrity
+	if (ZedternalArmor >= ZedternalMaxArmor * 0.67f)
+	{
+		AbsorbedPct = ArmorAbsorbModifier_High;
+	}
+	else if (ZedternalArmor >= ZedternalMaxArmor * 0.33f)
+	{
+		AbsorbedPct = ArmorAbsorbModifier_Medium;
+	}
+	else
+	{
+		AbsorbedPct = ArmorAbsorbModifier_Low;
+	}
+
+	AbsorbedDmg = Min(Round(AbsorbedPct * InDamage), ZedternalArmor);
+	// reduce damage and armor
+	ZedternalArmor -= AbsorbedDmg;
+	InDamage -= AbsorbedDmg;
+	AdjustArmorPct();
+}
+
 defaultproperties
 {
 	InventoryManagerClass=class'WMInventoryManager'
+
+	Armor=0
+	MaxArmor=255
+	ZedternalArmor=0
+	ZedternalMaxArmor=100
 
 	Name="Default__WMPawn_Human"
 }

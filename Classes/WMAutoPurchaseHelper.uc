@@ -1,5 +1,23 @@
 class WMAutoPurchaseHelper extends KFAutoPurchaseHelper;
 
+function InitializeOwnedItemList()
+{
+	local WMPawn_Human WMP;
+
+	super.InitializeOwnedItemList();
+
+	WMP = WMPawn_Human(Pawn);
+	if (WMP != None)
+	{
+		ArmorItem.SpareAmmoCount = WMP.ZedternalArmor;
+		ArmorItem.MaxSpareAmmo = WMP.GetMaxArmor();
+	}
+}
+
+////////
+//Copy and pasted from KFAutoPurchaseHelper, but changed GetItemIndicesFromArche to GetItemIndicesFromArcheZedternal and a few other minor things
+////////
+
 function bool UpgradeWeapon(int OwnedItemIndex)
 {
 	local int ItemIndex;

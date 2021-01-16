@@ -46,7 +46,7 @@ var array< int > purchase_weaponUpgrade;
 
 // For scoreboard updates
 var int UncompressedPing;
-var byte PlayerArmor;
+var int PlayerArmor;
 var byte PlayerArmorPercent;
 var byte PlatformType;
 
@@ -156,10 +156,10 @@ function UpdateReplicatedPlayerHealth()
 	if (KFPlayerOwner != none)
 	{
 		OwnerPawn = WMPawn_Human(KFPlayerOwner.Pawn);
-		if (OwnerPawn != none && OwnerPawn.Armor != PlayerArmor)
+		if (OwnerPawn != none && OwnerPawn.ZedternalArmor != PlayerArmor)
 		{
-			PlayerArmor = OwnerPawn.Armor;
-			PlayerArmorPercent = FloatToByte(float(OwnerPawn.Armor) / float(OwnerPawn.MaxArmor));
+			PlayerArmor = OwnerPawn.ZedternalArmor;
+			PlayerArmorPercent = FloatToByte(float(OwnerPawn.ZedternalArmor) / float(OwnerPawn.GetMaxArmor()));
 		}
 	}
 }

@@ -2,9 +2,9 @@ class WMUpgrade_Skill_HeavyArmor extends WMUpgrade_Skill;
 
 var array<float> Armor;
 
-static function ModifyArmor(out byte MaxArmor, byte DefaultArmor, int upgLevel)
+static function ModifyArmor(out int MaxArmor, int DefaultArmor, int upgLevel)
 {
-	MaxArmor = Min(255, MaxArmor + Round(float(DefaultArmor) * default.Armor[upgLevel - 1]));
+	MaxArmor += Round(float(DefaultArmor) * default.Armor[upgLevel - 1]);
 }
 
 defaultproperties

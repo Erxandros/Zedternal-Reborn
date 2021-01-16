@@ -42,7 +42,7 @@ static function ModifyDamageGiven( out int InDamage, int DefaultDamage, optional
 static function ModifyHardAttackDamage( out int InDamage, int DefaultDamage, KFPawn OwnerPawn);
 static function ModifyDamageTaken( out int InDamage, int DefaultDamage, KFPawn OwnerPawn, optional class<DamageType> DamageType, optional Controller InstigatedBy, optional KFWeapon MyKFW);
 static function ModifyHealth( out int InHealth, int DefaultHealth);
-static function ModifyArmor( out byte MaxArmor, byte DefaultArmor);
+static function ModifyArmor( out int MaxArmor, int DefaultArmor);
 static simulated function ModifyMeleeAttackSpeed( out float InDuration, float DefaultDuration, KFWeapon KFW);
 static simulated function GetReloadRateScale( out float InReloadRateScale, KFWeapon KFW, KFPawn OwnerPawn);
 static function ModifyHealAmount( out float InHealAmount, float DefaultHealAmount);

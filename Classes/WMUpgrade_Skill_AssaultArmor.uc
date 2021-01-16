@@ -18,7 +18,7 @@ static simulated function WMUpgrade_Skill_AssaultArmor_Counter GetCounter(Pawn O
 {
 	local WMUpgrade_Skill_AssaultArmor_Counter UPG;
 
-	if (KFPawn_Human(OwnerPawn) != None)
+	if (WMPawn_Human(OwnerPawn) != None)
 	{
 		foreach OwnerPawn.ChildActors(class'WMUpgrade_Skill_AssaultArmor_Counter', UPG)
 		{
@@ -27,7 +27,7 @@ static simulated function WMUpgrade_Skill_AssaultArmor_Counter GetCounter(Pawn O
 
 		//Should have one
 		UPG = OwnerPawn.Spawn(class'WMUpgrade_Skill_AssaultArmor_Counter', OwnerPawn);
-		UPG.Player = KFPawn_Human(OwnerPawn);
+		UPG.Player = WMPawn_Human(OwnerPawn);
 	}
 
 	return UPG;

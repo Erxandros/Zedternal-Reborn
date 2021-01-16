@@ -4,7 +4,7 @@ var array<float> Damage, MeleeDamage;
 
 static function ModifyDamageGiven(out int InDamage, int DefaultDamage, int upgLevel, optional Actor DamageCauser, optional KFPawn_Monster MyKFPM, optional KFPlayerController DamageInstigator, optional class<KFDamageType> DamageType, optional int HitZoneIdx, optional KFWeapon MyKFW)
 {
-	if (DamageInstigator != None && DamageInstigator.Pawn != None && KFPawn_Human(DamageInstigator.Pawn) != None && KFPawn_Human(DamageInstigator.Pawn).Armor <= 0)
+	if (DamageInstigator != None && DamageInstigator.Pawn != None && WMPawn_Human(DamageInstigator.Pawn) != None && WMPawn_Human(DamageInstigator.Pawn).ZedternalArmor <= 0)
 	{
 		if (DamageType != None && static.IsMeleeDamageType(DamageType))
 			InDamage += Round(float(DefaultDamage) * default.MeleeDamage[upgLevel - 1]);
