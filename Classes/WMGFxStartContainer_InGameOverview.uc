@@ -3,7 +3,7 @@ dependson(KFUnlockManager);
 
 function UpdateGameMode(string Mode)
 {
-	SetString("gameMode", "ZedternalReborn");
+	SetString("gameMode", "ZedternalReborn v" $class'Config_Base'.default.currentVersion $"." $class'Config_Base'.default.currentHotfix);
 }
 
 function UpdateDifficulty(string Difficulty)
