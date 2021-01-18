@@ -6,11 +6,15 @@ var bool bDeluxe;
 var int RadiusSQ, criticalHealth;
 var float Recharge, Update;
 
-simulated function PostBeginPlay()
+function PostBeginPlay()
 {
-	SetTimer(default.Update, False);
-
 	super.PostBeginPlay();
+
+	Player = KFPawn_Human(Owner);
+	if (Player == None || Player.Health <= 0)
+		Destroy();
+	else
+		SetTimer(default.Update, False);
 }
 
 function Timer()

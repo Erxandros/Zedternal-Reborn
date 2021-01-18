@@ -5,7 +5,7 @@ static simulated function InitiateWeapon(int upgLevel, KFWeapon KFW, KFPawn Owne
 	local WMUpgrade_Skill_AirborneAgent_Counter UPG;
 	local bool bFound;
 
-	if (KFPawn_Human(OwnerPawn) != None)
+	if (KFPawn_Human(OwnerPawn) != None && OwnerPawn.Role == Role_Authority)
 	{
 		bFound = False;
 		foreach OwnerPawn.ChildActors(class'WMUpgrade_Skill_AirborneAgent_Counter', UPG)
@@ -17,7 +17,6 @@ static simulated function InitiateWeapon(int upgLevel, KFWeapon KFW, KFPawn Owne
 		if (!bFound)
 		{
 			UPG = OwnerPawn.Spawn(class'WMUpgrade_Skill_AirborneAgent_Counter', OwnerPawn);
-			UPG.Player = KFPawn_Human(OwnerPawn);
 			UPG.bDeluxe = (upgLevel > 1);
 		}
 	}
