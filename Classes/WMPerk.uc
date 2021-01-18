@@ -164,6 +164,7 @@ simulated function PerkSetOwnerHealthAndArmorZedternal(optional bool bModifyHeal
 		WMPH.ZedternalMaxArmor = WMPH.default.ZedternalMaxArmor;
 		ModifyArmorInt(WMPH.ZedternalMaxArmor);
 		WMPH.ZedternalArmor = Min(WMPH.ZedternalArmor, WMPH.ZedternalMaxArmor);
+		WMPH.AdjustArmorPct();
 
 		if (WMPRI != none)
 		{
