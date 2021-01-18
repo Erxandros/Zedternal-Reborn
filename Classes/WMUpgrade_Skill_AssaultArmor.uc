@@ -27,7 +27,6 @@ static simulated function WMUpgrade_Skill_AssaultArmor_Counter GetCounter(Pawn O
 
 		//Should have one
 		UPG = OwnerPawn.Spawn(class'WMUpgrade_Skill_AssaultArmor_Counter', OwnerPawn);
-		UPG.Player = WMPawn_Human(OwnerPawn);
 	}
 
 	return UPG;

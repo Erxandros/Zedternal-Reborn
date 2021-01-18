@@ -3,12 +3,6 @@ class WMUpgrade_Skill_AssaultArmor_Counter extends Info
 
 var WMPawn_Human Player;
 
-replication
-{
-	if ( bNetOwner )
-		Player;
-}
-
 function PostBeginPlay()
 {
 	super.PostBeginPlay();
@@ -20,13 +14,7 @@ function PostBeginPlay()
 
 function GiveArmor(float Armor)
 {
-	Player.ZedternalArmor = Min(Player.ZedternalArmor + Round(Armor * Player.GetMaxArmor()), Player.GetMaxArmor());
-	SetClientArmor(Player.ZedternalArmor);
-}
-
-reliable client function SetClientArmor(int Armor)
-{
-	Player.ZedternalArmor = Armor;
+	Player.AddArmor(Round(Armor * Player.GetMaxArmor()));
 }
 
 defaultproperties
