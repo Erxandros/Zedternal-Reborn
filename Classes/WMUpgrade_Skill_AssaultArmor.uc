@@ -14,7 +14,7 @@ static function WaveEnd(int upgLevel, KFPlayerController KFPC)
 	}
 }
 
-static simulated function WMUpgrade_Skill_AssaultArmor_Counter GetCounter(Pawn OwnerPawn)
+static function WMUpgrade_Skill_AssaultArmor_Counter GetCounter(Pawn OwnerPawn)
 {
 	local WMUpgrade_Skill_AssaultArmor_Counter UPG;
 
