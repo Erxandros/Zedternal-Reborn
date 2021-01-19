@@ -29,7 +29,7 @@ static simulated function InitiateWeapon(int upgLevel, KFWeapon KFW, KFPawn Owne
 {
 	local WMUpgrade_Skill_BringTheHeat_Counter UPG;
 
-	if (KFPawn_Human(OwnerPawn) != None)
+	if (KFPawn_Human(OwnerPawn) != None && OwnerPawn.Role == Role_Authority)
 	{
 		foreach OwnerPawn.ChildActors(class'WMUpgrade_Skill_BringTheHeat_Counter', UPG)
 		{
@@ -37,7 +37,6 @@ static simulated function InitiateWeapon(int upgLevel, KFWeapon KFW, KFPawn Owne
 		}
 
 		UPG = OwnerPawn.Spawn(class'WMUpgrade_Skill_BringTheHeat_Counter', OwnerPawn);
-		UPG.Player = KFPawn_Human(OwnerPawn);
 	}
 }
 
@@ -54,7 +53,6 @@ static function WMUpgrade_Skill_BringTheHeat_Counter GetCounter(Pawn OwnerPawn)
 
 		//Should have one
 		UPG = OwnerPawn.Spawn(class'WMUpgrade_Skill_BringTheHeat_Counter', OwnerPawn);
-		UPG.Player = KFPawn_Human(OwnerPawn);
 	}
 
 	return UPG;
