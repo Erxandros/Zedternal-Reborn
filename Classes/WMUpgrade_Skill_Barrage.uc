@@ -32,7 +32,6 @@ static function WMUpgrade_Skill_Barrage_Effect GetCounter(Pawn OwnerPawn)
 
 		//Should have one
 		UPG = OwnerPawn.Spawn(class'WMUpgrade_Skill_Barrage_Effect', OwnerPawn);
-		UPG.Player = KFPawn_Human(OwnerPawn);
 	}
 
 	return UPG;
