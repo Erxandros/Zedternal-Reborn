@@ -23,30 +23,33 @@ function Explosion(KFPawn OwnerPawn)
 			OwnerPawn.Controller.Spawn(class'ZedternalReborn.WMProj_FreezeExplosion_Deluxe', OwnerPawn.Controller, , Loc, Rot, , True);
 		else
 			OwnerPawn.Controller.Spawn(class'ZedternalReborn.WMProj_FreezeExplosion', OwnerPawn.Controller, , Loc, Rot, , True);
-		PlayLocalEffects(OwnerPawn);
+		PlayLocalEffects();
 		SetTimer(Delay, False, nameof(UpdateColdRiposte));
 	}
 	else
 		Destroy();
 }
 
-reliable client function PlayLocalEffects(KFPawn Player)
+reliable client function PlayLocalEffects()
 {
 	local vector Loc, View;
 	local rotator Rot;
 	local ParticleSystemComponent PSC;
+	local PlayerController PC;
 
-	if (Player != None)
+	PC = GetALocalPlayerController();
+
+	if (PC != None && PC.Pawn != None)
 	{
-		Loc = Player.Location;
-		Rot = Player.Rotation;
-		View = vector(Player.Rotation);
+		Loc = PC.Pawn.Location;
+		Rot = PC.Pawn.Rotation;
+		View = vector(PC.Pawn.Rotation);
 
 		Loc.X += 50.0f * View.X;
 		Loc.Y += 50.0f * View.Y;
 		Loc.Z += 50.0f * View.Z;
 
-		PSC = Player.WorldInfo.MyEmitterPool.SpawnEmitter(default.PSBuff, Loc, Rot);
+		PSC = PC.Pawn.WorldInfo.MyEmitterPool.SpawnEmitter(default.PSBuff, Loc, Rot);
 		PSC.SetDepthPriorityGroup(SDPG_Foreground);
 	}
 }
