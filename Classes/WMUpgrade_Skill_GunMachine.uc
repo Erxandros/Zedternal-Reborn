@@ -33,7 +33,6 @@ static function WMUpgrade_Skill_GunMachine_Counter GetCounter(Pawn OwnerPawn)
 
 		//Should have one
 		UPG = OwnerPawn.Spawn(class'WMUpgrade_Skill_GunMachine_Counter', OwnerPawn);
-		UPG.Player = KFPawn_Human(OwnerPawn);
 	}
 
 	return UPG;
