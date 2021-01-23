@@ -3,18 +3,12 @@ class WMUpgrade_Skill_MagicBullet_Counter extends Info
 
 var KFPawn_Human Player;
 
-replication
-{
-	if ( bNetOwner )
-		Player;
-}
-
 function PostBeginPlay()
 {
 	super.PostBeginPlay();
 
 	Player = KFPawn_Human(Owner);
-	if(Player == None || Player.Health <= 0)
+	if (Player == None || Player.Health <= 0)
 		Destroy();
 }
 
@@ -35,7 +29,7 @@ function int UpdateAmmo(int AmmoIn, KFWeapon MyKFWeapon)
 	return -1; //Did not update values
 }
 
-reliable client function StandaloneUpdateAmmo(int Ammo)
+function StandaloneUpdateAmmo(int Ammo)
 {
 	local KFWeapon MyKFWeapon;
 
@@ -51,7 +45,7 @@ reliable client function StandaloneUpdateAmmo(int Ammo)
 		Destroy();
 }
 
-reliable server function ServerUpdateAmmo(int Ammo)
+function ServerUpdateAmmo(int Ammo)
 {
 	local KFWeapon MyKFWeapon;
 	local int ClientAmmo;
@@ -72,10 +66,13 @@ reliable server function ServerUpdateAmmo(int Ammo)
 reliable client function ClientUpdateAmmo(int Ammo)
 {
 	local KFWeapon MyKFWeapon;
+	local PlayerController PC;
 
-	if (Player != None && Player.Health > 0)
+	PC = GetALocalPlayerController();
+
+	if (PC != None && PC.Pawn != None && PC.Pawn.Health > 0)
 	{
-		MyKFWeapon = KFWeapon(Player.Weapon);
+		MyKFWeapon = KFWeapon(PC.Pawn.Weapon);
 		if (MyKFWeapon != None)
 		{
 			if (Ammo > 0)

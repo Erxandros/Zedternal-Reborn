@@ -2,7 +2,7 @@ class WMUpgrade_Skill_MagicBullet extends WMUpgrade_Skill;
 
 var array<int> Ammo;
 
-static simulated function WMUpgrade_Skill_MagicBullet_Counter GetCounter(Pawn OwnerPawn)
+static function WMUpgrade_Skill_MagicBullet_Counter GetCounter(Pawn OwnerPawn)
 {
 	local WMUpgrade_Skill_MagicBullet_Counter UPG;
 
@@ -15,7 +15,6 @@ static simulated function WMUpgrade_Skill_MagicBullet_Counter GetCounter(Pawn Ow
 
 		//Should have one
 		UPG = OwnerPawn.Spawn(class'WMUpgrade_Skill_MagicBullet_Counter', OwnerPawn);
-		UPG.Player = KFPawn_Human(OwnerPawn);
 	}
 
 	return UPG;
