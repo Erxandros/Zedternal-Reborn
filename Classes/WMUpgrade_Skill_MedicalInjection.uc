@@ -5,7 +5,7 @@ static simulated function InitiateWeapon(int upgLevel, KFWeapon KFW, KFPawn Owne
 	local WMUpgrade_Skill_MedicalInjection_Regen UPG;
 	local bool bFound;
 
-	if (KFPawn_Human(OwnerPawn) != None)
+	if (KFPawn_Human(OwnerPawn) != None && OwnerPawn.Role == Role_Authority)
 	{
 		bFound = False;
 		foreach OwnerPawn.ChildActors(class'WMUpgrade_Skill_MedicalInjection_Regen', UPG)
