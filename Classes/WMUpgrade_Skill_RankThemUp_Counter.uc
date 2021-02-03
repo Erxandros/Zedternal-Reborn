@@ -1,23 +1,12 @@
 class WMUpgrade_Skill_RankThemUp_Counter extends Info
 	transient;
 
-var KFPawn_Human Player;
-
 var int HeadShot, MaxHeadShot;
 var const float ResetDelayTimer, DecreaseDelayTimer;
-var	const name RhytmMethodRTPCName;
-var	const AkEvent RhythmMethodSoundReset;
+var const name RhytmMethodRTPCName;
+var const AkEvent RhythmMethodSoundReset;
 var const AkEvent RhythmMethodSoundHit;
-var	const AkEvent RhythmMethodSoundTop;
-
-function PostBeginPlay()
-{
-	super.PostBeginPlay();
-
-	Player = KFPawn_Human(Owner);
-	if (Player == None)
-		Destroy();
-}
+var const AkEvent RhythmMethodSoundTop;
 
 function Timer()
 {
@@ -30,48 +19,49 @@ function Timer()
 
 function IncreaseCounter()
 {
+	ClearTimer();
 	++HeadShot;
-	HeadShotMessage(HeadShot, Min(MaxHeadShot, HeadShot), Player, False, False);
+	HeadShotMessage(HeadShot, Min(MaxHeadShot, HeadShot), False, False);
 	SetTimer(ResetDelayTimer, False);
 }
 
 function DecreaseCounter()
 {
 	HeadShot = Min(MaxHeadShot, HeadShot) - 1;
-	HeadShotMessage(HeadShot, HeadShot, Player, True, False);
+	HeadShotMessage(HeadShot, HeadShot, True, False);
 }
 
 function EndStrike()
 {
 	//Player shot his powerful bullet, combo is cleared
-	HeadShot = 0;
-	HeadShotMessage(HeadShot, Min(MaxHeadShot, HeadShot), Player, False, True);
 	ClearTimer();
+	HeadShot = 0;
+	HeadShotMessage(HeadShot, Min(MaxHeadShot, HeadShot), False, True);
 }
 
-reliable client function HeadShotMessage(byte HeadShotNum, byte DisplayValue, KFPawn_Human KFPlayer, optional bool bMissed=False, optional bool bFinalHit=False)
+reliable client function HeadShotMessage(byte HeadShotNum, byte DisplayValue, optional bool bMissed = False, optional bool bFinalHit = False)
 {
-	local int i;
+	local byte b;
 	local AkEvent TempAkEvent;
 	local KFPlayerController OwnerPC;
 
-	if (KFPlayerController(KFPlayer.Controller) == None || KFPlayerController(KFPlayer.Controller).MyGFxHUD == None)
+	OwnerPC = KFPlayerController(GetALocalPlayerController());
+
+	if (OwnerPC == None || OwnerPC.MyGFxHUD == None)
 		return;
 
-	OwnerPC = KFPlayerController(KFPlayer.Controller);
-
-	i = HeadShotNum;
+	b = HeadShotNum;
 	OwnerPC.UpdateRhythmCounterWidget(DisplayValue, MaxHeadShot);
 
 	if (bFinalHit)
 		TempAkEvent = RhythmMethodSoundTop;
 	else if (!bMissed)
 		TempAkEvent = RhythmMethodSoundHit;
-	else if (i == 0)
+	else if (b == 0)
 		TempAkEvent = RhythmMethodSoundReset;
 
 	if (TempAkEvent != None)
-		OwnerPC.PlayRMEffect(TempAkEvent, RhytmMethodRTPCName, i);
+		OwnerPC.PlayRMEffect(TempAkEvent, RhytmMethodRTPCName, b);
 }
 
 defaultproperties
