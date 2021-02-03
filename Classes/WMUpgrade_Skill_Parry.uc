@@ -6,7 +6,7 @@ static simulated function SuccessfullParry(int upgLevel, KFPawn OwnerPawn)
 {
 	local WMUpgrade_Skill_Parry_Counter UPG;
 
-	if (OwnerPawn != None)
+	if (OwnerPawn != None && OwnerPawn.Role == Role_Authority)
 	{
 		UPG = GetCounter(OwnerPawn);
 		if (UPG != None)
@@ -43,7 +43,7 @@ static simulated function InitiateWeapon(int upgLevel, KFWeapon KFW, KFPawn Owne
 	local WMUpgrade_Skill_Parry_Counter UPG;
 	local bool bFound;
 
-	if (KFPawn_Human(OwnerPawn) != None)
+	if (KFPawn_Human(OwnerPawn) != None && OwnerPawn.Role == Role_Authority)
 	{
 		bFound = False;
 		foreach OwnerPawn.ChildActors(class'WMUpgrade_Skill_Parry_Counter', UPG)

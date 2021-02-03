@@ -6,13 +6,6 @@ var bool bOn;
 var float Delay;
 
 var AkEvent ParrySkillSoundModeStart;
-var AkEvent ParrySkillSoundModeStop;
-
-replication
-{
-	if ( bNetOwner )
-		Player;
-}
 
 function PostBeginPlay()
 {
@@ -23,25 +16,25 @@ function PostBeginPlay()
 		Destroy();
 }
 
-simulated function ActiveEffect()
+function ActiveEffect()
 {
 	if (Player == None || Player.Health <= 0)
 	{
 		Destroy();
 		return;
 	}
-	
+
 	if (!bOn)
 	{
-		Player.UpdateGroundSpeed();
 		bOn = True;
-		if (KFPlayerController(Player.Controller) != None)
-			KFPlayerController(Player.Controller).SetPerkEffect(True);
+		ActiveLocalEffects();
 	}
+
+	ClearTimer(NameOf(ResetEffect));
 	SetTimer(Delay, False, NameOf(ResetEffect));
 }
 
-simulated function ResetEffect()
+function ResetEffect()
 {
 	if (Player == None || Player.Health <= 0)
 	{
@@ -51,33 +44,43 @@ simulated function ResetEffect()
 
 	if (bOn)
 	{
+		ResetLocalEffects();
 		bOn = False;
-		Player.UpdateGroundSpeed();
-		if (KFPlayerController(Player.Controller) != None)
-			KFPlayerController(Player.Controller).SetPerkEffect(False);
 	}
 }
 
-simulated function PlayLocalEffects(AKBaseSoundObject Sound)
+reliable client function ActiveLocalEffects()
 {
-	if (Player == None || Player.Health <= 0)
-	{
-		Destroy();
-		return;
-	}
+	local PlayerController PC;
 
-	if (Sound != None)
-		Player.PlaySoundBase(ParrySkillSoundModeStart, True);
+	PC = GetALocalPlayerController();
+
+	if (KFPlayerController(PC) != None)
+	{
+		KFPlayerController(PC).SetPerkEffect(True);
+		PC.PlaySoundBase(ParrySkillSoundModeStart, True);
+	}
+}
+
+reliable client function ResetLocalEffects()
+{
+	local PlayerController PC;
+
+	PC = GetALocalPlayerController();
+
+	if (KFPlayerController(PC) != None)
+	{
+		KFPlayerController(PC).SetPerkEffect(False);
+	}
 }
 
 defaultproperties
 {
 	bOnlyRelevantToOwner=True
 	bOn=False
-	Delay=8.0f
+	Delay=10.0f
 
 	ParrySkillSoundModeStart=AkEvent'WW_GLO_Runtime.Play_Beserker_Parry_Mode'
-	ParrySkillSoundModeStop=AkEvent'WW_GLO_Runtime.Stop_Beserker_Parry_Mode'
 
 	Name="Default__WMUpgrade_Skill_Parry_Counter"
 }
