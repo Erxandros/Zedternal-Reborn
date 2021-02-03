@@ -31,7 +31,7 @@ static simulated function ModifyRateOfFire(out float InRate, float DefaultRate, 
 		InRate = DefaultRate / (DefaultRate / InRate + default.RateOfFire[upgLevel - 1]);
 }
 
-static function WMUpgrade_Skill_Pyromaniac_Counter GetCounter(KFPawn OwnerPawn, int upgLevel)
+static simulated function WMUpgrade_Skill_Pyromaniac_Counter GetCounter(KFPawn OwnerPawn, int upgLevel)
 {
 	local WMUpgrade_Skill_Pyromaniac_Counter UPG;
 
