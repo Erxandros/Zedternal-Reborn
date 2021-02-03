@@ -8,8 +8,8 @@ static simulated function GetReloadRateScale(out float InReloadRateScale, int up
 	local WMUpgrade_Skill_ShootAndRun_Counter UPG;
 
 	UPG = GetCounter(OwnerPawn);
-	if (UPG != None && UPG.killedZed > 0)
-		InReloadRateScale = 1.0f / (1.0f / InReloadRateScale + default.MaxReloadSpeedBonus[upgLevel - 1] * (UPG.killedZed / UPG.default.maxKilledZed));
+	if (UPG != None && UPG.KilledZeds > 0)
+		InReloadRateScale = 1.0f / (1.0f / InReloadRateScale + default.MaxReloadSpeedBonus[upgLevel - 1] * UPG.GetKillPercentage());
 }
 
 static simulated function ModifySpeed(out float InSpeed, float DefaultSpeed, int upgLevel, KFPawn OwnerPawn)
@@ -17,8 +17,8 @@ static simulated function ModifySpeed(out float InSpeed, float DefaultSpeed, int
 	local WMUpgrade_Skill_ShootAndRun_Counter UPG;
 
 	UPG = GetCounter(OwnerPawn);
-	if (UPG != None && UPG.killedZed > 0)
-		InSpeed += DefaultSpeed * default.MaxMoveSpeedBonus[upgLevel - 1] * (UPG.killedZed / UPG.default.maxKilledZed);
+	if (UPG != None && UPG.KilledZeds > 0)
+		InSpeed += DefaultSpeed * default.MaxMoveSpeedBonus[upgLevel - 1] * UPG.GetKillPercentage();
 }
 
 static function AddVampireHealth(out int InHealth, int DefaultHealth, int upgLevel, KFPlayerController KFPC, class<DamageType> DT)

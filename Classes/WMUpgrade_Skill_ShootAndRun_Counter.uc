@@ -2,18 +2,28 @@ class WMUpgrade_Skill_ShootAndRun_Counter extends Info
 	transient;
 
 var KFPawn_Human Player;
-var int killedZed, maxKilledZed;
-var const float resetTimerDelay, decreaseTimerDelay;
+var byte KilledZeds;
+var const byte MaxKilledZeds;
+var const float ResetTimerDelay, DecreaseTimerDelay;
+
+replication
+{
+	if (Role == Role_Authority && bNetDirty)
+		KilledZeds;
+}
 
 function PostBeginPlay()
 {
 	super.PostBeginPlay();
 
-	Player = KFPawn_Human(Owner);
-	if (Player == None || Player.Health <= 0)
-		Destroy();
-	else
-		killedZed = 0;
+	if (Role == Role_Authority)
+	{
+		Player = KFPawn_Human(Owner);
+		if (Player == None || Player.Health <= 0)
+			Destroy();
+		else
+			KilledZeds = 0;
+	}
 }
 
 function Timer()
@@ -24,41 +34,41 @@ function Timer()
 		return;
 	}
 
-	if (killedZed > 0)
+	if (KilledZeds > 0)
 	{
-		--killedZed;
-		SendKilledZed(killedZed, Player);
-		if (killedZed != 0)
-			SetTimer(decreaseTimerDelay, False);
+		--KilledZeds;
+		Player.UpdateGroundSpeed();
+		if (KilledZeds != 0)
+			SetTimer(DecreaseTimerDelay, False);
 	}
 }
 
 function IncreaseCounter()
 {
+	ClearTimer();
 	if (Player == None || Player.Health <= 0)
 	{
 		Destroy();
 		return;
 	}
 
-	if (killedZed < default.maxKilledZed)
-		++killedZed;
+	if (KilledZeds < MaxKilledZeds)
+		++KilledZeds;
 
-	SendKilledZed(killedZed, Player);
-	SetTimer(resetTimerDelay, False);
+	Player.UpdateGroundSpeed();
+	SetTimer(ResetTimerDelay, False);
 }
 
-reliable client function SendKilledZed(int kills, KFPawn_Human KFPlayer)
+simulated function float GetKillPercentage()
 {
-	killedZed = kills;
-	KFPlayer.UpdateGroundSpeed();
+	return float(KilledZeds) / float(MaxKilledZeds);
 }
 
 defaultproperties
 {
-	resetTimerDelay=3.75f
-	decreaseTimerDelay=0.75f
-	maxKilledZed=10
+	ResetTimerDelay=3.75f
+	DecreaseTimerDelay=0.75f
+	MaxKilledZeds=10
 
 	Name="Default__WMUpgrade_Skill_ShootAndRun_Counter"
 }
