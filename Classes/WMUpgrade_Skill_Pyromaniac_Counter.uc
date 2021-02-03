@@ -3,23 +3,26 @@ class WMUpgrade_Skill_Pyromaniac_Counter extends Info
 
 var KFPawn_Human Player;
 var bool bEnable, bDeluxe;
-var float PyromaniacLength, Delay, Radius;
+var const float PyromaniacLength, Delay, Radius;
 
 replication
 {
-	if ( bNetOwner )
-		Player;
+	if (Role == Role_Authority && bNetDirty)
+		bEnable;
 }
 
 function PostBeginPlay()
 {
 	super.PostBeginPlay();
 
-	Player = KFPawn_Human(Owner);
-	if (Player == None)
-		Destroy();
-	else
-		SetCheckEnableTimer();
+	if (Role == Role_Authority)
+	{
+		Player = KFPawn_Human(Owner);
+		if (Player == None || Player.Health <= 0)
+			Destroy();
+		else
+			SetCheckEnableTimer();
+	}
 }
 
 function SetCheckEnableTimer()
@@ -32,7 +35,7 @@ function CheckEnable()
 	local int Count;
 	local KFPawn_Monster KFM;
 
-	if (Player == None)
+	if (Player == None || Player.Health <= 0)
 	{
 		Destroy();
 		return;
@@ -75,14 +78,26 @@ function EndWaveReset()
 // client effects
 reliable client function ActiveEffect()
 {
-	if (KFPlayerController(Player.Controller) != None)
-		KFPlayerController(Player.Controller).SetPerkEffect(True);
+	local PlayerController PC;
+
+	PC = GetALocalPlayerController();
+
+	if (KFPlayerController(PC) != None)
+	{
+		KFPlayerController(PC).SetPerkEffect(True);
+	}
 }
 
 reliable client function ResetEffect()
 {
-	if (KFPlayerController(Player.Controller) != None)
-		KFPlayerController(Player.Controller).SetPerkEffect(False);
+	local PlayerController PC;
+
+	PC = GetALocalPlayerController();
+
+	if (KFPlayerController(PC) != None)
+	{
+		KFPlayerController(PC).SetPerkEffect(False);
+	}
 }
 
 defaultproperties
@@ -91,7 +106,7 @@ defaultproperties
 	bEnable=False
 	bDeluxe=False
 	PyromaniacLength=4.0f
-	Delay=8.0f
+	Delay=6.0f
 	Radius=150000
 
 	Name="Default__WMUpgrade_Skill_Pyromaniac_Counter"
