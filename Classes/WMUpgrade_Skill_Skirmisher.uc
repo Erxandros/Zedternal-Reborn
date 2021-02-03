@@ -11,7 +11,7 @@ static simulated function InitiateWeapon(int upgLevel, KFWeapon KFW, KFPawn Owne
 {
 	local WMUpgrade_Skill_Skirmisher_Regen UPG;
 
-	if (KFPawn_Human(OwnerPawn) != None)
+	if (KFPawn_Human(OwnerPawn) != None && OwnerPawn.Role == Role_Authority)
 	{
 		foreach OwnerPawn.ChildActors(class'WMUpgrade_Skill_Skirmisher_Regen', UPG)
 		{
