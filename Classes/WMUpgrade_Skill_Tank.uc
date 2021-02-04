@@ -4,8 +4,34 @@ var array<float> Resistance, Critical;
 
 static function ModifyDamageTaken(out int InDamage, int DefaultDamage, int upgLevel, KFPawn OwnerPawn, optional class<DamageType> DamageType, optional Controller InstigatedBy, optional KFWeapon MyKFW)
 {
+	local WMUpgrade_Skill_Tank_Effect UPG;
+
 	if (OwnerPawn != None && OwnerPawn.Health >= int(float(OwnerPawn.HealthMax) * default.Critical[upgLevel - 1]))
+	{
 		InDamage -= Max(1, Round(float(DefaultDamage) * default.Resistance[upgLevel - 1]));
+
+		UPG = GetCounter(OwnerPawn);
+		if (UPG != None)
+			UPG.ActiveEffect();
+	}
+}
+
+static function WMUpgrade_Skill_Tank_Effect GetCounter(KFPawn OwnerPawn)
+{
+	local WMUpgrade_Skill_Tank_Effect UPG;
+
+	if (KFPawn_Human(OwnerPawn) != None)
+	{
+		foreach OwnerPawn.ChildActors(class'WMUpgrade_Skill_Tank_Effect', UPG)
+		{
+			return UPG;
+		}
+
+		//Should have one
+		UPG = OwnerPawn.Spawn(class'WMUpgrade_Skill_Tank_Effect', OwnerPawn);
+	}
+
+	return UPG;
 }
 
 static simulated function InitiateWeapon(int upgLevel, KFWeapon KFW, KFPawn OwnerPawn)
@@ -13,7 +39,7 @@ static simulated function InitiateWeapon(int upgLevel, KFWeapon KFW, KFPawn Owne
 	local WMUpgrade_Skill_Tank_Effect UPG;
 	local bool bFound;
 
-	if (KFPawn_Human(OwnerPawn) != None)
+	if (KFPawn_Human(OwnerPawn) != None && OwnerPawn.Role == Role_Authority)
 	{
 		bFound = False;
 		foreach OwnerPawn.ChildActors(class'WMUpgrade_Skill_Tank_Effect', UPG)
@@ -23,11 +49,7 @@ static simulated function InitiateWeapon(int upgLevel, KFWeapon KFW, KFPawn Owne
 		}
 
 		if (!bFound)
-		{
 			UPG = OwnerPawn.Spawn(class'WMUpgrade_Skill_Tank_Effect', OwnerPawn);
-			UPG.Player = KFPawn_Human(OwnerPawn);
-			UPG.bDeluxe = (upgLevel > 1);
-		}
 	}
 }
 
