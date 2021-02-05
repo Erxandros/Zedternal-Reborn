@@ -28,15 +28,19 @@ static function ModifyDamageTaken(out int InDamage, int DefaultDamage, int upgLe
 static simulated function InitiateWeapon(int upgLevel, KFWeapon KFW, KFPawn OwnerPawn)
 {
 	local WMUpgrade_Skill_BringTheHeat_Counter UPG;
+	local bool bFound;
 
 	if (KFPawn_Human(OwnerPawn) != None && OwnerPawn.Role == Role_Authority)
 	{
+		bFound = False;
 		foreach OwnerPawn.ChildActors(class'WMUpgrade_Skill_BringTheHeat_Counter', UPG)
 		{
-			UPG.Destroy();
+			bFound = True;
+			break;
 		}
 
-		UPG = OwnerPawn.Spawn(class'WMUpgrade_Skill_BringTheHeat_Counter', OwnerPawn);
+		if (!bFound)
+			UPG = OwnerPawn.Spawn(class'WMUpgrade_Skill_BringTheHeat_Counter', OwnerPawn);
 	}
 }
 

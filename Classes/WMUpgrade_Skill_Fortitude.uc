@@ -10,16 +10,22 @@ static function ModifyHealth(out int InHealth, int DefaultHealth, int upgLevel)
 static simulated function InitiateWeapon(int upgLevel, KFWeapon KFW, KFPawn OwnerPawn)
 {
 	local WMUpgrade_Skill_Fortitude_Regen UPG;
+	local bool bFound;
 
 	if (KFPawn_Human(OwnerPawn) != None && OwnerPawn.Role == Role_Authority)
 	{
+		bFound = False;
 		foreach OwnerPawn.ChildActors(class'WMUpgrade_Skill_Fortitude_Regen', UPG)
 		{
-			UPG.Destroy();
+			bFound = True;
+			break;
 		}
 
-		UPG = OwnerPawn.Spawn(class'WMUpgrade_Skill_Fortitude_Regen', OwnerPawn);
-		UPG.bDeluxe = (upgLevel > 1);
+		if (!bFound)
+		{
+			UPG = OwnerPawn.Spawn(class'WMUpgrade_Skill_Fortitude_Regen', OwnerPawn);
+			UPG.bDeluxe = (upgLevel > 1);
+		}
 	}
 }
 
