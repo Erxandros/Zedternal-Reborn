@@ -1,20 +1,24 @@
 class WMUpgrade_Skill_FirstBlood_Counter extends Info
 	transient;
 
-var KFPawn_Human Player;
 var bool bActive;
 
 function PostBeginPlay()
 {
 	super.PostBeginPlay();
 
-	Player = KFPawn_Human(Owner);
-	if (Player == None)
+	if (Owner == None)
 		Destroy();
 }
 
-reliable server function SetFirstBlood(bool bEnable)
+function SetFirstBlood(bool bEnable)
 {
+	if (Owner == None)
+	{
+		Destroy();
+		return;
+	}
+
 	bActive = bEnable;
 }
 
