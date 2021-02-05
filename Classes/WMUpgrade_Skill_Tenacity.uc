@@ -39,7 +39,6 @@ static function WMUpgrade_Skill_Tenacity_Counter GetCounter(KFPawn OwnerPawn)
 
 		//Should have one
 		UPG = OwnerPawn.Spawn(class'WMUpgrade_Skill_Tenacity_Counter', OwnerPawn);
-		UPG.Player = KFPawn_Human(OwnerPawn);
 	}
 
 	return UPG;

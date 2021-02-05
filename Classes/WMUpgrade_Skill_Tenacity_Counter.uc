@@ -1,42 +1,39 @@
 class WMUpgrade_Skill_Tenacity_Counter extends Info
 	transient;
 
-var KFPawn_Human Player;
-var int MaxDelay, Delay;
 var bool bActive;
+var const float MaxDelay;
 
 function PostBeginPlay()
 {
 	super.PostBeginPlay();
 
-	Player = KFPawn_Human(Owner);
-	if (Player == None)
+	if (Owner == None)
 		Destroy();
-	else
-		SetTimer(1.0f, True);
 }
 
 function SetActive()
 {
-	Delay = MaxDelay;
+	ClearTimer(NameOf(Reset));
+	if (Owner == None)
+		Destroy();
+
 	bActive = True;
+	SetTimer(MaxDelay, False, NameOf(Reset));
 }
 
-function Timer()
+function Reset()
 {
-	if (Delay > 0)
-	{
-		--Delay;
-		if (Delay == 0)
-			bActive = False;
-	}
+	if (Owner == None)
+		Destroy();
+
+	bActive = False;
 }
 
 defaultproperties
 {
 	bActive=False
-	MaxDelay=5
-	Delay=0
+	MaxDelay=5.0f
 
 	Name="Default__WMUpgrade_Skill_Tenacity_Counter"
 }
