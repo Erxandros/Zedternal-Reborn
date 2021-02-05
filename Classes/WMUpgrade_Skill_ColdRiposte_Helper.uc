@@ -1,33 +1,37 @@
 class WMUpgrade_Skill_ColdRiposte_Helper extends Info
 	transient;
 
-var float Delay;
-var bool bReady;
-var bool bDeluxe;
-var ParticleSystem PSBuff;
+var KFPawn_Human Player;
+var bool bDeluxe, bReady;
+var const float Delay;
+var const ParticleSystem PSBuff;
 
-function Explosion(KFPawn OwnerPawn)
+function PostBeginPlay()
+{
+	super.PostBeginPlay();
+
+	Player = KFPawn_Human(Owner);
+	if (Player == None || Player.Health <= 0)
+		Destroy();
+}
+
+function Explosion()
 {
 	local rotator Rot;
 	local vector Loc;
 
-	if (OwnerPawn != None && OwnerPawn.Health > 0)
-	{
-		bReady = False;
+	bReady = False;
 
-		Rot = rotator(OwnerPawn.Velocity);
-		Rot.Pitch = 0;
-		Loc = OwnerPawn.Location;
-		Loc.Z -= OwnerPawn.GetCollisionHeight();
-		if (bDeluxe)
-			OwnerPawn.Controller.Spawn(class'ZedternalReborn.WMProj_FreezeExplosion_Deluxe', OwnerPawn.Controller, , Loc, Rot, , True);
-		else
-			OwnerPawn.Controller.Spawn(class'ZedternalReborn.WMProj_FreezeExplosion', OwnerPawn.Controller, , Loc, Rot, , True);
-		PlayLocalEffects();
-		SetTimer(Delay, False, nameof(UpdateColdRiposte));
-	}
+	Rot = rotator(Player.Velocity);
+	Rot.Pitch = 0;
+	Loc = Player.Location;
+	Loc.Z -= Player.GetCollisionHeight();
+	if (bDeluxe)
+		Player.Controller.Spawn(class'ZedternalReborn.WMProj_FreezeExplosion_Deluxe', Player.Controller, , Loc, Rot, , True);
 	else
-		Destroy();
+		Player.Controller.Spawn(class'ZedternalReborn.WMProj_FreezeExplosion', Player.Controller, , Loc, Rot, , True);
+	PlayLocalEffects();
+	SetTimer(Delay, False, nameof(UpdateColdRiposte));
 }
 
 reliable client function PlayLocalEffects()
@@ -56,15 +60,19 @@ reliable client function PlayLocalEffects()
 
 function UpdateColdRiposte()
 {
-	bReady = True;
+	if (Player == None || Player.Health <= 0)
+		Destroy();
+	else
+		bReady = True;
 }
 
 defaultproperties
 {
 	bOnlyRelevantToOwner=True
+	bDeluxe=False
 	bReady=True
 	Delay=40.0f
-	bDeluxe=False
+
 	PSBuff=ParticleSystem'ZedternalReborn_Resource.Effects.FX_ColdRiposte_Effect'
 
 	Name="Default__WMUpgrade_Skill_ColdRiposte_Helper"

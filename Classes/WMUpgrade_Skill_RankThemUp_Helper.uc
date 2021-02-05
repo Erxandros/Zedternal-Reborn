@@ -1,15 +1,30 @@
 class WMUpgrade_Skill_RankThemUp_Helper extends Info
 	transient;
 
-var int HeadShot, MaxHeadShot;
-var const float ResetDelayTimer, DecreaseDelayTimer;
+var byte HeadShot;
+var const byte MaxHeadShot;
+var const float DecreaseDelayTimer, ResetDelayTimer;
 var const name RhytmMethodRTPCName;
 var const AkEvent RhythmMethodSoundReset;
 var const AkEvent RhythmMethodSoundHit;
 var const AkEvent RhythmMethodSoundTop;
 
+function PostBeginPlay()
+{
+	super.PostBeginPlay();
+
+	if (Owner == None)
+		Destroy();
+}
+
 function Timer()
 {
+	if (Owner == None)
+	{
+		Destroy();
+		return;
+	}
+
 	if (HeadShot > 0)
 	{
 		DecreaseCounter();
@@ -27,7 +42,7 @@ function IncreaseCounter()
 
 function DecreaseCounter()
 {
-	HeadShot = Min(MaxHeadShot, HeadShot) - 1;
+	--HeadShot;
 	HeadShotMessage(HeadShot, HeadShot, True, False);
 }
 
@@ -36,22 +51,22 @@ function EndStrike()
 	//Player shot his powerful bullet, combo is cleared
 	ClearTimer();
 	HeadShot = 0;
-	HeadShotMessage(HeadShot, Min(MaxHeadShot, HeadShot), False, True);
+	HeadShotMessage(HeadShot, HeadShot, False, True);
 }
 
 reliable client function HeadShotMessage(byte HeadShotNum, byte DisplayValue, optional bool bMissed = False, optional bool bFinalHit = False)
 {
 	local byte b;
 	local AkEvent TempAkEvent;
-	local KFPlayerController OwnerPC;
+	local KFPlayerController KFPC;
 
-	OwnerPC = KFPlayerController(GetALocalPlayerController());
+	KFPC = KFPlayerController(GetALocalPlayerController());
 
-	if (OwnerPC == None || OwnerPC.MyGFxHUD == None)
+	if (KFPC == None || KFPC.MyGFxHUD == None)
 		return;
 
 	b = HeadShotNum;
-	OwnerPC.UpdateRhythmCounterWidget(DisplayValue, MaxHeadShot);
+	KFPC.UpdateRhythmCounterWidget(DisplayValue, MaxHeadShot);
 
 	if (bFinalHit)
 		TempAkEvent = RhythmMethodSoundTop;
@@ -61,15 +76,15 @@ reliable client function HeadShotMessage(byte HeadShotNum, byte DisplayValue, op
 		TempAkEvent = RhythmMethodSoundReset;
 
 	if (TempAkEvent != None)
-		OwnerPC.PlayRMEffect(TempAkEvent, RhytmMethodRTPCName, b);
+		KFPC.PlayRMEffect(TempAkEvent, RhytmMethodRTPCName, b);
 }
 
 defaultproperties
 {
-	ResetDelayTimer=5.0f
-	DecreaseDelayTimer=1.5f
 	HeadShot=0
 	MaxHeadShot=5
+	DecreaseDelayTimer=1.5f
+	ResetDelayTimer=5.0f
 
 	RhytmMethodRTPCName="R_Method"
 	RhythmMethodSoundReset=AkEvent'WW_UI_PlayerCharacter.Play_R_Method_Reset'

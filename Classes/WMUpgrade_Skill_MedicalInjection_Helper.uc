@@ -2,9 +2,9 @@ class WMUpgrade_Skill_MedicalInjection_Helper extends Info
 	transient;
 
 var KFPawn_Human Player;
-var bool bDeluxe;
-var int Regen, MinHealth;
-var array<float> MinRegenDelay, MaxRegenDelay;
+var byte DeluxeLvl;
+var const byte MinHealth, Regen;
+var const array<float> MaxRegenDelay, MinRegenDelay;
 
 function PostBeginPlay()
 {
@@ -13,43 +13,44 @@ function PostBeginPlay()
 	Player = KFPawn_Human(Owner);
 	if (Player == None || Player.Health <= 0)
 		Destroy();
+}
+
+function StartTimer(bool bDeluxe)
+{
+	if (bDeluxe)
+		DeluxeLvl = 1;
 	else
-		SetTimer(1.0f, False);
+		DeluxeLvl = 0;
+
+	SetTimer(MinRegenDelay[DeluxeLvl], False);
 }
 
 function Timer()
 {
-	local byte lvl;
-
 	if (Player == None || Player.Health <= 0)
 	{
 		Destroy();
 		return;
 	}
 
-	if (Player.Health < default.MinHealth)
-		Player.HealDamage(default.Regen, KFPlayerController(Player.Controller), class'KFDT_Healing', False, False);
+	if (Player.Health < MinHealth)
+		Player.HealDamage(Regen, KFPlayerController(Player.Controller), class'KFDT_Healing', False, False);
 
-	if (bDeluxe)
-		lvl = 1;
+	if (Player.Health < MinHealth)
+		SetTimer(MinRegenDelay[DeluxeLvl] + Player.Health * (MaxRegenDelay[DeluxeLvl] - MinRegenDelay[DeluxeLvl]) / float(MinHealth), False);
 	else
-		lvl = 0;
-
-	if (Player.Health < default.MinHealth)
-		SetTimer(default.MinRegenDelay[lvl] + Player.Health * (default.MaxRegenDelay[lvl] - default.MinRegenDelay[lvl]) / default.MinHealth, False);
-	else
-		SetTimer(default.MinRegenDelay[lvl], False);
+		SetTimer(MinRegenDelay[DeluxeLvl], False);
 }
 
 defaultproperties
 {
-	bDeluxe=False
-	Regen=1
+	DeluxeLvl=0
 	MinHealth=50
-	MinRegenDelay(0)=0.33f
-	MinRegenDelay(1)=0.125f
+	Regen=1
 	MaxRegenDelay(0)=1.5f
 	MaxRegenDelay(1)=1.0f
+	MinRegenDelay(0)=0.33f
+	MinRegenDelay(1)=0.125f
 
 	Name="Default__WMUpgrade_Skill_MedicalInjection_Helper"
 }

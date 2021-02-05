@@ -15,9 +15,6 @@ function PostBeginPlay()
 function SetActive()
 {
 	ClearTimer(NameOf(Reset));
-	if (Owner == None)
-		Destroy();
-
 	bActive = True;
 	SetTimer(MaxDelay, False, NameOf(Reset));
 }
@@ -26,8 +23,8 @@ function Reset()
 {
 	if (Owner == None)
 		Destroy();
-
-	bActive = False;
+	else
+		bActive = False;
 }
 
 defaultproperties

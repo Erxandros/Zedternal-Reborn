@@ -1,42 +1,36 @@
 class WMUpgrade_Skill_GunMachine_Helper extends Info
 	transient;
 
-var KFPawn_Human Player;
-var int MaxDelay, Delay;
 var bool bActive;
+var const float ResetDelay;
 
 function PostBeginPlay()
 {
 	super.PostBeginPlay();
 
-	Player = KFPawn_Human(Owner);
-	if (Player == None)
+	if (Owner == None)
 		Destroy();
-	else
-		SetTimer(1.0f, True);
 }
 
 function SetActive()
 {
-	Delay = default.MaxDelay;
+	ClearTimer(NameOf(Reset));
 	bActive = True;
+	SetTimer(ResetDelay, False, NameOf(Reset));
 }
 
-function Timer()
+function Reset()
 {
-	if (Delay > 0)
-	{
-		--Delay;
-		if (Delay <= 0)
-			bActive = False;
-	}
+	if (Owner == None)
+		Destroy();
+	else
+		bActive = False;
 }
 
 defaultproperties
 {
 	bActive=False
-	MaxDelay=5
-	Delay=0
+	ResetDelay=5.0f
 
 	Name="Default__WMUpgrade_Skill_GunMachine_Helper"
 }

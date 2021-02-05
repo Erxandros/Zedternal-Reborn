@@ -2,19 +2,19 @@ class WMUpgrade_Skill_Destruction_Helper extends Info
 	transient;
 
 var KFPawn_Human Player;
-var bool bReady;
-var bool bDeluxe;
-var array<int> Radius;
+var bool bDeluxe, bReady;
+var const float Update;
+var const array<int> Radius;
 
 function PostBeginPlay()
 {
 	super.PostBeginPlay();
 
 	Player = KFPawn_Human(Owner);
-	if (Player == None)
+	if (Player == None || Player.Health <= 0)
 		Destroy();
 	else
-		SetTimer(0.2f, True);
+		SetTimer(Update, True);
 }
 
 function Timer()
@@ -22,7 +22,7 @@ function Timer()
 	local KFPawn_Monster KFM;
 	local int rad;
 
-	if (Player == None)
+	if (Player == None || Player.Health <= 0)
 	{
 		Destroy();
 		return;
@@ -52,8 +52,9 @@ function Timer()
 
 defaultproperties
 {
-	bReady=True
 	bDeluxe=False
+	bReady=True
+	Update=0.25f
 	Radius(0)=250000
 	Radius(1)=1000000
 

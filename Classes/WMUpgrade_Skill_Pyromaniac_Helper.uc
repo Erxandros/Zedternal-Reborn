@@ -2,8 +2,10 @@ class WMUpgrade_Skill_Pyromaniac_Helper extends Info
 	transient;
 
 var KFPawn_Human Player;
-var bool bEnable, bDeluxe;
-var const float PyromaniacLength, Delay, Radius;
+var bool bEnable;
+var byte DeluxeLvl;
+var const float PyromaniacLength, Radius, ResetDelay, Update;
+var array<byte> ZedThreshold;
 
 replication
 {
@@ -20,17 +22,20 @@ function PostBeginPlay()
 		Player = KFPawn_Human(Owner);
 		if (Player == None || Player.Health <= 0)
 			Destroy();
-		else
-			SetCheckEnableTimer();
 	}
 }
 
-function SetCheckEnableTimer()
+function StartTimer(bool bDeluxe)
 {
-	SetTimer(1.0f, True, NameOf(CheckEnable));
+	if (bDeluxe)
+		DeluxeLvl = 1;
+	else
+		DeluxeLvl = 0;
+
+	SetTimer(Update, False);
 }
 
-function CheckEnable()
+function Timer()
 {
 	local int Count;
 	local KFPawn_Monster KFM;
@@ -48,31 +53,33 @@ function CheckEnable()
 			++Count;
 	}
 
-	if ((bDeluxe && Count >= 3) || Count >= 4)
+	if (Count >= ZedThreshold[DeluxeLvl])
 	{
 		if (!bEnable)
 		{
-			ClearTimer(NameOf(CheckEnable));
-			ActiveEffect();
 			bEnable = True;
-			SetTimer(PyromaniacLength, True, NameOf(CheckEnable));
+			ActiveEffect();
+			SetTimer(PyromaniacLength, False);
+			return;
 		}
 	}
 	else if (bEnable)
 	{
-		ClearTimer(NameOf(CheckEnable));
 		ResetEffect();
 		bEnable = False;
-		SetTimer(Delay, False, NameOf(SetCheckEnableTimer));
+		SetTimer(ResetDelay, False);
+		return;
 	}
+
+	SetTimer(Update, False);
 }
 
 function EndWaveReset()
 {
-	ClearAllTimers();
+	ClearTimer();
 	ResetEffect();
 	bEnable = False;
-	SetTimer(Delay, False, NameOf(SetCheckEnableTimer));
+	SetTimer(Update, False);
 }
 
 // client effects
@@ -83,9 +90,7 @@ reliable client function ActiveEffect()
 	PC = GetALocalPlayerController();
 
 	if (KFPlayerController(PC) != None)
-	{
 		KFPlayerController(PC).SetPerkEffect(True);
-	}
 }
 
 reliable client function ResetEffect()
@@ -95,19 +100,20 @@ reliable client function ResetEffect()
 	PC = GetALocalPlayerController();
 
 	if (KFPlayerController(PC) != None)
-	{
 		KFPlayerController(PC).SetPerkEffect(False);
-	}
 }
 
 defaultproperties
 {
 	bOnlyRelevantToOwner=True
 	bEnable=False
-	bDeluxe=False
+	DeluxeLvl=0
 	PyromaniacLength=4.0f
-	Delay=6.0f
 	Radius=150000
+	ResetDelay=6.0f
+	Update=1.0f
+	ZedThreshold(0)=4
+	ZedThreshold(1)=3
 
 	Name="Default__WMUpgrade_Skill_Pyromaniac_Helper"
 }

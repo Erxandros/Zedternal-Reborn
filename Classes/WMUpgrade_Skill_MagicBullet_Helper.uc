@@ -82,8 +82,6 @@ reliable client function ClientUpdateAmmo(int Ammo)
 			}
 		}
 	}
-	else
-		Destroy();
 }
 
 defaultproperties

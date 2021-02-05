@@ -3,8 +3,8 @@ class WMUpgrade_Skill_AirborneAgent_Helper extends Info
 
 var KFPawn_Human Player;
 var bool bDeluxe;
-var int RadiusSQ, criticalHealth;
-var float Recharge, Update;
+var const int CriticalHealth, RadiusSQ;
+var const float Recharge, Update;
 
 function PostBeginPlay()
 {
@@ -14,7 +14,7 @@ function PostBeginPlay()
 	if (Player == None || Player.Health <= 0)
 		Destroy();
 	else
-		SetTimer(default.Update, False);
+		SetTimer(Update, False);
 }
 
 function Timer()
@@ -29,13 +29,13 @@ function Timer()
 	}
 
 	bActivate = False;
-	if (Player.Health <= criticalHealth && Player.Health > 0)
+	if (Player.Health <= CriticalHealth)
 		bActivate = True;
 	else
 	{
 		foreach DynamicActors(class'KFPawn_Human', KFPH)
 		{
-			if (KFPH.Health <= criticalHealth && KFPH.Health > 0 && VSizeSQ(Player.Location - KFPH.Location) <= RadiusSQ)
+			if (KFPH.Health <= CriticalHealth && KFPH.Health > 0 && VSizeSQ(Player.Location - KFPH.Location) <= RadiusSQ)
 			{
 				bActivate = True;
 				break;
@@ -44,7 +44,7 @@ function Timer()
 	}
 
 	if (!bActivate)
-		SetTimer(default.Update, False);
+		SetTimer(Update, False);
 	else
 	{
 		Player.StartAirBorneAgentEvent();
@@ -62,17 +62,17 @@ function Timer()
 		else
 			Player.HealDamage(15, Player.Controller, class'KFGameContent.KFDT_Healing_MedicGrenade');
 
-		SetTimer(default.Recharge, False);
+		SetTimer(Recharge, False);
 	}
 }
 
 defaultproperties
 {
+	bDeluxe=False
+	CriticalHealth=60
+	RadiusSQ=60000
 	Recharge=40.0f
 	Update=0.5f
-	RadiusSQ=60000
-	criticalHealth=60
-	bDeluxe=False
 
 	Name="Default__WMUpgrade_Skill_AirborneAgent_Helper"
 }

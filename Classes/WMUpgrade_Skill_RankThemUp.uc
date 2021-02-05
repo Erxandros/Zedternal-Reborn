@@ -11,7 +11,7 @@ static function ModifyDamageGiven(out int InDamage, int DefaultDamage, int upgLe
 		UPG = GetHelper(DamageInstigator.Pawn);
 		if (UPG != None)
 		{
-			if (UPG.headShot < UPG.maxHeadShot)
+			if (UPG.HeadShot < UPG.MaxHeadShot)
 				UPG.IncreaseCounter();
 			else
 			{

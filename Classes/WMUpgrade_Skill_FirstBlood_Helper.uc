@@ -13,12 +13,6 @@ function PostBeginPlay()
 
 function SetFirstBlood(bool bEnable)
 {
-	if (Owner == None)
-	{
-		Destroy();
-		return;
-	}
-
 	bActive = bEnable;
 }
 

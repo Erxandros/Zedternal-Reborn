@@ -2,41 +2,39 @@ class WMUpgrade_Skill_Fortitude_Helper extends Info
 	transient;
 
 var KFPawn_Human Player;
-var int Regen;
-var bool bDeluxe;
+var const byte Regen;
+var const array<float> TimeRegen;
 
 function PostBeginPlay()
 {
 	super.PostBeginPlay();
 
 	Player = KFPawn_Human(Owner);
-	if (Player == None)
+	if (Player == None || Player.Health <= 0)
 		Destroy();
+}
+
+function StartTimer(bool bDeluxe)
+{
+	if (bDeluxe)
+		SetTimer(TimeRegen[1], True);
 	else
-		SetTimer(2.0f, False);
+		SetTimer(TimeRegen[0], True);
 }
 
 function Timer()
 {
 	if (Player == None || Player.Health <= 0)
-	{
 		Destroy();
-		return;
-	}
-
-	if (Player.Health < Player.HealthMax)
-		Player.Health = Min(Player.Health + default.Regen, Player.HealthMax);
-
-	if (bDeluxe)
-		SetTimer(1.0f, False);
-	else
-		SetTimer(2.0f, False);
+	else if (Player.Health < Player.HealthMax)
+		Player.Health = Min(Player.Health + Regen, Player.HealthMax);
 }
 
 defaultproperties
 {
 	Regen=1
-	bDeluxe=False
+	TimeRegen(0)=2.0f
+	TimeRegen(1)=1.0f
 
 	Name="Default__WMUpgrade_Skill_Fortitude_Helper"
 }

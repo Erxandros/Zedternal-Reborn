@@ -8,7 +8,7 @@ static function ModifyDamageTaken(out int InDamage, int DefaultDamage, int upgLe
 	{
 		UPG = GetHelper(OwnerPawn, upgLevel);
 		if (UPG != None && UPG.bReady)
-			UPG.Explosion(OwnerPawn);
+			UPG.Explosion();
 	}
 }
 

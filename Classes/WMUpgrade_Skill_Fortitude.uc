@@ -24,7 +24,7 @@ static simulated function InitiateWeapon(int upgLevel, KFWeapon KFW, KFPawn Owne
 		if (!bFound)
 		{
 			UPG = OwnerPawn.Spawn(class'WMUpgrade_Skill_Fortitude_Helper', OwnerPawn);
-			UPG.bDeluxe = (upgLevel > 1);
+			UPG.StartTimer(upgLevel > 1);
 		}
 	}
 }

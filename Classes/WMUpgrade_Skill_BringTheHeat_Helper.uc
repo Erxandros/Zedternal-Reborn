@@ -3,18 +3,17 @@ class WMUpgrade_Skill_BringTheHeat_Helper extends Info
 
 var KFPawn_Human Player;
 var int CumulativeDamage;
-var int MaxCumulativeDamage;
-var int DeltaCumulativeDamage;
-var float HeatWaveDelay;
-var array<int> CostHeatWave;
-var array< class<WMUpgrade_Skill_BringTheHeat_Flame_Base> > ClassHeatWave;
+var const int DeltaCumulativeDamage, MaxCumulativeDamage;
+var const float HeatWaveDelay;
+var const array<int> CostHeatWave;
+var const array< class<WMUpgrade_Skill_BringTheHeat_Flame_Base> > ClassHeatWave;
 
 function PostBeginPlay()
 {
 	super.PostBeginPlay();
 
 	Player = KFPawn_Human(Owner);
-	if (Player == None)
+	if (Player == None || Player.Health <= 0)
 		Destroy();
 	else
 		SetTimer(HeatWaveDelay, True);
@@ -23,6 +22,12 @@ function PostBeginPlay()
 function Timer()
 {
 	local byte i;
+
+	if (Player == None || Player.Health <= 0)
+	{
+		Destroy();
+		return;
+	}
 
 	CumulativeDamage = Min(default.MaxCumulativeDamage, CumulativeDamage);
 
@@ -58,8 +63,8 @@ function CreateHeatWave(byte force)
 defaultproperties
 {
 	CumulativeDamage=0
-	MaxCumulativeDamage=2500
 	DeltaCumulativeDamage=20
+	MaxCumulativeDamage=2500
 	HeatWaveDelay=1.0f
 
 	CostHeatWave(0)=400

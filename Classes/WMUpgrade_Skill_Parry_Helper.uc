@@ -1,28 +1,21 @@
 class WMUpgrade_Skill_Parry_Helper extends Info
 	transient;
 
-var KFPawn_Human Player;
 var bool bOn;
-var float Delay;
-
-var AkEvent ParrySkillSoundModeStart;
+var const float Delay;
+var const AkEvent ParrySkillSoundModeStart;
 
 function PostBeginPlay()
 {
 	super.PostBeginPlay();
 
-	Player = KFPawn_Human(Owner);
-	if (Player == None || Player.Health <= 0)
+	if (Owner == None)
 		Destroy();
 }
 
 function ActiveEffect()
 {
-	if (Player == None || Player.Health <= 0)
-	{
-		Destroy();
-		return;
-	}
+	ClearTimer(NameOf(ResetEffect));
 
 	if (!bOn)
 	{
@@ -30,13 +23,12 @@ function ActiveEffect()
 		ActiveLocalEffects();
 	}
 
-	ClearTimer(NameOf(ResetEffect));
 	SetTimer(Delay, False, NameOf(ResetEffect));
 }
 
 function ResetEffect()
 {
-	if (Player == None || Player.Health <= 0)
+	if (Owner == None)
 	{
 		Destroy();
 		return;
@@ -69,9 +61,7 @@ reliable client function ResetLocalEffects()
 	PC = GetALocalPlayerController();
 
 	if (KFPlayerController(PC) != None)
-	{
 		KFPlayerController(PC).SetPerkEffect(False);
-	}
 }
 
 defaultproperties

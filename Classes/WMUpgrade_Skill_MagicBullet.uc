@@ -2,6 +2,20 @@ class WMUpgrade_Skill_MagicBullet extends WMUpgrade_Skill;
 
 var array<int> Ammo;
 
+static function AddVampireHealth(out int InHealth, int DefaultHealth, int upgLevel, KFPlayerController KFPC, class<DamageType> DT)
+{
+	local WMUpgrade_Skill_MagicBullet_Helper UPG;
+
+	UPG = GetHelper(KFPC.Pawn);
+	if (UPG != None)
+	{
+		if (UPG.Player.WorldInfo.NetMode == NM_Standalone) // For single player
+			UPG.StandaloneUpdateAmmo(default.Ammo[upgLevel - 1]);
+		else // For servers
+			UPG.ServerUpdateAmmo(default.Ammo[upgLevel - 1]);
+	}
+}
+
 static function WMUpgrade_Skill_MagicBullet_Helper GetHelper(Pawn OwnerPawn)
 {
 	local WMUpgrade_Skill_MagicBullet_Helper UPG;
@@ -18,20 +32,6 @@ static function WMUpgrade_Skill_MagicBullet_Helper GetHelper(Pawn OwnerPawn)
 	}
 
 	return UPG;
-}
-
-static function AddVampireHealth(out int InHealth, int DefaultHealth, int upgLevel, KFPlayerController KFPC, class<DamageType> DT)
-{
-	local WMUpgrade_Skill_MagicBullet_Helper UPG;
-
-	UPG = GetHelper(KFPC.Pawn);
-	if (UPG != None)
-	{
-		if (UPG.Player.WorldInfo.NetMode == NM_Standalone) // For single player
-			UPG.StandaloneUpdateAmmo(default.Ammo[upgLevel - 1]);
-		else // For servers
-			UPG.ServerUpdateAmmo(default.Ammo[upgLevel - 1]);
-	}
 }
 
 defaultproperties

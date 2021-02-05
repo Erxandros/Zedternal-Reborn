@@ -6,6 +6,14 @@ var const float MinDelay;
 var const ParticleSystem PSShield;
 var const AkBaseSoundObject BlockSound;
 
+function PostBeginPlay()
+{
+	super.PostBeginPlay();
+
+	if (Owner == None)
+		Destroy();
+}
+
 function ActiveEffect()
 {
 	if (!bEnable)
@@ -18,7 +26,10 @@ function ActiveEffect()
 
 function ResetEffect()
 {
-	bEnable = False;
+	if (Owner == None)
+		Destroy();
+	else
+		bEnable = False;
 }
 
 reliable client function PlayLocalEffects()
@@ -30,7 +41,7 @@ reliable client function PlayLocalEffects()
 
 	PC = GetALocalPlayerController();
 
-	if (PC == None || PC.Pawn == None)
+	if (PC == None || PC.Pawn == None || PC.Pawn.Health <= 0)
 	{
 		return;
 	}

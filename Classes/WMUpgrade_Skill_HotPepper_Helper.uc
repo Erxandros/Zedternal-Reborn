@@ -3,18 +3,18 @@ class WMUpgrade_Skill_HotPepper_Helper extends Info
 
 var KFPawn_Human Player;
 var bool bDeluxe;
-var array<int> Damage;
-var float Radius;
+var const float Radius, Update;
+var const array<int> Damage;
 
 function PostBeginPlay()
 {
 	super.PostBeginPlay();
 
 	Player = KFPawn_Human(Owner);
-	if(Player == None)
+	if (Player == None || Player.Health <= 0)
 		Destroy();
 	else
-		SetTimer(0.5f, True);
+		SetTimer(Update, True);
 }
 
 function Timer()
@@ -23,7 +23,7 @@ function Timer()
 	local KFPlayerController KFPC;
 	local int Dmg;
 
-	if (Player != None)
+	if (Player != None && Player.Health > 0)
 	{
 		KFPC = KFPlayerController(Player.Controller);
 		if (KFPC != None)
@@ -33,9 +33,9 @@ function Timer()
 				if (KFM.IsAliveAndWell() && VSizeSQ(Player.Location - KFM.Location) <= Radius)
 				{
 					if (bDeluxe)
-						Dmg = default.Damage[1];
+						Dmg = Damage[1];
 					else
-						Dmg = default.Damage[0];
+						Dmg = Damage[0];
 
 					KFM.ApplyDamageOverTime(Dmg, KFPC, class'ZedternalReborn.WMDT_Napalm');
 				}
@@ -49,9 +49,10 @@ function Timer()
 defaultproperties
 {
 	bDeluxe=False
+	Radius=25600
+	Update=0.5f
 	Damage(0)=10
 	Damage(1)=25
-	Radius=25600
 
 	Name="Default__WMUpgrade_Skill_HotPepper_Helper"
 }

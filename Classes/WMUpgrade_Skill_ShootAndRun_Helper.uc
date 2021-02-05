@@ -4,7 +4,7 @@ class WMUpgrade_Skill_ShootAndRun_Helper extends Info
 var KFPawn_Human Player;
 var byte KilledZeds;
 var const byte MaxKilledZeds;
-var const float ResetTimerDelay, DecreaseTimerDelay;
+var const float DecreaseTimerDelay, ResetTimerDelay;
 
 replication
 {
@@ -21,8 +21,6 @@ function PostBeginPlay()
 		Player = KFPawn_Human(Owner);
 		if (Player == None || Player.Health <= 0)
 			Destroy();
-		else
-			KilledZeds = 0;
 	}
 }
 
@@ -46,11 +44,6 @@ function Timer()
 function IncreaseCounter()
 {
 	ClearTimer();
-	if (Player == None || Player.Health <= 0)
-	{
-		Destroy();
-		return;
-	}
 
 	if (KilledZeds < MaxKilledZeds)
 		++KilledZeds;
@@ -66,9 +59,10 @@ simulated function float GetKillPercentage()
 
 defaultproperties
 {
-	ResetTimerDelay=3.75f
-	DecreaseTimerDelay=0.75f
+	KilledZeds=0
 	MaxKilledZeds=10
+	DecreaseTimerDelay=0.75f
+	ResetTimerDelay=3.75f
 
 	Name="Default__WMUpgrade_Skill_ShootAndRun_Helper"
 }
