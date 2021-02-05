@@ -4,29 +4,29 @@ var array<float> Armor;
 
 static function WaveEnd(int upgLevel, KFPlayerController KFPC)
 {
-	local WMUpgrade_Skill_AssaultArmor_Counter UPG;
+	local WMUpgrade_Skill_AssaultArmor_Helper UPG;
 
 	if (KFPC.Pawn != None)
 	{
-		UPG = GetCounter(KFPC.Pawn);
+		UPG = GetHelper(KFPC.Pawn);
 		if (UPG != None)
 			UPG.GiveArmor(default.Armor[upgLevel - 1]);
 	}
 }
 
-static function WMUpgrade_Skill_AssaultArmor_Counter GetCounter(Pawn OwnerPawn)
+static function WMUpgrade_Skill_AssaultArmor_Helper GetHelper(Pawn OwnerPawn)
 {
-	local WMUpgrade_Skill_AssaultArmor_Counter UPG;
+	local WMUpgrade_Skill_AssaultArmor_Helper UPG;
 
 	if (WMPawn_Human(OwnerPawn) != None)
 	{
-		foreach OwnerPawn.ChildActors(class'WMUpgrade_Skill_AssaultArmor_Counter', UPG)
+		foreach OwnerPawn.ChildActors(class'WMUpgrade_Skill_AssaultArmor_Helper', UPG)
 		{
 			return UPG;
 		}
 
 		//Should have one
-		UPG = OwnerPawn.Spawn(class'WMUpgrade_Skill_AssaultArmor_Counter', OwnerPawn);
+		UPG = OwnerPawn.Spawn(class'WMUpgrade_Skill_AssaultArmor_Helper', OwnerPawn);
 	}
 
 	return UPG;

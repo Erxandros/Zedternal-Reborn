@@ -1,4 +1,4 @@
-class WMUpgrade_Skill_MedicalInjection_Regen extends Info
+class WMUpgrade_Skill_MedicalInjection_Helper extends Info
 	transient;
 
 var KFPawn_Human Player;
@@ -51,5 +51,5 @@ defaultproperties
 	MaxRegenDelay(0)=1.5f
 	MaxRegenDelay(1)=1.0f
 
-	Name="Default__WMUpgrade_Skill_MedicalInjection_Regen"
+	Name="Default__WMUpgrade_Skill_MedicalInjection_Helper"
 }

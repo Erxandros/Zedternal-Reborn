@@ -1,4 +1,4 @@
-class WMUpgrade_Skill_HotPepper_Counter extends Info
+class WMUpgrade_Skill_HotPepper_Helper extends Info
 	transient;
 
 var KFPawn_Human Player;
@@ -53,5 +53,5 @@ defaultproperties
 	Damage(1)=25
 	Radius=25600
 
-	Name="Default__WMUpgrade_Skill_HotPepper_Counter"
+	Name="Default__WMUpgrade_Skill_HotPepper_Helper"
 }

@@ -1,4 +1,4 @@
-class WMUpgrade_Skill_RankThemUp_Counter extends Info
+class WMUpgrade_Skill_RankThemUp_Helper extends Info
 	transient;
 
 var int HeadShot, MaxHeadShot;
@@ -76,5 +76,5 @@ defaultproperties
 	RhythmMethodSoundHit=AkEvent'WW_UI_PlayerCharacter.Play_R_Method_Hit'
 	RhythmMethodSoundTop=AkEvent'WW_UI_PlayerCharacter.Play_R_Method_Top'
 
-	Name="Default__WMUpgrade_Skill_RankThemUp_Counter"
+	Name="Default__WMUpgrade_Skill_RankThemUp_Helper"
 }

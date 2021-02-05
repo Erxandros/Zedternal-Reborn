@@ -1,4 +1,4 @@
-class WMUpgrade_Skill_GunMachine_Counter extends Info
+class WMUpgrade_Skill_GunMachine_Helper extends Info
 	transient;
 
 var KFPawn_Human Player;
@@ -38,5 +38,5 @@ defaultproperties
 	MaxDelay=5
 	Delay=0
 
-	Name="Default__WMUpgrade_Skill_GunMachine_Counter"
+	Name="Default__WMUpgrade_Skill_GunMachine_Helper"
 }

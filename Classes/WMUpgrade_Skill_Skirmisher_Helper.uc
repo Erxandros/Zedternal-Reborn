@@ -1,4 +1,4 @@
-class WMUpgrade_Skill_Skirmisher_Regen extends Info
+class WMUpgrade_Skill_Skirmisher_Helper extends Info
 	transient;
 
 var KFPawn_Human Player;
@@ -35,5 +35,5 @@ defaultproperties
 	RegenDeluxe=2
 	bDeluxe=False
 
-	Name="Default__WMUpgrade_Skill_Skirmisher_Regen"
+	Name="Default__WMUpgrade_Skill_Skirmisher_Helper"
 }

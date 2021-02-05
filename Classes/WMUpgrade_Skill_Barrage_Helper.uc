@@ -1,4 +1,4 @@
-class WMUpgrade_Skill_Barrage_Effect extends Info
+class WMUpgrade_Skill_Barrage_Helper extends Info
 	transient;
 
 var KFPawn_Human Player;
@@ -38,5 +38,5 @@ defaultproperties
 {
 	bCanCreateEffect=True
 
-	Name="Default__WMUpgrade_Skill_Barrage_Effect"
+	Name="Default__WMUpgrade_Skill_Barrage_Helper"
 }

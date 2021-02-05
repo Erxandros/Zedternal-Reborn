@@ -1,4 +1,4 @@
-class WMUpgrade_Skill_Pyromaniac_Counter extends Info
+class WMUpgrade_Skill_Pyromaniac_Helper extends Info
 	transient;
 
 var KFPawn_Human Player;
@@ -109,5 +109,5 @@ defaultproperties
 	Delay=6.0f
 	Radius=150000
 
-	Name="Default__WMUpgrade_Skill_Pyromaniac_Counter"
+	Name="Default__WMUpgrade_Skill_Pyromaniac_Helper"
 }

@@ -1,4 +1,4 @@
-class WMUpgrade_Skill_TOOLS_SpeedUpdateHelper extends Info
+class WMUpgrade_Skill_Emergency_Helper extends Info
 	transient;
 
 var KFPawn_Human Player;
@@ -23,5 +23,5 @@ function Timer()
 
 defaultproperties
 {
-	Name="Default__WMUpgrade_Skill_TOOLS_SpeedUpdateHelper"
+	Name="Default__WMUpgrade_Skill_Emergency_Helper"
 }

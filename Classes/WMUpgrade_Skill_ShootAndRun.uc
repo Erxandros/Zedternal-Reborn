@@ -5,29 +5,29 @@ var array<float> MaxMoveSpeedBonus;
 
 static simulated function GetReloadRateScale(out float InReloadRateScale, int upgLevel, KFWeapon KFW, KFPawn OwnerPawn)
 {
-	local WMUpgrade_Skill_ShootAndRun_Counter UPG;
+	local WMUpgrade_Skill_ShootAndRun_Helper UPG;
 
-	UPG = GetCounter(OwnerPawn);
+	UPG = GetHelper(OwnerPawn);
 	if (UPG != None && UPG.KilledZeds > 0)
 		InReloadRateScale = 1.0f / (1.0f / InReloadRateScale + default.MaxReloadSpeedBonus[upgLevel - 1] * UPG.GetKillPercentage());
 }
 
 static simulated function ModifySpeed(out float InSpeed, float DefaultSpeed, int upgLevel, KFPawn OwnerPawn)
 {
-	local WMUpgrade_Skill_ShootAndRun_Counter UPG;
+	local WMUpgrade_Skill_ShootAndRun_Helper UPG;
 
-	UPG = GetCounter(OwnerPawn);
+	UPG = GetHelper(OwnerPawn);
 	if (UPG != None && UPG.KilledZeds > 0)
 		InSpeed += DefaultSpeed * default.MaxMoveSpeedBonus[upgLevel - 1] * UPG.GetKillPercentage();
 }
 
 static function AddVampireHealth(out int InHealth, int DefaultHealth, int upgLevel, KFPlayerController KFPC, class<DamageType> DT)
 {
-	local WMUpgrade_Skill_ShootAndRun_Counter UPG;
+	local WMUpgrade_Skill_ShootAndRun_Helper UPG;
 
 	if (KFPawn(KFPC.Pawn) != None)
 	{
-		UPG = GetCounter(KFPawn(KFPC.Pawn));
+		UPG = GetHelper(KFPawn(KFPC.Pawn));
 		if (UPG != None)
 			UPG.IncreaseCounter();
 	}
@@ -35,36 +35,36 @@ static function AddVampireHealth(out int InHealth, int DefaultHealth, int upgLev
 
 static simulated function InitiateWeapon(int upgLevel, KFWeapon KFW, KFPawn OwnerPawn)
 {
-	local WMUpgrade_Skill_ShootAndRun_Counter UPG;
+	local WMUpgrade_Skill_ShootAndRun_Helper UPG;
 	local bool bFound;
 
 	if (KFPawn_Human(OwnerPawn) != None)
 	{
 		bFound = False;
-		foreach OwnerPawn.ChildActors(class'WMUpgrade_Skill_ShootAndRun_Counter', UPG)
+		foreach OwnerPawn.ChildActors(class'WMUpgrade_Skill_ShootAndRun_Helper', UPG)
 		{
 			bFound = True;
 			break;
 		}
 
 		if (!bFound)
-			UPG = OwnerPawn.Spawn(class'WMUpgrade_Skill_ShootAndRun_Counter', OwnerPawn);
+			UPG = OwnerPawn.Spawn(class'WMUpgrade_Skill_ShootAndRun_Helper', OwnerPawn);
 	}
 }
 
-static simulated function WMUpgrade_Skill_ShootAndRun_Counter GetCounter(KFPawn OwnerPawn)
+static simulated function WMUpgrade_Skill_ShootAndRun_Helper GetHelper(KFPawn OwnerPawn)
 {
-	local WMUpgrade_Skill_ShootAndRun_Counter UPG;
+	local WMUpgrade_Skill_ShootAndRun_Helper UPG;
 
 	if (KFPawn_Human(OwnerPawn) != None)
 	{
-		foreach OwnerPawn.ChildActors(class'WMUpgrade_Skill_ShootAndRun_Counter', UPG)
+		foreach OwnerPawn.ChildActors(class'WMUpgrade_Skill_ShootAndRun_Helper', UPG)
 		{
 			return UPG;
 		}
 
 		//Should have one
-		UPG = OwnerPawn.Spawn(class'WMUpgrade_Skill_ShootAndRun_Counter', OwnerPawn);
+		UPG = OwnerPawn.Spawn(class'WMUpgrade_Skill_ShootAndRun_Helper', OwnerPawn);
 	}
 
 	return UPG;

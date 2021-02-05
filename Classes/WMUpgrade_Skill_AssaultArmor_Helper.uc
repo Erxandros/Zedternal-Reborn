@@ -1,4 +1,4 @@
-class WMUpgrade_Skill_AssaultArmor_Counter extends Info
+class WMUpgrade_Skill_AssaultArmor_Helper extends Info
 	transient;
 
 var WMPawn_Human Player;
@@ -19,5 +19,5 @@ function GiveArmor(float Armor)
 
 defaultproperties
 {
-	Name="Default__WMUpgrade_Skill_AssaultArmor_Counter"
+	Name="Default__WMUpgrade_Skill_AssaultArmor_Helper"
 }

@@ -1,4 +1,4 @@
-class WMUpgrade_Skill_Parry_Counter extends Info
+class WMUpgrade_Skill_Parry_Helper extends Info
 	transient;
 
 var KFPawn_Human Player;
@@ -82,5 +82,5 @@ defaultproperties
 
 	ParrySkillSoundModeStart=AkEvent'WW_GLO_Runtime.Play_Beserker_Parry_Mode'
 
-	Name="Default__WMUpgrade_Skill_Parry_Counter"
+	Name="Default__WMUpgrade_Skill_Parry_Helper"
 }

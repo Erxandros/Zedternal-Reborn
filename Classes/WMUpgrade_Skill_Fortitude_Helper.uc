@@ -1,4 +1,4 @@
-class WMUpgrade_Skill_Fortitude_Regen extends Info
+class WMUpgrade_Skill_Fortitude_Helper extends Info
 	transient;
 
 var KFPawn_Human Player;
@@ -38,5 +38,5 @@ defaultproperties
 	Regen=1
 	bDeluxe=False
 
-	Name="Default__WMUpgrade_Skill_Fortitude_Regen"
+	Name="Default__WMUpgrade_Skill_Fortitude_Helper"
 }

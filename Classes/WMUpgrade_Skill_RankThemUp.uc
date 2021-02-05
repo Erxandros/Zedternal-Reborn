@@ -4,11 +4,11 @@ var array<float> ExtraDamage;
 
 static function ModifyDamageGiven(out int InDamage, int DefaultDamage, int upgLevel, optional Actor DamageCauser, optional KFPawn_Monster MyKFPM, optional KFPlayerController DamageInstigator, optional class<KFDamageType> DamageType, optional int HitZoneIdx, optional KFWeapon MyKFW)
 {
-	local WMUpgrade_Skill_RankThemUp_Counter UPG;
+	local WMUpgrade_Skill_RankThemUp_Helper UPG;
 
 	if (DamageType != None && MyKFPM != None && DamageInstigator != None && DamageInstigator.Pawn != None && MyKFPM.IsAliveAndWell() && !MyKFPM.bCheckingExtraHeadDamage && HitZoneIdx == HZI_HEAD)
 	{
-		UPG = GetCounter(DamageInstigator.Pawn);
+		UPG = GetHelper(DamageInstigator.Pawn);
 		if (UPG != None)
 		{
 			if (UPG.headShot < UPG.maxHeadShot)
@@ -24,36 +24,36 @@ static function ModifyDamageGiven(out int InDamage, int DefaultDamage, int upgLe
 
 static simulated function InitiateWeapon(int upgLevel, KFWeapon KFW, KFPawn OwnerPawn)
 {
-	local WMUpgrade_Skill_RankThemUp_Counter UPG;
+	local WMUpgrade_Skill_RankThemUp_Helper UPG;
 	local bool bFound;
 
 	if (KFPawn_Human(OwnerPawn) != None && OwnerPawn.Role == Role_Authority)
 	{
 		bFound = False;
-		foreach OwnerPawn.ChildActors(class'WMUpgrade_Skill_RankThemUp_Counter', UPG)
+		foreach OwnerPawn.ChildActors(class'WMUpgrade_Skill_RankThemUp_Helper', UPG)
 		{
 			bFound = True;
 			break;
 		}
 
 		if (!bFound)
-			UPG = OwnerPawn.Spawn(class'WMUpgrade_Skill_RankThemUp_Counter', OwnerPawn);
+			UPG = OwnerPawn.Spawn(class'WMUpgrade_Skill_RankThemUp_Helper', OwnerPawn);
 	}
 }
 
-static function WMUpgrade_Skill_RankThemUp_Counter GetCounter(Pawn OwnerPawn)
+static function WMUpgrade_Skill_RankThemUp_Helper GetHelper(Pawn OwnerPawn)
 {
-	local WMUpgrade_Skill_RankThemUp_Counter UPG;
+	local WMUpgrade_Skill_RankThemUp_Helper UPG;
 
 	if (KFPawn_Human(OwnerPawn) != None)
 	{
-		foreach OwnerPawn.ChildActors(class'WMUpgrade_Skill_RankThemUp_Counter', UPG)
+		foreach OwnerPawn.ChildActors(class'WMUpgrade_Skill_RankThemUp_Helper', UPG)
 		{
 			return UPG;
 		}
 
 		//Should have one
-		UPG = OwnerPawn.Spawn(class'WMUpgrade_Skill_RankThemUp_Counter', OwnerPawn);
+		UPG = OwnerPawn.Spawn(class'WMUpgrade_Skill_RankThemUp_Helper', OwnerPawn);
 	}
 
 	return UPG;

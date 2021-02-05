@@ -4,11 +4,11 @@ var array<float> Damage;
 
 static function ModifyDamageGiven(out int InDamage, int DefaultDamage, int upgLevel, optional Actor DamageCauser, optional KFPawn_Monster MyKFPM, optional KFPlayerController DamageInstigator, optional class<KFDamageType> DamageType, optional int HitZoneIdx, optional KFWeapon MyKFW)
 {
-	local WMUpgrade_Skill_GunMachine_Counter UPG;
+	local WMUpgrade_Skill_GunMachine_Helper UPG;
 
 	if (DamageInstigator.Pawn != None && MyKFPM != None)
 	{
-		UPG = GetCounter(DamageInstigator.Pawn);
+		UPG = GetHelper(DamageInstigator.Pawn);
 		if (UPG != None)
 		{
 			if (UPG.bActive)
@@ -20,19 +20,19 @@ static function ModifyDamageGiven(out int InDamage, int DefaultDamage, int upgLe
 	}
 }
 
-static function WMUpgrade_Skill_GunMachine_Counter GetCounter(Pawn OwnerPawn)
+static function WMUpgrade_Skill_GunMachine_Helper GetHelper(Pawn OwnerPawn)
 {
-	local WMUpgrade_Skill_GunMachine_Counter UPG;
+	local WMUpgrade_Skill_GunMachine_Helper UPG;
 
 	if (KFPawn_Human(OwnerPawn) != None)
 	{
-		foreach OwnerPawn.ChildActors(class'WMUpgrade_Skill_GunMachine_Counter', UPG)
+		foreach OwnerPawn.ChildActors(class'WMUpgrade_Skill_GunMachine_Helper', UPG)
 		{
 			return UPG;
 		}
 
 		//Should have one
-		UPG = OwnerPawn.Spawn(class'WMUpgrade_Skill_GunMachine_Counter', OwnerPawn);
+		UPG = OwnerPawn.Spawn(class'WMUpgrade_Skill_GunMachine_Helper', OwnerPawn);
 	}
 
 	return UPG;

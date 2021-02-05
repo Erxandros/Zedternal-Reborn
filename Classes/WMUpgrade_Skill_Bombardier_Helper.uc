@@ -1,4 +1,4 @@
-class WMUpgrade_Skill_Bombardier_Regen extends Info
+class WMUpgrade_Skill_Bombardier_Helper extends Info
 	transient;
 
 var KFPawn_Human Player;
@@ -42,5 +42,5 @@ defaultproperties
 	TimeRegenDeluxe=20.0f
 	bDeluxe=False
 
-	Name="Default__WMUpgrade_Skill_Bombardier_Regen"
+	Name="Default__WMUpgrade_Skill_Bombardier_Helper"
 }

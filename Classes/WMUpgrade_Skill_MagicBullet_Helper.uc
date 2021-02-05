@@ -1,4 +1,4 @@
-class WMUpgrade_Skill_MagicBullet_Counter extends Info
+class WMUpgrade_Skill_MagicBullet_Helper extends Info
 	transient;
 
 var KFPawn_Human Player;
@@ -88,5 +88,5 @@ reliable client function ClientUpdateAmmo(int Ammo)
 
 defaultproperties
 {
-	Name="Default__WMUpgrade_Skill_MagicBullet_Counter"
+	Name="Default__WMUpgrade_Skill_MagicBullet_Helper"
 }

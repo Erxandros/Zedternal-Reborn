@@ -1,4 +1,4 @@
-class WMUpgrade_Skill_BringTheHeat_Counter extends Info
+class WMUpgrade_Skill_BringTheHeat_Helper extends Info
 	transient;
 
 var KFPawn_Human Player;
@@ -69,5 +69,5 @@ defaultproperties
 	ClassHeatWave(1)=class'ZedternalReborn.WMUpgrade_Skill_BringTheHeat_Flame_Medium'
 	ClassHeatWave(2)=class'ZedternalReborn.WMUpgrade_Skill_BringTheHeat_Flame_High'
 
-	Name="Default__WMUpgrade_Skill_BringTheHeat_Counter"
+	Name="Default__WMUpgrade_Skill_BringTheHeat_Helper"
 }

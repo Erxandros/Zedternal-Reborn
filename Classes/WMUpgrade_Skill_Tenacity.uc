@@ -4,11 +4,11 @@ var array<float> Damage;
 
 static function ModifyDamageGiven(out int InDamage, int DefaultDamage, int upgLevel, optional Actor DamageCauser, optional KFPawn_Monster MyKFPM, optional KFPlayerController DamageInstigator, optional class<KFDamageType> DamageType, optional int HitZoneIdx, optional KFWeapon MyKFW)
 {
-	local WMUpgrade_Skill_Tenacity_Counter UPG;
+	local WMUpgrade_Skill_Tenacity_Helper UPG;
 
 	if (DamageInstigator != None && KFPawn(DamageInstigator.Pawn) != None && MyKFPM != None && (MyKFPM.Health - InDamage) <= 0)
 	{
-		UPG = GetCounter(KFPawn(DamageInstigator.Pawn));
+		UPG = GetHelper(KFPawn(DamageInstigator.Pawn));
 		if (UPG != None)
 			UPG.SetActive();
 	}
@@ -16,29 +16,29 @@ static function ModifyDamageGiven(out int InDamage, int DefaultDamage, int upgLe
 
 static function ModifyDamageTaken(out int InDamage, int DefaultDamage, int upgLevel, KFPawn OwnerPawn, optional class<DamageType> DamageType, optional Controller InstigatedBy, optional KFWeapon MyKFW)
 {
-	local WMUpgrade_Skill_Tenacity_Counter UPG;
+	local WMUpgrade_Skill_Tenacity_Helper UPG;
 
 	if (OwnerPawn != None)
 	{
-		UPG = GetCounter(OwnerPawn);
+		UPG = GetHelper(OwnerPawn);
 		if (UPG != None && UPG.bActive)
 			InDamage -= Round(float(DefaultDamage) * default.Damage[upgLevel - 1]);
 	}
 }
 
-static function WMUpgrade_Skill_Tenacity_Counter GetCounter(KFPawn OwnerPawn)
+static function WMUpgrade_Skill_Tenacity_Helper GetHelper(KFPawn OwnerPawn)
 {
-	local WMUpgrade_Skill_Tenacity_Counter UPG;
+	local WMUpgrade_Skill_Tenacity_Helper UPG;
 
 	if (KFPawn_Human(OwnerPawn) != None)
 	{
-		foreach OwnerPawn.ChildActors(class'WMUpgrade_Skill_Tenacity_Counter', UPG)
+		foreach OwnerPawn.ChildActors(class'WMUpgrade_Skill_Tenacity_Helper', UPG)
 		{
 			return UPG;
 		}
 
 		//Should have one
-		UPG = OwnerPawn.Spawn(class'WMUpgrade_Skill_Tenacity_Counter', OwnerPawn);
+		UPG = OwnerPawn.Spawn(class'WMUpgrade_Skill_Tenacity_Helper', OwnerPawn);
 	}
 
 	return UPG;

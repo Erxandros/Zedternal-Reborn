@@ -1,4 +1,4 @@
-class WMUpgrade_Skill_ShootAndRun_Counter extends Info
+class WMUpgrade_Skill_ShootAndRun_Helper extends Info
 	transient;
 
 var KFPawn_Human Player;
@@ -70,5 +70,5 @@ defaultproperties
 	DecreaseTimerDelay=0.75f
 	MaxKilledZeds=10
 
-	Name="Default__WMUpgrade_Skill_ShootAndRun_Counter"
+	Name="Default__WMUpgrade_Skill_ShootAndRun_Helper"
 }

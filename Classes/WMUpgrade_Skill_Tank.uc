@@ -4,31 +4,31 @@ var array<float> Resistance, Critical;
 
 static function ModifyDamageTaken(out int InDamage, int DefaultDamage, int upgLevel, KFPawn OwnerPawn, optional class<DamageType> DamageType, optional Controller InstigatedBy, optional KFWeapon MyKFW)
 {
-	local WMUpgrade_Skill_Tank_Effect UPG;
+	local WMUpgrade_Skill_Tank_Helper UPG;
 
 	if (OwnerPawn != None && OwnerPawn.Health >= int(float(OwnerPawn.HealthMax) * default.Critical[upgLevel - 1]))
 	{
 		InDamage -= Max(1, Round(float(DefaultDamage) * default.Resistance[upgLevel - 1]));
 
-		UPG = GetCounter(OwnerPawn);
+		UPG = GetHelper(OwnerPawn);
 		if (UPG != None)
 			UPG.ActiveEffect();
 	}
 }
 
-static function WMUpgrade_Skill_Tank_Effect GetCounter(KFPawn OwnerPawn)
+static function WMUpgrade_Skill_Tank_Helper GetHelper(KFPawn OwnerPawn)
 {
-	local WMUpgrade_Skill_Tank_Effect UPG;
+	local WMUpgrade_Skill_Tank_Helper UPG;
 
 	if (KFPawn_Human(OwnerPawn) != None)
 	{
-		foreach OwnerPawn.ChildActors(class'WMUpgrade_Skill_Tank_Effect', UPG)
+		foreach OwnerPawn.ChildActors(class'WMUpgrade_Skill_Tank_Helper', UPG)
 		{
 			return UPG;
 		}
 
 		//Should have one
-		UPG = OwnerPawn.Spawn(class'WMUpgrade_Skill_Tank_Effect', OwnerPawn);
+		UPG = OwnerPawn.Spawn(class'WMUpgrade_Skill_Tank_Helper', OwnerPawn);
 	}
 
 	return UPG;
@@ -36,20 +36,20 @@ static function WMUpgrade_Skill_Tank_Effect GetCounter(KFPawn OwnerPawn)
 
 static simulated function InitiateWeapon(int upgLevel, KFWeapon KFW, KFPawn OwnerPawn)
 {
-	local WMUpgrade_Skill_Tank_Effect UPG;
+	local WMUpgrade_Skill_Tank_Helper UPG;
 	local bool bFound;
 
 	if (KFPawn_Human(OwnerPawn) != None && OwnerPawn.Role == Role_Authority)
 	{
 		bFound = False;
-		foreach OwnerPawn.ChildActors(class'WMUpgrade_Skill_Tank_Effect', UPG)
+		foreach OwnerPawn.ChildActors(class'WMUpgrade_Skill_Tank_Helper', UPG)
 		{
 			bFound = True;
 			break;
 		}
 
 		if (!bFound)
-			UPG = OwnerPawn.Spawn(class'WMUpgrade_Skill_Tank_Effect', OwnerPawn);
+			UPG = OwnerPawn.Spawn(class'WMUpgrade_Skill_Tank_Helper', OwnerPawn);
 	}
 }
 

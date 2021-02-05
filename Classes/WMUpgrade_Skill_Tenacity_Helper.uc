@@ -1,4 +1,4 @@
-class WMUpgrade_Skill_Tenacity_Counter extends Info
+class WMUpgrade_Skill_Tenacity_Helper extends Info
 	transient;
 
 var bool bActive;
@@ -35,5 +35,5 @@ defaultproperties
 	bActive=False
 	MaxDelay=5.0f
 
-	Name="Default__WMUpgrade_Skill_Tenacity_Counter"
+	Name="Default__WMUpgrade_Skill_Tenacity_Helper"
 }

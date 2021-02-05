@@ -1,4 +1,4 @@
-class WMUpgrade_Skill_ColdRiposte_Counter extends Info
+class WMUpgrade_Skill_ColdRiposte_Helper extends Info
 	transient;
 
 var float Delay;
@@ -67,5 +67,5 @@ defaultproperties
 	bDeluxe=False
 	PSBuff=ParticleSystem'ZedternalReborn_Resource.Effects.FX_ColdRiposte_Effect'
 
-	Name="Default__WMUpgrade_Skill_ColdRiposte_Counter"
+	Name="Default__WMUpgrade_Skill_ColdRiposte_Helper"
 }

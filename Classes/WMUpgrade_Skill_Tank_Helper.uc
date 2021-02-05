@@ -1,4 +1,4 @@
-class WMUpgrade_Skill_Tank_Effect extends Info
+class WMUpgrade_Skill_Tank_Helper extends Info
 	transient;
 
 var bool bEnable;
@@ -59,5 +59,5 @@ defaultproperties
 	PSShield=ParticleSystem'ZedternalReborn_Resource.Effects.FX_Tank_effect'
 	BlockSound=AkEvent'WW_WEP_Bullet_Impacts.Play_Parry_Metal'
 
-	Name="Default__WMUpgrade_Skill_Tank_Effect"
+	Name="Default__WMUpgrade_Skill_Tank_Helper"
 }

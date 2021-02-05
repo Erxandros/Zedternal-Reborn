@@ -1,4 +1,4 @@
-class WMUpgrade_Skill_FirstBlood_Counter extends Info
+class WMUpgrade_Skill_FirstBlood_Helper extends Info
 	transient;
 
 var bool bActive;
@@ -26,5 +26,5 @@ defaultproperties
 {
 	bActive=True
 
-	Name="Default__WMUpgrade_Skill_FirstBlood_Counter"
+	Name="Default__WMUpgrade_Skill_FirstBlood_Helper"
 }

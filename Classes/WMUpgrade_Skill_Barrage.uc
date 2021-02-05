@@ -5,33 +5,33 @@ var int RadiusSQ;
 
 static function ModifyDamageGiven(out int InDamage, int DefaultDamage, int upgLevel, optional Actor DamageCauser, optional KFPawn_Monster MyKFPM, optional KFPlayerController DamageInstigator, optional class<KFDamageType> DamageType, optional int HitZoneIdx, optional KFWeapon MyKFW)
 {
-	local WMUpgrade_Skill_Barrage_Effect UPG;
+	local WMUpgrade_Skill_Barrage_Helper UPG;
 
 	if (MyKFPM != None && DamageInstigator != None && DamageInstigator.Pawn != None && VSizeSQ(DamageInstigator.Pawn.Location - MyKFPM.Location) <= default.RadiusSQ)
 	{
 		InDamage += Round(float(DefaultDamage) * default.Damage[upgLevel - 1]);
 		if (InDamage > 5)
 		{
-			UPG = GetCounter(DamageInstigator.Pawn);
+			UPG = GetHelper(DamageInstigator.Pawn);
 			if (UPG != None)
 				UPG.CreateEffect();
 		}
 	}
 }
 
-static function WMUpgrade_Skill_Barrage_Effect GetCounter(Pawn OwnerPawn)
+static function WMUpgrade_Skill_Barrage_Helper GetHelper(Pawn OwnerPawn)
 {
-	local WMUpgrade_Skill_Barrage_Effect UPG;
+	local WMUpgrade_Skill_Barrage_Helper UPG;
 
 	if (KFPawn_Human(OwnerPawn) != None)
 	{
-		foreach OwnerPawn.ChildActors(class'WMUpgrade_Skill_Barrage_Effect', UPG)
+		foreach OwnerPawn.ChildActors(class'WMUpgrade_Skill_Barrage_Helper', UPG)
 		{
 			return UPG;
 		}
 
 		//Should have one
-		UPG = OwnerPawn.Spawn(class'WMUpgrade_Skill_Barrage_Effect', OwnerPawn);
+		UPG = OwnerPawn.Spawn(class'WMUpgrade_Skill_Barrage_Helper', OwnerPawn);
 	}
 
 	return UPG;

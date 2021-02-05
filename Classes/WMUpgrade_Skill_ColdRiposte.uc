@@ -2,29 +2,29 @@ class WMUpgrade_Skill_ColdRiposte extends WMUpgrade_Skill;
 
 static function ModifyDamageTaken(out int InDamage, int DefaultDamage, int upgLevel, KFPawn OwnerPawn, optional class<DamageType> DamageType, optional Controller InstigatedBy, optional KFWeapon MyKFW)
 {
-	local WMUpgrade_Skill_ColdRiposte_Counter UPG;
+	local WMUpgrade_Skill_ColdRiposte_Helper UPG;
 
 	if (InDamage > 0)
 	{
-		UPG = GetCounter(OwnerPawn, upgLevel);
+		UPG = GetHelper(OwnerPawn, upgLevel);
 		if (UPG != None && UPG.bReady)
 			UPG.Explosion(OwnerPawn);
 	}
 }
 
-static function WMUpgrade_Skill_ColdRiposte_Counter GetCounter(KFPawn OwnerPawn, int upgLevel)
+static function WMUpgrade_Skill_ColdRiposte_Helper GetHelper(KFPawn OwnerPawn, int upgLevel)
 {
-	local WMUpgrade_Skill_ColdRiposte_Counter UPG;
+	local WMUpgrade_Skill_ColdRiposte_Helper UPG;
 
 	if (KFPawn_Human(OwnerPawn) != None)
 	{
-		foreach OwnerPawn.ChildActors(class'WMUpgrade_Skill_ColdRiposte_Counter', UPG)
+		foreach OwnerPawn.ChildActors(class'WMUpgrade_Skill_ColdRiposte_Helper', UPG)
 		{
 			return UPG;
 		}
 
 		//Should have one
-		UPG = OwnerPawn.Spawn(class'WMUpgrade_Skill_ColdRiposte_Counter', OwnerPawn);
+		UPG = OwnerPawn.Spawn(class'WMUpgrade_Skill_ColdRiposte_Helper', OwnerPawn);
 		UPG.bDeluxe = (upgLevel > 1);
 	}
 

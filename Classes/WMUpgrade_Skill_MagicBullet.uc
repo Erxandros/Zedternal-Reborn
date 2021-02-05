@@ -2,19 +2,19 @@ class WMUpgrade_Skill_MagicBullet extends WMUpgrade_Skill;
 
 var array<int> Ammo;
 
-static function WMUpgrade_Skill_MagicBullet_Counter GetCounter(Pawn OwnerPawn)
+static function WMUpgrade_Skill_MagicBullet_Helper GetHelper(Pawn OwnerPawn)
 {
-	local WMUpgrade_Skill_MagicBullet_Counter UPG;
+	local WMUpgrade_Skill_MagicBullet_Helper UPG;
 
 	if (KFPawn_Human(OwnerPawn) != None)
 	{
-		foreach OwnerPawn.ChildActors(class'WMUpgrade_Skill_MagicBullet_Counter', UPG)
+		foreach OwnerPawn.ChildActors(class'WMUpgrade_Skill_MagicBullet_Helper', UPG)
 		{
 			return UPG;
 		}
 
 		//Should have one
-		UPG = OwnerPawn.Spawn(class'WMUpgrade_Skill_MagicBullet_Counter', OwnerPawn);
+		UPG = OwnerPawn.Spawn(class'WMUpgrade_Skill_MagicBullet_Helper', OwnerPawn);
 	}
 
 	return UPG;
@@ -22,9 +22,9 @@ static function WMUpgrade_Skill_MagicBullet_Counter GetCounter(Pawn OwnerPawn)
 
 static function AddVampireHealth(out int InHealth, int DefaultHealth, int upgLevel, KFPlayerController KFPC, class<DamageType> DT)
 {
-	local WMUpgrade_Skill_MagicBullet_Counter UPG;
+	local WMUpgrade_Skill_MagicBullet_Helper UPG;
 
-	UPG = GetCounter(KFPC.Pawn);
+	UPG = GetHelper(KFPC.Pawn);
 	if (UPG != None)
 	{
 		if (UPG.Player.WorldInfo.NetMode == NM_Standalone) // For single player

@@ -1,4 +1,4 @@
-class WMUpgrade_Skill_AirborneAgent_Counter extends Info
+class WMUpgrade_Skill_AirborneAgent_Helper extends Info
 	transient;
 
 var KFPawn_Human Player;
@@ -74,5 +74,5 @@ defaultproperties
 	criticalHealth=60
 	bDeluxe=False
 
-	Name="Default__WMUpgrade_Skill_AirborneAgent_Counter"
+	Name="Default__WMUpgrade_Skill_AirborneAgent_Helper"
 }

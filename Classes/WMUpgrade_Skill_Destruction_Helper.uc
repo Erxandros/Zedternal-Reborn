@@ -1,4 +1,4 @@
-class WMUpgrade_Skill_Destruction_Counter extends Info
+class WMUpgrade_Skill_Destruction_Helper extends Info
 	transient;
 
 var KFPawn_Human Player;
@@ -57,5 +57,5 @@ defaultproperties
 	Radius(0)=250000
 	Radius(1)=1000000
 
-	Name="Default__WMUpgrade_Skill_Destruction_Counter"
+	Name="Default__WMUpgrade_Skill_Destruction_Helper"
 }

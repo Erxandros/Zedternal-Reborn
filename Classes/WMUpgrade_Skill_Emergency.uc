@@ -12,20 +12,20 @@ static simulated function ModifySpeed(out float InSpeed, float DefaultSpeed, int
 
 static simulated function InitiateWeapon(int upgLevel, KFWeapon KFW, KFPawn OwnerPawn)
 {
-	local WMUpgrade_Skill_TOOLS_SpeedUpdateHelper UPG;
+	local WMUpgrade_Skill_Emergency_Helper UPG;
 	local bool bFound;
 
 	if (KFPawn_Human(OwnerPawn) != None && OwnerPawn.Role == Role_Authority)
 	{
 		bFound = False;
-		foreach OwnerPawn.ChildActors(class'WMUpgrade_Skill_TOOLS_SpeedUpdateHelper', UPG)
+		foreach OwnerPawn.ChildActors(class'WMUpgrade_Skill_Emergency_Helper', UPG)
 		{
 			bFound = True;
 			break;
 		}
 
 		if (!bFound)
-			UPG = OwnerPawn.Spawn(class'WMUpgrade_Skill_TOOLS_SpeedUpdateHelper', OwnerPawn);
+			UPG = OwnerPawn.Spawn(class'WMUpgrade_Skill_Emergency_Helper', OwnerPawn);
 	}
 }
 

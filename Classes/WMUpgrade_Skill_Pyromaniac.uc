@@ -4,9 +4,9 @@ var array<float> RateOfFire;
 
 static simulated function bool GetIsUberAmmoActive(int upgLevel, KFWeapon KFW, KFPawn OwnerPawn)
 {
-	local WMUpgrade_Skill_Pyromaniac_Counter UPG;
+	local WMUpgrade_Skill_Pyromaniac_Helper UPG;
 
-	UPG = GetCounter(OwnerPawn, upgLevel);
+	UPG = GetHelper(OwnerPawn, upgLevel);
 	if (UPG != None && UPG.bEnable)
 		return True;
 	else
@@ -15,35 +15,35 @@ static simulated function bool GetIsUberAmmoActive(int upgLevel, KFWeapon KFW, K
 
 static simulated function ModifyMeleeAttackSpeed(out float InDuration, float DefaultDuration, int upgLevel, KFWeapon KFW)
 {
-	local WMUpgrade_Skill_Pyromaniac_Counter UPG;
+	local WMUpgrade_Skill_Pyromaniac_Helper UPG;
 
-	UPG = GetCounter(KFPawn(KFW.Owner), upgLevel);
+	UPG = GetHelper(KFPawn(KFW.Owner), upgLevel);
 	if (UPG != None && UPG.bEnable)
 		InDuration = DefaultDuration / (DefaultDuration / InDuration + default.RateOfFire[upgLevel - 1]);
 }
 
 static simulated function ModifyRateOfFire(out float InRate, float DefaultRate, int upgLevel, KFWeapon KFW)
 {
-	local WMUpgrade_Skill_Pyromaniac_Counter UPG;
+	local WMUpgrade_Skill_Pyromaniac_Helper UPG;
 
-	UPG = GetCounter(KFPawn(KFW.Owner), upgLevel);
+	UPG = GetHelper(KFPawn(KFW.Owner), upgLevel);
 	if (UPG != None && UPG.bEnable)
 		InRate = DefaultRate / (DefaultRate / InRate + default.RateOfFire[upgLevel - 1]);
 }
 
-static simulated function WMUpgrade_Skill_Pyromaniac_Counter GetCounter(KFPawn OwnerPawn, int upgLevel)
+static simulated function WMUpgrade_Skill_Pyromaniac_Helper GetHelper(KFPawn OwnerPawn, int upgLevel)
 {
-	local WMUpgrade_Skill_Pyromaniac_Counter UPG;
+	local WMUpgrade_Skill_Pyromaniac_Helper UPG;
 
 	if (KFPawn_Human(OwnerPawn) != None)
 	{
-		foreach OwnerPawn.ChildActors(class'WMUpgrade_Skill_Pyromaniac_Counter', UPG)
+		foreach OwnerPawn.ChildActors(class'WMUpgrade_Skill_Pyromaniac_Helper', UPG)
 		{
 			return UPG;
 		}
 
 		//Should have one
-		UPG = OwnerPawn.Spawn(class'WMUpgrade_Skill_Pyromaniac_Counter', OwnerPawn);
+		UPG = OwnerPawn.Spawn(class'WMUpgrade_Skill_Pyromaniac_Helper', OwnerPawn);
 		UPG.bDeluxe = (upgLevel > 1);
 	}
 
@@ -52,9 +52,9 @@ static simulated function WMUpgrade_Skill_Pyromaniac_Counter GetCounter(KFPawn O
 
 static function WaveEnd(int upgLevel, KFPlayerController KFPC)
 {
-	local WMUpgrade_Skill_Pyromaniac_Counter UPG;
+	local WMUpgrade_Skill_Pyromaniac_Helper UPG;
 
-	UPG = GetCounter(KFPawn(KFPC.Pawn), upgLevel);
+	UPG = GetHelper(KFPawn(KFPC.Pawn), upgLevel);
 	UPG.EndWaveReset();
 }
 
