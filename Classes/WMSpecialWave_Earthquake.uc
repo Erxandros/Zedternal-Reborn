@@ -24,33 +24,34 @@ function Earthquake()
 function ApplyEffect()
 {
 	local KFPawn_Human KFPH;
-	local WMSpecialWave_Earthquake_Effect UPG;
+	local WMSpecialWave_Earthquake_Helper UPG;
 
 	foreach DynamicActors(class'KFPawn_Human', KFPH)
 	{
-		foreach KFPH.ChildActors(class'WMSpecialWave_Earthquake_Effect', UPG)
+		foreach KFPH.ChildActors(class'WMSpecialWave_Earthquake_Helper', UPG)
 		{
 			UPG.PlayLocalEffects();
+			break;
 		}
 	}
 }
 
 static simulated function InitiateWeapon(KFWeapon KFW, KFPawn OwnerPawn)
 {
-	local WMSpecialWave_Earthquake_Effect UPG;
+	local WMSpecialWave_Earthquake_Helper UPG;
 	local bool bFound;
 
 	if (KFPawn_Human(OwnerPawn) != None && OwnerPawn.Role == Role_Authority)
 	{
 		bFound = False;
-		foreach OwnerPawn.ChildActors(class'WMSpecialWave_Earthquake_Effect', UPG)
+		foreach OwnerPawn.ChildActors(class'WMSpecialWave_Earthquake_Helper', UPG)
 		{
 			bFound = True;
 			break;
 		}
 
 		if (!bFound)
-			UPG = OwnerPawn.Spawn(class'WMSpecialWave_Earthquake_Effect', OwnerPawn);
+			UPG = OwnerPawn.Spawn(class'WMSpecialWave_Earthquake_Helper', OwnerPawn);
 	}
 }
 

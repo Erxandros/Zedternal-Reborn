@@ -1,4 +1,4 @@
-class WMSpecialWave_Earthquake_Effect extends Info
+class WMSpecialWave_Earthquake_Helper extends Info
 	transient;
 
 var const AkBaseSoundObject EarthquakeSound;
@@ -31,5 +31,5 @@ defaultproperties
 	EarthquakeSound=AkEvent'ww_zed_fleshpound_2.Play_Fleshpound_Pound'
 	CameraShake=KFCameraShake'ZedternalReborn_Resource.Effects.FX_CameraShake_Earthquake'
 
-	Name="Default__WMSpecialWave_Earthquake_Effect"
+	Name="Default__WMSpecialWave_Earthquake_Helper"
 }
