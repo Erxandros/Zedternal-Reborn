@@ -1,30 +1,33 @@
-Class WMUpgrade_Weapon_TightChoke extends WMUpgrade_Weapon
+class WMUpgrade_Weapon_TightChoke extends WMUpgrade_Weapon
 	abstract;
 
 var float Spread;
 
 // Only Shotgun are compatible
-static function bool IsUpgradeCompatible( class<KFWeapon> KFW )
+static function bool IsUpgradeCompatible(class<KFWeapon> KFW)
 {
-	if (class<KFWeap_ShotgunBase>(KFW) != none)
-		return true;
-	else if (class<KFWeap_HRG_Revolver_Buckshot>(KFW) != none)
-		return true;
-	else if (class<KFWeap_Pistol_Blunderbuss>(KFW) != none)
-		return true;
+	if (class<KFWeap_ShotgunBase>(KFW) != None)
+		return True;
+	else if (class<KFWeap_HRG_Revolver_Buckshot>(KFW) != None)
+		return True;
+	else if (class<KFWeap_Pistol_Blunderbuss>(KFW) != None)
+		return True;
 
-	return false;
+	return False;
 }
 
-static simulated function ModifyTightChokePassive( out float tightChokeFactor, int upgLevel)
+static simulated function ModifyTightChokePassive(out float tightChokeFactor, int upgLevel)
 {
 	tightChokeFactor -= default.Spread * upgLevel;
 }
 
 defaultproperties
 {
+	Spread=0.2f
+
 	upgradeName="Tight Choke"
 	upgradeDescription(0)="Decrease shot spread of this weapon by %x%%"
 	WeaponBonus=(baseValue=0, incValue=20, maxValue=-1)
-	Spread=0.200000
+
+	Name="Default__WMUpgrade_Weapon_TightChoke"
 }

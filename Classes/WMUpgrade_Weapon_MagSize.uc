@@ -1,26 +1,29 @@
-Class WMUpgrade_Weapon_MagSize extends WMUpgrade_Weapon
+class WMUpgrade_Weapon_MagSize extends WMUpgrade_Weapon
 	abstract;
 
 var float MagSize;
 
-// large cliped weapons and revolver are compatible
-static function bool IsUpgradeCompatible( class<KFWeapon> KFW )
+// large clipped weapons and revolver are compatible
+static function bool IsUpgradeCompatible(class<KFWeapon> KFW)
 {
 	if (KFW.default.MagazineCapacity[0] >= 10)
-		return true;
+		return True;
 
-	return false;
+	return False;
 }
 
-static simulated function ModifyMagSizeAndNumber( out int InMagazineCapacity, int DefaultMagazineCapacity, int upgLevel, KFWeapon KFW, optional array< Class<KFPerk> > WeaponPerkClass, optional bool bSecondary=false, optional name WeaponClassname )
+static simulated function ModifyMagSizeAndNumber(out int InMagazineCapacity, int DefaultMagazineCapacity, int upgLevel, KFWeapon KFW, optional array< class<KFPerk> > WeaponPerkClass, optional bool bSecondary=False, optional name WeaponClassname)
 {
 	InMagazineCapacity += Round(float(DefaultMagazineCapacity) * default.MagSize * upgLevel);
 }
 
 defaultproperties
 {
+	MagSize=0.15f
+
 	upgradeName="Magazine Size"
-	upgradeDescription(0)="Increase magazine capacity of this weapon %x%%"
+	upgradeDescription(0)="Increase magazine capacity of this weapon by %x%%"
 	WeaponBonus=(baseValue=0, incValue=15, maxValue=-1)
-	MagSize=0.150000
+
+	Name="Default__WMUpgrade_Weapon_MagSize"
 }

@@ -1,28 +1,31 @@
-Class WMUpgrade_Weapon_AmmunitionConsumption extends WMUpgrade_Weapon
+class WMUpgrade_Weapon_AmmunitionConsumption extends WMUpgrade_Weapon
 	abstract;
 
 var float RateOfFire;
 
-// Flamme/Freeze thrower weapons are compatible
-static function bool IsUpgradeCompatible( class<KFWeapon> KFW )
+// Flame/Freeze thrower weapons are compatible
+static function bool IsUpgradeCompatible(class<KFWeapon> KFW)
 {
-	if (class<KFWeap_AssaultRifle_LazerCutter>(KFW) != none)
-		return false;
-	else if (class<KFWeap_FlameBase>(KFW) != none)
-		return true;
+	if (class<KFWeap_AssaultRifle_LazerCutter>(KFW) != None)
+		return False;
+	else if (class<KFWeap_FlameBase>(KFW) != None)
+		return True;
 
-	return false;
+	return False;
 }
 
-static simulated function ModifyRateOfFire( out float InRate, float DefaultRate, int upgLevel, KFWeapon KFW )
+static simulated function ModifyRateOfFire(out float InRate, float DefaultRate, int upgLevel, KFWeapon KFW)
 {
-	InRate = DefaultRate / (DefaultRate/InRate - default.RateOfFire * upgLevel);
+	InRate = DefaultRate / (DefaultRate / InRate - default.RateOfFire * upgLevel);
 }
 
 defaultproperties
 {
+	RateOfFire=0.1f
+
 	upgradeName="Ammunition Consumption"
 	upgradeDescription(0)="Decrease ammunition consumption rate of this weapon by %x%%"
 	WeaponBonus=(baseValue=0, incValue=10, maxValue=-1)
-	RateOfFire=0.100000
+
+	Name="Default__WMUpgrade_Weapon_AmmunitionConsumption"
 }

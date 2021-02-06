@@ -1,28 +1,31 @@
-Class WMUpgrade_Weapon_HardMeleeAttack extends WMUpgrade_Weapon
+class WMUpgrade_Weapon_HardMeleeAttack extends WMUpgrade_Weapon
 	abstract;
 
 var float Damage;
 
 // Only Melee weapons are compatible
-static function bool IsUpgradeCompatible( class<KFWeapon> KFW )
+static function bool IsUpgradeCompatible(class<KFWeapon> KFW)
 {
-	if (class<KFWeap_Rifle_MosinNagant>(KFW) != none)
-		return false;
-	else if (class<KFWeap_MeleeBase>(KFW) != none)
-		return true;
+	if (class<KFWeap_Rifle_MosinNagant>(KFW) != None)
+		return False;
+	else if (class<KFWeap_MeleeBase>(KFW) != None)
+		return True;
 
-	return false;
+	return False;
 }
 
-static function ModifyHardAttackDamage( out int InDamage, int DefaultDamage, int upgLevel, KFPawn OwnerPawn)
+static function ModifyHardAttackDamage(out int InDamage, int DefaultDamage, int upgLevel, KFPawn OwnerPawn)
 {
 	InDamage += Round(float(DefaultDamage) * default.Damage * upgLevel);
 }
 
 defaultproperties
 {
+	Damage=0.15f
+
 	upgradeName="Hard Melee Attack Damage"
 	upgradeDescription(0)="Increase hard melee attack damage dealt with this weapon by %x%%"
 	WeaponBonus=(baseValue=0, incValue=15, maxValue=-1)
-	Damage=0.150000
+
+	Name="Default__WMUpgrade_Weapon_HardMeleeAttack"
 }
