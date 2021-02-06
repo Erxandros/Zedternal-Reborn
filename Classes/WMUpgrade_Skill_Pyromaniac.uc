@@ -43,9 +43,11 @@ static simulated function WMUpgrade_Skill_Pyromaniac_Helper GetHelper(KFPawn Own
 		}
 
 		//Should have one
-		UPG = OwnerPawn.Spawn(class'WMUpgrade_Skill_Pyromaniac_Helper', OwnerPawn);
 		if (OwnerPawn.Role == Role_Authority)
+		{
+			UPG = OwnerPawn.Spawn(class'WMUpgrade_Skill_Pyromaniac_Helper', OwnerPawn);
 			UPG.StartTimer(upgLevel > 1);
+		}
 	}
 
 	return UPG;

@@ -17,12 +17,9 @@ function PostBeginPlay()
 {
 	super.PostBeginPlay();
 
-	if (Role == Role_Authority)
-	{
-		Player = KFPawn_Human(Owner);
-		if (Player == None || Player.Health <= 0)
-			Destroy();
-	}
+	Player = KFPawn_Human(Owner);
+	if (Player == None || Player.Health <= 0)
+		Destroy();
 }
 
 function StartTimer(bool bDeluxe)
@@ -57,8 +54,8 @@ function Timer()
 	{
 		if (!bEnable)
 		{
-			bEnable = True;
 			ActiveEffect();
+			bEnable = True;
 			SetTimer(PyromaniacLength, False);
 			return;
 		}
@@ -85,26 +82,28 @@ function EndWaveReset()
 // client effects
 reliable client function ActiveEffect()
 {
-	local PlayerController PC;
+	local KFPlayerController KFPC;
 
-	PC = GetALocalPlayerController();
+	KFPC = KFPlayerController(GetALocalPlayerController());
 
-	if (KFPlayerController(PC) != None)
-		KFPlayerController(PC).SetPerkEffect(True);
+	if (KFPC != None)
+		KFPC.SetPerkEffect(True);
 }
 
 reliable client function ResetEffect()
 {
-	local PlayerController PC;
+	local KFPlayerController KFPC;
 
-	PC = GetALocalPlayerController();
+	KFPC = KFPlayerController(GetALocalPlayerController());
 
-	if (KFPlayerController(PC) != None)
-		KFPlayerController(PC).SetPerkEffect(False);
+	if (KFPC != None)
+		KFPC.SetPerkEffect(False);
 }
 
 defaultproperties
 {
+	RemoteRole=ROLE_SimulatedProxy
+	bSkipActorPropertyReplication=False
 	bOnlyRelevantToOwner=True
 	bEnable=False
 	DeluxeLvl=0
