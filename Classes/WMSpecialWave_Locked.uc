@@ -1,26 +1,42 @@
 class WMSpecialWave_Locked extends WMSpecialWave;
 
 var float Rate;
-var transient SeqAct_Toggle CloseDoorToggle;
+var transient SeqAct_Toggle DoorToggle;
 
 function PostBeginPlay()
 {
 	super.PostBeginPlay();
-	CreateDoorToggle();
+	CreateCloseDoorToggle();
 	SetTimer(5.0f, False, NameOf(UpdateDoor));
 }
 
-function CreateDoorToggle()
+function CreateCloseDoorToggle()
 {
-	if (CloseDoorToggle == None)
+	if (DoorToggle == None)
 	{
-		CloseDoorToggle = new class'Engine.SeqAct_Toggle';
-		if (CloseDoorToggle != None)
-		{
-			CloseDoorToggle.InputLinks[0].bHasImpulse = False;
-			CloseDoorToggle.InputLinks[1].bHasImpulse = True;
-			CloseDoorToggle.InputLinks[2].bHasImpulse = False;
-		}
+		DoorToggle = new class'Engine.SeqAct_Toggle';
+	}
+
+	if (DoorToggle != None)
+	{
+		DoorToggle.InputLinks[0].bHasImpulse = False;
+		DoorToggle.InputLinks[1].bHasImpulse = True;
+		DoorToggle.InputLinks[2].bHasImpulse = False;
+	}
+}
+
+function CreateOpenDoorToggle()
+{
+	if (DoorToggle == None)
+	{
+		DoorToggle = new class'Engine.SeqAct_Toggle';
+	}
+
+	if (DoorToggle != None)
+	{
+		DoorToggle.InputLinks[0].bHasImpulse = True;
+		DoorToggle.InputLinks[1].bHasImpulse = False;
+		DoorToggle.InputLinks[2].bHasImpulse = False;
 	}
 }
 
@@ -31,7 +47,23 @@ function WaveEnded()
 	foreach WorldInfo.AllActors(class'KFGame.KFDoorActor', KFD)
 	{
 		if (!KFD.bIsDestroyed)
-			KFD.WeldIntegrity = 0;
+			KFD.WeldableComponent.Weld(-KFD.MaxWeldIntegrity);
+		else
+			KFD.WeldableComponent.Repair(1.0f);
+	}
+
+	SetTimer(2.0f, False, NameOf(WaveEndedDelay));
+}
+
+function WaveEndedDelay()
+{
+	local KFDoorActor KFD;
+
+	CreateOpenDoorToggle();
+	foreach WorldInfo.AllActors(class'KFGame.KFDoorActor', KFD)
+	{
+		if (!KFD.bIsDoorOpen && KFD.WeldIntegrity <= 0)
+			KFD.OnToggle(DoorToggle);
 	}
 
 	super.WaveEnded();
@@ -41,13 +73,20 @@ function UpdateDoor()
 {
 	local KFDoorActor KFD;
 
-	CreateDoorToggle();
+	CreateCloseDoorToggle();
 	foreach WorldInfo.AllActors(class'KFGame.KFDoorActor', KFD)
 	{
-		KFD.ResetDoor();
-		if (KFD.bIsDoorOpen == True)
-			KFD.OnToggle(CloseDoorToggle);
-		KFD.WeldableComponent.Weld(KFD.MaxWeldIntegrity);
+		if (KFD.bIsDestroyed)
+		{
+			KFD.WeldableComponent.Repair(1.0f);
+		}
+
+		if (KFD.bCanCloseDoor)
+		{
+			if (KFD.bIsDoorOpen)
+				KFD.OnToggle(DoorToggle);
+			KFD.WeldableComponent.Weld(KFD.MaxWeldIntegrity);
+		}
 	}
 }
 
