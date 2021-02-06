@@ -2,30 +2,31 @@ class WMSpecialWave_Popcorn extends WMSpecialWave;
 
 var float Chance;
 
-static function bool CouldBeZedShrapnel(class<KFDamageType> KFDT )
+static function bool CouldBeZedShrapnel(class<KFDamageType> KFDT)
 {
-	return true;
+	return True;
 }
 
 static function bool ShouldShrapnel()
 {
 	if (FRand() <= default.Chance)
-		return true;
+		return True;
 	else
-		return false;
+		return False;
 }
 
 defaultproperties
 {
+	Chance=0.6f
+	zedSpawnRateFactor=1.3f
+
 	Title="Popcorn"
 	Description="Make them explode!"
-	zedSpawnRateFactor=1.300000
-	MonsterToAdd(0)=(MinWave=0,MaxWave=999,MinGr=4,MaxGr=8,MClass=Class'ZedternalReborn.WMPawn_ZedCrawler_NoElite')
-	MonsterToAdd(1)=(MinWave=0,MaxWave=999,MinGr=4,MaxGr=8,MClass=Class'ZedternalReborn.WMPawn_ZedCrawler_NoElite')
-	MonsterToAdd(2)=(MinWave=0,MaxWave=999,MinGr=4,MaxGr=8,MClass=Class'ZedternalReborn.WMPawn_ZedCrawler_NoElite')
-	MonsterToAdd(3)=(MinWave=0,MaxWave=999,MinGr=4,MaxGr=8,MClass=Class'ZedternalReborn.WMPawn_ZedCrawler_NoElite')
 
-	Chance=0.600000
+	MonsterToAdd(0)=(MinWave=0,MaxWave=999,MinGr=4,MaxGr=8,MClass=class'ZedternalReborn.WMPawn_ZedCrawler_NoElite')
+	MonsterToAdd(1)=(MinWave=0,MaxWave=999,MinGr=4,MaxGr=8,MClass=class'ZedternalReborn.WMPawn_ZedCrawler_NoElite')
+	MonsterToAdd(2)=(MinWave=0,MaxWave=999,MinGr=4,MaxGr=8,MClass=class'ZedternalReborn.WMPawn_ZedCrawler_NoElite')
+	MonsterToAdd(3)=(MinWave=0,MaxWave=999,MinGr=4,MaxGr=8,MClass=class'ZedternalReborn.WMPawn_ZedCrawler_NoElite')
 
 	Name="Default__WMSpecialWave_Popcorn"
 }

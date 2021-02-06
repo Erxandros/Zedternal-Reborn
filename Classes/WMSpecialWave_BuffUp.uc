@@ -1,11 +1,11 @@
 class WMSpecialWave_BuffUp extends WMSpecialWave;
 
-var float DamageSizeScale, ScaleMax, ScaleDelta;
+var float DamageSizeScale, ScaleDelta, ScaleMax;
 
 function PostBeginPlay()
 {
-	SetTimer(6.0f, true, nameof(UpdateZed));
 	super.PostBeginPlay();
+	SetTimer(6.0f, True, NameOf(UpdateZed));
 }
 
 function UpdateZed()
@@ -14,17 +14,16 @@ function UpdateZed()
 
 	foreach DynamicActors(class'KFPawn_Monster', KFM)
 	{
-		if (KFM.IntendedBodyScale < default.ScaleMax
-			&& KFM.IntendedBodyScale != class'ZedternalReborn.WMSpecialWave_Division'.default.SmallZedSize)
+		if (KFM.IntendedBodyScale < default.ScaleMax && KFM.IntendedBodyScale != class'ZedternalReborn.WMSpecialWave_Division'.default.SmallZedSize)
 			KFM.IntendedBodyScale += default.ScaleDelta;
 	}
 }
 
-static function ModifyDamageGiven( out int InDamage, int DefaultDamage, optional Actor DamageCauser, optional KFPawn_Monster MyKFPM, optional KFPlayerController DamageInstigator, optional class<KFDamageType> DamageType, optional int HitZoneIdx, optional KFWeapon MyKFW)
+static function ModifyDamageGiven(out int InDamage, int DefaultDamage, optional Actor DamageCauser, optional KFPawn_Monster MyKFPM, optional KFPlayerController DamageInstigator, optional class<KFDamageType> DamageType, optional int HitZoneIdx, optional KFWeapon MyKFW)
 {
 	local float ScalePercent;
 
-	if (MyKFPM != none)
+	if (MyKFPM != None)
 	{
 		ScalePercent = MyKFPM.IntendedBodyScale * default.DamageSizeScale;
 		InDamage += Round(float(InDamage) * ScalePercent);
@@ -33,13 +32,12 @@ static function ModifyDamageGiven( out int InDamage, int DefaultDamage, optional
 
 defaultproperties
 {
+	DamageSizeScale=1.0f
+	ScaleDelta=0.04f
+	ScaleMax=1.6f
+
 	Title="Buff Up"
 	Description="They grow fast!"
-	zedSpawnRateFactor=1.000000
-	waveValueFactor=1.000000
-	DamageSizeScale=1.000000
-	ScaleMax=1.600000
-	ScaleDelta=0.040000
 
 	Name="Default__WMSpecialWave_BuffUp"
 }

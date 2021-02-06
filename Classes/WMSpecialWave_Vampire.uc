@@ -1,17 +1,17 @@
 class WMSpecialWave_Vampire extends WMSpecialWave;
 
-var float healRecharge;
-var int Amount, HealZed, HealLargeZed;
+var float HealRecharge;
+var int HealAmount;
 
 function PostBeginPlay()
 {
-	SetTimer(5.f,false,nameof(StartBleeding));
 	super.PostBeginPlay();
+	SetTimer(5.0f, False, NameOf(StartBleeding));
 }
 
 function StartBleeding()
 {
-	SetTimer(0.800000,true,nameof(UpdateHuman));
+	SetTimer(0.8f, True, NameOf(UpdateHuman));
 }
 
 function UpdateHuman()
@@ -20,31 +20,29 @@ function UpdateHuman()
 
 	foreach DynamicActors(class'KFPawn_Human', KFP)
 	{
-		if (KFP.Health>1)
+		if (KFP.Health > 1)
 			--KFP.Health;
 	}
 }
 
-static simulated function ModifyHealerRechargeTime( out float InRechargeTime, float DefaultRechargeTime)
+static simulated function ModifyHealerRechargeTime(out float InRechargeTime, float DefaultRechargeTime)
 {
-	InRechargeTime += DefaultRechargeTime * default.healRecharge;
+	InRechargeTime += DefaultRechargeTime * default.HealRecharge;
 }
 
-static function AddVampireHealth( out int InHealth, int DefaultHealth, KFPlayerController KFPC, class<DamageType> DT )
+static function AddVampireHealth(out int InHealth, int DefaultHealth, KFPlayerController KFPC, class<DamageType> DT)
 {
-	InHealth += default.Amount;
+	InHealth += default.HealAmount;
 }
 
 defaultproperties
 {
+	HealRecharge=0.5f
+	HealAmount=5
+	zedSpawnRateFactor=1.1f
+
 	Title="Vampire"
 	Description="Everyone is a vampire!"
-	zedSpawnRateFactor=1.100000
-
-	healRecharge=0.500000
-	Amount=5
-	HealZed=5
-	HealLargeZed=10
 
 	Name="Default__WMSpecialWave_Vampire"
 }

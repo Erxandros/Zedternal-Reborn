@@ -1,14 +1,12 @@
 class WMSpecialWave_BobbleZed extends WMSpecialWave;
 
-var float ZedSpawnHeadScale;
-var float DamageFactor, DamageHeadFactor;
-var float ZedHeadScaleCombinedPop;
+var float DamageFactor, DamageHeadFactor, ZedHeadScaleCombinedPop, ZedSpawnHeadScale;
 
 function PostBeginPlay()
 {
-	ZedHeadScaleCombinedPop = (class'ZedternalReborn.WMSpecialWave_Pop'.default.ZedHeadScale + Default.ZedSpawnHeadScale) / 2;
-	SetTimer(0.80f, true, nameof(UpdateZed));
 	super.PostBeginPlay();
+	ZedHeadScaleCombinedPop = (class'ZedternalReborn.WMSpecialWave_Pop'.default.ZedHeadScale + Default.ZedSpawnHeadScale) / 2;
+	SetTimer(0.80f, True, NameOf(UpdateZed));
 }
 
 function UpdateZed()
@@ -25,15 +23,15 @@ function UpdateZed()
 				KFM.IntendedHeadScale = Default.ZedSpawnHeadScale;
 
 			KFM.SetHeadScale(KFM.IntendedHeadScale, KFM.CurrentHeadScale);
-			if (KFPawn_Monster(KFM) != none)
-				KFPawn_Monster(KFM).bDisableHeadless = true;
+			if (KFPawn_Monster(KFM) != None)
+				KFPawn_Monster(KFM).bDisableHeadless = True;
 		}
 	}
 }
 
-static function ModifyDamageGiven( out int InDamage, int DefaultDamage, optional Actor DamageCauser, optional KFPawn_Monster MyKFPM, optional KFPlayerController DamageInstigator, optional class<KFDamageType> DamageType, optional int HitZoneIdx, optional KFWeapon MyKFW)
+static function ModifyDamageGiven(out int InDamage, int DefaultDamage, optional Actor DamageCauser, optional KFPawn_Monster MyKFPM, optional KFPlayerController DamageInstigator, optional class<KFDamageType> DamageType, optional int HitZoneIdx, optional KFWeapon MyKFW)
 {
-	if (HitZoneIdx == HZI_HEAD && MyKFPM != none && KFPawn_ZedBloat(MyKFPM) != none)
+	if (HitZoneIdx == HZI_HEAD && MyKFPM != None && KFPawn_ZedBloat(MyKFPM) != None)
 		InDamage = InDamage * default.DamageHeadFactor;
 	else
 		InDamage = InDamage * default.DamageFactor;
@@ -57,15 +55,15 @@ function WaveEnded()
 
 defaultproperties
 {
+	DamageFactor=0.8f
+	DamageHeadFactor=0.55f
+	ZedSpawnHeadScale=2.7f
+	zedSpawnRateFactor=0.75f
+	waveValueFactor=0.7f
+	doshFactor=1.4f
+
 	Title="Bobble Zed"
 	Description="That must hurt their necks!"
-
-	zedSpawnRateFactor=0.750000
-	waveValueFactor=0.700000
-	doshFactor=1.400000
-	ZedSpawnHeadScale=2.700000
-	DamageFactor=0.800000
-	DamageHeadFactor=0.550000
 
 	Name="Default__WMSpecialWave_BobbleZed"
 }

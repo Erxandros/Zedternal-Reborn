@@ -1,11 +1,11 @@
 class WMSpecialWave_Lethargic extends WMSpecialWave;
 
-var float zedSpeedScale;
+var float ZedSpeedScale;
 
 function PostBeginPlay()
 {
-	SetTimer(2.f,true,nameof(UpdateZed));
 	super.PostBeginPlay();
+	SetTimer(2.0f, True, NameOf(UpdateZed));
 }
 
 function UpdateZed()
@@ -15,18 +15,18 @@ function UpdateZed()
 	foreach DynamicActors(class'KFPawn_Monster', KFM)
 	{
 		if (!KFM.bMovesFastInZedTime)
-			KFM.SetZedTimeSpeedScale(default.zedSpeedScale);
+			KFM.SetZedTimeSpeedScale(default.ZedSpeedScale);
 	}
 }
 
 defaultproperties
 {
+	ZedSpeedScale=1.0f
+	zedSpawnRateFactor=0.925f
+	waveValueFactor=0.95f
+
 	Title="Lethargic"
 	Description="They are faster during ZED times!"
-	zedSpawnRateFactor=0.925000
-	waveValueFactor=0.950000
-
-	zedSpeedScale=1.0f
 
 	Name="Default__WMSpecialWave_Lethargic"
 }

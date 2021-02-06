@@ -1,12 +1,12 @@
 class WMSpecialWave_Titans extends WMSpecialWave;
 
-var float ZedScale, ZedHeadScale, ZedSpeedGroundFactor, ZedSpeedRunningFactor, DamageFactor, DamageHeadFactor, DamageTakenFactor, TinyTitansScale;
+var float DamageFactor, DamageHeadFactor, DamageTakenFactor, TinyTitansScale, ZedHeadScale, ZedScale;
 
 function PostBeginPlay()
 {
-	TinyTitansScale = default.ZedScale * class'ZedternalReborn.WMSpecialWave_TinyTerror'.default.ZedScale;
-	SetTimer(1.5f, true, nameof(UpdateZed));
 	super.PostBeginPlay();
+	TinyTitansScale = default.ZedScale * class'ZedternalReborn.WMSpecialWave_TinyTerror'.default.ZedScale;
+	SetTimer(1.5f, True, NameOf(UpdateZed));
 }
 
 function UpdateZed()
@@ -31,7 +31,7 @@ function UpdateZed()
 	}
 }
 
-static function ModifyDamageGiven( out int InDamage, int DefaultDamage, optional Actor DamageCauser, optional KFPawn_Monster MyKFPM, optional KFPlayerController DamageInstigator, optional class<KFDamageType> DamageType, optional int HitZoneIdx, optional KFWeapon MyKFW)
+static function ModifyDamageGiven(out int InDamage, int DefaultDamage, optional Actor DamageCauser, optional KFPawn_Monster MyKFPM, optional KFPlayerController DamageInstigator, optional class<KFDamageType> DamageType, optional int HitZoneIdx, optional KFWeapon MyKFW)
 {
 	if (HitZoneIdx == HZI_HEAD)
 		InDamage = InDamage * default.DamageHeadFactor;
@@ -39,24 +39,24 @@ static function ModifyDamageGiven( out int InDamage, int DefaultDamage, optional
 		InDamage = InDamage * default.DamageFactor;
 }
 
-static function ModifyDamageTaken( out int InDamage, int DefaultDamage, KFPawn OwnerPawn, optional class<DamageType> DamageType, optional Controller InstigatedBy, optional KFWeapon MyKFW)
+static function ModifyDamageTaken(out int InDamage, int DefaultDamage, KFPawn OwnerPawn, optional class<DamageType> DamageType, optional Controller InstigatedBy, optional KFWeapon MyKFW)
 {
 	InDamage = InDamage * default.DamageTakenFactor;
 }
 
 defaultproperties
 {
+	DamageFactor=0.25f
+	DamageHeadFactor=0.2f
+	DamageTakenFactor=1.2f
+	ZedHeadScale=1.02f
+	ZedScale=1.35f
+	zedSpawnRateFactor=0.4f
+	waveValueFactor=0.22f
+	doshFactor=4.1f
+
 	Title="Titans"
 	Description="Slowly but surely!"
-	zedSpawnRateFactor=0.400000
-	waveValueFactor=0.220000
-	doshFactor=4.100000
-
-	ZedScale=1.350000
-	ZedHeadScale=1.020000
-	DamageFactor=0.2500000
-	DamageHeadFactor=0.200000
-	DamageTakenFactor=1.200000
 
 	Name="Default__WMSpecialWave_Titans"
 }

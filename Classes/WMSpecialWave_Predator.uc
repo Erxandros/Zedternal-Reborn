@@ -4,8 +4,8 @@ var class<KFPawn_Monster> PredatorClass;
 
 function PostBeginPlay()
 {
-	SetTimer(6.0f, false, nameof(SpawnPredator));
 	super.PostBeginPlay();
+	SetTimer(6.0f, False, NameOf(SpawnPredator));
 }
 
 function SpawnPredator()
@@ -13,7 +13,7 @@ function SpawnPredator()
 	local WMAISpawnManager WMAISP;
 	local KFPlayerController KFPC;
 	local byte i, NbPlayer, NbPredator;
-	local SGroupToSpawn predGroup;
+	local SGroupToSpawn PredGroup;
 
 	foreach DynamicActors(class'KFPlayerController', KFPC)
 	{
@@ -22,25 +22,25 @@ function SpawnPredator()
 	}
 
 	NbPredator = Clamp(NbPlayer, 3, 12); //Predators based on the number of players, with a max of 12.
-	predGroup.Delay = 0;
-	WMAISP = WMAISpawnManager(WMGameInfo_Endless(Class'WorldInfo'.static.GetWorldInfo().Game).SpawnManager);
-	while (WMAISP != none && WMAISP.groupList.Length > 0 && NbPredator > 0)
+	PredGroup.Delay = 0;
+	WMAISP = WMAISpawnManager(WMGameInfo_Endless(class'WorldInfo'.static.GetWorldInfo().Game).SpawnManager);
+	while (WMAISP != None && WMAISP.groupList.Length > 0 && NbPredator > 0)
 	{
-		predGroup.MClass.Length = 0;
+		PredGroup.MClass.Length = 0;
 		for (i = 0; i < (NbPredator - Max(0, NbPredator - 3)); ++i) //Group 3 of them at a time
 		{
-			predGroup.MClass.AddItem(PredatorClass);
+			PredGroup.MClass.AddItem(PredatorClass);
 		}
 
-		NbPredator -= predGroup.MClass.Length;
+		NbPredator -= PredGroup.MClass.Length;
 
-		WMAISP.groupList.InsertItem(0, predGroup);
+		WMAISP.groupList.InsertItem(0, PredGroup);
 	}
 }
 
 function WaveEnded()
 {
-	SetTimer(3.0f, false, nameof(KillAllPredators));
+	SetTimer(3.0f, False, NameOf(KillAllPredators));
 }
 
 function KillAllPredators()
@@ -58,10 +58,12 @@ function KillAllPredators()
 
 defaultproperties
 {
+	PredatorClass=class'ZedternalReborn.WMPawn_ZedFleshpound_Predator'
+	zedSpawnRateFactor=1.2f
+	waveValueFactor=1.2f
+
 	Title="Predator"
 	Description="The enemy of my enemy is my friend!"
-	zedSpawnRateFactor=1.200000
-	waveValueFactor=1.200000
-	PredatorClass=class'ZedternalReborn.WMPawn_ZedFleshpound_Predator'
+
 	Name="Default__WMSpecialWave_Predator"
 }

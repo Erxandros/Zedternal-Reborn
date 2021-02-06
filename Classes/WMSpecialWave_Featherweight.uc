@@ -1,12 +1,11 @@
 class WMSpecialWave_Featherweight extends WMSpecialWave;
 
-var float ZeroHealthInflation, InflationDeathGravity, InflationExplosionTimer, GlobalDeflationRate;
-var float DeathGravity;
+var float GlobalDeflationRate, InflationDeathGravity, InflationExplosionTimer, ZeroHealthInflation;
 
 function PostBeginPlay()
 {
-	SetTimer(1.f,true,nameof(UpdateZed));
 	super.PostBeginPlay();
+	SetTimer(1.0f, True, NameOf(UpdateZed));
 }
 
 function UpdateZed()
@@ -17,10 +16,9 @@ function UpdateZed()
 	{
 		if (!KFM.bUseDamageInflation)
 		{
-			KFM.bUseDamageInflation = true;
+			KFM.bUseDamageInflation = True;
 			KFM.ZeroHealthInflation = default.ZeroHealthInflation;
 			KFM.DamageDeflationRate = default.GlobalDeflationRate;
-			//KFM.bDisableGoreMeshWhileAlive = true;
 			KFM.InflationExplosionTimer = default.InflationExplosionTimer;
 			KFM.InflateDeathGravity = default.InflationDeathGravity;
 		}
@@ -29,15 +27,14 @@ function UpdateZed()
 
 defaultproperties
 {
+	GlobalDeflationRate=0.0f
+	InflationDeathGravity=-0.003f
+	InflationExplosionTimer=100.0f
+	ZeroHealthInflation=1.0f
+	zedSpawnRateFactor=0.9f
+
 	Title="Featherweight"
 	Description="Dead bodies are floating!"
-	zedSpawnRateFactor=0.900000
-	waveValueFactor=1.000000
-
-	ZeroHealthInflation=1.000000
-	InflationDeathGravity=-0.003000
-	InflationExplosionTimer=100.00000
-	GlobalDeflationRate=0.000000
 
 	Name="Default__WMSpecialWave_Featherweight"
 }

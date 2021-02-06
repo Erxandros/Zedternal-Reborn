@@ -1,12 +1,12 @@
 class WMSpecialWave_TinyTerror extends WMSpecialWave;
 
-var float Damage, ZedScale, DamageTakenFactor, TinyTitansScale;
+var float Damage, DamageTakenFactor, TinyTitansScale, ZedScale;
 
 function PostBeginPlay()
 {
-	TinyTitansScale = default.ZedScale * class'ZedternalReborn.WMSpecialWave_Titans'.default.ZedScale;
-	SetTimer(1.0f, true, nameof(UpdateZed));
 	super.PostBeginPlay();
+	TinyTitansScale = default.ZedScale * class'ZedternalReborn.WMSpecialWave_Titans'.default.ZedScale;
+	SetTimer(1.0f, True, NameOf(UpdateZed));
 }
 
 function UpdateZed()
@@ -25,36 +25,36 @@ function UpdateZed()
 	}
 }
 
-static function ModifyDamageGiven( out int InDamage, int DefaultDamage, optional Actor DamageCauser, optional KFPawn_Monster MyKFPM, optional KFPlayerController DamageInstigator, optional class<KFDamageType> DamageType, optional int HitZoneIdx, optional KFWeapon MyKFW)
+static function ModifyDamageGiven(out int InDamage, int DefaultDamage, optional Actor DamageCauser, optional KFPawn_Monster MyKFPM, optional KFPlayerController DamageInstigator, optional class<KFDamageType> DamageType, optional int HitZoneIdx, optional KFWeapon MyKFW)
 {
-	if (MyKFPM != none)
+	if (MyKFPM != None)
 		InDamage += InDamage * default.Damage;
 }
 
-static function ModifyDamageTaken( out int InDamage, int DefaultDamage, KFPawn OwnerPawn, optional class<DamageType> DamageType, optional Controller InstigatedBy, optional KFWeapon MyKFW)
+static function ModifyDamageTaken(out int InDamage, int DefaultDamage, KFPawn OwnerPawn, optional class<DamageType> DamageType, optional Controller InstigatedBy, optional KFWeapon MyKFW)
 {
 	InDamage = InDamage * default.DamageTakenFactor;
 }
 
 static simulated function bool ShouldKnockDownOnBump(KFPawn_Monster KFPM, KFPawn OwnerPawn)
 {
-	if (KFPM != none && KFPM.IntendedBodyScale <= default.ZedScale)
-		return true;
+	if (KFPM != None && KFPM.IntendedBodyScale <= default.ZedScale)
+		return True;
 	else
-		return false;
+		return False;
 }
 
 defaultproperties
 {
+	Damage=0.7f
+	DamageTakenFactor=0.7f
+	ZedScale=0.65f
+	zedSpawnRateFactor=1.5f
+	waveValueFactor=1.3f
+	doshFactor=0.75f
+
 	Title="Tiny Terror"
 	Description="Look at them, they are so cute!"
-	zedSpawnRateFactor=1.500000
-	waveValueFactor=1.300000
-	doshFactor=0.750000
-
-	Damage=0.700000
-	DamageTakenFactor=0.700000
-	ZedScale=0.650000
 
 	Name="Default__WMSpecialWave_TinyTerror"
 }

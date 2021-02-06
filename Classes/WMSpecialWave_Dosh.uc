@@ -12,9 +12,9 @@ function Killed(Controller Killer, Controller KilledPlayer, Pawn KilledPawn, cla
 	HealthValue = KFPawn_Monster(KilledPawn).default.Health;
 	for (i = 0; i <= HealthValue; i += 125)
 	{
-		KFDP = Spawn(class'KFGame.KFDroppedPickup_Cash', Killer, , KilledPawn.Location, , , true);
+		KFDP = Spawn(class'KFGame.KFDroppedPickup_Cash', Killer, , KilledPawn.Location, , , True);
 		KFIM = Spawn(class'KFGameContent.KFInventory_Money');
-		if (KFDP != none && KFIM != none)
+		if (KFDP != None && KFIM != None)
 		{
 			Vel.X = MaxDoshVelocity * (fRand() - 0.5f);
 			Vel.Y = MaxDoshVelocity * (fRand() - 0.5f);
@@ -33,8 +33,10 @@ function Killed(Controller Killer, Controller KilledPlayer, Pawn KilledPawn, cla
 
 defaultproperties
 {
+	MaxDoshVelocity=600.0f
+
 	Title="Dosh"
 	Description="It's raining Dosh!"
-	MaxDoshVelocity=600.0f
+
 	Name="Default__WMSpecialWave_Dosh"
 }

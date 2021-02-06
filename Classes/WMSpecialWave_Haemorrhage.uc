@@ -1,82 +1,84 @@
 class WMSpecialWave_Haemorrhage extends WMSpecialWave;
 
-var float healRecharge;
-var array< int > remainTime;
-var int bleedTime;
+var float HealRecharge;
+var int BleedTime;
+var array<int> RemainTime;
 
 function PostBeginPlay()
 {
 	local KFPawn_Human KFP;
-	local int Index;
+	local byte Index;
 
+	super.PostBeginPlay();
+
+	Index = 0;
 	foreach DynamicActors(class'KFPawn_Human', KFP)
 	{
-		Index ++;
+		++Index;
 	}
 
-	remainTime.length = Index;
+	RemainTime.length = Index;
 
-	SetTimer(1.f,true,nameof(UpdateHuman));
-	super.PostBeginPlay();
+	SetTimer(1.0f, True, NameOf(UpdateHuman));
 }
 
 function UpdateHuman()
 {
 	local KFPawn_Human KFP;
-	local int Index;
+	local byte Index;
 
 	Index = 0;
 	foreach DynamicActors(class'KFPawn_Human', KFP)
 	{
-		if (remainTime[Index] > 0 && KFP.Health>1 && KFP.Health<KFP.HealthMax)
-			KFP.Health -= 1;
+		if (RemainTime[Index] > 0 && KFP.Health > 1 && KFP.Health < KFP.HealthMax)
+			--KFP.Health;
 
-		remainTime[Index] -= 1;
-		Index ++;
+		--RemainTime[Index];
+		++Index;
 	}
 }
 
-static function ModifyDamageTaken( out int InDamage, int DefaultDamage, KFPawn OwnerPawn, optional class<DamageType> DamageType, optional Controller InstigatedBy, optional KFWeapon MyKFW)
+static function ModifyDamageTaken(out int InDamage, int DefaultDamage, KFPawn OwnerPawn, optional class<DamageType> DamageType, optional Controller InstigatedBy, optional KFWeapon MyKFW)
 {
 	local WMSpecialWave_Haemorrhage WMS;
 
-	if (KFPawn_Human(OwnerPawn) != none)
+	if (KFPawn_Human(OwnerPawn) != None)
 	{
 		WMS = GetSpecialWaveObject(OwnerPawn.Controller.WorldInfo);
 
-		if (WMS != none)
+		if (WMS != None)
 			WMS.AddBleedTime(KFPawn_Human(OwnerPawn));
 	}
 }
 
 function AddBleedTime(KFPawn_Human KFP)
 {
-	local KFPawn_Human KFP_test;
-	local int Index;
+	local KFPawn_Human KFPTest;
+	local byte Index;
 
 	Index = 0;
-	foreach DynamicActors(class'KFPawn_Human', KFP_test)
+	foreach DynamicActors(class'KFPawn_Human', KFPTest)
 	{
-		if (KFP == KFP_test)
+		if (KFP == KFPTest)
 		{
-			remainTime[Index] = default.bleedTime;
+			RemainTime[Index] = default.BleedTime;
 			return;
 		}
 
-		Index ++;
+		++Index;
 	}
 }
 
-static simulated function ModifyHealerRechargeTime( out float InRechargeTime, float DefaultRechargeTime)
+static simulated function ModifyHealerRechargeTime(out float InRechargeTime, float DefaultRechargeTime)
 {
-	InRechargeTime -= DefaultRechargeTime * default.healRecharge;
+	InRechargeTime -= DefaultRechargeTime * default.HealRecharge;
 }
 
 static function WMSpecialWave_Haemorrhage GetSpecialWaveObject(WorldInfo WI)
 {
 	local WMSpecialWave_Haemorrhage WMS;
 
-	foreach WI.DynamicActors(class'ZedternalReborn.WMSpecialWave_Haemorrhage',WMS)
+	foreach WI.DynamicActors(class'ZedternalReborn.WMSpecialWave_Haemorrhage', WMS)
 	{
 		return WMS;
 	}
@@ -84,12 +86,12 @@ static function WMSpecialWave_Haemorrhage GetSpecialWaveObject(WorldInfo WI)
 
 defaultproperties
 {
+	HealRecharge=0.3f
+	BleedTime=20
+	zedSpawnRateFactor=0.9f
+
 	Title="Haemorrhage"
 	Description="Watch out for paper cuts!"
-	zedSpawnRateFactor=0.900000
-	waveValueFactor=1.000000
-	healRecharge = 0.300000
-	bleedTime = 20
 
 	Name="Default__WMSpecialWave_Haemorrhage"
 }

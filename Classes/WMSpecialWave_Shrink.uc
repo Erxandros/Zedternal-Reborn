@@ -1,13 +1,12 @@
 class WMSpecialWave_Shrink extends WMSpecialWave;
 
-var float StartingDamageSizeScale, DeadDamageSizeScale;
-var float StartingDamageScale, DeadDamageScale;
+var float DeadDamageSizeScale, StartingDamageSizeScale;
 
-static function ModifyDamageGiven( out int InDamage, int DefaultDamage, optional Actor DamageCauser, optional KFPawn_Monster MyKFPM, optional KFPlayerController DamageInstigator, optional class<KFDamageType> DamageType, optional int HitZoneIdx, optional KFWeapon MyKFW)
+static function ModifyDamageGiven(out int InDamage, int DefaultDamage, optional Actor DamageCauser, optional KFPawn_Monster MyKFPM, optional KFPlayerController DamageInstigator, optional class<KFDamageType> DamageType, optional int HitZoneIdx, optional KFWeapon MyKFW)
 {
 	local float ScalePercent;
 
-	if (MyKFPM != none)
+	if (MyKFPM != None)
 	{
 		AdjustPawnScale(MyKFPM);
 		ScalePercent = (default.StartingDamageSizeScale - default.DeadDamageSizeScale) * (1 - (float(Max(MyKFPM.Health, 0)) / float(MyKFPM.HealthMax)));
@@ -15,11 +14,11 @@ static function ModifyDamageGiven( out int InDamage, int DefaultDamage, optional
 	}
 }
 
-static function ModifyDamageTaken( out int InDamage, int DefaultDamage, KFPawn OwnerPawn, optional class<DamageType> DamageType, optional Controller InstigatedBy, optional KFWeapon MyKFW)
+static function ModifyDamageTaken(out int InDamage, int DefaultDamage, KFPawn OwnerPawn, optional class<DamageType> DamageType, optional Controller InstigatedBy, optional KFWeapon MyKFW)
 {
 	local float ScalePercent;
 
-	if (KFPawn_Monster(InstigatedBy.Pawn) != none)
+	if (KFPawn_Monster(InstigatedBy.Pawn) != None)
 	{
 		ScalePercent = (default.StartingDamageSizeScale - default.DeadDamageSizeScale) * (1 - (float(Max(InstigatedBy.Pawn.Health, 0)) / float(InstigatedBy.Pawn.HealthMax)));
 		InDamage -= Round(float(InDamage) * ScalePercent);
@@ -29,36 +28,29 @@ static function ModifyDamageTaken( out int InDamage, int DefaultDamage, KFPawn O
 static function AdjustPawnScale(KFPawn_Monster entity)
 {
 	local float ScalePercent;
-	local int CurrentHealth;
 
-	CurrentHealth = Max(entity.Health, 0);
-
-	if (entity != none)
+	if (entity != None)
 	{
-		ScalePercent = default.StartingDamageSizeScale * (float(CurrentHealth) / float(entity.HealthMax));
+		ScalePercent = default.StartingDamageSizeScale * (float(Max(entity.Health, 0)) / float(entity.HealthMax));
 		entity.IntendedBodyScale = (entity.IntendedBodyScale - default.DeadDamageSizeScale) * ScalePercent + default.DeadDamageSizeScale;
 	}
 }
 
 static simulated function bool ShouldKnockDownOnBump(KFPawn_Monster KFPM, KFPawn OwnerPawn)
 {
-	if (KFPM != none && KFPM.IntendedBodyScale <= class'ZedternalReborn.WMSpecialWave_TinyTerror'.default.ZedScale)
-		return true;
+	if (KFPM != None && KFPM.IntendedBodyScale <= class'ZedternalReborn.WMSpecialWave_TinyTerror'.default.ZedScale)
+		return True;
 	else
-		return false;
+		return False;
 }
 
 defaultproperties
 {
+	DeadDamageSizeScale=0.5f
+	StartingDamageSizeScale=1.0f
+
 	Title="Shrink"
 	Description="A small threat is still a threat!"
-	zedSpawnRateFactor=1.000000
-	waveValueFactor=1.000000
-
-	StartingDamageSizeScale=1.000000
-	DeadDamageSizeScale=0.500000
-	StartingDamageScale=1.000000
-	DeadDamageScale=1.500000
 
 	Name="Default__WMSpecialWave_Shrink"
 }

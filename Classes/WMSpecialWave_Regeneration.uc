@@ -1,12 +1,11 @@
 class WMSpecialWave_Regeneration extends WMSpecialWave;
 
-var float healRecharge;
-var float regenTimer;
+var float HealRecharge, RegenTimer;
 
 function PostBeginPlay()
 {
-	SetTimer(regenTimer,true,nameof(UpdateHuman));
 	super.PostBeginPlay();
+	SetTimer(RegenTimer, True, NameOf(UpdateHuman));
 }
 
 function UpdateHuman()
@@ -15,34 +14,24 @@ function UpdateHuman()
 
 	foreach DynamicActors(class'KFPawn_Human', KFP)
 	{
-		if (KFP.Health>1 && KFP.Health<KFP.HealthMax)
-			KFP.Health += 1;
+		if (KFP.Health > 0 && KFP.Health < KFP.HealthMax)
+			++KFP.Health;
 	}
 }
 
-static simulated function ModifyHealerRechargeTime( out float InRechargeTime, float DefaultRechargeTime)
+static simulated function ModifyHealerRechargeTime(out float InRechargeTime, float DefaultRechargeTime)
 {
-	InRechargeTime -= DefaultRechargeTime * default.healRecharge;
-}
-
-static function WMSpecialWave_Haemorrhage GetSpecialWaveObject(WorldInfo WI)
-{
-	local WMSpecialWave_Haemorrhage WMS;
-
-	foreach WI.DynamicActors(class'ZedternalReborn.WMSpecialWave_Haemorrhage',WMS)
-	{
-		return WMS;
-	}
+	InRechargeTime -= DefaultRechargeTime * default.HealRecharge;
 }
 
 defaultproperties
 {
+	HealRecharge=0.3f
+	RegenTimer=0.3f
+	zedSpawnRateFactor=1.1f
+
 	Title="Regeneration"
 	Description="You feel better!"
-	zedSpawnRateFactor=1.100000
-	waveValueFactor=1.000000
-	healRecharge=0.300000
-	regenTimer=0.300000
 
 	Name="Default__WMSpecialWave_Regeneration"
 }

@@ -2,15 +2,17 @@ class WMSpecialWave_UnlimitedAmmo extends WMSpecialWave;
 
 static simulated function bool GetIsUberAmmoActive(KFWeapon KFW, KFPawn OwnerPawn)
 {
-	return true;
+	return True;
 }
 
 defaultproperties
 {
+	zedSpawnRateFactor=4.0f
+	waveValueFactor=1.75f
+	doshFactor=0.55f
+
 	Title="Unlimited Ammo"
 	Description="Spread some love!"
-	zedSpawnRateFactor=4.000000
-	waveValueFactor=1.750000
-	doshFactor=0.550000
+
 	Name="Default__WMSpecialWave_UnlimitedAmmo"
 }
