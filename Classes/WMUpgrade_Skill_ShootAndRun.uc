@@ -38,7 +38,7 @@ static simulated function InitiateWeapon(int upgLevel, KFWeapon KFW, KFPawn Owne
 	local WMUpgrade_Skill_ShootAndRun_Helper UPG;
 	local bool bFound;
 
-	if (KFPawn_Human(OwnerPawn) != None)
+	if (KFPawn_Human(OwnerPawn) != None && OwnerPawn.Role == Role_Authority)
 	{
 		bFound = False;
 		foreach OwnerPawn.ChildActors(class'WMUpgrade_Skill_ShootAndRun_Helper', UPG)
@@ -64,7 +64,8 @@ static simulated function WMUpgrade_Skill_ShootAndRun_Helper GetHelper(KFPawn Ow
 		}
 
 		//Should have one
-		UPG = OwnerPawn.Spawn(class'WMUpgrade_Skill_ShootAndRun_Helper', OwnerPawn);
+		if (OwnerPawn.Role == Role_Authority)
+			UPG = OwnerPawn.Spawn(class'WMUpgrade_Skill_ShootAndRun_Helper', OwnerPawn);
 	}
 
 	return UPG;

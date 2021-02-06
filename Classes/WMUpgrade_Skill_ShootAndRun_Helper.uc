@@ -16,12 +16,9 @@ function PostBeginPlay()
 {
 	super.PostBeginPlay();
 
-	if (Role == Role_Authority)
-	{
-		Player = KFPawn_Human(Owner);
-		if (Player == None || Player.Health <= 0)
-			Destroy();
-	}
+	Player = KFPawn_Human(Owner);
+	if (Player == None || Player.Health <= 0)
+		Destroy();
 }
 
 function Timer()
@@ -59,6 +56,8 @@ simulated function float GetKillPercentage()
 
 defaultproperties
 {
+	RemoteRole=ROLE_SimulatedProxy
+	bSkipActorPropertyReplication=False
 	KilledZeds=0
 	MaxKilledZeds=10
 	DecreaseTimerDelay=0.75f
