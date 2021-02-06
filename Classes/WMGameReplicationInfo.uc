@@ -794,6 +794,8 @@ simulated function array<int> GetKFSeqEventLevelLoadedIndices()
 
 defaultproperties
 {
+	NetPriority=1.25f
+	NetUpdateFrequency=20
 	NumberOfTraderWeapons=-1
 	NumberOfStartingWeapons=-1
 	NumberOfSkillUpgrades=-1
