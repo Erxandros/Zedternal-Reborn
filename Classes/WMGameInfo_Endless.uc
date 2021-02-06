@@ -613,8 +613,28 @@ function RepairDoor()
 
 	foreach WorldInfo.AllActors(class'KFGame.KFDoorActor', KFD)
 	{
+		if (!KFD.bIsDestroyed)
+			KFD.WeldableComponent.Weld(-KFD.MaxWeldIntegrity);
+		else
+			KFD.WeldableComponent.Repair(1.0f);
+	}
+
+	SetTimer(2.0f, False, NameOf(RepairDoorDelay));
+}
+
+function RepairDoorDelay()
+{
+	local KFDoorActor KFD;
+	local WMGameReplicationInfo WMGRI;
+
+	foreach WorldInfo.AllActors(class'KFGame.KFDoorActor', KFD)
+	{
 		KFD.ResetDoor();
 	}
+
+	WMGRI = WMGameReplicationInfo(MyKFGRI);
+	if (WMGRI != None);
+		WMGRI.bRepairDoor = !WMGRI.bRepairDoor;
 }
 
 function OpenTrader()

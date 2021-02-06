@@ -77,6 +77,7 @@ var repnotify WeaponUpgradeRepStruct weaponUpgradeRepArray_16[255];
 
 var repnotify byte bAllTraders;
 var repnotify bool updateSkins;
+var repnotify bool bRepairDoor;
 
 //For Zedternal Reborn Upgrade Menu commands
 var bool bZRUMenuCommand;
@@ -143,7 +144,7 @@ replication
 		weaponUpgradeRepArray_5, weaponUpgradeRepArray_6, weaponUpgradeRepArray_7, weaponUpgradeRepArray_8,
 		weaponUpgradeRepArray_9, weaponUpgradeRepArray_10, weaponUpgradeRepArray_11, weaponUpgradeRepArray_12,
 		weaponUpgradeRepArray_13, weaponUpgradeRepArray_14, weaponUpgradeRepArray_15, weaponUpgradeRepArray_16,
-		bAllTraders, updateSkins, bZRUMenuCommand, bZRUMenuAllWave;
+		bAllTraders, updateSkins, bRepairDoor, bZRUMenuCommand, bZRUMenuAllWave;
 }
 
 simulated event ReplicatedEvent(name VarName)
@@ -355,6 +356,10 @@ simulated event ReplicatedEvent(name VarName)
 				class'ZedternalReborn.WMCustomWeapon_Helper'.static.UpdateSkinsClient(KFWeaponDefPath_A);
 				class'ZedternalReborn.WMCustomWeapon_Helper'.static.UpdateSkinsClient(KFWeaponDefPath_B);
 			}
+			break;
+
+		case 'bRepairDoor':
+			RepairDoor();
 			break;
 
 		default:
@@ -662,9 +667,6 @@ simulated function PlayZedBuffSoundAndEffect()
 
 	class'KFMusicStingerHelper'.static.PlayRoundWonStinger( KFPlayerController(GetALocalPlayerController()) );
 
-	// reset doors
-	RepairDoor();
-
 	//trader dialog
 	SetTimer(2.f, false, nameof(PlayZedBuffTraderDialog));
 }
@@ -691,7 +693,7 @@ simulated function RepairDoor()
 {
 	local KFDoorActor KFD;
 
-	ForEach WorldInfo.AllActors(class'KFGame.KFDoorActor',KFD)
+	foreach WorldInfo.AllActors(class'KFGame.KFDoorActor', KFD)
 	{
 		KFD.ResetDoor();
 	}
