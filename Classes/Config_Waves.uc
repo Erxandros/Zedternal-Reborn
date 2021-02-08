@@ -109,9 +109,9 @@ static function float GetValueFactor(int NbPlayer)
 {
 	local int arrayLength;
 	local float delta;
-	
+
 	arrayLength = default.ZedSpawn_ValueFactorPerPlayer.length;
-	
+
 	if (arrayLength == 0)
 		return 1.f;
 	else if (NbPlayer == 0)
@@ -134,9 +134,9 @@ static function float ZedSpawnRateFactor(int NbPlayer)
 {
 	local int arrayLength;
 	local float delta;
-	
+
 	arrayLength = default.ZedSpawn_ZedSpawnRatePerPlayer.length;
-	
+
 	if (arrayLength == 0)
 		return 1.f;
 	else if (NbPlayer == 0)

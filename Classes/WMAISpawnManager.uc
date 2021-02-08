@@ -239,7 +239,7 @@ function SetupNextWave(byte NextWaveIndex, int TimeToNextWaveBuffer = 0)
 	//Check for integer overflow
 	if (waveValue < 0)
 		waveValue = 2147483647;
-	
+
 	`Log("Wave's Value = "$waveValue);
 
 	// we are now ready to build the list
@@ -523,7 +523,7 @@ function CheckStuckZed()
 						groupList[0].Delay = 1.f;
 						++WaveTotalAI;
 						++KFGameReplicationInfo(WorldInfo.GRI).AIRemaining;
-						
+
 						// kill zed
 						KFM.Died(none , none, KFM.Location);
 					}

@@ -27,7 +27,7 @@ struct S_Variant
 // for exemple, we want to add in game a M79 medic weapon (that shoot medical grenade instead of explosive round)
 // we can then decide to replace the original one with our medic one (with a probability between 0 and 1)
 var config bool WeaponVariant_bAllowWeaponVariant;			// allow weapon variations (replacement)?
-var config array< S_Variant > WeaponVariant_VariantList;	// here, we can configure weapon replacement. 
+var config array< S_Variant > WeaponVariant_VariantList;	// here, we can configure weapon replacement.
 
 static function UpdateConfig()
 {
@@ -69,7 +69,7 @@ static function UpdateConfig()
 		default.Weapon_CustomWeaponDef.length = 1;
 		default.Weapon_CustomWeaponDef[0] = "Class.Weapon_Definition_Example";
 
-		default.WeaponVariant_bAllowWeaponVariant = true;		
+		default.WeaponVariant_bAllowWeaponVariant = true;
 
 		default.WeaponVariant_VariantList.length = 43;
 		default.WeaponVariant_VariantList[0].WeaponDef = "KFGame.KFWeapDef_Bullpup";

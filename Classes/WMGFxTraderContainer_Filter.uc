@@ -5,7 +5,7 @@ var array< class<KFPerk> > DefaultPerk;
 function BuildPerkList()
 {
 	local byte i;
-	
+
 	// build perk list
 	DefaultPerk.length = 1 + class'KFGame.KFPlayerController'.default.PerkList.length;
 	DefaultPerk[0] = class'ZedternalReborn.WMPerk';
@@ -17,7 +17,7 @@ function BuildPerkList()
 
 function SetPerkFilterData(byte FilterIndex)
 {
- 	local int i;
+	local int i;
 	local GFxObject DataProvider;
 	local GFxObject FilterObject;
 	local KFPlayerController KFPC;
@@ -25,13 +25,13 @@ function SetPerkFilterData(byte FilterIndex)
 
 	SetBool("filterVisibliity", true);
 
-    KFPC = KFPlayerController( GetPC() );
+	KFPC = KFPlayerController( GetPC() );
 	if ( KFPC != none )
 	{
 		// build perk list filter
 		if (DefaultPerk.length == 0)
 			BuildPerkList();
-		
+
 		KFPRI = KFPlayerReplicationInfo(KFPC.PlayerReplicationInfo);
 		if ( KFPRI != none )
 		{
@@ -47,13 +47,13 @@ function SetPerkFilterData(byte FilterIndex)
 				SetString("filterText", OffPerkString);
 			}
 
-		   	DataProvider = CreateArray();
+			DataProvider = CreateArray();
 			for (i = 0; i < DefaultPerk.Length; i++)
 			{
 				FilterObject = CreateObject( "Object" );
 				FilterObject.SetString("source",  "img://"$DefaultPerk[i].static.GetPerkIconPath());
 				FilterObject.SetBool("isMyPerk",  DefaultPerk[i] == KFPC.CurrentPerk.class);
-			    DataProvider.SetElementObject( i, FilterObject );
+				DataProvider.SetElementObject( i, FilterObject );
 			}
 
 			FilterObject = CreateObject( "Object" );
@@ -61,8 +61,8 @@ function SetPerkFilterData(byte FilterIndex)
 			DataProvider.SetElementObject( i, FilterObject );
 
 			SetObject( "filterSource", DataProvider );
-    	}
-    }
+		}
+	}
 }
 
 defaultproperties

@@ -14,7 +14,7 @@ static function ModifyZedHealthMod(out float HealthMod, KFPawn_Monster P, float 
 		{
 			bFound = true;
 		}
-		
+
 		if (!bFound)
 			Class'WorldInfo'.static.GetWorldInfo().Spawn(class'WMZedBuff_Siren_Heal_Helper');
 	}

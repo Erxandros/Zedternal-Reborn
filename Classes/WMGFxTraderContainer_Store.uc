@@ -13,18 +13,18 @@ function bool IsItemFiltered(STraderItem Item, optional bool bDebug)
 	if ( WMGameReplicationInfo(KFPC.PlayerReplicationInfo.WorldInfo.GRI) != none && !WMGameReplicationInfo(KFPC.PlayerReplicationInfo.WorldInfo.GRI).IsItemAllowed(Item))
 		return true;
 	//if ( Item.WeaponDef.default.SharedUnlockId != SCU_None && !class'KFUnlockManager'.static.IsSharedContentUnlocked(Item.WeaponDef.default.SharedUnlockId) )
-    // 	 	return true;
+	//	return true;
 
-   	return false;
+	return false;
 }
 
 function RefreshWeaponListByPerk(byte FilterIndex, const out array<STraderItem> ItemList)
 {
- 	local int i, SlotIndex;
+	local int i, SlotIndex;
 	local GFxObject ItemDataArray; // This array of information is sent to ActionScript to update the Item data
 	local array<STraderItem> FullItemList;
 	local class<KFPerk> TargetPerkClass;
-	
+
 	if(FilterIndex == 255 || FilterIndex == INDEX_NONE)
 	{
 		return;
@@ -32,9 +32,9 @@ function RefreshWeaponListByPerk(byte FilterIndex, const out array<STraderItem> 
 	if (KFPC != none)
 	{
 		SlotIndex = 0;
-	    //ItemList.length = 0;	    
-	    ItemDataArray = CreateArray();
-		
+		//ItemList.length = 0;
+		ItemDataArray = CreateArray();
+
 		TargetPerkClass = GetPerkFilterClass(FilterIndex);
 
 		FullItemList = WMGameReplicationInfo(KFPC.PlayerReplicationInfo.WorldInfo.GRI).TraderItems.SaleItems;

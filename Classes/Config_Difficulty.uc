@@ -67,7 +67,7 @@ static function float GetZedHealthMod(int Difficulty)
 		case 2 :	return default.ZedStat_HealthMod.Suicidal;
 		case 3 :	return default.ZedStat_HealthMod.HoE;
 		default:	return default.ZedStat_HealthMod.Custom;
-	}	
+	}
 }
 
 static function float GetLargeZedHealthModPerPlayer(int Difficulty)

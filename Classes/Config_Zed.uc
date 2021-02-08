@@ -18,7 +18,7 @@ struct SMonsterValue
 	var class<KFPawn_Monster> ZedClass;
 	var int Value;
 	var int ValuePerExtraPlayer;
-	
+
 	structdefaultproperties
 	{
 		ValuePerExtraPlayer = 0;
@@ -56,7 +56,7 @@ static function UpdateConfig()
 		default.Zed_Monsters[0].MinGr = 2;
 		default.Zed_Monsters[0].MaxGr = 4;
 
-		default.Zed_Monsters[1].MClass = Class'KFGameContent.KFPawn_ZedClot_Cyst';		
+		default.Zed_Monsters[1].MClass = Class'KFGameContent.KFPawn_ZedClot_Cyst';
 		default.Zed_Monsters[1].MinWave = 0;
 		default.Zed_Monsters[1].MaxWave = 7;
 		default.Zed_Monsters[1].MinGr = 2;
@@ -92,7 +92,7 @@ static function UpdateConfig()
 		default.Zed_Monsters[6].MinGr = 1;
 		default.Zed_Monsters[6].MaxGr = 4;
 
-		default.Zed_Monsters[7].MClass = Class'KFGameContent.KFPawn_ZedClot_Slasher';		
+		default.Zed_Monsters[7].MClass = Class'KFGameContent.KFPawn_ZedClot_Slasher';
 		default.Zed_Monsters[7].MinWave = 0;
 		default.Zed_Monsters[7].MaxWave = 2;
 		default.Zed_Monsters[7].MinGr = 1;
@@ -732,9 +732,9 @@ static function int GetMonsterValue(class< KFPawn_Monster > KFPM, int NbPlayer)
 {
 	local int index;
 	local int NbP;
-	
+
 	NbP = Max(1, NbPlayer);
-	
+
 	index = default.Zed_Value.Find('ZedClass', KFPM);
 	if (index != -1)
 		return default.Zed_Value[index].Value + default.Zed_Value[index].ValuePerExtraPlayer * (NbP - 1);

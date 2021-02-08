@@ -1,6 +1,6 @@
 class WMFX_Base extends Actor
 	abstract;
-	
+
 // FX spawned by the server and shown to all clients
 
 var ParticleSystem PSEffect;
@@ -19,7 +19,7 @@ simulated function PostBeginPlay()
 			//	PSCEffect.SetDepthPriorityGroup(SDPG_Foreground);
 		}
 	}
-	
+
 	SetTimer(Duration, false, nameof(RemoveFX));
 }
 
@@ -27,7 +27,7 @@ simulated function RemoveFX()
 {
 	if (PSCEffect != none)
 		PSCEffect.DeactivateSystem();
-	
+
 	Destroy();
 }
 
