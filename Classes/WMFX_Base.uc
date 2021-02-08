@@ -12,20 +12,16 @@ simulated function PostBeginPlay()
 	// only show effect to clients
 	if (WorldInfo.NetMode != NM_DedicatedServer)
 	{
-		if (PSEffect != none)
-		{
+		if (PSEffect != None)
 			PSCEffect = WorldInfo.MyEmitterPool.SpawnEmitter(PSEffect, Location, Rotation);
-			//if (PSCEffect != none)
-			//	PSCEffect.SetDepthPriorityGroup(SDPG_Foreground);
-		}
 	}
 
-	SetTimer(Duration, false, nameof(RemoveFX));
+	SetTimer(Duration, False, NameOf(RemoveFX));
 }
 
 simulated function RemoveFX()
 {
-	if (PSCEffect != none)
+	if (PSCEffect != None)
 		PSCEffect.DeactivateSystem();
 
 	Destroy();
@@ -33,9 +29,11 @@ simulated function RemoveFX()
 
 defaultproperties
 {
-	Duration=5.000000
+	Duration=5.0f
 	RemoteRole=ROLE_SimulatedProxy
-    bNetTemporary=True
-    bReplicateInstigator=True
-    bGameRelevant=True
+	bNetTemporary=True
+	bReplicateInstigator=True
+	bGameRelevant=True
+
+	Name="Default__WMFX_Base"
 }
