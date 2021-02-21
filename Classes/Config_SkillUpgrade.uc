@@ -9,9 +9,16 @@ struct SUPG
 	var string SkillPath;
 };
 
-var config array< SUPG > SkillUpgrade_SkillUpgrades;
+var config array<SUPG> SkillUpgrade_SkillUpgrades;
 var config int SkillUpgrade_Price;
 var config int SkillUpgrade_DeluxePrice;
+
+struct S_DeluxeSkills
+{
+	var array<int> PerkLevels;
+};
+
+var config S_DeluxeSkills SkillUpgrade_DeluxeSkillUnlock;
 
 static function UpdateConfig()
 {
@@ -193,6 +200,13 @@ static function UpdateConfig()
 		{
 			default.SkillUpgrade_SkillUpgrades[i].SkillPath = "ZedternalReborn.WMUpgrade_Skill_FrozenHeadPopper";
 		}
+	}
+
+	if (default.MODEVERSION < 8)
+	{
+		default.SkillUpgrade_DeluxeSkillUnlock.PerkLevels.length = 1;
+
+		default.SkillUpgrade_DeluxeSkillUnlock.PerkLevels[0] = 6;
 	}
 
 	if (default.MODEVERSION < class'ZedternalReborn.Config_Base'.default.currentVersion)

@@ -642,7 +642,7 @@ function CallBack_ItemDetailsClicked(int ItemDefinition)
 
 function Callback_Equip( int ItemDefinition )
 {
-	local int Index, lvl, maxLevel, price;
+	local int Index, lvl, price;
 
 	local WMGameReplicationInfo WMGRI;
 	local WMPlayerController WMPC;
@@ -672,7 +672,6 @@ function Callback_Equip( int ItemDefinition )
 		Index = perkUPGIndex[Index];
 		lvl = WMPRI.bPerkUpgrade[Index];
 		price = WMGRI.perkPrice[lvl];
-		maxLevel = WMGRI.perkMaxLevel;
 
 		if (KFPRI.Score >= price)
 		{
@@ -687,7 +686,7 @@ function Callback_Equip( int ItemDefinition )
 			CurrentBuyIndex = Index;
 			CurrentBuyType = "perk";
 			CurrentBuyLvl = lvl + 1;
-			UnlockRandomSkill(PathName(WMGRI.perkUpgrades[Index]), ((lvl + 1) == maxLevel));
+			UnlockRandomSkill(PathName(WMGRI.perkUpgrades[Index]), WMGRI.bDeluxeSkillUnlock[lvl] == 1);
 			if (Owner != none)
 				Owner.PlaySoundBase(default.perkSound, true);
 		}

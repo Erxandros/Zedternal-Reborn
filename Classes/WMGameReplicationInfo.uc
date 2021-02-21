@@ -57,6 +57,7 @@ var int skillPrice;
 var int skillDeluxePrice;
 var int weaponMaxLevel;
 var byte bZedBuffs[255];
+var byte bDeluxeSkillUnlock[255];
 
 var repnotify WeaponUpgradeRepStruct weaponUpgradeRepArray_1[255];
 var repnotify WeaponUpgradeRepStruct weaponUpgradeRepArray_2[255];
@@ -139,7 +140,7 @@ replication
 		KFWeaponName_A, KFWeaponName_B, KFWeaponDefPath_A, KFWeaponDefPath_B, KFStartingWeaponPath,
 		perkUpgradesStr, skillUpgradesRepArray, specialWavesStr, grenadesStr, zedBuffStr, SpecialWaveID, bNewZedBuff,
 		newWeaponEachWave, maxWeapon, staticWeapon, ArmorPrice, GrenadePrice, TraderVoiceGroupIndex, bArmorPickup,
-		perkPrice, perkMaxLevel, skillPrice, skillDeluxePrice, weaponMaxLevel, bZedBuffs,
+		perkPrice, perkMaxLevel, skillPrice, skillDeluxePrice, weaponMaxLevel, bZedBuffs, bDeluxeSkillUnlock,
 		weaponUpgradeRepArray_1, weaponUpgradeRepArray_2, weaponUpgradeRepArray_3, weaponUpgradeRepArray_4,
 		weaponUpgradeRepArray_5, weaponUpgradeRepArray_6, weaponUpgradeRepArray_7, weaponUpgradeRepArray_8,
 		weaponUpgradeRepArray_9, weaponUpgradeRepArray_10, weaponUpgradeRepArray_11, weaponUpgradeRepArray_12,

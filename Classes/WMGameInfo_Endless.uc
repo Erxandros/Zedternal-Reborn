@@ -1448,6 +1448,7 @@ function SelectRandomTraderVoice()
 function RepGameInfoHighPriority()
 {
 	local WMGameReplicationInfo WMGRI;
+	local int i;
 
 	WMGRI = WMGameReplicationInfo(MyKFGRI);
 	if (WMGRI == none)
@@ -1472,6 +1473,14 @@ function RepGameInfoHighPriority()
 	//Preinitialize the array size for the sever/standalone
 	WMGRI.skillUpgrades.Length = WMGRI.NumberOfSkillUpgrades;
 	WMGRI.weaponUpgradeList.Length = WMGRI.NumberOfWeaponUpgrades;
+
+	//Get deluxe skill unlocks for perk level purchases
+	for (i = 0; i < class'ZedternalReborn.Config_SkillUpgrade'.default.SkillUpgrade_DeluxeSkillUnlock.PerkLevels.length; ++i)
+	{
+		if (class'ZedternalReborn.Config_SkillUpgrade'.default.SkillUpgrade_DeluxeSkillUnlock.PerkLevels[i] > 0 &&
+			class'ZedternalReborn.Config_SkillUpgrade'.default.SkillUpgrade_DeluxeSkillUnlock.PerkLevels[i] < 256)
+			WMGRI.bDeluxeSkillUnlock[class'ZedternalReborn.Config_SkillUpgrade'.default.SkillUpgrade_DeluxeSkillUnlock.PerkLevels[i] - 1] = 1;
+	}
 
 	SetTimer(3.0f, false, 'RepGameInfoNormalPriority');
 }
