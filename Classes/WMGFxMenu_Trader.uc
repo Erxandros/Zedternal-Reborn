@@ -28,14 +28,14 @@ function CreateUPGMenu()
 	if (WMPC == None || WMPC.bUpgradeMenuOpen)
 		return;
 
-	UPGMenu = new class'ZedternalReborn.WMUI_Menu';
-	UPGMenu.Owner = KFPawn_Human(MyKFPC.Pawn);
-	UPGMenu.KFPC = MyKFPC;
-	UPGMenu.KFPRI = KFPlayerReplicationInfo(MyKFPC.PlayerReplicationInfo);
-	UPGMenu.SetTimingMode(TM_Real);
-	UPGMenu.Init(LocalPLayer(MyKFPC.Player));
-
 	WMPC.bUpgradeMenuOpen = true;
+
+	UPGMenu = new class'ZedternalReborn.WMUI_Menu';
+	UPGMenu.Owner = WMPawn_Human(WMPC.Pawn);
+	UPGMenu.WMPC = WMPC;
+	UPGMenu.WMPRI = WMPlayerReplicationInfo(WMPC.PlayerReplicationInfo);
+	UPGMenu.SetTimingMode(TM_Real);
+	UPGMenu.Init(LocalPLayer(WMPC.Player));
 }
 
 function OneSecondLoop()

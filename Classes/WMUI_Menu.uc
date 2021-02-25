@@ -2,9 +2,9 @@ Class WMUI_Menu extends GFxMoviePlayer;
 
 var GFxObject ManagerObject;
 var WMUI_UPGMenu UPGMenuObject;
-var KFPawn_Human Owner;
-var KFPlayerController KFPC;
-var KFPlayerReplicationInfo KFPRI;
+var WMPawn_Human Owner;
+var WMPlayerController WMPC;
+var WMPlayerReplicationInfo WMPRI;
 var bool bUsingGamepad;
 
 // Pop-up support
@@ -68,8 +68,8 @@ function InitializeUPGMenu(name WidgetPath, WMUI_UPGMenu Widget)
 		SetWidgetPathBinding(Widget, WidgetPath);
 		SetExternalInterface(Widget);
 		UPGMenuObject.Owner = Owner;
-		UPGMenuObject.KFPC = KFPC;
-		UPGMenuObject.KFPRI = KFPRI;
+		UPGMenuObject.WMPC = WMPC;
+		UPGMenuObject.WMPRI = WMPRI;
 		UPGMenuObject.InitializeMenu(self);
 	}
 }
@@ -179,7 +179,7 @@ function InitializeUPGMenuPopup(name WidgetPath, WMGFxObject_UPGMenuPopup Widget
 }
 
 // Open the confirmation pop-up and set the response delegates to its buttons
-function OpenUPGMenuPopup(string TitleString, string DescriptionString, string LeftButtonString, string RightButtonString,
+function OpenUPGMenuPopup(string TitleString, string DescriptionString, optional string LeftButtonString, optional string RightButtonString,
 	optional delegate<PendingLeftButtonDelegate> LeftButtonDelegate, optional delegate<PendingRightButtonDelegate> RightButtonDelegate,
 	optional string MiddleButtonString, optional delegate<PendingMiddleButtonDelegate> MiddleButtonDelegate,
 	optional name OverridingSoundEffect)

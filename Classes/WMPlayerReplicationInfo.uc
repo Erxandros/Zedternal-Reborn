@@ -30,7 +30,7 @@ var array< int > doshSpentOnPerk;
 var int perkLvl;
 
 //UI Menu
-var private WMUI_Menu UPGMenu;
+var private WMUI_Menu UPGMenuManager;
 
 // Sync variables
 var repnotify bool syncTrigger;
@@ -299,12 +299,12 @@ simulated function CreateUPGMenu()
 
 	WMPC.bUpgradeMenuOpen = true;
 
-	UPGMenu = new class'ZedternalReborn.WMUI_Menu';
-	UPGMenu.Owner = KFPawn_Human(WMPC.Pawn);
-	UPGMenu.KFPC = WMPC;
-	UPGMenu.KFPRI = KFPlayerReplicationInfo(WMPC.PlayerReplicationInfo);
-	UPGMenu.SetTimingMode(TM_Real);
-	UPGMenu.Init(LocalPLayer(WMPC.Player));
+	UPGMenuManager = new class'ZedternalReborn.WMUI_Menu';
+	UPGMenuManager.Owner = WMPawn_Human(WMPC.Pawn);
+	UPGMenuManager.WMPC = WMPC;
+	UPGMenuManager.WMPRI = WMPlayerReplicationInfo(WMPC.PlayerReplicationInfo);
+	UPGMenuManager.SetTimingMode(TM_Real);
+	UPGMenuManager.Init(LocalPLayer(WMPC.Player));
 }
 
 simulated function CloseUPGMenu()
@@ -314,8 +314,10 @@ simulated function CloseUPGMenu()
 	ClearTimer('SyncTimerLoop');
 	syncCompleted = true;
 
-	if (UPGMenu != None)
-		UPGMenu.CloseMenu();
+	if (UPGMenuManager != None)
+		UPGMenuManager.CloseMenu();
+
+	UPGMenuManager = None;
 }
 
 reliable client function ShowSkipTraderVote(PlayerReplicationInfo PRI, byte VoteDuration, bool bShowChoices)
