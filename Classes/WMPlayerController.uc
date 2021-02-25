@@ -40,7 +40,7 @@ reliable server function BuyPerkUpgrade(int ItemDefinition, int Cost)
 
 	WMPRI = WMPlayerReplicationInfo(Pawn.PlayerReplicationInfo);
 
-	if (WMPRI != None && Pawn.PlayerReplicationInfo.Score >= Cost && WMPRI.bPerkUpgrade[ItemDefinition] < WMGameReplicationInfo(WorldInfo.GRI).perkMaxLevel)
+	if (WMPRI != None && WMPRI.Score >= Cost && WMPRI.bPerkUpgrade[ItemDefinition] < WMGameReplicationInfo(WorldInfo.GRI).perkMaxLevel)
 	{
 		++WMPRI.bPerkUpgrade[ItemDefinition];
 		if (WMPRI.purchase_perkUpgrade.Find(ItemDefinition) == -1)
@@ -48,7 +48,7 @@ reliable server function BuyPerkUpgrade(int ItemDefinition, int Cost)
 
 		if (WorldInfo.NetMode == NM_DedicatedServer)
 		{
-			Pawn.PlayerReplicationInfo.Score -= Cost;
+			WMPRI.AddDosh(-Cost);
 			WMPRI.syncTrigger = !WMPRI.syncTrigger;
 		}
 
@@ -64,7 +64,7 @@ reliable server function BuyWeaponUpgrade(int ItemDefinition, int Cost)
 
 	WMPRI = WMPlayerReplicationInfo(Pawn.PlayerReplicationInfo);
 
-	if (WMPRI != None && Pawn.PlayerReplicationInfo.Score >= Cost && WMPRI.GetWeaponUpgrade(ItemDefinition) < WMGameReplicationInfo(WorldInfo.GRI).weaponMaxLevel)
+	if (WMPRI != None && WMPRI.Score >= Cost && WMPRI.GetWeaponUpgrade(ItemDefinition) < WMGameReplicationInfo(WorldInfo.GRI).weaponMaxLevel)
 	{
 		WMPRI.IncermentWeaponUpgrade(ItemDefinition);
 		if (WMPRI.purchase_weaponUpgrade.Find(ItemDefinition) == -1)
@@ -72,7 +72,7 @@ reliable server function BuyWeaponUpgrade(int ItemDefinition, int Cost)
 
 		if (WorldInfo.NetMode == NM_DedicatedServer)
 		{
-			Pawn.PlayerReplicationInfo.Score -= Cost;
+			WMPRI.AddDosh(-Cost);
 			WMPRI.syncTrigger = !WMPRI.syncTrigger;
 		}
 
@@ -86,7 +86,7 @@ reliable server function BuySkillUpgrade(int ItemDefinition, int PerkItemDefinit
 
 	WMPRI = WMPlayerReplicationInfo(Pawn.PlayerReplicationInfo);
 
-	if (WMPRI != None && Pawn.PlayerReplicationInfo.Score >= Cost)
+	if (WMPRI != None && WMPRI.Score >= Cost)
 	{
 		WMPRI.bSkillUpgrade[ItemDefinition] = min(WMPRI.bSkillUpgrade[ItemDefinition] + lvl, 2);
 		if (WMPRI.purchase_skillUpgrade.Find(ItemDefinition) == -1)
@@ -94,7 +94,7 @@ reliable server function BuySkillUpgrade(int ItemDefinition, int PerkItemDefinit
 
 		if (WorldInfo.NetMode == NM_DedicatedServer)
 		{
-			Pawn.PlayerReplicationInfo.Score -= Cost;
+			WMPRI.AddDosh(-Cost);
 			WMPRI.syncTrigger = !WMPRI.syncTrigger;
 		}
 

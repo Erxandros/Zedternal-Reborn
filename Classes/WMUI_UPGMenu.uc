@@ -619,7 +619,7 @@ function CallBack_ItemDetailsClicked(int ItemDefinition)
 
 function Callback_Equip(int ItemDefinition)
 {
-	local int Index, lvl, price;
+	local int Index, lvl, UPGPrice, OriginalDosh;
 
 	if (ItemDefinition == -1)
 		return;
@@ -639,16 +639,17 @@ function Callback_Equip(int ItemDefinition)
 	{
 		Index = perkUPGIndex[Index];
 		lvl = WMPRI.bPerkUpgrade[Index];
-		price = WMGRI.perkPrice[lvl];
+		UPGPrice = WMGRI.perkPrice[lvl];
 
-		if (WMPRI.Score >= price)
+		if (WMPRI.Score >= UPGPrice)
 		{
+			OriginalDosh = WMPRI.Score;
 			if (WMPC.WorldInfo.NetMode != NM_Standalone)
 				WMPRI.syncCompleted = False;
-			WMPC.BuyPerkUpgrade(Index, price);
+			WMPC.BuyPerkUpgrade(Index, UPGPrice);
 			if (WMPC.WorldInfo.NetMode != NM_Standalone)
 				WMPRI.bPerkUpgrade[Index] = lvl + 1;
-			WMPRI.Score -= price;
+			WMPRI.Score = OriginalDosh - UPGPrice;
 			if (WMPRI.purchase_perkUpgrade.Find(Index) == INDEX_NONE)
 				WMPRI.purchase_perkUpgrade.AddItem(Index);
 			CurrentBuyIndex = Index;
@@ -664,18 +665,19 @@ function Callback_Equip(int ItemDefinition)
 		lvl = WMPRI.bSkillUpgrade[Index];
 
 		if (WMPRI.bSkillDeluxe[Index] == 1)
-			price = WMGRI.skillDeluxePrice;
+			UPGPrice = WMGRI.skillDeluxePrice;
 		else
-			price = WMGRI.skillPrice;
+			UPGPrice = WMGRI.skillPrice;
 
-		if (WMPRI.Score >= price)
+		if (WMPRI.Score >= UPGPrice)
 		{
+			OriginalDosh = WMPRI.Score;
 			if (WMPC.WorldInfo.NetMode != NM_Standalone)
 				WMPRI.syncCompleted = False;
-			WMPC.BuySkillUpgrade(Index, GetPerkRelatedIndex(Index), price, WMPRI.bSkillDeluxe[Index] + 1);
+			WMPC.BuySkillUpgrade(Index, GetPerkRelatedIndex(Index), UPGPrice, WMPRI.bSkillDeluxe[Index] + 1);
 			if (WMPC.WorldInfo.NetMode != NM_Standalone)
 				WMPRI.bSkillUpgrade[Index] = lvl + WMPRI.bSkillDeluxe[Index] + 1;
-			WMPRI.Score -= price;
+			WMPRI.Score = OriginalDosh - UPGPrice;
 			if (WMPRI.purchase_skillUpgrade.Find(Index) == INDEX_NONE)
 				WMPRI.purchase_skillUpgrade.AddItem(Index);
 			CurrentBuyIndex = Index;
@@ -688,16 +690,17 @@ function Callback_Equip(int ItemDefinition)
 	{
 		Index = weaponUPGIndex[Index];
 		lvl = WMPRI.GetWeaponUpgrade(Index);
-		price = WMGRI.weaponUpgradeList[Index].BasePrice * (lvl + 1);
+		UPGPrice = WMGRI.weaponUpgradeList[Index].BasePrice * (lvl + 1);
 
-		if (WMPRI.Score >= price)
+		if (WMPRI.Score >= UPGPrice)
 		{
+			OriginalDosh = WMPRI.Score;
 			if (WMPC.WorldInfo.NetMode != NM_Standalone)
 				WMPRI.syncCompleted = False;
-			WMPC.BuyWeaponUpgrade(Index, price);
+			WMPC.BuyWeaponUpgrade(Index, UPGPrice);
 			if (WMPC.WorldInfo.NetMode != NM_Standalone)
 				WMPRI.SetWeaponUpgrade(Index, lvl + 1);
-			WMPRI.Score -= price;
+			WMPRI.Score = OriginalDosh - UPGPrice;
 			WMPC.UpdateWeaponMagAndCap();
 			if (WMPRI.purchase_weaponUpgrade.Find(Index) == INDEX_NONE)
 				WMPRI.purchase_weaponUpgrade.AddItem(Index);
