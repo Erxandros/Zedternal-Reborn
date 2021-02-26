@@ -121,6 +121,39 @@ reliable server function UnlockSkill(int index, bool deluxe)
 	}
 }
 
+reliable server function RerollSkillsForPerk(string RerollPerkPathName, int Cost)
+{
+	local WMGameReplicationInfo WMGRI;
+	local WMPlayerReplicationInfo WMPRI;
+	local int i;
+
+	WMGRI = WMGameReplicationInfo(WorldInfo.GRI);
+	WMPRI = WMPlayerReplicationInfo(Pawn.PlayerReplicationInfo);
+	if (WMPRI != None && WMGRI != None && WMPRI.Score >= Cost)
+	{
+		for (i = 0; i < WMGRI.skillUpgrades.length; ++i)
+		{
+			if (RerollPerkPathName ~= WMGRI.skillUpgrades[i].PerkPathName)
+			{
+				WMPRI.bSkillUpgrade[i] = 0;
+				WMPRI.bSkillUnlocked[i] = 0;
+				WMPRI.bSkillDeluxe[i] = 0;
+
+				if (WMPRI.purchase_skillUpgrade.Find(i) != INDEX_NONE)
+					WMPRI.purchase_skillUpgrade.RemoveItem(i);
+			}
+		}
+
+		if (WorldInfo.NetMode == NM_DedicatedServer)
+		{
+			WMPRI.AddDosh(-Cost);
+			WMPRI.syncTrigger = !WMPRI.syncTrigger;
+		}
+
+		WMPRI.UpdatePerkAndSkillPurchases();
+	}
+}
+
 function UpdateWeaponMagAndCap()
 {
 	local WMPawn_Human WMPH;

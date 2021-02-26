@@ -54,6 +54,9 @@ var byte PlatformType;
 var bool bHasVoted;
 var bool bVotingActive;
 
+//For reroll counter
+var int RerollCounter;
+
 replication
 {
 	if ( bNetDirty && (Role == Role_Authority) )
@@ -63,7 +66,7 @@ replication
 		bWeaponUpgrade_12, bWeaponUpgrade_13, bWeaponUpgrade_14, bWeaponUpgrade_15, bWeaponUpgrade_16;
 
 	if ( bNetDirty )
-		perkIconIndex, perkLvl, syncTrigger, UncompressedPing, PlayerArmor, PlayerArmorPercent, PlatformType;
+		perkIconIndex, perkLvl, syncTrigger, UncompressedPing, PlayerArmor, PlayerArmorPercent, PlatformType, RerollCounter;
 }
 
 simulated event ReplicatedEvent(name VarName)
@@ -143,6 +146,7 @@ function CopyProperties(PlayerReplicationInfo PRI)
 		}
 
 		WMPRI.perkLvl = perkLvl;
+		WMPRI.RerollCounter = RerollCounter;
 	}
 
 	super.CopyProperties(PRI);

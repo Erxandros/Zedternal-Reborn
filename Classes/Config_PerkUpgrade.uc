@@ -3,10 +3,19 @@ class Config_PerkUpgrade extends Config_Base
 
 var config int MODEVERSION;
 
-var config array< string >  PerkUpgrade_PerkUpgrades;
-var config array< string >  PerkUpgrade_FixedPerkUpgrades;
-var config int 				PerkUpgrade_NbAvailablePerks;
-var config array< int > 	PerkUpgrade_Price;
+var config array<string> PerkUpgrade_PerkUpgrades;
+var config array<string> PerkUpgrade_FixedPerkUpgrades;
+var config int PerkUpgrade_NbAvailablePerks;
+var config array<int> PerkUpgrade_Price;
+
+struct S_SkillRerollCost
+{
+	var int BasePrice;
+	var float NextRerollMultiplier;
+};
+var config bool PerkUpgrade_bAllowSkillReroll;
+var config S_SkillRerollCost PerkUpgrade_SkillRerollCost;
+var config float PerkUpgrade_SkillRerollSellPercentage;
 
 static function UpdateConfig()
 {
@@ -34,6 +43,14 @@ static function UpdateConfig()
 		default.PerkUpgrade_Price[3] = 1000;
 		default.PerkUpgrade_Price[4] = 1250;
 		default.PerkUpgrade_Price[5] = 1500;
+	}
+
+	if (default.MODEVERSION < 8)
+	{
+		default.PerkUpgrade_bAllowSkillReroll = True;
+		default.PerkUpgrade_SkillRerollCost.BasePrice = 400;
+		default.PerkUpgrade_SkillRerollCost.NextRerollMultiplier = 2.0f;
+		default.PerkUpgrade_SkillRerollSellPercentage = 0.5f;
 	}
 
 	if (default.MODEVERSION < class'ZedternalReborn.Config_Base'.default.currentVersion)

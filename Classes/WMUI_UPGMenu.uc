@@ -13,6 +13,10 @@ var array<int> perkUPGIndex, weaponUPGIndex, skillUPGIndex, GrenadeIndex;
 
 var AkBaseSoundObject selectSound, perkSound, skillSound, weaponSound;
 
+//For reroll
+var int RerollPerkItemDefinition;
+var int RerollTotalCost;
+
 enum EWMINV_Filter
 {
 	EWMInv_All,
@@ -60,7 +64,7 @@ function UpdateText()
 		LocalizedObject.SetString("equip", "");
 		LocalizedObject.SetString("unequip", "");
 		LocalizedObject.SetString("useString", "");
-		LocalizedObject.SetString("recycle", "");
+		LocalizedObject.SetString("recycle", "Reroll Skills");
 		LocalizedObject.SetString("inventory", "Upgrade Menu");
 
 		LocalizedObject.SetString("filters", "Loadout");
@@ -223,7 +227,7 @@ function Callback_InventoryFilter(int FilterIndex)
 					ItemObject.SetString("price", "");
 					ItemObject.Setstring("typeRarity", "");
 					ItemObject.SetBool("exchangeable", False);
-					ItemObject.SetBool("recyclable", False);
+					ItemObject.SetBool("recyclable", WMGRI.bAllowSkillReroll ? lvl > 0 : False);
 					ItemObject.SetInt("definition", j);
 					if (bPurchased)
 					{
@@ -501,6 +505,98 @@ function string GetUpgradeDescription(int index, int lvl)
 	return str;
 }
 
+function ResetRerollVars()
+{
+	RerollPerkItemDefinition = -1;
+	RerollTotalCost = 0;
+}
+
+function ConfirmSkillReroll()
+{
+	local string RerollPerkPathName;
+	local int i, OriginalDosh;
+
+	if (RerollPerkItemDefinition != INDEX_NONE)
+	{
+		OriginalDosh = WMPRI.Score;
+		++WMPRI.RerollCounter;
+		if (WMPC.WorldInfo.NetMode != NM_Standalone)
+				WMPRI.syncCompleted = False;
+
+		RerollPerkPathName = PathName(WMGRI.perkUpgrades[perkUPGIndex[RerollPerkItemDefinition]]);
+		WMPC.RerollSkillsForPerk(RerollPerkPathName, RerollTotalCost);
+
+		for (i = 0; i < WMGRI.skillUpgrades.length; ++i)
+		{
+			if (RerollPerkPathName ~= WMGRI.skillUpgrades[i].PerkPathName)
+			{
+				WMPRI.bSkillUpgrade[i] = 0;
+				WMPRI.bSkillUnlocked[i] = 0;
+				WMPRI.bSkillDeluxe[i] = 0;
+
+				if (WMPRI.purchase_skillUpgrade.Find(i) != INDEX_NONE)
+					WMPRI.purchase_skillUpgrade.RemoveItem(i);
+			}
+		}
+
+		WMPRI.Score = OriginalDosh - RerollTotalCost;
+
+		for (i = 0; i < WMPRI.bPerkUpgrade[perkUPGIndex[RerollPerkItemDefinition]]; ++i)
+		{
+			UnlockRandomSkill(RerollPerkPathName, WMGRI.bDeluxeSkillUnlock[i] == 1);
+		}
+
+		Refresh();
+	}
+
+	ResetRerollVars();
+}
+
+function Callback_RecycleItem(int ItemDefinition)
+{
+	local string STitle, SDescription;
+	local int RerollCost, SkillRefund, TotalCost;
+	local byte b, Count;
+
+	RerollCost = WMGRI.RerollCost * (WMGRI.RerollMultiplier ** WMPRI.RerollCounter);
+	SkillRefund = 0;
+	Count = 0;
+	foreach WMPRI.purchase_skillUpgrade(b)
+	{
+		if (WMGRI.skillUpgrades[b].PerkPathName ~= PathName(WMGRI.perkUpgrades[perkUPGIndex[ItemDefinition]]))
+		{
+			if (WMPRI.bSkillDeluxe[b] > 0)
+				SkillRefund += Round(float(WMGRI.skillDeluxePrice) * WMGRI.RerollSkillSellPercent);
+			else
+				SkillRefund += Round(float(WMGRI.skillPrice) * WMGRI.RerollSkillSellPercent);
+
+			++Count;
+		}
+	}
+
+	TotalCost = RerollCost - SkillRefund;
+	if (WMPRI.Score >= TotalCost)
+	{
+		RerollPerkItemDefinition = ItemDefinition;
+		RerollTotalCost = TotalCost;
+
+		STitle = "Reroll skills for perk" @WMGRI.perkUpgrades[perkUPGIndex[ItemDefinition]].default.upgradeName $"?";
+		SDescription = "This will cost a reroll fee of" @RerollCost @"Dosh.";
+		if (Count > 0)
+		{
+			SDescription = SDescription @Count @"skill(s) will be sold at a" @Round(WMGRI.RerollSkillSellPercent * 100) $"% rate for a total refund of" @SkillRefund @"Dosh.";
+			if (TotalCost > 0)
+				SDescription = SDescription @"\nRequired Dosh:" @TotalCost;
+			else
+				SDescription = SDescription @"\nDosh Refunded:" @-TotalCost;
+		}
+
+		Manager.OpenUPGMenuPopup(STitle, SDescription, "Confirm", "Cancel", ConfirmSkillReroll, ResetRerollVars);
+	}
+	else
+		Manager.OpenUPGMenuPopup("Lack of Dosh", "Current Dosh:" @Round(WMPRI.Score) $"\nRequired Dosh:" @TotalCost, , , , , "Okay", ResetRerollVars);
+}
+
 // Upgrade Filter
 function Callback_RarityTypeFilterChanged(int NewFilterIndex)
 {
@@ -765,6 +861,8 @@ defaultproperties
 	weaponSound=AkEvent'WW_UI_Menu.Play_UI_Weapon_Upgrade'
 	perkSound=AkEvent'WW_UI_Menu.Play_UI_Trader_Item_Sell'
 	skillSound=AkEvent'WW_UI_Menu.Play_UI_Trader_Item_Buy'
+
+	RerollPerkItemDefinition=-1
 
 	Name="Default__WMUI_UPGMenu"
 }

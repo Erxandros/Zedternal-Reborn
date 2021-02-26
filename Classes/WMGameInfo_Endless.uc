@@ -1482,6 +1482,12 @@ function RepGameInfoHighPriority()
 			WMGRI.bDeluxeSkillUnlock[class'ZedternalReborn.Config_SkillUpgrade'.default.SkillUpgrade_DeluxeSkillUnlock.PerkLevels[i] - 1] = 1;
 	}
 
+	//Skill reroll
+	WMGRI.bAllowSkillReroll = class'Config_PerkUpgrade'.default.PerkUpgrade_bAllowSkillReroll;
+	WMGRI.RerollCost = class'Config_PerkUpgrade'.default.PerkUpgrade_SkillRerollCost.BasePrice;
+	WMGRI.RerollMultiplier = FMax(class'Config_PerkUpgrade'.default.PerkUpgrade_SkillRerollCost.NextRerollMultiplier, 1.0f);
+	WMGRI.RerollSkillSellPercent = FClamp(class'Config_PerkUpgrade'.default.PerkUpgrade_SkillRerollSellPercentage, 0.0f, 1.0f);
+
 	SetTimer(3.0f, false, 'RepGameInfoNormalPriority');
 }
 
