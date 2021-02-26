@@ -132,6 +132,8 @@ event OnClose()
 
 final function CloseMenu(optional bool bExternal)
 {
+	UnloadCurrentPopup();
+
 	SetMenuVisibility(False);
 
 	WMPlayerController(GetPC()).bUpgradeMenuOpen = False;
