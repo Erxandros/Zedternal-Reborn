@@ -7,15 +7,13 @@ var WMPlayerReplicationInfo WMPRI;
 var WMGameReplicationInfo WMGRI;
 
 var GFxObject ItemDetailsContainer,EquipButton;
-var int CurrentFilterIndex, CurrentBuyIndex, CurrentBuyLvl, skillLastUnlocked;
-var string CurrentBuyType;
+var int CurrentFilterIndex;
 var array<int> perkUPGIndex, weaponUPGIndex, skillUPGIndex, GrenadeIndex;
 
 var AkBaseSoundObject selectSound, perkSound, skillSound, weaponSound;
 
 //For reroll
-var int RerollPerkItemDefinition;
-var int RerollTotalCost;
+var int RerollPerkItemDefinition, RerollTotalCost;
 
 enum EWMINV_Filter
 {
@@ -40,8 +38,6 @@ function InitializeMenu(WMUI_Menu MenuManager)
 	SetBool("bUsingGamepad", class'WorldInfo'.static.IsConsoleBuild());
 
 	CurrentFilterIndex = 0;
-	CurrentBuyIndex = 0;
-	CurrentBuyType = "";
 	CurrentUpgradeFilter = EWMINV_Filter(WMPC.UPG_UpgradeListIndex);
 
 	UpdateText();
@@ -192,8 +188,6 @@ function Callback_InventoryFilter(int FilterIndex)
 			if (WMPRI.bPerkUpgradeAvailable[i] > 0)
 			{
 				lvl = WMPRI.bPerkUpgrade[i];
-				if (CurrentBuyType ~= "perk" && CurrentBuyIndex == i)
-					lvl = CurrentBuyLvl;
 
 				// Get Max Level of that upgrade
 				maxLevel = WMGRI.perkMaxLevel;
@@ -258,11 +252,9 @@ function Callback_InventoryFilter(int FilterIndex)
 	{
 		for (i = 0; i < WMGRI.skillUpgrades.Length; ++i)
 		{
-			if (WMPRI.bSkillUnlocked[i] == 1 || (skillLastUnlocked - 1) == i)
+			if (WMPRI.bSkillUnlocked[i] == 1)
 			{
 				lvl = WMPRI.bSkillUpgrade[i];
-				if (CurrentBuyType ~= "skill" && CurrentBuyIndex == i)
-					lvl = CurrentBuyLvl;
 
 				// Is it fully bought?
 				if (lvl == 0)
@@ -331,8 +323,6 @@ function Callback_InventoryFilter(int FilterIndex)
 			if (isWeaponInInventory(WMGRI.weaponUpgradeList[i].KFWeapon))
 			{
 				lvl = WMPRI.GetWeaponUpgrade(i);
-				if (CurrentBuyType ~= "weapon" && CurrentBuyIndex == i)
-					lvl = CurrentBuyLvl;
 
 				maxLevel = WMGRI.weaponMaxLevel;
 
@@ -748,9 +738,6 @@ function Callback_Equip(int ItemDefinition)
 			WMPRI.Score = OriginalDosh - UPGPrice;
 			if (WMPRI.purchase_perkUpgrade.Find(Index) == INDEX_NONE)
 				WMPRI.purchase_perkUpgrade.AddItem(Index);
-			CurrentBuyIndex = Index;
-			CurrentBuyType = "perk";
-			CurrentBuyLvl = lvl + 1;
 			UnlockRandomSkill(PathName(WMGRI.perkUpgrades[Index]), WMGRI.bDeluxeSkillUnlock[lvl] == 1);
 			Owner.PlaySoundBase(default.perkSound, True);
 		}
@@ -776,9 +763,6 @@ function Callback_Equip(int ItemDefinition)
 			WMPRI.Score = OriginalDosh - UPGPrice;
 			if (WMPRI.purchase_skillUpgrade.Find(Index) == INDEX_NONE)
 				WMPRI.purchase_skillUpgrade.AddItem(Index);
-			CurrentBuyIndex = Index;
-			CurrentBuyType = "skill";
-			CurrentBuyLvl = lvl + WMPRI.bSkillDeluxe[Index] + 1;
 			Owner.PlaySoundBase(default.skillSound, True);
 		}
 	}
@@ -800,9 +784,6 @@ function Callback_Equip(int ItemDefinition)
 			WMPC.UpdateWeaponMagAndCap();
 			if (WMPRI.purchase_weaponUpgrade.Find(Index) == INDEX_NONE)
 				WMPRI.purchase_weaponUpgrade.AddItem(Index);
-			CurrentBuyIndex = Index;
-			CurrentBuyType = "weapon";
-			CurrentBuyLvl = lvl + 1;
 			Owner.PlaySoundBase(default.weaponSound, True);
 		}
 	}
@@ -842,6 +823,7 @@ function UnlockRandomSkill(string perkPathName, bool bShouldBeDeluxe)
 		if (WMGRI.skillUpgrades[i].PerkPathName ~= perkPathName && WMPRI.bSkillUnlocked[i] == 0)
 			availableIndex.AddItem(i);
 	}
+
 	if (availableIndex.length > 0)
 	{
 		choice = Rand(availableIndex.length);
@@ -850,8 +832,6 @@ function UnlockRandomSkill(string perkPathName, bool bShouldBeDeluxe)
 		WMPRI.bSkillUnlocked[availableIndex[choice]] = 1;
 		if (bShouldBeDeluxe)
 			WMPRI.bSkillDeluxe[availableIndex[choice]] = 1;
-
-		skillLastUnlocked = availableIndex[choice] + 1;
 	}
 }
 
