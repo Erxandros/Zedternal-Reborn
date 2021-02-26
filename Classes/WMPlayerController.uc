@@ -140,7 +140,10 @@ reliable server function RerollSkillsForPerk(string RerollPerkPathName, int Cost
 				WMPRI.bSkillDeluxe[i] = 0;
 
 				if (WMPRI.purchase_skillUpgrade.Find(i) != INDEX_NONE)
+				{
 					WMPRI.purchase_skillUpgrade.RemoveItem(i);
+					WMGRI.skillUpgrades[i].SkillUpgrade.static.DeleteHelperClass(Pawn);
+				}
 			}
 		}
 
@@ -149,6 +152,8 @@ reliable server function RerollSkillsForPerk(string RerollPerkPathName, int Cost
 			WMPRI.AddDosh(-Cost);
 			WMPRI.syncTrigger = !WMPRI.syncTrigger;
 		}
+
+		UpdateWeaponMagAndCap();
 
 		WMPRI.UpdatePerkAndSkillPurchases();
 	}

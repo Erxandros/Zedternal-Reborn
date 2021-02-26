@@ -66,6 +66,19 @@ static function WMUpgrade_Skill_FirstBlood_Helper GetHelper(KFPawn OwnerPawn)
 	return UPG;
 }
 
+static simulated function DeleteHelperClass(Pawn OwnerPawn)
+{
+	local WMUpgrade_Skill_FirstBlood_Helper UPG;
+
+	if (OwnerPawn != None)
+	{
+		foreach OwnerPawn.ChildActors(class'WMUpgrade_Skill_FirstBlood_Helper', UPG)
+		{
+			UPG.Destroy();
+		}
+	}
+}
+
 defaultproperties
 {
 	DamageDelta(0)=0.05f

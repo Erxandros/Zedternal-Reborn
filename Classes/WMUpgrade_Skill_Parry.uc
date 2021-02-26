@@ -75,6 +75,19 @@ static function WMUpgrade_Skill_Parry_Helper GetHelper(KFPawn OwnerPawn)
 	return UPG;
 }
 
+static simulated function DeleteHelperClass(Pawn OwnerPawn)
+{
+	local WMUpgrade_Skill_Parry_Helper UPG;
+
+	if (OwnerPawn != None)
+	{
+		foreach OwnerPawn.ChildActors(class'WMUpgrade_Skill_Parry_Helper', UPG)
+		{
+			UPG.Destroy();
+		}
+	}
+}
+
 defaultproperties
 {
 	Damage(0)=0.3f

@@ -59,6 +59,19 @@ static function WMUpgrade_Skill_RankThemUp_Helper GetHelper(Pawn OwnerPawn)
 	return UPG;
 }
 
+static simulated function DeleteHelperClass(Pawn OwnerPawn)
+{
+	local WMUpgrade_Skill_RankThemUp_Helper UPG;
+
+	if (OwnerPawn != None)
+	{
+		foreach OwnerPawn.ChildActors(class'WMUpgrade_Skill_RankThemUp_Helper', UPG)
+		{
+			UPG.Destroy();
+		}
+	}
+}
+
 defaultproperties
 {
 	ExtraDamage(1)=1.5f

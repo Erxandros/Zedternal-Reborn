@@ -29,6 +29,19 @@ static simulated function InitiateWeapon(int upgLevel, KFWeapon KFW, KFPawn Owne
 	}
 }
 
+static simulated function DeleteHelperClass(Pawn OwnerPawn)
+{
+	local WMUpgrade_Skill_Fortitude_Helper UPG;
+
+	if (OwnerPawn != None)
+	{
+		foreach OwnerPawn.ChildActors(class'WMUpgrade_Skill_Fortitude_Helper', UPG)
+		{
+			UPG.Destroy();
+		}
+	}
+}
+
 defaultproperties
 {
 	Health(0)=0.1f

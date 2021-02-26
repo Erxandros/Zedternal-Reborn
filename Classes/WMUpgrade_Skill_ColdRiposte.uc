@@ -31,6 +31,19 @@ static function WMUpgrade_Skill_ColdRiposte_Helper GetHelper(KFPawn OwnerPawn, i
 	return UPG;
 }
 
+static simulated function DeleteHelperClass(Pawn OwnerPawn)
+{
+	local WMUpgrade_Skill_ColdRiposte_Helper UPG;
+
+	if (OwnerPawn != None)
+	{
+		foreach OwnerPawn.ChildActors(class'WMUpgrade_Skill_ColdRiposte_Helper', UPG)
+		{
+			UPG.Destroy();
+		}
+	}
+}
+
 defaultproperties
 {
 	upgradeName="Cold Riposte"

@@ -61,6 +61,19 @@ static function WaveEnd(int upgLevel, KFPlayerController KFPC)
 	UPG.EndWaveReset();
 }
 
+static simulated function DeleteHelperClass(Pawn OwnerPawn)
+{
+	local WMUpgrade_Skill_Pyromaniac_Helper UPG;
+
+	if (OwnerPawn != None)
+	{
+		foreach OwnerPawn.ChildActors(class'WMUpgrade_Skill_Pyromaniac_Helper', UPG)
+		{
+			UPG.Destroy();
+		}
+	}
+}
+
 defaultproperties
 {
 	RateOfFire(0)=0.2f

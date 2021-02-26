@@ -32,6 +32,19 @@ static function WMUpgrade_Skill_AssaultArmor_Helper GetHelper(Pawn OwnerPawn)
 	return UPG;
 }
 
+static simulated function DeleteHelperClass(Pawn OwnerPawn)
+{
+	local WMUpgrade_Skill_AssaultArmor_Helper UPG;
+
+	if (OwnerPawn != None)
+	{
+		foreach OwnerPawn.ChildActors(class'WMUpgrade_Skill_AssaultArmor_Helper', UPG)
+		{
+			UPG.Destroy();
+		}
+	}
+}
+
 defaultproperties
 {
 	Armor(0)=0.5f

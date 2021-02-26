@@ -525,7 +525,10 @@ function ConfirmSkillReroll()
 				WMPRI.bSkillDeluxe[i] = 0;
 
 				if (WMPRI.purchase_skillUpgrade.Find(i) != INDEX_NONE)
+				{
 					WMPRI.purchase_skillUpgrade.RemoveItem(i);
+					WMGRI.skillUpgrades[i].SkillUpgrade.static.DeleteHelperClass(Owner);
+				}
 			}
 		}
 

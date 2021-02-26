@@ -62,6 +62,19 @@ static function WMUpgrade_Skill_BringTheHeat_Helper GetHelper(Pawn OwnerPawn)
 	return UPG;
 }
 
+static simulated function DeleteHelperClass(Pawn OwnerPawn)
+{
+	local WMUpgrade_Skill_BringTheHeat_Helper UPG;
+
+	if (OwnerPawn != None)
+	{
+		foreach OwnerPawn.ChildActors(class'WMUpgrade_Skill_BringTheHeat_Helper', UPG)
+		{
+			UPG.Destroy();
+		}
+	}
+}
+
 defaultproperties
 {
 	FireBonus=1.4f

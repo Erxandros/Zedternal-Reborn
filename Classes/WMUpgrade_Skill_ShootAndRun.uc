@@ -71,6 +71,19 @@ static simulated function WMUpgrade_Skill_ShootAndRun_Helper GetHelper(KFPawn Ow
 	return UPG;
 }
 
+static simulated function DeleteHelperClass(Pawn OwnerPawn)
+{
+	local WMUpgrade_Skill_ShootAndRun_Helper UPG;
+
+	if (OwnerPawn != None)
+	{
+		foreach OwnerPawn.ChildActors(class'WMUpgrade_Skill_ShootAndRun_Helper', UPG)
+		{
+			UPG.Destroy();
+		}
+	}
+}
+
 defaultproperties
 {
 	MaxReloadSpeedBonus(0)=0.5f

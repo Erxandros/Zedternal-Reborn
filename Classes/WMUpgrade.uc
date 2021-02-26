@@ -231,6 +231,9 @@ static function bool IsGrenadeDT(class<DamageType> DT)
 		ClassIsChildOf(DT, class'KFDT_Explosive_NailBombGrenade');
 }
 
+//Used for skills currently when sold using reroll button
+static simulated function DeleteHelperClass(Pawn OwnerPawn);
+
 defaultproperties
 {
 	upgradeIcon(0)=Texture2D'CHR_Cosmetics_Item_TEX.3DGlasses.3DGlasses_Color02'
