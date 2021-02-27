@@ -3,14 +3,14 @@
 //=============================================================================
 
 //Zedternal Custom Difficulty
-`define DIFFICULTY_ZEDTERNALCUSTOM 4.0
+`define DIFFICULTY_ZEDTERNALCUSTOM 4.0f
 
 //WMMapObjective_DoshHold Dialogs
-`define TRAD_ObjDefendAWon		58
-`define TRAD_ObjDefendAFailed	60
-`define TRAD_ObjDefendAWonJust	111
-`define TRAD_ObjDefendAWonGood	112
-`define TRAD_ObjDefendAWonPerf	113
+`define TRAD_ObjDefendAWon 58
+`define TRAD_ObjDefendAFailed 60
+`define TRAD_ObjDefendAWonJust 111
+`define TRAD_ObjDefendAWonGood 112
+`define TRAD_ObjDefendAWonPerf 113
 
 //Max weapon upgrades that can be replicated
 `define MAXWEAPONUPGRADES 4080
