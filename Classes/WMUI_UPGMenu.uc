@@ -540,6 +540,7 @@ function ConfirmSkillReroll()
 		}
 
 		Refresh();
+		Owner.PlaySoundBase(default.skillSound, True);
 	}
 
 	ResetRerollVars();
