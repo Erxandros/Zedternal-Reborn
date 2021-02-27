@@ -180,7 +180,7 @@ static function UpdateConfig()
 	{
 		//Fix FlameThrower
 		i = default.WeaponVariant_VariantList.Find('WeaponDef', "KFGame.KFWeapDef_Flamethrower");
-		if (i != -1)
+		if (i != INDEX_NONE)
 		{
 			default.WeaponVariant_VariantList[i].WeaponDef = "KFGame.KFWeapDef_FlameThrower";
 			default.WeaponVariant_VariantList[i].WeaponDefVariant = "ZedternalReborn.WMWeapDef_FlameThrower_Precious";
@@ -188,7 +188,7 @@ static function UpdateConfig()
 
 		//Fix RailGun
 		i = default.WeaponVariant_VariantList.Find('WeaponDef', "KFGame.KFWeapDef_Railgun");
-		if (i != -1)
+		if (i != INDEX_NONE)
 		{
 			default.WeaponVariant_VariantList[i].WeaponDef = "KFGame.KFWeapDef_RailGun";
 			default.WeaponVariant_VariantList[i].WeaponDefVariant = "ZedternalReborn.WMWeapDef_RailGun_Precious";
@@ -377,7 +377,7 @@ static function UpdateConfig()
 	{
 		//Changed single 1858 to dual 1858
 		i = default.Weapon_PlayerStartingWeaponDefList.Find("KFGame.KFWeapDef_Remington1858");
-		if (i != -1)
+		if (i != INDEX_NONE)
 		{
 			default.Weapon_PlayerStartingWeaponDefList[i] = "KFGame.KFWeapDef_Remington1858Dual";
 		}
@@ -443,7 +443,7 @@ static function UpdateConfig()
 	if (default.MODEVERSION < 7)
 	{
 		i = default.WeaponVariant_VariantList.Find('WeaponDef', "KFGameContent.KFWeapDef_HRGTeslauncher");
-		if (i != -1)
+		if (i != INDEX_NONE)
 		{
 			default.WeaponVariant_VariantList[i].WeaponDef = "KFGame.KFWeapDef_HRGTeslauncher";
 		}

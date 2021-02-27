@@ -43,7 +43,7 @@ reliable server function BuyPerkUpgrade(int ItemDefinition, int Cost)
 	if (WMPRI != None && WMPRI.Score >= Cost && WMPRI.bPerkUpgrade[ItemDefinition] < WMGameReplicationInfo(WorldInfo.GRI).perkMaxLevel)
 	{
 		++WMPRI.bPerkUpgrade[ItemDefinition];
-		if (WMPRI.purchase_perkUpgrade.Find(ItemDefinition) == -1)
+		if (WMPRI.purchase_perkUpgrade.Find(ItemDefinition) == INDEX_NONE)
 			WMPRI.purchase_perkUpgrade.AddItem(ItemDefinition);
 
 		if (WorldInfo.NetMode == NM_DedicatedServer)
@@ -67,7 +67,7 @@ reliable server function BuyWeaponUpgrade(int ItemDefinition, int Cost)
 	if (WMPRI != None && WMPRI.Score >= Cost && WMPRI.GetWeaponUpgrade(ItemDefinition) < WMGameReplicationInfo(WorldInfo.GRI).weaponMaxLevel)
 	{
 		WMPRI.IncermentWeaponUpgrade(ItemDefinition);
-		if (WMPRI.purchase_weaponUpgrade.Find(ItemDefinition) == -1)
+		if (WMPRI.purchase_weaponUpgrade.Find(ItemDefinition) == INDEX_NONE)
 			WMPRI.purchase_weaponUpgrade.AddItem(ItemDefinition);
 
 		if (WorldInfo.NetMode == NM_DedicatedServer)
@@ -89,7 +89,7 @@ reliable server function BuySkillUpgrade(int ItemDefinition, int PerkItemDefinit
 	if (WMPRI != None && WMPRI.Score >= Cost)
 	{
 		WMPRI.bSkillUpgrade[ItemDefinition] = min(WMPRI.bSkillUpgrade[ItemDefinition] + lvl, 2);
-		if (WMPRI.purchase_skillUpgrade.Find(ItemDefinition) == -1)
+		if (WMPRI.purchase_skillUpgrade.Find(ItemDefinition) == INDEX_NONE)
 			WMPRI.purchase_skillUpgrade.AddItem(ItemDefinition);
 
 		if (WorldInfo.NetMode == NM_DedicatedServer)

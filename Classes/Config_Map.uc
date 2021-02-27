@@ -75,7 +75,7 @@ static function int GetStartingDosh(string MapName)
 	local int index;
 
 	index = default.Map_Settings.Find('MapName', MapName);
-	if (index != -1)
+	if (index != INDEX_NONE)
 		return Max(default.Map_Settings[index].StartingDosh, 0);
 	else
 		return 400;
@@ -86,7 +86,7 @@ static function int GetStartingWave(string MapName)
 	local int index;
 
 	index = default.Map_Settings.Find('MapName', MapName);
-	if (index != -1)
+	if (index != INDEX_NONE)
 		return Min(Max(default.Map_Settings[index].StartingWave - 1, 0), 254);
 	else
 		return 0;
@@ -97,7 +97,7 @@ static function int GetStartingTraderTime(string MapName)
 	local int index;
 
 	index = default.Map_Settings.Find('MapName', MapName);
-	if (index != -1)
+	if (index != INDEX_NONE)
 		return Max(default.Map_Settings[index].StartingTraderTime, 0);
 	else
 		return 0;
@@ -108,7 +108,7 @@ static function float GetZedNumberScale(string MapName)
 	local int index;
 
 	index = default.Map_Settings.Find('MapName', MapName);
-	if (index != -1)
+	if (index != INDEX_NONE)
 		return default.Map_Settings[index].ZedNumberScale;
 	else
 		return 1.f;
@@ -119,7 +119,7 @@ static function float GetZedSpawnRate(string MapName)
 	local int index;
 
 	index = default.Map_Settings.Find('MapName', MapName);
-	if (index != -1)
+	if (index != INDEX_NONE)
 		return default.Map_Settings[index].ZedSpawnRate;
 	else
 		return 1.f;
@@ -130,7 +130,7 @@ static function int GetZedStuckThreshold(string MapName)
 	local int index;
 
 	index = default.Map_Settings.Find('MapName', MapName);
-	if (index != -1)
+	if (index != INDEX_NONE)
 		return default.Map_Settings[index].ZedStuckThreshold;
 	else
 		return 4;
@@ -141,7 +141,7 @@ static function int GetZedStuckTimeout(string MapName)
 	local int index;
 
 	index = default.Map_Settings.Find('MapName', MapName);
-	if (index != -1)
+	if (index != INDEX_NONE)
 		return default.Map_Settings[index].ZedStuckTimeout;
 	else
 		return 150;
@@ -152,7 +152,7 @@ static function bool GetAllTraders(string MapName)
 	local int index;
 
 	index = default.Map_Settings.Find('MapName', MapName);
-	if (index != -1)
+	if (index != INDEX_NONE)
 		return default.Map_Settings[index].AllTraders;
 	else
 		return false;

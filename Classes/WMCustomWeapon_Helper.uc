@@ -56,7 +56,7 @@ static function UpdateSkinsHelper(const out string WeaponDef)
 	local WeaponSkin Skin;
 
 	index = default.WeaponDefinitions.Find('ZedternalWeaponDefPath', WeaponDef);
-	if (index == -1)
+	if (index == INDEX_NONE)
 		return;
 
 	ZedternalWeapon = class<KFWeaponDefinition>(DynamicLoadObject(default.WeaponDefinitions[index].ZedternalWeaponDefPath, class'Class'));

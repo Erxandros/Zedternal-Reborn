@@ -53,7 +53,7 @@ static function UpdateConfig()
 	{
 		//Fix typo
 		i = default.WeaponUpgrade_WeaponUpgrades.Find("ZedternalReborn.WMUpgrade_Weapon_AmmunitionConsomption");
-		if (i != -1)
+		if (i != INDEX_NONE)
 		{
 			default.WeaponUpgrade_WeaponUpgrades[i] = "ZedternalReborn.WMUpgrade_Weapon_AmmunitionConsumption";
 		}

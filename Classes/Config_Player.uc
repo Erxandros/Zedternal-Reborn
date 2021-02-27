@@ -75,7 +75,7 @@ static function UpdateConfig()
 
 	if (default.MODEVERSION < 2)
 	{
-		if (default.Player_DamageTakenFactor.Find('DamageType', class'KFGameContent.KFDT_EMP_MatriarchPlasmaCannon') == -1)
+		if (default.Player_DamageTakenFactor.Find('DamageType', class'KFGameContent.KFDT_EMP_MatriarchPlasmaCannon') == INDEX_NONE)
 		{
 			DValue.DamageType = class'KFGameContent.KFDT_EMP_MatriarchPlasmaCannon';
 			DValue.Factor = 0.750000;

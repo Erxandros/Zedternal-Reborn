@@ -736,7 +736,7 @@ static function int GetMonsterValue(class< KFPawn_Monster > KFPM, int NbPlayer)
 	NbP = Max(1, NbPlayer);
 
 	index = default.Zed_Value.Find('ZedClass', KFPM);
-	if (index != -1)
+	if (index != INDEX_NONE)
 		return default.Zed_Value[index].Value + default.Zed_Value[index].ValuePerExtraPlayer * (NbP - 1);
 	else
 		return KFPM.static.GetDoshValue();

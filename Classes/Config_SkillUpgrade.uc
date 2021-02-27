@@ -196,7 +196,7 @@ static function UpdateConfig()
 	{
 		//Fix typo
 		i = default.SkillUpgrade_SkillUpgrades.Find('SkillPath', "ZedternalReborn.WMUpgrade_Skill_FrozenHeadPoper");
-		if (i != -1)
+		if (i != INDEX_NONE)
 		{
 			default.SkillUpgrade_SkillUpgrades[i].SkillPath = "ZedternalReborn.WMUpgrade_Skill_FrozenHeadPopper";
 		}

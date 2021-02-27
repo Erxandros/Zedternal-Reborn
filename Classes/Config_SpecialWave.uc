@@ -115,7 +115,7 @@ static function UpdateConfig()
 
 	if (default.MODEVERSION < 4)
 	{
-		if (default.SpecialWave_SpecialWaves.Find('Path', "ZedternalReborn.WMSpecialWave_InstaKill") == -1)
+		if (default.SpecialWave_SpecialWaves.Find('Path', "ZedternalReborn.WMSpecialWave_InstaKill") == INDEX_NONE)
 		{
 			sWave.Path = "ZedternalReborn.WMSpecialWave_InstaKill";
 			sWave.MinWave = 0;

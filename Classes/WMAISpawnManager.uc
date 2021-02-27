@@ -61,7 +61,7 @@ function CheckForBadZedClasses()
 		}
 
 		//Warnings
-		if (class'ZedternalReborn.Config_Zed'.default.Zed_Value.Find('ZedClass', class'ZedternalReborn.Config_Zed'.default.Zed_Monsters[i].MClass) == -1)
+		if (class'ZedternalReborn.Config_Zed'.default.Zed_Value.Find('ZedClass', class'ZedternalReborn.Config_Zed'.default.Zed_Monsters[i].MClass) == INDEX_NONE)
 		{
 			`log("ZR Warning: Zed class"@string(class'ZedternalReborn.Config_Zed'.default.Zed_Monsters[i].MClass)@
 				"does not have a value defined under Zed_Value in the config, defaulting to the class's default dosh value.");
