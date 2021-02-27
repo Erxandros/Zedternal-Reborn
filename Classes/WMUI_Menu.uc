@@ -230,12 +230,14 @@ defaultproperties
 	bAutoPlay=True
 	bCaptureInput=True
 	SoundThemeName=ButtonSoundTheme
-	SoundThemes(0)=(ThemeName="SoundTheme_Crate",Theme=UISoundTheme'SoundsShared_UI.SoundTheme_Crate')
-	SoundThemes(1)=(ThemeName="ButtonSoundTheme",Theme=UISoundTheme'SoundsShared_UI.SoundTheme_Buttons')
-	SoundThemes(2)=(ThemeName="AAR",Theme=UISoundTheme'SoundsShared_UI.SoundTheme_AAR')
+	SoundThemes.Add((ThemeName="SoundTheme_Crate",Theme=UISoundTheme'SoundsShared_UI.SoundTheme_Crate'))
+	SoundThemes.Add((ThemeName="ButtonSoundTheme",Theme=UISoundTheme'SoundsShared_UI.SoundTheme_Buttons'))
+	SoundThemes.Add((ThemeName="AAR",Theme=UISoundTheme'SoundsShared_UI.SoundTheme_AAR'))
+	SoundThemes.Add((ThemeName="UI",Theme=UISoundTheme'SoundsShared_UI.SoundTheme_UI'))
 	Priority=10
-	WidgetBindings(0)=(WidgetName="root1",WidgetClass=Class'GFxUI.GFxObject')
-	WidgetBindings(1)=(WidgetName="InventoryMenu",WidgetClass=Class'ZedternalReborn.WMUI_UPGMenu')
-	WidgetBindings(2)=(WidgetName="ConfirmationPopup",WidgetClass=Class'ZedternalReborn.WMGFxObject_UPGMenuPopup')
+	WidgetBindings.Add((WidgetName="root1",WidgetClass=Class'GFxUI.GFxObject'))
+	WidgetBindings.Add((WidgetName="InventoryMenu",WidgetClass=Class'ZedternalReborn.WMUI_UPGMenu'))
+	WidgetBindings.Add((WidgetName="ConfirmationPopup",WidgetClass=Class'ZedternalReborn.WMGFxObject_UPGMenuPopup'))
+
 	Name="Default__WMUI_Menu"
 }
