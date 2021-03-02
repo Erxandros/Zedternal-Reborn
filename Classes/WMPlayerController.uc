@@ -178,7 +178,7 @@ reliable server function BuyEquipmentUpgrade(int ItemDefinition, int Cost)
 		}
 
 		UpdateWeaponMagAndCap();
-		++WMPRI.perkLvl;
+		++WMPRI.PlayerLevel;
 	}
 }
 
@@ -340,7 +340,7 @@ simulated function int GetCurrentLevel()
 
 	WMPRI = WMPlayerReplicationInfo(PlayerReplicationInfo);
 	if (WMPRI != None)
-		return WMPRI.perkLvl;
+		return WMPRI.PlayerLevel;
 	else
 		return 0;
 }
@@ -357,7 +357,7 @@ simulated function string GetPerkIconPath()
 
 	bShouldUpdateHUDPerkIcon = False;
 
-	if (WMPRI != None && WMGRI != None && WMPRI.perkLvl > 0)
+	if (WMPRI != None && WMGRI != None && WMPRI.PlayerLevel > 0)
 	{
 		tries = WMGRI.perkUpgrades.length;
 		while (tries > 0)

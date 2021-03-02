@@ -109,7 +109,7 @@ function GFxObject RefreshSlot(int SlotIndex, KFPlayerReplicationInfo KFPRI)
 		WMPRI = WMPlayerReplicationInfo(MemberSlots[SlotIndex].PRI);
 		if (WMPRI != none)
 		{
-			WMPlayerInfoObject.SetString("perkLevel", string(WMPRI.perkLvl));
+			WMPlayerInfoObject.SetString("perkLevel", string(WMPRI.PlayerLevel));
 
 			WMPerkIconObject = CreateObject("Object");
 			WMPerkIconObject.SetString("perkIcon", "img://"$PathName(WMPRI.GetCurrentIconToDisplay()));

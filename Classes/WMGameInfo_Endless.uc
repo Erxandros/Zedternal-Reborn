@@ -1724,7 +1724,7 @@ function int GetAdjustedDeathPenalty(KFPlayerReplicationInfo KilledPlayerPRI, op
 	PlayerPerkBonus = 0;
 	if (class'ZedternalReborn.Config_Game'.default.Game_ExtraDoshPerkBonusDivider > 0 && class'ZedternalReborn.Config_Game'.default.Game_ExtraDoshPerkBonusMaxThreshold > 0)
 	{
-		PlayerPerkBonus = Min(WMPlayerReplicationInfo(KFPC.PlayerReplicationInfo).perkLvl, class'ZedternalReborn.Config_Game'.default.Game_ExtraDoshPerkBonusMaxThreshold)
+		PlayerPerkBonus = Min(WMPlayerReplicationInfo(KFPC.PlayerReplicationInfo).PlayerLevel, class'ZedternalReborn.Config_Game'.default.Game_ExtraDoshPerkBonusMaxThreshold)
 		* class'ZedternalReborn.Config_Game'.default.Game_DoshPerWavePerPlayer
 		/ (class'ZedternalReborn.Config_Game'.default.Game_ExtraDoshPerkBonusDivider * class'ZedternalReborn.Config_Game'.default.Game_ExtraDoshPerkBonusMaxThreshold);
 	}
@@ -1857,14 +1857,14 @@ function RewardSurvivingPlayers()
 			PlayerPerkBonus = 0;
 			if (class'ZedternalReborn.Config_Game'.default.Game_ExtraDoshPerkBonusDivider > 0 && class'ZedternalReborn.Config_Game'.default.Game_ExtraDoshPerkBonusMaxThreshold > 0)
 			{
-				PlayerPerkBonus = Min(WMPlayerReplicationInfo(KFPC.PlayerReplicationInfo).perkLvl, class'ZedternalReborn.Config_Game'.default.Game_ExtraDoshPerkBonusMaxThreshold)
+				PlayerPerkBonus = Min(WMPlayerReplicationInfo(KFPC.PlayerReplicationInfo).PlayerLevel, class'ZedternalReborn.Config_Game'.default.Game_ExtraDoshPerkBonusMaxThreshold)
 				* class'ZedternalReborn.Config_Game'.default.Game_DoshPerWavePerPlayer
 				/ (class'ZedternalReborn.Config_Game'.default.Game_ExtraDoshPerkBonusDivider * class'ZedternalReborn.Config_Game'.default.Game_ExtraDoshPerkBonusMaxThreshold);
 			}
 
 			KFPlayerReplicationInfo(KFPC.PlayerReplicationInfo).AddDosh(PlayerBase + PlayerWave + PlayerPerkBonus, true);
 
-			`log("ZR Info: Player" @ KFPC.PlayerReplicationInfo.PlayerName @ "got" @ PlayerBase + PlayerWave + PlayerPerkBonus @ "dosh for surviving the wave. Player perk level:" @ WMPlayerReplicationInfo(KFPC.PlayerReplicationInfo).perkLvl);
+			`log("ZR Info: Player" @ KFPC.PlayerReplicationInfo.PlayerName @ "got" @ PlayerBase + PlayerWave + PlayerPerkBonus @ "dosh for surviving the wave. Player perk level:" @ WMPlayerReplicationInfo(KFPC.PlayerReplicationInfo).PlayerLevel);
 		}
 	}
 }

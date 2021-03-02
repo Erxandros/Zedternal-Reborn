@@ -27,8 +27,8 @@ var byte bSkillDeluxe[255];
 // Current "perk" : perk's icon reflets where player spend his dosh (perk upgrades and skill upgrades)
 var repnotify byte perkIconIndex;
 var texture2D CurrentIconToDisplay;
-var array< int > doshSpentOnPerk;
-var int perkLvl;
+var array<int> doshSpentOnPerk;
+var int PlayerLevel;
 
 //UI Menu
 var private WMUI_Menu UPGMenuManager;
@@ -67,7 +67,7 @@ replication
 		bWeaponUpgrade_12, bWeaponUpgrade_13, bWeaponUpgrade_14, bWeaponUpgrade_15, bWeaponUpgrade_16;
 
 	if ( bNetDirty )
-		perkIconIndex, perkLvl, syncTrigger, UncompressedPing, PlayerArmor, PlayerArmorPercent, PlatformType, RerollCounter;
+		perkIconIndex, PlayerLevel, syncTrigger, UncompressedPing, PlayerArmor, PlayerArmorPercent, PlatformType, RerollCounter;
 }
 
 simulated event ReplicatedEvent(name VarName)
@@ -148,7 +148,7 @@ function CopyProperties(PlayerReplicationInfo PRI)
 			WMPRI.bEquipmentUpgrade[i] = bEquipmentUpgrade[i];
 		}
 
-		WMPRI.perkLvl = perkLvl;
+		WMPRI.PlayerLevel = PlayerLevel;
 		WMPRI.RerollCounter = RerollCounter;
 	}
 
@@ -173,7 +173,7 @@ function UpdateReplicatedPlayerHealth()
 
 simulated function byte GetActivePerkLevel()
 {
-	return perkLvl;
+	return PlayerLevel;
 }
 
 simulated function byte GetActivePerkPrestigeLevel()
@@ -219,7 +219,7 @@ function UpdateCurrentIconToDisplay(int lastBoughtIndex, int doshSpent, int lvl)
 		}
 
 		// increase player level
-		perkLvl += lvl;
+		PlayerLevel += lvl;
 	}
 }
 
@@ -277,7 +277,7 @@ function RecalculatePlayerLevel()
 
 	if (WMGRI != none)
 	{
-		perkLvl = 0;
+		PlayerLevel = 0;
 
 		foreach purchase_perkUpgrade(index)
 		{
@@ -303,7 +303,7 @@ function RecalculatePlayerLevel()
 
 		foreach purchase_equipmentUpgrade(index)
 		{
-			perkLvl += bEquipmentUpgrade[index];
+			PlayerLevel += bEquipmentUpgrade[index];
 		}
 	}
 }
@@ -609,7 +609,7 @@ simulated function bool SyncTimerActive()
 
 defaultproperties
 {
-	perkLvl=0
+	PlayerLevel=0
 	perkIconIndex=254
 	CurrentIconToDisplay=Texture2D'UI_PerkIcons_TEX.UI_Horzine_H_Logo'
 	syncTrigger=false
