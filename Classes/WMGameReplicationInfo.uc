@@ -26,11 +26,26 @@ struct SkillUpgradeRepStruct
 	}
 };
 
+struct EquipmentUpgradeRepStruct
+{
+	var string EquipmentPathName;
+	var int BasePrice;
+	var int MaxPrice;
+	var byte MaxLevel;
+	var bool bValid;
+
+	structdefaultproperties
+	{
+		bValid=false
+	}
+};
+
 //Optimization for replicated data
 var repnotify int NumberOfTraderWeapons;
 var repnotify int NumberOfStartingWeapons;
 var repnotify int NumberOfSkillUpgrades;
 var repnotify int NumberOfWeaponUpgrades;
+var repnotify int NumberOfEquipmentUpgrades;
 
 //Replicated data
 var name KFWeaponName_A[255];
@@ -40,6 +55,7 @@ var repnotify string KFWeaponDefPath_B[255];
 var repnotify string KFStartingWeaponPath[255];
 var repnotify string perkUpgradesStr[255];
 var repnotify SkillUpgradeRepStruct skillUpgradesRepArray[255];
+var repnotify EquipmentUpgradeRepStruct equipmentUpgradesRepArray[255];
 var repnotify string specialWavesStr[255];
 var repnotify string grenadesStr[255];
 var repnotify string zedBuffStr[255];
@@ -114,11 +130,26 @@ struct SkillUpgradeStruct
 	}
 };
 
+struct EquipmentUpgradeStruct
+{
+	var class<WMUpgrade_Equipment> EquipmentUpgrade;
+	var int BasePrice;
+	var int MaxPrice;
+	var byte MaxLevel;
+	var bool bDone;
+
+	structdefaultproperties
+	{
+		bDone=false
+	}
+};
+
 var array< WeaponUpgradeStruct > weaponUpgradeList;
 
 var array< class<KFWeapon> > KFStartingWeapon;
 var array< class<WMUpgrade_Perk> > perkUpgrades;
 var array< SkillUpgradeStruct > skillUpgrades;
+var array< EquipmentUpgradeStruct > equipmentUpgrades;
 var array< class<WMSpecialWave> > specialWaves;
 var array< class<KFWeaponDefinition> > Grenades;
 
@@ -140,11 +171,11 @@ var private Texture2D MenuLinker;
 replication
 {
 	if ( bNetDirty )
-		NumberOfTraderWeapons, NumberOfStartingWeapons, NumberOfSkillUpgrades, NumberOfWeaponUpgrades,
+		NumberOfTraderWeapons, NumberOfStartingWeapons, NumberOfSkillUpgrades, NumberOfWeaponUpgrades, NumberOfEquipmentUpgrades,
 		KFWeaponName_A, KFWeaponName_B, KFWeaponDefPath_A, KFWeaponDefPath_B, KFStartingWeaponPath,
-		perkUpgradesStr, skillUpgradesRepArray, specialWavesStr, grenadesStr, zedBuffStr, SpecialWaveID, bNewZedBuff,
-		newWeaponEachWave, maxWeapon, staticWeapon, ArmorPrice, GrenadePrice, TraderVoiceGroupIndex, bArmorPickup,
-		perkPrice, perkMaxLevel, skillPrice, skillDeluxePrice, bAllowSkillReroll, RerollCost, RerollMultiplier,
+		perkUpgradesStr, skillUpgradesRepArray, equipmentUpgradesRepArray, specialWavesStr, grenadesStr, zedBuffStr,
+		SpecialWaveID, bNewZedBuff, newWeaponEachWave, maxWeapon, staticWeapon, ArmorPrice, GrenadePrice, TraderVoiceGroupIndex,
+		bArmorPickup, perkPrice, perkMaxLevel, skillPrice, skillDeluxePrice, bAllowSkillReroll, RerollCost, RerollMultiplier,
 		RerollSkillSellPercent, weaponMaxLevel, bZedBuffs, bDeluxeSkillUnlock,
 		weaponUpgradeRepArray_1, weaponUpgradeRepArray_2, weaponUpgradeRepArray_3, weaponUpgradeRepArray_4,
 		weaponUpgradeRepArray_5, weaponUpgradeRepArray_6, weaponUpgradeRepArray_7, weaponUpgradeRepArray_8,
@@ -193,6 +224,11 @@ simulated event ReplicatedEvent(name VarName)
 		case 'NumberOfWeaponUpgrades':
 			weaponUpgradeList.Length = NumberOfWeaponUpgrades;
 			SyncAllWeaponUpgrades();
+			break;
+
+		case 'NumberOfEquipmentUpgrades':
+			equipmentUpgrades.Length = NumberOfEquipmentUpgrades;
+			SyncAllEquipmentUpgrades();
 			break;
 
 		case 'bArmorPickup':
@@ -306,6 +342,10 @@ simulated event ReplicatedEvent(name VarName)
 
 		case 'skillUpgradesRepArray':
 			SyncAllSkillUpgrades();
+			break;
+
+		case 'equipmentUpgradesRepArray':
+			SyncAllEquipmentUpgrades();
 			break;
 
 		case 'specialWavesStr':
@@ -458,6 +498,29 @@ simulated function SyncAllSkillUpgrades()
 			skillUpgrades[i].SkillUpgrade = class<WMUpgrade_Skill>(DynamicLoadObject(skillUpgradesRepArray[i].SkillPathName, class'Class'));
 			skillUpgrades[i].PerkPathName = skillUpgradesRepArray[i].PerkPathName;
 			skillUpgrades[i].bDone = true;
+		}
+	}
+}
+
+simulated function SyncAllEquipmentUpgrades()
+{
+	local int i;
+
+	if (equipmentUpgrades.Length == 0)
+		return; //Not yet initialized
+
+	for (i = 0; i < 255; ++i)
+	{
+		if (!equipmentUpgradesRepArray[i].bValid)
+			break; //base case
+
+		if (!equipmentUpgrades[i].bDone)
+		{
+			equipmentUpgrades[i].EquipmentUpgrade = class<WMUpgrade_Equipment>(DynamicLoadObject(equipmentUpgradesRepArray[i].EquipmentPathName, class'Class'));
+			equipmentUpgrades[i].BasePrice = equipmentUpgradesRepArray[i].BasePrice;
+			equipmentUpgrades[i].MaxPrice = equipmentUpgradesRepArray[i].MaxPrice;
+			equipmentUpgrades[i].MaxLevel = equipmentUpgradesRepArray[i].MaxLevel;
+			equipmentUpgrades[i].bDone = true;
 		}
 	}
 }
@@ -806,6 +869,7 @@ defaultproperties
 	NumberOfStartingWeapons=-1
 	NumberOfSkillUpgrades=-1
 	NumberOfWeaponUpgrades=-1
+	NumberOfEquipmentUpgrades=-1
 	bArmorPickup=0
 	bAllTraders=0
 	bZRUMenuCommand=false

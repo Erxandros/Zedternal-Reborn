@@ -8,9 +8,9 @@ var WMGameReplicationInfo WMGRI;
 
 var GFxObject ItemDetailsContainer,EquipButton;
 var int CurrentFilterIndex;
-var array<int> perkUPGIndex, weaponUPGIndex, skillUPGIndex, GrenadeIndex;
+var array<int> perkUPGIndex, weaponUPGIndex, skillUPGIndex, equipmentUPGIndex, GrenadeIndex;
 
-var AkBaseSoundObject selectSound, perkSound, skillSound, weaponSound;
+var AkBaseSoundObject selectSound, perkSound, skillSound, weaponSound, equipmentSound;
 
 //For reroll
 var int RerollPerkItemDefinition, RerollTotalCost;
@@ -67,7 +67,7 @@ function UpdateText()
 		LocalizedObject.SetString("all", "Perk Upgrades");
 		LocalizedObject.SetString("weaponSkins", "Skill Upgrades");
 		LocalizedObject.SetString("cosmetics", "Weapon Upgrades");
-		LocalizedObject.SetString("items", "Coming Soon");
+		LocalizedObject.SetString("items", "Equipment Upgrades");
 		LocalizedObject.SetString("craftingMats", "Grenades");
 		LocalizedObject.SetString("emotes", "Knives");
 		LocalizedObject.SetString("sfx", " ");
@@ -178,6 +178,7 @@ function Callback_InventoryFilter(int FilterIndex)
 	perkUPGIndex.length = 0;
 	weaponUPGIndex.length = 0;
 	skillUPGIndex.length = 0;
+	equipmentUPGIndex.length = 0;
 
 	GrenadeIndex.length = 0;
 
@@ -378,6 +379,75 @@ function Callback_InventoryFilter(int FilterIndex)
 			}
 		}
 	}
+	else if (FilterIndex == 3) //Equipment Upgrades
+	{
+		for (i = 0; i < WMGRI.equipmentUpgrades.Length; ++i)
+		{
+			lvl = WMPRI.bEquipmentUpgrade[i];
+
+			// Get Max Level of that upgrade
+			maxLevel = WMGRI.equipmentUpgrades[i].MaxLevel;
+
+			// Is it fully bought?
+			if (lvl >= maxLevel)
+				bPurchased = True;
+			else
+				bPurchased = False;
+
+			// Create info arch
+			if ((CurrentUpgradeFilter == EWMInv_All) || (CurrentUpgradeFilter == EWMInv_Available && !bPurchased) || (CurrentUpgradeFilter == EWMInv_Purchased && bPurchased))
+			{
+				if (bPurchased)
+					--lvl;
+				ItemObject = CreateObject("Object");
+
+				if (WMGRI.equipmentUpgrades[i].MaxLevel > 1)
+					tempPrice = WMGRI.equipmentUpgrades[i].BasePrice + Round(float(WMGRI.equipmentUpgrades[i].MaxPrice - WMGRI.equipmentUpgrades[i].BasePrice) /
+						float(WMGRI.equipmentUpgrades[i].MaxLevel - 1) * lvl);
+				else
+					tempPrice = WMGRI.equipmentUpgrades[i].BasePrice;
+
+				ItemObject.SetInt("count", tempPrice);
+
+				if (maxLevel > 1)
+				{
+					if (bPurchased)
+						ItemObject.SetString("label", WMGRI.equipmentUpgrades[i].EquipmentUpgrade.default.upgradeName $ " (" $ maxLevel $ "/" $ maxLevel $ ")");
+					else
+						ItemObject.SetString("label", WMGRI.equipmentUpgrades[i].EquipmentUpgrade.default.upgradeName $ " (" $ lvl $ "/" $ maxLevel $ ")");
+				}
+				else
+					ItemObject.SetString("label", WMGRI.equipmentUpgrades[i].EquipmentUpgrade.default.upgradeName);
+
+				ItemObject.SetString("price", "");
+				ItemObject.Setstring("typeRarity", "");
+				ItemObject.SetBool("exchangeable", False);
+				ItemObject.SetBool("recyclable", False);
+				ItemObject.SetInt("definition", j);
+				if (bPurchased)
+				{
+					ItemObject.SetInt("type", 1);
+					ItemObject.SetBool("active", True);
+					ItemObject.SetInt("rarity", 0);
+				}
+				else
+				{
+					if (WMPRI.Score < tempPrice)
+						ItemObject.SetInt("type", 1);
+					else
+						ItemObject.SetInt("type", 0);
+					ItemObject.SetBool("active", False);
+				}
+				S = "img://"$PathName(WMGRI.equipmentUpgrades[i].EquipmentUpgrade.static.GetupgradeIcon(lvl));
+				ItemObject.SetString("description", GetEquipmentDescription(i, lvl));
+				ItemObject.SetString("iconURLSmall", S);
+				ItemObject.SetString("iconURLLarge", S);
+				ItemArray.SetElementObject(j, ItemObject);
+				equipmentUPGIndex.AddItem(i);
+				++j;
+			}
+		}
+	}
 	else if (FilterIndex == 4) //Grenades
 	{
 		for (i = 0; i < WMGRI.Grenades.length; ++i)
@@ -491,6 +561,25 @@ function string GetUpgradeDescription(int index, int lvl)
 	}
 	if (!bFirstSkill)
 		str = str $ ".";
+
+	return str;
+}
+
+function string GetEquipmentDescription(int index, int lvl)
+{
+	local string str;
+	local int i;
+
+	// write list of equipment bonuses
+	if (WMGRI.equipmentUpgrades[index].EquipmentUpgrade.default.upgradeDescription.length == 0)
+		return "";
+	else
+		str = repl(WMGRI.equipmentUpgrades[index].EquipmentUpgrade.default.upgradeDescription[0], "%x%", WMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.GetBonusValue(0, lvl + 1));
+
+	for (i = 1; i < WMGRI.equipmentUpgrades[index].EquipmentUpgrade.default.upgradeDescription.length; ++i)
+	{
+		str = str $ "\n" $ repl(WMGRI.equipmentUpgrades[index].EquipmentUpgrade.default.upgradeDescription[i], "%x%", WMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.GetBonusValue(i, lvl + 1));
+	}
 
 	return str;
 }
@@ -701,6 +790,17 @@ function CallBack_ItemDetailsClicked(int ItemDefinition)
 		lvl = WMPRI.GetWeaponUpgrade(Index);
 		EquipButton.SetString("label", ""$WMGRI.weaponUpgradeList[Index].BasePrice * (lvl + 1)$Chr(163));
 	}
+	else if (CurrentFilterIndex == 3) //Equipment Upgrades
+	{
+		Index = equipmentUPGIndex[Index];
+		lvl = WMPRI.bEquipmentUpgrade[Index];
+		if (WMGRI.equipmentUpgrades[Index].MaxLevel > 1)
+			EquipButton.SetString("label", ""$WMGRI.equipmentUpgrades[Index].BasePrice +
+				Round(float(WMGRI.equipmentUpgrades[Index].MaxPrice - WMGRI.equipmentUpgrades[Index].BasePrice) /
+				float(WMGRI.equipmentUpgrades[Index].MaxLevel - 1) * lvl)$Chr(163));
+		else
+			EquipButton.SetString("label", ""$WMGRI.equipmentUpgrades[Index].BasePrice$Chr(163));
+	}
 	else if (CurrentFilterIndex == 4 || CurrentFilterIndex == 5)//Knives and Grenades
 	{
 		EquipButton.SetString("label", "Equip");
@@ -791,6 +891,31 @@ function Callback_Equip(int ItemDefinition)
 			Owner.PlaySoundBase(default.weaponSound, True);
 		}
 	}
+	else if (CurrentFilterIndex == 3) //Equipment Upgrades
+	{
+		Index = equipmentUPGIndex[Index];
+		lvl = WMPRI.bEquipmentUpgrade[Index];
+		if (WMGRI.equipmentUpgrades[Index].MaxLevel > 1)
+			UPGPrice = WMGRI.equipmentUpgrades[Index].BasePrice +
+			Round(float(WMGRI.equipmentUpgrades[Index].MaxPrice - WMGRI.equipmentUpgrades[Index].BasePrice) / float(WMGRI.equipmentUpgrades[Index].MaxLevel - 1) * lvl);
+		else
+			UPGPrice = WMGRI.equipmentUpgrades[Index].BasePrice;
+
+		if (WMPRI.Score >= UPGPrice)
+		{
+			OriginalDosh = WMPRI.Score;
+			if (WMPC.WorldInfo.NetMode != NM_Standalone)
+				WMPRI.syncCompleted = False;
+			WMPC.BuyEquipmentUpgrade(Index, UPGPrice);
+			if (WMPC.WorldInfo.NetMode != NM_Standalone)
+				WMPRI.bEquipmentUpgrade[Index] = lvl + 1;
+			WMPRI.Score = OriginalDosh - UPGPrice;
+			WMPC.UpdateWeaponMagAndCap();
+			if (WMPRI.purchase_equipmentUpgrade.Find(Index) == INDEX_NONE)
+				WMPRI.purchase_equipmentUpgrade.AddItem(Index);
+			Owner.PlaySoundBase(default.equipmentSound, True);
+		}
+	}
 	else if (CurrentFilterIndex == 4) //Grenades
 	{
 		WMPC.ChangeGrenade(GrenadeIndex[Index]);
@@ -845,6 +970,7 @@ defaultproperties
 	weaponSound=AkEvent'WW_UI_Menu.Play_UI_Weapon_Upgrade'
 	perkSound=AkEvent'WW_UI_Menu.Play_UI_Trader_Item_Sell'
 	skillSound=AkEvent'WW_UI_Menu.Play_UI_Trader_Item_Buy'
+	equipmentSound=AkEvent'WW_UI_PlayerCharacter.Play_UI_Pickup_Armor'
 
 	RerollPerkItemDefinition=-1
 

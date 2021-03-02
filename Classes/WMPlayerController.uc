@@ -159,6 +159,28 @@ reliable server function RerollSkillsForPerk(string RerollPerkPathName, int Cost
 	}
 }
 
+reliable server function BuyEquipmentUpgrade(int ItemDefinition, int Cost)
+{
+	local WMPlayerReplicationInfo WMPRI;
+
+	WMPRI = WMPlayerReplicationInfo(Pawn.PlayerReplicationInfo);
+
+	if (WMPRI != None && WMPRI.Score >= Cost && WMPRI.bEquipmentUpgrade[ItemDefinition] < WMGameReplicationInfo(WorldInfo.GRI).equipmentUpgrades[ItemDefinition].MaxLevel)
+	{
+		++WMPRI.bEquipmentUpgrade[ItemDefinition];
+		if (WMPRI.purchase_equipmentUpgrade.Find(ItemDefinition) == INDEX_NONE)
+			WMPRI.purchase_equipmentUpgrade.AddItem(ItemDefinition);
+
+		if (WorldInfo.NetMode == NM_DedicatedServer)
+		{
+			WMPRI.AddDosh(-Cost);
+			WMPRI.syncTrigger = !WMPRI.syncTrigger;
+		}
+
+		UpdateWeaponMagAndCap();
+	}
+}
+
 function UpdateWeaponMagAndCap()
 {
 	local WMPawn_Human WMPH;

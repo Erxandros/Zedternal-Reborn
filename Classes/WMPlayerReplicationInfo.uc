@@ -20,6 +20,7 @@ var repnotify byte bWeaponUpgrade_14[255];
 var repnotify byte bWeaponUpgrade_15[255];
 var repnotify byte bWeaponUpgrade_16[255];
 var repnotify byte bSkillUpgrade[255];
+var repnotify byte bEquipmentUpgrade[255];
 var byte bSkillUnlocked[255];
 var byte bSkillDeluxe[255];
 
@@ -41,8 +42,8 @@ var byte syncLoopCounter;
 
 // dynamic array used to track purchases of player (on server and client sides)
 // used in WMPerk
-var array< byte > purchase_perkUpgrade, purchase_skillUpgrade;
-var array< int > purchase_weaponUpgrade;
+var array<byte> purchase_perkUpgrade, purchase_skillUpgrade, purchase_equipmentUpgrade;
+var array<int> purchase_weaponUpgrade;
 
 // For scoreboard updates
 var int UncompressedPing;
@@ -60,7 +61,7 @@ var int RerollCounter;
 replication
 {
 	if ( bNetDirty && (Role == Role_Authority) )
-		bPerkUpgrade, bPerkUpgradeAvailable, bSkillUpgrade, bSkillUnlocked, bSkillDeluxe,
+		bPerkUpgrade, bPerkUpgradeAvailable, bSkillUpgrade, bSkillUnlocked, bSkillDeluxe, bEquipmentUpgrade,
 		bWeaponUpgrade_1, bWeaponUpgrade_2, bWeaponUpgrade_3, bWeaponUpgrade_4, bWeaponUpgrade_5,
 		bWeaponUpgrade_6, bWeaponUpgrade_7, bWeaponUpgrade_8, bWeaponUpgrade_9, bWeaponUpgrade_10, bWeaponUpgrade_11,
 		bWeaponUpgrade_12, bWeaponUpgrade_13, bWeaponUpgrade_14, bWeaponUpgrade_15, bWeaponUpgrade_16;
@@ -86,6 +87,7 @@ simulated event ReplicatedEvent(name VarName)
 
 		case 'bPerkUpgrade':
 		case 'bSkillUpgrade':
+		case 'bEquipmentUpgrade':
 		case 'bWeaponUpgrade_1':
 		case 'bWeaponUpgrade_2':
 		case 'bWeaponUpgrade_3':
@@ -143,6 +145,7 @@ function CopyProperties(PlayerReplicationInfo PRI)
 			WMPRI.bSkillUpgrade[i] = bSkillUpgrade[i];
 			WMPRI.bSkillUnlocked[i] = bSkillUnlocked[i];
 			WMPRI.bSkillDeluxe[i] = bSkillDeluxe[i];
+			WMPRI.bEquipmentUpgrade[i] = bEquipmentUpgrade[i];
 		}
 
 		WMPRI.perkLvl = perkLvl;
@@ -247,6 +250,13 @@ simulated function UpdatePurchase()
 	{
 		if (bSkillUpgrade[i] > 0)
 			purchase_skillUpgrade.AddItem(i);
+	}
+
+	purchase_equipmentUpgrade.length = 0;
+	for (i = 0; i < 255; ++i)
+	{
+		if (bEquipmentUpgrade[i] > 0)
+			purchase_equipmentUpgrade.AddItem(i);
 	}
 
 	purchase_weaponUpgrade.length = 0;

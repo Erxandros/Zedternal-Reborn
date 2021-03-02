@@ -68,4 +68,5 @@ defaultproperties
 	ConfigFiles(11)=class'ZedternalReborn.Config_WeaponUpgrade'
 	ConfigFiles(12)=class'ZedternalReborn.Config_Map'
 	ConfigFiles(13)=class'ZedternalReborn.Config_Objective'
+	ConfigFiles(14)=class'ZedternalReborn.Config_EquipmentUpgrade'
 }
