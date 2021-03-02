@@ -231,7 +231,7 @@ reliable client function UpdateClientPurchase()
 reliable server function UpdateServerPurchase()
 {
 	UpdatePurchase();
-	SetTimer(5.0f, false, nameof(UpdatePerkAndSkillPurchases)); //Give server some time before it updates the HUD
+	SetTimer(5.0f, false, nameof(RecalculatePlayerLevel)); //Give server some time before it updates the HUD
 }
 
 simulated function UpdatePurchase()
@@ -267,7 +267,7 @@ simulated function UpdatePurchase()
 	}
 }
 
-function UpdatePerkAndSkillPurchases()
+function RecalculatePlayerLevel()
 {
 	local byte index;
 	local byte level;
@@ -299,6 +299,11 @@ function UpdatePerkAndSkillPurchases()
 				UpdateCurrentIconToDisplay(level, WMGRI.skillDeluxePrice, 3);
 			else
 				UpdateCurrentIconToDisplay(level, WMGRI.skillPrice, 1);
+		}
+
+		foreach purchase_equipmentUpgrade(index)
+		{
+			perkLvl += bEquipmentUpgrade[index];
 		}
 	}
 }

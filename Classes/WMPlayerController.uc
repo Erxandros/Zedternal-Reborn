@@ -155,7 +155,7 @@ reliable server function RerollSkillsForPerk(string RerollPerkPathName, int Cost
 
 		UpdateWeaponMagAndCap();
 
-		WMPRI.UpdatePerkAndSkillPurchases();
+		WMPRI.RecalculatePlayerLevel();
 	}
 }
 
@@ -178,6 +178,7 @@ reliable server function BuyEquipmentUpgrade(int ItemDefinition, int Cost)
 		}
 
 		UpdateWeaponMagAndCap();
+		++WMPRI.perkLvl;
 	}
 }
 
