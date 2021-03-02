@@ -3259,6 +3259,36 @@ simulated function bool HasNightVision()
 	return false;
 }
 
+simulated function class<EmitterCameraLensEffectBase> GetPerkLensEffect(class<KFDamageType> DmgType)
+{
+	local byte i;
+	local byte index;
+	local class<EmitterCameraLensEffectBase> CamEffect;
+
+	CamEffect = DmgType.default.CameraLensEffectTemplate;
+
+	if (MyWMPRI != none)
+	{
+		for (i = 0; i < MyWMPRI.purchase_perkUpgrade.length; ++i)
+		{
+			index = MyWMPRI.purchase_perkUpgrade[i];
+			MyWMGRI.perkUpgrades[index].static.GetPerkLensEffect(CamEffect, DmgType, MyWMPRI.bPerkUpgrade[index]);
+		}
+		for (i = 0; i < MyWMPRI.purchase_skillUpgrade.length; ++i)
+		{
+			index = MyWMPRI.purchase_skillUpgrade[i];
+			MyWMGRI.skillUpgrades[index].SkillUpgrade.static.GetPerkLensEffect(CamEffect, DmgType, MyWMPRI.bSkillUpgrade[index]);
+		}
+		for (i = 0; i < MyWMPRI.purchase_equipmentUpgrade.length; ++i)
+		{
+			index = MyWMPRI.purchase_equipmentUpgrade[i];
+			MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.GetPerkLensEffect(CamEffect, DmgType, MyWMPRI.bEquipmentUpgrade[index]);
+		}
+	}
+
+	return CamEffect;
+}
+
 defaultproperties
 {
 	PerkBuildStatID=0

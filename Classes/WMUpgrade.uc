@@ -63,6 +63,8 @@ static simulated function GetMaxHealingDamageBoost(out byte InMaxHealingDamageBo
 static simulated function GetHealingShield(out byte InHealingShield, int upgLevel);
 static simulated function GetMaxHealingShield(out byte InMaxHealingShield, int upgLevel);
 
+static simulated function GetPerkLensEffect(out class<EmitterCameraLensEffectBase> CamEffect, class<KFDamageType> DmgType, int upgLevel);
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Boolean functions
