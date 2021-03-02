@@ -204,8 +204,14 @@ static function UpdateConfig()
 
 	if (default.MODEVERSION < 8)
 	{
-		default.SkillUpgrade_DeluxeSkillUnlock.PerkLevels.length = 1;
+		//Fix typo
+		i = default.SkillUpgrade_SkillUpgrades.Find('SkillPath', "ZedternalReborn.WMUpgrade_Skill_ShockTropper");
+		if (i != INDEX_NONE)
+		{
+			default.SkillUpgrade_SkillUpgrades[i].SkillPath = "ZedternalReborn.WMUpgrade_Skill_ShockTrooper";
+		}
 
+		default.SkillUpgrade_DeluxeSkillUnlock.PerkLevels.length = 1;
 		default.SkillUpgrade_DeluxeSkillUnlock.PerkLevels[0] = 6;
 	}
 
