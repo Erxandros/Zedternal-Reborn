@@ -1197,7 +1197,7 @@ simulated function ModifyMaxSpareGrenadeAmount()
 		for (i = 0; i < MyWMPRI.purchase_skillUpgrade.length; ++i)
 		{
 			index = MyWMPRI.purchase_skillUpgrade[i];
-			MyWMGRI.skillUpgrades[index].SkillUpgrade.static.ModifySpareGrenadeAmount(SpareGrenade, DefaultSpareGrenade, MyWMPRI.bPerkUpgrade[index]);
+			MyWMGRI.skillUpgrades[index].SkillUpgrade.static.ModifySpareGrenadeAmount(SpareGrenade, DefaultSpareGrenade, MyWMPRI.bSkillUpgrade[index]);
 		}
 		for (i = 0; i < MyWMPRI.purchase_equipmentUpgrade.length; ++i)
 		{
@@ -2368,7 +2368,7 @@ function simulated SetSuccessfullParry()
 		for (i = 0; i < MyWMPRI.purchase_skillUpgrade.length; ++i)
 		{
 			index = MyWMPRI.purchase_skillUpgrade[i];
-			MyWMGRI.skillUpgrades[index].SkillUpgrade.static.SuccessfullParry(MyWMPRI.bPerkUpgrade[index], OwnerPawn);
+			MyWMGRI.skillUpgrades[index].SkillUpgrade.static.SuccessfullParry(MyWMPRI.bSkillUpgrade[index], OwnerPawn);
 		}
 		for (i = 0; i < MyWMPRI.purchase_equipmentUpgrade.length; ++i)
 		{
@@ -2980,7 +2980,7 @@ function WaveEnd(KFPlayerController KFPC)
 		for (i = 0; i < MyWMPRI.purchase_skillUpgrade.length; ++i)
 		{
 			index = MyWMPRI.purchase_skillUpgrade[i];
-			MyWMGRI.skillUpgrades[index].SkillUpgrade.static.WaveEnd(MyWMPRI.bskillUpgrade[index], KFPC);
+			MyWMGRI.skillUpgrades[index].SkillUpgrade.static.WaveEnd(MyWMPRI.bSkillUpgrade[index], KFPC);
 		}
 		for (i = 0; i < MyWMPRI.purchase_equipmentUpgrade.length; ++i)
 		{
