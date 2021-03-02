@@ -3225,6 +3225,40 @@ simulated function byte GetMaxHealingShield()
 	return InMaxHealingShield;
 }
 
+simulated function bool HasNightVision()
+{
+	local byte i;
+	local byte index;
+	local bool bActive;
+
+	if (MyWMPRI != none)
+	{
+		for (i = 0; i < MyWMPRI.purchase_perkUpgrade.length; ++i)
+		{
+			index = MyWMPRI.purchase_perkUpgrade[i];
+			bActive = MyWMGRI.perkUpgrades[index].static.HasNightVision(MyWMPRI.bPerkUpgrade[index]);
+			if (bActive)
+				return true;
+		}
+		for (i = 0; i < MyWMPRI.purchase_skillUpgrade.length; ++i)
+		{
+			index = MyWMPRI.purchase_skillUpgrade[i];
+			bActive = MyWMGRI.skillUpgrades[index].SkillUpgrade.static.HasNightVision(MyWMPRI.bSkillUpgrade[index]);
+			if (bActive)
+				return true;
+		}
+		for (i = 0; i < MyWMPRI.purchase_equipmentUpgrade.length; ++i)
+		{
+			index = MyWMPRI.purchase_equipmentUpgrade[i];
+			bActive = MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.HasNightVision(MyWMPRI.bEquipmentUpgrade[index]);
+			if (bActive)
+				return true;
+		}
+	}
+
+	return false;
+}
+
 defaultproperties
 {
 	PerkBuildStatID=0
