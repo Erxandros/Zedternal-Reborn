@@ -266,8 +266,6 @@ function Callback_InventoryFilter(int FilterIndex)
 				// Create info arch
 				if ((CurrentUpgradeFilter == EWMInv_All) || (CurrentUpgradeFilter == EWMInv_Available && !bPurchased) || (CurrentUpgradeFilter == EWMInv_Purchased && bPurchased))
 				{
-					if (bPurchased)
-						--lvl;
 					ItemObject = CreateObject("Object");
 
 					if (WMPRI.bSkillDeluxe[i] == 1)
