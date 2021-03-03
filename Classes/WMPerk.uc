@@ -2747,33 +2747,31 @@ simulated function bool DoorShouldNuke()
 	local byte index;
 	local bool bTrap;
 
-	if (!bUsedSacrifice)
+	if (MyWMPRI != none)
 	{
-		if (MyWMPRI != none)
+		for (i = 0; i < MyWMPRI.purchase_perkUpgrade.length; ++i)
 		{
-			for (i = 0; i < MyWMPRI.purchase_perkUpgrade.length; ++i)
-			{
-				index = MyWMPRI.purchase_perkUpgrade[i];
-				bTrap = MyWMGRI.perkUpgrades[index].static.DoorShouldNuke(MyWMPRI.bPerkUpgrade[index], OwnerPawn);
-				if (bTrap)
-					return true;
-			}
-			for (i = 0; i < MyWMPRI.purchase_skillUpgrade.length; ++i)
-			{
-				index = MyWMPRI.purchase_skillUpgrade[i];
-				bTrap = MyWMGRI.skillUpgrades[index].SkillUpgrade.static.DoorShouldNuke(MyWMPRI.bSkillUpgrade[index], OwnerPawn);
-				if (bTrap)
-					return true;
-			}
-			for (i = 0; i < MyWMPRI.purchase_equipmentUpgrade.length; ++i)
-			{
-				index = MyWMPRI.purchase_equipmentUpgrade[i];
-				bTrap = MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.DoorShouldNuke(MyWMPRI.bEquipmentUpgrade[index], OwnerPawn);
-				if (bTrap)
-					return true;
-			}
+			index = MyWMPRI.purchase_perkUpgrade[i];
+			bTrap = MyWMGRI.perkUpgrades[index].static.DoorShouldNuke(MyWMPRI.bPerkUpgrade[index], OwnerPawn);
+			if (bTrap)
+				return true;
+		}
+		for (i = 0; i < MyWMPRI.purchase_skillUpgrade.length; ++i)
+		{
+			index = MyWMPRI.purchase_skillUpgrade[i];
+			bTrap = MyWMGRI.skillUpgrades[index].SkillUpgrade.static.DoorShouldNuke(MyWMPRI.bSkillUpgrade[index], OwnerPawn);
+			if (bTrap)
+				return true;
+		}
+		for (i = 0; i < MyWMPRI.purchase_equipmentUpgrade.length; ++i)
+		{
+			index = MyWMPRI.purchase_equipmentUpgrade[i];
+			bTrap = MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.DoorShouldNuke(MyWMPRI.bEquipmentUpgrade[index], OwnerPawn);
+			if (bTrap)
+				return true;
 		}
 	}
+
 	return false;
 }
 
@@ -2783,33 +2781,31 @@ simulated function bool CanExplosiveWeld()
 	local byte index;
 	local bool bTrap;
 
-	if (!bUsedSacrifice)
+	if (MyWMPRI != none)
 	{
-		if (MyWMPRI != none)
+		for (i = 0; i < MyWMPRI.purchase_perkUpgrade.length; ++i)
 		{
-			for (i = 0; i < MyWMPRI.purchase_perkUpgrade.length; ++i)
-			{
-				index = MyWMPRI.purchase_perkUpgrade[i];
-				bTrap = MyWMGRI.perkUpgrades[index].static.CanExplosiveWeld(MyWMPRI.bPerkUpgrade[index], OwnerPawn);
-				if (bTrap)
-					return true;
-			}
-			for (i = 0; i < MyWMPRI.purchase_skillUpgrade.length; ++i)
-			{
-				index = MyWMPRI.purchase_skillUpgrade[i];
-				bTrap = MyWMGRI.skillUpgrades[index].SkillUpgrade.static.CanExplosiveWeld(MyWMPRI.bSkillUpgrade[index], OwnerPawn);
-				if (bTrap)
-					return true;
-			}
-			for (i = 0; i < MyWMPRI.purchase_equipmentUpgrade.length; ++i)
-			{
-				index = MyWMPRI.purchase_equipmentUpgrade[i];
-				bTrap = MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.CanExplosiveWeld(MyWMPRI.bEquipmentUpgrade[index], OwnerPawn);
-				if (bTrap)
-					return true;
-			}
+			index = MyWMPRI.purchase_perkUpgrade[i];
+			bTrap = MyWMGRI.perkUpgrades[index].static.CanExplosiveWeld(MyWMPRI.bPerkUpgrade[index], OwnerPawn);
+			if (bTrap)
+				return true;
+		}
+		for (i = 0; i < MyWMPRI.purchase_skillUpgrade.length; ++i)
+		{
+			index = MyWMPRI.purchase_skillUpgrade[i];
+			bTrap = MyWMGRI.skillUpgrades[index].SkillUpgrade.static.CanExplosiveWeld(MyWMPRI.bSkillUpgrade[index], OwnerPawn);
+			if (bTrap)
+				return true;
+		}
+		for (i = 0; i < MyWMPRI.purchase_equipmentUpgrade.length; ++i)
+		{
+			index = MyWMPRI.purchase_equipmentUpgrade[i];
+			bTrap = MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.CanExplosiveWeld(MyWMPRI.bEquipmentUpgrade[index], OwnerPawn);
+			if (bTrap)
+				return true;
 		}
 	}
+
 	return false;
 }
 
