@@ -707,7 +707,7 @@ function CallBack_RequestWeaponCraftInfo() // Vote to skip trader
 {
 	if (WMGRI.bTraderIsOpen)
 	{
-		if (!WMPRI.bVotingActive)
+		if (!WMPRI.bVotingActive || WMPC.WorldInfo.NetMode == NM_Standalone)
 			WMPRI.RequestSkiptTrader(WMPRI);
 		else
 			WMPRI.CastSkipTraderVote(WMPRI, True);
@@ -728,7 +728,7 @@ function UpdateCraftButtons()
 	{
 		CraftWeaponButton = ItemListContainer.GetObject("craftWeaponsButton");
 		if (CraftWeaponButton != None)
-			CraftWeaponButton.SetBool("enabled", !WMPRI.bHasVoted);
+			CraftWeaponButton.SetBool("enabled", WMPC.WorldInfo.NetMode == NM_Standalone ? True : !WMPRI.bHasVoted);
 	}
 }
 
