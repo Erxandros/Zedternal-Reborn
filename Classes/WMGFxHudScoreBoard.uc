@@ -111,7 +111,7 @@ event Draw(Canvas ca)
 			continue;
 		}
 
-		if (WMPRI.PlayerHealth > 0 && WMPRI.PlayerHealthPercent > 0 && WMPRI.GetTeamNum() == 0)
+		if (WMPRI.PlayerHealth > 0 && WMPRI.GetTeamNum() == 0)
 			++NumAlivePlayer;
 
 		++NumPlayer;
@@ -378,7 +378,7 @@ event Draw(Canvas ca)
 		{
 			S = "-";
 		}
-		else if (WMPRI.PlayerHealth <= 0 || WMPRI.PlayerHealthPercent <= 0)
+		else if (WMPRI.PlayerHealth <= 0)
 		{
 			ScoreBoardCanvas.DrawColor = MakeColor(255, 0, 0, 255);
 			S = "DEAD";
@@ -408,10 +408,10 @@ event Draw(Canvas ca)
 		{
 			S = "-";
 		}
-		else if (WMPRI.PlayerArmor <= 0 || WMPRI.PlayerHealth <= 0 || WMPRI.PlayerHealthPercent <= 0)
+		else if (WMPRI.PlayerArmor <= 0 || WMPRI.PlayerHealth <= 0)
 		{
 			ScoreBoardCanvas.DrawColor = MakeColor(255, 0, 0, 255);
-			if (WMPRI.PlayerHealth <= 0 || WMPRI.PlayerHealthPercent <= 0)
+			if (WMPRI.PlayerHealth <= 0)
 				S = "DEAD";
 			else
 				S = string(0) @"AP";
