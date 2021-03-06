@@ -48,7 +48,6 @@ var array<int> purchase_weaponUpgrade;
 // For scoreboard updates
 var int UncompressedPing;
 var int PlayerArmor;
-var byte PlayerArmorPercent;
 var byte PlatformType;
 
 // For skip trader voting
@@ -67,7 +66,7 @@ replication
 		bWeaponUpgrade_12, bWeaponUpgrade_13, bWeaponUpgrade_14, bWeaponUpgrade_15, bWeaponUpgrade_16;
 
 	if ( bNetDirty )
-		perkIconIndex, PlayerLevel, syncTrigger, UncompressedPing, PlayerArmor, PlayerArmorPercent, PlatformType, RerollCounter;
+		perkIconIndex, PlayerLevel, syncTrigger, UncompressedPing, PlayerArmor, PlatformType, RerollCounter;
 }
 
 simulated event ReplicatedEvent(name VarName)
@@ -164,10 +163,7 @@ function UpdateReplicatedPlayerHealth()
 	{
 		OwnerPawn = WMPawn_Human(KFPlayerOwner.Pawn);
 		if (OwnerPawn != none && OwnerPawn.ZedternalArmor != PlayerArmor)
-		{
 			PlayerArmor = OwnerPawn.ZedternalArmor;
-			PlayerArmorPercent = FloatToByte(float(OwnerPawn.ZedternalArmor) / float(OwnerPawn.GetMaxArmor()));
-		}
 	}
 }
 

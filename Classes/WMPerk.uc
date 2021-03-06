@@ -167,10 +167,7 @@ simulated function PerkSetOwnerHealthAndArmorZedternal(optional bool bModifyHeal
 		WMPH.AdjustArmorPct();
 
 		if (WMPRI != none)
-		{
 			WMPRI.PlayerArmor = WMPH.ZedternalArmor;
-			WMPRI.PlayerArmorPercent = FloatToByte(float(WMPH.ZedternalArmor) / float(WMPH.ZedternalMaxArmor));
-		}
 	}
 }
 
