@@ -360,6 +360,14 @@ simulated function CastSkipTraderVote(PlayerReplicationInfo PRI, bool bSkipTrade
 	bHasVoted = true;
 }
 
+simulated function NotifyWaveEnded()
+{
+	super.NotifyWaveEnded();
+
+	bHasVoted = false;
+	bVotingActive = false;
+}
+
 simulated function byte GetWeaponUpgrade(int index)
 {
 	local int div, indexOffset;
