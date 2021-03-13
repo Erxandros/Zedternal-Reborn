@@ -728,7 +728,7 @@ function UpdateCraftButtons()
 	{
 		CraftWeaponButton = ItemListContainer.GetObject("craftWeaponsButton");
 		if (CraftWeaponButton != None)
-			CraftWeaponButton.SetBool("enabled", WMPC.WorldInfo.NetMode == NM_Standalone ? True : !WMPRI.bHasVoted);
+			CraftWeaponButton.SetBool("enabled", WMGRI.bTraderIsOpen && (WMPC.WorldInfo.NetMode == NM_Standalone ? True : !WMPRI.bHasVoted));
 	}
 }
 
