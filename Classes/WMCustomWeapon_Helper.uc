@@ -173,4 +173,5 @@ defaultproperties
 	WeaponDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_HRG_Vampire_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_HRG_Vampire"));
 	WeaponDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_Rifle_FrostShotgunAxe_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_Rifle_FrostShotgunAxe"));
 	WeaponDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_HRG_SonicGun_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_HRG_SonicGun"));
+	WeaponDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_GravityImploder_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_GravityImploder"));
 }
