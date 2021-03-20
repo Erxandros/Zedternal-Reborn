@@ -357,9 +357,9 @@ function ServerComputePassiveBonuses()
 
 	if (MyWMPRI != none)
 	{
-		for (i = 0; i < MyWMPRI.purchase_perkUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_perkUpgrade[i];
+			index = MyWMPRI.Purchase_PerkUpgrade[i];
 			MyWMGRI.perkUpgrades[index].static.ModifyDamageGivenPassive(passiveDamageGiven, MyWMPRI.bPerkUpgrade[index]);
 			MyWMGRI.perkUpgrades[index].static.ModifyDamageTakenPassive(passiveDamageTaken, MyWMPRI.bPerkUpgrade[index]);
 			MyWMGRI.perkUpgrades[index].static.ModifyHealAmountPassive(passiveHealAmount, MyWMPRI.bPerkUpgrade[index]);
@@ -369,9 +369,9 @@ function ServerComputePassiveBonuses()
 			MyWMGRI.perkUpgrades[index].static.ModifyKnockdownPowerPassive(passiveKnockdownPower, MyWMPRI.bPerkUpgrade[index]);
 			MyWMGRI.perkUpgrades[index].static.ModifySnarePowerPassive(passiveSnarePower, MyWMPRI.bPerkUpgrade[index]);
 		}
-		for (i = 0; i < MyWMPRI.purchase_skillUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_SkillUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_skillUpgrade[i];
+			index = MyWMPRI.Purchase_SkillUpgrade[i];
 			MyWMGRI.skillUpgrades[index].SkillUpgrade.static.ModifyDamageGivenPassive(passiveDamageGiven, MyWMPRI.bSkillUpgrade[index]);
 			MyWMGRI.skillUpgrades[index].SkillUpgrade.static.ModifyDamageTakenPassive(passiveDamageTaken, MyWMPRI.bSkillUpgrade[index]);
 			MyWMGRI.skillUpgrades[index].SkillUpgrade.static.ModifyHealAmountPassive(passiveHealAmount, MyWMPRI.bSkillUpgrade[index]);
@@ -381,9 +381,9 @@ function ServerComputePassiveBonuses()
 			MyWMGRI.skillUpgrades[index].SkillUpgrade.static.ModifyKnockdownPowerPassive(passiveKnockdownPower, MyWMPRI.bSkillUpgrade[index]);
 			MyWMGRI.skillUpgrades[index].SkillUpgrade.static.ModifySnarePowerPassive(passiveSnarePower, MyWMPRI.bSkillUpgrade[index]);
 		}
-		for (i = 0; i < MyWMPRI.purchase_equipmentUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_EquipmentUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_equipmentUpgrade[i];
+			index = MyWMPRI.Purchase_EquipmentUpgrade[i];
 			MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.ModifyDamageGivenPassive(passiveDamageGiven, MyWMPRI.bEquipmentUpgrade[index]);
 			MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.ModifyDamageTakenPassive(passiveDamageTaken, MyWMPRI.bEquipmentUpgrade[index]);
 			MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.ModifyHealAmountPassive(passiveHealAmount, MyWMPRI.bEquipmentUpgrade[index]);
@@ -415,9 +415,9 @@ simulated function ClientAndServerComputePassiveBonuses()
 
 	if (MyWMPRI != none)
 	{
-		for (i = 0; i < MyWMPRI.purchase_perkUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_perkUpgrade[i];
+			index = MyWMPRI.Purchase_PerkUpgrade[i];
 			MyWMGRI.perkUpgrades[index].static.ModifySpeedPassive(passiveMovementSpeed, MyWMPRI.bPerkUpgrade[index]);
 			MyWMGRI.perkUpgrades[index].static.ModifyWeaponSwitchTimePassive(passiveSwitchSpeed, MyWMPRI.bPerkUpgrade[index]);
 			MyWMGRI.perkUpgrades[index].static.ModifyMeleeAttackSpeedPassive(passiveMeleeAttackSpeed, MyWMPRI.bPerkUpgrade[index]);
@@ -430,9 +430,9 @@ simulated function ClientAndServerComputePassiveBonuses()
 			MyWMGRI.perkUpgrades[index].static.ModifyTightChokePassive(passiveTightChoke, MyWMPRI.bPerkUpgrade[index]);
 			MyWMGRI.perkUpgrades[index].static.ModifyPenetrationPassive(passivePenetration, MyWMPRI.bPerkUpgrade[index]);
 		}
-		for (i = 0; i < MyWMPRI.purchase_skillUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_SkillUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_skillUpgrade[i];
+			index = MyWMPRI.Purchase_SkillUpgrade[i];
 			MyWMGRI.skillUpgrades[index].SkillUpgrade.static.ModifySpeedPassive(passiveMovementSpeed, MyWMPRI.bSkillUpgrade[index]);
 			MyWMGRI.skillUpgrades[index].SkillUpgrade.static.ModifyWeaponSwitchTimePassive(passiveSwitchSpeed, MyWMPRI.bSkillUpgrade[index]);
 			MyWMGRI.skillUpgrades[index].SkillUpgrade.static.ModifyMeleeAttackSpeedPassive(passiveMeleeAttackSpeed, MyWMPRI.bSkillUpgrade[index]);
@@ -445,9 +445,9 @@ simulated function ClientAndServerComputePassiveBonuses()
 			MyWMGRI.skillUpgrades[index].SkillUpgrade.static.ModifyTightChokePassive(passiveTightChoke, MyWMPRI.bSkillUpgrade[index]);
 			MyWMGRI.skillUpgrades[index].SkillUpgrade.static.ModifyPenetrationPassive(passivePenetration, MyWMPRI.bSkillUpgrade[index]);
 		}
-		for (i = 0; i < MyWMPRI.purchase_equipmentUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_EquipmentUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_equipmentUpgrade[i];
+			index = MyWMPRI.Purchase_EquipmentUpgrade[i];
 			MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.ModifySpeedPassive(passiveMovementSpeed, MyWMPRI.bEquipmentUpgrade[index]);
 			MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.ModifyWeaponSwitchTimePassive(passiveSwitchSpeed, MyWMPRI.bEquipmentUpgrade[index]);
 			MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.ModifyMeleeAttackSpeedPassive(passiveMeleeAttackSpeed, MyWMPRI.bEquipmentUpgrade[index]);
@@ -543,25 +543,25 @@ function ModifyDamageGiven(out int InDamage, optional Actor DamageCauser, option
 
 	if (MyWMPRI != none)
 	{
-		for (i = 0; i < MyWMPRI.purchase_perkUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_perkUpgrade[i];
+			index = MyWMPRI.Purchase_PerkUpgrade[i];
 			MyWMGRI.perkUpgrades[index].static.ModifyDamageGiven(InDamage, DefaultDamage, MyWMPRI.bPerkUpgrade[index], DamageCauser, MyKFPM, DamageInstigator, DamageType, HitZoneIdx, MyKFW);
 		}
-		for (i = 0; i < MyWMPRI.purchase_weaponUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_WeaponUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_weaponUpgrade[i];
+			index = MyWMPRI.Purchase_WeaponUpgrade[i];
 			if (isValidWeapon(MyWMGRI.weaponUpgradeList[index].KFWeapon, MyKFW))
 				MyWMGRI.weaponUpgradeList[index].KFWeaponUpgrade.static.ModifyDamageGiven(InDamage, DefaultDamage, MyWMPRI.GetWeaponUpgrade(index), DamageCauser, MyKFPM, DamageInstigator, DamageType, HitZoneIdx, MyKFW);
 		}
-		for (i = 0; i < MyWMPRI.purchase_skillUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_SkillUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_skillUpgrade[i];
+			index = MyWMPRI.Purchase_SkillUpgrade[i];
 			MyWMGRI.skillUpgrades[index].SkillUpgrade.static.ModifyDamageGiven(InDamage, DefaultDamage, MyWMPRI.bSkillUpgrade[index], DamageCauser, MyKFPM, DamageInstigator, DamageType, HitZoneIdx, MyKFW);
 		}
-		for (i = 0; i < MyWMPRI.purchase_equipmentUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_EquipmentUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_equipmentUpgrade[i];
+			index = MyWMPRI.Purchase_EquipmentUpgrade[i];
 			MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.ModifyDamageGiven(InDamage, DefaultDamage, MyWMPRI.bEquipmentUpgrade[index], DamageCauser, MyKFPM, DamageInstigator, DamageType, HitZoneIdx, MyKFW);
 		}
 	}
@@ -591,25 +591,25 @@ function ModifyHardAttackDamage(out int InDamage)
 
 	if (MyWMPRI != none)
 	{
-		for (i = 0; i < MyWMPRI.purchase_perkUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_perkUpgrade[i];
+			index = MyWMPRI.Purchase_PerkUpgrade[i];
 			MyWMGRI.perkUpgrades[index].static.ModifyHardAttackDamage(InDamage, DefaultDamage, MyWMPRI.bPerkUpgrade[index], OwnerPawn);
 		}
-		for (i = 0; i < MyWMPRI.purchase_weaponUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_WeaponUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_weaponUpgrade[i];
+			index = MyWMPRI.Purchase_WeaponUpgrade[i];
 			if (isValidWeapon(MyWMGRI.weaponUpgradeList[index].KFWeapon, MyKFW))
 				MyWMGRI.weaponUpgradeList[index].KFWeaponUpgrade.static.ModifyHardAttackDamage(InDamage, DefaultDamage, MyWMPRI.GetWeaponUpgrade(index), OwnerPawn);
 		}
-		for (i = 0; i < MyWMPRI.purchase_skillUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_SkillUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_skillUpgrade[i];
+			index = MyWMPRI.Purchase_SkillUpgrade[i];
 			MyWMGRI.skillUpgrades[index].SkillUpgrade.static.ModifyHardAttackDamage(InDamage, DefaultDamage, MyWMPRI.bSkillUpgrade[index], OwnerPawn);
 		}
-		for (i = 0; i < MyWMPRI.purchase_equipmentUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_EquipmentUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_equipmentUpgrade[i];
+			index = MyWMPRI.Purchase_EquipmentUpgrade[i];
 			MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.ModifyHardAttackDamage(InDamage, DefaultDamage, MyWMPRI.bEquipmentUpgrade[index], OwnerPawn);
 		}
 	}
@@ -669,25 +669,25 @@ function ModifyDamageTaken(out int InDamage, optional class<DamageType> DamageTy
 
 	if (MyWMPRI != none)
 	{
-		for (i = 0; i < MyWMPRI.purchase_perkUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_perkUpgrade[i];
+			index = MyWMPRI.Purchase_PerkUpgrade[i];
 			MyWMGRI.perkUpgrades[index].static.ModifyDamageTaken(InDamage, DefaultDamage, MyWMPRI.bPerkUpgrade[index], OwnerPawn, DamageType, InstigatedBy, MyKFW);
 		}
-		for (i = 0; i < MyWMPRI.purchase_weaponUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_WeaponUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_weaponUpgrade[i];
+			index = MyWMPRI.Purchase_WeaponUpgrade[i];
 			if (isValidWeapon(MyWMGRI.weaponUpgradeList[index].KFWeapon, MyKFW))
 				MyWMGRI.weaponUpgradeList[index].KFWeaponUpgrade.static.ModifyDamageTaken(InDamage, DefaultDamage, MyWMPRI.GetWeaponUpgrade(index), OwnerPawn, DamageType, InstigatedBy, MyKFW);
 		}
-		for (i = 0; i < MyWMPRI.purchase_skillUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_SkillUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_skillUpgrade[i];
+			index = MyWMPRI.Purchase_SkillUpgrade[i];
 			MyWMGRI.skillUpgrades[index].SkillUpgrade.static.ModifyDamageTaken(InDamage, DefaultDamage, MyWMPRI.bSkillUpgrade[index], OwnerPawn, DamageType, InstigatedBy, MyKFW);
 		}
-		for (i = 0; i < MyWMPRI.purchase_equipmentUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_EquipmentUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_equipmentUpgrade[i];
+			index = MyWMPRI.Purchase_EquipmentUpgrade[i];
 			MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.ModifyDamageTaken(InDamage, DefaultDamage, MyWMPRI.bEquipmentUpgrade[index], OwnerPawn, DamageType, InstigatedBy, MyKFW);
 		}
 	}
@@ -716,19 +716,19 @@ function ModifyHealth(out int InHealth)
 
 	if (MyWMPRI != none)
 	{
-		for (i = 0; i < MyWMPRI.purchase_perkUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_perkUpgrade[i];
+			index = MyWMPRI.Purchase_PerkUpgrade[i];
 			MyWMGRI.perkUpgrades[index].static.ModifyHealth(InHealth, DefaultHealth, MyWMPRI.bPerkUpgrade[index]);
 		}
-		for (i = 0; i < MyWMPRI.purchase_skillUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_SkillUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_skillUpgrade[i];
+			index = MyWMPRI.Purchase_SkillUpgrade[i];
 			MyWMGRI.skillUpgrades[index].SkillUpgrade.static.ModifyHealth(InHealth, DefaultHealth, MyWMPRI.bSkillUpgrade[index]);
 		}
-		for (i = 0; i < MyWMPRI.purchase_equipmentUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_EquipmentUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_equipmentUpgrade[i];
+			index = MyWMPRI.Purchase_EquipmentUpgrade[i];
 			MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.ModifyHealth(InHealth, DefaultHealth, MyWMPRI.bEquipmentUpgrade[index]);
 		}
 		for (i = 0; i <= 1; ++i)
@@ -759,19 +759,19 @@ function ModifyArmorInt(out int MaxArmor)
 
 	if (MyWMPRI != none && MyWMGRI != none)
 	{
-		for (i = 0; i < MyWMPRI.purchase_perkUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_perkUpgrade[i];
+			index = MyWMPRI.Purchase_PerkUpgrade[i];
 			MyWMGRI.perkUpgrades[index].static.ModifyArmor(MaxArmor, DefaultArmor, MyWMPRI.bPerkUpgrade[index]);
 		}
-		for (i = 0; i < MyWMPRI.purchase_skillUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_SkillUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_skillUpgrade[i];
+			index = MyWMPRI.Purchase_SkillUpgrade[i];
 			MyWMGRI.skillUpgrades[index].SkillUpgrade.static.ModifyArmor(MaxArmor, DefaultArmor, MyWMPRI.bSkillUpgrade[index]);
 		}
-		for (i = 0; i < MyWMPRI.purchase_equipmentUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_EquipmentUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_equipmentUpgrade[i];
+			index = MyWMPRI.Purchase_EquipmentUpgrade[i];
 			MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.ModifyArmor(MaxArmor, DefaultArmor, MyWMPRI.bEquipmentUpgrade[index]);
 		}
 		for (i = 0; i <= 1; ++i)
@@ -793,25 +793,25 @@ simulated function ModifyMeleeAttackSpeed(out float InDuration, KFWeapon KFW)
 
 	if (MyWMPRI != none)
 	{
-		for (i = 0; i < MyWMPRI.purchase_perkUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_perkUpgrade[i];
+			index = MyWMPRI.Purchase_PerkUpgrade[i];
 			MyWMGRI.perkUpgrades[index].static.ModifyMeleeAttackSpeed(InDuration, DefaultDuration, MyWMPRI.bPerkUpgrade[index], KFW);
 		}
-		for (i = 0; i < MyWMPRI.purchase_weaponUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_WeaponUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_weaponUpgrade[i];
+			index = MyWMPRI.Purchase_WeaponUpgrade[i];
 			if (isValidWeapon(MyWMGRI.weaponUpgradeList[index].KFWeapon, KFW))
 				MyWMGRI.weaponUpgradeList[index].KFWeaponUpgrade.static.ModifyMeleeAttackSpeed(InDuration, DefaultDuration, MyWMPRI.GetWeaponUpgrade(index), KFW);
 		}
-		for (i = 0; i < MyWMPRI.purchase_skillUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_SkillUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_skillUpgrade[i];
+			index = MyWMPRI.Purchase_SkillUpgrade[i];
 			MyWMGRI.skillUpgrades[index].SkillUpgrade.static.ModifyMeleeAttackSpeed(InDuration, DefaultDuration, MyWMPRI.bSkillUpgrade[index], KFW);
 		}
-		for (i = 0; i < MyWMPRI.purchase_equipmentUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_EquipmentUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_equipmentUpgrade[i];
+			index = MyWMPRI.Purchase_EquipmentUpgrade[i];
 			MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.ModifyMeleeAttackSpeed(InDuration, DefaultDuration, MyWMPRI.bEquipmentUpgrade[index], KFW);
 		}
 	}
@@ -834,25 +834,25 @@ simulated function float GetReloadRateScale(KFWeapon KFW)
 
 	if (MyWMPRI != none)
 	{
-		for (i = 0; i < MyWMPRI.purchase_perkUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_perkUpgrade[i];
+			index = MyWMPRI.Purchase_PerkUpgrade[i];
 			MyWMGRI.perkUpgrades[index].static.GetReloadRateScale(InReloadRateScale, MyWMPRI.bPerkUpgrade[index], KFW, OwnerPawn);
 		}
-		for (i = 0; i < MyWMPRI.purchase_weaponUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_WeaponUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_weaponUpgrade[i];
+			index = MyWMPRI.Purchase_WeaponUpgrade[i];
 			if (isValidWeapon(MyWMGRI.weaponUpgradeList[index].KFWeapon, KFW))
 				MyWMGRI.weaponUpgradeList[index].KFWeaponUpgrade.static.GetReloadRateScale(InReloadRateScale, MyWMPRI.GetWeaponUpgrade(index), KFW, OwnerPawn);
 		}
-		for (i = 0; i < MyWMPRI.purchase_skillUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_SkillUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_skillUpgrade[i];
+			index = MyWMPRI.Purchase_SkillUpgrade[i];
 			MyWMGRI.skillUpgrades[index].SkillUpgrade.static.GetReloadRateScale(InReloadRateScale, MyWMPRI.bSkillUpgrade[index], KFW, OwnerPawn);
 		}
-		for (i = 0; i < MyWMPRI.purchase_equipmentUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_EquipmentUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_equipmentUpgrade[i];
+			index = MyWMPRI.Purchase_EquipmentUpgrade[i];
 			MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.GetReloadRateScale(InReloadRateScale, MyWMPRI.bEquipmentUpgrade[index], KFW, OwnerPawn);
 		}
 	}
@@ -885,25 +885,25 @@ function bool ModifyHealAmount(out float HealAmount)
 
 	if (MyWMPRI != none)
 	{
-		for (i = 0; i < MyWMPRI.purchase_perkUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_perkUpgrade[i];
+			index = MyWMPRI.Purchase_PerkUpgrade[i];
 			MyWMGRI.perkUpgrades[index].static.ModifyHealAmount(HealAmount, DefaultHealAmount, MyWMPRI.bPerkUpgrade[index]);
 		}
-		for (i = 0; i < MyWMPRI.purchase_weaponUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_WeaponUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_weaponUpgrade[i];
+			index = MyWMPRI.Purchase_WeaponUpgrade[i];
 			if (isValidWeapon(MyWMGRI.weaponUpgradeList[index].KFWeapon, MyKFW))
 				MyWMGRI.weaponUpgradeList[index].KFWeaponUpgrade.static.ModifyHealAmount(HealAmount, DefaultHealAmount, MyWMPRI.GetWeaponUpgrade(index));
 		}
-		for (i = 0; i < MyWMPRI.purchase_skillUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_SkillUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_skillUpgrade[i];
+			index = MyWMPRI.Purchase_SkillUpgrade[i];
 			MyWMGRI.skillUpgrades[index].SkillUpgrade.static.ModifyHealAmount(HealAmount, DefaultHealAmount, MyWMPRI.bSkillUpgrade[index]);
 		}
-		for (i = 0; i < MyWMPRI.purchase_equipmentUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_EquipmentUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_equipmentUpgrade[i];
+			index = MyWMPRI.Purchase_EquipmentUpgrade[i];
 			MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.ModifyHealAmount(HealAmount, DefaultHealAmount, MyWMPRI.bEquipmentUpgrade[index]);
 		}
 	}
@@ -925,19 +925,19 @@ simulated function ModifyHealerRechargeTime(out float RechargeRate)
 
 	if (MyWMPRI != none)
 	{
-		for (i = 0; i < MyWMPRI.purchase_perkUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_perkUpgrade[i];
+			index = MyWMPRI.Purchase_PerkUpgrade[i];
 			MyWMGRI.perkUpgrades[index].static.ModifyHealerRechargeTime(RechargeRate, DefaultRechargeRate, MyWMPRI.bPerkUpgrade[index]);
 		}
-		for (i = 0; i < MyWMPRI.purchase_skillUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_SkillUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_skillUpgrade[i];
+			index = MyWMPRI.Purchase_SkillUpgrade[i];
 			MyWMGRI.skillUpgrades[index].SkillUpgrade.static.ModifyHealerRechargeTime(RechargeRate, DefaultRechargeRate, MyWMPRI.bSkillUpgrade[index]);
 		}
-		for (i = 0; i < MyWMPRI.purchase_equipmentUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_EquipmentUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_equipmentUpgrade[i];
+			index = MyWMPRI.Purchase_EquipmentUpgrade[i];
 			MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.ModifyHealerRechargeTime(RechargeRate, DefaultRechargeRate, MyWMPRI.bEquipmentUpgrade[index]);
 		}
 	}
@@ -959,19 +959,19 @@ simulated function ModifySpeed(out float Speed)
 
 	if (MyPRI != none && OwnerPawn != none)
 	{
-		for (i = 0; i < MyWMPRI.purchase_perkUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_perkUpgrade[i];
+			index = MyWMPRI.Purchase_PerkUpgrade[i];
 			MyWMGRI.perkUpgrades[index].static.ModifySpeed(Speed, DefaultSpeed, MyWMPRI.bPerkUpgrade[index], OwnerPawn);
 		}
-		for (i = 0; i < MyWMPRI.purchase_skillUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_SkillUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_skillUpgrade[i];
+			index = MyWMPRI.Purchase_SkillUpgrade[i];
 			MyWMGRI.skillUpgrades[index].SkillUpgrade.static.ModifySpeed(Speed, DefaultSpeed, MyWMPRI.bSkillUpgrade[index], OwnerPawn);
 		}
-		for (i = 0; i < MyWMPRI.purchase_equipmentUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_EquipmentUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_equipmentUpgrade[i];
+			index = MyWMPRI.Purchase_EquipmentUpgrade[i];
 			MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.ModifySpeed(Speed, DefaultSpeed, MyWMPRI.bEquipmentUpgrade[index], OwnerPawn);
 		}
 	}
@@ -993,25 +993,25 @@ simulated function ModifyRecoil(out float CurrentRecoilModifier, KFWeapon KFW)
 
 	if (MyWMPRI != none)
 	{
-		for (i = 0; i < MyWMPRI.purchase_perkUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_perkUpgrade[i];
+			index = MyWMPRI.Purchase_PerkUpgrade[i];
 			MyWMGRI.perkUpgrades[index].static.ModifyRecoil(CurrentRecoilModifier, DefaultRecoilModifier, MyWMPRI.bPerkUpgrade[index], KFW);
 		}
-		for (i = 0; i < MyWMPRI.purchase_weaponUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_WeaponUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_weaponUpgrade[i];
+			index = MyWMPRI.Purchase_WeaponUpgrade[i];
 			if (isValidWeapon(MyWMGRI.weaponUpgradeList[index].KFWeapon, KFW))
 				MyWMGRI.weaponUpgradeList[index].KFWeaponUpgrade.static.ModifyRecoil(CurrentRecoilModifier, DefaultRecoilModifier, MyWMPRI.GetWeaponUpgrade(index), KFW);
 		}
-		for (i = 0; i < MyWMPRI.purchase_skillUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_SkillUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_skillUpgrade[i];
+			index = MyWMPRI.Purchase_SkillUpgrade[i];
 			MyWMGRI.skillUpgrades[index].SkillUpgrade.static.ModifyRecoil(CurrentRecoilModifier, DefaultRecoilModifier, MyWMPRI.bSkillUpgrade[index], KFW);
 		}
-		for (i = 0; i < MyWMPRI.purchase_equipmentUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_EquipmentUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_equipmentUpgrade[i];
+			index = MyWMPRI.Purchase_EquipmentUpgrade[i];
 			MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.ModifyRecoil(CurrentRecoilModifier, DefaultRecoilModifier, MyWMPRI.bEquipmentUpgrade[index], KFW);
 		}
 	}
@@ -1036,25 +1036,25 @@ simulated function ModifyWeaponBopDamping(out float BobDamping, KFWeapon PawnWea
 
 	if (MyWMPRI != none)
 	{
-		for (i = 0; i < MyWMPRI.purchase_perkUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_perkUpgrade[i];
+			index = MyWMPRI.Purchase_PerkUpgrade[i];
 			MyWMGRI.perkUpgrades[index].static.ModifyWeaponBopDamping(InBobDamping, DefaultBobDamping, MyWMPRI.bPerkUpgrade[index], PawnWeapon);
 		}
-		for (i = 0; i < MyWMPRI.purchase_weaponUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_WeaponUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_weaponUpgrade[i];
+			index = MyWMPRI.Purchase_WeaponUpgrade[i];
 			if (isValidWeapon(MyWMGRI.weaponUpgradeList[index].KFWeapon, PawnWeapon))
 				MyWMGRI.weaponUpgradeList[index].KFWeaponUpgrade.static.ModifyWeaponBopDamping(InBobDamping, DefaultBobDamping, MyWMPRI.GetWeaponUpgrade(index), PawnWeapon);
 		}
-		for (i = 0; i < MyWMPRI.purchase_skillUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_SkillUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_skillUpgrade[i];
+			index = MyWMPRI.Purchase_SkillUpgrade[i];
 			MyWMGRI.skillUpgrades[index].SkillUpgrade.static.ModifyWeaponBopDamping(InBobDamping, DefaultBobDamping, MyWMPRI.bSkillUpgrade[index], PawnWeapon);
 		}
-		for (i = 0; i < MyWMPRI.purchase_equipmentUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_EquipmentUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_equipmentUpgrade[i];
+			index = MyWMPRI.Purchase_EquipmentUpgrade[i];
 			MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.ModifyWeaponBopDamping(InBobDamping, DefaultBobDamping, MyWMPRI.bEquipmentUpgrade[index], PawnWeapon);
 		}
 	}
@@ -1081,25 +1081,25 @@ simulated function ModifyMagSizeAndNumber(KFWeapon KFW, out int MagazineCapacity
 	{
 		MagCapacity = Round(float(MagCapacity) * passiveMagazineCapacity);
 
-		for (i = 0; i < MyWMPRI.purchase_perkUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_perkUpgrade[i];
+			index = MyWMPRI.Purchase_PerkUpgrade[i];
 			MyWMGRI.perkUpgrades[index].static.ModifyMagSizeAndNumber(MagCapacity, DefaultMagazineCapacity, MyWMPRI.bPerkUpgrade[index], KFW, WeaponPerkClass, bSecondary, WeaponClassname);
 		}
-		for (i = 0; i < MyWMPRI.purchase_weaponUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_WeaponUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_weaponUpgrade[i];
+			index = MyWMPRI.Purchase_WeaponUpgrade[i];
 			if (isValidWeapon(MyWMGRI.weaponUpgradeList[index].KFWeapon, KFW))
 				MyWMGRI.weaponUpgradeList[index].KFWeaponUpgrade.static.ModifyMagSizeAndNumber(MagCapacity, DefaultMagazineCapacity, MyWMPRI.GetWeaponUpgrade(index), KFW, WeaponPerkClass, bSecondary, WeaponClassname);
 		}
-		for (i = 0; i < MyWMPRI.purchase_skillUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_SkillUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_skillUpgrade[i];
+			index = MyWMPRI.Purchase_SkillUpgrade[i];
 			MyWMGRI.skillUpgrades[index].SkillUpgrade.static.ModifyMagSizeAndNumber(MagCapacity, DefaultMagazineCapacity, MyWMPRI.bSkillUpgrade[index], KFW, WeaponPerkClass, bSecondary, WeaponClassname);
 		}
-		for (i = 0; i < MyWMPRI.purchase_equipmentUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_EquipmentUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_equipmentUpgrade[i];
+			index = MyWMPRI.Purchase_EquipmentUpgrade[i];
 			MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.ModifyMagSizeAndNumber(MagCapacity, DefaultMagazineCapacity, MyWMPRI.bEquipmentUpgrade[index], KFW, WeaponPerkClass, bSecondary, WeaponClassname);
 		}
 	}
@@ -1134,25 +1134,25 @@ simulated function ModifySpareAmmoAmount(KFWeapon KFW, out int PrimarySpareAmmo,
 		PrimarySpareAmmo = Round(float(PrimarySpareAmmo) * passiveSpareAmmo);
 		if (MyWMPRI != none)
 		{
-			for (i = 0; i < MyWMPRI.purchase_perkUpgrade.length; ++i)
+			for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 			{
-				index = MyWMPRI.purchase_perkUpgrade[i];
+				index = MyWMPRI.Purchase_PerkUpgrade[i];
 				MyWMGRI.perkUpgrades[index].static.ModifySpareAmmoAmount(PrimarySpareAmmo, DefaultSpareAmmo, MyWMPRI.bPerkUpgrade[index], KFW, TraderItem, bSecondary);
 			}
-			for (i = 0; i < MyWMPRI.purchase_weaponUpgrade.length; ++i)
+			for (i = 0; i < MyWMPRI.Purchase_WeaponUpgrade.length; ++i)
 			{
-				index = MyWMPRI.purchase_weaponUpgrade[i];
+				index = MyWMPRI.Purchase_WeaponUpgrade[i];
 				if (isValidWeapon(MyWMGRI.weaponUpgradeList[index].KFWeapon, KFW))
 					MyWMGRI.weaponUpgradeList[index].KFWeaponUpgrade.static.ModifySpareAmmoAmount(PrimarySpareAmmo, DefaultSpareAmmo, MyWMPRI.GetWeaponUpgrade(index), KFW, TraderItem, bSecondary);
 			}
-			for (i = 0; i < MyWMPRI.purchase_skillUpgrade.length; ++i)
+			for (i = 0; i < MyWMPRI.Purchase_SkillUpgrade.length; ++i)
 			{
-				index = MyWMPRI.purchase_skillUpgrade[i];
+				index = MyWMPRI.Purchase_SkillUpgrade[i];
 				MyWMGRI.skillUpgrades[index].SkillUpgrade.static.ModifySpareAmmoAmount(PrimarySpareAmmo, DefaultSpareAmmo, MyWMPRI.bSkillUpgrade[index], KFW, TraderItem, bSecondary);
 			}
-			for (i = 0; i < MyWMPRI.purchase_equipmentUpgrade.length; ++i)
+			for (i = 0; i < MyWMPRI.Purchase_EquipmentUpgrade.length; ++i)
 			{
-				index = MyWMPRI.purchase_equipmentUpgrade[i];
+				index = MyWMPRI.Purchase_EquipmentUpgrade[i];
 				MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.ModifySpareAmmoAmount(PrimarySpareAmmo, DefaultSpareAmmo, MyWMPRI.bEquipmentUpgrade[index], KFW, TraderItem, bSecondary);
 			}
 		}
@@ -1186,19 +1186,19 @@ simulated function ModifyMaxSpareGrenadeAmount()
 
 	if (MyWMPRI != none)
 	{
-		for (i = 0; i < MyWMPRI.purchase_perkUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_perkUpgrade[i];
+			index = MyWMPRI.Purchase_PerkUpgrade[i];
 			MyWMGRI.perkUpgrades[index].static.ModifySpareGrenadeAmount(SpareGrenade, DefaultSpareGrenade, MyWMPRI.bPerkUpgrade[index]);
 		}
-		for (i = 0; i < MyWMPRI.purchase_skillUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_SkillUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_skillUpgrade[i];
+			index = MyWMPRI.Purchase_SkillUpgrade[i];
 			MyWMGRI.skillUpgrades[index].SkillUpgrade.static.ModifySpareGrenadeAmount(SpareGrenade, DefaultSpareGrenade, MyWMPRI.bSkillUpgrade[index]);
 		}
-		for (i = 0; i < MyWMPRI.purchase_equipmentUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_EquipmentUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_equipmentUpgrade[i];
+			index = MyWMPRI.Purchase_EquipmentUpgrade[i];
 			MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.ModifySpareGrenadeAmount(SpareGrenade, DefaultSpareGrenade, MyWMPRI.bEquipmentUpgrade[index]);
 		}
 		for (i = 0; i <= 1; ++i)
@@ -1222,19 +1222,19 @@ simulated function ModifyWeldingRate(out float FastenRate, out float UnfastenRat
 
 	if (MyWMPRI != none)
 	{
-		for (i = 0; i < MyWMPRI.purchase_perkUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_perkUpgrade[i];
+			index = MyWMPRI.Purchase_PerkUpgrade[i];
 			MyWMGRI.perkUpgrades[index].static.ModifyWeldingRate(FastenRate, DefaultFastenRate, UnfastenRate, DefaultUnfastenRate, MyWMPRI.bPerkUpgrade[index]);
 		}
-		for (i = 0; i < MyWMPRI.purchase_skillUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_SkillUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_skillUpgrade[i];
+			index = MyWMPRI.Purchase_SkillUpgrade[i];
 			MyWMGRI.skillUpgrades[index].SkillUpgrade.static.ModifyWeldingRate(FastenRate, DefaultFastenRate, UnfastenRate, DefaultUnfastenRate, MyWMPRI.bSkillUpgrade[index]);
 		}
-		for (i = 0; i < MyWMPRI.purchase_equipmentUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_EquipmentUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_equipmentUpgrade[i];
+			index = MyWMPRI.Purchase_EquipmentUpgrade[i];
 			MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.ModifyWeldingRate(FastenRate, DefaultFastenRate, UnfastenRate, DefaultUnfastenRate, MyWMPRI.bEquipmentUpgrade[index]);
 		}
 	}
@@ -1257,19 +1257,19 @@ function float GetZedTimeExtensionMax(byte Level)
 		DefaultExtension = 1.0f;
 		Extension = 1.0f;
 
-		for (i = 0; i < MyWMPRI.purchase_perkUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_perkUpgrade[i];
+			index = MyWMPRI.Purchase_PerkUpgrade[i];
 			MyWMGRI.perkUpgrades[index].static.GetZedTimeExtension(Extension, DefaultExtension, MyWMPRI.bPerkUpgrade[index]);
 		}
-		for (i = 0; i < MyWMPRI.purchase_skillUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_SkillUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_skillUpgrade[i];
+			index = MyWMPRI.Purchase_SkillUpgrade[i];
 			MyWMGRI.skillUpgrades[index].SkillUpgrade.static.GetZedTimeExtension(Extension, DefaultExtension, MyWMPRI.bSkillUpgrade[index]);
 		}
-		for (i = 0; i < MyWMPRI.purchase_equipmentUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_EquipmentUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_equipmentUpgrade[i];
+			index = MyWMPRI.Purchase_EquipmentUpgrade[i];
 			MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.GetZedTimeExtension(Extension, DefaultExtension, MyWMPRI.bEquipmentUpgrade[index]);
 		}
 	}
@@ -1305,19 +1305,19 @@ function ApplyWeightLimits()
 
 			if (MyWMPRI != none && MyWMGRI != none)
 			{
-				for (i = 0; i < MyWMPRI.purchase_perkUpgrade.length; ++i)
+				for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 				{
-					index = MyWMPRI.purchase_perkUpgrade[i];
+					index = MyWMPRI.Purchase_PerkUpgrade[i];
 					MyWMGRI.perkUpgrades[index].static.ApplyWeightLimits(InWeightLimit, DefaultWeightLimit, MyWMPRI.bPerkUpgrade[index]);
 				}
-				for (i = 0; i < MyWMPRI.purchase_skillUpgrade.length; ++i)
+				for (i = 0; i < MyWMPRI.Purchase_SkillUpgrade.length; ++i)
 				{
-					index = MyWMPRI.purchase_skillUpgrade[i];
+					index = MyWMPRI.Purchase_SkillUpgrade[i];
 					MyWMGRI.skillUpgrades[index].SkillUpgrade.static.ApplyWeightLimits(InWeightLimit, DefaultWeightLimit, MyWMPRI.bSkillUpgrade[index]);
 				}
-				for (i = 0; i < MyWMPRI.purchase_equipmentUpgrade.length; ++i)
+				for (i = 0; i < MyWMPRI.Purchase_EquipmentUpgrade.length; ++i)
 				{
-					index = MyWMPRI.purchase_equipmentUpgrade[i];
+					index = MyWMPRI.Purchase_EquipmentUpgrade[i];
 					MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.ApplyWeightLimits(InWeightLimit, DefaultWeightLimit, MyWMPRI.bEquipmentUpgrade[index]);
 				}
 				for (i = 0; i <= 1; ++i)
@@ -1343,19 +1343,19 @@ function ModifyDoTScaler(out float DoTScaler, optional class<KFDamageType> KFDT,
 
 	if (MyWMPRI != none)
 	{
-		for (i = 0; i < MyWMPRI.purchase_perkUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_perkUpgrade[i];
+			index = MyWMPRI.Purchase_PerkUpgrade[i];
 			MyWMGRI.perkUpgrades[index].static.ModifyDoTScaler(DotScaler, DefaultDoTScaler, MyWMPRI.bPerkUpgrade[index], KFDT, bNapalmInfected);
 		}
-		for (i = 0; i < MyWMPRI.purchase_skillUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_SkillUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_skillUpgrade[i];
+			index = MyWMPRI.Purchase_SkillUpgrade[i];
 			MyWMGRI.skillUpgrades[index].SkillUpgrade.static.ModifyDoTScaler(DotScaler, DefaultDoTScaler, MyWMPRI.bSkillUpgrade[index], KFDT, bNapalmInfected);
 		}
-		for (i = 0; i < MyWMPRI.purchase_equipmentUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_EquipmentUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_equipmentUpgrade[i];
+			index = MyWMPRI.Purchase_EquipmentUpgrade[i];
 			MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.ModifyDoTScaler(DotScaler, DefaultDoTScaler, MyWMPRI.bEquipmentUpgrade[index], KFDT, bNapalmInfected);
 		}
 	}
@@ -1378,25 +1378,25 @@ simulated function ModifyRateOfFire(out float InRate, KFWeapon KFW)
 
 	if (MyWMPRI != none)
 	{
-		for (i = 0; i < MyWMPRI.purchase_perkUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_perkUpgrade[i];
+			index = MyWMPRI.Purchase_PerkUpgrade[i];
 			MyWMGRI.perkUpgrades[index].static.ModifyRateOfFire(InRate, DefaultRate, MyWMPRI.bPerkUpgrade[index], KFW);
 		}
-		for (i = 0; i < MyWMPRI.purchase_weaponUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_WeaponUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_weaponUpgrade[i];
+			index = MyWMPRI.Purchase_WeaponUpgrade[i];
 			if (isValidWeapon(MyWMGRI.weaponUpgradeList[index].KFWeapon, KFW))
 				MyWMGRI.weaponUpgradeList[index].KFWeaponUpgrade.static.ModifyRateOfFire(InRate, DefaultRate, MyWMPRI.GetWeaponUpgrade(index), KFW);
 		}
-		for (i = 0; i < MyWMPRI.purchase_skillUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_SkillUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_skillUpgrade[i];
+			index = MyWMPRI.Purchase_SkillUpgrade[i];
 			MyWMGRI.skillUpgrades[index].SkillUpgrade.static.ModifyRateOfFire(InRate, DefaultRate, MyWMPRI.bSkillUpgrade[index], KFW);
 		}
-		for (i = 0; i < MyWMPRI.purchase_equipmentUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_EquipmentUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_equipmentUpgrade[i];
+			index = MyWMPRI.Purchase_EquipmentUpgrade[i];
 			MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.ModifyRateOfFire(InRate, DefaultRate, MyWMPRI.bEquipmentUpgrade[index], KFW);
 		}
 	}
@@ -1435,25 +1435,25 @@ simulated function float GetTightChokeModifier()
 
 	if (MyWMPRI != none)
 	{
-		for (i = 0; i < MyWMPRI.purchase_perkUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_perkUpgrade[i];
+			index = MyWMPRI.Purchase_PerkUpgrade[i];
 			MyWMGRI.perkUpgrades[index].static.ModifyTightChoke(InTight, DefaultTight, MyWMPRI.bPerkUpgrade[index], KFW, OwnerPawn);
 		}
-		for (i = 0; i < MyWMPRI.purchase_weaponUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_WeaponUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_weaponUpgrade[i];
+			index = MyWMPRI.Purchase_WeaponUpgrade[i];
 			if (isValidWeapon(MyWMGRI.weaponUpgradeList[index].KFWeapon, KFW))
 				MyWMGRI.weaponUpgradeList[index].KFWeaponUpgrade.static.ModifyTightChoke(InTight, DefaultTight, MyWMPRI.GetWeaponUpgrade(index), KFW, OwnerPawn);
 		}
-		for (i = 0; i < MyWMPRI.purchase_skillUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_SkillUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_skillUpgrade[i];
+			index = MyWMPRI.Purchase_SkillUpgrade[i];
 			MyWMGRI.skillUpgrades[index].SkillUpgrade.static.ModifyTightChoke(InTight, DefaultTight, MyWMPRI.bSkillUpgrade[index], KFW, OwnerPawn);
 		}
-		for (i = 0; i < MyWMPRI.purchase_equipmentUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_EquipmentUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_equipmentUpgrade[i];
+			index = MyWMPRI.Purchase_EquipmentUpgrade[i];
 			MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.ModifyTightChoke(InTight, DefaultTight, MyWMPRI.bEquipmentUpgrade[index], KFW, OwnerPawn);
 		}
 	}
@@ -1492,25 +1492,25 @@ simulated function float GetPenetrationModifier(byte Level, class<KFDamageType> 
 
 	if (MyWMPRI != none)
 	{
-		for (i = 0; i < MyWMPRI.purchase_perkUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_perkUpgrade[i];
+			index = MyWMPRI.Purchase_PerkUpgrade[i];
 			MyWMGRI.perkUpgrades[index].static.ModifyPenetration(InPenetration, DefaultPenetration, MyWMPRI.bPerkUpgrade[index], DamageType, OwnerPawn, bForce);
 		}
-		for (i = 0; i < MyWMPRI.purchase_weaponUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_WeaponUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_weaponUpgrade[i];
+			index = MyWMPRI.Purchase_WeaponUpgrade[i];
 			if (isValidWeapon(MyWMGRI.weaponUpgradeList[index].KFWeapon, MyKFW))
 				MyWMGRI.weaponUpgradeList[index].KFWeaponUpgrade.static.ModifyPenetration(InPenetration, DefaultPenetration, MyWMPRI.GetWeaponUpgrade(index), DamageType, OwnerPawn, bForce);
 		}
-		for (i = 0; i < MyWMPRI.purchase_skillUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_SkillUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_skillUpgrade[i];
+			index = MyWMPRI.Purchase_SkillUpgrade[i];
 			MyWMGRI.skillUpgrades[index].SkillUpgrade.static.ModifyPenetration(InPenetration, DefaultPenetration, MyWMPRI.bSkillUpgrade[index], DamageType, OwnerPawn, bForce);
 		}
-		for (i = 0; i < MyWMPRI.purchase_equipmentUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_EquipmentUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_equipmentUpgrade[i];
+			index = MyWMPRI.Purchase_EquipmentUpgrade[i];
 			MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.ModifyPenetration(InPenetration, DefaultPenetration, MyWMPRI.bEquipmentUpgrade[index], DamageType, OwnerPawn, bForce);
 		}
 	}
@@ -1547,25 +1547,25 @@ function float GetStunPowerModifier(optional class<DamageType> DamageType, optio
 
 	if (MyWMPRI != none)
 	{
-		for (i = 0; i < MyWMPRI.purchase_perkUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_perkUpgrade[i];
+			index = MyWMPRI.Purchase_PerkUpgrade[i];
 			MyWMGRI.perkUpgrades[index].static.ModifyStunPower(InStunPower, DefaultStunPower, MyWMPRI.bPerkUpgrade[index], DamageType, HitZoneIdx);
 		}
-		for (i = 0; i < MyWMPRI.purchase_weaponUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_WeaponUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_weaponUpgrade[i];
+			index = MyWMPRI.Purchase_WeaponUpgrade[i];
 			if (isValidWeapon(MyWMGRI.weaponUpgradeList[index].KFWeapon, MyKFW))
 				MyWMGRI.weaponUpgradeList[index].KFWeaponUpgrade.static.ModifyStunPower(InStunPower, DefaultStunPower, MyWMPRI.GetWeaponUpgrade(index), DamageType, HitZoneIdx);
 		}
-		for (i = 0; i < MyWMPRI.purchase_skillUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_SkillUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_skillUpgrade[i];
+			index = MyWMPRI.Purchase_SkillUpgrade[i];
 			MyWMGRI.skillUpgrades[index].SkillUpgrade.static.ModifyStunPower(InStunPower, DefaultStunPower, MyWMPRI.bSkillUpgrade[index], DamageType, HitZoneIdx);
 		}
-		for (i = 0; i < MyWMPRI.purchase_equipmentUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_EquipmentUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_equipmentUpgrade[i];
+			index = MyWMPRI.Purchase_EquipmentUpgrade[i];
 			MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.ModifyStunPower(InStunPower, DefaultStunPower, MyWMPRI.bEquipmentUpgrade[index], DamageType, HitZoneIdx);
 		}
 	}
@@ -1602,25 +1602,25 @@ function float GetStumblePowerModifier(optional KFPawn KFP, optional class<KFDam
 
 	if (MyWMPRI != none)
 	{
-		for (i = 0; i < MyWMPRI.purchase_perkUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_perkUpgrade[i];
+			index = MyWMPRI.Purchase_PerkUpgrade[i];
 			MyWMGRI.perkUpgrades[index].static.ModifyStumblePower(InStumblePower, DefaultStumblePower, MyWMPRI.bPerkUpgrade[index], KFP, DamageType, CooldownModifier, BodyPart, OwnerPawn);
 		}
-		for (i = 0; i < MyWMPRI.purchase_weaponUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_WeaponUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_weaponUpgrade[i];
+			index = MyWMPRI.Purchase_WeaponUpgrade[i];
 			if (isValidWeapon(MyWMGRI.weaponUpgradeList[index].KFWeapon, MyKFW))
 				MyWMGRI.weaponUpgradeList[index].KFWeaponUpgrade.static.ModifyStumblePower(InStumblePower, DefaultStumblePower, MyWMPRI.GetWeaponUpgrade(index), KFP, DamageType, CooldownModifier, BodyPart, OwnerPawn);
 		}
-		for (i = 0; i < MyWMPRI.purchase_skillUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_SkillUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_skillUpgrade[i];
+			index = MyWMPRI.Purchase_SkillUpgrade[i];
 			MyWMGRI.skillUpgrades[index].SkillUpgrade.static.ModifyStumblePower(InStumblePower, DefaultStumblePower, MyWMPRI.bSkillUpgrade[index], KFP, DamageType, CooldownModifier, BodyPart, OwnerPawn);
 		}
-		for (i = 0; i < MyWMPRI.purchase_equipmentUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_EquipmentUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_equipmentUpgrade[i];
+			index = MyWMPRI.Purchase_EquipmentUpgrade[i];
 			MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.ModifyStumblePower(InStumblePower, DefaultStumblePower, MyWMPRI.bEquipmentUpgrade[index], KFP, DamageType, CooldownModifier, BodyPart, OwnerPawn);
 		}
 	}
@@ -1657,25 +1657,25 @@ function float GetKnockdownPowerModifier(optional class<DamageType> DamageType, 
 
 	if (MyWMPRI != none)
 	{
-		for (i = 0; i < MyWMPRI.purchase_perkUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_perkUpgrade[i];
+			index = MyWMPRI.Purchase_PerkUpgrade[i];
 			MyWMGRI.perkUpgrades[index].static.ModifyKnockdownPower(InKnockdownPower, DefaultKnockdownPower, MyWMPRI.bPerkUpgrade[index], OwnerPawn, DamageType, BodyPart, bIsSprinting);
 		}
-		for (i = 0; i < MyWMPRI.purchase_weaponUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_WeaponUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_weaponUpgrade[i];
+			index = MyWMPRI.Purchase_WeaponUpgrade[i];
 			if (isValidWeapon(MyWMGRI.weaponUpgradeList[index].KFWeapon, MyKFW))
 				MyWMGRI.weaponUpgradeList[index].KFWeaponUpgrade.static.ModifyKnockdownPower(InKnockdownPower, DefaultKnockdownPower, MyWMPRI.GetWeaponUpgrade(index), OwnerPawn, DamageType, BodyPart, bIsSprinting);
 		}
-		for (i = 0; i < MyWMPRI.purchase_skillUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_SkillUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_skillUpgrade[i];
+			index = MyWMPRI.Purchase_SkillUpgrade[i];
 			MyWMGRI.skillUpgrades[index].SkillUpgrade.static.ModifyKnockdownPower(InKnockdownPower, DefaultKnockdownPower, MyWMPRI.bSkillUpgrade[index], OwnerPawn, DamageType, BodyPart, bIsSprinting);
 		}
-		for (i = 0; i < MyWMPRI.purchase_equipmentUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_EquipmentUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_equipmentUpgrade[i];
+			index = MyWMPRI.Purchase_EquipmentUpgrade[i];
 			MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.ModifyKnockdownPower(InKnockdownPower, DefaultKnockdownPower, MyWMPRI.bEquipmentUpgrade[index], OwnerPawn, DamageType, BodyPart, bIsSprinting);
 		}
 	}
@@ -1714,19 +1714,19 @@ simulated function float GetSnarePowerModifier(optional class<DamageType> Damage
 
 	if (MyWMPRI != none)
 	{
-		for (i = 0; i < MyWMPRI.purchase_perkUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_perkUpgrade[i];
+			index = MyWMPRI.Purchase_PerkUpgrade[i];
 			MyWMGRI.perkUpgrades[index].static.ModifySnarePower(InSnarePower, DefaultSnarePower, MyWMPRI.bPerkUpgrade[index], DamageType, HitZoneIdx);
 		}
-		for (i = 0; i < MyWMPRI.purchase_skillUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_SkillUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_skillUpgrade[i];
+			index = MyWMPRI.Purchase_SkillUpgrade[i];
 			MyWMGRI.skillUpgrades[index].SkillUpgrade.static.ModifySnarePower(InSnarePower, DefaultSnarePower, MyWMPRI.bSkillUpgrade[index], DamageType, HitZoneIdx);
 		}
-		for (i = 0; i < MyWMPRI.purchase_equipmentUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_EquipmentUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_equipmentUpgrade[i];
+			index = MyWMPRI.Purchase_EquipmentUpgrade[i];
 			MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.ModifySnarePower(InSnarePower, DefaultSnarePower, MyWMPRI.bEquipmentUpgrade[index], DamageType, HitZoneIdx);
 		}
 	}
@@ -1763,25 +1763,25 @@ simulated function ModifyWeaponSwitchTime(out float ModifiedSwitchTime)
 
 	if (MyWMPRI != none)
 	{
-		for (i = 0; i < MyWMPRI.purchase_perkUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_perkUpgrade[i];
+			index = MyWMPRI.Purchase_PerkUpgrade[i];
 			MyWMGRI.perkUpgrades[index].static.ModifyWeaponSwitchTime(ModifiedSwitchTime, DefaultSwitchTime, MyWMPRI.bPerkUpgrade[index], KFW);
 		}
-		for (i = 0; i < MyWMPRI.purchase_weaponUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_WeaponUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_weaponUpgrade[i];
+			index = MyWMPRI.Purchase_WeaponUpgrade[i];
 			if (isValidWeapon(MyWMGRI.weaponUpgradeList[index].KFWeapon, KFW))
 				MyWMGRI.weaponUpgradeList[index].KFWeaponUpgrade.static.ModifyWeaponSwitchTime(ModifiedSwitchTime, DefaultSwitchTime, MyWMPRI.GetWeaponUpgrade(index), KFW);
 		}
-		for (i = 0; i < MyWMPRI.purchase_skillUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_SkillUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_skillUpgrade[i];
+			index = MyWMPRI.Purchase_SkillUpgrade[i];
 			MyWMGRI.skillUpgrades[index].SkillUpgrade.static.ModifyWeaponSwitchTime(ModifiedSwitchTime, DefaultSwitchTime, MyWMPRI.bSkillUpgrade[index], KFW);
 		}
-		for (i = 0; i < MyWMPRI.purchase_equipmentUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_EquipmentUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_equipmentUpgrade[i];
+			index = MyWMPRI.Purchase_EquipmentUpgrade[i];
 			MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.ModifyWeaponSwitchTime(ModifiedSwitchTime, DefaultSwitchTime, MyWMPRI.bEquipmentUpgrade[index], KFW);
 		}
 	}
@@ -1818,19 +1818,19 @@ function AddVampireHealth(KFPlayerController KFPC, class<DamageType> DT)
 
 		if (MyWMPRI != none)
 		{
-			for (i = 0; i < MyWMPRI.purchase_perkUpgrade.length; ++i)
+			for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 			{
-				index = MyWMPRI.purchase_perkUpgrade[i];
+				index = MyWMPRI.Purchase_PerkUpgrade[i];
 				MyWMGRI.perkUpgrades[index].static.AddVampireHealth(InHealth, DefaultHealth, MyWMPRI.bPerkUpgrade[index], KFPC, DT);
 			}
-			for (i = 0; i < MyWMPRI.purchase_skillUpgrade.length; ++i)
+			for (i = 0; i < MyWMPRI.Purchase_SkillUpgrade.length; ++i)
 			{
-				index = MyWMPRI.purchase_skillUpgrade[i];
+				index = MyWMPRI.Purchase_SkillUpgrade[i];
 				MyWMGRI.skillUpgrades[index].SkillUpgrade.static.AddVampireHealth(InHealth, DefaultHealth, MyWMPRI.bSkillUpgrade[index], KFPC, DT);
 			}
-			for (i = 0; i < MyWMPRI.purchase_equipmentUpgrade.length; ++i)
+			for (i = 0; i < MyWMPRI.Purchase_EquipmentUpgrade.length; ++i)
 			{
-				index = MyWMPRI.purchase_equipmentUpgrade[i];
+				index = MyWMPRI.Purchase_EquipmentUpgrade[i];
 				MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.AddVampireHealth(InHealth, DefaultHealth, MyWMPRI.bEquipmentUpgrade[index], KFPC, DT);
 			}
 		}
@@ -1853,23 +1853,23 @@ function bool CanSpreadNapalm()
 
 	if (MyWMPRI != none)
 	{
-		for (i = 0; i < MyWMPRI.purchase_perkUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_perkUpgrade[i];
+			index = MyWMPRI.Purchase_PerkUpgrade[i];
 			bCanSpreadNapalm = MyWMGRI.perkUpgrades[index].static.CanSpreadNapalm(MyWMPRI.bPerkUpgrade[index], OwnerPawn);
 			if (bCanSpreadNapalm)
 				return true;
 		}
-		for (i = 0; i < MyWMPRI.purchase_skillUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_SkillUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_skillUpgrade[i];
+			index = MyWMPRI.Purchase_SkillUpgrade[i];
 			bCanSpreadNapalm = MyWMGRI.skillUpgrades[index].SkillUpgrade.static.CanSpreadNapalm(MyWMPRI.bSkillUpgrade[index], OwnerPawn);
 			if (bCanSpreadNapalm)
 				return true;
 		}
-		for (i = 0; i < MyWMPRI.purchase_equipmentUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_EquipmentUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_equipmentUpgrade[i];
+			index = MyWMPRI.Purchase_EquipmentUpgrade[i];
 			bCanSpreadNapalm = MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.CanSpreadNapalm(MyWMPRI.bEquipmentUpgrade[index], OwnerPawn);
 			if (bCanSpreadNapalm)
 				return true;
@@ -1897,23 +1897,23 @@ simulated function bool CanKnockDownOnBump(KFPawn_Monster KFPM)
 
 	if (MyWMPRI != none)
 	{
-		for (i = 0; i < MyWMPRI.purchase_perkUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_perkUpgrade[i];
+			index = MyWMPRI.Purchase_PerkUpgrade[i];
 			bCanKnockDown = MyWMGRI.perkUpgrades[index].static.ShouldKnockDownOnBump(MyWMPRI.bPerkUpgrade[index], KFPM, OwnerPawn);
 			if (bCanKnockDown)
 				return true;
 		}
-		for (i = 0; i < MyWMPRI.purchase_skillUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_SkillUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_skillUpgrade[i];
+			index = MyWMPRI.Purchase_SkillUpgrade[i];
 			bCanKnockDown = MyWMGRI.skillUpgrades[index].SkillUpgrade.static.ShouldKnockDownOnBump(MyWMPRI.bSkillUpgrade[index], KFPM, OwnerPawn);
 			if (bCanKnockDown)
 				return true;
 		}
-		for (i = 0; i < MyWMPRI.purchase_equipmentUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_EquipmentUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_equipmentUpgrade[i];
+			index = MyWMPRI.Purchase_EquipmentUpgrade[i];
 			bCanKnockDown = MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.ShouldKnockDownOnBump(MyWMPRI.bEquipmentUpgrade[index], KFPM, OwnerPawn);
 			if (bCanKnockDown)
 				return true;
@@ -1949,23 +1949,23 @@ simulated function bool ShouldNeverDud()
 
 	if (MyWMPRI != none)
 	{
-		for (i = 0; i < MyWMPRI.purchase_perkUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_perkUpgrade[i];
+			index = MyWMPRI.Purchase_PerkUpgrade[i];
 			bCouldExplode = MyWMGRI.perkUpgrades[index].static.ShouldNeverDud(MyWMPRI.bPerkUpgrade[index], KFW, OwnerPawn);
 			if (bCouldExplode)
 				return true;
 		}
-		for (i = 0; i < MyWMPRI.purchase_skillUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_SkillUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_skillUpgrade[i];
+			index = MyWMPRI.Purchase_SkillUpgrade[i];
 			bCouldExplode = MyWMGRI.skillUpgrades[index].SkillUpgrade.static.ShouldNeverDud(MyWMPRI.bSkillUpgrade[index], KFW, OwnerPawn);
 			if (bCouldExplode)
 				return true;
 		}
-		for (i = 0; i < MyWMPRI.purchase_equipmentUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_EquipmentUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_equipmentUpgrade[i];
+			index = MyWMPRI.Purchase_EquipmentUpgrade[i];
 			bCouldExplode = MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.ShouldNeverDud(MyWMPRI.bEquipmentUpgrade[index], KFW, OwnerPawn);
 			if (bCouldExplode)
 				return true;
@@ -1991,23 +1991,23 @@ function bool CouldBeZedShrapnel(class<KFDamageType> KFDT)
 
 	if (MyWMPRI != none)
 	{
-		for (i = 0; i < MyWMPRI.purchase_perkUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_perkUpgrade[i];
+			index = MyWMPRI.Purchase_PerkUpgrade[i];
 			bCouldExplode = MyWMGRI.perkUpgrades[index].static.CouldBeZedShrapnel(MyWMPRI.bPerkUpgrade[index], KFDT);
 			if (bCouldExplode)
 				return true;
 		}
-		for (i = 0; i < MyWMPRI.purchase_skillUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_SkillUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_skillUpgrade[i];
+			index = MyWMPRI.Purchase_SkillUpgrade[i];
 			bCouldExplode = MyWMGRI.skillUpgrades[index].SkillUpgrade.static.CouldBeZedShrapnel(MyWMPRI.bSkillUpgrade[index], KFDT);
 			if (bCouldExplode)
 				return true;
 		}
-		for (i = 0; i < MyWMPRI.purchase_equipmentUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_EquipmentUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_equipmentUpgrade[i];
+			index = MyWMPRI.Purchase_EquipmentUpgrade[i];
 			bCouldExplode = MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.CouldBeZedShrapnel(MyWMPRI.bEquipmentUpgrade[index], KFDT);
 			if (bCouldExplode)
 				return true;
@@ -2038,23 +2038,23 @@ simulated function bool ShouldShrapnel()
 
 	if (MyWMPRI != none)
 	{
-		for (i = 0; i < MyWMPRI.purchase_perkUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_perkUpgrade[i];
+			index = MyWMPRI.Purchase_PerkUpgrade[i];
 			bShouldExplode = MyWMGRI.perkUpgrades[index].static.ShouldShrapnel(MyWMPRI.bPerkUpgrade[index]);
 			if (bShouldExplode)
 				return true;
 		}
-		for (i = 0; i < MyWMPRI.purchase_skillUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_SkillUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_skillUpgrade[i];
+			index = MyWMPRI.Purchase_SkillUpgrade[i];
 			bShouldExplode = MyWMGRI.skillUpgrades[index].SkillUpgrade.static.ShouldShrapnel(MyWMPRI.bSkillUpgrade[index]);
 			if (bShouldExplode)
 				return true;
 		}
-		for (i = 0; i < MyWMPRI.purchase_equipmentUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_EquipmentUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_equipmentUpgrade[i];
+			index = MyWMPRI.Purchase_EquipmentUpgrade[i];
 			bShouldExplode = MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.ShouldShrapnel(MyWMPRI.bEquipmentUpgrade[index]);
 			if (bShouldExplode)
 				return true;
@@ -2080,9 +2080,9 @@ simulated function bool IsRangeActive()
 
 	if (MyWMPRI != none)
 	{
-		for (i = 0; i < MyWMPRI.purchase_perkUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_perkUpgrade[i];
+			index = MyWMPRI.Purchase_PerkUpgrade[i];
 			bRangeActive = MyWMGRI.perkUpgrades[index].static.IsRangeActive(MyWMPRI.bPerkUpgrade[index], OwnerPawn);
 			if (bRangeActive)
 			{
@@ -2090,9 +2090,9 @@ simulated function bool IsRangeActive()
 				return true;
 			}
 		}
-		for (i = 0; i < MyWMPRI.purchase_skillUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_SkillUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_skillUpgrade[i];
+			index = MyWMPRI.Purchase_SkillUpgrade[i];
 			bRangeActive = MyWMGRI.skillUpgrades[index].SkillUpgrade.static.IsRangeActive(MyWMPRI.bSkillUpgrade[index], OwnerPawn);
 			if (bRangeActive)
 			{
@@ -2100,9 +2100,9 @@ simulated function bool IsRangeActive()
 				return true;
 			}
 		}
-		for (i = 0; i < MyWMPRI.purchase_equipmentUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_EquipmentUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_equipmentUpgrade[i];
+			index = MyWMPRI.Purchase_EquipmentUpgrade[i];
 			bRangeActive = MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.IsRangeActive(MyWMPRI.bEquipmentUpgrade[index], OwnerPawn);
 			if (bRangeActive)
 			{
@@ -2123,9 +2123,9 @@ simulated function bool IsGroundFireActive()
 
 	if (MyWMPRI != none)
 	{
-		for (i = 0; i < MyWMPRI.purchase_perkUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_perkUpgrade[i];
+			index = MyWMPRI.Purchase_PerkUpgrade[i];
 			bSplashActive = MyWMGRI.perkUpgrades[index].static.IsGroundFireActive(MyWMPRI.bPerkUpgrade[index], OwnerPawn);
 			if (bSplashActive)
 			{
@@ -2133,9 +2133,9 @@ simulated function bool IsGroundFireActive()
 				return true;
 			}
 		}
-		for (i = 0; i < MyWMPRI.purchase_skillUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_SkillUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_skillUpgrade[i];
+			index = MyWMPRI.Purchase_SkillUpgrade[i];
 			bSplashActive = MyWMGRI.skillUpgrades[index].SkillUpgrade.static.IsGroundFireActive(MyWMPRI.bSkillUpgrade[index], OwnerPawn);
 			if (bSplashActive)
 			{
@@ -2143,9 +2143,9 @@ simulated function bool IsGroundFireActive()
 				return true;
 			}
 		}
-		for (i = 0; i < MyWMPRI.purchase_equipmentUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_EquipmentUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_equipmentUpgrade[i];
+			index = MyWMPRI.Purchase_EquipmentUpgrade[i];
 			bSplashActive = MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.IsGroundFireActive(MyWMPRI.bEquipmentUpgrade[index], OwnerPawn);
 			if (bSplashActive)
 			{
@@ -2166,23 +2166,23 @@ simulated function bool GetUsingTactialReload(KFWeapon KFW)
 
 	if (MyWMPRI != none)
 	{
-		for (i = 0; i < MyWMPRI.purchase_perkUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_perkUpgrade[i];
+			index = MyWMPRI.Purchase_PerkUpgrade[i];
 			bTacticalReload = MyWMGRI.perkUpgrades[index].static.GetUsingTactialReload(MyWMPRI.bPerkUpgrade[index], KFW);
 			if (bTacticalReload)
 				return true;
 		}
-		for (i = 0; i < MyWMPRI.purchase_skillUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_SkillUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_skillUpgrade[i];
+			index = MyWMPRI.Purchase_SkillUpgrade[i];
 			bTacticalReload = MyWMGRI.skillUpgrades[index].SkillUpgrade.static.GetUsingTactialReload(MyWMPRI.bSkillUpgrade[index], KFW);
 			if (bTacticalReload)
 				return true;
 		}
-		for (i = 0; i < MyWMPRI.purchase_equipmentUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_EquipmentUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_equipmentUpgrade[i];
+			index = MyWMPRI.Purchase_EquipmentUpgrade[i];
 			bTacticalReload = MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.GetUsingTactialReload(MyWMPRI.bEquipmentUpgrade[index], KFW);
 			if (bTacticalReload)
 				return true;
@@ -2199,25 +2199,25 @@ simulated function InitiateWeapon(KFWeapon KFW)
 
 	if (MyWMPRI != none)
 	{
-		for (i = 0; i < MyWMPRI.purchase_perkUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_perkUpgrade[i];
+			index = MyWMPRI.Purchase_PerkUpgrade[i];
 			MyWMGRI.perkUpgrades[index].static.InitiateWeapon(MyWMPRI.bPerkUpgrade[index], KFW, OwnerPawn);
 		}
-		for (i = 0; i < MyWMPRI.purchase_weaponUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_WeaponUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_weaponUpgrade[i];
+			index = MyWMPRI.Purchase_WeaponUpgrade[i];
 			if (isValidWeapon(MyWMGRI.weaponUpgradeList[index].KFWeapon, KFW))
 				MyWMGRI.weaponUpgradeList[index].KFWeaponUpgrade.static.InitiateWeapon(MyWMPRI.GetWeaponUpgrade(index), KFW, OwnerPawn);
 		}
-		for (i = 0; i < MyWMPRI.purchase_skillUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_SkillUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_skillUpgrade[i];
+			index = MyWMPRI.Purchase_SkillUpgrade[i];
 			MyWMGRI.skillUpgrades[index].SkillUpgrade.static.InitiateWeapon(MyWMPRI.bSkillUpgrade[index], KFW, OwnerPawn);
 		}
-		for (i = 0; i < MyWMPRI.purchase_equipmentUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_EquipmentUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_equipmentUpgrade[i];
+			index = MyWMPRI.Purchase_EquipmentUpgrade[i];
 			MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.InitiateWeapon(MyWMPRI.bEquipmentUpgrade[index], KFW, OwnerPawn);
 		}
 	}
@@ -2240,19 +2240,19 @@ simulated function float GetSelfHealingSurgePct()
 
 	if (MyWMPRI != none)
 	{
-		for (i = 0; i < MyWMPRI.purchase_perkUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_perkUpgrade[i];
+			index = MyWMPRI.Purchase_PerkUpgrade[i];
 			MyWMGRI.perkUpgrades[index].static.GetSelfHealingSurgePct(InHealingPct, MyWMPRI.bPerkUpgrade[index]);
 		}
-		for (i = 0; i < MyWMPRI.purchase_skillUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_SkillUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_skillUpgrade[i];
+			index = MyWMPRI.Purchase_SkillUpgrade[i];
 			MyWMGRI.skillUpgrades[index].SkillUpgrade.static.GetSelfHealingSurgePct(InHealingPct, MyWMPRI.bSkillUpgrade[index]);
 		}
-		for (i = 0; i < MyWMPRI.purchase_equipmentUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_EquipmentUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_equipmentUpgrade[i];
+			index = MyWMPRI.Purchase_EquipmentUpgrade[i];
 			MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.GetSelfHealingSurgePct(InHealingPct, MyWMPRI.bEquipmentUpgrade[index]);
 		}
 	}
@@ -2277,25 +2277,25 @@ simulated event float GetIronSightSpeedModifier(KFWeapon KFW)
 
 	if (MyWMPRI != none)
 	{
-		for (i = 0; i < MyWMPRI.purchase_perkUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_perkUpgrade[i];
+			index = MyWMPRI.Purchase_PerkUpgrade[i];
 			MyWMGRI.perkUpgrades[index].static.GetIronSightSpeedModifier(InSpeed, DefaultSpeed, MyWMPRI.bPerkUpgrade[index]);
 		}
-		for (i = 0; i < MyWMPRI.purchase_weaponUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_WeaponUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_weaponUpgrade[i];
+			index = MyWMPRI.Purchase_WeaponUpgrade[i];
 			if (isValidWeapon(MyWMGRI.weaponUpgradeList[index].KFWeapon, KFW))
 				MyWMGRI.weaponUpgradeList[index].KFWeaponUpgrade.static.GetIronSightSpeedModifier(InSpeed, DefaultSpeed, MyWMPRI.GetWeaponUpgrade(index));
 		}
-		for (i = 0; i < MyWMPRI.purchase_skillUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_SkillUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_skillUpgrade[i];
+			index = MyWMPRI.Purchase_SkillUpgrade[i];
 			MyWMGRI.skillUpgrades[index].SkillUpgrade.static.GetIronSightSpeedModifier(InSpeed, DefaultSpeed, MyWMPRI.bSkillUpgrade[index]);
 		}
-		for (i = 0; i < MyWMPRI.purchase_equipmentUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_EquipmentUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_equipmentUpgrade[i];
+			index = MyWMPRI.Purchase_EquipmentUpgrade[i];
 			MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.GetIronSightSpeedModifier(InSpeed, DefaultSpeed, MyWMPRI.bEquipmentUpgrade[index]);
 		}
 	}
@@ -2319,25 +2319,25 @@ simulated event float GetCrouchSpeedModifier(KFWeapon KFW)
 
 	if (MyWMPRI != none)
 	{
-		for (i = 0; i < MyWMPRI.purchase_perkUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_perkUpgrade[i];
+			index = MyWMPRI.Purchase_PerkUpgrade[i];
 			MyWMGRI.perkUpgrades[index].static.GetCrouchSpeedModifier(InSpeed, DefaultSpeed, MyWMPRI.bPerkUpgrade[index]);
 		}
-		for (i = 0; i < MyWMPRI.purchase_weaponUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_WeaponUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_weaponUpgrade[i];
+			index = MyWMPRI.Purchase_WeaponUpgrade[i];
 			if (isValidWeapon(MyWMGRI.weaponUpgradeList[index].KFWeapon, KFW))
 				MyWMGRI.weaponUpgradeList[index].KFWeaponUpgrade.static.GetCrouchSpeedModifier(InSpeed, DefaultSpeed, MyWMPRI.GetWeaponUpgrade(index));
 		}
-		for (i = 0; i < MyWMPRI.purchase_skillUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_SkillUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_skillUpgrade[i];
+			index = MyWMPRI.Purchase_SkillUpgrade[i];
 			MyWMGRI.skillUpgrades[index].SkillUpgrade.static.GetCrouchSpeedModifier(InSpeed, DefaultSpeed, MyWMPRI.bSkillUpgrade[index]);
 		}
-		for (i = 0; i < MyWMPRI.purchase_equipmentUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_EquipmentUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_equipmentUpgrade[i];
+			index = MyWMPRI.Purchase_EquipmentUpgrade[i];
 			MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.GetCrouchSpeedModifier(InSpeed, DefaultSpeed, MyWMPRI.bEquipmentUpgrade[index]);
 		}
 	}
@@ -2357,19 +2357,19 @@ function simulated SetSuccessfullParry()
 
 	if (MyWMPRI != none)
 	{
-		for (i = 0; i < MyWMPRI.purchase_perkUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_perkUpgrade[i];
+			index = MyWMPRI.Purchase_PerkUpgrade[i];
 			MyWMGRI.perkUpgrades[index].static.SuccessfullParry(MyWMPRI.bPerkUpgrade[index], OwnerPawn);
 		}
-		for (i = 0; i < MyWMPRI.purchase_skillUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_SkillUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_skillUpgrade[i];
+			index = MyWMPRI.Purchase_SkillUpgrade[i];
 			MyWMGRI.skillUpgrades[index].SkillUpgrade.static.SuccessfullParry(MyWMPRI.bSkillUpgrade[index], OwnerPawn);
 		}
-		for (i = 0; i < MyWMPRI.purchase_equipmentUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_EquipmentUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_equipmentUpgrade[i];
+			index = MyWMPRI.Purchase_EquipmentUpgrade[i];
 			MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.SuccessfullParry(MyWMPRI.bEquipmentUpgrade[index], OwnerPawn);
 		}
 	}
@@ -2388,23 +2388,23 @@ function bool CanNotBeGrabbed()
 
 	if (MyWMPRI != none)
 	{
-		for (i = 0; i < MyWMPRI.purchase_perkUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_perkUpgrade[i];
+			index = MyWMPRI.Purchase_PerkUpgrade[i];
 			bNoGrab = MyWMGRI.perkUpgrades[index].static.CanNotBeGrabbed(MyWMPRI.bPerkUpgrade[index], OwnerPawn);
 			if (bNoGrab)
 				return true;
 		}
-		for (i = 0; i < MyWMPRI.purchase_skillUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_SkillUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_skillUpgrade[i];
+			index = MyWMPRI.Purchase_SkillUpgrade[i];
 			bNoGrab = MyWMGRI.skillUpgrades[index].SkillUpgrade.static.CanNotBeGrabbed(MyWMPRI.bSkillUpgrade[index], OwnerPawn);
 			if (bNoGrab)
 				return true;
 		}
-		for (i = 0; i < MyWMPRI.purchase_equipmentUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_EquipmentUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_equipmentUpgrade[i];
+			index = MyWMPRI.Purchase_EquipmentUpgrade[i];
 			bNoGrab = MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.CanNotBeGrabbed(MyWMPRI.bEquipmentUpgrade[index], OwnerPawn);
 			if (bNoGrab)
 				return true;
@@ -2421,23 +2421,23 @@ simulated function bool ShouldRandSirenResist()
 
 	if (MyWMPRI != none)
 	{
-		for (i = 0; i < MyWMPRI.purchase_perkUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_perkUpgrade[i];
+			index = MyWMPRI.Purchase_PerkUpgrade[i];
 			bResist = MyWMGRI.perkUpgrades[index].static.ProjSirenResist(MyWMPRI.bPerkUpgrade[index], OwnerPawn);
 			if (bResist)
 				return true;
 		}
-		for (i = 0; i < MyWMPRI.purchase_skillUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_SkillUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_skillUpgrade[i];
+			index = MyWMPRI.Purchase_SkillUpgrade[i];
 			bResist = MyWMGRI.skillUpgrades[index].SkillUpgrade.static.ProjSirenResist(MyWMPRI.bSkillUpgrade[index], OwnerPawn);
 			if (bResist)
 				return true;
 		}
-		for (i = 0; i < MyWMPRI.purchase_equipmentUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_EquipmentUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_equipmentUpgrade[i];
+			index = MyWMPRI.Purchase_EquipmentUpgrade[i];
 			bResist = MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.ProjSirenResist(MyWMPRI.bEquipmentUpgrade[index], OwnerPawn);
 			if (bResist)
 				return true;
@@ -2458,23 +2458,23 @@ simulated function bool GetIsUberAmmoActive(KFWeapon KFW)
 
 	if (MyWMPRI != none)
 	{
-		for (i = 0; i < MyWMPRI.purchase_perkUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_perkUpgrade[i];
+			index = MyWMPRI.Purchase_PerkUpgrade[i];
 			bUber = MyWMGRI.perkUpgrades[index].static.GetIsUberAmmoActive(MyWMPRI.bPerkUpgrade[index], KFW, OwnerPawn);
 			if (bUber)
 				return true;
 		}
-		for (i = 0; i < MyWMPRI.purchase_skillUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_SkillUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_skillUpgrade[i];
+			index = MyWMPRI.Purchase_SkillUpgrade[i];
 			bUber = MyWMGRI.skillUpgrades[index].SkillUpgrade.static.GetIsUberAmmoActive(MyWMPRI.bSkillUpgrade[index], KFW, OwnerPawn);
 			if (bUber)
 				return true;
 		}
-		for (i = 0; i < MyWMPRI.purchase_equipmentUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_EquipmentUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_equipmentUpgrade[i];
+			index = MyWMPRI.Purchase_EquipmentUpgrade[i];
 			bUber = MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.GetIsUberAmmoActive(MyWMPRI.bEquipmentUpgrade[index], KFW, OwnerPawn);
 			if (bUber)
 				return true;
@@ -2499,19 +2499,19 @@ function HealingDamage(int HealAmount, KFPawn KFP, class<DamageType> DamageType)
 
 	if (MyWMPRI != none)
 	{
-		for (i = 0; i < MyWMPRI.purchase_perkUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_perkUpgrade[i];
+			index = MyWMPRI.Purchase_PerkUpgrade[i];
 			MyWMGRI.perkUpgrades[index].static.HealingDamage(MyWMPRI.bPerkUpgrade[index], HealAmount, KFP, OwnerPawn, DamageType);
 		}
-		for (i = 0; i < MyWMPRI.purchase_skillUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_SkillUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_skillUpgrade[i];
+			index = MyWMPRI.Purchase_SkillUpgrade[i];
 			MyWMGRI.skillUpgrades[index].SkillUpgrade.static.HealingDamage(MyWMPRI.bSkillUpgrade[index], HealAmount, KFP, OwnerPawn, DamageType);
 		}
-		for (i = 0; i < MyWMPRI.purchase_equipmentUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_EquipmentUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_equipmentUpgrade[i];
+			index = MyWMPRI.Purchase_EquipmentUpgrade[i];
 			MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.HealingDamage(MyWMPRI.bEquipmentUpgrade[index], HealAmount, KFP, OwnerPawn, DamageType);
 		}
 	}
@@ -2532,19 +2532,19 @@ simulated function float GetZedTimeModifier(KFWeapon W)
 
 	if (MyWMPRI != none)
 	{
-		for (i = 0; i < MyWMPRI.purchase_perkUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_perkUpgrade[i];
+			index = MyWMPRI.Purchase_PerkUpgrade[i];
 			MyWMGRI.perkUpgrades[index].static.GetZedTimeModifier(InModifier, MyWMPRI.bPerkUpgrade[index], W);
 		}
-		for (i = 0; i < MyWMPRI.purchase_skillUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_SkillUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_skillUpgrade[i];
+			index = MyWMPRI.Purchase_SkillUpgrade[i];
 			MyWMGRI.skillUpgrades[index].SkillUpgrade.static.GetZedTimeModifier(InModifier, MyWMPRI.bSkillUpgrade[index], W);
 		}
-		for (i = 0; i < MyWMPRI.purchase_equipmentUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_EquipmentUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_equipmentUpgrade[i];
+			index = MyWMPRI.Purchase_EquipmentUpgrade[i];
 			MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.GetZedTimeModifier(InModifier, MyWMPRI.bEquipmentUpgrade[index], W);
 		}
 	}
@@ -2565,23 +2565,23 @@ simulated function bool CanSeeEnemyHealth()
 
 	if (MyWMPRI != none)
 	{
-		for (i = 0; i < MyWMPRI.purchase_perkUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_perkUpgrade[i];
+			index = MyWMPRI.Purchase_PerkUpgrade[i];
 			bCanSee = MyWMGRI.perkUpgrades[index].static.CanSeeEnemyHealth(MyWMPRI.bPerkUpgrade[index], OwnerPawn);
 			if (bCanSee)
 				return true;
 		}
-		for (i = 0; i < MyWMPRI.purchase_skillUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_SkillUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_skillUpgrade[i];
+			index = MyWMPRI.Purchase_SkillUpgrade[i];
 			bCanSee = MyWMGRI.skillUpgrades[index].SkillUpgrade.static.CanSeeEnemyHealth(MyWMPRI.bSkillUpgrade[index], OwnerPawn);
 			if (bCanSee)
 				return true;
 		}
-		for (i = 0; i < MyWMPRI.purchase_equipmentUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_EquipmentUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_equipmentUpgrade[i];
+			index = MyWMPRI.Purchase_EquipmentUpgrade[i];
 			bCanSee = MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.CanSeeEnemyHealth(MyWMPRI.bEquipmentUpgrade[index], OwnerPawn);
 			if (bCanSee)
 				return true;
@@ -2601,23 +2601,23 @@ simulated function bool IsCallOutActive()
 	{
 		bCanSeeCloakedZeds=false;
 
-		for (i = 0; i < MyWMPRI.purchase_perkUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_perkUpgrade[i];
+			index = MyWMPRI.Purchase_PerkUpgrade[i];
 			bCallOut = MyWMGRI.perkUpgrades[index].static.IsCallOutActive(MyWMPRI.bPerkUpgrade[index], OwnerPawn);
 			if (bCallOut)
 				bCanSeeCloakedZeds=true;
 		}
-		for (i = 0; i < MyWMPRI.purchase_skillUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_SkillUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_skillUpgrade[i];
+			index = MyWMPRI.Purchase_SkillUpgrade[i];
 			bCallOut = MyWMGRI.skillUpgrades[index].SkillUpgrade.static.IsCallOutActive(MyWMPRI.bSkillUpgrade[index], OwnerPawn);
 			if (bCallOut)
 				bCanSeeCloakedZeds=true;
 		}
-		for (i = 0; i < MyWMPRI.purchase_equipmentUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_EquipmentUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_equipmentUpgrade[i];
+			index = MyWMPRI.Purchase_EquipmentUpgrade[i];
 			bCallOut = MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.IsCallOutActive(MyWMPRI.bEquipmentUpgrade[index], OwnerPawn);
 			if (bCallOut)
 				bCanSeeCloakedZeds=true;
@@ -2639,19 +2639,19 @@ simulated function float GetCloakDetectionRange()
 
 	if (MyWMPRI != none)
 	{
-		for (i = 0; i < MyWMPRI.purchase_perkUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_perkUpgrade[i];
+			index = MyWMPRI.Purchase_PerkUpgrade[i];
 			MyWMGRI.perkUpgrades[index].static.ModifyCloakDetectionRange(InRange, DefaultRange, MyWMPRI.bPerkUpgrade[index]);
 		}
-		for (i = 0; i < MyWMPRI.purchase_skillUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_SkillUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_skillUpgrade[i];
+			index = MyWMPRI.Purchase_SkillUpgrade[i];
 			MyWMGRI.skillUpgrades[index].SkillUpgrade.static.ModifyCloakDetectionRange(InRange, DefaultRange, MyWMPRI.bSkillUpgrade[index]);
 		}
-		for (i = 0; i < MyWMPRI.purchase_equipmentUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_EquipmentUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_equipmentUpgrade[i];
+			index = MyWMPRI.Purchase_EquipmentUpgrade[i];
 			MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.ModifyCloakDetectionRange(InRange, DefaultRange, MyWMPRI.bEquipmentUpgrade[index]);
 		}
 	}
@@ -2671,19 +2671,19 @@ simulated function ReceiveLocalizedMessage(class<LocalMessage> Message, optional
 
 	if (MyWMPRI != none)
 	{
-		for (i = 0; i < MyWMPRI.purchase_perkUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_perkUpgrade[i];
+			index = MyWMPRI.Purchase_PerkUpgrade[i];
 			MyWMGRI.perkUpgrades[index].static.ReceiveLocalizedMessage(MyWMPRI.bPerkUpgrade[index], Message, OwnerPawn, Switch);
 		}
-		for (i = 0; i < MyWMPRI.purchase_skillUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_SkillUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_skillUpgrade[i];
+			index = MyWMPRI.Purchase_SkillUpgrade[i];
 			MyWMGRI.skillUpgrades[index].SkillUpgrade.static.ReceiveLocalizedMessage(MyWMPRI.bSkillUpgrade[index], Message, OwnerPawn, Switch);
 		}
-		for (i = 0; i < MyWMPRI.purchase_equipmentUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_EquipmentUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_equipmentUpgrade[i];
+			index = MyWMPRI.Purchase_EquipmentUpgrade[i];
 			MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.ReceiveLocalizedMessage(MyWMPRI.bEquipmentUpgrade[index], Message, OwnerPawn, Switch);
 		}
 	}
@@ -2705,23 +2705,23 @@ simulated function bool ShouldSacrifice()
 	{
 		if (MyWMPRI != none)
 		{
-			for (i = 0; i < MyWMPRI.purchase_perkUpgrade.length; ++i)
+			for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 			{
-				index = MyWMPRI.purchase_perkUpgrade[i];
+				index = MyWMPRI.Purchase_PerkUpgrade[i];
 				bSacrifice = MyWMGRI.perkUpgrades[index].static.ShouldSacrifice(MyWMPRI.bPerkUpgrade[index], OwnerPawn);
 				if (bSacrifice)
 					return true;
 			}
-			for (i = 0; i < MyWMPRI.purchase_skillUpgrade.length; ++i)
+			for (i = 0; i < MyWMPRI.Purchase_SkillUpgrade.length; ++i)
 			{
-				index = MyWMPRI.purchase_skillUpgrade[i];
+				index = MyWMPRI.Purchase_SkillUpgrade[i];
 				bSacrifice = MyWMGRI.skillUpgrades[index].SkillUpgrade.static.ShouldSacrifice(MyWMPRI.bSkillUpgrade[index], OwnerPawn);
 				if (bSacrifice)
 					return true;
 			}
-			for (i = 0; i < MyWMPRI.purchase_equipmentUpgrade.length; ++i)
+			for (i = 0; i < MyWMPRI.Purchase_EquipmentUpgrade.length; ++i)
 			{
-				index = MyWMPRI.purchase_equipmentUpgrade[i];
+				index = MyWMPRI.Purchase_EquipmentUpgrade[i];
 				bSacrifice = MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.ShouldSacrifice(MyWMPRI.bEquipmentUpgrade[index], OwnerPawn);
 				if (bSacrifice)
 					return true;
@@ -2746,23 +2746,23 @@ simulated function bool DoorShouldNuke()
 
 	if (MyWMPRI != none)
 	{
-		for (i = 0; i < MyWMPRI.purchase_perkUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_perkUpgrade[i];
+			index = MyWMPRI.Purchase_PerkUpgrade[i];
 			bTrap = MyWMGRI.perkUpgrades[index].static.DoorShouldNuke(MyWMPRI.bPerkUpgrade[index], OwnerPawn);
 			if (bTrap)
 				return true;
 		}
-		for (i = 0; i < MyWMPRI.purchase_skillUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_SkillUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_skillUpgrade[i];
+			index = MyWMPRI.Purchase_SkillUpgrade[i];
 			bTrap = MyWMGRI.skillUpgrades[index].SkillUpgrade.static.DoorShouldNuke(MyWMPRI.bSkillUpgrade[index], OwnerPawn);
 			if (bTrap)
 				return true;
 		}
-		for (i = 0; i < MyWMPRI.purchase_equipmentUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_EquipmentUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_equipmentUpgrade[i];
+			index = MyWMPRI.Purchase_EquipmentUpgrade[i];
 			bTrap = MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.DoorShouldNuke(MyWMPRI.bEquipmentUpgrade[index], OwnerPawn);
 			if (bTrap)
 				return true;
@@ -2780,23 +2780,23 @@ simulated function bool CanExplosiveWeld()
 
 	if (MyWMPRI != none)
 	{
-		for (i = 0; i < MyWMPRI.purchase_perkUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_perkUpgrade[i];
+			index = MyWMPRI.Purchase_PerkUpgrade[i];
 			bTrap = MyWMGRI.perkUpgrades[index].static.CanExplosiveWeld(MyWMPRI.bPerkUpgrade[index], OwnerPawn);
 			if (bTrap)
 				return true;
 		}
-		for (i = 0; i < MyWMPRI.purchase_skillUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_SkillUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_skillUpgrade[i];
+			index = MyWMPRI.Purchase_SkillUpgrade[i];
 			bTrap = MyWMGRI.skillUpgrades[index].SkillUpgrade.static.CanExplosiveWeld(MyWMPRI.bSkillUpgrade[index], OwnerPawn);
 			if (bTrap)
 				return true;
 		}
-		for (i = 0; i < MyWMPRI.purchase_equipmentUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_EquipmentUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_equipmentUpgrade[i];
+			index = MyWMPRI.Purchase_EquipmentUpgrade[i];
 			bTrap = MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.CanExplosiveWeld(MyWMPRI.bEquipmentUpgrade[index], OwnerPawn);
 			if (bTrap)
 				return true;
@@ -2933,23 +2933,23 @@ simulated function bool IsSupplierActive()
 
 	if (MyWMPRI != none)
 	{
-		for (i = 0; i < MyWMPRI.purchase_perkUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_perkUpgrade[i];
+			index = MyWMPRI.Purchase_PerkUpgrade[i];
 			bActive = MyWMGRI.perkUpgrades[index].static.IsSupplierActive(MyWMPRI.bPerkUpgrade[index]);
 			if (bActive)
 				return true;
 		}
-		for (i = 0; i < MyWMPRI.purchase_skillUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_SkillUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_skillUpgrade[i];
+			index = MyWMPRI.Purchase_SkillUpgrade[i];
 			bActive = MyWMGRI.skillUpgrades[index].SkillUpgrade.static.IsSupplierActive(MyWMPRI.bSkillUpgrade[index]);
 			if (bActive)
 				return true;
 		}
-		for (i = 0; i < MyWMPRI.purchase_equipmentUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_EquipmentUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_equipmentUpgrade[i];
+			index = MyWMPRI.Purchase_EquipmentUpgrade[i];
 			bActive = MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.IsSupplierActive(MyWMPRI.bEquipmentUpgrade[index]);
 			if (bActive)
 				return true;
@@ -2965,19 +2965,19 @@ function WaveEnd(KFPlayerController KFPC)
 
 	if (MyWMGRI != none && MyWMPRI != none)
 	{
-		for (i = 0; i < MyWMPRI.purchase_perkUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_perkUpgrade[i];
+			index = MyWMPRI.Purchase_PerkUpgrade[i];
 			MyWMGRI.perkUpgrades[index].static.WaveEnd(MyWMPRI.bPerkUpgrade[index], KFPC);
 		}
-		for (i = 0; i < MyWMPRI.purchase_skillUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_SkillUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_skillUpgrade[i];
+			index = MyWMPRI.Purchase_SkillUpgrade[i];
 			MyWMGRI.skillUpgrades[index].SkillUpgrade.static.WaveEnd(MyWMPRI.bSkillUpgrade[index], KFPC);
 		}
-		for (i = 0; i < MyWMPRI.purchase_equipmentUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_EquipmentUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_equipmentUpgrade[i];
+			index = MyWMPRI.Purchase_EquipmentUpgrade[i];
 			MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.WaveEnd(MyWMPRI.bEquipmentUpgrade[index], KFPC);
 		}
 	}
@@ -3036,19 +3036,19 @@ simulated function DrawSpecialPerkHUD(Canvas C)
 	// perk, skill, and equipment sections
 	if (MyWMGRI != none && MyWMPRI != none)
 	{
-		for (i = 0; i < MyWMPRI.purchase_perkUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_perkUpgrade[i];
+			index = MyWMPRI.Purchase_PerkUpgrade[i];
 			MyWMGRI.perkUpgrades[index].static.DrawOnHUD(MyWMPRI.bPerkUpgrade[index], C, OwnerPawn);
 		}
-		for (i = 0; i < MyWMPRI.purchase_skillUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_SkillUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_skillUpgrade[i];
+			index = MyWMPRI.Purchase_SkillUpgrade[i];
 			MyWMGRI.skillUpgrades[index].SkillUpgrade.static.DrawOnHUD(MyWMPRI.bSkillUpgrade[index], C, OwnerPawn);
 		}
-		for (i = 0; i < MyWMPRI.purchase_equipmentUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_EquipmentUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_equipmentUpgrade[i];
+			index = MyWMPRI.Purchase_EquipmentUpgrade[i];
 			MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.DrawOnHUD(MyWMPRI.bEquipmentUpgrade[index], C, OwnerPawn);
 		}
 
@@ -3108,19 +3108,19 @@ simulated function byte GetHealingDamageBoost()
 
 	if (MyWMPRI != none)
 	{
-		for (i = 0; i < MyWMPRI.purchase_perkUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_perkUpgrade[i];
+			index = MyWMPRI.Purchase_PerkUpgrade[i];
 			MyWMGRI.perkUpgrades[index].static.GetHealingDamageBoost(InHealingDamageBoost, MyWMPRI.bPerkUpgrade[index]);
 		}
-		for (i = 0; i < MyWMPRI.purchase_skillUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_SkillUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_skillUpgrade[i];
+			index = MyWMPRI.Purchase_SkillUpgrade[i];
 			MyWMGRI.skillUpgrades[index].SkillUpgrade.static.GetHealingDamageBoost(InHealingDamageBoost, MyWMPRI.bSkillUpgrade[index]);
 		}
-		for (i = 0; i < MyWMPRI.purchase_equipmentUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_EquipmentUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_equipmentUpgrade[i];
+			index = MyWMPRI.Purchase_EquipmentUpgrade[i];
 			MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.GetHealingDamageBoost(InHealingDamageBoost, MyWMPRI.bEquipmentUpgrade[index]);
 		}
 	}
@@ -3138,19 +3138,19 @@ simulated function byte GetMaxHealingDamageBoost()
 
 	if (MyWMPRI != none)
 	{
-		for (i = 0; i < MyWMPRI.purchase_perkUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_perkUpgrade[i];
+			index = MyWMPRI.Purchase_PerkUpgrade[i];
 			MyWMGRI.perkUpgrades[index].static.GetMaxHealingDamageBoost(InMaxHealingDamageBoost, MyWMPRI.bPerkUpgrade[index]);
 		}
-		for (i = 0; i < MyWMPRI.purchase_skillUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_SkillUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_skillUpgrade[i];
+			index = MyWMPRI.Purchase_SkillUpgrade[i];
 			MyWMGRI.skillUpgrades[index].SkillUpgrade.static.GetMaxHealingDamageBoost(InMaxHealingDamageBoost, MyWMPRI.bSkillUpgrade[index]);
 		}
-		for (i = 0; i < MyWMPRI.purchase_equipmentUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_EquipmentUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_equipmentUpgrade[i];
+			index = MyWMPRI.Purchase_EquipmentUpgrade[i];
 			MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.GetMaxHealingDamageBoost(InMaxHealingDamageBoost, MyWMPRI.bEquipmentUpgrade[index]);
 		}
 	}
@@ -3168,19 +3168,19 @@ simulated function byte GetHealingShield()
 
 	if (MyWMPRI != none)
 	{
-		for (i = 0; i < MyWMPRI.purchase_perkUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_perkUpgrade[i];
+			index = MyWMPRI.Purchase_PerkUpgrade[i];
 			MyWMGRI.perkUpgrades[index].static.GetHealingShield(InHealingShield, MyWMPRI.bPerkUpgrade[index]);
 		}
-		for (i = 0; i < MyWMPRI.purchase_skillUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_SkillUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_skillUpgrade[i];
+			index = MyWMPRI.Purchase_SkillUpgrade[i];
 			MyWMGRI.skillUpgrades[index].SkillUpgrade.static.GetHealingShield(InHealingShield, MyWMPRI.bSkillUpgrade[index]);
 		}
-		for (i = 0; i < MyWMPRI.purchase_equipmentUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_EquipmentUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_equipmentUpgrade[i];
+			index = MyWMPRI.Purchase_EquipmentUpgrade[i];
 			MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.GetHealingShield(InHealingShield, MyWMPRI.bEquipmentUpgrade[index]);
 		}
 	}
@@ -3198,19 +3198,19 @@ simulated function byte GetMaxHealingShield()
 
 	if (MyWMPRI != none)
 	{
-		for (i = 0; i < MyWMPRI.purchase_perkUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_perkUpgrade[i];
+			index = MyWMPRI.Purchase_PerkUpgrade[i];
 			MyWMGRI.perkUpgrades[index].static.GetMaxHealingShield(InMaxHealingShield, MyWMPRI.bPerkUpgrade[index]);
 		}
-		for (i = 0; i < MyWMPRI.purchase_skillUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_SkillUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_skillUpgrade[i];
+			index = MyWMPRI.Purchase_SkillUpgrade[i];
 			MyWMGRI.skillUpgrades[index].SkillUpgrade.static.GetMaxHealingShield(InMaxHealingShield, MyWMPRI.bSkillUpgrade[index]);
 		}
-		for (i = 0; i < MyWMPRI.purchase_equipmentUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_EquipmentUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_equipmentUpgrade[i];
+			index = MyWMPRI.Purchase_EquipmentUpgrade[i];
 			MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.GetMaxHealingShield(InMaxHealingShield, MyWMPRI.bEquipmentUpgrade[index]);
 		}
 	}
@@ -3226,23 +3226,23 @@ simulated function bool HasNightVision()
 
 	if (MyWMPRI != none)
 	{
-		for (i = 0; i < MyWMPRI.purchase_perkUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_perkUpgrade[i];
+			index = MyWMPRI.Purchase_PerkUpgrade[i];
 			bActive = MyWMGRI.perkUpgrades[index].static.HasNightVision(MyWMPRI.bPerkUpgrade[index]);
 			if (bActive)
 				return true;
 		}
-		for (i = 0; i < MyWMPRI.purchase_skillUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_SkillUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_skillUpgrade[i];
+			index = MyWMPRI.Purchase_SkillUpgrade[i];
 			bActive = MyWMGRI.skillUpgrades[index].SkillUpgrade.static.HasNightVision(MyWMPRI.bSkillUpgrade[index]);
 			if (bActive)
 				return true;
 		}
-		for (i = 0; i < MyWMPRI.purchase_equipmentUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_EquipmentUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_equipmentUpgrade[i];
+			index = MyWMPRI.Purchase_EquipmentUpgrade[i];
 			bActive = MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.HasNightVision(MyWMPRI.bEquipmentUpgrade[index]);
 			if (bActive)
 				return true;
@@ -3262,19 +3262,19 @@ simulated function class<EmitterCameraLensEffectBase> GetPerkLensEffect(class<KF
 
 	if (MyWMPRI != none)
 	{
-		for (i = 0; i < MyWMPRI.purchase_perkUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_perkUpgrade[i];
+			index = MyWMPRI.Purchase_PerkUpgrade[i];
 			MyWMGRI.perkUpgrades[index].static.GetPerkLensEffect(CamEffect, DmgType, MyWMPRI.bPerkUpgrade[index]);
 		}
-		for (i = 0; i < MyWMPRI.purchase_skillUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_SkillUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_skillUpgrade[i];
+			index = MyWMPRI.Purchase_SkillUpgrade[i];
 			MyWMGRI.skillUpgrades[index].SkillUpgrade.static.GetPerkLensEffect(CamEffect, DmgType, MyWMPRI.bSkillUpgrade[index]);
 		}
-		for (i = 0; i < MyWMPRI.purchase_equipmentUpgrade.length; ++i)
+		for (i = 0; i < MyWMPRI.Purchase_EquipmentUpgrade.length; ++i)
 		{
-			index = MyWMPRI.purchase_equipmentUpgrade[i];
+			index = MyWMPRI.Purchase_EquipmentUpgrade[i];
 			MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.GetPerkLensEffect(CamEffect, DmgType, MyWMPRI.bEquipmentUpgrade[index]);
 		}
 	}

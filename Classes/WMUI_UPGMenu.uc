@@ -598,7 +598,7 @@ function ConfirmSkillReroll()
 		OriginalDosh = WMPRI.Score;
 		++WMPRI.RerollCounter;
 		if (WMPC.WorldInfo.NetMode != NM_Standalone)
-				WMPRI.syncCompleted = False;
+				WMPRI.SyncCompleted = False;
 
 		RerollPerkPathName = PathName(WMGRI.perkUpgrades[perkUPGIndex[RerollPerkItemDefinition]]);
 		WMPC.RerollSkillsForPerk(RerollPerkPathName, RerollTotalCost);
@@ -611,9 +611,9 @@ function ConfirmSkillReroll()
 				WMPRI.bSkillUnlocked[i] = 0;
 				WMPRI.bSkillDeluxe[i] = 0;
 
-				if (WMPRI.purchase_skillUpgrade.Find(i) != INDEX_NONE)
+				if (WMPRI.Purchase_SkillUpgrade.Find(i) != INDEX_NONE)
 				{
-					WMPRI.purchase_skillUpgrade.RemoveItem(i);
+					WMPRI.Purchase_SkillUpgrade.RemoveItem(i);
 					WMGRI.skillUpgrades[i].SkillUpgrade.static.DeleteHelperClass(Owner);
 				}
 			}
@@ -642,7 +642,7 @@ function Callback_RecycleItem(int ItemDefinition)
 	RerollCost = WMGRI.RerollCost * (WMGRI.RerollMultiplier ** WMPRI.RerollCounter);
 	SkillRefund = 0;
 	Count = 0;
-	foreach WMPRI.purchase_skillUpgrade(b)
+	foreach WMPRI.Purchase_SkillUpgrade(b)
 	{
 		if (WMGRI.skillUpgrades[b].PerkPathName ~= PathName(WMGRI.perkUpgrades[perkUPGIndex[ItemDefinition]]))
 		{
@@ -753,7 +753,7 @@ function CallBack_ItemDetailsClicked(int ItemDefinition)
 {
 	local int Index, lvl, price;
 
-	if (!WMPRI.syncCompleted && WMPRI.SyncTimerActive())
+	if (!WMPRI.SyncCompleted && WMPRI.SyncTimerActive())
 	{
 		EquipButton.SetString("label", "Synchronizing...");
 		return;
@@ -812,7 +812,7 @@ function Callback_Equip(int ItemDefinition)
 	if (ItemDefinition == -1)
 		return;
 
-	if (!WMPRI.syncCompleted)
+	if (!WMPRI.SyncCompleted)
 	{
 		if (!WMPRI.SyncTimerActive())
 			WMPRI.SetSyncTimer(self, ItemDefinition);
@@ -833,13 +833,13 @@ function Callback_Equip(int ItemDefinition)
 		{
 			OriginalDosh = WMPRI.Score;
 			if (WMPC.WorldInfo.NetMode != NM_Standalone)
-				WMPRI.syncCompleted = False;
+				WMPRI.SyncCompleted = False;
 			WMPC.BuyPerkUpgrade(Index, UPGPrice);
 			if (WMPC.WorldInfo.NetMode != NM_Standalone)
 				WMPRI.bPerkUpgrade[Index] = lvl + 1;
 			WMPRI.Score = OriginalDosh - UPGPrice;
-			if (WMPRI.purchase_perkUpgrade.Find(Index) == INDEX_NONE)
-				WMPRI.purchase_perkUpgrade.AddItem(Index);
+			if (WMPRI.Purchase_PerkUpgrade.Find(Index) == INDEX_NONE)
+				WMPRI.Purchase_PerkUpgrade.AddItem(Index);
 			UnlockRandomSkill(PathName(WMGRI.perkUpgrades[Index]), WMGRI.bDeluxeSkillUnlock[lvl] == 1);
 			Owner.PlaySoundBase(default.perkSound, True);
 		}
@@ -858,13 +858,13 @@ function Callback_Equip(int ItemDefinition)
 		{
 			OriginalDosh = WMPRI.Score;
 			if (WMPC.WorldInfo.NetMode != NM_Standalone)
-				WMPRI.syncCompleted = False;
+				WMPRI.SyncCompleted = False;
 			WMPC.BuySkillUpgrade(Index, GetPerkRelatedIndex(Index), UPGPrice, WMPRI.bSkillDeluxe[Index] + 1);
 			if (WMPC.WorldInfo.NetMode != NM_Standalone)
 				WMPRI.bSkillUpgrade[Index] = lvl + WMPRI.bSkillDeluxe[Index] + 1;
 			WMPRI.Score = OriginalDosh - UPGPrice;
-			if (WMPRI.purchase_skillUpgrade.Find(Index) == INDEX_NONE)
-				WMPRI.purchase_skillUpgrade.AddItem(Index);
+			if (WMPRI.Purchase_SkillUpgrade.Find(Index) == INDEX_NONE)
+				WMPRI.Purchase_SkillUpgrade.AddItem(Index);
 			Owner.PlaySoundBase(default.skillSound, True);
 		}
 	}
@@ -878,14 +878,14 @@ function Callback_Equip(int ItemDefinition)
 		{
 			OriginalDosh = WMPRI.Score;
 			if (WMPC.WorldInfo.NetMode != NM_Standalone)
-				WMPRI.syncCompleted = False;
+				WMPRI.SyncCompleted = False;
 			WMPC.BuyWeaponUpgrade(Index, UPGPrice);
 			if (WMPC.WorldInfo.NetMode != NM_Standalone)
 				WMPRI.SetWeaponUpgrade(Index, lvl + 1);
 			WMPRI.Score = OriginalDosh - UPGPrice;
 			WMPC.UpdateWeaponMagAndCap();
-			if (WMPRI.purchase_weaponUpgrade.Find(Index) == INDEX_NONE)
-				WMPRI.purchase_weaponUpgrade.AddItem(Index);
+			if (WMPRI.Purchase_WeaponUpgrade.Find(Index) == INDEX_NONE)
+				WMPRI.Purchase_WeaponUpgrade.AddItem(Index);
 			Owner.PlaySoundBase(default.weaponSound, True);
 		}
 	}
@@ -903,14 +903,14 @@ function Callback_Equip(int ItemDefinition)
 		{
 			OriginalDosh = WMPRI.Score;
 			if (WMPC.WorldInfo.NetMode != NM_Standalone)
-				WMPRI.syncCompleted = False;
+				WMPRI.SyncCompleted = False;
 			WMPC.BuyEquipmentUpgrade(Index, UPGPrice);
 			if (WMPC.WorldInfo.NetMode != NM_Standalone)
 				WMPRI.bEquipmentUpgrade[Index] = lvl + 1;
 			WMPRI.Score = OriginalDosh - UPGPrice;
 			WMPC.UpdateWeaponMagAndCap();
-			if (WMPRI.purchase_equipmentUpgrade.Find(Index) == INDEX_NONE)
-				WMPRI.purchase_equipmentUpgrade.AddItem(Index);
+			if (WMPRI.Purchase_EquipmentUpgrade.Find(Index) == INDEX_NONE)
+				WMPRI.Purchase_EquipmentUpgrade.AddItem(Index);
 			Owner.PlaySoundBase(default.equipmentSound, True);
 		}
 	}

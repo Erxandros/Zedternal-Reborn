@@ -43,13 +43,13 @@ reliable server function BuyPerkUpgrade(int ItemDefinition, int Cost)
 	if (WMPRI != None && WMPRI.Score >= Cost && WMPRI.bPerkUpgrade[ItemDefinition] < WMGameReplicationInfo(WorldInfo.GRI).perkMaxLevel)
 	{
 		++WMPRI.bPerkUpgrade[ItemDefinition];
-		if (WMPRI.purchase_perkUpgrade.Find(ItemDefinition) == INDEX_NONE)
-			WMPRI.purchase_perkUpgrade.AddItem(ItemDefinition);
+		if (WMPRI.Purchase_PerkUpgrade.Find(ItemDefinition) == INDEX_NONE)
+			WMPRI.Purchase_PerkUpgrade.AddItem(ItemDefinition);
 
 		if (WorldInfo.NetMode == NM_DedicatedServer)
 		{
 			WMPRI.AddDosh(-Cost);
-			WMPRI.syncTrigger = !WMPRI.syncTrigger;
+			WMPRI.SyncTrigger = !WMPRI.SyncTrigger;
 		}
 
 		UpdateWeaponMagAndCap();
@@ -67,13 +67,13 @@ reliable server function BuyWeaponUpgrade(int ItemDefinition, int Cost)
 	if (WMPRI != None && WMPRI.Score >= Cost && WMPRI.GetWeaponUpgrade(ItemDefinition) < WMGameReplicationInfo(WorldInfo.GRI).weaponMaxLevel)
 	{
 		WMPRI.IncermentWeaponUpgrade(ItemDefinition);
-		if (WMPRI.purchase_weaponUpgrade.Find(ItemDefinition) == INDEX_NONE)
-			WMPRI.purchase_weaponUpgrade.AddItem(ItemDefinition);
+		if (WMPRI.Purchase_WeaponUpgrade.Find(ItemDefinition) == INDEX_NONE)
+			WMPRI.Purchase_WeaponUpgrade.AddItem(ItemDefinition);
 
 		if (WorldInfo.NetMode == NM_DedicatedServer)
 		{
 			WMPRI.AddDosh(-Cost);
-			WMPRI.syncTrigger = !WMPRI.syncTrigger;
+			WMPRI.SyncTrigger = !WMPRI.SyncTrigger;
 		}
 
 		UpdateWeaponMagAndCap();
@@ -89,13 +89,13 @@ reliable server function BuySkillUpgrade(int ItemDefinition, int PerkItemDefinit
 	if (WMPRI != None && WMPRI.Score >= Cost)
 	{
 		WMPRI.bSkillUpgrade[ItemDefinition] = min(WMPRI.bSkillUpgrade[ItemDefinition] + lvl, 2);
-		if (WMPRI.purchase_skillUpgrade.Find(ItemDefinition) == INDEX_NONE)
-			WMPRI.purchase_skillUpgrade.AddItem(ItemDefinition);
+		if (WMPRI.Purchase_SkillUpgrade.Find(ItemDefinition) == INDEX_NONE)
+			WMPRI.Purchase_SkillUpgrade.AddItem(ItemDefinition);
 
 		if (WorldInfo.NetMode == NM_DedicatedServer)
 		{
 			WMPRI.AddDosh(-Cost);
-			WMPRI.syncTrigger = !WMPRI.syncTrigger;
+			WMPRI.SyncTrigger = !WMPRI.SyncTrigger;
 		}
 
 		UpdateWeaponMagAndCap();
@@ -139,9 +139,9 @@ reliable server function RerollSkillsForPerk(string RerollPerkPathName, int Cost
 				WMPRI.bSkillUnlocked[i] = 0;
 				WMPRI.bSkillDeluxe[i] = 0;
 
-				if (WMPRI.purchase_skillUpgrade.Find(i) != INDEX_NONE)
+				if (WMPRI.Purchase_SkillUpgrade.Find(i) != INDEX_NONE)
 				{
-					WMPRI.purchase_skillUpgrade.RemoveItem(i);
+					WMPRI.Purchase_SkillUpgrade.RemoveItem(i);
 					WMGRI.skillUpgrades[i].SkillUpgrade.static.DeleteHelperClass(Pawn);
 				}
 			}
@@ -150,7 +150,7 @@ reliable server function RerollSkillsForPerk(string RerollPerkPathName, int Cost
 		if (WorldInfo.NetMode == NM_DedicatedServer)
 		{
 			WMPRI.AddDosh(-Cost);
-			WMPRI.syncTrigger = !WMPRI.syncTrigger;
+			WMPRI.SyncTrigger = !WMPRI.SyncTrigger;
 		}
 
 		UpdateWeaponMagAndCap();
@@ -168,13 +168,13 @@ reliable server function BuyEquipmentUpgrade(int ItemDefinition, int Cost)
 	if (WMPRI != None && WMPRI.Score >= Cost && WMPRI.bEquipmentUpgrade[ItemDefinition] < WMGameReplicationInfo(WorldInfo.GRI).equipmentUpgrades[ItemDefinition].MaxLevel)
 	{
 		++WMPRI.bEquipmentUpgrade[ItemDefinition];
-		if (WMPRI.purchase_equipmentUpgrade.Find(ItemDefinition) == INDEX_NONE)
-			WMPRI.purchase_equipmentUpgrade.AddItem(ItemDefinition);
+		if (WMPRI.Purchase_EquipmentUpgrade.Find(ItemDefinition) == INDEX_NONE)
+			WMPRI.Purchase_EquipmentUpgrade.AddItem(ItemDefinition);
 
 		if (WorldInfo.NetMode == NM_DedicatedServer)
 		{
 			WMPRI.AddDosh(-Cost);
-			WMPRI.syncTrigger = !WMPRI.syncTrigger;
+			WMPRI.SyncTrigger = !WMPRI.SyncTrigger;
 		}
 
 		UpdateWeaponMagAndCap();

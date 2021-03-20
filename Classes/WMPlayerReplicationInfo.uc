@@ -25,25 +25,25 @@ var byte bSkillUnlocked[255];
 var byte bSkillDeluxe[255];
 
 // Current "perk" : perk's icon reflets where player spend his dosh (perk upgrades and skill upgrades)
-var repnotify byte perkIconIndex;
+var repnotify byte PerkIconIndex;
 var texture2D CurrentIconToDisplay;
-var array<int> doshSpentOnPerk;
+var array<int> DoshSpentOnPerk;
 var int PlayerLevel;
 
 //UI Menu
 var private WMUI_Menu UPGMenuManager;
 
 // Sync variables
-var repnotify bool syncTrigger;
-var bool syncCompleted;
-var private WMUI_UPGMenu syncMenuObject;
-var int syncItemDefinition;
-var byte syncLoopCounter;
+var repnotify bool SyncTrigger;
+var bool SyncCompleted;
+var private WMUI_UPGMenu SyncMenuObject;
+var int SyncItemDefinition;
+var byte SyncLoopCounter;
 
 // dynamic array used to track purchases of player (on server and client sides)
 // used in WMPerk
-var array<byte> purchase_perkUpgrade, purchase_skillUpgrade, purchase_equipmentUpgrade;
-var array<int> purchase_weaponUpgrade;
+var array<byte> Purchase_PerkUpgrade, Purchase_SkillUpgrade, Purchase_EquipmentUpgrade;
+var array<int> Purchase_WeaponUpgrade;
 
 // For scoreboard updates
 var int UncompressedPing;
@@ -59,14 +59,14 @@ var int RerollCounter;
 
 replication
 {
-	if ( bNetDirty && (Role == Role_Authority) )
+	if (bNetDirty && (Role == Role_Authority))
 		bPerkUpgrade, bPerkUpgradeAvailable, bSkillUpgrade, bSkillUnlocked, bSkillDeluxe, bEquipmentUpgrade,
 		bWeaponUpgrade_1, bWeaponUpgrade_2, bWeaponUpgrade_3, bWeaponUpgrade_4, bWeaponUpgrade_5,
 		bWeaponUpgrade_6, bWeaponUpgrade_7, bWeaponUpgrade_8, bWeaponUpgrade_9, bWeaponUpgrade_10, bWeaponUpgrade_11,
 		bWeaponUpgrade_12, bWeaponUpgrade_13, bWeaponUpgrade_14, bWeaponUpgrade_15, bWeaponUpgrade_16;
 
-	if ( bNetDirty )
-		perkIconIndex, PlayerLevel, syncTrigger, UncompressedPing, PlayerArmor, PlatformType, RerollCounter;
+	if (bNetDirty)
+		PerkIconIndex, PlayerLevel, SyncTrigger, UncompressedPing, PlayerArmor, PlatformType, RerollCounter;
 }
 
 simulated event ReplicatedEvent(name VarName)
@@ -75,13 +75,13 @@ simulated event ReplicatedEvent(name VarName)
 
 	switch (VarName)
 	{
-		case 'syncTrigger':
+		case 'SyncTrigger':
 			return; //do nothing
 
-		case 'perkIconIndex':
+		case 'PerkIconIndex':
 			WMGRI = WMGameReplicationInfo(WorldInfo.GRI);
-			if (WMGRI != none)
-				CurrentIconToDisplay = WMGRI.perkUpgrades[perkIconIndex].static.GetUpgradeIcon(bPerkUpgrade[perkIconIndex] - 1);
+			if (WMGRI != None)
+				CurrentIconToDisplay = WMGRI.perkUpgrades[PerkIconIndex].static.GetUpgradeIcon(bPerkUpgrade[PerkIconIndex] - 1);
 			break;
 
 		case 'bPerkUpgrade':
@@ -103,7 +103,7 @@ simulated event ReplicatedEvent(name VarName)
 		case 'bWeaponUpgrade_14':
 		case 'bWeaponUpgrade_15':
 		case 'bWeaponUpgrade_16':
-			syncCompleted = true;
+			SyncCompleted = True;
 			break;
 
 		default:
@@ -119,7 +119,7 @@ function CopyProperties(PlayerReplicationInfo PRI)
 
 	WMPRI = WMPlayerReplicationInfo(PRI);
 
-	if (WMPRI != none)
+	if (WMPRI != None)
 	{
 		for (i = 0; i < 255; ++i)
 		{
@@ -157,12 +157,13 @@ function CopyProperties(PlayerReplicationInfo PRI)
 function UpdateReplicatedPlayerHealth()
 {
 	local WMPawn_Human OwnerPawn;
+
 	super.UpdateReplicatedPlayerHealth();
 
-	if (KFPlayerOwner != none)
+	if (KFPlayerOwner != None)
 	{
 		OwnerPawn = WMPawn_Human(KFPlayerOwner.Pawn);
-		if (OwnerPawn != none && OwnerPawn.ZedternalArmor != PlayerArmor)
+		if (OwnerPawn != None && OwnerPawn.ZedternalArmor != PlayerArmor)
 			PlayerArmor = OwnerPawn.ZedternalArmor;
 	}
 }
@@ -193,25 +194,25 @@ function UpdateCurrentIconToDisplay(int lastBoughtIndex, int doshSpent, int lvl)
 
 	WMGRI = WMGameReplicationInfo(WorldInfo.GRI);
 
-	if (WMGRI != none)
+	if (WMGRI != None)
 	{
 		// initialize doshRecord if needed
-		if (perkIconIndex == 254)
+		if (PerkIconIndex == 254)
 		{
 			for (i = 0; i < WMGRI.perkUpgrades.length; ++i)
 			{
-				doshSpentOnPerk[i] = 0;
+				DoshSpentOnPerk[i] = 0;
 			}
 		}
 
 		// record dosh spent on perk[index] related upgrades
-		doshSpentOnPerk[lastBoughtIndex] += doshSpent;
+		DoshSpentOnPerk[lastBoughtIndex] += doshSpent;
 
 		// check and update player's perk icon index
-		if (perkIconIndex == 254 || doshSpentOnPerk[lastBoughtIndex] >= doshSpentOnPerk[perkIconIndex])
+		if (PerkIconIndex == 254 || DoshSpentOnPerk[lastBoughtIndex] >= DoshSpentOnPerk[PerkIconIndex])
 		{
-			perkIconIndex = lastBoughtIndex;
-			CurrentIconToDisplay = WMGRI.perkUpgrades[perkIconIndex].static.GetUpgradeIcon( bPerkUpgrade[perkIconIndex] - 1 );
+			PerkIconIndex = lastBoughtIndex;
+			CurrentIconToDisplay = WMGRI.perkUpgrades[PerkIconIndex].static.GetUpgradeIcon(bPerkUpgrade[PerkIconIndex] - 1);
 		}
 
 		// increase player level
@@ -227,39 +228,39 @@ reliable client function UpdateClientPurchase()
 reliable server function UpdateServerPurchase()
 {
 	UpdatePurchase();
-	SetTimer(5.0f, false, nameof(RecalculatePlayerLevel)); //Give server some time before it updates the HUD
+	SetTimer(5.0f, False, NameOf(RecalculatePlayerLevel)); //Give server some time before it updates the HUD
 }
 
 simulated function UpdatePurchase()
 {
 	local int i;
 
-	purchase_perkUpgrade.length = 0;
+	Purchase_PerkUpgrade.length = 0;
 	for (i = 0; i < 255; ++i)
 	{
 		if (bPerkUpgrade[i] > 0)
-			purchase_perkUpgrade.AddItem(i);
+			Purchase_PerkUpgrade.AddItem(i);
 	}
 
-	purchase_skillUpgrade.length = 0;
+	Purchase_SkillUpgrade.length = 0;
 	for (i = 0; i < 255; ++i)
 	{
 		if (bSkillUpgrade[i] > 0)
-			purchase_skillUpgrade.AddItem(i);
+			Purchase_SkillUpgrade.AddItem(i);
 	}
 
-	purchase_equipmentUpgrade.length = 0;
+	Purchase_EquipmentUpgrade.length = 0;
 	for (i = 0; i < 255; ++i)
 	{
 		if (bEquipmentUpgrade[i] > 0)
-			purchase_equipmentUpgrade.AddItem(i);
+			Purchase_EquipmentUpgrade.AddItem(i);
 	}
 
-	purchase_weaponUpgrade.length = 0;
+	Purchase_WeaponUpgrade.length = 0;
 	for (i = 0; i < `MAXWEAPONUPGRADES; ++i)
 	{
 		if (GetWeaponUpgrade(i) > 0)
-			purchase_weaponUpgrade.AddItem(i);
+			Purchase_WeaponUpgrade.AddItem(i);
 	}
 }
 
@@ -271,11 +272,11 @@ function RecalculatePlayerLevel()
 
 	WMGRI = WMGameReplicationInfo(WorldInfo.GRI);
 
-	if (WMGRI != none)
+	if (WMGRI != None)
 	{
 		PlayerLevel = 0;
 
-		foreach purchase_perkUpgrade(index)
+		foreach Purchase_PerkUpgrade(index)
 		{
 			for (level = 0; level < bPerkUpgrade[index]; ++level)
 			{
@@ -283,7 +284,7 @@ function RecalculatePlayerLevel()
 			}
 		}
 
-		foreach purchase_skillUpgrade(index)
+		foreach Purchase_SkillUpgrade(index)
 		{
 			for (level = 0; level < WMGRI.perkUpgrades.length; ++level)
 			{
@@ -297,7 +298,7 @@ function RecalculatePlayerLevel()
 				UpdateCurrentIconToDisplay(level, WMGRI.skillPrice, 1);
 		}
 
-		foreach purchase_equipmentUpgrade(index)
+		foreach Purchase_EquipmentUpgrade(index)
 		{
 			PlayerLevel += bEquipmentUpgrade[index];
 		}
@@ -312,7 +313,7 @@ simulated function CreateUPGMenu()
 	if (WMPC == None || WMPC.bUpgradeMenuOpen)
 		return;
 
-	WMPC.bUpgradeMenuOpen = true;
+	WMPC.bUpgradeMenuOpen = True;
 
 	UPGMenuManager = new class'ZedternalReborn.WMUI_Menu';
 	UPGMenuManager.Owner = WMPawn_Human(WMPC.Pawn);
@@ -325,9 +326,9 @@ simulated function CreateUPGMenu()
 simulated function CloseUPGMenu()
 {
 	//If a sync is in progress, cancel it before it can go through
-	syncItemDefinition = -1;
-	ClearTimer('SyncTimerLoop');
-	syncCompleted = true;
+	SyncItemDefinition = -1;
+	ClearTimer(NameOf(SyncTimerLoop));
+	SyncCompleted = True;
 
 	if (UPGMenuManager != None)
 		UPGMenuManager.CloseMenu();
@@ -338,34 +339,34 @@ simulated function CloseUPGMenu()
 reliable client function ShowSkipTraderVote(PlayerReplicationInfo PRI, byte VoteDuration, bool bShowChoices)
 {
 	super.ShowSkipTraderVote(PRI, VoteDuration, bShowChoices);
-	bVotingActive = true;
+	bVotingActive = True;
 }
 
 reliable client function HideSkipTraderVote()
 {
 	super.HideSkipTraderVote();
-	bHasVoted = false;
-	bVotingActive = false;
+	bHasVoted = False;
+	bVotingActive = False;
 }
 
 simulated function RequestSkiptTrader(PlayerReplicationInfo PRI)
 {
 	super.RequestSkiptTrader(PRI);
-	bHasVoted = true;
+	bHasVoted = True;
 }
 
 simulated function CastSkipTraderVote(PlayerReplicationInfo PRI, bool bSkipTrader)
 {
 	super.CastSkipTraderVote(PRI, bSkipTrader);
-	bHasVoted = true;
+	bHasVoted = True;
 }
 
 simulated function NotifyWaveEnded()
 {
 	super.NotifyWaveEnded();
 
-	bHasVoted = false;
-	bVotingActive = false;
+	bHasVoted = False;
+	bVotingActive = False;
 }
 
 simulated function byte GetWeaponUpgrade(int index)
@@ -586,41 +587,41 @@ simulated function SetWeaponUpgrade(int index, int value)
 	}
 }
 
-simulated function SetSyncTimer(const WMUI_UPGMenu menu, int ItemDefinition)
+simulated function SetSyncTimer(const WMUI_UPGMenu Menu, int ItemDefinition)
 {
-	syncMenuObject = menu;
-	syncItemDefinition = ItemDefinition;
-	syncLoopCounter = 0;
-	SetTimer(0.375f, true, 'SyncTimerLoop');
+	SyncMenuObject = Menu;
+	SyncItemDefinition = ItemDefinition;
+	SyncLoopCounter = 0;
+	SetTimer(0.375f, True, NameOf(SyncTimerLoop));
 }
 
 simulated function SyncTimerLoop()
 {
-	if (syncCompleted || syncLoopCounter >= 7)
+	if (SyncCompleted || SyncLoopCounter >= 7)
 	{
-		syncCompleted = true; //For timeout case
-		ClearTimer('SyncTimerLoop');
-		syncMenuObject.Callback_Equip(syncItemDefinition);
+		SyncCompleted = True; //For timeout case
+		ClearTimer(NameOf(SyncTimerLoop));
+		SyncMenuObject.Callback_Equip(SyncItemDefinition);
 	}
 
-	++syncLoopCounter;
+	++SyncLoopCounter;
 }
 
 simulated function bool SyncTimerActive()
 {
-	return IsTimerActive('SyncTimerLoop');
+	return IsTimerActive(NameOf(SyncTimerLoop));
 }
 
 defaultproperties
 {
 	PlayerLevel=0
-	perkIconIndex=254
+	PerkIconIndex=254
 	CurrentIconToDisplay=Texture2D'UI_PerkIcons_TEX.UI_Horzine_H_Logo'
-	syncTrigger=false
-	syncCompleted=true
+	SyncTrigger=False
+	SyncCompleted=True
 	PlatformType=0
-	bHasVoted=false
-	bVotingActive=false
+	bHasVoted=False
+	bVotingActive=False
 
 	Name="Default__WMPlayerReplicationInfo"
 }
