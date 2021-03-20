@@ -326,6 +326,7 @@ simulated function CreateUPGMenu()
 simulated function CloseUPGMenu()
 {
 	//If a sync is in progress, cancel it before it can go through
+	SyncMenuObject = None;
 	SyncItemDefinition = -1;
 	ClearTimer(NameOf(SyncTimerLoop));
 	SyncCompleted = True;
@@ -601,7 +602,12 @@ simulated function SyncTimerLoop()
 	{
 		SyncCompleted = True; //For timeout case
 		ClearTimer(NameOf(SyncTimerLoop));
-		SyncMenuObject.Callback_Equip(SyncItemDefinition);
+
+		if (SyncMenuObject != None)
+			SyncMenuObject.Callback_Equip(SyncItemDefinition);
+
+		SyncMenuObject = None;
+		SyncItemDefinition = -1;
 	}
 
 	++SyncLoopCounter;
