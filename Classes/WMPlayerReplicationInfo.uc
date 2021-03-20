@@ -54,7 +54,9 @@ var byte PlatformType;
 var bool bHasVoted;
 var bool bVotingActive;
 
-//For reroll counter
+//For skill reroll
+var repnotify bool RerollSyncTrigger;
+var bool RerollSyncCompleted;
 var int RerollCounter;
 
 replication
@@ -66,7 +68,7 @@ replication
 		bWeaponUpgrade_12, bWeaponUpgrade_13, bWeaponUpgrade_14, bWeaponUpgrade_15, bWeaponUpgrade_16;
 
 	if (bNetDirty)
-		PerkIconIndex, PlayerLevel, SyncTrigger, UncompressedPing, PlayerArmor, PlatformType, RerollCounter;
+		PerkIconIndex, PlayerLevel, SyncTrigger, RerollSyncTrigger, UncompressedPing, PlayerArmor, PlatformType, RerollCounter;
 }
 
 simulated event ReplicatedEvent(name VarName)
@@ -77,6 +79,10 @@ simulated event ReplicatedEvent(name VarName)
 	{
 		case 'SyncTrigger':
 			return; //do nothing
+
+		case 'RerollSyncTrigger':
+			RerollSyncCompleted = True;
+			break;
 
 		case 'PerkIconIndex':
 			WMGRI = WMGameReplicationInfo(WorldInfo.GRI);
@@ -613,9 +619,34 @@ simulated function SyncTimerLoop()
 	++SyncLoopCounter;
 }
 
+simulated function SetRerollSyncTimer(const WMUI_UPGMenu Menu, int PerkIndex)
+{
+	SyncMenuObject = Menu;
+	SyncItemDefinition = PerkIndex;
+	SyncLoopCounter = 0;
+	SetTimer(0.375f, True, NameOf(SyncRerollTimerLoop));
+}
+
+simulated function SyncRerollTimerLoop()
+{
+	if (RerollSyncCompleted || SyncLoopCounter >= 7)
+	{
+		RerollSyncCompleted = True; //For timeout case
+		ClearTimer(NameOf(SyncRerollTimerLoop));
+
+		if (SyncMenuObject != None)
+			SyncMenuObject.SkillRerollUnlock(SyncItemDefinition);
+
+		SyncMenuObject = None;
+		SyncItemDefinition = -1;
+	}
+
+	++SyncLoopCounter;
+}
+
 simulated function bool SyncTimerActive()
 {
-	return IsTimerActive(NameOf(SyncTimerLoop));
+	return IsTimerActive(NameOf(SyncTimerLoop)) || IsTimerActive(NameOf(SyncRerollTimerLoop));
 }
 
 defaultproperties
@@ -625,6 +656,7 @@ defaultproperties
 	CurrentIconToDisplay=Texture2D'UI_PerkIcons_TEX.UI_Horzine_H_Logo'
 	SyncTrigger=False
 	SyncCompleted=True
+	RerollSyncCompleted=True
 	PlatformType=0
 	bHasVoted=False
 	bVotingActive=False

@@ -598,7 +598,7 @@ function ConfirmSkillReroll()
 		OriginalDosh = WMPRI.Score;
 		++WMPRI.RerollCounter;
 		if (WMPC.WorldInfo.NetMode != NM_Standalone)
-				WMPRI.SyncCompleted = False;
+				WMPRI.RerollSyncCompleted = False;
 
 		RerollPerkPathName = PathName(WMGRI.perkUpgrades[perkUPGIndex[RerollPerkItemDefinition]]);
 		WMPC.RerollSkillsForPerk(RerollPerkPathName, RerollTotalCost);
@@ -620,17 +620,33 @@ function ConfirmSkillReroll()
 		}
 
 		WMPRI.Score = OriginalDosh - RerollTotalCost;
+		Owner.PlaySoundBase(default.skillSound, True);
 
-		for (i = 0; i < WMPRI.bPerkUpgrade[perkUPGIndex[RerollPerkItemDefinition]]; ++i)
+		SkillRerollUnlock(perkUPGIndex[RerollPerkItemDefinition]);
+	}
+	else
+		ResetRerollVars();
+}
+
+function SkillRerollUnlock(int PerkIndex)
+{
+	local string RerollPerkPathName;
+	local int i;
+
+	if (WMPRI.RerollSyncCompleted)
+	{
+		RerollPerkPathName = PathName(WMGRI.perkUpgrades[PerkIndex]);
+
+		for (i = 0; i < WMPRI.bPerkUpgrade[PerkIndex]; ++i)
 		{
 			UnlockRandomSkill(RerollPerkPathName, WMGRI.bDeluxeSkillUnlock[i] == 1);
 		}
 
 		Refresh();
-		Owner.PlaySoundBase(default.skillSound, True);
+		ResetRerollVars();
 	}
-
-	ResetRerollVars();
+	else
+		WMPRI.SetRerollSyncTimer(self, PerkIndex);
 }
 
 function Callback_RecycleItem(int ItemDefinition)

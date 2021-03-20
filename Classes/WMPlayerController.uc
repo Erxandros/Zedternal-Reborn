@@ -150,7 +150,8 @@ reliable server function RerollSkillsForPerk(string RerollPerkPathName, int Cost
 		if (WorldInfo.NetMode == NM_DedicatedServer)
 		{
 			WMPRI.AddDosh(-Cost);
-			WMPRI.SyncTrigger = !WMPRI.SyncTrigger;
+			++WMPRI.RerollCounter;
+			WMPRI.RerollSyncTrigger = !WMPRI.RerollSyncTrigger;
 		}
 
 		UpdateWeaponMagAndCap();
