@@ -281,6 +281,7 @@ function RecalculatePlayerLevel()
 	if (WMGRI != None)
 	{
 		PlayerLevel = 0;
+		PerkIconIndex = 254;
 
 		foreach Purchase_PerkUpgrade(index)
 		{
