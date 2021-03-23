@@ -27,6 +27,7 @@ var byte bSkillDeluxe[255];
 // Current "perk" : perk's icon reflets where player spend his dosh (perk upgrades and skill upgrades)
 var repnotify byte PerkIconIndex;
 var texture2D CurrentIconToDisplay;
+var int MaxDoshSpent;
 var array<int> DoshSpentOnPerk;
 var int PlayerLevel;
 
@@ -73,21 +74,17 @@ replication
 
 simulated event ReplicatedEvent(name VarName)
 {
-	local WMGameReplicationInfo WMGRI;
-
 	switch (VarName)
 	{
 		case 'SyncTrigger':
-			return; //do nothing
+			break; //do nothing
 
 		case 'RerollSyncTrigger':
 			RerollSyncCompleted = True;
 			break;
 
 		case 'PerkIconIndex':
-			WMGRI = WMGameReplicationInfo(WorldInfo.GRI);
-			if (WMGRI != None)
-				CurrentIconToDisplay = WMGRI.perkUpgrades[PerkIconIndex].static.GetUpgradeIcon(bPerkUpgrade[PerkIconIndex] - 1);
+			ClientUpdateCurrentIconToDisplay();
 			break;
 
 		case 'bPerkUpgrade':
@@ -110,6 +107,7 @@ simulated event ReplicatedEvent(name VarName)
 		case 'bWeaponUpgrade_15':
 		case 'bWeaponUpgrade_16':
 			SyncCompleted = True;
+			ClientUpdateCurrentIconToDisplay();
 			break;
 
 		default:
@@ -189,6 +187,16 @@ simulated function Texture2D GetCurrentIconToDisplay()
 	return CurrentIconToDisplay;
 }
 
+simulated function ClientUpdateCurrentIconToDisplay()
+{
+	local WMGameReplicationInfo WMGRI;
+
+	WMGRI = WMGameReplicationInfo(WorldInfo.GRI);
+
+	if (WMGRI != None)
+		CurrentIconToDisplay = WMGRI.perkUpgrades[PerkIconIndex].static.GetUpgradeIcon(bPerkUpgrade[PerkIconIndex] - 1);
+}
+
 function UpdateCurrentIconToDisplay(int lastBoughtIndex, int doshSpent, int lvl)
 {
 	// function called every time a perk upgrade or skill upgrade is bought
@@ -205,6 +213,7 @@ function UpdateCurrentIconToDisplay(int lastBoughtIndex, int doshSpent, int lvl)
 		// initialize doshRecord if needed
 		if (PerkIconIndex == 254)
 		{
+			MaxDoshSpent = 0;
 			for (i = 0; i < WMGRI.perkUpgrades.length; ++i)
 			{
 				DoshSpentOnPerk[i] = 0;
@@ -215,10 +224,11 @@ function UpdateCurrentIconToDisplay(int lastBoughtIndex, int doshSpent, int lvl)
 		DoshSpentOnPerk[lastBoughtIndex] += doshSpent;
 
 		// check and update player's perk icon index
-		if (PerkIconIndex == 254 || DoshSpentOnPerk[lastBoughtIndex] >= DoshSpentOnPerk[PerkIconIndex])
+		if (PerkIconIndex == 254 || DoshSpentOnPerk[lastBoughtIndex] >= MaxDoshSpent)
 		{
+			CurrentIconToDisplay = WMGRI.perkUpgrades[lastBoughtIndex].static.GetUpgradeIcon(bPerkUpgrade[lastBoughtIndex] - 1);
+			MaxDoshSpent = DoshSpentOnPerk[lastBoughtIndex];
 			PerkIconIndex = lastBoughtIndex;
-			CurrentIconToDisplay = WMGRI.perkUpgrades[PerkIconIndex].static.GetUpgradeIcon(bPerkUpgrade[PerkIconIndex] - 1);
 		}
 
 		// increase player level
@@ -272,8 +282,7 @@ simulated function UpdatePurchase()
 
 function RecalculatePlayerLevel()
 {
-	local byte index;
-	local byte level;
+	local byte index, level;
 	local WMGameReplicationInfo WMGRI;
 
 	WMGRI = WMGameReplicationInfo(WorldInfo.GRI);
