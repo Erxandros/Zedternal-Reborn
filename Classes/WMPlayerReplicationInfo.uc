@@ -655,7 +655,6 @@ defaultproperties
 	PlayerLevel=0
 	PerkIconIndex=254
 	CurrentIconToDisplay=Texture2D'UI_PerkIcons_TEX.UI_Horzine_H_Logo'
-	SyncTrigger=False
 	SyncCompleted=True
 	RerollSyncCompleted=True
 	PlatformType=0
