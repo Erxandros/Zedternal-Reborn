@@ -60,6 +60,9 @@ var repnotify bool RerollSyncTrigger;
 var bool RerollSyncCompleted;
 var int RerollCounter;
 
+//For first login
+var bool bHasPlayed;
+
 replication
 {
 	if (bNetDirty && (Role == Role_Authority))
@@ -153,6 +156,7 @@ function CopyProperties(PlayerReplicationInfo PRI)
 
 		WMPRI.PlayerLevel = PlayerLevel;
 		WMPRI.RerollCounter = RerollCounter;
+		WMPRI.bHasPlayed = bHasPlayed;
 	}
 
 	super.CopyProperties(PRI);
@@ -669,6 +673,7 @@ defaultproperties
 	PlatformType=0
 	bHasVoted=False
 	bVotingActive=False
+	bHasPlayed=False
 
 	Name="Default__WMPlayerReplicationInfo"
 }

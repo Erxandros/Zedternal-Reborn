@@ -365,20 +365,28 @@ function RestartPlayer(Controller NewPlayer)
 	local WMPlayerReplicationInfo WMPRI;
 	local float TimeOffset;
 
-	Super.RestartPlayer(NewPlayer);
+	super.RestartPlayer(NewPlayer);
 
 	WMPC = WMPlayerController(NewPlayer);
 	WMPRI = WMPlayerReplicationInfo(NewPlayer.PlayerReplicationInfo);
 
-	if (WMPC != none && WMPRI != none && !isWaveActive() && WMPRI.NumTimesReconnected > 0)
+	if (WMPC != none && WMPRI != none)
 	{
-		TimeOffset = 0;
-		if (WMPRI.NumTimesReconnected > 1 && `TimeSince(WMPRI.LastQuitTime) < ReconnectRespawnTime)
+		if (!isWaveActive() && WMPRI.NumTimesReconnected > 0)
 		{
-			TimeOffset = ReconnectRespawnTime - `TimeSince(WMPRI.LastQuitTime);
+			TimeOffset = 0;
+
+			if (WMPRI.NumTimesReconnected > 1 && `TimeSince(WMPRI.LastQuitTime) < ReconnectRespawnTime)
+				TimeOffset = ReconnectRespawnTime - `TimeSince(WMPRI.LastQuitTime);
+
+			WMPC.DelayedPerkUpdate(TimeOffset);
 		}
 
-		WMPC.DelayedPerkUpdate(TimeOffset);
+		if (!WMPRI.bHasPlayed && WMPC.Pawn != None && WMPC.Pawn.IsAliveAndWell())
+		{
+			WMPRI.Score = GetAdjustedDeathPenalty(WMPRI, true);
+			WMPRI.bHasPlayed = true;
+		}
 	}
 }
 
