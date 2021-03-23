@@ -143,6 +143,7 @@ reliable server function RerollSkillsForPerk(string RerollPerkPathName, int Cost
 				{
 					WMPRI.Purchase_SkillUpgrade.RemoveItem(i);
 					WMGRI.skillUpgrades[i].SkillUpgrade.static.DeleteHelperClass(Pawn);
+					WMGRI.skillUpgrades[i].SkillUpgrade.static.RevertUpgradeChanges(Pawn);
 				}
 			}
 		}

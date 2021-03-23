@@ -615,6 +615,7 @@ function ConfirmSkillReroll()
 				{
 					WMPRI.Purchase_SkillUpgrade.RemoveItem(i);
 					WMGRI.skillUpgrades[i].SkillUpgrade.static.DeleteHelperClass(Owner);
+					WMGRI.skillUpgrades[i].SkillUpgrade.static.RevertUpgradeChanges(Owner);
 				}
 			}
 		}

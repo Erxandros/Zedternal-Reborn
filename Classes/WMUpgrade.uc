@@ -241,6 +241,9 @@ static function bool IsGrenadeDT(class<DamageType> DT)
 //Used for skills currently when sold using reroll button
 static simulated function DeleteHelperClass(Pawn OwnerPawn);
 
+//Used to revert hard changes from a upgrade
+static simulated function RevertUpgradeChanges(Pawn OwnerPawn);
+
 defaultproperties
 {
 	upgradeIcon(0)=Texture2D'CHR_Cosmetics_Item_TEX.3DGlasses.3DGlasses_Color02'
