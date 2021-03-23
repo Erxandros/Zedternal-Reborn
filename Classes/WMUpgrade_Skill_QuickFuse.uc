@@ -67,6 +67,43 @@ static simulated function UpdateGrenade(KFPerk currentPerk)
 	}
 }
 
+static simulated function RevertUpgradeChanges(Pawn OwnerPawn)
+{
+	local KFPlayerController KFPC;
+	local KFPerk CurrentPerk;
+
+	KFPC = KFPlayerController(OwnerPawn.Controller);
+
+	if (KFPC != None)
+	{
+		CurrentPerk = WMPerk(KFPC.CurrentPerk);
+		if (CurrentPerk != None)
+		{
+			switch(CurrentPerk.GrenadeClass)
+			{
+				case class'ZedternalReborn.WMProj_FlashBangGrenade_QuickFuse':
+					currentPerk.GrenadeClass = class'KFProj_FlashBangGrenade'; break;
+				case class'ZedternalReborn.WMProj_FragGrenade_QuickFuse':
+					currentPerk.GrenadeClass = class'KFProj_FragGrenade'; break;
+				case class'ZedternalReborn.WMProj_HansHEGrenade_QuickFuse':
+					currentPerk.GrenadeClass = class'KFProj_HansHEGrenade'; break;
+				case class'ZedternalReborn.WMProj_EMPGrenade_QuickFuse':
+					currentPerk.GrenadeClass = class'KFProj_EMPGrenade'; break;
+				case class'ZedternalReborn.WMProj_HEGrenade_QuickFuse':
+					currentPerk.GrenadeClass = class'KFProj_HEGrenade'; break;
+				case class'ZedternalReborn.WMProj_MedicGrenade_QuickFuse':
+					currentPerk.GrenadeClass = class'KFProj_MedicGrenade'; break;
+				case class'ZedternalReborn.WMProj_NailBombGrenade_QuickFuse':
+					currentPerk.GrenadeClass = class'KFProj_NailBombGrenade'; break;
+				case class'ZedternalReborn.WMProj_FreezeGrenade_QuickFuse':
+					currentPerk.GrenadeClass = class'KFProj_FreezeGrenade'; break;
+				case class'ZedternalReborn.WMProj_DynamiteGrenade_QuickFuse':
+					currentPerk.GrenadeClass = class'KFProj_DynamiteGrenade'; break;
+			}
+		}
+	}
+}
+
 defaultproperties
 {
 	Damage(0)=0.2f
