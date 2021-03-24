@@ -498,13 +498,15 @@ function Callback_InventoryFilter(int FilterIndex)
 			ItemObject.SetInt("definition", j);
 			ItemObject.SetInt("type", 0);
 			if (i == WMPC.KnifeIndex)
+			{
 				ItemObject.SetBool("active", True);
-			else
-				ItemObject.SetBool("active", False);
-			if (WMPC.KnifeIndex == i)
 				ItemObject.SetInt("type", 1);
+			}
 			else
+			{
+				ItemObject.SetBool("active", False);
 				ItemObject.SetInt("type", 0);
+			}
 			ItemArray.SetElementObject(j, ItemObject);
 			++j;
 		}
