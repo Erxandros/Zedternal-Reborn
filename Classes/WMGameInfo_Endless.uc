@@ -1716,7 +1716,12 @@ function int GetAdjustedDeathPenalty(KFPlayerReplicationInfo KilledPlayerPRI, op
 
 	// new player (dosh is based on what team won during the game
 	if (bLateJoiner)
-		return (Round(doshNewPlayer * class'ZedternalReborn.Config_Game'.default.Game_LateJoinerTotalDoshFactor));
+	{
+		PlayerBase = Round(doshNewPlayer * class'ZedternalReborn.Config_Game'.default.Game_LateJoinerTotalDoshFactor);
+		`log("ZR Info: Player"@KilledPlayerPRI.PlayerName@"is late joiner, received"@PlayerBase@"dosh");
+
+		return PlayerBase;
+	}
 
 	// count current number of players
 	PlayerCount = 0;
