@@ -1667,7 +1667,7 @@ function RepPlayerInfo(WMPlayerReplicationInfo WMPRI)
 	local byte i, j, choice;
 	local bool bFound;
 
-	`log("Reconnect:"@WMPRI.NumTimesReconnected);
+	`log("ZR Info: Reconnect Player"@WMPRI.PlayerName$":"@WMPRI.NumTimesReconnected);
 
 	if (WMPRI.NumTimesReconnected < 1 && class'ZedternalReborn.Config_PerkUpgrade'.default.PerkUpgrade_NbAvailablePerks > 0)
 	{
