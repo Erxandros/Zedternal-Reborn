@@ -465,9 +465,15 @@ function Callback_InventoryFilter(int FilterIndex)
 				ItemObject.SetInt("definition", j);
 				ItemObject.SetInt("type" ,0);
 				if (WMPC.CurrentPerk.GrenadeWeaponDef == WMGRI.Grenades[i])
+				{
 					ItemObject.SetBool("active", True);
+					ItemObject.SetInt("type", 1);
+				}
 				else
+				{
 					ItemObject.SetBool("active", False);
+					ItemObject.SetInt("type", 0);
+				}
 				ItemArray.SetElementObject(j, ItemObject);
 				GrenadeIndex.AddItem(i);
 				++j;
