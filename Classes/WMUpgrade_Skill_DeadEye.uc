@@ -22,8 +22,8 @@ defaultproperties
 	Recoil(1)=0.25f
 
 	upgradeName="Dead Eye"
-	upgradeDescription(0)="Reduce recoil by 10% and increase head shot damage by 10% when using <font color=\"#eaeff7\">iron sights</font> with <font color=\"#eaeff7\">all weapons</font>"
-	upgradeDescription(1)="Reduce recoil by <font color=\"#b346ea\">25%</font> and increase head shot damage by <font color=\"#b346ea\">25%</font> when using <font color=\"#eaeff7\">iron sights</font> with <font color=\"#eaeff7\">all weapons</font>"
+	upgradeDescription(0)="Reduce recoil by 10% and increase headshot damage by 10% when using <font color=\"#eaeff7\">iron sights</font> with <font color=\"#eaeff7\">all weapons</font>"
+	upgradeDescription(1)="Reduce recoil by <font color=\"#b346ea\">25%</font> and increase headshot damage by <font color=\"#b346ea\">25%</font> when using <font color=\"#eaeff7\">iron sights</font> with <font color=\"#eaeff7\">all weapons</font>"
 	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_DeadEye'
 	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_DeadEye_Deluxe'
 

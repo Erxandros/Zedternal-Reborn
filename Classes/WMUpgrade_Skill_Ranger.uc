@@ -25,8 +25,8 @@ defaultproperties
 	Damage(1)=0.4f
 
 	upgradeName="Ranger"
-	upgradeDescription(0)="Increase head shot damage with <font color=\"#eaeff7\">all weapons</font> by 15%. Also increase head shot stun power with <font color=\"#eaeff7\">all weapons</font>"
-	upgradeDescription(1)="Increase head shot damage with <font color=\"#eaeff7\">all weapons</font> by <font color=\"#b346ea\">40%</font>. Also increase head shot stun power with <font color=\"#eaeff7\">all weapons</font>"
+	upgradeDescription(0)="Increase headshot damage with <font color=\"#eaeff7\">all weapons</font> by 15%. Also increase headshot stun power with <font color=\"#eaeff7\">all weapons</font>"
+	upgradeDescription(1)="Increase headshot damage with <font color=\"#eaeff7\">all weapons</font> by <font color=\"#b346ea\">40%</font>. Also increase headshot stun power with <font color=\"#eaeff7\">all weapons</font>"
 	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Ranger'
 	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Ranger_Deluxe'
 

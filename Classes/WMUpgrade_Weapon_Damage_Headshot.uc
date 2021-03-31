@@ -37,7 +37,7 @@ defaultproperties
 	Damage=0.15f
 
 	upgradeName="Headshot Damage"
-	upgradeDescription(0)="Increase head shot damage with this weapon by %x%%"
+	upgradeDescription(0)="Increase headshot damage with this weapon by %x%%"
 	WeaponBonus=(baseValue=0, incValue=15, maxValue=-1)
 
 	Name="Default__WMUpgrade_Weapon_Damage_Headshot"
