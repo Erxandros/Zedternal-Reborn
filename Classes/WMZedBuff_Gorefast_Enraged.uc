@@ -22,7 +22,7 @@ static function ModifyZedSprintChanceMod(out float SprintChanceMod, KFPawn_Monst
 
 defaultproperties
 {
-	buffDescription="GOREFAST ARE ENRAGED"
+	buffDescription="GOREFASTS ARE ENRAGED"
 	buffIcon=Texture2D'ZED_Gorefast_UI.ZED-VS_Icons_Gorefast-BladeSwing'
 	Damage = 0.100000
 	Speed = 0.150000
