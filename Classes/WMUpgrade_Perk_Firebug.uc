@@ -52,7 +52,7 @@ defaultproperties
 	Defense=0.04f
 
 	upgradeName="FireBug"
-	upgradeDescription(0)="+%x%% Fire, Explosive, Bloat Bile and Siren Sonic Damage Resistance"
+	upgradeDescription(0)="+%x%% Fire, Explosive, Bloat Bile, and Siren Sonic Damage Resistance"
 	upgradeDescription(1)="+%x%% Ammo Refill after completing a wave with <font color=\"#eaeff7\">any weapon</font>"
 	upgradeDescription(2)="+%x%% Damage with <font color=\"#caab05\">Firebug's weapons</font>"
 	PerkBonus(0)=(baseValue=0, incValue=4, maxValue=40)
