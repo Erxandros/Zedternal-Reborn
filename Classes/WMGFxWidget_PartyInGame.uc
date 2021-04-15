@@ -25,8 +25,8 @@ function RefreshCycleButton()
 		return;
 	}
 
-	WMGRI.maxPage = KFPRIArray.Length / PlayerSlots + Min(1, KFPRIArray.Length % PlayerSlots);
-	SetString("switchTeamsString", "Cycle List" @ WMGRI.currentPage $ "/" $ WMGRI.maxPage);
+	WMGRI.LobbyMaxPage = KFPRIArray.Length / PlayerSlots + Min(1, KFPRIArray.Length % PlayerSlots);
+	SetString("switchTeamsString", "Cycle List" @ WMGRI.LobbyCurrentPage $ "/" $ WMGRI.LobbyMaxPage);
 }
 
 function OneSecondLoop()
@@ -45,12 +45,12 @@ function int GetOffsetRefreshParty(int Slots)
 
 	if (WMGRI != None)
 	{
-		for (i = WMGRI.currentPage - 1; i > 0; --i)
+		for (i = WMGRI.LobbyCurrentPage - 1; i > 0; --i)
 		{
 			if (i * PlayerSlots < Slots)
 				return i * PlayerSlots;
 			else
-				--WMGRI.currentPage;
+				--WMGRI.LobbyCurrentPage;
 		}
 	}
 
@@ -125,7 +125,7 @@ function GFxObject RefreshSlot(int SlotIndex, KFPlayerReplicationInfo KFPRI)
 function int GetPageOffset()
 {
 	if (WMGRI != None)
-		return (WMGRI.currentPage - 1) * PlayerSlots;
+		return (WMGRI.LobbyCurrentPage - 1) * PlayerSlots;
 	else
 		return 0;
 }

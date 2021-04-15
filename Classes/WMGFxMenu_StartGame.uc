@@ -7,10 +7,10 @@ function Callback_RequestPageChange()
 	WMGRI = WMGameReplicationInfo(GetPC().WorldInfo.GRI);
 	if (WMGRI != None)
 	{
-		if (WMGRI.currentPage < WMGRI.maxPage)
-			++WMGRI.currentPage;
+		if (WMGRI.LobbyCurrentPage < WMGRI.LobbyMaxPage)
+			++WMGRI.LobbyCurrentPage;
 		else
-			WMGRI.currentPage = 1;
+			WMGRI.LobbyCurrentPage = 1;
 	}
 }
 

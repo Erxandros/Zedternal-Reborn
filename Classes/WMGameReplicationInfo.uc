@@ -162,8 +162,8 @@ var array<KFMusicTrackInfo> ZedBuffMusic;
 var array< class<KFTraderVoiceGroupBase> > TraderVoiceGroupClasses;
 
 //For lobby pages
-var byte currentPage;
-var byte maxPage;
+var byte LobbyCurrentPage;
+var byte LobbyMaxPage;
 
 //Private variable to get menu upk downloaded upon redirection
 var private Texture2D MenuLinker;
@@ -874,8 +874,8 @@ defaultproperties
 	bZRUMenuCommand=False
 	ArmorPrice=-1
 	GrenadePrice=-1
-	currentPage=1
-	maxPage=1
+	LobbyCurrentPage=1
+	LobbyMaxPage=1
 	ZedBuff_NextMusicTrackIndex=0
 	NumberOfTraderWeapons=INDEX_NONE
 	NumberOfStartingWeapons=INDEX_NONE
