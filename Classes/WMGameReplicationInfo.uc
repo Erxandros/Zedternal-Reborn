@@ -10,7 +10,7 @@ struct WeaponUpgradeRepStruct
 
 	structdefaultproperties
 	{
-		bValid=false
+		bValid=False
 	}
 };
 
@@ -22,7 +22,7 @@ struct SkillUpgradeRepStruct
 
 	structdefaultproperties
 	{
-		bValid=false
+		bValid=False
 	}
 };
 
@@ -36,7 +36,7 @@ struct EquipmentUpgradeRepStruct
 
 	structdefaultproperties
 	{
-		bValid=false
+		bValid=False
 	}
 };
 
@@ -114,7 +114,7 @@ struct WeaponUpgradeStruct
 
 	structdefaultproperties
 	{
-		bDone=false
+		bDone=False
 	}
 };
 
@@ -126,7 +126,7 @@ struct SkillUpgradeStruct
 
 	structdefaultproperties
 	{
-		bDone=false
+		bDone=False
 	}
 };
 
@@ -140,7 +140,7 @@ struct EquipmentUpgradeStruct
 
 	structdefaultproperties
 	{
-		bDone=false
+		bDone=False
 	}
 };
 
@@ -148,8 +148,8 @@ var array< WeaponUpgradeStruct > weaponUpgradeList;
 
 var array< class<KFWeapon> > KFStartingWeapon;
 var array< class<WMUpgrade_Perk> > perkUpgrades;
-var array< SkillUpgradeStruct > skillUpgrades;
-var array< EquipmentUpgradeStruct > equipmentUpgrades;
+var array<SkillUpgradeStruct> skillUpgrades;
+var array<EquipmentUpgradeStruct> equipmentUpgrades;
 var array< class<WMSpecialWave> > specialWaves;
 var array< class<KFWeaponDefinition> > Grenades;
 
@@ -157,8 +157,8 @@ var array< class<WMZedBuff> > zedBuffs;
 var bool bDrawSpecialWave;
 var byte specialWaveIndexToShow;
 
-var byte zedBuff_nextMusicTrackIndex;
-var array< KFMusicTrackInfo > ZedBuffMusic;
+var byte ZedBuff_NextMusicTrackIndex;
+var array<KFMusicTrackInfo> ZedBuffMusic;
 var array< class<KFTraderVoiceGroupBase> > TraderVoiceGroupClasses;
 
 //For lobby pages
@@ -170,7 +170,7 @@ var private Texture2D MenuLinker;
 
 replication
 {
-	if ( bNetDirty )
+	if (bNetDirty)
 		NumberOfTraderWeapons, NumberOfStartingWeapons, NumberOfSkillUpgrades, NumberOfWeaponUpgrades, NumberOfEquipmentUpgrades,
 		KFWeaponName_A, KFWeaponName_B, KFWeaponDefPath_A, KFWeaponDefPath_B, KFStartingWeaponPath,
 		perkUpgradesStr, skillUpgradesRepArray, equipmentUpgradesRepArray, specialWavesStr, grenadesStr, zedBuffStr,
@@ -191,7 +191,7 @@ simulated event ReplicatedEvent(name VarName)
 	switch (VarName)
 	{
 		case 'WaveNum':
-			if (SpecialWaveID[0]!=-1 && WaveNum > 0)
+			if (SpecialWaveID[0] != INDEX_NONE && WaveNum > 0)
 				TriggerSpecialWaveMessage();
 			super.ReplicatedEvent(VarName);
 			break;
@@ -433,7 +433,7 @@ function RepGameInfoWeaponUpgrades(out WeaponUpgradeRepStruct weaponUpgradeRepAr
 		weaponUpgradeRepArray[i].WeaponPathName = PathName(weaponUpgradeList[i + indexOffset].KFWeapon);
 		weaponUpgradeRepArray[i].UpgradePathName = PathName(weaponUpgradeList[i + indexOffset].KFWeaponUpgrade);
 		weaponUpgradeRepArray[i].BasePrice = weaponUpgradeList[i + indexOffset].BasePrice;
-		weaponUpgradeRepArray[i].bValid = true;
+		weaponUpgradeRepArray[i].bValid = True;
 	}
 }
 
@@ -476,7 +476,7 @@ simulated function SyncWeaponUpgrades(const out WeaponUpgradeRepStruct weaponUpg
 			weaponUpgradeList[i + indexOffset].KFWeapon = class<KFWeapon>(DynamicLoadObject(weaponUpgradeRepArray[i].WeaponPathName, class'Class'));
 			weaponUpgradeList[i + indexOffset].KFWeaponUpgrade = class<WMUpgrade_Weapon>(DynamicLoadObject(weaponUpgradeRepArray[i].UpgradePathName, class'Class'));
 			weaponUpgradeList[i + indexOffset].BasePrice = weaponUpgradeRepArray[i].BasePrice;
-			weaponUpgradeList[i + indexOffset].bDone = true;
+			weaponUpgradeList[i + indexOffset].bDone = True;
 		}
 	}
 }
@@ -497,7 +497,7 @@ simulated function SyncAllSkillUpgrades()
 		{
 			skillUpgrades[i].SkillUpgrade = class<WMUpgrade_Skill>(DynamicLoadObject(skillUpgradesRepArray[i].SkillPathName, class'Class'));
 			skillUpgrades[i].PerkPathName = skillUpgradesRepArray[i].PerkPathName;
-			skillUpgrades[i].bDone = true;
+			skillUpgrades[i].bDone = True;
 		}
 	}
 }
@@ -520,7 +520,7 @@ simulated function SyncAllEquipmentUpgrades()
 			equipmentUpgrades[i].BasePrice = equipmentUpgradesRepArray[i].BasePrice;
 			equipmentUpgrades[i].MaxPrice = equipmentUpgradesRepArray[i].MaxPrice;
 			equipmentUpgrades[i].MaxLevel = equipmentUpgradesRepArray[i].MaxLevel;
-			equipmentUpgrades[i].bDone = true;
+			equipmentUpgrades[i].bDone = True;
 		}
 	}
 }
@@ -539,7 +539,7 @@ simulated function SyncWeaponTraderItems(const out string KFWeaponDefPath[255], 
 		if (KFWeaponDefPath[i] == "")
 			break; //base case
 
-		if (TraderItems.SaleItems[i + indexOffset].ItemID == -1)
+		if (TraderItems.SaleItems[i + indexOffset].ItemID == INDEX_NONE)
 		{
 			TraderItems.SaleItems[i + indexOffset].WeaponDef = class<KFWeaponDefinition>(DynamicLoadObject(KFWeaponDefPath[i], class'Class'));
 			TraderItems.SaleItems[i + indexOffset].ItemID = i + indexOffset;
@@ -562,7 +562,7 @@ simulated function CheckAndSetTraderItems()
 
 	for (i = 0; i < NumberOfTraderWeapons; ++i)
 	{
-		if (TraderItems.SaleItems[i].ItemID == -1)
+		if (TraderItems.SaleItems[i].ItemID == INDEX_NONE)
 			return;
 	}
 
@@ -582,7 +582,7 @@ simulated function SetWeaponPickupList()
 	local class<KFWeap_DualBase> startingWeaponClassDual;
 	local ItemPickup newPickup;
 
-	if (NumberOfStartingWeapons == -1)
+	if (NumberOfStartingWeapons == INDEX_NONE)
 		return; //Not yet replicated
 
 	if (bArmorPickup == 0)
@@ -649,7 +649,7 @@ simulated function SetAllTradersTimer()
 		OpenTrader();
 
 	//Only run UpdateNextTrader every 3 seconds as it is computationally heavy
-	SetTimer(3.0f, true, nameof(UpdateNextTrader));
+	SetTimer(3.0f, True, NameOf(UpdateNextTrader));
 }
 
 simulated function UpdateNextTrader()
@@ -669,7 +669,7 @@ simulated function UpdateNextTrader()
 		{
 			if (MyTrader.bEnabled)
 			{
-				CurrentDistToTrader = IsZero(MyTrader.Location) ? -1.f : VSize(MyTrader.Location - LocActor.Location) / 100.f;
+				CurrentDistToTrader = IsZero(MyTrader.Location) ? -1.0f : VSize(MyTrader.Location - LocActor.Location) / 100.f;
 				if (CurrentDistToTrader <  SmallestDistToTrader || SmallestDistToTrader == 0)
 				{
 					SmallestDistToTrader = CurrentDistToTrader;
@@ -703,7 +703,7 @@ simulated function OpenTrader(optional int time)
 				MyTrader.OpenTrader();
 		}
 
-		SetTimer(1.0f, true, nameof(UpdateOpenedTrader));
+		SetTimer(1.0f, True, NameOf(UpdateOpenedTrader));
 	}
 
 	super.OpenTrader(time);
@@ -713,12 +713,12 @@ simulated function CloseTrader()
 {
 	local KFTraderTrigger MyTrader;
 
-	if (IsTimerActive(nameof(UpdateOpenedTrader)))
-		ClearTimer(nameof(UpdateOpenedTrader));
+	if (IsTimerActive(NameOf(UpdateOpenedTrader)))
+		ClearTimer(NameOf(UpdateOpenedTrader));
 
 	if (bAllTraders == 2)
 	{
-		bStopCountDown = true;
+		bStopCountDown = True;
 		foreach DynamicActors(class'KFTraderTrigger', MyTrader)
 		{
 			if (MyTrader.bOpened)
@@ -734,28 +734,28 @@ simulated function PlayZedBuffSoundAndEffect()
 	if (WMGFxHudWrapper(KFPlayerController(GetALocalPlayerController()).myHUD) != None)
 		WMGFxHudWrapper(KFPlayerController(GetALocalPlayerController()).myHUD).ResestWarningMessage();
 
-	class'KFMusicStingerHelper'.static.PlayRoundWonStinger( KFPlayerController(GetALocalPlayerController()) );
+	class'KFMusicStingerHelper'.static.PlayRoundWonStinger(KFPlayerController(GetALocalPlayerController()));
 
 	//trader dialog
-	SetTimer(2.f, false, nameof(PlayZedBuffTraderDialog));
+	SetTimer(2.0f, False, NameOf(PlayZedBuffTraderDialog));
 }
 
 simulated function PlayZedBuffTraderDialog()
 {
 	if (TraderDialogManager != None)
-		TraderDialogManager.PlayDialog( 9, KFPlayerController(GetALocalPlayerController()));
+		TraderDialogManager.PlayDialog(9, KFPlayerController(GetALocalPlayerController()));
 }
 
 simulated function ForceNewMusicZedBuff()
 {
 	// play a boss music during this wave
-	ForceNewMusicTrack(default.ZedBuffMusic[zedBuff_nextMusicTrackIndex]);
+	ForceNewMusicTrack(default.ZedBuffMusic[ZedBuff_NextMusicTrackIndex]);
 
-	++zedBuff_nextMusicTrackIndex;
+	++ZedBuff_NextMusicTrackIndex;
 
 	// cycle tracks
-	if (zedBuff_nextMusicTrackIndex >= default.ZedBuffMusic.length)
-		zedBuff_nextMusicTrackIndex = 0;
+	if (ZedBuff_NextMusicTrackIndex >= default.ZedBuffMusic.length)
+		ZedBuff_NextMusicTrackIndex = 0;
 }
 
 simulated function RepairDoor()
@@ -770,9 +770,9 @@ simulated function RepairDoor()
 
 simulated function TriggerSpecialWaveMessage()
 {
-	bDrawSpecialWave = false; // we will turn it on later
+	bDrawSpecialWave = False; // we will turn it on later
 	specialWaveIndexToShow = 0;
-	SetTimer(2.00000,false,nameof(ShowSpecialWaveMessage));
+	SetTimer(2.0f, False, NameOf(ShowSpecialWaveMessage));
 }
 
 simulated function ShowSpecialWaveMessage()
@@ -785,23 +785,23 @@ simulated function ShowSpecialWaveMessage()
 	if (KFP != None)
 	{
 		KFP.CheckAndEndActiveEMoteSpecialMove();
-		if (SpecialWaveID[specialWaveIndexToShow] != -1)
+		if (SpecialWaveID[specialWaveIndexToShow] != INDEX_NONE)
 		{
 			KFPC.MyGFxHUD.ShowBossNameplate(specialWaves[SpecialWaveID[specialWaveIndexToShow]].default.Title,specialWaves[SpecialWaveID[specialWaveIndexToShow]].default.Description);
-			SetTimer(1.250000, false, nameof(PlaySpecialWaveSound));
+			SetTimer(1.25f, False, NameOf(PlaySpecialWaveSound));
 		}
 	}
 }
 
 simulated function PlaySpecialWaveSound()
 {
-	class'KFMusicStingerHelper'.static.PlayZedPlayerSuicideStinger( KFPlayerController(GetALocalPlayerController()) );
-	SetTimer(4.150000, false, nameof(HideSpecialWaveMessage));
+	class'KFMusicStingerHelper'.static.PlayZedPlayerSuicideStinger(KFPlayerController(GetALocalPlayerController()));
+	SetTimer(4.15f, False, NameOf(HideSpecialWaveMessage));
 }
 
 simulated function HideSpecialWaveMessage()
 {
-	if (specialWaveIndexToShow == 0 && SpecialWaveID[1] != -1)
+	if (specialWaveIndexToShow == 0 && SpecialWaveID[1] != INDEX_NONE)
 	{
 		++specialWaveIndexToShow;
 		ShowSpecialWaveMessage();
@@ -809,7 +809,7 @@ simulated function HideSpecialWaveMessage()
 	else
 	{
 		KFPlayerController(GetALocalPlayerController()).MyGFxHUD.HideBossNamePlate();
-		bDrawSpecialWave = true;
+		bDrawSpecialWave = True;
 	}
 }
 
@@ -822,34 +822,34 @@ simulated function bool IsItemAllowed(STraderItem Item)
 		if (i < 255)
 		{
 			if (Item.ClassName == KFWeaponName_A[i])
-				return true;
+				return True;
 			else if (Item.SingleClassName == KFWeaponName_A[i])
-				return true;
+				return True;
 		}
 		else
 		{
 			if (Item.ClassName == KFWeaponName_B[i - 255])
-				return true;
+				return True;
 			else if (Item.SingleClassName == KFWeaponName_B[i - 255])
-				return true;
+				return True;
 		}
 	}
-	return false;
+	return False;
 }
 
 simulated function bool ShouldSetBossCamOnBossDeath()
 {
-	return false;
+	return False;
 }
 
 simulated function bool IsEndlessWave()
 {
-	return false;
+	return False;
 }
 
 simulated function bool IsBossWave()
 {
-	return false;
+	return False;
 }
 
 simulated function array<int> GetKFSeqEventLevelLoadedIndices()
@@ -865,40 +865,39 @@ defaultproperties
 {
 	NetPriority=1.25f
 	NetUpdateFrequency=20
-	NumberOfTraderWeapons=-1
-	NumberOfStartingWeapons=-1
-	NumberOfSkillUpgrades=-1
-	NumberOfWeaponUpgrades=-1
-	NumberOfEquipmentUpgrades=-1
-	bArmorPickup=0
+
 	bAllTraders=0
-	bZRUMenuCommand=false
-	bZRUMenuAllWave=false
-	WaveMax=255
+	bArmorPickup=0
+	bDrawSpecialWave=False
+	bEndlessMode=True
+	bZRUMenuAllWave=False
+	bZRUMenuCommand=False
 	ArmorPrice=-1
 	GrenadePrice=-1
-	bEndlessMode=True
-	bDrawSpecialWave=false
-	UpdateZedInfoInterval=0.500000
-	UpdateHumanInfoInterval=0.500000
-	UpdatePickupInfoInterval=1.000000
-	zedBuff_nextMusicTrackIndex=0
 	currentPage=1
 	maxPage=1
-	MenuLinker=Texture2D'ZedternalReborn_Menus.Linker'
-	VoteCollectorClass=class'ZedternalReborn.WMVoteCollector'
-	SpecialWaveID(0)=-1
-	SpecialWaveID(1)=-1
-	TraderVoiceGroupClasses(0)=Class'kfgamecontent.KFTraderVoiceGroup_Default'
-	TraderVoiceGroupClasses(1)=Class'kfgamecontent.KFTraderVoiceGroup_Patriarch'
-	TraderVoiceGroupClasses(2)=Class'kfgamecontent.KFTraderVoiceGroup_Hans'
-	TraderVoiceGroupClasses(3)=Class'kfgamecontent.KFTraderVoiceGroup_Lockheart'
-	TraderVoiceGroupClasses(4)=Class'kfgamecontent.KFTraderVoiceGroup_Santa'
+	ZedBuff_NextMusicTrackIndex=0
+	NumberOfTraderWeapons=INDEX_NONE
+	NumberOfStartingWeapons=INDEX_NONE
+	NumberOfSkillUpgrades=INDEX_NONE
+	NumberOfWeaponUpgrades=INDEX_NONE
+	NumberOfEquipmentUpgrades=INDEX_NONE
+
+	SpecialWaveID(0)=INDEX_NONE
+	SpecialWaveID(1)=INDEX_NONE
+	TraderVoiceGroupClasses(0)=Class'KFGameContent.KFTraderVoiceGroup_Default'
+	TraderVoiceGroupClasses(1)=Class'KFGameContent.KFTraderVoiceGroup_Patriarch'
+	TraderVoiceGroupClasses(2)=Class'KFGameContent.KFTraderVoiceGroup_Hans'
+	TraderVoiceGroupClasses(3)=Class'KFGameContent.KFTraderVoiceGroup_Lockheart'
+	TraderVoiceGroupClasses(4)=Class'KFGameContent.KFTraderVoiceGroup_Santa'
 	ZedBuffMusic(0)=KFMusicTrackInfo'WW_MACT_Default.TI_SH_Boss_DieVolter'
 	ZedBuffMusic(1)=KFMusicTrackInfo'WW_MACT_Default.TI_Boss_Patriarch'
 	ZedBuffMusic(2)=KFMusicTrackInfo'WW_MACT_Default.TI_RG_Abomination'
 	ZedBuffMusic(3)=KFMusicTrackInfo'WW_MACT_Default.TI_RG_KingFP'
 	ZedBuffMusic(4)=KFMusicTrackInfo'WW_MACT_Default.TI_Boss_Matriarch'
+
+	MenuLinker=Texture2D'ZedternalReborn_Menus.Linker'
+	VoteCollectorClass=Class'ZedternalReborn.WMVoteCollector'
 
 	Name="Default__WMGameReplicationInfo"
 }
