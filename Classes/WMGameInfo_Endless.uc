@@ -522,10 +522,14 @@ function SetupObjectiveZones()
 			KFMI.RandomWaveObjectives.Length = 0;
 			KFMI.RandomWaveObjectives = NewObjectiveZones;
 		}
-		else
+		else if (KFMI.bUsePresetObjectives)
 		{
 			`log("ZR Warning: Not random objectives, currently not supported for ZedternalReborn");
 			KFMI.bUsePresetObjectives = False;
+		}
+		else
+		{
+			`log("ZR Info: Map does not have any objectives or objective zones to activate");
 		}
 	}
 }
