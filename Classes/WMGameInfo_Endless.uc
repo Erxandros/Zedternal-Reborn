@@ -135,8 +135,8 @@ event PostBeginPlay()
 	else
 		doshNewPlayer = class'ZedternalReborn.Config_Map'.static.GetStartingDosh(WorldInfo.GetMapName(True));
 
-	lastSpecialWaveID_First = -1;
-	lastSpecialWaveID_Second = -1;
+	lastSpecialWaveID_First = INDEX_NONE;
+	lastSpecialWaveID_Second = INDEX_NONE;
 
 	TimeBetweenWaves = class'ZedternalReborn.Config_Game'.static.GetTimeBetweenWave(GameDifficultyZedternal);
 	TimeBetweenWavesDefault = TimeBetweenWaves;
@@ -728,8 +728,8 @@ function CheckAndSetupSpecialWave()
 
 	for (i = 0; i < class'ZedternalReborn.Config_SpecialWave'.default.SpecialWaveOverride_SpecialWaves.length; ++i)
 	{
-		SWO.FirstID = -1;
-		SWO.SecondID = -1;
+		SWO.FirstID = INDEX_NONE;
+		SWO.SecondID = INDEX_NONE;
 
 		for (j = 0; j < SpecialWaveObjects.length; ++j)
 		{
@@ -739,17 +739,17 @@ function CheckAndSetupSpecialWave()
 			if (PathName(SpecialWaveObjects[j].SWave) ~= class'ZedternalReborn.Config_SpecialWave'.default.SpecialWaveOverride_SpecialWaves[i].SecondPath)
 				SWO.SecondID = j;
 
-			if (SWO.FirstID != -1 && SWO.SecondID != -1)
+			if (SWO.FirstID != INDEX_NONE && SWO.SecondID != INDEX_NONE)
 				break;
 		}
 
-		if (SWO.FirstID == -1)
+		if (SWO.FirstID == INDEX_NONE)
 			`log("ZR Warning: Special wave override on line"@i + 1@"has an invalid special wave pathname for FirstPath:"@class'ZedternalReborn.Config_SpecialWave'.default.SpecialWaveOverride_SpecialWaves[i].FirstPath);
 
-		if (SWO.SecondID == -1)
+		if (SWO.SecondID == INDEX_NONE)
 			`log("ZR Warning: Special wave override on line"@i + 1@"has an invalid special wave pathname for SecondPath:"@class'ZedternalReborn.Config_SpecialWave'.default.SpecialWaveOverride_SpecialWaves[i].SecondPath);
 
-		if (SWO.FirstID == -1 && SWO.SecondID == -1)
+		if (SWO.FirstID == INDEX_NONE && SWO.SecondID == INDEX_NONE)
 			continue;
 
 		SWO.Wave = class'ZedternalReborn.Config_SpecialWave'.default.SpecialWaveOverride_SpecialWaves[i].Wave;
@@ -773,10 +773,10 @@ function SetupSpecialWave()
 		{
 			if (SpecialWaveOverrides[i].Wave == (WaveNum + 1) && FRand() < SpecialWaveOverrides[i].Probability)
 			{
-				if (SpecialWaveOverrides[i].FirstID != -1)
+				if (SpecialWaveOverrides[i].FirstID != INDEX_NONE)
 					SWList.AddItem(SpecialWaveOverrides[i].FirstID);
 
-				if (SpecialWaveOverrides[i].SecondID != -1 && SpecialWaveOverrides[i].SecondID != SpecialWaveOverrides[i].FirstID)
+				if (SpecialWaveOverrides[i].SecondID != INDEX_NONE && SpecialWaveOverrides[i].SecondID != SpecialWaveOverrides[i].FirstID)
 					SWList.AddItem(SpecialWaveOverrides[i].SecondID);
 
 				break;
@@ -794,7 +794,7 @@ function SetupSpecialWave()
 				lastSpecialWaveID_Second = SWList[1];
 			}
 			else
-				lastSpecialWaveID_Second = -1;
+				lastSpecialWaveID_Second = INDEX_NONE;
 
 			// if playing solo, trigger special wave visual effect
 			if (WorldInfo.NetMode != NM_DedicatedServer)
@@ -838,8 +838,8 @@ function SetupSpecialWave()
 		}
 		else
 		{
-			WMGameReplicationInfo(MyKFGRI).SpecialWaveID[1] = -1;
-			lastSpecialWaveID_Second = -1;
+			WMGameReplicationInfo(MyKFGRI).SpecialWaveID[1] = INDEX_NONE;
+			lastSpecialWaveID_Second = INDEX_NONE;
 		}
 
 		// if playing solo, trigger special wave visual effect
@@ -850,8 +850,8 @@ function SetupSpecialWave()
 	}
 	else
 	{
-		WMGameReplicationInfo(MyKFGRI).SpecialWaveID[0] = -1;
-		WMGameReplicationInfo(MyKFGRI).SpecialWaveID[1] = -1;
+		WMGameReplicationInfo(MyKFGRI).SpecialWaveID[0] = INDEX_NONE;
+		WMGameReplicationInfo(MyKFGRI).SpecialWaveID[1] = INDEX_NONE;
 	}
 }
 
@@ -859,9 +859,9 @@ function SetSpecialWaveActor()
 {
 	local WMPlayerController WMPC;
 
-	if (WMGameReplicationInfo(MyKFGRI).SpecialWaveID[0] != -1)
+	if (WMGameReplicationInfo(MyKFGRI).SpecialWaveID[0] != INDEX_NONE)
 		Spawn(WMGameReplicationInfo(MyKFGRI).specialWaves[WMGameReplicationInfo(MyKFGRI).SpecialWaveID[0]]);
-	if (WMGameReplicationInfo(MyKFGRI).SpecialWaveID[1] != -1)
+	if (WMGameReplicationInfo(MyKFGRI).SpecialWaveID[1] != INDEX_NONE)
 		Spawn(WMGameReplicationInfo(MyKFGRI).specialWaves[WMGameReplicationInfo(MyKFGRI).SpecialWaveID[1]]);
 
 	foreach DynamicActors(class'WMPlayerController', WMPC)
@@ -878,7 +878,7 @@ function ClearSpecialWave()
 
 	for (i = 0; i <= 1; ++i)
 	{
-		WMGameReplicationInfo(MyKFGRI).SpecialWaveID[i] = -1;
+		WMGameReplicationInfo(MyKFGRI).SpecialWaveID[i] = INDEX_NONE;
 	}
 	foreach DynamicActors(class'WMSpecialWave', WMSW)
 	{
@@ -1178,7 +1178,7 @@ function class<KFWeaponDefinition> FindSingleWeaponFromDual(const out class<KFWe
 }
 
 // To fix broken weapons using our own overrides, like nailguns
-function CheckForWeaponOverrides(class<KFWeaponDefinition> KFWD, optional int index = -1)
+function CheckForWeaponOverrides(class<KFWeaponDefinition> KFWD, optional int index = INDEX_NONE)
 {
 	local string WeapDefinitionPath;
 	local class<KFWeaponDefinition> OverrideWeapon;
@@ -1288,7 +1288,7 @@ function class<KFWeaponDefinition> ApplyRandomWeaponVariantStartingWeapon(const 
 			WeaponVariantDef = class<KFWeaponDefinition>(DynamicLoadObject(class'ZedternalReborn.Config_Weapon'.default.WeaponVariant_VariantList[i].WeaponDefVariant, class'Class'));
 			if (WeaponVariantDef != None)
 			{
-				TraderItemsReplacementHelper(BaseWeaponDef, WeaponVariantDef, -1, False);
+				TraderItemsReplacementHelper(BaseWeaponDef, WeaponVariantDef, INDEX_NONE, False);
 
 				//Adding dual weapon class to the trader
 				if (class'ZedternalReborn.Config_Weapon'.default.WeaponVariant_VariantList[i].DualWeaponDefVariant != "")
@@ -1337,7 +1337,7 @@ function class<KFWeaponDefinition> ApplyRandomWeaponVariantStartingWeapon(const 
 	return KFWD;
 }
 
-function ApplyRandomWeaponVariant(class<KFWeaponDefinition> KFWD, optional int index = -1)
+function ApplyRandomWeaponVariant(class<KFWeaponDefinition> KFWD, optional int index = INDEX_NONE)
 {
 	local int i, x;
 	local string WeapDefinitionPath;
@@ -1403,7 +1403,7 @@ function ApplyRandomWeaponVariant(class<KFWeaponDefinition> KFWD, optional int i
 	CheckForWeaponOverrides(KFWD, index);
 }
 
-function TraderItemsReplacementHelper(const out class<KFWeaponDefinition> OldWeaponDefClass, const out class<KFWeaponDefinition> NewWeaponDefClass, optional int index = -1, optional bool putInTrader = True)
+function TraderItemsReplacementHelper(const out class<KFWeaponDefinition> OldWeaponDefClass, const out class<KFWeaponDefinition> NewWeaponDefClass, optional int index = INDEX_NONE, optional bool putInTrader = True)
 {
 	local int i;
 	local STraderItem newWeapon;
@@ -1766,7 +1766,7 @@ function float GetAdjustedAIDoshValue(class<KFPawn_Monster> MonsterClass)
 
 	for (i = 0; i <= 1; ++i)
 	{
-		if (WMGameReplicationInfo(MyKFGRI).SpecialWaveID[i] != -1)
+		if (WMGameReplicationInfo(MyKFGRI).SpecialWaveID[i] != INDEX_NONE)
 			TempValue *= WMGameReplicationInfo(MyKFGRI).specialWaves[WMGameReplicationInfo(MyKFGRI).SpecialWaveID[i]].default.doshFactor;
 	}
 
@@ -1801,7 +1801,7 @@ function Killed(Controller Killer, Controller KilledPlayer, Pawn KilledPawn, cla
 
 	WMGRI = WMGameReplicationInfo(MyKFGRI);
 
-	if (WMGRI.SpecialWaveID[0] != -1)
+	if (WMGRI.SpecialWaveID[0] != INDEX_NONE)
 	{
 		foreach DynamicActors(class'WMSpecialWave', WMSW)
 		{
