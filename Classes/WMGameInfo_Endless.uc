@@ -344,6 +344,9 @@ function WaveEnded(EWaveEndCondition WinCondition)
 {
 	local WMPlayerController WMPC;
 
+	if(!bWaveStarted && !MyKFGRI.bTraderIsOpen)
+		return;
+
 	super.WaveEnded(WinCondition);
 
 	ClearSpecialWave();
