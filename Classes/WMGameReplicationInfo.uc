@@ -837,17 +837,27 @@ simulated function bool IsItemAllowed(STraderItem Item)
 	return False;
 }
 
-simulated function bool ShouldSetBossCamOnBossDeath()
-{
-	return False;
-}
-
-simulated function bool IsEndlessWave()
+simulated function bool IsFinalWave()
 {
 	return False;
 }
 
 simulated function bool IsBossWave()
+{
+	return False;
+}
+
+simulated function bool IsBossWaveNext()
+{
+	return False;
+}
+
+simulated function bool ShouldSetBossCamOnBossSpawn()
+{
+	return False;
+}
+
+simulated function bool ShouldSetBossCamOnBossDeath()
 {
 	return False;
 }
