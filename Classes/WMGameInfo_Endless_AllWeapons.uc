@@ -43,7 +43,7 @@ function BuildWeaponList()
 	for (i = 0; i < weaponIndex.length; ++i)
 	{
 		KFWeaponDefClass = TraderItems.SaleItems[weaponIndex[i]].WeaponDef;
-		if (KFWeaponDefClass != none)
+		if (KFWeaponDefClass != None)
 		{
 			if (bAllowWeaponVariant)
 				ApplyRandomWeaponVariant(TraderItems.SaleItems[weaponIndex[i]].WeaponDef, weaponIndex[i]);
