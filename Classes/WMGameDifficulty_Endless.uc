@@ -3,7 +3,7 @@ class WMGameDifficulty_Endless extends KFGameDifficulty_Survival;
 var WMGameReplicationInfo WMGRI;
 var float GameDifficultyZedternal;
 
-function SetDifficultySettings( float GameDifficulty )
+function SetDifficultySettings(float GameDifficulty)
 {
 	`log("ZedternalReborn GameDifficulty: "$GameDifficulty);
 
@@ -20,27 +20,28 @@ function SetDifficultySettings( float GameDifficulty )
 	super.SetDifficultySettings(GameDifficulty);
 }
 
-function GetAIHealthModifier(KFPawn_Monster P, float GameDifficulty, byte NumLivingPlayers, out float HealthMod, out float HeadHealthMod, optional bool bApplyDifficultyScaling=true)
+function GetAIHealthModifier(KFPawn_Monster P, float GameDifficulty, byte NumLivingPlayers, out float HealthMod, out float HeadHealthMod, optional bool bApplyDifficultyScaling=True)
 {
 	local byte i;
 
 	GameDifficulty = GameDifficultyZedternal;
 
-	if (P != none)
+	if (P != None)
 	{
 		HealthMod = class'ZedternalReborn.Config_Difficulty'.static.GetZedHealthMod(GameDifficulty);
 		HeadHealthMod = class'ZedternalReborn.Config_Difficulty'.static.GetZedHeadHealthMod(GameDifficulty);
 
 		// invalid scaling?
 		if (HealthMod <= 0)
-			HealthMod = 1.f;
+			HealthMod = 1.0f;
 		if (HeadHealthMod <= 0)
-			HeadHealthMod = 1.f;
+			HeadHealthMod = 1.0f;
 
 		// Zed buff
-		if (WMGRI == none)
+		if (WMGRI == None)
 			WMGRI = WMGameReplicationInfo(Class'WorldInfo'.static.GetWorldInfo().GRI);
-		if (WMGRI != none)
+
+		if (WMGRI != None)
 		{
 			if (P.bLargeZed)
 			{
@@ -76,21 +77,22 @@ function GetVersusHealthModifier(KFPawn_Monster P, byte NumLivingPlayers, out fl
 {
 	local byte i;
 
-	if (P != none)
+	if (P != None)
 	{
 		HealthMod = GetGlobalHealthMod();
 		HeadHealthMod = GetGlobalHealthMod();
 
 		// invalid scaling?
 		if (HealthMod <= 0)
-			HealthMod = 1.f;
+			HealthMod = 1.0f;
 		if (HeadHealthMod <= 0)
-			HeadHealthMod = 1.f;
+			HeadHealthMod = 1.0f;
 
 		// Zed buff
-		if (WMGRI == none)
+		if (WMGRI == None)
 			WMGRI = WMGameReplicationInfo(Class'WorldInfo'.static.GetWorldInfo().GRI);
-		if (WMGRI != none)
+
+		if (WMGRI != None)
 		{
 			for (i = 0; i < WMGRI.zedBuffs.length; ++i)
 			{
@@ -103,8 +105,8 @@ function GetVersusHealthModifier(KFPawn_Monster P, byte NumLivingPlayers, out fl
 		}
 
 		// Add another multiplier based on the number of players and the zeds character info scalers
-		HealthMod *= 1.0 + GetNumPlayersHealthMod(NumLivingPlayers, P.DifficultySettings.default.NumPlayersScale_BodyHealth_Versus);
-		HeadHealthMod *= 1.0 + GetNumPlayersHealthMod(NumLivingPlayers, P.DifficultySettings.default.NumPlayersScale_HeadHealth_Versus);
+		HealthMod *= 1.0f + GetNumPlayersHealthMod(NumLivingPlayers, P.DifficultySettings.default.NumPlayersScale_BodyHealth_Versus);
+		HeadHealthMod *= 1.0f + GetNumPlayersHealthMod(NumLivingPlayers, P.DifficultySettings.default.NumPlayersScale_HeadHealth_Versus);
 	}
 }
 
@@ -123,10 +125,13 @@ function float GetAIDamageModifier(KFPawn_Monster P, float GameDifficulty, bool 
 
 	// invalid scaling?
 	if (ZedDamageMod <= 0)
-		ZedDamageMod = 0.750000;
+		ZedDamageMod = 0.75f;
 
 	// Zed buff
-	if (WMGRI != none)
+	if (WMGRI == None)
+		WMGRI = WMGameReplicationInfo(Class'WorldInfo'.static.GetWorldInfo().GRI);
+
+	if (WMGRI != None)
 	{
 		ZedDamageMod = class'ZedternalReborn.Config_ZedBuff'.static.GetDamageBuff(ZedDamageMod, GameDifficulty, WMGRI.WaveNum);
 		for (i = 0; i < WMGRI.zedBuffs.length; ++i)
@@ -150,9 +155,10 @@ function float GetAISpeedMod(KFPawn_Monster P, float GameDifficulty)
 	SpeedMod = class'ZedternalReborn.Config_Difficulty'.static.GetZedSpeedMod(GameDifficulty) * RandRange(0.9f, 1.1f);
 
 	// Zed buff
-	if (WMGRI == none)
-			WMGRI = WMGameReplicationInfo(Class'WorldInfo'.static.GetWorldInfo().GRI);
-	if (WMGRI != none)
+	if (WMGRI == None)
+		WMGRI = WMGameReplicationInfo(Class'WorldInfo'.static.GetWorldInfo().GRI);
+
+	if (WMGRI != None)
 	{
 		SpeedMod = class'ZedternalReborn.Config_ZedBuff'.static.GetSpeedBuff(SpeedMod, GameDifficulty, WMGRI.WaveNum);
 		for (i = 0; i < WMGRI.zedBuffs.length; ++i)
@@ -165,7 +171,7 @@ function float GetAISpeedMod(KFPawn_Monster P, float GameDifficulty)
 	return FMax(0.1f, SpeedMod);
 }
 
-function float GetCharSprintChanceByDifficulty( KFPawn_Monster P, float GameDifficulty )
+function float GetCharSprintChanceByDifficulty(KFPawn_Monster P, float GameDifficulty)
 {
 	local float SprintChanceMod;
 	local byte i;
@@ -177,19 +183,19 @@ function float GetCharSprintChanceByDifficulty( KFPawn_Monster P, float GameDiff
 	if (!class'ZedternalReborn.Config_Game'.default.Game_bAllowZedTeleport)
 	{
 		KFAI = KFAIController_Monster(P.Controller);
-		if (KFAI != none)
-			KFAI.bCanTeleportCloser = false;
+		if (KFAI != None)
+			KFAI.bCanTeleportCloser = False;
 	}
 
-	if ( GameDifficulty >= 3.0)
+	if (GameDifficulty >= 3.0f)
 	{
 		SprintChanceMod =  P.DifficultySettings.default.HellOnEarth.SprintChance;
 	}
-	else if ( GameDifficulty >= 2.0)
+	else if (GameDifficulty >= 2.0f)
 	{
 		SprintChanceMod =  P.DifficultySettings.default.Suicidal.SprintChance;
 	}
-	else if ( GameDifficulty >= 1.0)
+	else if (GameDifficulty >= 1.0f)
 	{
 		SprintChanceMod =  P.DifficultySettings.default.Hard.SprintChance;
 	}
@@ -197,11 +203,12 @@ function float GetCharSprintChanceByDifficulty( KFPawn_Monster P, float GameDiff
 		SprintChanceMod = P.DifficultySettings.default.Normal.SprintChance;
 
 	// Zed buff
-	if (WMGRI == none)
+	if (WMGRI == None)
 		WMGRI = WMGameReplicationInfo(Class'WorldInfo'.static.GetWorldInfo().GRI);
-	if (WMGRI != none)
+
+	if (WMGRI != None)
 	{
-		if (KFPawn_ZedScrake(P) == none && KFPawn_ZedFleshpound(P) == none)
+		if (KFPawn_ZedScrake(P) == None && KFPawn_ZedFleshpound(P) == None)
 			SprintChanceMod += class'ZedternalReborn.Config_ZedBuff'.static.GetSprintChanceBuff(GameDifficulty, WMGRI.WaveNum);
 		for (i = 0; i < WMGRI.zedBuffs.length; ++i)
 		{
@@ -210,25 +217,25 @@ function float GetCharSprintChanceByDifficulty( KFPawn_Monster P, float GameDiff
 		}
 	}
 
-	return FMax(0.f, SprintChanceMod);
+	return FMax(0.0f, SprintChanceMod);
 }
 
-function float GetCharSprintWhenDamagedChanceByDifficulty( KFPawn_Monster P, float GameDifficulty )
+function float GetCharSprintWhenDamagedChanceByDifficulty(KFPawn_Monster P, float GameDifficulty)
 {
 	local float SprintChanceMod;
 	local byte i;
 
 	GameDifficulty = GameDifficultyZedternal;
 
-	if ( GameDifficulty >= 3.0)
+	if (GameDifficulty >= 3.0f)
 	{
 		SprintChanceMod =  P.DifficultySettings.default.HellOnEarth.DamagedSprintChance;
 	}
-	else if ( GameDifficulty >= 2.0)
+	else if (GameDifficulty >= 2.0f)
 	{
 		SprintChanceMod =  P.DifficultySettings.default.Suicidal.DamagedSprintChance;
 	}
-	else if ( GameDifficulty >= 1.0)
+	else if (GameDifficulty >= 1.0f)
 	{
 		SprintChanceMod = P.DifficultySettings.default.Hard.DamagedSprintChance;
 	}
@@ -236,9 +243,10 @@ function float GetCharSprintWhenDamagedChanceByDifficulty( KFPawn_Monster P, flo
 		SprintChanceMod = P.DifficultySettings.default.Normal.DamagedSprintChance;
 
 	// Zed buff
-	if (WMGRI == none)
+	if (WMGRI == None)
 		WMGRI = WMGameReplicationInfo(Class'WorldInfo'.static.GetWorldInfo().GRI);
-	if (WMGRI != none)
+
+	if (WMGRI != None)
 	{
 		for (i = 0; i < WMGRI.zedBuffs.length; ++i)
 		{
@@ -247,7 +255,7 @@ function float GetCharSprintWhenDamagedChanceByDifficulty( KFPawn_Monster P, flo
 		}
 	}
 
-	return FMax(0.f, SprintChanceMod);
+	return FMax(0.0f, SprintChanceMod);
 }
 
 /* Get the money value adjusted by difficulty */
@@ -259,9 +267,10 @@ function float GetKillCashModifier()
 	DoshMod = CurrentSettings.DoshKillMod;
 
 	// Zed buff
-	if (WMGRI == none)
+	if (WMGRI == None)
 		WMGRI = WMGameReplicationInfo(Class'WorldInfo'.static.GetWorldInfo().GRI);
-	if (WMGRI != none)
+
+	if (WMGRI != None)
 	{
 		DoshMod -= class'ZedternalReborn.Config_ZedBuff'.static.GetDoshPenalityBuff(WMGRI.WaveNum);
 		for (i = 0; i < WMGRI.zedBuffs.length; ++i)
@@ -271,7 +280,7 @@ function float GetKillCashModifier()
 		}
 	}
 
-	return FMax(0.f, DoshMod);
+	return FMax(0.0f, DoshMod);
 }
 
 /* Get the modifier for the number of active weapon pickups in a map */
@@ -283,9 +292,10 @@ function float GetItemPickupModifier()
 	ItemPickupMod = CurrentSettings.ItemPickupsMod;
 
 	// Zed buff
-	if (WMGRI == none)
+	if (WMGRI == None)
 		WMGRI = WMGameReplicationInfo(Class'WorldInfo'.static.GetWorldInfo().GRI);
-	if (WMGRI != none)
+
+	if (WMGRI != None)
 	{
 		for (i = 0; i < WMGRI.zedBuffs.length; ++i)
 		{
@@ -294,7 +304,7 @@ function float GetItemPickupModifier()
 		}
 	}
 
-	return FMax(0.f, ItemPickupMod);
+	return FMax(0.0f, ItemPickupMod);
 }
 
 /* Get the modifier for the number of active weapon pickups in a map */
@@ -306,9 +316,10 @@ function float GetAmmoPickupModifier()
 	AmmoPickupMod = CurrentSettings.AmmoPickupsMod;
 
 	// Zed buff
-	if (WMGRI == none)
+	if (WMGRI == None)
 		WMGRI = WMGameReplicationInfo(Class'WorldInfo'.static.GetWorldInfo().GRI);
-	if (WMGRI != none)
+
+	if (WMGRI != None)
 	{
 		for (i = 0; i < WMGRI.zedBuffs.length; ++i)
 		{
@@ -317,7 +328,7 @@ function float GetAmmoPickupModifier()
 		}
 	}
 
-	return FMax(0.f, AmmoPickupMod);
+	return FMax(0.0f, AmmoPickupMod);
 }
 
 function float GetWeakAttackChance()
@@ -328,9 +339,10 @@ function float GetWeakAttackChance()
 	WeakAttackChanceMod = CurrentSettings.WeakAttackChance;
 
 	// Zed buff
-	if (WMGRI == none)
+	if (WMGRI == None)
 		WMGRI = WMGameReplicationInfo(Class'WorldInfo'.static.GetWorldInfo().GRI);
-	if (WMGRI != none)
+
+	if (WMGRI != None)
 	{
 		for (i = 0; i < WMGRI.zedBuffs.length; ++i)
 		{
@@ -339,7 +351,7 @@ function float GetWeakAttackChance()
 		}
 	}
 
-	return FMax(0.f, WeakAttackChanceMod);
+	return FMax(0.0f, WeakAttackChanceMod);
 }
 
 function float GetMediumAttackChance()
@@ -350,9 +362,10 @@ function float GetMediumAttackChance()
 	MediumAttackChanceMod = CurrentSettings.MediumAttackChance;
 
 	// Zed buff
-	if (WMGRI == none)
+	if (WMGRI == None)
 		WMGRI = WMGameReplicationInfo(Class'WorldInfo'.static.GetWorldInfo().GRI);
-	if (WMGRI != none)
+
+	if (WMGRI != None)
 	{
 		for (i = 0; i < WMGRI.zedBuffs.length; ++i)
 		{
@@ -361,7 +374,7 @@ function float GetMediumAttackChance()
 		}
 	}
 
-	return FMax(0.f, MediumAttackChanceMod);
+	return FMax(0.0f, MediumAttackChanceMod);
 }
 
 function float GetHardAttackChance()
@@ -372,9 +385,10 @@ function float GetHardAttackChance()
 	HardAttackChanceMod = CurrentSettings.HardAttackChance;
 
 	// Zed buff
-	if (WMGRI == none)
+	if (WMGRI == None)
 		WMGRI = WMGameReplicationInfo(Class'WorldInfo'.static.GetWorldInfo().GRI);
-	if (WMGRI != none)
+
+	if (WMGRI != None)
 	{
 		HardAttackChanceMod += class'ZedternalReborn.Config_ZedBuff'.static.GetHardAttackChanceBuff(WMGRI.WaveNum);
 		for (i = 0; i < WMGRI.zedBuffs.length; ++i)
@@ -384,7 +398,7 @@ function float GetHardAttackChance()
 		}
 	}
 
-	return FMax(0.f, HardAttackChanceMod);
+	return FMax(0.0f, HardAttackChanceMod);
 }
 
 function float GetSpawnRateModifier()
@@ -395,9 +409,10 @@ function float GetSpawnRateModifier()
 	SpawnRateMod = CurrentSettings.SpawnRateModifier;
 
 	// Zed buff
-	if (WMGRI == none)
+	if (WMGRI == None)
 		WMGRI = WMGameReplicationInfo(Class'WorldInfo'.static.GetWorldInfo().GRI);
-	if (WMGRI != none)
+
+	if (WMGRI != None)
 	{
 		for (i = 0; i < WMGRI.zedBuffs.length; ++i)
 		{
@@ -406,7 +421,7 @@ function float GetSpawnRateModifier()
 		}
 	}
 
-	return FMax(0.0005, SpawnRateMod);
+	return FMax(0.0005f, SpawnRateMod);
 }
 
 /** Return the damage resistance modifier */
@@ -418,9 +433,10 @@ function float GetDamageResistanceModifier(byte NumLivingPlayers)
 	DamageResistanceMod = GetNumPlayersModifier(NumPlayers_ZedDamageResistance, NumLivingPlayers);
 
 	// Zed buff
-	if (WMGRI == none)
+	if (WMGRI == None)
 		WMGRI = WMGameReplicationInfo(Class'WorldInfo'.static.GetWorldInfo().GRI);
-	if (WMGRI != none)
+
+	if (WMGRI != None)
 	{
 		for (i = 0; i < WMGRI.zedBuffs.length; ++i)
 		{
@@ -435,10 +451,6 @@ function float GetDamageResistanceModifier(byte NumLivingPlayers)
 defaultproperties
 {
 	GameDifficultyZedternal=0.0f
-	Normal=(TraderTime=75,MovementSpeedMod=0.900000,WaveCountMod=0.850000,DoshKillMod=1.200000,StartingDosh=300,AmmoPickupsMod=0.400000,ItemPickupsMod=0.450000,SelfInflictedDamageMod=0.100000,SpawnRateModifier=0.800000)
-	Hard=(MovementSpeedMod=0.950000,RespawnDosh=300,AmmoPickupsMod=0.300000,ItemPickupsMod=0.350000,SelfInflictedDamageMod=0.200000,SpawnRateModifier=0.800000)
-	Suicidal=(MovementSpeedMod=0.950000,WaveCountMod=1.300000,AmmoPickupsMod=0.400000,ItemPickupsMod=0.250000,MediumAttackChance=1.000000,HardAttackChance=0.500000,SelfInflictedDamageMod=0.200000,SpawnRateModifier=0.700000)
-	HellOnEarth=(MovementSpeedMod=0.950000,WaveCountMod=1.700000,DoshKillMod=0.900000,AmmoPickupsMod=0.250000,ItemPickupsMod=0.100000,MediumAttackChance=1.000000,HardAttackChance=1.000000,SelfInflictedDamageMod=0.500000,SpawnRateModifier=0.680000)
 
-	Name="Default__KFGameDifficulty_Survival"
+	Name="Default__WMGameDifficulty_Endless"
 }
