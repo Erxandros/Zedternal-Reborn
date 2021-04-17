@@ -1952,6 +1952,33 @@ function CheckZedTimeOnKill(Controller Killer, Controller KilledPlayer, Pawn Kil
 	}
 }
 
+function InitAllPickups()
+{
+	if (bDisablePickups || DifficultyInfo == None)
+	{
+		NumWeaponPickups = 0;
+		NumAmmoPickups = 0;
+	}
+	else
+	{
+		NumWeaponPickups = Min(FCeil(float(ItemPickups.Length) * DifficultyInfo.GetItemPickupModifier()), ItemPickups.Length);
+		NumAmmoPickups = Min(FCeil(float(AmmoPickups.Length) * DifficultyInfo.GetAmmoPickupModifier()), AmmoPickups.Length);
+	}
+
+	if (BaseMutator != None)
+	{
+		BaseMutator.ModifyPickupFactories();
+	}
+
+	ResetAllPickups();
+}
+
+function ResetAllPickups()
+{
+	//Skip the KFGameInfo_Survival ResetAllPickups function
+	super(KFGameInfo).ResetAllPickups();
+}
+
 function ResetPickups(array<KFPickupFactory> PickupList, int NumPickups)
 {
 	local byte i, ChosenIndex;
