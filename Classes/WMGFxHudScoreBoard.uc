@@ -7,17 +7,16 @@ final function PlayerController GetPlayer()
 	return GetALocalPlayerController();
 }
 
-static final function string FormatTimeSMH(float Sec)
+static final function string FormatTimeSMH(float TotalSeconds)
 {
-	local int Hours, Seconds, Minutes;
+	local int Hours, Minutes, Seconds;
 
-	Sec = Abs(Sec);
-	Seconds = int(Sec);
-	Minutes = Seconds / 60;
-	Seconds -= Minutes * 60;
-	Hours = Minutes / 60;
+	TotalSeconds = int(Abs(TotalSeconds));
+	Hours = TotalSeconds / 3600;
+	Minutes = (TotalSeconds / 60) % 60;
+	Seconds = TotalSeconds % 60;
 
-	return ((Hours < 1) ? "0" $Hours : string(Hours)) @":" @((Minutes < 10) ? "0" $Minutes : string(Minutes)) @":" @((Seconds < 10) ? "0" $Seconds : string(Seconds));
+	return ((Hours < 10) ? "0" $ Hours : string(Hours)) @ ":" @ ((Minutes < 10) ? "0" $ Minutes : string(Minutes)) @ ":" @ ((Seconds < 10) ? "0" $ Seconds : string(Seconds));
 }
 
 function bool InOrder(PlayerReplicationInfo A, PlayerReplicationInfo B)
