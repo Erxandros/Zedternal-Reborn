@@ -1888,7 +1888,6 @@ function RewardSurvivingPlayers()
 	}
 }
 
-/** Trigger DramaticEvent/ZedTime when pawn is killed */
 function CheckZedTimeOnKill(Controller Killer, Controller KilledPlayer, Pawn KilledPawn, class<DamageType> DamageType)
 {
 	local bool bIsHuman;
@@ -1896,24 +1895,19 @@ function CheckZedTimeOnKill(Controller Killer, Controller KilledPlayer, Pawn Kil
 	local WMPerk KillersPerk;
 	local class<KFDamageType> KFDT;
 
-	// Skip if the damagetype is (or can apply) damage over time
 	KFDT = class<KFDamageType>(DamageType);
 	if (KFDT != None && KFDT.default.DoT_Type != DOT_None)
-	{
 		return;
-	}
 
-	// If already in zed time, check for zed time extensions
 	if (IsZedTimeActive())
 	{
 		KFPC = KFPlayerController(Killer);
 		if (KFPC != None)
 		{
 			KillersPerk = WMPerk(KFPC.GetPerk());
-			// Handle if someone has a perk with zed time extensions
-			if (ZedTimeRemaining > 0.f && KillersPerk != None && KillersPerk.GetZedTimeExtensionMax(KFPC.GetLevel()) > ZedTimeExtensionsUsed)
+
+			if (ZedTimeRemaining > 0.0f && KillersPerk != None && KillersPerk.GetZedTimeExtensionMax(KFPC.GetLevel()) > ZedTimeExtensionsUsed)
 			{
-				// Force Zed Time extension for every kill as long as the Player's Perk has Extensions left
 				DramaticEvent(1.0f);
 				++ZedTimeExtensionsUsed;
 			}
@@ -1921,12 +1915,9 @@ function CheckZedTimeOnKill(Controller Killer, Controller KilledPlayer, Pawn Kil
 	}
 	else
 	{
-// NVCHANGE_BEGIN - RLS - Debugging Effects
 		if (bNVAlwaysDramatic)
 			DramaticEvent(1.0f);
-// NVCHANGE_END - RLS - Debugging Effects
 
-		// Handle human kills
 		bIsHuman = KilledPawn.IsA('KFPawn_Human');
 		if (bIsHuman)
 		{
@@ -1935,20 +1926,12 @@ function CheckZedTimeOnKill(Controller Killer, Controller KilledPlayer, Pawn Kil
 		}
 
 		if (KilledPawn.Controller == None)
-		{
-			// don't trigger dramatic event for brain-dead zeds
 			return;
-		}
 
-		// Handle monster/zed kills - increased probability if closer to the player
-		if (Killer != None && Killer.Pawn != None && VSizeSq(Killer.Pawn.Location - KilledPawn.Location) < 90000) // 3 meters
-		{
+		if (Killer != None && Killer.Pawn != None && VSizeSq(Killer.Pawn.Location - KilledPawn.Location) < 90000)
 			DramaticEvent(0.05f);
-		}
 		else
-		{
 			DramaticEvent(0.025f);
-		}
 	}
 }
 
