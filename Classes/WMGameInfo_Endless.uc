@@ -1984,7 +1984,7 @@ function ResetPickups(array<KFPickupFactory> PickupList, int NumPickups)
 	local byte i, ChosenIndex;
 	local array<KFPickupFactory> PossiblePickups;
 
-	NumPickups = Max(Min(Round(float(NumPickups) * 0.5f) + WaveNum * 2, PickupList.Length - 5), 0);
+	NumPickups = Clamp(Round(float(NumPickups) * (0.5f + float(WaveNum) * 0.1f)), 0, Round(float(PickupList.Length) * 0.75f));
 
 	PossiblePickups = PickupList;
 	for (i = 0; i < NumPickups; ++i)
