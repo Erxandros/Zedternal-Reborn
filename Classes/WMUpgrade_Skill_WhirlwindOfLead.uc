@@ -1,7 +1,6 @@
 class WMUpgrade_Skill_WhirlwindOfLead extends WMUpgrade_Skill;
 
 var array<float> FireRate, SpecialRate;
-var array<name> ZedTimeModifyingStates;
 
 static simulated function bool GetIsUberAmmoActive(int upgLevel, KFWeapon KFW, KFPawn OwnerPawn)
 {
@@ -15,7 +14,7 @@ static simulated function GetZedTimeModifier(out float InModifier, int upgLevel,
 	if(KFW != None)
 	{
 		StateName = KFW.GetStateName();
-		if (default.ZedTimeModifyingStates.Find(StateName) != INDEX_NONE)
+		if (class'ZedternalReborn.WMWeaponStates'.static.IsWeaponAttackState(StateName))
 		{
 			if (KFWeap_MeleeBase(KFW) != None || KFW.default.MagazineCapacity[0] > 4)
 				InModifier += default.FireRate[upgLevel - 1];
@@ -31,15 +30,6 @@ defaultproperties
 	FireRate(1)=0.9f
 	SpecialRate(0)=0.2f
 	SpecialRate(1)=0.4f
-
-	ZedTimeModifyingStates(0)="MeleeChainAttacking"
-	ZedTimeModifyingStates(1)="MeleeAttackBasic"
-	ZedTimeModifyingStates(2)="MeleeHeavyAttacking"
-	ZedTimeModifyingStates(3)="MeleeSustained"
-	ZedTimeModifyingStates(4)="WeaponFiring"
-	ZedTimeModifyingStates(5)="WeaponBurstFiring"
-	ZedTimeModifyingStates(6)="WeaponSingleFiring"
-	ZedTimeModifyingStates(7)="WeaponSingleFireAndReload"
 
 	upgradeName="Whirlwind of Lead"
 	upgradeDescription(0)="During Zed Time, <font color=\"#eaeff7\">your weapon</font> shoots faster and can not run out of ammo"

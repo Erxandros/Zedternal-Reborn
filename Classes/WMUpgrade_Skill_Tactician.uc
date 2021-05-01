@@ -7,7 +7,7 @@ static simulated function GetZedTimeModifier(out float InModifier, int upgLevel,
 	local name StateName;
 	StateName = KFW.GetStateName();
 
-	if (StateName == 'Reloading' || StateName == 'AltReloading' || StateName == 'WeaponPuttingDown' || StateName == 'WeaponEquipping')
+	if (class'ZedternalReborn.WMWeaponStates'.static.IsWeaponReloadState(StateName) || class'ZedternalReborn.WMWeaponStates'.static.IsWeaponSwitchState(StateName))
 		InModifier += default.Mod[upgLevel - 1];
 }
 
