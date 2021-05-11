@@ -4,7 +4,7 @@ var array<float> Probability;
 
 static function AddVampireHealth(out int InHealth, int DefaultHealth, int upgLevel, KFPlayerController KFPC, class<DamageType> DT)
 {
-	if (KFPC.Pawn != None)
+	if (KFPC != None && KFPC.Pawn != None)
 		AddAmmunition(KFPC.Pawn, upgLevel);
 }
 
@@ -14,26 +14,24 @@ static function AddAmmunition(Pawn Player, int upgLevel)
 	local byte i;
 	local int ExtraAmmo;
 
-	if (Player != None && Player.Health > 0 && Player.InvManager != None)
+	if (Player != None && Player.Health > 0 && Player.InvManager != None && FRand() <= default.Probability[upgLevel - 1])
 	{
 		foreach Player.InvManager.InventoryActors(class'KFWeapon', KFW)
 		{
-			for (i = 0; i < 2; ++i)
+			if (KFW != KFWeapon(Player.Weapon))
 			{
-				if (KFW != KFWeapon(Player.Weapon))
+				for (i = 0; i < 2; ++i)
 				{
-					if (KFW.SpareAmmoCount[i] < KFW.SpareAmmoCapacity[i] && FRand() <= float(KFW.SpareAmmoCapacity[i]) * default.Probability[upgLevel - 1])
+					ExtraAmmo = Min(FCeil(float(KFW.GetMaxAmmoAmount(i)) / 50.0f), KFW.GetMaxAmmoAmount(i) - KFW.GetTotalAmmoAmount(i));
+					if (ExtraAmmo > 0)
 					{
-						ExtraAmmo = Max(Round(float(KFW.SpareAmmoCapacity[i]) * default.Probability[upgLevel - 1]), 1);
 						if (i == 0)
 							KFW.AddAmmo(ExtraAmmo);
 						else
+						{
 							KFW.AddSecondaryAmmo(ExtraAmmo);
-					}
-					else if (i == 1 && KFW.AmmoCount[i] < KFW.MagazineCapacity[i] && FRand() <= float(KFW.MagazineCapacity[i]) * default.Probability[upgLevel - 1])
-					{
-						ExtraAmmo = Max(Round(float(KFW.MagazineCapacity[i]) * default.Probability[upgLevel - 1]), 1);
-						KFW.AddSecondaryAmmo(ExtraAmmo);
+							KFW.ClientForceSecondaryAmmoUpdate(KFW.AmmoCount[i]);
+						}
 					}
 				}
 			}
@@ -43,8 +41,8 @@ static function AddAmmunition(Pawn Player, int upgLevel)
 
 defaultproperties
 {
-	Probability(0)=0.01f
-	Probability(1)=0.025f
+	Probability(0)=0.125f
+	Probability(1)=0.25f
 
 	upgradeName="Scrapper"
 	upgradeDescription(0)="Generate ammunition for your other weapons while killing ZEDs"
