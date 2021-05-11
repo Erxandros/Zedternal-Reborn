@@ -3327,7 +3327,7 @@ defaultproperties
 	PrimaryWeaponPaths(6)=Class'KFGame.KFWeapDef_Remington1858Dual'
 	PrimaryWeaponPaths(7)=Class'KFGame.KFWeapDef_Winchester1894'
 	PrimaryWeaponPaths(8)=Class'KFGame.KFWeapDef_MP7'
-	KnivesWeaponDef(0)=Class'KFGame.KFweapDef_Knife_Berserker'
+	KnivesWeaponDef(0)=Class'KFGame.KFWeapDef_Knife_Berserker'
 	KnivesWeaponDef(1)=Class'KFGame.KFWeapDef_Knife_Commando'
 	KnivesWeaponDef(2)=Class'KFGame.KFWeapDef_Knife_Demo'
 	KnivesWeaponDef(3)=Class'KFGame.KFWeapDef_Knife_Firebug'
@@ -3335,7 +3335,10 @@ defaultproperties
 	KnivesWeaponDef(5)=Class'KFGame.KFWeapDef_Knife_Medic'
 	KnivesWeaponDef(6)=Class'KFGame.KFWeapDef_Knife_SharpShooter'
 	KnivesWeaponDef(7)=Class'KFGame.KFWeapDef_Knife_Support'
-	KnivesWeaponDef(8)=Class'KFGame.KFWeapDef_Knife_SWAT'
+	KnivesWeaponDef(8)=Class'KFGame.KFWeapDef_Knife_Survivalist'
+	KnivesWeaponDef(9)=Class'KFGame.KFWeapDef_Knife_SWAT'
 	KnifeWeaponDef=Class'KFGame.KFWeapDef_Knife_SharpShooter'
 	GrenadeWeaponDef=Class'KFGame.KFWeapDef_Grenade_Commando'
+
+	Name="Default__WMPerk"
 }
