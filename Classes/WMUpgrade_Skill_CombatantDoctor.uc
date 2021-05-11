@@ -1,41 +1,43 @@
 class WMUpgrade_Skill_CombatantDoctor extends WMUpgrade_Skill;
 
-var array<float> HealingProb;
-var array<float> VampireProb;
+var array<int> HealthThreshold;
 
 static function HealingDamage(int upgLevel, int HealAmount, KFPawn HealedPawn, KFPawn InstigatorPawn, class<DamageType> DamageType)
 {
-	if (InstigatorPawn != None)
-		AddAmmunition(InstigatorPawn, float(HealAmount) * default.HealingProb[upgLevel - 1]);
+	local WMUpgrade_Skill_CombatantDoctor_Helper UPG;
+
+	if (HealedPawn != None && InstigatorPawn != None && HealAmount > 0 && HealedPawn.GetHealthPercentage() < 1.0f)
+	{
+		UPG = GetHelper(InstigatorPawn);
+		if (UPG != None)
+		{
+			UPG.AddHealedHealth(Min(HealAmount, HealedPawn.HealthMax - HealedPawn.Health));
+			AddAmmunition(InstigatorPawn, UPG.GetAmmoMultiplier(default.HealthThreshold[upgLevel - 1]));
+		}
+	}
 }
 
-static function AddVampireHealth(out int InHealth, int DefaultHealth, int upgLevel, KFPlayerController KFPC, class<DamageType> DT)
+static function AddAmmunition(KFPawn Player, int Multiplier)
 {
-	if (KFPC.Pawn != None)
-		AddAmmunition(KFPawn(KFPC.Pawn), default.VampireProb[upgLevel - 1]);
-}
-
-static function AddAmmunition(KFPawn Player, float Factor)
-{
-	local KFWeapon W;
+	local KFWeapon KFW;
 	local byte i;
-	local int extraAmmo;
+	local int ExtraAmmo;
 
 	if (Player != None && Player.Health > 0 && Player.InvManager != None)
 	{
-		foreach Player.InvManager.InventoryActors(class'KFWeapon', W)
+		foreach Player.InvManager.InventoryActors(class'KFWeapon', KFW)
 		{
 			for (i = 0; i < 2; ++i)
 			{
-				if (W.SpareAmmoCount[i] < W.SpareAmmoCapacity[i] && FRand() <= float(W.SpareAmmoCapacity[i]) * Factor)
+				ExtraAmmo = Min(FCeil(float(KFW.GetMaxAmmoAmount(i)) / 50.0f) * Multiplier, KFW.GetMaxAmmoAmount(i) - KFW.GetTotalAmmoAmount(i));
+				if (ExtraAmmo > 0)
 				{
-					extraAmmo = Max(Round(float(W.SpareAmmoCapacity[i]) * Factor), 1);
 					if (i == 0)
-						W.AddAmmo(extraAmmo);
+						KFW.AddAmmo(ExtraAmmo);
 					else
 					{
-						W.AddSecondaryAmmo(extraAmmo);
-						W.ClientForceSecondaryAmmoUpdate(W.AmmoCount[i]);
+						KFW.AddSecondaryAmmo(ExtraAmmo);
+						KFW.ClientForceSecondaryAmmoUpdate(KFW.AmmoCount[i]);
 					}
 				}
 			}
@@ -43,12 +45,42 @@ static function AddAmmunition(KFPawn Player, float Factor)
 	}
 }
 
+static function WMUpgrade_Skill_CombatantDoctor_Helper GetHelper(KFPawn OwnerPawn)
+{
+	local WMUpgrade_Skill_CombatantDoctor_Helper UPG;
+
+	if (KFPawn_Human(OwnerPawn) != None)
+	{
+		foreach OwnerPawn.ChildActors(class'WMUpgrade_Skill_CombatantDoctor_Helper', UPG)
+		{
+			return UPG;
+		}
+
+		//Should have one
+		if (OwnerPawn.Role == Role_Authority)
+			UPG = OwnerPawn.Spawn(class'WMUpgrade_Skill_CombatantDoctor_Helper', OwnerPawn);
+	}
+
+	return UPG;
+}
+
+static simulated function DeleteHelperClass(Pawn OwnerPawn)
+{
+	local WMUpgrade_Skill_CombatantDoctor_Helper UPG;
+
+	if (OwnerPawn != None)
+	{
+		foreach OwnerPawn.ChildActors(class'WMUpgrade_Skill_CombatantDoctor_Helper', UPG)
+		{
+			UPG.Destroy();
+		}
+	}
+}
+
 defaultproperties
 {
-	HealingProb(0)=0.0006f
-	HealingProb(1)=0.0015f
-	VampireProb(0)=0.002f
-	VampireProb(1)=0.005f
+	HealthThreshold(0)=50
+	HealthThreshold(1)=25
 
 	upgradeName="Combatant Doctor"
 	upgradeDescription(0)="Generate ammunition for yourself while healing"
