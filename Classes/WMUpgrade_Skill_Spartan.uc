@@ -25,6 +25,12 @@ static simulated function GetZedTimeModifier(out float InModifier, int upgLevel,
 	}
 }
 
+static simulated function RevertUpgradeChanges(Pawn OwnerPawn)
+{
+	if (KFPawn_Human(OwnerPawn) != None)
+			KFPawn_Human(OwnerPawn).bMovesFastInZedTime = False;
+}
+
 defaultproperties
 {
 	FireRate(0)=0.6f
