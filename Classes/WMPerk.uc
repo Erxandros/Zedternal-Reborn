@@ -162,7 +162,7 @@ function ApplySkillsToPawn()
 	if (CheckOwnerPawn())
 	{
 		OwnerPawn.UpdateGroundSpeed();
-		OwnerPawn.bMovesFastInZedTime = False;
+		OwnerPawn.bMovesFastInZedTime = IsUnAffectedByZedTime();
 
 		if (MyPRI == None)
 		{
@@ -3270,6 +3270,40 @@ simulated function class<EmitterCameraLensEffectBase> GetPerkLensEffect(class<KF
 	}
 
 	return CamEffect;
+}
+
+function bool IsUnAffectedByZedTime()
+{
+	local byte i;
+	local byte index;
+	local bool bActive;
+
+	if (MyWMPRI != None)
+	{
+		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
+		{
+			index = MyWMPRI.Purchase_PerkUpgrade[i];
+			bActive = MyWMGRI.perkUpgrades[index].static.IsUnAffectedByZedTime(MyWMPRI.bPerkUpgrade[index], OwnerPawn);
+			if (bActive)
+				return True;
+		}
+		for (i = 0; i < MyWMPRI.Purchase_SkillUpgrade.length; ++i)
+		{
+			index = MyWMPRI.Purchase_SkillUpgrade[i];
+			bActive = MyWMGRI.skillUpgrades[index].SkillUpgrade.static.IsUnAffectedByZedTime(MyWMPRI.bSkillUpgrade[index], OwnerPawn);
+			if (bActive)
+				return True;
+		}
+		for (i = 0; i < MyWMPRI.Purchase_EquipmentUpgrade.length; ++i)
+		{
+			index = MyWMPRI.Purchase_EquipmentUpgrade[i];
+			bActive = MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.IsUnAffectedByZedTime(MyWMPRI.bEquipmentUpgrade[index], OwnerPawn);
+			if (bActive)
+				return True;
+		}
+	}
+
+	return False;
 }
 
 defaultproperties

@@ -8,6 +8,14 @@ static simulated function InitiateWeapon(int upgLevel, KFWeapon KFW, KFPawn Owne
 		OwnerPawn.bMovesFastInZedTime = True;
 }
 
+static simulated function bool IsUnAffectedByZedTime(int upgLevel, KFPawn OwnerPawn)
+{
+	if (KFPawn_Human(OwnerPawn) != None)
+		OwnerPawn.bMovesFastInZedTime = True;
+
+	return True;
+}
+
 static simulated function GetZedTimeModifier(out float InModifier, int upgLevel, KFWeapon KFW)
 {
 	local name StateName;
