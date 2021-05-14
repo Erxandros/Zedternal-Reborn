@@ -2808,7 +2808,7 @@ simulated function bool CanExplosiveWeld()
 simulated function Interact(KFPawn_Human KFPH)
 {
 	local KFWeapon KFW;
-	local int Idx, MagCount;
+	local int Idx;
 	local KFPlayerController KFPC;
 	local KFPlayerReplicationInfo UserPRI, OwnerPRI;
 	local bool bCanSupplyAmmo;
@@ -2835,19 +2835,12 @@ simulated function Interact(KFPawn_Human KFPH)
 		foreach KFPH.InvManager.InventoryActors(class'KFWeapon', KFW)
 		{
 			if (KFW.static.DenyPerkResupply())
-			{
 				continue;
-			}
 
-			// resupply 1 mag for every 5 initial mags
-			MagCount = Max(KFW.InitialSpareMags[0] / 1.5, 1);
-			bReceivedAmmo = (KFW.AddAmmo(MagCount * KFW.MagazineCapacity[0]) > 0) ? True : bReceivedAmmo;
+			bReceivedAmmo = (KFW.AddAmmo(FCeil(float(KFW.GetMaxAmmoAmount(0)) * 0.3f)) > 0) ? True : bReceivedAmmo;
 
 			if (KFW.CanRefillSecondaryAmmo())
-			{
-				// If our secondary ammo isn't mag-based (like the Eviscerator), restore a portion of max ammo instead
-				bReceivedAmmo = (KFW.AddSecondaryAmmo(Max(KFW.AmmoPickupScale[1] * KFW.MagazineCapacity[1], 1)) > 0) ? True : bReceivedAmmo;
-			}
+				bReceivedAmmo = (KFW.AddSecondaryAmmo(FCeil(float(KFW.GetMaxAmmoAmount(1)) * 0.3f)) > 0) ? True : bReceivedAmmo;
 		}
 	}
 
