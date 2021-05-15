@@ -374,6 +374,8 @@ function RestartPlayer(Controller NewPlayer)
 
 	if (WMPC != None && WMPRI != None)
 	{
+		WMPC.UpdateWeaponMagAndCap();
+
 		if (!isWaveActive() && WMPRI.NumTimesReconnected > 0)
 		{
 			TimeOffset = 0;

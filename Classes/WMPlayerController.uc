@@ -242,7 +242,7 @@ reliable client function UpdateClientPerkBonuses()
 
 function DelayedPerkUpdate(float TimeOffset)
 {
-	SetTimer(TimeOffset + 2.5f, False, nameof(UpdateWeaponMagAndCap));
+	SetTimer(TimeOffset + 3.0f, False, nameof(UpdateWeaponMagAndCap));
 }
 
 reliable client function SetPreferredGrenadeTimer()
