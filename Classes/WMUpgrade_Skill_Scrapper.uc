@@ -28,10 +28,7 @@ static function AddAmmunition(Pawn Player, int upgLevel)
 						if (i == 0)
 							KFW.AddAmmo(ExtraAmmo);
 						else
-						{
 							KFW.AddSecondaryAmmo(ExtraAmmo);
-							KFW.ClientForceSecondaryAmmoUpdate(KFW.AmmoCount[i]);
-						}
 					}
 				}
 			}
