@@ -1,6 +1,6 @@
 class WMPawn_ZedCrawler_Huge extends WMPawn_ZedCrawler_NoElite;
 
-var float ExtraResistance;
+var const float ExtraDamageResistance;
 
 static function string GetLocalizedName()
 {
@@ -16,10 +16,10 @@ simulated function PostBeginPlay()
 
 function float GetDamageTypeModifier(class<DamageType> DT)
 {
-	local float currentMod;
+	local float CurrentMod;
 
-	currentMod = super.GetDamageTypeModifier(DT);
-	return FMax(0.01f, currentMod - ExtraResistance);
+	CurrentMod = super.GetDamageTypeModifier(DT);
+	return FMax(0.025f, CurrentMod - ExtraDamageResistance);
 }
 
 defaultproperties
@@ -32,7 +32,7 @@ defaultproperties
 	Mass=300.0f
 	GroundSpeed=340.0f
 	SprintSpeed=420.0f
-	ExtraResistance=0.55f
+	ExtraDamageResistance=0.55f
 
 	XPValues(0)=16
 	XPValues(1)=20

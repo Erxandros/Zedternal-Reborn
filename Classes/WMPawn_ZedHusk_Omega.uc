@@ -5,7 +5,7 @@ var const class<KFProj_Husk_Fireball> SuicideFireballClass;
 var const int ProjSuicideAmount;
 
 var transient ParticleSystemComponent SpecialFXPSCs[2];
-var float ExtraResistance;
+var const float ExtraDamageResistance;
 
 static function string GetLocalizedName()
 {
@@ -90,11 +90,11 @@ simulated function UpdateGameplayMICParams()
 
 function float GetDamageTypeModifier(class<DamageType> DT)
 {
-	local float currentMod;
+	local float CurrentMod;
 
 	// Omega ZEDs have extra resistance against all damage type
-	currentMod = super.GetDamageTypeModifier(DT);
-	return FMax(0.01f, currentMod - ExtraResistance);
+	CurrentMod = super.GetDamageTypeModifier(DT);
+	return FMax(0.025f, CurrentMod - ExtraDamageResistance);
 }
 
 /** AnimNotify which launches the fireball projectile */
@@ -197,8 +197,8 @@ defaultproperties
 	SprintSpeed=580.0f
 	ParryResistance=3
 	PenetrationResistance=3.0f
-	ExtraResistance=0.2f
-	ProjSuicideAmount=12;
+	ExtraDamageResistance=0.2f
+	ProjSuicideAmount=12
 
 	Begin Object Name=MeleeHelper_0
 		BaseDamage=20.0f

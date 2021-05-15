@@ -1,7 +1,7 @@
 class WMPawn_ZedSiren_Omega extends KFPawn_ZedSiren;
 
 var transient ParticleSystemComponent SpecialFXPSCs[2];
-var float ExtraResistance;
+var const float ExtraDamageResistance;
 
 static function string GetLocalizedName()
 {
@@ -80,11 +80,11 @@ simulated function UpdateGameplayMICParams()
 
 function float GetDamageTypeModifier(class<DamageType> DT)
 {
-	local float currentMod;
+	local float CurrentMod;
 
 	// Omega ZEDs have extra resistance against all damage type
-	currentMod = super.GetDamageTypeModifier(DT);
-	return FMax(0.01f, currentMod - ExtraResistance);
+	CurrentMod = super.GetDamageTypeModifier(DT);
+	return FMax(0.025f, CurrentMod - ExtraDamageResistance);
 }
 
 simulated event bool UsePlayerControlledZedSkin()
@@ -101,7 +101,7 @@ defaultproperties
 	Health=275
 	GroundSpeed=180.0f
 	SprintSpeed=245.0f
-	ExtraResistance=0.1f
+	ExtraDamageResistance=0.1f
 
 	Begin Object Name=NeckLightComponent0
 		LightColor=(R=255,G=64,B=128,A=255)

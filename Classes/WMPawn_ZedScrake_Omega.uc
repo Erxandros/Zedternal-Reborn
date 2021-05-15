@@ -4,7 +4,7 @@ var const AnimSet ScrakeOmegaAnimSet;
 var const KFPawnAnimInfo ScrakeOmegaAnimInfo;
 
 var transient ParticleSystemComponent SpecialFXPSCs[2];
-var float ExtraResistance;
+var const float ExtraDamageResistance;
 
 static function string GetLocalizedName()
 {
@@ -77,11 +77,11 @@ simulated function UpdateGameplayMICParams()
 
 function float GetDamageTypeModifier(class<DamageType> DT)
 {
-	local float currentMod;
+	local float CurrentMod;
 
 	// Omega ZEDs have extra resistance against all damage type
-	currentMod = super.GetDamageTypeModifier(DT);
-	return FMax(0.01f, currentMod - ExtraResistance);
+	CurrentMod = super.GetDamageTypeModifier(DT);
+	return FMax(0.025f, CurrentMod - ExtraDamageResistance);
 }
 
 function CauseHeadTrauma(float BleedOutTime = 5.0f)
@@ -149,7 +149,7 @@ defaultproperties
 	Mass=150.0f
 	GroundSpeed=215.0f
 	SprintSpeed=700.0f
-	ExtraResistance=0.3f
+	ExtraDamageResistance=0.3f
 
 	Begin Object Name=MeleeHelper_0
 		BaseDamage=50.0f

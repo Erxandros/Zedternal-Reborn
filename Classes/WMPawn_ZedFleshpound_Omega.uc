@@ -11,7 +11,7 @@ var const name AltRallyEffectBoneNames[2];
 var const vector RallyEffectOffset, AltRallyEffectOffset;
 
 var transient ParticleSystemComponent SpecialFXPSCs[2];
-var float ExtraResistance;
+var const float ExtraDamageResistance;
 
 static function string GetLocalizedName()
 {
@@ -84,11 +84,11 @@ simulated function UpdateGameplayMICParams()
 
 function float GetDamageTypeModifier(class<DamageType> DT)
 {
-	local float currentMod;
+	local float CurrentMod;
 
 	// Omega ZEDs have extra resistance against all damage type
-	currentMod = super.GetDamageTypeModifier(DT);
-	return FMax(0.01f, currentMod - ExtraResistance);
+	CurrentMod = super.GetDamageTypeModifier(DT);
+	return FMax(0.025f, CurrentMod - ExtraDamageResistance);
 }
 
 simulated function ANIMNOTIFY_OmegaKick()
@@ -183,7 +183,7 @@ defaultproperties
 	Mass=220.0f
 	GroundSpeed=460.0f
 	SprintSpeed=615.0f
-	ExtraResistance=0.2f
+	ExtraDamageResistance=0.2f
 
 	Begin Object Name=MeleeHelper_0
 		BaseDamage=30.0f

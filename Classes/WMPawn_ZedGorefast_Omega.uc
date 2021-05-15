@@ -5,7 +5,7 @@ var const KFPawnAnimInfo GorefastOmegaAnimInfo;
 var const KFSkinTypeEffects ShieldImpactEffects;
 
 var transient ParticleSystemComponent SpecialFXPSCs[2];
-var float ExtraResistance;
+var const float ExtraDamageResistance;
 var bool bShieldOn;
 
 replication
@@ -85,11 +85,11 @@ simulated function UpdateGameplayMICParams()
 
 function float GetDamageTypeModifier(class<DamageType> DT)
 {
-	local float currentMod;
+	local float CurrentMod;
 
 	// Omega ZEDs have extra resistance against all damage type
-	currentMod = super.GetDamageTypeModifier(DT);
-	return FMax(0.01f, currentMod - ExtraResistance);
+	CurrentMod = super.GetDamageTypeModifier(DT);
+	return FMax(0.025f, CurrentMod - ExtraDamageResistance);
 }
 
 event TakeDamage(int Damage, Controller InstigatedBy, vector HitLocation, vector Momentum, class<DamageType> DamageType, optional TraceHitInfo HitInfo, optional Actor DamageCauser)
@@ -162,7 +162,7 @@ defaultproperties
 	SprintSpeed=435.0f
 	ParryResistance=3
 	PenetrationResistance=2.25f
-	ExtraResistance=0.2f
+	ExtraDamageResistance=0.2f
 
 	XPValues(0)=22
 	XPValues(1)=28

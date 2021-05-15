@@ -4,7 +4,7 @@ var const AnimSet SlasherOmegaAnimSet;
 var const KFPawnAnimInfo SlasherOmegaAnimInfo;
 
 var transient ParticleSystemComponent SpecialFXPSCs[2];
-var float ExtraResistance;
+var const float ExtraDamageResistance;
 
 static function string GetLocalizedName()
 {
@@ -77,11 +77,11 @@ simulated function UpdateGameplayMICParams()
 
 function float GetDamageTypeModifier(class<DamageType> DT)
 {
-	local float currentMod;
+	local float CurrentMod;
 
 	// Omega ZEDs have extra resistance against all damage type
-	currentMod = super.GetDamageTypeModifier(DT);
-	return FMax(0.01f, currentMod - ExtraResistance);
+	CurrentMod = super.GetDamageTypeModifier(DT);
+	return FMax(0.025f, CurrentMod - ExtraDamageResistance);
 }
 
 simulated event bool UsePlayerControlledZedSkin()
@@ -101,7 +101,7 @@ defaultproperties
 	GroundSpeed=340.0f
 	SprintSpeed=580.0f
 	ParryResistance=1
-	ExtraResistance=0.15f
+	ExtraDamageResistance=0.15f
 	GrabAttackFrequency=0.6f
 
 	Begin Object Name=MeleeHelper_0
