@@ -23,7 +23,7 @@ static function AddAmmunition(KFPawn Player, int Multiplier)
 	local byte i;
 	local int ExtraAmmo;
 
-	if (Player != None && Player.Health > 0 && Player.InvManager != None)
+	if (Player != None && Player.Health > 0 && Player.InvManager != None && Multiplier > 0)
 	{
 		foreach Player.InvManager.InventoryActors(class'KFWeapon', KFW)
 		{
@@ -35,10 +35,7 @@ static function AddAmmunition(KFPawn Player, int Multiplier)
 					if (i == 0)
 						KFW.AddAmmo(ExtraAmmo);
 					else
-					{
 						KFW.AddSecondaryAmmo(ExtraAmmo);
-						KFW.ClientForceSecondaryAmmoUpdate(KFW.AmmoCount[i]);
-					}
 				}
 			}
 		}
