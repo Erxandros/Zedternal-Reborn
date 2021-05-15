@@ -16,29 +16,26 @@ static function ModifyDamageTaken(out int InDamage, int DefaultDamage, int upgLe
 
 static function WaveEnd(int upgLevel, KFPlayerController KFPC)
 {
-	local KFWeapon W;
+	local KFWeapon KFW;
 	local KFPawn Player;
 	local byte i;
-	local int extraAmmo;
+	local int ExtraAmmo;
 
 	Player = KFPawn(KFPC.Pawn);
 
 	if (Player != None && Player.Health > 0 && Player.InvManager != None)
 	{
-		foreach Player.InvManager.InventoryActors(class'KFWeapon', W)
+		foreach Player.InvManager.InventoryActors(class'KFWeapon', KFW)
 		{
 			for(i = 0; i < 2; ++i)
 			{
-				if(W.SpareAmmoCount[i] < W.SpareAmmoCapacity[i])
+				ExtraAmmo = Min(FCeil(float(KFW.GetMaxAmmoAmount(i)) * FMin(default.Ammo * float(upgLevel), 0.5f)), KFW.GetMaxAmmoAmount(i) - KFW.GetTotalAmmoAmount(i));
+				if (ExtraAmmo > 0)
 				{
-					extraAmmo = Round(float(W.SpareAmmoCapacity[i]) * FMin(default.Ammo * upgLevel, 0.5f));
 					if (i == 0)
-						W.AddAmmo(extraAmmo);
+						KFW.AddAmmo(ExtraAmmo);
 					else
-					{
-						W.AddSecondaryAmmo(extraAmmo);
-						W.ClientForceSecondaryAmmoUpdate(W.AmmoCount[i]);
-					}
+						KFW.AddSecondaryAmmo(ExtraAmmo);
 				}
 			}
 		}
