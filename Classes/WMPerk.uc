@@ -1678,7 +1678,7 @@ function float GetKnockdownPowerModifier(optional class<DamageType> DamageType, 
 
 simulated function float GetSnareSpeedModifier()
 {
-	return 0.65f;
+	return 0.7f;
 }
 
 simulated function float GetSnarePowerModifier(optional class<DamageType> DamageType, optional byte HitZoneIdx)
