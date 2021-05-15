@@ -5,7 +5,7 @@ var const class<KFProj_Husk_Fireball> SuicideFireballClass;
 var const int ProjSuicideAmount;
 
 var transient ParticleSystemComponent SpecialFXPSCs[2];
-var const float ExtraDamageResistance;
+var const float ExtraAfflictionResistance, ExtraDamageResistance;
 
 static function string GetLocalizedName()
 {
@@ -95,6 +95,12 @@ function float GetDamageTypeModifier(class<DamageType> DT)
 	// Omega ZEDs have extra resistance against all damage type
 	CurrentMod = super.GetDamageTypeModifier(DT);
 	return FMax(0.025f, CurrentMod - ExtraDamageResistance);
+}
+
+simulated function AdjustAffliction(out float AfflictionPower)
+{
+	super.AdjustAffliction(AfflictionPower);
+	AfflictionPower *= 1.0f - ExtraAfflictionResistance;
 }
 
 /** AnimNotify which launches the fireball projectile */
@@ -197,6 +203,7 @@ defaultproperties
 	SprintSpeed=580.0f
 	ParryResistance=3
 	PenetrationResistance=3.0f
+	ExtraAfflictionResistance=0.3f
 	ExtraDamageResistance=0.2f
 	ProjSuicideAmount=12
 

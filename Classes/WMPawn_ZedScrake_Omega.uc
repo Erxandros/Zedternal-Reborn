@@ -4,7 +4,7 @@ var const AnimSet ScrakeOmegaAnimSet;
 var const KFPawnAnimInfo ScrakeOmegaAnimInfo;
 
 var transient ParticleSystemComponent SpecialFXPSCs[2];
-var const float ExtraDamageResistance;
+var const float ExtraAfflictionResistance, ExtraDamageResistance;
 
 static function string GetLocalizedName()
 {
@@ -84,6 +84,12 @@ function float GetDamageTypeModifier(class<DamageType> DT)
 	return FMax(0.025f, CurrentMod - ExtraDamageResistance);
 }
 
+simulated function AdjustAffliction(out float AfflictionPower)
+{
+	super.AdjustAffliction(AfflictionPower);
+	AfflictionPower *= 1.0f - ExtraAfflictionResistance;
+}
+
 function CauseHeadTrauma(float BleedOutTime = 5.0f)
 {
 	if (!bIsHeadless && !bPlayedDeath && !bDisableHeadless)
@@ -149,6 +155,7 @@ defaultproperties
 	Mass=150.0f
 	GroundSpeed=215.0f
 	SprintSpeed=700.0f
+	ExtraAfflictionResistance=0.4f
 	ExtraDamageResistance=0.3f
 
 	Begin Object Name=MeleeHelper_0

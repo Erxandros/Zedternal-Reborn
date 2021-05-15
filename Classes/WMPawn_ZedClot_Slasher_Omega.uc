@@ -4,7 +4,7 @@ var const AnimSet SlasherOmegaAnimSet;
 var const KFPawnAnimInfo SlasherOmegaAnimInfo;
 
 var transient ParticleSystemComponent SpecialFXPSCs[2];
-var const float ExtraDamageResistance;
+var const float ExtraAfflictionResistance, ExtraDamageResistance;
 
 static function string GetLocalizedName()
 {
@@ -84,6 +84,12 @@ function float GetDamageTypeModifier(class<DamageType> DT)
 	return FMax(0.025f, CurrentMod - ExtraDamageResistance);
 }
 
+simulated function AdjustAffliction(out float AfflictionPower)
+{
+	super.AdjustAffliction(AfflictionPower);
+	AfflictionPower *= 1.0f - ExtraAfflictionResistance;
+}
+
 simulated event bool UsePlayerControlledZedSkin()
 {
 	return True;
@@ -101,6 +107,7 @@ defaultproperties
 	GroundSpeed=340.0f
 	SprintSpeed=580.0f
 	ParryResistance=1
+	ExtraAfflictionResistance=0.15f
 	ExtraDamageResistance=0.15f
 	GrabAttackFrequency=0.6f
 

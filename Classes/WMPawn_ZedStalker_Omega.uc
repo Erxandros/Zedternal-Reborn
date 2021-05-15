@@ -1,7 +1,7 @@
 class WMPawn_ZedStalker_Omega extends WMPawn_ZedStalker_NoDAR;
 
 var const AnimSet StalkerOmegaAnimSet;
-var const float ExtraDamageResistance;
+var const float ExtraAfflictionResistance, ExtraDamageResistance;
 
 static function string GetLocalizedName()
 {
@@ -52,6 +52,12 @@ function float GetDamageTypeModifier(class<DamageType> DT)
 	return FMax(0.025f, CurrentMod - ExtraDamageResistance);
 }
 
+simulated function AdjustAffliction(out float AfflictionPower)
+{
+	super.AdjustAffliction(AfflictionPower);
+	AfflictionPower *= 1.0f - ExtraAfflictionResistance;
+}
+
 defaultproperties
 {
 	StalkerOmegaAnimSet=AnimSet'ZedternalReborn_Zeds.Stalker.Stalker_Omega_AnimSet'
@@ -64,6 +70,7 @@ defaultproperties
 	GroundSpeed=425.0f
 	SprintSpeed=565.0f
 	PenetrationResistance=0.8f
+	ExtraAfflictionResistance=0.1f
 	ExtraDamageResistance=0.05f
 
 	XPValues(0)=12

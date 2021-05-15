@@ -5,7 +5,7 @@ var const KFPawnAnimInfo GorefastOmegaAnimInfo;
 var const KFSkinTypeEffects ShieldImpactEffects;
 
 var transient ParticleSystemComponent SpecialFXPSCs[2];
-var const float ExtraDamageResistance;
+var const float ExtraAfflictionResistance, ExtraDamageResistance;
 var bool bShieldOn;
 
 replication
@@ -92,6 +92,12 @@ function float GetDamageTypeModifier(class<DamageType> DT)
 	return FMax(0.025f, CurrentMod - ExtraDamageResistance);
 }
 
+simulated function AdjustAffliction(out float AfflictionPower)
+{
+	super.AdjustAffliction(AfflictionPower);
+	AfflictionPower *= 1.0f - ExtraAfflictionResistance;
+}
+
 event TakeDamage(int Damage, Controller InstigatedBy, vector HitLocation, vector Momentum, class<DamageType> DamageType, optional TraceHitInfo HitInfo, optional Actor DamageCauser)
 {
 	local int HitZoneIdx;
@@ -162,6 +168,7 @@ defaultproperties
 	SprintSpeed=435.0f
 	ParryResistance=3
 	PenetrationResistance=2.25f
+	ExtraAfflictionResistance=0.25f
 	ExtraDamageResistance=0.2f
 
 	XPValues(0)=22

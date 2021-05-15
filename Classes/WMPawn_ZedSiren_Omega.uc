@@ -1,7 +1,7 @@
 class WMPawn_ZedSiren_Omega extends KFPawn_ZedSiren;
 
 var transient ParticleSystemComponent SpecialFXPSCs[2];
-var const float ExtraDamageResistance;
+var const float ExtraAfflictionResistance, ExtraDamageResistance;
 
 static function string GetLocalizedName()
 {
@@ -87,6 +87,12 @@ function float GetDamageTypeModifier(class<DamageType> DT)
 	return FMax(0.025f, CurrentMod - ExtraDamageResistance);
 }
 
+simulated function AdjustAffliction(out float AfflictionPower)
+{
+	super.AdjustAffliction(AfflictionPower);
+	AfflictionPower *= 1.0f - ExtraAfflictionResistance;
+}
+
 simulated event bool UsePlayerControlledZedSkin()
 {
 	return True;
@@ -101,6 +107,7 @@ defaultproperties
 	Health=275
 	GroundSpeed=180.0f
 	SprintSpeed=245.0f
+	ExtraAfflictionResistance=0.2f
 	ExtraDamageResistance=0.1f
 
 	Begin Object Name=NeckLightComponent0
