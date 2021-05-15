@@ -63,7 +63,7 @@ defaultproperties
 	Bonus=1.0f
 	BonusINV=0.35f
 	BonusSpeed=0.2f
-	BonusStun=4.0f
+	BonusStun=3.0f
 	Vampire=4
 	zedSpawnRateFactor=2.25f
 	waveValueFactor=1.5f
