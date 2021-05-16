@@ -10,9 +10,6 @@ static simulated function InitiateWeapon(int upgLevel, KFWeapon KFW, KFPawn Owne
 
 static simulated function bool IsUnAffectedByZedTime(int upgLevel, KFPawn OwnerPawn)
 {
-	if (KFPawn_Human(OwnerPawn) != None)
-		OwnerPawn.bMovesFastInZedTime = True;
-
 	return True;
 }
 
