@@ -1,4 +1,4 @@
-class WMPerk_Timers extends Actor;
+class WMPerk_Timers extends Info;
 
 //Timer Precision
 const TimerDuration = 0.25f;
