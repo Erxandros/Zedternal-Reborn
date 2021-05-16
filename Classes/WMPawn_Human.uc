@@ -154,6 +154,31 @@ simulated event Bump(Actor Other, PrimitiveComponent OtherComp, Vector HitNormal
 	}
 }
 
+reliable client function ClearAllAmmoClient(bool bClearMagazine)
+{
+	local KFWeapon KFW;
+
+	if (Health > 0 && InvManager != None)
+	{
+		foreach InvManager.InventoryActors(class'KFWeapon', KFW)
+		{
+			if (KFWeap_Healer_Syringe(KFW) == None && KFWeap_Welder(KFW) == None)
+			{
+				if (bClearMagazine)
+					KFW.AmmoCount[0] = 0;
+
+				KFW.SpareAmmoCount[0] = 0;
+
+				if (KFW.CanRefillSecondaryAmmo())
+				{
+					KFW.AmmoCount[1] = 0;
+					KFW.SpareAmmoCount[1] = 0;
+				}
+			}
+		}
+	}
+}
+
 /*********************************************************************************************
 * Zedternal Armor
 ********************************************************************************************* */

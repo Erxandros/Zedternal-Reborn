@@ -30,42 +30,47 @@ function WaveEnded()
 
 function ChangeAmmo(bool bAdd)
 {
-	local KFWeapon W;
-	local KFPawn_Human Player;
-	local byte i;
+	local KFWeapon KFW;
+	local WMPawn_Human Player;
 
-	// add line to cycle through all players
-
-	foreach DynamicActors(class'KFPawn_Human', Player)
+	foreach DynamicActors(class'WMPawn_Human', Player)
 	{
 		if (Player != None && Player.Health > 0 && Player.InvManager != None)
 		{
-			foreach Player.InvManager.InventoryActors(class'KFWeapon', W)
+			foreach Player.InvManager.InventoryActors(class'KFWeapon', KFW)
 			{
-				for (i = 0; i < 2; ++i)
+				if (KFWeap_Healer_Syringe(KFW) == None && KFWeap_Welder(KFW) == None)
 				{
-					if (W.SpareAmmoCapacity[i] != 0)
+					if (bAdd)
 					{
-						if (bAdd)
-							W.SpareAmmoCount[i] = W.SpareAmmoCapacity[i];
-						else
-							W.SpareAmmoCount[i] = 0;
-
-						W.bNetDirty = True;
+						KFW.AddAmmo(KFW.GetMaxAmmoAmount(0));
+						KFW.AddSecondaryAmmo(KFW.GetMaxAmmoAmount(1));
+					}
+					else
+					{
+						KFW.SpareAmmoCount[0] = 0;
+						if (KFW.CanRefillSecondaryAmmo())
+						{
+							KFW.AmmoCount[1] = 0;
+							KFW.SpareAmmoCount[1] = 0;
+						}
 					}
 				}
 			}
+
+			if (!bAdd)
+				Player.ClearAllAmmoClient(False);
 		}
 	}
 }
 
 function UpdatePickup()
 {
-	local KFGameInfo KFG;
+	local WMGameInfo_Endless WMG;
 
-	foreach DynamicActors(class'KFGame.KFGameInfo', KFG)
+	foreach DynamicActors(class'ZedternalReborn.WMGameInfo_Endless', WMG)
 	{
-		KFG.ResetPickups(KFG.AmmoPickups, 0);
+		WMG.ResetPickups(WMG.AmmoPickups, 1 + WMG.WaveNum / 15);
 	}
 }
 
