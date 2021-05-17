@@ -18,8 +18,8 @@ defaultproperties
 	OtherDamage(1)=0.25f
 
 	upgradeName="Battle Surgeon"
-	upgradeDescription(0)="Increase damage with <font color=\"#caab05\">FieldMedic's weapons</font> by 20% and with <font color=\"#eaeff7\">other weapons</font> by 10%"
-	upgradeDescription(1)="Increase damage with <font color=\"#caab05\">FieldMedic's weapons</font> by <font color=\"#b346ea\">50%</font> and with <font color=\"#eaeff7\">other weapons</font> by <font color=\"#b346ea\">25%</font>"
+	upgradeDescription(0)="Increase damage with <font color=\"#caab05\">Field Medic weapons</font> by 20% and with <font color=\"#eaeff7\">other weapons</font> by 10%"
+	upgradeDescription(1)="Increase damage with <font color=\"#caab05\">Field Medic weapons</font> by <font color=\"#b346ea\">50%</font> and with <font color=\"#eaeff7\">other weapons</font> by <font color=\"#b346ea\">25%</font>"
 	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_BattleSurgeon'
 	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_BattleSurgeon_Deluxe'
 
