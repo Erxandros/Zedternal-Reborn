@@ -80,8 +80,8 @@ defaultproperties
 	HealthThreshold(1)=25
 
 	upgradeName="Combatant Doctor"
-	upgradeDescription(0)="Generate ammunition for yourself while healing"
-	upgradeDescription(1)="<font color=\"#b346ea\">Greatly</font> generate ammunition for yourself while healing"
+	upgradeDescription(0)="Generate a chunk of ammo for all of your weapons after healing 50 health points"
+	upgradeDescription(1)="Generate a chunk of ammo for all of your weapons after healing <font color=\"#b346ea\">25</font> health points"
 	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_CombatantDoctor'
 	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_CombatantDoctor_Deluxe'
 
