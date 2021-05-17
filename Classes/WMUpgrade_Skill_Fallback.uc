@@ -22,8 +22,8 @@ defaultproperties
 	ExtraGrenades(1)=2
 
 	upgradeName="Fallback"
-	upgradeDescription(0)="Increase damage with your 9mm pistol and your knife by 100%. Also increase grenade capacity by 1"
-	upgradeDescription(1)="Increase damage with your 9mm pistol and your knife by <font color=\"#b346ea\">250%</font>. Also increase grenade capacity by <font color=\"#b346ea\">2</font>"
+	upgradeDescription(0)="Increase grenade capacity by 1 and increase damage with your 9mm pistol and your knife by 100%"
+	upgradeDescription(1)="Increase grenade capacity by <font color=\"#b346ea\">2</font> and increase damage with your 9mm pistol and your knife by <font color=\"#b346ea\">200%</font>"
 	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Fallback'
 	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Fallback_Deluxe'
 
