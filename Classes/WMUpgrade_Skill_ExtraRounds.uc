@@ -22,8 +22,8 @@ defaultproperties
 	ExtraAmmoPrct(1)=0.4f
 
 	upgradeName="Extra Rounds"
-	upgradeDescription(0)="Increase the maximum ammo for <font color=\"#eaeff7\">all weapons</font> by 15%. Also increase the maximum ammo for <font color=\"#caab05\">Demolitionist's weapons</font> by 5 rounds"
-	upgradeDescription(1)="Increase the maximum ammo for <font color=\"#eaeff7\">all weapons</font> by <font color=\"#b346ea\">40%</font>. Also increase the maximum ammo for <font color=\"#caab05\">Demolitionist's weapons</font> by <font color=\"#b346ea\">10</font> rounds"
+	upgradeDescription(0)="Increase max ammo for <font color=\"#eaeff7\">all weapons</font> by 15% and increase max ammo for <font color=\"#caab05\">Demolitionist weapons</font> by 5 more rounds"
+	upgradeDescription(1)="Increase max ammo for <font color=\"#eaeff7\">all weapons</font> by <font color=\"#b346ea\">40%</font> and increase max ammo for <font color=\"#caab05\">Demolitionist weapons</font> by <font color=\"#b346ea\">10</font> more rounds"
 	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_ExtraRounds'
 	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_ExtraRounds_Deluxe'
 
