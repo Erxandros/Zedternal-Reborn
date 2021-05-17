@@ -22,8 +22,8 @@ defaultproperties
 	Damage(1)=50
 
 	upgradeName="Hemoglobine"
-	upgradeDescription(0)="<font color=\"#caab05\">Poison</font> damage debuffs ZEDs"
-	upgradeDescription(1)="<font color=\"#caab05\">Poison</font> damage <font color=\"#b346ea\">heavily</font> debuffs ZEDs"
+	upgradeDescription(0)="<font color=\"#caab05\">Poison</font> damage inflicts ZEDs with multisystem failure"
+	upgradeDescription(1)="<font color=\"#caab05\">Poison</font> damage inflicts ZEDs with <font color=\"#b346ea\">severe</font> multisystem failure"
 	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Hemoglobin'
 	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Hemoglobin_Deluxe'
 
