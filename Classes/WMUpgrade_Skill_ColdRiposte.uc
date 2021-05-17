@@ -47,8 +47,8 @@ static simulated function DeleteHelperClass(Pawn OwnerPawn)
 defaultproperties
 {
 	upgradeName="Cold Riposte"
-	upgradeDescription(0)="Release Ice explosion when you take damage"
-	upgradeDescription(1)="Release <font color=\"#b346ea\">Huge</font> Ice explosion when you take damage"
+	upgradeDescription(0)="Release an ice explosion when you take damage"
+	upgradeDescription(1)="Release a <font color=\"#b346ea\">huge</font> ice explosion when you take damage"
 	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_ColdRiposte'
 	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_ColdRiposte_Deluxe'
 
