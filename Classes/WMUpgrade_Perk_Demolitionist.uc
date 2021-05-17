@@ -22,8 +22,8 @@ defaultproperties
 
 	upgradeName="Demolitionist"
 	upgradeDescription(0)="+%x%% Grenade Damage with <font color=\"#eaeff7\">any grenade</font>"
-	upgradeDescription(1)="+%x%% Damage against Large Zeds with <font color=\"#eaeff7\">any weapon</font>"
-	upgradeDescription(2)="+%x%% Damage with <font color=\"#caab05\">Demolitionist's weapons</font>"
+	upgradeDescription(1)="+%x%% Damage Against Large ZEDs with <font color=\"#eaeff7\">any weapon</font>"
+	upgradeDescription(2)="+%x%% Damage with <font color=\"#caab05\">Demolitionist weapons</font>"
 	PerkBonus(0)=(baseValue=0, incValue=15, maxValue=-1)
 	PerkBonus(1)=(baseValue=0, incValue=5, maxValue=-1)
 	PerkBonus(2)=(baseValue=0, incValue=5, maxValue=-1)
