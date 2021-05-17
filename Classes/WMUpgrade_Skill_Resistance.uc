@@ -14,8 +14,8 @@ defaultproperties
 	Damage(1)=0.6f
 
 	upgradeName="Resistance"
-	upgradeDescription(0)="Increase resistance to fire, sonic and poison damage by 25%"
-	upgradeDescription(1)="Increase resistance to fire, sonic and poison damage by <font color=\"#b346ea\">60%</font>"
+	upgradeDescription(0)="Increase resistance to fire, sonic, and poison damages by 25%"
+	upgradeDescription(1)="Increase resistance to fire, sonic, and poison damages by <font color=\"#b346ea\">60%</font>"
 	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Resistance'
 	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Resistance_Deluxe'
 
