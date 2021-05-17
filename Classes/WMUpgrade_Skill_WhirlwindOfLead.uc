@@ -31,9 +31,9 @@ defaultproperties
 	SpecialRate(0)=0.2f
 	SpecialRate(1)=0.4f
 
-	upgradeName="Whirlwind of Lead"
-	upgradeDescription(0)="During Zed Time, <font color=\"#eaeff7\">your weapon</font> shoots faster and can not run out of ammo"
-	upgradeDescription(1)="During Zed Time, <font color=\"#eaeff7\">your weapon</font> shoots <font color=\"#b346ea\">in near real-time</font> and can not run out of ammo"
+	upgradeName="Whirlwind Of Lead"
+	upgradeDescription(0)="During ZED Time your weapon shoots faster and has unlimited ammo"
+	upgradeDescription(1)="During ZED Time your weapon shoots in <font color=\"#b346ea\">near real-time</font> and has unlimited ammo"
 	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_WhirlwindOfLead'
 	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_WhirlwindOfLead_Deluxe'
 
