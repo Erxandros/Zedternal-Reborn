@@ -22,8 +22,8 @@ defaultproperties
 	Damage(1)=0.25f
 
 	upgradeName="Barbecue"
-	upgradeDescription(0)="Bleed, burn, freeze and poison effects last 200% longer and do 10% increased damage over time"
-	upgradeDescription(1)="Bleed, burn, freeze and poison effects last <font color=\"#b346ea\">500%</font> longer and do <font color=\"#b346ea\">25%</font> increased damage over time"
+	upgradeDescription(0)="Bleed, burn, freeze, and poison effects last 200% longer and do 10% more damage over time"
+	upgradeDescription(1)="Bleed, burn, freeze, and poison effects last <font color=\"#b346ea\">500%</font> longer and do <font color=\"#b346ea\">25%</font> more damage over time"
 	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Barbecue'
 	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Barbecue_Deluxe'
 
