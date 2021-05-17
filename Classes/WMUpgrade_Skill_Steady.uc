@@ -21,8 +21,8 @@ defaultproperties
 	Bob=0.11f
 
 	upgradeName="Steady"
-	upgradeDescription(0)="Reduce recoil by 30% and drastically reduce weapon bob with <font color=\"#eaeff7\">all weapons</font>"
-	upgradeDescription(1)="Reduce recoil by <font color=\"#b346ea\">75%</font> and drastically reduce weapon bob with <font color=\"#eaeff7\">all weapons</font>"
+	upgradeDescription(0)="Decrease recoil by 30% and drastically reduce weapon bob with <font color=\"#eaeff7\">all weapons</font>"
+	upgradeDescription(1)="Decrease recoil by <font color=\"#b346ea\">75%</font> and drastically reduce weapon bob with <font color=\"#eaeff7\">all weapons</font>"
 	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Steady'
 	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Steady_Deluxe'
 
