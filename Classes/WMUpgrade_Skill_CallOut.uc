@@ -18,8 +18,8 @@ defaultproperties
 	Damage(1)=0.25f
 
 	upgradeName="Call Out"
-	upgradeDescription(0)="Allow you to see cloaked ZEDs. Increase damage you deal with <font color=\"#eaeff7\">all weapons</font> by 10%"
-	upgradeDescription(1)="Allow you to see cloaked ZEDs. Increase damage you deal with <font color=\"#eaeff7\">all weapons</font> by <font color=\"#b346ea\">25%</font>"
+	upgradeDescription(0)="Allows you to see cloaked ZEDs and increases damage you deal with <font color=\"#eaeff7\">all weapons</font> by 10%"
+	upgradeDescription(1)="Allows you to see cloaked ZEDs and increases damage you deal with <font color=\"#eaeff7\">all weapons</font> by <font color=\"#b346ea\">25%</font>"
 	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_CallOut'
 	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_CallOut_Deluxe'
 
