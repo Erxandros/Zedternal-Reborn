@@ -29,11 +29,11 @@ static function ModifyStumblePower(out float InStumblePower, float DefaultStumbl
 
 defaultproperties
 {
-	StumblePower=0.5f
+	StumblePower=0.25f
 
 	upgradeName="Stumble Effect"
 	upgradeDescription(0)="Increase stumble effect of this weapon by %x%%"
-	WeaponBonus=(baseValue=0, incValue=50, maxValue=-1)
+	WeaponBonus=(baseValue=0, incValue=25, maxValue=-1)
 
 	Name="Default__WMUpgrade_Weapon_StumblePower"
 }
