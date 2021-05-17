@@ -31,7 +31,7 @@ defaultproperties
 	Damage=0.2f
 
 	upgradeName="Damage Against Fleshpounds"
-	upgradeDescription(0)="Increase damage dealt against fleshpounds with this weapon by %x%%"
+	upgradeDescription(0)="Increase damage dealt against Fleshpounds with this weapon by %x%%"
 	WeaponBonus=(baseValue=0, incValue=20, maxValue=-1)
 
 	Name="Default__WMUpgrade_Weapon_Damage_Fleshpound"
