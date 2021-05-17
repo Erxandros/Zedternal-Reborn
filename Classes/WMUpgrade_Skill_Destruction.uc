@@ -38,8 +38,8 @@ static simulated function DeleteHelperClass(Pawn OwnerPawn)
 defaultproperties
 {
 	upgradeName="Destruction"
-	upgradeDescription(0)="All nearby ZEDs fall down whenever Zed time starts (radius of 5m)"
-	upgradeDescription(1)="All nearby ZEDs fall down whenever Zed time starts (radius of <font color=\"#b346ea\">10m</font>)"
+	upgradeDescription(0)="ZEDs within 5 meters of you fall down whenever ZED Time starts"
+	upgradeDescription(1)="ZEDs within <font color=\"#b346ea\">10</font> meters of you fall down whenever ZED Time starts"
 	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Cripple'
 	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Cripple_Deluxe'
 
