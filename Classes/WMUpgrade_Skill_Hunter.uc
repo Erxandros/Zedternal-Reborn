@@ -14,8 +14,8 @@ defaultproperties
 	Vampire(1)=40
 
 	upgradeName="Hunter"
-	upgradeDescription(0)="Heals 15 points of health for every large ZED killed"
-	upgradeDescription(1)="Heals <font color=\"#b346ea\">40</font> points of health for every large ZED killed"
+	upgradeDescription(0)="Heal 15 points of health for every large ZED killed"
+	upgradeDescription(1)="Heal <font color=\"#b346ea\">40</font> points of health for every large ZED killed"
 	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Hunter'
 	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Hunter_Deluxe'
 
