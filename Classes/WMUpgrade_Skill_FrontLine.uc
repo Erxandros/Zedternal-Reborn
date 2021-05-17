@@ -18,8 +18,8 @@ defaultproperties
 	OtherResistance(1)=0.1f
 
 	upgradeName="Front Line"
-	upgradeDescription(0)="Increase resistance to your own explosives by 35%. Increase other damage resistances by 5%"
-	upgradeDescription(1)="Increase resistance to your own explosives by <font color=\"#b346ea\">75%</font>. Increase other damage resistances by <font color=\"#b346ea\">10%</font>"
+	upgradeDescription(0)="Increase resistance to your <font color=\"#eaeff7\">own explosives</font> by 35% and increase other damage resistances by 5%"
+	upgradeDescription(1)="Increase resistance to your <font color=\"#eaeff7\">own explosives</font> by <font color=\"#b346ea\">75%</font> and increase other damage resistances by <font color=\"#b346ea\">10%</font>"
 	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_FrontLine'
 	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_FrontLine_Deluxe'
 
