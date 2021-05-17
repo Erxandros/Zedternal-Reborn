@@ -21,8 +21,8 @@ defaultproperties
 	HipRecoil(1)=0.75f
 
 	upgradeName="Stability"
-	upgradeDescription(0)="Reduce aim recoil by 25% and hip recoil by 50% with <font color=\"#eaeff7\">all weapons</font>"
-	upgradeDescription(1)="Reduce aim recoil by <font color=\"#b346ea\">50%</font> and hip recoil by <font color=\"#b346ea\">75%</font> with <font color=\"#eaeff7\">all weapons</font>"
+	upgradeDescription(0)="Decrease recoil by 25% when using iron sights and by 50% when hip firing with <font color=\"#eaeff7\">all weapons</font>"
+	upgradeDescription(1)="Decrease recoil by <font color=\"#b346ea\">50%</font> when using iron sights and by <font color=\"#b346ea\">75%</font> when hip firing with <font color=\"#eaeff7\">all weapons</font>"
 	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Stability'
 	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Stability_Deluxe'
 
