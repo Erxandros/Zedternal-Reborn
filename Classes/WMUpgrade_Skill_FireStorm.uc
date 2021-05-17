@@ -25,8 +25,8 @@ defaultproperties
 	MeleeSpeed(1)=0.4f
 
 	upgradeName="Firestorm"
-	upgradeDescription(0)="Increase range of <font color=\"#caab05\">Firebug's weapons</font>. Attack and shoot 15% faster with <font color=\"#eaeff7\">all weapons</font>"
-	upgradeDescription(1)="Increase range of <font color=\"#caab05\">Firebug's weapons</font>. Attack and shoot <font color=\"#b346ea\">40%</font> faster with <font color=\"#eaeff7\">all weapons</font>"
+	upgradeDescription(0)="Attack and shoot 15% faster with <font color=\"#eaeff7\">all weapons</font> and increase firing range with <font color=\"#caab05\">Firebug flame weapons</font>"
+	upgradeDescription(1)="Attack and shoot <font color=\"#b346ea\">40%</font> faster with <font color=\"#eaeff7\">all weapons</font> and increase firing range with <font color=\"#caab05\">Firebug flame weapons</font>"
 	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_FireStorm'
 	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_FireStorm_Deluxe'
 
