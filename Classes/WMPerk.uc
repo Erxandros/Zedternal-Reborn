@@ -3278,21 +3278,30 @@ function bool IsUnAffectedByZedTime()
 			index = MyWMPRI.Purchase_PerkUpgrade[i];
 			bActive = MyWMGRI.perkUpgrades[index].static.IsUnAffectedByZedTime(MyWMPRI.bPerkUpgrade[index], OwnerPawn);
 			if (bActive)
+			{
+				OwnerPawn.bMovesFastInZedTime = True;
 				return True;
+			}
 		}
 		for (i = 0; i < MyWMPRI.Purchase_SkillUpgrade.length; ++i)
 		{
 			index = MyWMPRI.Purchase_SkillUpgrade[i];
 			bActive = MyWMGRI.skillUpgrades[index].SkillUpgrade.static.IsUnAffectedByZedTime(MyWMPRI.bSkillUpgrade[index], OwnerPawn);
 			if (bActive)
+			{
+				OwnerPawn.bMovesFastInZedTime = True;
 				return True;
+			}
 		}
 		for (i = 0; i < MyWMPRI.Purchase_EquipmentUpgrade.length; ++i)
 		{
 			index = MyWMPRI.Purchase_EquipmentUpgrade[i];
 			bActive = MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.IsUnAffectedByZedTime(MyWMPRI.bEquipmentUpgrade[index], OwnerPawn);
 			if (bActive)
+			{
+				OwnerPawn.bMovesFastInZedTime = True;
 				return True;
+			}
 		}
 	}
 
