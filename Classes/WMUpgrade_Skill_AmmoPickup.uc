@@ -24,8 +24,8 @@ defaultproperties
 	Ammo(1)=2.25f
 
 	upgradeName="Extra Ammo Pickup"
-	upgradeDescription(0)="Increase ammo from ammo boxes by 50%"
-	upgradeDescription(1)="Increase ammo from ammo boxes by <font color=\"#b346ea\">125%</font>"
+	upgradeDescription(0)="Increase total ammo received from ammo boxes by 50%"
+	upgradeDescription(1)="Increase total ammo received from ammo boxes by <font color=\"#b346ea\">125%</font>"
 	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_AmmoPickup'
 	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_AmmoPickup_Deluxe'
 
