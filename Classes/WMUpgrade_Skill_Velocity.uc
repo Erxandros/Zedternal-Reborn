@@ -21,8 +21,8 @@ defaultproperties
 	MaxRadius=50000000.0f
 
 	upgradeName="High Velocity"
-	upgradeDescription(0)="Increase damage with <font color=\"#eaeff7\">all weapons</font> up to 25% while shooting ZEDs at long range"
-	upgradeDescription(1)="Increase damage with <font color=\"#eaeff7\">all weapons</font> up to <font color=\"#b346ea\">60%</font> while shooting ZEDs at long range"
+	upgradeDescription(0)="Increase damage with <font color=\"#eaeff7\">all weapons</font> up to 25% while shooting ZEDs at long range with longer distances equaling greater damage"
+	upgradeDescription(1)="Increase damage with <font color=\"#eaeff7\">all weapons</font> up to <font color=\"#b346ea\">60%</font> while shooting ZEDs at long range with longer distances equaling greater damage"
 
 	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Velocity'
 	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Velocity_Deluxe'
