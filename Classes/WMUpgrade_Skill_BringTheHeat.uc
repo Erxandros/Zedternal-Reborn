@@ -79,9 +79,9 @@ defaultproperties
 {
 	FireBonus=1.4f
 
-	upgradeName="Bring the Heat"
-	upgradeDescription(0)="Release fire waves while damaging zeds with <font color=\"#eaeff7\">all weapons</font>"
-	upgradeDescription(1)="Release <font color=\"#b346ea\">many</font> fire waves while damaging zeds with <font color=\"#eaeff7\">all weapons</font>"
+	upgradeName="Bring The Heat"
+	upgradeDescription(0)="Release waves of fire while damaging ZEDs with <font color=\"#eaeff7\">any weapon</font>"
+	upgradeDescription(1)="Release <font color=\"#b346ea\">powerful</font> waves of fire while damaging ZEDs with <font color=\"#eaeff7\">any weapon</font>"
 	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_BringTheHeat'
 	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_BringTheHeat_Deluxe'
 
