@@ -10,12 +10,12 @@ static function ModifyKnockdownPower(out float InKnockdownPower, float DefaultKn
 
 defaultproperties
 {
-	Knockdown(0)=2.5f
-	Knockdown(1)=6.0f
+	Knockdown(0)=0.4f
+	Knockdown(1)=1.0f
 
 	upgradeName="High Impact Rounds"
-	upgradeDescription(0)="Greatly increase knockdown power of <font color=\"#eaeff7\">all explosives</font>"
-	upgradeDescription(1)="<font color=\"#b346ea\">Massively</font> increase knockdown power of <font color=\"#eaeff7\">all explosives</font>"
+	upgradeDescription(0)="Increase knockdown power of <font color=\"#eaeff7\">all explosives</font> by 40%"
+	upgradeDescription(1)="Increase knockdown power of <font color=\"#eaeff7\">all explosives</font> by <font color=\"#b346ea\">100%</font>"
 	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_HighImpactRound'
 	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_HighImpactRound_Deluxe'
 
