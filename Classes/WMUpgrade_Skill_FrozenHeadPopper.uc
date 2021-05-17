@@ -26,8 +26,8 @@ defaultproperties
 	MaxDamage=800.0f
 
 	upgradeName="Frozen Head Popper"
-	upgradeDescription(0)="Any headshots with <font color=\"#eaeff7\">all weapons</font> have a chance to create an ice explosion"
-	upgradeDescription(1)="Any headshots with <font color=\"#eaeff7\">all weapons</font> have a chance to create a <font color=\"#b346ea\">massive</font> ice explosion"
+	upgradeDescription(0)="Headshots with <font color=\"#eaeff7\">all weapons</font> may cause an ice explosion with higher damage headshots equaling a greater chance to explode"
+	upgradeDescription(1)="Headshots with <font color=\"#eaeff7\">all weapons</font> may cause a <font color=\"#b346ea\">massive</font> ice explosion with higher damage headshots equaling a greater chance to explode"
 	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_FrozenHeadPopper'
 	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_FrozenHeadPopper_Deluxe'
 
