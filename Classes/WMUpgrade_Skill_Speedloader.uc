@@ -21,8 +21,8 @@ defaultproperties
 	MaxReloadSpeed(1)=0.75f
 
 	upgradeName="Speedloader"
-	upgradeDescription(0)="Increase reload speed by 10% to 50% with <font color=\"#eaeff7\">all weapons</font>. You reload faster when your clip is almost full"
-	upgradeDescription(1)="Increase reload speed by <font color=\"#b346ea\">25%</font> to <font color=\"#b346ea\">100%</font> with <font color=\"#eaeff7\">all weapons</font>. You reload faster when your clip is almost full"
+	upgradeDescription(0)="Reload 10% to 50% faster with <font color=\"#eaeff7\">all weapons</font> in proportion to how many rounds remain in your magazine with more rounds equaling faster reloading"
+	upgradeDescription(1)="Reload <font color=\"#b346ea\">25%</font> to <font color=\"#b346ea\">100%</font> faster with <font color=\"#eaeff7\">all weapons</font> in proportion to how many rounds remain in your magazine with more rounds equaling faster reloading"
 	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Speedloader'
 	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Speedloader_Deluxe'
 
