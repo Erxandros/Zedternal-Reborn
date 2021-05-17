@@ -21,8 +21,8 @@ defaultproperties
 	Armor(1)=0.5f
 
 	upgradeName="Heavy Armor Training"
-	upgradeDescription(0)="While you have body armor, Clots can't grab you. Increase max armor by 20%"
-	upgradeDescription(1)="While you have body armor, Clots can't grab you. Increase max armor by <font color=\"#b346ea\">50%</font>"
+	upgradeDescription(0)="Max armor increases by 20% and while you have body armor Clots can’t grab you"
+	upgradeDescription(1)="Max armor increases by <font color=\"#b346ea\">50%</font> and while you have body armor Clots can’t grab you"
 	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_TacticalArmor'
 	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_TacticalArmor_Deluxe'
 
