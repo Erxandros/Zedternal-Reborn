@@ -27,7 +27,7 @@ defaultproperties
 	upgradeName="SWAT"
 	upgradeDescription(0)="+%x%% Max Armor"
 	upgradeDescription(1)="+%x%% Mag Size with <font color=\"#eaeff7\">any weapon</font>"
-	upgradeDescription(2)="+%x%% Damage with <font color=\"#caab05\">SWAT's weapons</font>"
+	upgradeDescription(2)="+%x%% Damage with <font color=\"#caab05\">SWAT weapons</font>"
 	PerkBonus(0)=(baseValue=0, incValue=10, maxValue=100)
 	PerkBonus(1)=(baseValue=0, incValue=10, maxValue=-1)
 	PerkBonus(2)=(baseValue=0, incValue=5, maxValue=-1)
