@@ -2,12 +2,6 @@ class WMUpgrade_Skill_Spartan extends WMUpgrade_Skill;
 
 var array<float> FireRate, SpecialRate;
 
-static simulated function InitiateWeapon(int upgLevel, KFWeapon KFW, KFPawn OwnerPawn)
-{
-	if (KFPawn_Human(OwnerPawn) != None)
-		OwnerPawn.bMovesFastInZedTime = True;
-}
-
 static simulated function bool IsUnAffectedByZedTime(int upgLevel, KFPawn OwnerPawn)
 {
 	return True;
