@@ -21,8 +21,8 @@ defaultproperties
 	Damage(1)=0.6f
 
 	upgradeName="Watcher"
-	upgradeDescription(0)="Allow you to see ZEDs health. Increase damage with <font color=\"#eaeff7\">all weapons</font> by 25% to greatly injured ZEDs"
-	upgradeDescription(1)="Allow you to see ZEDs health. Increase damage with <font color=\"#eaeff7\">all weapons</font> by <font color=\"#b346ea\">60%</font> to greatly injured ZEDs"
+	upgradeDescription(0)="Allows you to see ZED health and increases damage you deal to greatly injured ZEDs with <font color=\"#eaeff7\">all weapons</font> by 25%"
+	upgradeDescription(1)="Allows you to see ZED health and increases damage you deal to greatly injured ZEDs with <font color=\"#eaeff7\">all weapons</font> by <font color=\"#b346ea\">60%</font>"
 	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Watcher'
 	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Watcher_Deluxe'
 
