@@ -27,7 +27,7 @@ defaultproperties
 	upgradeName="Gunslinger"
 	upgradeDescription(0)="+%x%% Movement Speed"
 	upgradeDescription(1)="+%x%% Weapon Switch Speed with <font color=\"#eaeff7\">any weapon</font>"
-	upgradeDescription(2)="+%x%% Damage with <font color=\"#caab05\">Gunslinger's weapons</font>"
+	upgradeDescription(2)="+%x%% Damage with <font color=\"#caab05\">Gunslinger weapons</font>"
 	PerkBonus(0)=(baseValue=0, incValue=4, maxValue=-1)
 	PerkBonus(1)=(baseValue=0, incValue=20, maxValue=-1)
 	PerkBonus(2)=(baseValue=0, incValue=5, maxValue=-1)
