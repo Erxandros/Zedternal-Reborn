@@ -70,7 +70,7 @@ defaultproperties
 {
 	bDeluxe=False
 	CriticalHealth=60
-	RadiusSQ=60000
+	RadiusSQ=160000
 	Recharge=40.0f
 	Update=0.5f
 
