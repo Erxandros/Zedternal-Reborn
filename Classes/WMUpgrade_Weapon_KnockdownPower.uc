@@ -22,11 +22,11 @@ static function ModifyKnockdownPower(out float InKnockdownPower, float DefaultKn
 
 defaultproperties
 {
-	KnockdownPower=0.25f
+	KnockdownPower=0.15f
 
 	upgradeName="Knockdown Effect"
 	upgradeDescription(0)="Increase knockdown power of this weapon by %x%%"
-	WeaponBonus=(baseValue=0, incValue=25, maxValue=-1)
+	WeaponBonus=(baseValue=0, incValue=15, maxValue=-1)
 
 	Name="Default__WMUpgrade_Weapon_KnockdownPower"
 }
