@@ -21,6 +21,12 @@ static simulated function bool IsGroundFireActive(int upgLevel, KFPawn OwnerPawn
 	return True;
 }
 
+static simulated function RevertUpgradeChanges(Pawn OwnerPawn)
+{
+	if (OwnerPawn != None && KFPlayerReplicationInfo(OwnerPawn.PlayerReplicationInfo) != None)
+		KFPlayerReplicationInfo(OwnerPawn.PlayerReplicationInfo).bSplashActive = False;
+}
+
 defaultproperties
 {
 	Damage(0)=0.8f

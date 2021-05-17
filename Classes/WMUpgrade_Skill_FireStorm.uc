@@ -17,6 +17,12 @@ static simulated function ModifyMeleeAttackSpeedPassive(out float durationFactor
 	durationFactor = 1.0f / (1.0f / durationFactor + default.MeleeSpeed[upgLevel - 1]);
 }
 
+static simulated function RevertUpgradeChanges(Pawn OwnerPawn)
+{
+	if (OwnerPawn != None && KFPlayerReplicationInfo(OwnerPawn.PlayerReplicationInfo) != None)
+		KFPlayerReplicationInfo(OwnerPawn.PlayerReplicationInfo).bExtraFireRange = False;
+}
+
 defaultproperties
 {
 	FireRate(0)=0.15f
