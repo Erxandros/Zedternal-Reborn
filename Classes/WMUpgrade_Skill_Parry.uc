@@ -96,8 +96,8 @@ defaultproperties
 	Resistance(1)=0.4f
 
 	upgradeName="Parry"
-	upgradeDescription(0)="Parrying an attack with a melee weapon reduces incoming damage by 30% and increases damage by 30% with <font color=\"#eaeff7\">any weapon</font> for 10 seconds"
-	upgradeDescription(1)="Parrying an attack with a melee weapon reduces incoming damage by <font color=\"#b346ea\">40%</font> and increases damage by <font color=\"#b346ea\">75%</font> with <font color=\"#eaeff7\">any weapon</font> for 10 seconds"
+	upgradeDescription(0)="Parrying an attack with a <font color=\"#caab05\">melee weapon</font> decreases incoming damage by 30% and increases damage output by 30% with <font color=\"#eaeff7\">any weapon</font> for 10 seconds"
+	upgradeDescription(1)="Parrying an attack with a <font color=\"#caab05\">melee weapon</font> decreases incoming damage by <font color=\"#b346ea\">40%</font> and increases damage output by <font color=\"#b346ea\">75%</font> with <font color=\"#eaeff7\">any weapon</font> for 10 seconds"
 	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Parry'
 	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Parry_Deluxe'
 
