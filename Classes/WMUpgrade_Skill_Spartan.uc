@@ -44,8 +44,8 @@ defaultproperties
 	SpecialRate(1)=0.4f
 
 	upgradeName="Spartan"
-	upgradeDescription(0)="You move and attack faster during Zed time"
-	upgradeDescription(1)="You move and attack <font color=\"#b346ea\">insanely</font> fast during Zed time"
+	upgradeDescription(0)="You move and attack faster during ZED Time"
+	upgradeDescription(1)="You move and attack <font color=\"#b346ea\">insanely</font> fast during ZED Time"
 	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Spartan'
 	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Spartan_Deluxe'
 
