@@ -14,8 +14,8 @@ defaultproperties
 	Damage(1)=0.75f
 
 	upgradeName="Concentration"
-	upgradeDescription(0)="During Zed time, you do 30% more damage with <font color=\"#eaeff7\">all weapon</font>"
-	upgradeDescription(1)="During Zed time, you do <font color=\"#b346ea\">75%</font> more damage with <font color=\"#eaeff7\">all weapon</font>"
+	upgradeDescription(0)="During ZED Time you do 30% more damage with <font color=\"#eaeff7\">all weapons</font>"
+	upgradeDescription(1)="During ZED Time you do <font color=\"#b346ea\">75%</font> more damage with <font color=\"#eaeff7\">all weapons</font>"
 	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Concentration'
 	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Concentration_Deluxe'
 
