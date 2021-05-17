@@ -16,8 +16,8 @@ defaultproperties
 	MaxResistance(1)=0.25f
 
 	upgradeName="Coagulant Booster"
-	upgradeDescription(0)="Increase damage resistance 0.10% per Health point lost, up to 10%"
-	upgradeDescription(1)="Increase damage resistance <font color=\"#b346ea\">0.25%</font> per Health point lost, up to <font color=\"#b346ea\">25%</font>"
+	upgradeDescription(0)="Increase damage resistance by 0.10% per health point lost up to a max of 10%"
+	upgradeDescription(1)="Increase damage resistance by <font color=\"#b346ea\">0.25%</font> per health point lost up to a max of <font color=\"#b346ea\">25%</font>"
 	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_CoagulantBooster'
 	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_CoagulantBooster_Deluxe'
 
