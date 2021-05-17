@@ -63,8 +63,8 @@ defaultproperties
 	Damage(1)=0.4f
 
 	upgradeName="Tenacity"
-	upgradeDescription(0)="Reduces incoming damage by 15% during a short time after killing a ZED"
-	upgradeDescription(1)="Reduces incoming damage by <font color=\"#b346ea\">40%</font> during a short time after killing a ZED"
+	upgradeDescription(0)="Reduce incoming damage by 15% for 5 seconds after killing a ZED"
+	upgradeDescription(1)="Reduce incoming damage by <font color=\"#b346ea\">40%</font> for 5 seconds after killing a ZED"
 	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Tenacity'
 	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Tenacity_Deluxe'
 
