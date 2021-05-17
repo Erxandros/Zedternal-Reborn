@@ -29,8 +29,8 @@ defaultproperties
 	DamageFactor(1)=0.5f
 
 	upgradeName="Napalm"
-	upgradeDescription(0)="<font color=\"#eaeff7\">All weapons</font> can put ZEDs on fire. Burning ZEDs that make contact with other ZEDs will light them on fire"
-	upgradeDescription(1)="<font color=\"#eaeff7\">All weapons</font> can put ZEDs on <font color=\"#b346ea\">heavy</font> fire. Burning ZEDs that make contact with other ZEDs will light them on fire"
+	upgradeDescription(0)="<font color=\"#eaeff7\">All weapons</font> can set fire to ZEDs and burning ZEDs will light other ZEDs on fire upon contact"
+	upgradeDescription(1)="<font color=\"#eaeff7\">All weapons</font> can set <font color=\"#b346ea\">lethal</font> fire to ZEDs and burning ZEDs will light other ZEDs on fire upon contact"
 	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Napalm'
 	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Napalm_Deluxe'
 
