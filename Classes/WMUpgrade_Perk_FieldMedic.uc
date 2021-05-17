@@ -26,8 +26,8 @@ defaultproperties
 
 	upgradeName="Medic"
 	upgradeDescription(0)="+%x%% Max Health"
-	upgradeDescription(1)="+%x%% Syringe and Healing Darts Recharge Rate"
-	upgradeDescription(2)="+%x%% Damage with <font color=\"#caab05\">Medic's weapons</font>"
+	upgradeDescription(1)="+%x%% Syringe and Healing Dart Recharge Rate"
+	upgradeDescription(2)="+%x%% Damage with <font color=\"#caab05\">Medic weapons</font>"
 	PerkBonus(0)=(baseValue=0, incValue=5, maxValue=50)
 	PerkBonus(1)=(baseValue=0, incValue=20, maxValue=-1)
 	PerkBonus(2)=(baseValue=0, incValue=5, maxValue=-1)
