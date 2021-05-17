@@ -21,8 +21,8 @@ defaultproperties
 	MoveSpeed=0.05f
 
 	upgradeName="Tactical Movement"
-	upgradeDescription(0)="Ignore movement speed penalty while using iron sights for <font color=\"#eaeff7\">all weapons</font>"
-	upgradeDescription(1)="<font color=\"#b346ea\">Gain 15%</font> movement speed bonus while using iron sights for <font color=\"#eaeff7\">all weapons</font>. Also increase movement speed by <font color=\"#b346ea\">5%</font>"
+	upgradeDescription(0)="Ignore movement speed penalty while using iron sights with <font color=\"#eaeff7\">all weapons</font>"
+	upgradeDescription(1)="Gain bonus <font color=\"#b346ea\">15%</font> movement speed while using iron sights with <font color=\"#eaeff7\">all weapons</font> and increase movement speed by <font color=\"#b346ea\">5%</font>"
 	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_TacticalMovement'
 	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_TacticalMovement_Deluxe'
 
