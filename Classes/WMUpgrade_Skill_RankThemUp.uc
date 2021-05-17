@@ -78,8 +78,8 @@ defaultproperties
 	ExtraDamage(2)=3.75f
 
 	upgradeName="Rank Them Up"
-	upgradeDescription(0)="Connect 5 headshots to increase damage on the 6th headshot by 150% with <font color=\"#eaeff7\">all weapons</font>"
-	upgradeDescription(1)="Connect 5 headshots to increase damage on the 6th headshot by <font color=\"#b346ea\">375%</font> with <font color=\"#eaeff7\">all weapons</font>"
+	upgradeDescription(0)="Quickly land 5 headshots to increase damage on the 6th headshot by 150% with <font color=\"#eaeff7\">all weapons</font>"
+	upgradeDescription(1)="Quickly land 5 headshots to increase damage on the 6th headshot by <font color=\"#b346ea\">375%</font> with <font color=\"#eaeff7\">all weapons</font>"
 	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_RankThemUp'
 	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_RankThemUp_Deluxe'
 
