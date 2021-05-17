@@ -24,9 +24,9 @@ defaultproperties
 	ReloadRate=0.15f
 
 	upgradeName="Commando"
-	upgradeDescription(0)="+%x%s. Zed Time Extension with <font color=\"#eaeff7\">any weapon</font>"
+	upgradeDescription(0)="+%x%s. ZED Time Extension with <font color=\"#eaeff7\">any weapon</font>"
 	upgradeDescription(1)="+%x%% Reload Speed with <font color=\"#eaeff7\">any weapon</font>"
-	upgradeDescription(2)="+%x%% Damage with <font color=\"#caab05\">Commando's weapons</font>"
+	upgradeDescription(2)="+%x%% Damage with <font color=\"#caab05\">Commando weapons</font>"
 	PerkBonus(0)=(baseValue=0, incValue=1, maxValue=10)
 	PerkBonus(1)=(baseValue=0, incValue=15, maxValue=-1)
 	PerkBonus(2)=(baseValue=0, incValue=5, maxValue=-1)
