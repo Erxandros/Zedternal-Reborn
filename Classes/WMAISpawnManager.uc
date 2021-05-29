@@ -14,7 +14,7 @@ struct SGroupToSpawn
 	var array < class<KFPawn_Monster> > MClass;
 	var float Delay;
 };
-var array< SGroupToSpawn > groupList;
+var array<SGroupToSpawn> groupList;
 
 // stuck zed variables
 struct SStuckZed
@@ -23,7 +23,7 @@ struct SStuckZed
 	var vector lastloc;
 	var int countDown;
 };
-var array< SStuckZed > lastZedInfo;
+var array<SStuckZed> lastZedInfo;
 
 var bool bAllowTurboSpawn;
 var float GameDifficultyZedternal;
@@ -50,7 +50,7 @@ function CheckForBadZedClasses()
 		++lineNumber;
 
 		//Errors
-		if (class'ZedternalReborn.Config_Zed'.default.Zed_Monsters[i].MClass == none)
+		if (class'ZedternalReborn.Config_Zed'.default.Zed_Monsters[i].MClass == None)
 		{
 			`log("ZR Error: Failed to add wave config from Zed_Monsters on line"@lineNumber@
 				"because the class defined in MClass does not exist or is not a valid type, please check your config and verify that the class is correct.");
@@ -70,7 +70,7 @@ function CheckForBadZedClasses()
 		if (class'ZedternalReborn.Config_Zed'.default.Zed_Monsters[i].MClass.default.MinSpawnSquadSizeType == EST_Boss || class'ZedternalReborn.Config_Zed'.default.Zed_Monsters[i].MClass.static.IsABoss())
 		{
 			`log("ZR Warning: Zed class"@string(class'ZedternalReborn.Config_Zed'.default.Zed_Monsters[i].MClass)@
-				"is defined as a boss, it will almost certainly break zedternal spawning or something else.");
+				"is defined as a boss, it could potentially break ZedternalReborn spawning or something else.");
 		}
 	}
 }
@@ -117,12 +117,12 @@ function SetupNextWave(byte NextWaveIndex, int TimeToNextWaveBuffer = 0)
 	//First, to randomize waves, we use a certain number of different MonsterToSpawn
 	//Lets select only monsters that can spawn in the current wave:
 
-	if (WMGRI.SpecialWaveID[0] != -1)
+	if (WMGRI.SpecialWaveID[0] != INDEX_NONE)
 	{
 		WMSW.length = 0;
 		for (k = 0; k <= 1; ++k)
 		{
-			if (WMGRI.SpecialWaveID[k] != -1)
+			if (WMGRI.SpecialWaveID[k] != INDEX_NONE)
 				WMSW.AddItem(WMGRI.specialWaves[WMGRI.SpecialWaveID[k]]);
 		}
 
@@ -135,12 +135,12 @@ function SetupNextWave(byte NextWaveIndex, int TimeToNextWaveBuffer = 0)
 					if (NextWaveIndex >= WMSW[k].default.MonsterToAdd[i].MinWave && NextWaveIndex <= WMSW[k].default.MonsterToAdd[i].MaxWave)
 					{
 						MToA.AddItem(default.SMonster_Temp);
-						MToA[MToA.length-1].MinWave = WMSW[k].default.MonsterToAdd[i].MinWave;
-						MToA[MToA.length-1].MaxWave = WMSW[k].default.MonsterToAdd[i].MaxWave;
-						MToA[MToA.length-1].MinGr = WMSW[k].default.MonsterToAdd[i].MinGr;
-						MToA[MToA.length-1].MaxGr = WMSW[k].default.MonsterToAdd[i].MaxGr;
-						MToA[MToA.length-1].Value = class'ZedternalReborn.Config_Zed'.static.GetMonsterValue(WMSW[k].default.MonsterToAdd[i].MClass, NbPlayer);
-						MToA[MToA.length-1].MClass = WMSW[k].default.MonsterToAdd[i].MClass;
+						MToA[MToA.length - 1].MinWave = WMSW[k].default.MonsterToAdd[i].MinWave;
+						MToA[MToA.length - 1].MaxWave = WMSW[k].default.MonsterToAdd[i].MaxWave;
+						MToA[MToA.length - 1].MinGr = WMSW[k].default.MonsterToAdd[i].MinGr;
+						MToA[MToA.length - 1].MaxGr = WMSW[k].default.MonsterToAdd[i].MaxGr;
+						MToA[MToA.length - 1].Value = class'ZedternalReborn.Config_Zed'.static.GetMonsterValue(WMSW[k].default.MonsterToAdd[i].MClass, NbPlayer);
+						MToA[MToA.length - 1].MClass = WMSW[k].default.MonsterToAdd[i].MClass;
 					}
 				}
 			}
@@ -152,15 +152,15 @@ function SetupNextWave(byte NextWaveIndex, int TimeToNextWaveBuffer = 0)
 				if (NextWaveIndex>=class'ZedternalReborn.Config_Zed'.default.Zed_Monsters[i].MinWave && NextWaveIndex<=class'ZedternalReborn.Config_Zed'.default.Zed_Monsters[i].MaxWave)
 				{
 					MToA.AddItem(default.SMonster_Temp);
-					MToA[MToA.length-1].MinWave = class'ZedternalReborn.Config_Zed'.default.Zed_Monsters[i].MinWave;
-					MToA[MToA.length-1].MaxWave = class'ZedternalReborn.Config_Zed'.default.Zed_Monsters[i].MaxWave;
-					MToA[MToA.length-1].MinGr = class'ZedternalReborn.Config_Zed'.default.Zed_Monsters[i].MinGr;
-					MToA[MToA.length-1].MaxGr = class'ZedternalReborn.Config_Zed'.default.Zed_Monsters[i].MaxGr;
-					MToA[MToA.length-1].Value = class'ZedternalReborn.Config_Zed'.static.GetMonsterValue(class'ZedternalReborn.Config_Zed'.default.Zed_Monsters[i].MClass, NbPlayer);
-					MToA[MToA.length-1].MClass = class'ZedternalReborn.Config_Zed'.default.Zed_Monsters[i].MClass;
+					MToA[MToA.length - 1].MinWave = class'ZedternalReborn.Config_Zed'.default.Zed_Monsters[i].MinWave;
+					MToA[MToA.length - 1].MaxWave = class'ZedternalReborn.Config_Zed'.default.Zed_Monsters[i].MaxWave;
+					MToA[MToA.length - 1].MinGr = class'ZedternalReborn.Config_Zed'.default.Zed_Monsters[i].MinGr;
+					MToA[MToA.length - 1].MaxGr = class'ZedternalReborn.Config_Zed'.default.Zed_Monsters[i].MaxGr;
+					MToA[MToA.length - 1].Value = class'ZedternalReborn.Config_Zed'.static.GetMonsterValue(class'ZedternalReborn.Config_Zed'.default.Zed_Monsters[i].MClass, NbPlayer);
+					MToA[MToA.length - 1].MClass = class'ZedternalReborn.Config_Zed'.default.Zed_Monsters[i].MClass;
 				}
 			}
-			// Remove exceded Element
+			// Remove exceeded elements
 			while (MToA.Length > class'ZedternalReborn.Config_Zed'.default.Zed_MaxDifferentMonster && MToA.Length > 1)
 			{
 				choice = Rand(MToA.Length);
@@ -173,12 +173,12 @@ function SetupNextWave(byte NextWaveIndex, int TimeToNextWaveBuffer = 0)
 					if (NextWaveIndex >= WMSW[k].default.MonsterToAdd[i].MinWave && NextWaveIndex <= WMSW[k].default.MonsterToAdd[i].MaxWave)
 					{
 						MToA.AddItem(default.SMonster_Temp);
-						MToA[MToA.length-1].MinWave = WMSW[k].default.MonsterToAdd[i].MinWave;
-						MToA[MToA.length-1].MaxWave = WMSW[k].default.MonsterToAdd[i].MaxWave;
-						MToA[MToA.length-1].MinGr = WMSW[k].default.MonsterToAdd[i].MinGr;
-						MToA[MToA.length-1].MaxGr = WMSW[k].default.MonsterToAdd[i].MaxGr;
-						MToA[MToA.length-1].Value = class'ZedternalReborn.Config_Zed'.static.GetMonsterValue(WMSW[k].default.MonsterToAdd[i].MClass, NbPlayer);
-						MToA[MToA.length-1].MClass = WMSW[k].default.MonsterToAdd[i].MClass;
+						MToA[MToA.length - 1].MinWave = WMSW[k].default.MonsterToAdd[i].MinWave;
+						MToA[MToA.length - 1].MaxWave = WMSW[k].default.MonsterToAdd[i].MaxWave;
+						MToA[MToA.length - 1].MinGr = WMSW[k].default.MonsterToAdd[i].MinGr;
+						MToA[MToA.length - 1].MaxGr = WMSW[k].default.MonsterToAdd[i].MaxGr;
+						MToA[MToA.length - 1].Value = class'ZedternalReborn.Config_Zed'.static.GetMonsterValue(WMSW[k].default.MonsterToAdd[i].MClass, NbPlayer);
+						MToA[MToA.length - 1].MClass = WMSW[k].default.MonsterToAdd[i].MClass;
 					}
 				}
 			}
@@ -191,15 +191,15 @@ function SetupNextWave(byte NextWaveIndex, int TimeToNextWaveBuffer = 0)
 			if (NextWaveIndex >= class'ZedternalReborn.Config_Zed'.default.Zed_Monsters[i].MinWave && NextWaveIndex <= class'ZedternalReborn.Config_Zed'.default.Zed_Monsters[i].MaxWave)
 			{
 				MToA.AddItem(default.SMonster_Temp);
-				MToA[MToA.length-1].MinWave = class'ZedternalReborn.Config_Zed'.default.Zed_Monsters[i].MinWave;
-				MToA[MToA.length-1].MaxWave = class'ZedternalReborn.Config_Zed'.default.Zed_Monsters[i].MaxWave;
-				MToA[MToA.length-1].MinGr = class'ZedternalReborn.Config_Zed'.default.Zed_Monsters[i].MinGr;
-				MToA[MToA.length-1].MaxGr = class'ZedternalReborn.Config_Zed'.default.Zed_Monsters[i].MaxGr;
-				MToA[MToA.length-1].Value = class'ZedternalReborn.Config_Zed'.static.GetMonsterValue(class'ZedternalReborn.Config_Zed'.default.Zed_Monsters[i].MClass, NbPlayer);
-				MToA[MToA.length-1].MClass = class'ZedternalReborn.Config_Zed'.default.Zed_Monsters[i].MClass;
+				MToA[MToA.length - 1].MinWave = class'ZedternalReborn.Config_Zed'.default.Zed_Monsters[i].MinWave;
+				MToA[MToA.length - 1].MaxWave = class'ZedternalReborn.Config_Zed'.default.Zed_Monsters[i].MaxWave;
+				MToA[MToA.length - 1].MinGr = class'ZedternalReborn.Config_Zed'.default.Zed_Monsters[i].MinGr;
+				MToA[MToA.length - 1].MaxGr = class'ZedternalReborn.Config_Zed'.default.Zed_Monsters[i].MaxGr;
+				MToA[MToA.length - 1].Value = class'ZedternalReborn.Config_Zed'.static.GetMonsterValue(class'ZedternalReborn.Config_Zed'.default.Zed_Monsters[i].MClass, NbPlayer);
+				MToA[MToA.length - 1].MClass = class'ZedternalReborn.Config_Zed'.default.Zed_Monsters[i].MClass;
 			}
 		}
-		// Remove exceded Element
+		// Remove exceeded elements
 		while (MToA.Length > class'ZedternalReborn.Config_Zed'.default.Zed_MaxDifferentMonster && MToA.Length > 1)
 		{
 			choice = Rand(MToA.Length);
@@ -207,7 +207,7 @@ function SetupNextWave(byte NextWaveIndex, int TimeToNextWaveBuffer = 0)
 		}
 	}
 
-	//Next, we need to calcul the value for the current wave.
+	//Next, we need to calculate the value for the current wave.
 	//Points are used to spawn ZEDs (where big ZEDs cost more points).
 	//Value of the wave are depend on the number of players, the wave number and the difficulty
 
@@ -215,11 +215,11 @@ function SetupNextWave(byte NextWaveIndex, int TimeToNextWaveBuffer = 0)
 	// 1) wave points at current wave
 	tempWaveValue = float(class'ZedternalReborn.Config_Waves'.static.GetBaseValue(GameDifficultyZedternal)) + float(class'ZedternalReborn.Config_Waves'.static.GetValueIncPerwave(GameDifficultyZedternal)) * float(NextWaveIndex - 1);
 
-	// 2) wave points factor at current wave (so wave value vs wavenum is not linear)
-	tempWaveValue *= 1.f + class'ZedternalReborn.Config_Waves'.default.ZedSpawn_ValueFactorPerWave * float(NextWaveIndex);
+	// 2) wave points factor at current wave (so wave value vs wave number is not linear)
+	tempWaveValue *= 1.0f + class'ZedternalReborn.Config_Waves'.default.ZedSpawn_ValueFactorPerWave * float(NextWaveIndex);
 
 	// 3) wave points power at current wave (greatly increase wave value at high waves)
-	tempWaveValue = tempWaveValue ** (1.f + class'ZedternalReborn.Config_Waves'.default.ZedSpawn_ValuePowerPerWave * float(NextWaveIndex - 1));
+	tempWaveValue = tempWaveValue ** (1.0f + class'ZedternalReborn.Config_Waves'.default.ZedSpawn_ValuePowerPerWave * float(NextWaveIndex - 1));
 
 	// 4) increase wave points based on number of players
 	tempWaveValue *= class'ZedternalReborn.Config_Waves'.static.GetValueFactor(NbPlayer);
@@ -231,14 +231,14 @@ function SetupNextWave(byte NextWaveIndex, int TimeToNextWaveBuffer = 0)
 	}
 
 	// 6) change wave points from custom map settings
-	tempWaveValue *= class'ZedternalReborn.Config_Map'.static.GetZedNumberScale(WorldInfo.GetMapName(true));
+	tempWaveValue *= class'ZedternalReborn.Config_Map'.static.GetZedNumberScale(WorldInfo.GetMapName(True));
 
 	// 7) round result
 	waveValue = int(tempWaveValue);
 
 	//Check for integer overflow
 	if (waveValue < 0)
-		waveValue = 2147483647;
+		waveValue = MaxInt;
 
 	`Log("Wave's Value = "$waveValue);
 
@@ -249,10 +249,10 @@ function SetupNextWave(byte NextWaveIndex, int TimeToNextWaveBuffer = 0)
 
 	// we need to compute the spawn rate
 	// 1) spawn rate factor at current wave
-	customSpawnRate = 1.f / (class'ZedternalReborn.Config_Waves'.static.GetZedSpawnRate(GameDifficultyZedternal) + class'ZedternalReborn.Config_Waves'.default.ZedSpawn_ZedSpawnRateIncPerWave * (NextWaveIndex - 1));
+	customSpawnRate = 1.0f / (class'ZedternalReborn.Config_Waves'.static.GetZedSpawnRate(GameDifficultyZedternal) + class'ZedternalReborn.Config_Waves'.default.ZedSpawn_ZedSpawnRateIncPerWave * (NextWaveIndex - 1));
 
 	// 2) spawn rate power to greatly increase spawn rate at late waves
-	customSpawnRate = customSpawnRate ** (1.f + class'ZedternalReborn.Config_Waves'.default.ZedSpawn_ZedSpawnRatePowerPerWave * float(NextWaveIndex - 1));
+	customSpawnRate = customSpawnRate ** (1.0f + class'ZedternalReborn.Config_Waves'.default.ZedSpawn_ZedSpawnRatePowerPerWave * float(NextWaveIndex - 1));
 
 	// 3) spawn rate factor based on number of players
 	customSpawnRate = customSpawnRate / class'ZedternalReborn.Config_Waves'.static.ZedSpawnRateFactor(NbPlayer);
@@ -263,22 +263,18 @@ function SetupNextWave(byte NextWaveIndex, int TimeToNextWaveBuffer = 0)
 
 	// 4) reduce spawn rate by 35% only for wave 1
 	if (NextWaveIndex == 1)
-		customSpawnRate *= 1.350000;
+		customSpawnRate *= 1.35f;
 
-	// 5) change spawnrate from custom map settings
-	customSpawnRate *= 1.f / class'ZedternalReborn.Config_Map'.static.GetZedSpawnRate(WorldInfo.GetMapName(true));
+	// 5) change spawn rate from custom map settings
+	customSpawnRate *= 1.0f / class'ZedternalReborn.Config_Map'.static.GetZedSpawnRate(WorldInfo.GetMapName(True));
 
 	`log("SpawnRateFactor = "$customSpawnRate);
 
 	// Check to see if zed variant list should be enabled
 	if (class'ZedternalReborn.Config_Zed'.default.Zed_ZedVariant.length != 0)
-	{
-		bVariantZeds = true;
-	}
+		bVariantZeds = True;
 	else
-	{
-		bVariantZeds = false;
-	}
+		bVariantZeds = False;
 
 	// We know what zeds will spawn, so shorten the ZedVariant list to make it more efficient and reduce loop counts
 	if (bVariantZeds)
@@ -305,15 +301,13 @@ function SetupNextWave(byte NextWaveIndex, int TimeToNextWaveBuffer = 0)
 		for (k = 0; k < variantClassesList.length; ++k)
 		{
 			if (variantClassesList[k] > 0)
-			{
 				trimedZedVariantList.AddItem(class'ZedternalReborn.Config_Zed'.default.Zed_ZedVariant[k]);
-			}
 		}
 	}
 
-	// now, we can create the list of ZEDs (meaning that at the begining of the wave, we already know which ZEDs and when they will spawn)
-	bNewSquad = true;
-	noLargeZedCountDown = 0;	// this script will try to avoid spamming large zeds using this variable
+	// now, we can create the list of ZEDs (meaning that at the beginning of the wave, we already know which ZEDs and when they will spawn)
+	bNewSquad = True;
+	noLargeZedCountDown = 0; // this script will try to avoid spamming large zeds using this variable
 	maxNumberOfZed = class'ZedternalReborn.Config_Waves'.default.ZedSpawn_MaxNumberOfMonster;
 	while (waveValue > 0 && WaveTotalAI < maxNumberOfZed && MToA.Length > 0)
 	{
@@ -322,26 +316,22 @@ function SetupNextWave(byte NextWaveIndex, int TimeToNextWaveBuffer = 0)
 		// check if we have enough value to spawn this monster
 		// if not, we remove it from the list
 		if (waveValue < (MToA[choice].Value * MToA[choice].MinGr))
-		{
-			MToA.Remove(choice,1);
-		}
+			MToA.Remove(choice, 1);
 		else if (noLargeZedCountDown > 0 && MToA[choice].Mclass.default.bLargeZed)
-		{
 			--noLargeZedCountDown;
-		}
 		else
 		{
 			number = Min(8, Rand(Abs(MToA[choice].MaxGr - MToA[choice].MinGr)) + MToA[choice].MinGr + Min(Abs(MToA[choice].MaxGr - MToA[choice].MinGr), 1));
 			if (bNewSquad)
 			{
 				groupList.Insert(0, 1);
-				if ((number < 6 && FRand() < 0.5) || (number < 4 && FRand() < 0.75))
-					bNewSquad = false;
+				if ((number < 6 && FRand() < 0.5f) || (number < 4 && FRand() < 0.75f))
+					bNewSquad = False;
 			}
 			else
 			{
 				number = Min(number, 8 - groupList[0].MClass.length);
-				bNewSquad = true;
+				bNewSquad = True;
 			}
 
 			// Check for zed variants
@@ -368,13 +358,13 @@ function SetupNextWave(byte NextWaveIndex, int TimeToNextWaveBuffer = 0)
 			{
 				if (bVariantZeds)
 				{
-					bVariantApplied = false;
+					bVariantApplied = False;
 					for (k = 0; k < variantProbabilitiesList.length; ++k)
 					{
 						if (variantProbabilitiesList[k] >= FRand())
 						{
 							groupList[0].MClass.AddItem(trimedZedVariantList[variantClassesList[k]].VariantClass);
-							bVariantApplied = true;
+							bVariantApplied = True;
 							break;
 						}
 					}
@@ -385,7 +375,7 @@ function SetupNextWave(byte NextWaveIndex, int TimeToNextWaveBuffer = 0)
 
 				if (MToA[choice].Mclass.default.bLargeZed)
 					noLargeZedCountDown = 1;
-				else if(class<KFPawn_MonsterBoss>(MToA[choice].Mclass) != none)
+				else if (class<KFPawn_MonsterBoss>(MToA[choice].Mclass) != None)
 					noLargeZedCountDown = 10;
 			}
 
@@ -398,14 +388,14 @@ function SetupNextWave(byte NextWaveIndex, int TimeToNextWaveBuffer = 0)
 	LeftoverSpawnSquad.Length = 0;
 
 	WaveStartTime = WorldInfo.TimeSeconds;
-	TimeUntilNextSpawn = 5.500000;
+	TimeUntilNextSpawn = 5.5f;
 
 	// Reset the total waves active time on first wave
-	if( NextWaveIndex == 0 )
+	if (NextWaveIndex == 0)
 		TotalWavesActiveTime = 0;
 
 	KFGRI = KFGameReplicationInfo(WorldInfo.GRI);
-	if( KFGRI != none && (KFGRI.bDebugSpawnManager || KFGRI.bGameConductorGraphingEnabled) )
+	if (KFGRI != None && (KFGRI.bDebugSpawnManager || KFGRI.bGameConductorGraphingEnabled))
 	{
 		KFGRI.CurrentSineMod = GetSineMod();
 		KFGRI.CurrentNextSpawnTime = TimeUntilNextSpawn;
@@ -417,12 +407,12 @@ function SetupNextWave(byte NextWaveIndex, int TimeToNextWaveBuffer = 0)
 	}
 
 	KFGRI.AIRemaining = WaveTotalAI;
-	LastAISpawnVolume = none;
+	LastAISpawnVolume = None;
 
 	`Log("WaveTotalAI = " $ WaveTotalAI);
 }
 
-function ESquadType GetDesiredSquadTypeForZedList(array< class<KFPawn_Monster> >  NewSquad)
+function ESquadType GetDesiredSquadTypeForZedList(array< class<KFPawn_Monster> > NewSquad)
 {
 	local ESquadType LargestMonsterSquadType;
 
@@ -444,10 +434,10 @@ function Update()
 	local array<class<KFPawn_Monster> > SpawnList;
 	local byte remainAllowedSpawn;
 
-	if( IsWaveActive() )
+	if (IsWaveActive())
 	{
-		TotalWavesActiveTime += 1.f;
-		TimeUntilNextSpawn -= 1.f * GetSineMod();
+		TotalWavesActiveTime += 1.0f;
+		TimeUntilNextSpawn -= 1.0f * GetSineMod();
 
 		if (bAllowTurboSpawn)
 			remainAllowedSpawn = 8;
@@ -463,10 +453,8 @@ function Update()
 		}
 	}
 
-	if (groupList.Length == 0 && GetAIAliveCount() <= class'ZedternalReborn.Config_Map'.static.GetZedStuckThreshold(WorldInfo.GetMapName(true)))
-	{
+	if (groupList.Length == 0 && GetAIAliveCount() <= class'ZedternalReborn.Config_Map'.static.GetZedStuckThreshold(WorldInfo.GetMapName(True)))
 		CheckStuckZed();
-	}
 }
 
 /** Should we? */
@@ -480,10 +468,10 @@ function bool ShouldAddAI()
 		&& (groupList.Length > 0 || LeftoverSpawnSquad.Length > 0)
 		&& AliveCount < GetMaxMonsters())
 	{
-		return true;
+		return True;
 	}
 
-	return false;
+	return False;
 }
 
 function CheckStuckZed()
@@ -495,7 +483,7 @@ function CheckStuckZed()
 	// remove dead tracked zedClass
 	for (i = 0; i < lastZedInfo.length; ++i)
 	{
-		if (lastZedInfo[i].pawn == none || lastZedInfo[i].pawn.Health <= 0)
+		if (lastZedInfo[i].pawn == None || lastZedInfo[i].pawn.Health <= 0)
 		{
 			lastZedInfo.Remove(i, 1);
 			--i;
@@ -504,28 +492,28 @@ function CheckStuckZed()
 
 	foreach DynamicActors(class'KFPawn_Monster', KFM)
 	{
-		bFound = false;
+		bFound = False;
 		// check if we are currently tracking this monster
 		for (i = 0; i < lastZedInfo.length; ++i)
 		{
 			if (lastZedInfo[i].pawn == KFM)
 			{
-				bFound = true;	// yes, we are currently tracking this monster
+				bFound = True;	// yes, we are currently tracking this monster
 				--lastZedInfo[i].countDown;
 				// run this section if this monster is in the world for more than X seconds (when countdown reach 0)
 				if (lastZedInfo[i].countDown <= 0)
 				{
 					// if stuck and near full health, teleport it
-					if (KFM.Health >= (KFM.HealthMax * 0.9))
+					if (KFM.Health >= (KFM.HealthMax * 0.9f))
 					{
 						groupList.Insert(0,1);
 						groupList[0].MClass.AddItem(KFM.default.class);
-						groupList[0].Delay = 1.f;
+						groupList[0].Delay = 1.0f;
 						++WaveTotalAI;
 						++KFGameReplicationInfo(WorldInfo.GRI).AIRemaining;
 
 						// kill zed
-						KFM.Died(none , none, KFM.Location);
+						KFM.Died(None, None, KFM.Location);
 					}
 				}
 				else
@@ -538,35 +526,31 @@ function CheckStuckZed()
 		{
 			lastZedInfo.Insert(0, 1);
 			lastZedInfo[0].pawn = KFM;
-			lastZedInfo[0].countDown = class'ZedternalReborn.Config_Map'.static.GetZedStuckTimeout(WorldInfo.GetMapName(true));; // will be teleported after 2.5 minutes or user defined time
+			lastZedInfo[0].countDown = class'ZedternalReborn.Config_Map'.static.GetZedStuckTimeout(WorldInfo.GetMapName(True)); // will be teleported after 2.5 minutes or user defined time
 		}
 	}
 }
 
 function bool IsFinishedSpawning()
 {
-	if (ActiveSpawner != none && ActiveSpawner.bIsSpawning && ActiveSpawner.PendingSpawns.Length > 0)
-	{
-		return false;
-	}
+	if (ActiveSpawner != None && ActiveSpawner.bIsSpawning && ActiveSpawner.PendingSpawns.Length > 0)
+		return False;
 
 	if (NumAISpawnsQueued >= WaveTotalAI)
-	{
-		return true;
-	}
+		return True;
 
 	if (groupList.Length == 0 && LeftoverSpawnSquad.Length == 0 && GetAIAliveCount() <= 0)
 	{
 		`log("WMAISpawnManager.IsFinishedSpawning() emergency breakout. NumAISpawnsQueued: " $ NumAISpawnsQueued $ " WaveTotalAI: " $ WaveTotalAI);
-		return true;
+		return True;
 	}
 
-	return false;
+	return False;
 }
 
 function float GetSineMod()
 {
-	return 1.5 - Abs(sin(TotalWavesActiveTime * GetSineWaveFreq())); // 0.5 to 1.5
+	return 1.5f - Abs(Sin(TotalWavesActiveTime * GetSineWaveFreq())); // 0.5 to 1.5
 }
 
 /** Returns a random AIGroup from the "waiting" list */
@@ -576,7 +560,7 @@ function array< class<KFPawn_Monster> > GetNextSpawnList()
 
 	if (LeftoverSpawnSquad.Length > 0)
 	{
-		TimeUntilNextSpawn = 0.f;
+		TimeUntilNextSpawn = 0.0f;
 		NewSquad = LeftoverSpawnSquad;
 		LeftoverSpawnSquad.Remove(0, NewSquad.Length);
 	}
@@ -588,46 +572,30 @@ function array< class<KFPawn_Monster> > GetNextSpawnList()
 	}
 
 	// Make sure we properly initialize the DesiredSquadType for the leftover squads, otherwise they will just use whatever size data was left in the system
-	SetDesiredSquadTypeForZedList( NewSquad );
+	SetDesiredSquadTypeForZedList(NewSquad);
 	return NewSquad;
 }
 
-function SummonBossMinions( array<KFAISpawnSquad> NewMinionSquad, int NewMaxBossMinions, optional bool bUseLivingPlayerScale = true )
+function float GetNextSpawnTimeMod()
 {
+	return 0.0f;
+}
+
+function SummonBossMinions(array<KFAISpawnSquad> NewMinionSquad, int NewMaxBossMinions, optional bool bUseLivingPlayerScale = True)
+{
+	//Do nothing
+}
+
+function StopSummoningBossMinions()
+{
+	//Do nothing
 }
 
 defaultproperties
 {
-	SMonster_Temp=(MinWave=0,MaxWave=99,MinGr=1,MaxGr=2,MClass=class'KFGameContent.KFPawn_ZedClot_Alpha',Value=5)
-	SoloWaveSpawnRateModifier(0)=(RateModifier=(0.200000,0.200000,0.200000,0.200000))
-	SoloWaveSpawnRateModifier(1)=(RateModifier=(0.200000,0.200000,0.200000,0.200000))
-	SoloWaveSpawnRateModifier(2)=(RateModifier=(0.200000,0.200000,0.200000,0.200000))
-	SoloWaveSpawnRateModifier(3)=(RateModifier=(0.200000,0.200000,0.200000,0.200000))
-	EarlyWaveSpawnRateModifier(0)=0.200000
-	EarlyWaveSpawnRateModifier(1)=0.200000
-	EarlyWaveSpawnRateModifier(2)=0.200000
-	EarlyWaveSpawnRateModifier(3)=0.200000
-	EarlyWavesSpawnTimeModByPlayers(0)=0.200000
-	EarlyWavesSpawnTimeModByPlayers(1)=0.200000
-	EarlyWavesSpawnTimeModByPlayers(2)=0.200000
-	EarlyWavesSpawnTimeModByPlayers(3)=0.200000
-	EarlyWavesSpawnTimeModByPlayers(4)=0.200000
-	EarlyWavesSpawnTimeModByPlayers(5)=0.200000
-	LateWavesSpawnTimeModByPlayers(0)=0.200000
-	LateWavesSpawnTimeModByPlayers(1)=0.200000
-	LateWavesSpawnTimeModByPlayers(2)=0.200000
-	LateWavesSpawnTimeModByPlayers(3)=0.200000
-	LateWavesSpawnTimeModByPlayers(4)=0.200000
-	LateWavesSpawnTimeModByPlayers(5)=0.200000
-	RecycleSpecialSquad(0)=False
-	RecycleSpecialSquad(1)=False
-	RecycleSpecialSquad(2)=True
-	RecycleSpecialSquad(3)=True
-	MaxSpecialSquadRecycles=-1
-	ForcedBossNum=-1
-	EarlyWaveIndex=1
-	bAllowTurboSpawn=true
-	bSummoningBossMinions=false
+	bAllowTurboSpawn=True
 	GameDifficultyZedternal=0.0f
+	SMonster_Temp=(MinWave=0,MaxWave=999,MinGr=1,MaxGr=2,MClass=class'KFGameContent.KFPawn_ZedClot_Slasher',Value=5)
+
 	Name="Default__WMAISpawnManager"
 }
