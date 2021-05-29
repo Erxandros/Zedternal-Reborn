@@ -38,5 +38,6 @@ simulated function bool CanAltAutoReload()
 
 defaultproperties
 {
+	WeaponProjectiles(ALTFIRE_FIREMODE)=Class'ZedternalReborn.WMProj_MedicGrenade_Mini'
 	Name="Default__WMWeap_AssaultRifle_MedicRifleGrenadeLauncher"
 }
