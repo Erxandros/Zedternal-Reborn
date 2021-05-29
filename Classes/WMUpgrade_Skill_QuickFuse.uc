@@ -49,8 +49,6 @@ static simulated function UpdateGrenade(KFPerk currentPerk)
 				currentPerk.GrenadeClass = class'ZedternalReborn.WMProj_FlashBangGrenade_QuickFuse'; break;
 			case class'KFProj_FragGrenade':
 				currentPerk.GrenadeClass = class'ZedternalReborn.WMProj_FragGrenade_QuickFuse'; break;
-			case class'KFProj_HansHEGrenade':
-				currentPerk.GrenadeClass = class'ZedternalReborn.WMProj_HansHEGrenade_QuickFuse'; break;
 			case class'KFProj_EMPGrenade':
 				currentPerk.GrenadeClass = class'ZedternalReborn.WMProj_EMPGrenade_QuickFuse'; break;
 			case class'KFProj_HEGrenade':
@@ -85,8 +83,6 @@ static simulated function RevertUpgradeChanges(Pawn OwnerPawn)
 					currentPerk.GrenadeClass = class'KFProj_FlashBangGrenade'; break;
 				case class'ZedternalReborn.WMProj_FragGrenade_QuickFuse':
 					currentPerk.GrenadeClass = class'KFProj_FragGrenade'; break;
-				case class'ZedternalReborn.WMProj_HansHEGrenade_QuickFuse':
-					currentPerk.GrenadeClass = class'KFProj_HansHEGrenade'; break;
 				case class'ZedternalReborn.WMProj_EMPGrenade_QuickFuse':
 					currentPerk.GrenadeClass = class'KFProj_EMPGrenade'; break;
 				case class'ZedternalReborn.WMProj_HEGrenade_QuickFuse':
