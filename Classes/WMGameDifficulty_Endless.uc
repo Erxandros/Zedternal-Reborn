@@ -75,39 +75,7 @@ function GetAIHealthModifier(KFPawn_Monster P, float GameDifficulty, byte NumLiv
 /** Scales the health this Player (versus mode) Zed has by number of human players */
 function GetVersusHealthModifier(KFPawn_Monster P, byte NumLivingPlayers, out float HealthMod, out float HeadHealthMod)
 {
-	local byte i;
-
-	if (P != None)
-	{
-		HealthMod = GetGlobalHealthMod();
-		HeadHealthMod = GetGlobalHealthMod();
-
-		// invalid scaling?
-		if (HealthMod <= 0)
-			HealthMod = 1.0f;
-		if (HeadHealthMod <= 0)
-			HeadHealthMod = 1.0f;
-
-		// Zed buff
-		if (WMGRI == None)
-			WMGRI = WMGameReplicationInfo(Class'WorldInfo'.static.GetWorldInfo().GRI);
-
-		if (WMGRI != None)
-		{
-			for (i = 0; i < WMGRI.zedBuffs.length; ++i)
-			{
-				if (WMGRI.bZedBuffs[i] > 0)
-				{
-					WMGRI.zedBuffs[i].static.ModifyZedHealthMod(HealthMod, P, 1.f, NumLivingPlayers);
-					WMGRI.zedBuffs[i].static.ModifyZedHeadHealthMod(HeadHealthMod, P, 1.f, NumLivingPlayers);
-				}
-			}
-		}
-
-		// Add another multiplier based on the number of players and the zeds character info scalers
-		HealthMod *= 1.0f + GetNumPlayersHealthMod(NumLivingPlayers, P.DifficultySettings.default.NumPlayersScale_BodyHealth_Versus);
-		HeadHealthMod *= 1.0f + GetNumPlayersHealthMod(NumLivingPlayers, P.DifficultySettings.default.NumPlayersScale_HeadHealth_Versus);
-	}
+	GetAIHealthModifier(P, GameDifficultyZedternal, NumLivingPlayers, HealthMod, HeadHealthMod);
 }
 
 /**	Scales the damage this Zed deals by the difficulty level */
