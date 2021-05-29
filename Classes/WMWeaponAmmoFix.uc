@@ -1,4 +1,4 @@
-class WMWeaponAmmoFix extends Actor;
+class WMWeaponAmmoFix extends Info;
 //This class fixes the issue with the function ClientForceAmmoUpdate
 //within KFWeapon where the main input parameter is a byte and not an int, so the byte sometimes overflows and syncs bad data with the client
 
@@ -23,7 +23,7 @@ function PostBeginPlay()
 	if (KFW == None || KFW.Owner == None)
 		Destroy();
 	else
-		SetTimer(InitDuration, False, nameof(InitTimer));
+		SetTimer(InitDuration, False, NameOf(InitTimer));
 }
 
 function InitTimer()
