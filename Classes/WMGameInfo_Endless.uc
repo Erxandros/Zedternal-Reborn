@@ -2000,6 +2000,67 @@ function bool IsMapObjectiveEnabled()
 	return class'ZedternalReborn.Config_Objective'.default.Objective_bEnable;
 }
 
+/** Adjusts AI pawn default settings by game difficulty and player count */
+function SetMonsterDefaults(KFPawn_Monster P)
+{
+	local float HeadHealthMod, HealthMod, StartingSpeedMod, TotalSpeedMod;
+	local int i, LivingPlayerCount;
+
+	LivingPlayerCount = GetLivingPlayerCount();
+
+	HealthMod = 1.0f;
+	HeadHealthMod = 1.0f;
+
+	// Scale speed back for omega/special zeds
+	if (P.bVersusZed)
+		StartingSpeedMod = DifficultyInfo.GetAISpeedMod(P, GameDifficulty) * 0.7f;
+	else
+		StartingSpeedMod = DifficultyInfo.GetAISpeedMod(P, GameDifficulty);
+
+	// Scale health, damage, and speed
+	DifficultyInfo.GetAIHealthModifier(P, GameDifficulty, LivingPlayerCount, HealthMod, HeadHealthMod);
+	P.DifficultyDamageMod = DifficultyInfo.GetAIDamageModifier(P, GameDifficulty, bOnePlayerAtStart);
+	TotalSpeedMod = GameConductor.CurrentAIMovementSpeedMod * StartingSpeedMod;
+
+	// Scale movement speed
+	P.GroundSpeed = P.default.GroundSpeed * TotalSpeedMod;
+	P.SprintSpeed = P.default.SprintSpeed * TotalSpeedMod;
+
+	// Store the difficulty adjusted ground speed to restore if we change it elsewhere
+	P.NormalGroundSpeed = P.GroundSpeed;
+	P.NormalSprintSpeed = P.SprintSpeed;
+	P.InitialGroundSpeedModifier = StartingSpeedMod;
+
+	// Scale health by difficulty
+	P.Health = P.default.Health * HealthMod;
+	if (P.default.HealthMax == 0)
+		P.HealthMax = P.default.Health * HealthMod;
+	else
+		P.HealthMax = P.default.HealthMax * HealthMod;
+
+	P.ApplySpecialZoneHealthMod(HeadHealthMod);
+	P.GameResistancePct = DifficultyInfo.GetDamageResistanceModifier(LivingPlayerCount);
+
+	// look for special monster properties that have been enabled by the kismet node
+	for (i = 0; i < ArrayCount(SpawnedMonsterProperties); ++i)
+	{
+		// this property is currently enabled
+		if (SpawnedMonsterProperties[i] != 0)
+		{
+			// do the action associated with that property
+			switch (EMonsterProperties(i))
+			{
+				case EMonsterProperties_Enraged:
+					P.SetEnraged(True);
+					break;
+				case EMonsterProperties_Sprinting:
+					P.bSprintOverride = True;
+					break;
+			}
+		}
+	}
+}
+
 defaultproperties
 {
 	bIsEndlessGame=True
