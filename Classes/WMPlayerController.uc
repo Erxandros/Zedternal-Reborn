@@ -282,7 +282,11 @@ simulated function CheckPreferredGrenade()
 simulated function ChangeGrenade(int Index)
 {
 	CurrentPerk.GrenadeWeaponDef = WMGameReplicationInfo(WorldInfo.GRI).Grenades[Index];
-	CurrentPerk.GrenadeClass = class<KFProj_Grenade>(DynamicLoadObject(CurrentPerk.GrenadeWeaponDef.default.WeaponClassPath, class'Class'));
+	// Replace Tripwire medic grenade with ZedternalReborn version to fix bug with sonic resistant rounds
+	if (CurrentPerk.GrenadeWeaponDef.default.WeaponClassPath ~= "KFGameContent.KFProj_MedicGrenade")
+		CurrentPerk.GrenadeClass = class<KFProj_Grenade>(DynamicLoadObject("ZedternalReborn.WMProj_MedicGrenade", class'Class'));
+	else
+		CurrentPerk.GrenadeClass = class<KFProj_Grenade>(DynamicLoadObject(CurrentPerk.GrenadeWeaponDef.default.WeaponClassPath, class'Class'));
 	ChangeGrenadeServer(Index);
 
 	bShouldUpdateGrenadeIcon = True;
@@ -294,7 +298,11 @@ simulated function ChangeGrenade(int Index)
 reliable server function ChangeGrenadeServer(int Index)
 {
 	CurrentPerk.GrenadeWeaponDef = WMGameReplicationInfo(WorldInfo.GRI).Grenades[Index];
-	CurrentPerk.GrenadeClass = class<KFProj_Grenade>(DynamicLoadObject(CurrentPerk.GrenadeWeaponDef.default.WeaponClassPath, class'Class'));
+	// Replace Tripwire medic grenade with ZedternalReborn version to fix bug with sonic resistant rounds
+	if (CurrentPerk.GrenadeWeaponDef.default.WeaponClassPath ~= "KFGameContent.KFProj_MedicGrenade")
+		CurrentPerk.GrenadeClass = class<KFProj_Grenade>(DynamicLoadObject("ZedternalReborn.WMProj_MedicGrenade", class'Class'));
+	else
+		CurrentPerk.GrenadeClass = class<KFProj_Grenade>(DynamicLoadObject(CurrentPerk.GrenadeWeaponDef.default.WeaponClassPath, class'Class'));
 }
 
 simulated function ChangeKnife(int Index)

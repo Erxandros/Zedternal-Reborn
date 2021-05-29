@@ -1,4 +1,4 @@
-class WMProj_MedicGrenade_QuickFuse extends KFProj_MedicGrenade
+class WMProj_MedicGrenade_QuickFuse extends WMProj_MedicGrenade
 	hidedropdown;
 
 defaultproperties
