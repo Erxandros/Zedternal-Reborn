@@ -232,7 +232,7 @@ function int GetMaxArmor()
 //This is for GUI percent elements
 function AdjustArmorPct()
 {
-	Armor = Round(float(ZedternalArmor) / float(ZedternalMaxArmor) * float(MaxArmor));
+	Armor = FCeil(float(ZedternalArmor) / float(ZedternalMaxArmor) * float(MaxArmor));
 }
 
 function ShieldAbsorb(out int InDamage)
