@@ -65,6 +65,9 @@ static simulated function GetMaxHealingShield(out byte InMaxHealingShield, int u
 
 static simulated function GetPerkLensEffect(out class<EmitterCameraLensEffectBase> CamEffect, class<KFDamageType> DmgType, int upgLevel);
 
+//InRechargeRateFL for flash light drain rate, InRechargeRateNVG for night vision goggles drain rate
+static simulated function GetBatteryRateScale(out float InRechargeRateFL, out float InRechargeRateNVG, int upgLevel, KFPawn OwnerPawn);
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Boolean functions

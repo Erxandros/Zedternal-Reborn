@@ -177,6 +177,7 @@ function ApplySkillsToPawn()
 		MyPRI.PerkSupplyLevel = 0;
 
 		ApplyWeightLimits();
+		ApplyBatteryRechargeRate();
 		ServerComputePassiveBonuses();
 		ClientAndServerComputePassiveBonuses();
 
@@ -3307,6 +3308,47 @@ function bool IsUnAffectedByZedTime()
 	}
 
 	return False;
+}
+
+simulated function ApplyBatteryRechargeRate()
+{
+	local float InRechargeRateFL, InRechargeRateNVG;
+	local int i;
+	local int index;
+
+	if (OwnerPawn != None)
+	{
+		InRechargeRateFL = 1.0f;
+		InRechargeRateNVG = 1.0f;
+
+		if (MyWMPRI != None)
+		{
+			for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
+			{
+				index = MyWMPRI.Purchase_PerkUpgrade[i];
+				MyWMGRI.perkUpgrades[index].static.GetBatteryRateScale(InRechargeRateFL, InRechargeRateNVG, MyWMPRI.bPerkUpgrade[index], OwnerPawn);
+			}
+			for (i = 0; i < MyWMPRI.Purchase_SkillUpgrade.length; ++i)
+			{
+				index = MyWMPRI.Purchase_SkillUpgrade[i];
+				MyWMGRI.skillUpgrades[index].SkillUpgrade.static.GetBatteryRateScale(InRechargeRateFL, InRechargeRateNVG, MyWMPRI.bSkillUpgrade[index], OwnerPawn);
+			}
+			for (i = 0; i < MyWMPRI.Purchase_EquipmentUpgrade.length; ++i)
+			{
+				index = MyWMPRI.Purchase_EquipmentUpgrade[i];
+				MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.GetBatteryRateScale(InRechargeRateFL, InRechargeRateNVG, MyWMPRI.bEquipmentUpgrade[index], OwnerPawn);
+			}
+		}
+
+		if (InRechargeRateFL <= 0.05f)
+			InRechargeRateFL = 0.05f;
+
+		if (InRechargeRateNVG <= 0.05f)
+			InRechargeRateNVG = 0.05f;
+
+		OwnerPawn.BatteryDrainRate = OwnerPawn.default.BatteryDrainRate * InRechargeRateFL;
+		OwnerPawn.NVGBatteryDrainRate = OwnerPawn.default.NVGBatteryDrainRate * InRechargeRateNVG;
+	}
 }
 
 defaultproperties
