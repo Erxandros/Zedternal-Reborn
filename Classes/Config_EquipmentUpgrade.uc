@@ -15,6 +15,8 @@ var config array<S_EquipmentUpgrade> EquipmentUpgrade_EquipmentUpgrades;
 
 static function UpdateConfig()
 {
+	local S_EquipmentUpgrade newEquipment;
+
 	if (default.MODEVERSION < 1)
 	{
 		default.EquipmentUpgrade_EquipmentUpgrades.length = 3;
@@ -33,6 +35,15 @@ static function UpdateConfig()
 		default.EquipmentUpgrade_EquipmentUpgrades[2].BasePrice = 250;
 		default.EquipmentUpgrade_EquipmentUpgrades[2].MaxPrice = 0;
 		default.EquipmentUpgrade_EquipmentUpgrades[2].MaxLevel = 1;
+	}
+
+	if (default.MODEVERSION < 9)
+	{
+		newEquipment.EquipmentPath = "ZedternalReborn.WMUpgrade_Equipment_HealthIncrease";
+		newEquipment.BasePrice = 500;
+		newEquipment.MaxPrice = 2500;
+		newEquipment.MaxLevel = 5;
+		default.EquipmentUpgrade_EquipmentUpgrades.AddItem(newEquipment);
 	}
 
 	if (default.MODEVERSION < class'ZedternalReborn.Config_Base'.default.currentVersion)
