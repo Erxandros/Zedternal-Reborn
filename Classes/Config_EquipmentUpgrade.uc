@@ -44,6 +44,12 @@ static function UpdateConfig()
 		newEquipment.MaxPrice = 2500;
 		newEquipment.MaxLevel = 5;
 		default.EquipmentUpgrade_EquipmentUpgrades.AddItem(newEquipment);
+
+		newEquipment.EquipmentPath = "ZedternalReborn.WMUpgrade_Equipment_ArmorIncrease";
+		newEquipment.BasePrice = 400;
+		newEquipment.MaxPrice = 2000;
+		newEquipment.MaxLevel = 5;
+		default.EquipmentUpgrade_EquipmentUpgrades.AddItem(newEquipment);
 	}
 
 	if (default.MODEVERSION < class'ZedternalReborn.Config_Base'.default.currentVersion)
