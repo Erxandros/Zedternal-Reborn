@@ -179,6 +179,33 @@ reliable client function ClearAllAmmoClient(bool bClearMagazine)
 	}
 }
 
+/** Network: Server only */
+function GiveHealthOverTime()
+{
+	local WMPlayerReplicationInfo WMPRI;
+
+	if (HealthToRegen > 0 && Health < HealthMax)
+	{
+		++Health;
+		--HealthToRegen;
+
+		WorldInfo.Game.ScoreHeal(1, Health - 1, Controller, self, None);
+
+		WMPRI = WMPlayerReplicationInfo(PlayerReplicationInfo);
+		if (WMPRI != None)
+		{
+			WMPRI.PlayerHealthInt = Health;
+			WMPRI.PlayerHealth = FloatToByte(float(Health) / float(HealthMax));
+			WMPRI.PlayerHealthPercent = WMPRI.PlayerHealth;
+		}
+	}
+	else
+	{
+		HealthToRegen = 0;
+		ClearTimer(NameOf(GiveHealthOverTime));
+	}
+}
+
 /*********************************************************************************************
 * Zedternal Armor
 ********************************************************************************************* */

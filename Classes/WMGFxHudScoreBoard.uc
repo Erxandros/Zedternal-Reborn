@@ -96,7 +96,7 @@ event Draw(Canvas ca)
 	QuickSort(KFGRI.PRIArray, 0, KFGRI.PRIArray.Length - 1);
 
 	////// Check players
-	PlayerIndex = -1;
+	PlayerIndex = INDEX_NONE;
 	NumPlayer = 0;
 	for (i = (KFGRI.PRIArray.Length - 1); i >= 0; --i)
 	{
@@ -110,7 +110,7 @@ event Draw(Canvas ca)
 			continue;
 		}
 
-		if (WMPRI.PlayerHealth > 0 && WMPRI.GetTeamNum() == 0)
+		if (WMPRI.PlayerHealthInt > 0 && WMPRI.GetTeamNum() == 0)
 			++NumAlivePlayer;
 
 		++NumPlayer;
@@ -377,23 +377,23 @@ event Draw(Canvas ca)
 		{
 			S = "-";
 		}
-		else if (WMPRI.PlayerHealth <= 0)
+		else if (WMPRI.PlayerHealthInt <= 0)
 		{
 			ScoreBoardCanvas.DrawColor = MakeColor(255, 0, 0, 255);
 			S = "DEAD";
 		}
 		else
 		{
-			if (WMPRI.PlayerHealth >= 150)
+			if (WMPRI.PlayerHealthInt >= 150)
 				ScoreBoardCanvas.DrawColor = MakeColor(46, 139, 87, 255);
-			else if (WMPRI.PlayerHealth >= 70)
+			else if (WMPRI.PlayerHealthInt >= 70)
 				ScoreBoardCanvas.DrawColor = MakeColor(0, 255, 0, 255);
-			else if (WMPRI.PlayerHealth >= 30)
+			else if (WMPRI.PlayerHealthInt >= 30)
 				ScoreBoardCanvas.DrawColor = MakeColor(255, 255, 0, 255);
 			else
 				ScoreBoardCanvas.DrawColor = MakeColor(255, 99, 71, 255);
 
-			S = string(WMPRI.PlayerHealth) @"HP";
+			S = string(WMPRI.PlayerHealthInt) @"HP";
 		}
 
 		ScoreBoardCanvas.SetPos(XPos + HealthXPos, YPos);
@@ -407,10 +407,10 @@ event Draw(Canvas ca)
 		{
 			S = "-";
 		}
-		else if (WMPRI.PlayerArmorInt <= 0 || WMPRI.PlayerHealth <= 0)
+		else if (WMPRI.PlayerArmorInt <= 0 || WMPRI.PlayerHealthInt <= 0)
 		{
 			ScoreBoardCanvas.DrawColor = MakeColor(255, 0, 0, 255);
-			if (WMPRI.PlayerHealth <= 0)
+			if (WMPRI.PlayerHealthInt <= 0)
 				S = "DEAD";
 			else
 				S = string(0) @"AP";

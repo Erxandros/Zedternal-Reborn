@@ -48,6 +48,7 @@ var array<int> Purchase_WeaponUpgrade;
 
 // For scoreboard updates
 var int UncompressedPing;
+var int PlayerHealthInt;
 var int PlayerArmorInt;
 var byte PlatformType;
 
@@ -72,7 +73,8 @@ replication
 		bWeaponUpgrade_12, bWeaponUpgrade_13, bWeaponUpgrade_14, bWeaponUpgrade_15, bWeaponUpgrade_16;
 
 	if (bNetDirty)
-		PerkIconIndex, PlayerLevel, SyncTrigger, RerollSyncTrigger, UncompressedPing, PlayerArmorInt, PlatformType, RerollCounter;
+		PerkIconIndex, PlayerLevel, SyncTrigger, RerollSyncTrigger, UncompressedPing, PlayerHealthInt, PlayerArmorInt,
+		PlatformType, RerollCounter;
 }
 
 simulated event ReplicatedEvent(name VarName)
@@ -166,13 +168,21 @@ function UpdateReplicatedPlayerHealth()
 {
 	local WMPawn_Human OwnerPawn;
 
-	super.UpdateReplicatedPlayerHealth();
-
 	if (KFPlayerOwner != None)
 	{
 		OwnerPawn = WMPawn_Human(KFPlayerOwner.Pawn);
-		if (OwnerPawn != None && OwnerPawn.ZedternalArmor != PlayerArmorInt)
-			PlayerArmorInt = OwnerPawn.ZedternalArmor;
+		if (OwnerPawn != None)
+		{
+			if (OwnerPawn.Health != PlayerHealthInt)
+			{
+				PlayerHealthInt = OwnerPawn.Health;
+				PlayerHealth = FloatToByte(float(OwnerPawn.Health) / float(OwnerPawn.HealthMax));
+				PlayerHealthPercent = PlayerHealth;
+			}
+
+			if (OwnerPawn.ZedternalArmor != PlayerArmorInt)
+				PlayerArmorInt = OwnerPawn.ZedternalArmor;
+		}
 	}
 }
 

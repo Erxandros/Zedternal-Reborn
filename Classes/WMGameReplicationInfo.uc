@@ -837,6 +837,25 @@ simulated function bool IsItemAllowed(STraderItem Item)
 	return False;
 }
 
+simulated function int GetNumPlayersAlive()
+{
+	local int i, NumPlayersAlive;
+	local array<KFPlayerReplicationInfo> PRIs;
+
+	GetKFPRIArray(PRIs);
+
+	for (i = 0; i < PRIs.Length; ++i)
+	{
+		if ((WMPlayerReplicationInfo(PRIs[i]) != None && WMPlayerReplicationInfo(PRIs[i]).PlayerHealthInt > 0)
+			|| PRIs[i].PlayerHealth > 0)
+		{
+			++NumPlayersAlive;
+		}
+	}
+
+	return NumPlayersAlive;
+}
+
 simulated function bool IsFinalWave()
 {
 	return False;

@@ -1794,13 +1794,24 @@ function float GetAdjustedAIDoshValue(class<KFPawn_Monster> MonsterClass)
 
 function Killed(Controller Killer, Controller KilledPlayer, Pawn KilledPawn, class<DamageType> DT)
 {
-	local int PlayerCount;
-	local int i;
+	local WMPlayerReplicationInfo KilledPRI;
 	local KFPlayerController KFPC;
 	local WMSpecialWave WMSW;
 	local WMGameReplicationInfo WMGRI;
+	local int i, PlayerCount;
 
 	super.Killed(Killer, KilledPlayer, KilledPawn, DT);
+
+	if (KilledPlayer != None && KilledPlayer.bIsPlayer)
+	{
+		KilledPRI = WMPlayerReplicationInfo(KilledPlayer.PlayerReplicationInfo);
+		if (KilledPRI != None)
+		{
+			KilledPRI.PlayerHealthInt = 0;
+			KilledPRI.PlayerHealth = 0;
+			KilledPRI.PlayerHealthPercent = 0;
+		}
+	}
 
 	if (KilledPawn.IsA('KFPawn_Human'))
 		bUseExtendedTraderTime = True;
