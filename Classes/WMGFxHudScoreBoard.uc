@@ -407,7 +407,7 @@ event Draw(Canvas ca)
 		{
 			S = "-";
 		}
-		else if (WMPRI.PlayerArmor <= 0 || WMPRI.PlayerHealth <= 0)
+		else if (WMPRI.PlayerArmorInt <= 0 || WMPRI.PlayerHealth <= 0)
 		{
 			ScoreBoardCanvas.DrawColor = MakeColor(255, 0, 0, 255);
 			if (WMPRI.PlayerHealth <= 0)
@@ -417,16 +417,16 @@ event Draw(Canvas ca)
 		}
 		else
 		{
-			if (WMPRI.PlayerArmor >= 150)
+			if (WMPRI.PlayerArmorInt >= 150)
 				ScoreBoardCanvas.DrawColor = MakeColor(147, 112, 219, 255);
-			else if (WMPRI.PlayerArmor >= 70)
+			else if (WMPRI.PlayerArmorInt >= 70)
 				ScoreBoardCanvas.DrawColor = MakeColor(0, 255, 255, 255);
-			else if (WMPRI.PlayerArmor >= 30)
+			else if (WMPRI.PlayerArmorInt >= 30)
 				ScoreBoardCanvas.DrawColor = MakeColor(255, 255, 0, 255);
 			else
 				ScoreBoardCanvas.DrawColor = MakeColor(255, 99, 71, 255);
 
-			S = string(WMPRI.PlayerArmor) @"AP";
+			S = string(WMPRI.PlayerArmorInt) @"AP";
 		}
 
 		ScoreBoardCanvas.SetPos(XPos + ArmorXPos, YPos);

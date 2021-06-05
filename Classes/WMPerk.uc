@@ -151,7 +151,7 @@ simulated function PerkSetOwnerHealthAndArmorZedternal(optional bool bModifyHeal
 		WMPH.AdjustArmorPct();
 
 		if (WMPRI != None)
-			WMPRI.PlayerArmor = WMPH.ZedternalArmor;
+			WMPRI.PlayerArmorInt = WMPH.ZedternalArmor;
 	}
 }
 
