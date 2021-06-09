@@ -1,4 +1,4 @@
-class WMUpgrade_Equipment_ArmorIncrease extends WMUpgrade_Equipment;
+class WMUpgrade_Equipment_ArmorUp extends WMUpgrade_Equipment;
 
 var int Armor;
 
@@ -11,10 +11,10 @@ defaultproperties
 {
 	Armor=10
 
-	upgradeName="Armor Increase"
+	upgradeName="Armor Up"
 	upgradeDescription(0)="Increase armor by %x% points"
 	EquipmentBonus(0)=(baseValue=0, incValue=10, maxValue=-1)
 	//upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Equipment.'
 
-	Name="Default__WMUpgrade_Equipment_ArmorIncrease"
+	Name="Default__WMUpgrade_Equipment_ArmorUp"
 }
