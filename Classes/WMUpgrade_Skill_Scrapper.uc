@@ -1,5 +1,6 @@
 class WMUpgrade_Skill_Scrapper extends WMUpgrade_Skill;
 
+var float AmmoDivider;
 var array<float> Probability;
 
 static function AddVampireHealth(out int InHealth, int DefaultHealth, int upgLevel, KFPlayerController KFPC, class<DamageType> DT)
@@ -22,7 +23,7 @@ static function AddAmmunition(Pawn Player, int upgLevel)
 			{
 				for (i = 0; i < 2; ++i)
 				{
-					ExtraAmmo = Min(FCeil(float(KFW.GetMaxAmmoAmount(i)) / 50.0f), KFW.GetMaxAmmoAmount(i) - KFW.GetTotalAmmoAmount(i));
+					ExtraAmmo = Min(FCeil(float(KFW.GetMaxAmmoAmount(i)) / default.AmmoDivider), KFW.GetMaxAmmoAmount(i) - KFW.GetTotalAmmoAmount(i));
 					if (ExtraAmmo > 0)
 					{
 						if (i == 0)
@@ -38,6 +39,7 @@ static function AddAmmunition(Pawn Player, int upgLevel)
 
 defaultproperties
 {
+	AmmoDivider=50.0f
 	Probability(0)=0.125f
 	Probability(1)=0.25f
 
