@@ -39,7 +39,7 @@ static function UpdateConfig()
 
 	if (default.MODEVERSION < 9)
 	{
-		newEquipment.EquipmentPath = "ZedternalReborn.WMUpgrade_Equipment_HealthIncrease";
+		newEquipment.EquipmentPath = "ZedternalReborn.WMUpgrade_Equipment_HealthUp";
 		newEquipment.BasePrice = 500;
 		newEquipment.MaxPrice = 2500;
 		newEquipment.MaxLevel = 5;
