@@ -51,7 +51,7 @@ static function UpdateConfig()
 		newEquipment.MaxLevel = 5;
 		default.EquipmentUpgrade_EquipmentUpgrades.AddItem(newEquipment);
 
-		newEquipment.EquipmentPath = "ZedternalReborn.WMUpgrade_Equipment_BatteryIncrease";
+		newEquipment.EquipmentPath = "ZedternalReborn.WMUpgrade_Equipment_SpareBatteries";
 		newEquipment.BasePrice = 250;
 		newEquipment.MaxPrice = 1000;
 		newEquipment.MaxLevel = 4;

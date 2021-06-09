@@ -1,4 +1,4 @@
-class WMUpgrade_Equipment_BatteryIncrease extends WMUpgrade_Equipment;
+class WMUpgrade_Equipment_SpareBatteries extends WMUpgrade_Equipment;
 
 var float Recharge;
 
@@ -12,10 +12,10 @@ defaultproperties
 {
 	Recharge=0.5f
 
-	upgradeName="Battery Capacity Increase"
+	upgradeName="Spare Batteries"
 	upgradeDescription(0)="Increase battery capacity by %x%%"
 	EquipmentBonus(0)=(baseValue=0, incValue=50, maxValue=-1)
 	//upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Equipment.'
 
-	Name="Default__WMUpgrade_Equipment_BatteryIncrease"
+	Name="Default__WMUpgrade_Equipment_SpareBatteries"
 }
