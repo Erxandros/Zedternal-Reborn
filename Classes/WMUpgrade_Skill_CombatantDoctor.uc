@@ -1,5 +1,6 @@
 class WMUpgrade_Skill_CombatantDoctor extends WMUpgrade_Skill;
 
+var float AmmoDivider;
 var array<int> HealthThreshold;
 
 static function HealingDamage(int upgLevel, int HealAmount, KFPawn HealedPawn, KFPawn InstigatorPawn, class<DamageType> DamageType)
@@ -29,7 +30,7 @@ static function AddAmmunition(KFPawn Player, int Multiplier)
 		{
 			for (i = 0; i < 2; ++i)
 			{
-				ExtraAmmo = Min(FCeil(float(KFW.GetMaxAmmoAmount(i)) / 50.0f) * Multiplier, KFW.GetMaxAmmoAmount(i) - KFW.GetTotalAmmoAmount(i));
+				ExtraAmmo = Min(FCeil(float(KFW.GetMaxAmmoAmount(i)) / default.AmmoDivider) * Multiplier, KFW.GetMaxAmmoAmount(i) - KFW.GetTotalAmmoAmount(i));
 				if (ExtraAmmo > 0)
 				{
 					if (i == 0)
@@ -76,6 +77,7 @@ static simulated function DeleteHelperClass(Pawn OwnerPawn)
 
 defaultproperties
 {
+	AmmoDivider=50.0f
 	HealthThreshold(0)=50
 	HealthThreshold(1)=25
 
