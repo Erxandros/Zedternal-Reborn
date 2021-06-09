@@ -56,6 +56,12 @@ static function UpdateConfig()
 		newEquipment.MaxPrice = 1000;
 		newEquipment.MaxLevel = 4;
 		default.EquipmentUpgrade_EquipmentUpgrades.AddItem(newEquipment);
+
+		newEquipment.EquipmentPath = "ZedternalReborn.WMUpgrade_Equipment_HUDStabilizer";
+		newEquipment.BasePrice = 1250;
+		newEquipment.MaxPrice = 0;
+		newEquipment.MaxLevel = 1;
+		default.EquipmentUpgrade_EquipmentUpgrades.AddItem(newEquipment);
 	}
 
 	if (default.MODEVERSION < class'ZedternalReborn.Config_Base'.default.currentVersion)

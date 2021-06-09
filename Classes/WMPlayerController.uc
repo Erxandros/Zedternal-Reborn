@@ -240,6 +240,20 @@ reliable client function UpdateClientPerkBonuses()
 	}
 }
 
+unreliable client function ClientPlayCameraShake(CameraShake Shake, optional float Scale=1.0f, optional bool bTryForceFeedback, optional ECameraAnimPlaySpace PlaySpace=CAPS_CameraLocal, optional rotator UserPlaySpaceRot)
+{
+	local WMPerk WMP;
+
+	WMP = WMPerk(CurrentPerk);
+	if (WMP != None)
+	{
+		if (WMP.ImmuneToCameraShake())
+			return;
+	}
+
+	super.ClientPlayCameraShake(Shake, Scale, bTryForceFeedback, PlaySpace, UserPlaySpaceRot);
+}
+
 function DelayedPerkUpdate(float TimeOffset)
 {
 	SetTimer(TimeOffset + 3.0f, False, nameof(UpdateWeaponMagAndCap));

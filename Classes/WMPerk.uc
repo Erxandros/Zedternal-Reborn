@@ -3351,6 +3351,40 @@ simulated function ApplyBatteryRechargeRate()
 	}
 }
 
+simulated function bool ImmuneToCameraShake()
+{
+	local byte i;
+	local byte index;
+	local bool bActive;
+
+	if (MyWMPRI != None)
+	{
+		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
+		{
+			index = MyWMPRI.Purchase_PerkUpgrade[i];
+			bActive = MyWMGRI.perkUpgrades[index].static.ImmuneToCameraShake(MyWMPRI.bPerkUpgrade[index], OwnerPawn);
+			if (bActive)
+				return True;
+		}
+		for (i = 0; i < MyWMPRI.Purchase_SkillUpgrade.length; ++i)
+		{
+			index = MyWMPRI.Purchase_SkillUpgrade[i];
+			bActive = MyWMGRI.skillUpgrades[index].SkillUpgrade.static.ImmuneToCameraShake(MyWMPRI.bSkillUpgrade[index], OwnerPawn);
+			if (bActive)
+				return True;
+		}
+		for (i = 0; i < MyWMPRI.Purchase_EquipmentUpgrade.length; ++i)
+		{
+			index = MyWMPRI.Purchase_EquipmentUpgrade[i];
+			bActive = MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.ImmuneToCameraShake(MyWMPRI.bEquipmentUpgrade[index], OwnerPawn);
+			if (bActive)
+				return True;
+		}
+	}
+
+	return False;
+}
+
 defaultproperties
 {
 	bUsedSacrifice=False
