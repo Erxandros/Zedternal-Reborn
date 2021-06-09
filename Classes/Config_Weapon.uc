@@ -486,6 +486,15 @@ static function UpdateConfig()
 		}
 	}
 
+	if (default.MODEVERSION < 9)
+	{
+		if (default.Trader_MaxWeapon == 24)
+			default.Trader_MaxWeapon = 48;
+
+		if (default.Trader_NewWeaponEachWave == 2)
+			default.Trader_NewWeaponEachWave = 3;
+	}
+
 	if (default.MODEVERSION < class'ZedternalReborn.Config_Base'.default.currentVersion)
 	{
 		default.MODEVERSION = class'ZedternalReborn.Config_Base'.default.currentVersion;
