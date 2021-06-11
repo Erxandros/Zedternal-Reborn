@@ -25,7 +25,7 @@ function UpdateServerType(string ServerType)
 
 	WI = class'WorldInfo'.static.GetWorldInfo();
 
-	if (WI != none && WI.NetMode != NM_Standalone && !GetPC().WorldInfo.IsConsoleBuild())
+	if (WI != None && WI.NetMode != NM_Standalone && !GetPC().WorldInfo.IsConsoleBuild())
 	{
 		SetString("serverType", "Unranked");
 	}
