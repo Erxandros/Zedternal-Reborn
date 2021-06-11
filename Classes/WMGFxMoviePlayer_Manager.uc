@@ -5,7 +5,7 @@ function bool ToggleMenus()
 	`log(`location@`showvar(bMenusOpen)@`showvar(HUD.bShowHUD)@`showvar(bCanCloseMenu)@`showvar(bPostGameState)@`showvar(CurrentMenuIndex));
 	if (!bMenusOpen || HUD.bShowHUD)
 	{
-		ManagerObject.SetBool("bOpenedInGame",true);
+		ManagerObject.SetBool("bOpenedInGame", True);
 		if (CurrentMenuIndex >= MenuSWFPaths.length)
 		{
 			LaunchMenus();
@@ -14,22 +14,22 @@ function bool ToggleMenus()
 		{
 			OpenMenu(UI_Start);
 			UpdateMenuBar();
-			if (PartyWidget != none)
+			if (PartyWidget != None)
 			{
 				PartyWidget.UpdateReadyButtonVisibility();
 			}
 		}
 
 		// set the timer to mark when the menu is completely open and we can close the menu down
-		bCanCloseMenu = false;
-		`TimerHelper.SetTimer( 0.5, false, nameof(AllowCloseMenu), self );
-		`TimerHelper.SetTimer( 0.15, false, nameof(PlayOpeningSound), self );//Delay due to pause
+		bCanCloseMenu = False;
+		`TimerHelper.SetTimer(0.5f, False, NameOf(AllowCloseMenu), self);
+		`TimerHelper.SetTimer(0.15f, False, NameOf(PlayOpeningSound), self);//Delay due to pause
 	}
 	else if(bCanCloseMenu) //check to make sure
 	{
 		if(GetPC().WorldInfo.GRI.bMatchIsOver && !bAfterLobby)
 		{
-			return false; // we are still in the lobby and the game has not proceeded to a point where we can use the esc key
+			return False; // we are still in the lobby and the game has not proceeded to a point where we can use the esc key
 		}
 
 		if (CurrentMenu != TraderMenu)
@@ -43,20 +43,20 @@ function bool ToggleMenus()
 	{
 		if(CurrentMenu == PostGameMenu)
 		{
-			ManagerObject.SetBool("bOpenedInGame",true);
-			bMenusOpen = false;
+			ManagerObject.SetBool("bOpenedInGame", True);
+			bMenusOpen = False;
 			OpenMenu(UI_Start);
-			SetWidgetsVisible(true);
+			SetWidgetsVisible(True);
 		}
 		else
 		{
-			ManagerObject.SetBool("bOpenedInGame",false);
+			ManagerObject.SetBool("bOpenedInGame", False);
 			OpenMenu(UI_PostGame);
-			SetWidgetsVisible(false);
+			SetWidgetsVisible(False);
 		}
 	}
 
-	return false;
+	return False;
 }
 
 defaultproperties
@@ -67,5 +67,6 @@ defaultproperties
 	WidgetBindings(10)=(WidgetName="startMenu",WidgetClass=Class'ZedternalReborn.WMGFxMenu_StartGame')
 	WidgetBindings(21)=(WidgetName="traderMenu",WidgetClass=Class'ZedternalReborn.WMGFxMenu_Trader')
 	WidgetBindings(24)=(WidgetName="MenuBarWidget",WidgetClass=Class'ZedternalReborn.WMGFxWidget_MenuBar')
+
 	Name="Default__WMGFxMoviePlayer_Manager"
 }
