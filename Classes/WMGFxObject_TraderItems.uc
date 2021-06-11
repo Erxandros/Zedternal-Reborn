@@ -1,6 +1,6 @@
 class WMGFxObject_TraderItems extends KFGFxObject_TraderItems;
 
-function bool GetItemIndicesFromArcheZedternal( out int ItemIndex, name WeaponClassName )
+function bool GetItemIndicesFromArcheZedternal(out int ItemIndex, name WeaponClassName)
 {
 	local int i;
 
@@ -9,10 +9,10 @@ function bool GetItemIndicesFromArcheZedternal( out int ItemIndex, name WeaponCl
 		if( WeaponClassName == SaleItems[i].ClassName )
 		{
 			ItemIndex = i;
-			return true;
+			return True;
 		}
 	}
-	return false;
+	return False;
 }
 
 defaultproperties
