@@ -14,7 +14,7 @@ defaultproperties
 	upgradeName="Armor Up"
 	upgradeDescription(0)="Increase armor by %x% points"
 	EquipmentBonus(0)=(baseValue=0, incValue=10, maxValue=-1)
-	//upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Equipment.'
+	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Equipment.UI_Equipment_ArmorUp'
 
 	Name="Default__WMUpgrade_Equipment_ArmorUp"
 }
