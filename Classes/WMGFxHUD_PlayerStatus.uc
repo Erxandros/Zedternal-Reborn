@@ -22,11 +22,11 @@ function UpdatePerk()
 	}
 
 	// Update the perk class.
-	if( LastPerkLevel != CurrentPerkLevel )
+	if (LastPerkLevel != CurrentPerkLevel)
 	{
 		LastPerkClass = MyPC.CurrentPerk.class;
 
-		SetInt("playerPerkLevel" , CurrentPerkLevel);
+		SetInt("playerPerkLevel", CurrentPerkLevel);
 		LastPerkLevel = CurrentPerkLevel;
 
 		SetInt("playerPerkXPPercent", 0);
