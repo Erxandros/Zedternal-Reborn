@@ -19,12 +19,11 @@ simulated event PostBeginPlay()
 {
 	super.PostBeginPlay();
 	PerkList.Length = 1;
-	PerkList[0].PerkClass = Class'ZedternalReborn.WMPerk';
 
-	SetTimer(2.0f, True, nameof(UpdatePerkIcon));
+	SetTimer(2.0f, True, NameOf(UpdatePerkIcon));
 
 	if (WorldInfo.NetMode != NM_Client)
-		SetTimer(0.5f, False, nameof(GetPlatform));
+		SetTimer(0.5f, False, NameOf(GetPlatform));
 }
 
 reliable client event ReceiveLocalizedMessage(class<LocalMessage> Message, optional int Switch, optional PlayerReplicationInfo RelatedPRI_1, optional PlayerReplicationInfo RelatedPRI_2, optional Object OptionalObject)
@@ -256,12 +255,12 @@ unreliable client function ClientPlayCameraShake(CameraShake Shake, optional flo
 
 function DelayedPerkUpdate(float TimeOffset)
 {
-	SetTimer(TimeOffset + 3.0f, False, nameof(UpdateWeaponMagAndCap));
+	SetTimer(TimeOffset + 3.0f, False, NameOf(UpdateWeaponMagAndCap));
 }
 
 reliable client function SetPreferredGrenadeTimer()
 {
-	SetTimer(3.0f, True, nameof(CheckPreferredGrenade));
+	SetTimer(3.0f, True, NameOf(CheckPreferredGrenade));
 }
 
 simulated function CheckPreferredGrenade()
@@ -273,7 +272,7 @@ simulated function CheckPreferredGrenade()
 	WMGRI = WMGameReplicationInfo(WorldInfo.GRI);
 	if (WMGRI != None && WMGRI.Grenades.length > 0)
 	{
-		ClearTimer(nameof(CheckPreferredGrenade));
+		ClearTimer(NameOf(CheckPreferredGrenade));
 
 		bFound = False;
 		for (i = 0; i < 255; ++i)
@@ -417,7 +416,7 @@ reliable client function GetPlatform()
 	//If the server calls GetPlatform on the server and not the client, try again
 	if (WorldInfo.NetMode == NM_DedicatedServer)
 	{
-		SetTimer(1.0f, False, nameof(GetPlatform));
+		SetTimer(1.0f, False, NameOf(GetPlatform));
 		return;
 	}
 
@@ -436,7 +435,7 @@ reliable client function GetPlatform()
 reliable server function UpdatePlatform(byte Platform)
 {
 	PlatformType = Platform;
-	SetTimer(0.5f, False, nameof(SyncPlatform));
+	SetTimer(0.5f, False, NameOf(SyncPlatform));
 }
 
 function SyncPlatform()
@@ -447,7 +446,7 @@ function SyncPlatform()
 	if (WMPRI != None)
 		WMPRI.PlatformType = PlatformType;
 	else
-		SetTimer(1.0f, False, nameof(SyncPlatform));
+		SetTimer(1.0f, False, NameOf(SyncPlatform));
 }
 
 unreliable server function ServerUpdatePing(int NewPing)
@@ -497,16 +496,15 @@ reliable client function PawnDiedCloseUPGMenu()
 
 defaultproperties
 {
-	PurchaseHelperClass=class'WMAutoPurchaseHelper'
-	HUD_perkIndex=-1
-	bUpgradeMenuOpen=False
-	bShouldUpdateHUDPerkIcon=True
 	bShouldUpdateGrenadeIcon=True
+	bShouldUpdateHUDPerkIcon=True
+	bUpgradeMenuOpen=False
+	HUD_perkIndex=INDEX_NONE
 	UPG_UpgradeListIndex=1
-	PerkList(0)=(PerkClass=Class'ZedternalReborn.WMPerk')
-	ServPendingPerkBuild=-1
-	ServPendingPerkLevel=-1
 	PlatformType=0
+
+	PerkList(0)=(PerkClass=class'ZedternalReborn.WMPerk')
+	PurchaseHelperClass=class'WMAutoPurchaseHelper'
 
 	Name="Default__WMPlayerController"
 }
