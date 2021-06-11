@@ -6,7 +6,7 @@ var float bgFactor;
 
 simulated function PostBeginPlay()
 {
-	SetTimer(1.5f, true, nameof(UpdateWarningString));
+	SetTimer(1.5f, True, NameOf(UpdateWarningString));
 
 	super.PostBeginPlay();
 }
@@ -24,7 +24,7 @@ event DrawHUD()
 	super.DrawHUD();
 
 	WMGRI = WMGameReplicationInfo(KFGRI);
-	if (WMGRI == none)
+	if (WMGRI == None)
 		return;
 
 	Canvas.Font = Font(DynamicLoadObject("UI_Canvas_Fonts.Font_General", class'Font'));
@@ -33,12 +33,12 @@ event DrawHUD()
 	//////////// SPECIAL WAVES ///////////////////
 	//////////////////////////////////////////////
 
-	if (!WMGRI.bTraderIsOpen && WMGRI.SpecialWaveID[0] != -1 && WMGRI.bDrawSpecialWave)
+	if (!WMGRI.bTraderIsOpen && WMGRI.SpecialWaveID[0] != INDEX_NONE && WMGRI.bDrawSpecialWave)
 	{
 		size = 0.5;
 
 		//draw warning
-		if (WMGRI.SpecialWaveID[1] == -1)
+		if (WMGRI.SpecialWaveID[1] == INDEX_NONE)
 			spwTitle = WMGRI.specialWaves[WMGRI.SpecialWaveID[0]].default.Title;
 		else
 			spwTitle = WMGRI.specialWaves[WMGRI.SpecialWaveID[0]].default.Title $ " + " $ WMGRI.specialWaves[WMGRI.SpecialWaveID[1]].default.Title;
@@ -54,23 +54,23 @@ event DrawHUD()
 		//draw shadow
 		Canvas.SetDrawColor(0, 0, 0, 100);
 		Canvas.SetPos(X - 2, Y + 2);
-		Canvas.DrawText(spwTitle, true, size, size);
+		Canvas.DrawText(spwTitle, True, size, size);
 
 		//draw outlines
 		Canvas.SetDrawColor(0, 0, 0, 255);
 		Canvas.SetPos(X - 1, Y - 1);
-		Canvas.DrawText(spwTitle, true, size, size);
+		Canvas.DrawText(spwTitle, True, size, size);
 		Canvas.SetPos(X - 1, Y + 1);
-		Canvas.DrawText(spwTitle, true, size, size);
+		Canvas.DrawText(spwTitle, True, size, size);
 		Canvas.SetPos(X + 1, Y - 1);
-		Canvas.DrawText(spwTitle, true, size, size);
+		Canvas.DrawText(spwTitle, True, size, size);
 		Canvas.SetPos(X + 1, Y + 1);
-		Canvas.DrawText(spwTitle, true, size, size);
+		Canvas.DrawText(spwTitle, True, size, size);
 
 		//draw text
 		Canvas.SetPos(X, Y);
 		Canvas.SetDrawColor(225, 20, 20, 255);
-		Canvas.DrawText(spwTitle, true, size, size);
+		Canvas.DrawText(spwTitle, True, size, size);
 		////////////////////////////////////////////////
 		////////////////////////////////////////////////
 	}
@@ -111,27 +111,27 @@ event DrawHUD()
 		//draw shadow
 		Canvas.SetDrawColor(0, 0, 0, 100);
 		Canvas.SetPos(X - 2, Y + 2);
-		Canvas.DrawText(buffTitle, true, size, size);
+		Canvas.DrawText(buffTitle, True, size, size);
 
 		//draw outlines
 		Canvas.SetDrawColor(0, 0, 0, 255);
 		Canvas.SetPos(X - 1, Y - 1);
-		Canvas.DrawText(buffTitle, true, size, size);
+		Canvas.DrawText(buffTitle, True, size, size);
 		Canvas.SetPos(X - 1, Y + 1);
-		Canvas.DrawText(buffTitle, true, size, size);
+		Canvas.DrawText(buffTitle, True, size, size);
 		Canvas.SetPos(X + 1, Y - 1);
-		Canvas.DrawText(buffTitle, true, size, size);
+		Canvas.DrawText(buffTitle, True, size, size);
 		Canvas.SetPos(X + 1, Y + 1);
-		Canvas.DrawText(buffTitle, true, size, size);
+		Canvas.DrawText(buffTitle, True, size, size);
 
 		//draw text
 		Canvas.SetPos(X, Y);
 		Canvas.SetDrawColor(225, 130, 20, 255);
-		Canvas.DrawText(buffTitle, true, size, size);
+		Canvas.DrawText(buffTitle, True, size, size);
 		////////////////////////////////////////////////
 		////////////////////////////////////////////////
 	}
-	else if (zedBuffIndex != -1)
+	else if (zedBuffIndex != INDEX_NONE)
 	{
 		size = 0.55;
 
@@ -146,23 +146,23 @@ event DrawHUD()
 		//draw shadow
 		Canvas.SetDrawColor(0, 0, 0, 100);
 		Canvas.SetPos(X - 2, Y + 2);
-		Canvas.DrawText(buffTitle, true, size, size);
+		Canvas.DrawText(buffTitle, True, size, size);
 
 		//draw outlines
 		Canvas.SetDrawColor(0, 0, 0, 255);
 		Canvas.SetPos(X - 1, Y - 1);
-		Canvas.DrawText(buffTitle, true, size, size);
+		Canvas.DrawText(buffTitle, True, size, size);
 		Canvas.SetPos(X - 1, Y + 1);
-		Canvas.DrawText(buffTitle, true, size, size);
+		Canvas.DrawText(buffTitle, True, size, size);
 		Canvas.SetPos(X + 1, Y - 1);
-		Canvas.DrawText(buffTitle, true, size, size);
+		Canvas.DrawText(buffTitle, True, size, size);
 		Canvas.SetPos(X + 1, Y + 1);
-		Canvas.DrawText(buffTitle, true, size, size);
+		Canvas.DrawText(buffTitle, True, size, size);
 
 		//draw text
 		Canvas.SetPos(X, Y);
 		Canvas.SetDrawColor(225, 20, 20, 255);
-		Canvas.DrawText(buffTitle, true, size, size);
+		Canvas.DrawText(buffTitle, True, size, size);
 		////////////////////////////////////////////////
 		////////////////////////////////////////////////
 	}
@@ -181,7 +181,7 @@ event DrawHUD()
 			Canvas.SetDrawColor(210, 210, 210, 255);
 			Canvas.DrawTexture(backgroundIcon, bgFactor);
 
-			if (i == zedBuffIndex-1)
+			if (i == zedBuffIndex - 1)
 			{
 				Canvas.SetPos(X - 3, Y + 4);
 				Canvas.SetDrawColor(85, 85, 85, 200);
@@ -206,11 +206,11 @@ event DrawHUD()
 
 simulated function ResestWarningMessage()
 {
-	ClearTimer(nameof(UpdateWarningString));
+	ClearTimer(NameOf(UpdateWarningString));
 
 	zedBuffIndex = 0;
 
-	SetTimer(1.5f, true, nameof(UpdateWarningString));
+	SetTimer(1.5f, True, NameOf(UpdateWarningString));
 }
 
 simulated function UpdateWarningString()
@@ -219,7 +219,7 @@ simulated function UpdateWarningString()
 	local int count;
 
 	WMGRI = WMGameReplicationInfo(KFGRI);
-	if(WMGRI == none)
+	if(WMGRI == None)
 		return;
 
 	zedBuffIndex = Max(1, zedBuffIndex + 1);
@@ -232,14 +232,15 @@ simulated function UpdateWarningString()
 			zedBuffIndex = 1;
 	}
 	if (count == 256)
-		zedBuffIndex = -1;
+		zedBuffIndex = INDEX_NONE;
 }
 
 defaultproperties
 {
 	HUDClass=Class'ZedternalReborn.WMGFxMoviePlayer_HUD'
 	backgroundIcon=Texture2D'ZedternalReborn_Resource.ZedBuffs.UI_ZedBuff_Background'
-	zedBuffIndex=-1
+	zedBuffIndex=INDEX_NONE
 	bgFactor=0
+
 	Name="Default__WMGFxHudWrapper"
 }
