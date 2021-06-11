@@ -16,6 +16,7 @@ function Callback_RequestPageChange()
 
 defaultproperties
 {
-   SubWidgetBindings(3)=(WidgetName="OverviewContainer",WidgetClass=Class'ZedternalReborn.WMGFxStartContainer_InGameOverview')
-   Name="Default__WMGFxMenu_StartGame"
+	SubWidgetBindings(3)=(WidgetName="OverviewContainer",WidgetClass=Class'ZedternalReborn.WMGFxStartContainer_InGameOverview')
+
+	Name="Default__WMGFxMenu_StartGame"
 }
