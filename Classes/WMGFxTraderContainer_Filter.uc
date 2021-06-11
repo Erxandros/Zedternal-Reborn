@@ -7,12 +7,14 @@ function BuildPerkList()
 	local byte i;
 
 	// build perk list
-	DefaultPerk.length = 1 + class'KFGame.KFPlayerController'.default.PerkList.length;
-	DefaultPerk[0] = class'ZedternalReborn.WMPerk';
-	for (i=1; i<DefaultPerk.length; i+=1)
+	DefaultPerk.Length = 0;
+	for (i = 0; i < class'KFGame.KFPlayerController'.default.PerkList.Length; ++i)
 	{
-		DefaultPerk[i] = class'KFGame.KFPlayerController'.default.PerkList[i-1].PerkClass;
+		DefaultPerk.AddItem(class'KFGame.KFPlayerController'.default.PerkList[i].PerkClass);
 	}
+
+	if (WMPlayerController(GetPC()) != None)
+		DefaultPerk.AddItem(WMPlayerController(GetPC()).default.PerkList[0].PerkClass);
 }
 
 function SetPerkFilterData(byte FilterIndex)
@@ -23,24 +25,27 @@ function SetPerkFilterData(byte FilterIndex)
 	local KFPlayerController KFPC;
 	local KFPlayerReplicationInfo KFPRI;
 
-	SetBool("filterVisibliity", true);
+	SetBool("filterVisibliity", True);
 
-	KFPC = KFPlayerController( GetPC() );
-	if ( KFPC != none )
+	KFPC = KFPlayerController(GetPC());
+	if (KFPC != None)
 	{
-		// build perk list filter
-		if (DefaultPerk.length == 0)
+		if (DefaultPerk.Length == 0)
 			BuildPerkList();
 
 		KFPRI = KFPlayerReplicationInfo(KFPC.PlayerReplicationInfo);
-		if ( KFPRI != none )
+		if (KFPRI != None)
 		{
 			SetInt("selectedIndex", KFPRI.NetPerkIndex);
 
 			// Set the title of this filter based on either the perk or the off perk string
-			if( FilterIndex < DefaultPerk.Length )
+			if (FilterIndex < DefaultPerk.Length - 1)
 			{
 				SetString("filterText", DefaultPerk[FilterIndex].default.PerkName);
+			}
+			else if (FilterIndex == DefaultPerk.Length - 1)
+			{
+				SetString("filterText", "Custom Weapons");
 			}
 			else
 			{
@@ -48,23 +53,23 @@ function SetPerkFilterData(byte FilterIndex)
 			}
 
 			DataProvider = CreateArray();
-			for (i = 0; i < DefaultPerk.Length; i++)
+			for (i = 0; i < DefaultPerk.Length; ++i)
 			{
-				FilterObject = CreateObject( "Object" );
-				FilterObject.SetString("source",  "img://"$DefaultPerk[i].static.GetPerkIconPath());
-				FilterObject.SetBool("isMyPerk",  DefaultPerk[i] == KFPC.CurrentPerk.class);
-				DataProvider.SetElementObject( i, FilterObject );
+				FilterObject = CreateObject("Object");
+				FilterObject.SetString("source", "img://"$DefaultPerk[i].static.GetPerkIconPath());
+				DataProvider.SetElementObject(i, FilterObject);
 			}
 
-			FilterObject = CreateObject( "Object" );
-			FilterObject.SetString("source",  "img://"$class'KFGFxObject_TraderItems'.default.OffPerkIconPath);
-			DataProvider.SetElementObject( i, FilterObject );
+			FilterObject = CreateObject("Object");
+			FilterObject.SetString("source", "img://"$class'KFGFxObject_TraderItems'.default.OffPerkIconPath);
+			DataProvider.SetElementObject(i, FilterObject);
 
-			SetObject( "filterSource", DataProvider );
+			SetObject("filterSource", DataProvider);
 		}
 	}
 }
 
 defaultproperties
 {
+	Name="Default__WMGFxTraderContainer_Filter"
 }
