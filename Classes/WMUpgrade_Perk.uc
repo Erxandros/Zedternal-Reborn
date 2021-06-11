@@ -24,12 +24,6 @@ static function string GetBonusValue(int Index, int Level)
 
 defaultproperties
 {
-	upgradeCost(0)=500
-	upgradeCost(1)=600
-	upgradeCost(2)=750
-	upgradeCost(3)=1000
-	upgradeCost(4)=1500
-	upgradeCost(5)=2000
 	upgradeName="default"
 	upgradeDescription(0)="default"
 

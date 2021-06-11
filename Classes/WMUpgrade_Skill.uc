@@ -5,7 +5,6 @@ class WMUpgrade_Skill extends WMUpgrade
 
 defaultproperties
 {
-	upgradeCost(0)=350
 	upgradeName="default"
 	upgradeDescription(0)="default description"
 	upgradeDescription(1)="default Deluxe description"

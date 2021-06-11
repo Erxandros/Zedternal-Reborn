@@ -1,6 +1,5 @@
 Class WMUpgrade extends Info;
 
-var array<int> upgradeCost;
 var string upgradeName;
 var array<string> upgradeDescription;
 var array<Texture2D> upgradeIcon;

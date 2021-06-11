@@ -26,7 +26,6 @@ static function string GetBonusValue(int Level)
 
 defaultproperties
 {
-	upgradeCost(0)=500
 	upgradeName="default"
 	upgradeDescription(0)="default"
 	upgradeIcon(0)=Texture2D'CHR_Cosmetics_Item_TEX.3DGlasses.3DGlasses_Color02'
