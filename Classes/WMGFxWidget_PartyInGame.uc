@@ -64,7 +64,7 @@ function RefreshParty()
 	local GFxObject DataProvider;
 
 	DataProvider = CreateArray();
-	if(!Manager.bStatsInitialized)
+	if (!Manager.bStatsInitialized)
 	{
 		return;
 	}
@@ -75,7 +75,7 @@ function RefreshParty()
 	{
 		return;
 	}
-	if(PartyChatWidget != none)
+	if (PartyChatWidget != None)
 	{
 		PartyChatWidget.SetLobbyChatVisible(KFPRIArray.Length > 1);
 	}
@@ -104,10 +104,10 @@ function GFxObject RefreshSlot(int SlotIndex, KFPlayerReplicationInfo KFPRI)
 
 	WMPlayerInfoObject = super.RefreshSlot(SlotIndex, KFPRI);
 
-	if (MemberSlots[SlotIndex].PRI != none)
+	if (MemberSlots[SlotIndex].PRI != None)
 	{
 		WMPRI = WMPlayerReplicationInfo(MemberSlots[SlotIndex].PRI);
-		if (WMPRI != none)
+		if (WMPRI != None)
 		{
 			WMPlayerInfoObject.SetString("perkLevel", string(WMPRI.PlayerLevel));
 
@@ -153,13 +153,13 @@ function ToggelMuteOnPlayer(int SlotIndex)
 		{
 			PC.ServerUnMutePlayer(PlayerNetID, !class'WorldInfo'.static.IsConsoleBuild());
 			if (MemberSlots[SlotIndex].MemberSlotObject != None)
-				MemberSlots[SlotIndex].MemberSlotObject.SetBool("isMuted", false);
+				MemberSlots[SlotIndex].MemberSlotObject.SetBool("isMuted", False);
 		}
 		else
 		{
 			PC.ServerMutePlayer(PlayerNetID, !class'WorldInfo'.static.IsConsoleBuild());
 			if (MemberSlots[SlotIndex].MemberSlotObject != None)
-				MemberSlots[SlotIndex].MemberSlotObject.SetBool("isMuted", true);
+				MemberSlots[SlotIndex].MemberSlotObject.SetBool("isMuted", True);
 		}
 	}
 	super.ToggelMuteOnPlayer(SlotIndex);
