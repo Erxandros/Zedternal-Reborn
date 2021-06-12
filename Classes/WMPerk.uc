@@ -189,10 +189,10 @@ function ApplySkillsToPawn()
 
 function AddDefaultInventory(KFPawn P)
 {
+	local int i, choice;
 	local KFInventoryManager KFIM;
 	local WMGameInfo_Endless WMGI;
 	local array< class<KFWeaponDefinition> > StartingWeaponsList;
-	local int i, choice;
 
 	if (P != None && P.InvManager != None)
 	{
@@ -231,6 +231,7 @@ function AddDefaultInventory(KFPawn P)
 		P.DefaultInventory.AddItem(class<Weapon>(DynamicLoadObject(GetKnifeWeaponClassPath(), class'Class')));
 	}
 }
+
 /* Returns the primary weapon's class path for this perk */
 simulated function string GetPrimaryWeaponClassPath()
 {
@@ -248,6 +249,7 @@ reliable client function GetKnifeIndexFromClient()
 {
 	local WMPlayerController WMPC;
 	local byte index;
+
 	WMPC = WMPlayerController(OwnerPC);
 
 	if (WMPC != None)
@@ -330,8 +332,7 @@ simulated function class<KFWeaponDefinition> GetGrenadeWeaponDef()
 
 function ServerComputePassiveBonuses()
 {
-	local byte i;
-	local byte index;
+	local byte i, index;
 
 	PassiveDamageGiven = 1.0f;
 	PassiveDamageTaken = 1.0f;
@@ -385,8 +386,7 @@ function ServerComputePassiveBonuses()
 
 simulated function ClientAndServerComputePassiveBonuses()
 {
-	local byte i;
-	local byte index;
+	local byte i, index;
 
 	PassiveMovementSpeed = 1.0f;
 	PassiveSwitchSpeed = 1.0f;
@@ -483,10 +483,9 @@ simulated function ResetSupplier()
 
 function ModifyDamageGiven(out int InDamage, optional Actor DamageCauser, optional KFPawn_Monster MyKFPM, optional KFPlayerController DamageInstigator, optional class<KFDamageType> DamageType, optional int HitZoneIdx)
 {
+	local int i, index;
 	local KFWeapon MyKFW;
 	local int DefaultDamage;
-	local int i;
-	local int index;
 
 	DefaultDamage = InDamage;
 
@@ -563,10 +562,9 @@ function ModifyDamageGiven(out int InDamage, optional Actor DamageCauser, option
 
 function ModifyHardAttackDamage(out int InDamage)
 {
+	local int i, index;
 	local KFWeapon MyKFW;
 	local int DefaultDamage;
-	local int i;
-	local int index;
 
 	if (InDamage == 0)
 		return;
@@ -611,11 +609,10 @@ function ModifyHardAttackDamage(out int InDamage)
 
 function ModifyDamageTaken(out int InDamage, optional class<DamageType> DamageType, optional Controller InstigatedBy)
 {
+	local int i, index;
 	local KFWeapon MyKFW;
 	local KFInventoryManager KFIM;
 	local int DefaultDamage;
-	local int i;
-	local int index;
 
 	if (InDamage == 0 || class<WMDT_BringTheHeat>(DamageType) != None)
 	{
@@ -690,9 +687,8 @@ function ModifyDamageTaken(out int InDamage, optional class<DamageType> DamageTy
 
 function ModifyHealth(out int InHealth)
 {
+	local byte i, index;
 	local int DefaultHealth;
-	local byte i;
-	local byte index;
 
 	// Server Custom Balance
 	InHealth = class'ZedternalReborn.Config_Player'.default.Player_Health;
@@ -733,9 +729,8 @@ function ModifyArmor(out byte MaxArmor)
 
 function ModifyArmorInt(out int MaxArmor)
 {
+	local byte i, index;
 	local int DefaultArmor;
-	local byte i;
-	local byte index;
 
 	// Server Custom Balance
 	MaxArmor = class'ZedternalReborn.Config_Player'.default.Player_Armor;
@@ -771,9 +766,8 @@ function ModifyArmorInt(out int MaxArmor)
 
 simulated function ModifyMeleeAttackSpeed(out float InDuration, KFWeapon KFW)
 {
+	local int i, index;
 	local float DefaultDuration;
-	local int i;
-	local int index;
 
 	DefaultDuration = InDuration;
 	InDuration *= PassiveMeleeAttackSpeed;
@@ -813,9 +807,8 @@ simulated function ModifyMeleeAttackSpeed(out float InDuration, KFWeapon KFW)
 
 simulated function float GetReloadRateScale(KFWeapon KFW)
 {
+	local int i, index;
 	local float InReloadRateScale;
-	local int i;
-	local int index;
 
 	InReloadRateScale = PassiveReloadRateScale;
 
@@ -857,10 +850,9 @@ simulated function float GetReloadRateScale(KFWeapon KFW)
 
 function bool ModifyHealAmount(out float HealAmount)
 {
+	local int i, index;
 	local KFWeapon MyKFW;
 	local float DefaultHealAmount;
-	local int i;
-	local int index;
 
 	DefaultHealAmount = HealAmount;
 
@@ -904,9 +896,8 @@ function bool ModifyHealAmount(out float HealAmount)
 
 simulated function ModifyHealerRechargeTime(out float RechargeRate)
 {
+	local byte i, index;
 	local float DefaultRechargeRate;
-	local byte i;
-	local byte index;
 
 	DefaultRechargeRate = RechargeRate;
 
@@ -937,9 +928,8 @@ simulated function ModifyHealerRechargeTime(out float RechargeRate)
 
 simulated function ModifySpeed(out float Speed)
 {
+	local byte i, index;
 	local float DefaultSpeed;
-	local byte i;
-	local byte index;
 
 	DefaultSpeed = Speed;
 	Speed *= PassiveMovementSpeed;
@@ -971,9 +961,8 @@ simulated function ModifySpeed(out float Speed)
 
 simulated function ModifyRecoil(out float CurrentRecoilModifier, KFWeapon KFW)
 {
+	local int i, index;
 	local float DefaultRecoilModifier;
-	local int i;
-	local int index;
 
 	DefaultRecoilModifier = CurrentRecoilModifier;
 	CurrentRecoilModifier *= PassiveRecoil;
@@ -1014,9 +1003,8 @@ simulated function ModifyRecoil(out float CurrentRecoilModifier, KFWeapon KFW)
 
 simulated function ModifyWeaponBopDamping(out float BobDamping, KFWeapon PawnWeapon)
 {
+	local int i, index;
 	local float InBobDamping, DefaultBobDamping;
-	local int i;
-	local int index;
 
 	DefaultBobDamping = BobDamping;
 	InBobDamping = DefaultBobDamping * PassiveBobDamp;
@@ -1056,10 +1044,9 @@ simulated function ModifyWeaponBopDamping(out float BobDamping, KFWeapon PawnWea
 
 simulated function ModifyMagSizeAndNumber(KFWeapon KFW, out int MagazineCapacity, optional array< class<KFPerk> > WeaponPerkClass, optional bool bSecondary = False, optional name WeaponClassname)
 {
+	local int i, index;
 	local int DefaultMagazineCapacity;
 	local int MagCapacity;
-	local int i;
-	local int index;
 
 	MagCapacity = MagazineCapacity;
 	DefaultMagazineCapacity = MagCapacity;
@@ -1111,9 +1098,8 @@ simulated function ModifyMagSizeAndNumber(KFWeapon KFW, out int MagazineCapacity
 
 simulated function ModifySpareAmmoAmount(KFWeapon KFW, out int PrimarySpareAmmo, optional const out STraderItem TraderItem, optional bool bSecondary = False)
 {
+	local int i, index;
 	local int DefaultSpareAmmo;
-	local int i;
-	local int index;
 
 	if (KFW != None && PrimarySpareAmmo>0)
 	{
@@ -1163,10 +1149,9 @@ simulated function ModifyMaxSpareAmmoAmount(KFWeapon KFW, out int MaxSpareAmmo, 
 
 simulated function ModifyMaxSpareGrenadeAmount()
 {
+	local byte i, index;
 	local int SpareGrenade;
 	local int DefaultSpareGrenade;
-	local byte i;
-	local byte index;
 
 	DefaultSpareGrenade = default.MaxGrenadeCount;
 	SpareGrenade = DefaultSpareGrenade;
@@ -1200,9 +1185,8 @@ simulated function ModifyMaxSpareGrenadeAmount()
 
 simulated function ModifyWeldingRate(out float FastenRate, out float UnfastenRate)
 {
+	local byte i, index;
 	local float DefaultFastenRate, DefaultUnfastenRate;
-	local byte i;
-	local byte index;
 
 	DefaultFastenRate = FastenRate;
 	DefaultUnfastenRate = UnfastenRate;
@@ -1234,10 +1218,9 @@ simulated function ModifyWeldingRate(out float FastenRate, out float UnfastenRat
 
 function float GetZedTimeExtensionMax(byte Level)
 {
+	local byte i, index;
 	local float DefaultExtension;
 	local float Extension;
-	local byte i;
-	local byte index;
 
 	if (MyWMPRI != None && MyWMGRI != None)
 	{
@@ -1271,11 +1254,10 @@ function float GetZedTimeExtensionMax(byte Level)
 
 function ApplyWeightLimits()
 {
+	local byte i, index;
 	local KFInventoryManager KFIM;
 	local int DefaultWeightLimit;
 	local int InWeightLimit;
-	local byte i;
-	local byte index;
 
 	if (OwnerPawn != None)
 	{
@@ -1322,9 +1304,8 @@ function ApplyWeightLimits()
 
 function ModifyDoTScaler(out float DoTScaler, optional class<KFDamageType> KFDT, optional bool bNapalmInfected)
 {
+	local byte i, index;
 	local float DefaultDoTScaler;
-	local byte i;
-	local byte index;
 
 	DefaultDoTScaler = DoTScaler;
 
@@ -1355,9 +1336,8 @@ function ModifyDoTScaler(out float DoTScaler, optional class<KFDamageType> KFDT,
 
 simulated function ModifyRateOfFire(out float InRate, KFWeapon KFW)
 {
+	local int i, index;
 	local float DefaultRate;
-	local int i;
-	local int index;
 
 	DefaultRate = InRate;
 	if (KFWeap_FlameBase(KFW) == None)
@@ -1398,9 +1378,8 @@ simulated function ModifyRateOfFire(out float InRate, KFWeapon KFW)
 
 simulated function float GetTightChokeModifier()
 {
+	local int i, index;
 	local float InTight, DefaultTight;
-	local int i;
-	local int index;
 	local KFWeapon KFW;
 	local KFInventoryManager KFIM;
 
@@ -1460,11 +1439,10 @@ simulated function float GetTightChokeModifier()
 
 simulated function float GetPenetrationModifier(byte Level, class<KFDamageType> DamageType, optional bool bForce)
 {
+	local int i, index;
 	local KFWeapon MyKFW;
 	local float DefaultPenetration;
 	local float InPenetration;
-	local int i;
-	local int index;
 
 	if (WMTimers.PenetrationModifierFlag)
 	{
@@ -1515,11 +1493,10 @@ simulated function float GetPenetrationModifier(byte Level, class<KFDamageType> 
 
 function float GetStunPowerModifier(optional class<DamageType> DamageType, optional byte HitZoneIdx)
 {
+	local int i, index;
 	local KFWeapon MyKFW;
 	local float DefaultStunPower;
 	local float InStunPower;
-	local int i;
-	local int index;
 
 	if (WMTimers.StunPowerModifierFlag)
 	{
@@ -1570,11 +1547,10 @@ function float GetStunPowerModifier(optional class<DamageType> DamageType, optio
 
 function float GetStumblePowerModifier(optional KFPawn KFP, optional class<KFDamageType> DamageType, optional out float CooldownModifier, optional byte BodyPart)
 {
+	local int i, index;
 	local KFWeapon MyKFW;
 	local float DefaultStumblePower;
 	local float InStumblePower;
-	local int i;
-	local int index;
 
 	if (WMTimers.StumblePowerModifierFlag)
 	{
@@ -1625,11 +1601,10 @@ function float GetStumblePowerModifier(optional KFPawn KFP, optional class<KFDam
 
 function float GetKnockdownPowerModifier(optional class<DamageType> DamageType, optional byte BodyPart, optional bool bIsSprinting = False)
 {
+	local int i, index;
 	local KFWeapon MyKFW;
 	local float DefaultKnockdownPower;
 	local float InKnockdownPower;
-	local int i;
-	local int index;
 
 	if (WMTimers.KnockdownPowerModifierFlag)
 	{
@@ -1685,10 +1660,9 @@ simulated function float GetSnareSpeedModifier()
 
 simulated function float GetSnarePowerModifier(optional class<DamageType> DamageType, optional byte HitZoneIdx)
 {
+	local byte i, index;
 	local float DefaultSnarePower;
 	local float InSnarePower;
-	local byte i;
-	local byte index;
 
 	if (WMTimers.SnarePowerModifierFlag)
 	{
@@ -1731,9 +1705,8 @@ simulated function float GetSnarePowerModifier(optional class<DamageType> Damage
 
 simulated function ModifyWeaponSwitchTime(out float ModifiedSwitchTime)
 {
+	local int i, index;
 	local float DefaultSwitchTime;
-	local int i;
-	local int index;
 	local KFWeapon KFW;
 	local KFInventoryManager KFIM;
 
@@ -1781,10 +1754,9 @@ simulated function ModifyWeaponSwitchTime(out float ModifiedSwitchTime)
 
 function AddVampireHealth(KFPlayerController KFPC, class<DamageType> DT)
 {
+	local byte i, index;
 	local int DefaultHealth;
 	local int InHealth;
-	local byte i;
-	local byte index;
 
 	InHealth = 0;
 	DefaultHealth = InHealth;
@@ -1832,8 +1804,7 @@ function AddVampireHealth(KFPlayerController KFPC, class<DamageType> DT)
 
 function bool CanSpreadNapalm()
 {
-	local byte i;
-	local byte index;
+	local byte i, index;
 	local bool bCanSpreadNapalm;
 
 	bCanSpreadNapalm = False;
@@ -1876,8 +1847,7 @@ function bool CanSpreadNapalm()
 
 simulated function bool CanKnockDownOnBump(KFPawn_Monster KFPM)
 {
-	local byte i;
-	local byte index;
+	local byte i, index;
 	local bool bCanKnockDown;
 
 	bCanKnockDown = False;
@@ -1920,8 +1890,7 @@ simulated function bool CanKnockDownOnBump(KFPawn_Monster KFPM)
 
 simulated function bool ShouldNeverDud()
 {
-	local byte i;
-	local byte index;
+	local byte i, index;
 	local bool bCouldExplode;
 	local KFWeapon KFW;
 	local KFInventoryManager KFIM;
@@ -1972,8 +1941,7 @@ simulated function bool ShouldNeverDud()
 
 function bool CouldBeZedShrapnel(class<KFDamageType> KFDT)
 {
-	local byte i;
-	local byte index;
+	local byte i, index;
 	local bool bCouldExplode;
 
 	if (MyWMPRI != None)
@@ -2019,8 +1987,7 @@ function GameExplosion GetExplosionTemplate()
 
 simulated function bool ShouldShrapnel()
 {
-	local byte i;
-	local byte index;
+	local byte i, index;
 	local bool bShouldExplode;
 
 	if (MyWMPRI != None)
@@ -2061,8 +2028,7 @@ simulated function bool ShouldShrapnel()
 
 simulated function bool IsRangeActive()
 {
-	local byte i;
-	local byte index;
+	local byte i, index;
 	local bool bRangeActive;
 
 	if (MyWMPRI != None)
@@ -2104,8 +2070,7 @@ simulated function bool IsRangeActive()
 
 simulated function bool IsGroundFireActive()
 {
-	local byte i;
-	local byte index;
+	local byte i, index;
 	local bool bSplashActive;
 
 	if (MyWMPRI != None)
@@ -2147,8 +2112,7 @@ simulated function bool IsGroundFireActive()
 
 simulated function bool GetUsingTactialReload(KFWeapon KFW)
 {
-	local byte i;
-	local byte index;
+	local byte i, index;
 	local bool bTacticalReload;
 
 	if (MyWMPRI != None)
@@ -2181,8 +2145,7 @@ simulated function bool GetUsingTactialReload(KFWeapon KFW)
 
 simulated function InitiateWeapon(KFWeapon KFW)
 {
-	local int i;
-	local int index;
+	local int i, index;
 
 	if (MyWMPRI != None)
 	{
@@ -2219,8 +2182,7 @@ simulated function InitiateWeapon(KFWeapon KFW)
 
 simulated function float GetSelfHealingSurgePct()
 {
-	local byte i;
-	local byte index;
+	local byte i, index;
 	local float InHealingPct;
 
 	InHealingPct = 0.000000;
@@ -2255,8 +2217,7 @@ simulated function bool IsHealingSurgeActive(){ return True; }
 
 simulated event float GetIronSightSpeedModifier(KFWeapon KFW)
 {
-	local int i;
-	local int index;
+	local int i, index;
 	local float InSpeed, DefaultSpeed;
 
 	DefaultSpeed = 1.000000;
@@ -2297,8 +2258,7 @@ simulated event float GetIronSightSpeedModifier(KFWeapon KFW)
 
 simulated event float GetCrouchSpeedModifier(KFWeapon KFW)
 {
-	local int i;
-	local int index;
+	local int i, index;
 	local float InSpeed, DefaultSpeed;
 
 	DefaultSpeed = 1.000000;
@@ -2339,8 +2299,7 @@ simulated event float GetCrouchSpeedModifier(KFWeapon KFW)
 
 function simulated SetSuccessfullParry()
 {
-	local byte i;
-	local byte index;
+	local byte i, index;
 
 	if (MyWMPRI != None)
 	{
@@ -2369,8 +2328,7 @@ function simulated SetSuccessfullParry()
 
 function bool CanNotBeGrabbed()
 {
-	local byte i;
-	local byte index;
+	local byte i, index;
 	local bool bNoGrab;
 
 	if (MyWMPRI != None)
@@ -2402,8 +2360,7 @@ function bool CanNotBeGrabbed()
 
 simulated function bool ShouldRandSirenResist()
 {
-	local byte i;
-	local byte index;
+	local byte i, index;
 	local bool bResist;
 
 	if (MyWMPRI != None)
@@ -2436,8 +2393,7 @@ simulated function bool ShouldRandSirenResist()
 
 simulated function bool GetIsUberAmmoActive(KFWeapon KFW)
 {
-	local byte i;
-	local byte index;
+	local byte i, index;
 	local bool bUber;
 
 	MyWMPRI = WMPlayerReplicationInfo(MyPRI);
@@ -2481,8 +2437,7 @@ simulated function bool GetIsUberAmmoActive(KFWeapon KFW)
 
 function HealingDamage(int HealAmount, KFPawn KFP, class<DamageType> DamageType)
 {
-	local byte i;
-	local byte index;
+	local byte i, index;
 
 	if (MyWMPRI != None)
 	{
@@ -2511,8 +2466,7 @@ function HealingDamage(int HealAmount, KFPawn KFP, class<DamageType> DamageType)
 
 simulated function float GetZedTimeModifier(KFWeapon W)
 {
-	local byte i;
-	local byte index;
+	local byte i, index;
 	local float InModifier;
 
 	InModifier = 0.f;
@@ -2546,8 +2500,7 @@ simulated function float GetZedTimeModifier(KFWeapon W)
 
 simulated function bool CanSeeEnemyHealth()
 {
-	local byte i;
-	local byte index;
+	local byte i, index;
 	local bool bCanSee;
 
 	if (MyWMPRI != None)
@@ -2580,8 +2533,7 @@ simulated function bool CanSeeEnemyHealth()
 
 simulated function bool IsCallOutActive()
 {
-	local byte i;
-	local byte index;
+	local byte i, index;
 	local bool bCallOut;
 
 	if (MyWMPRI != None)
@@ -2625,10 +2577,9 @@ simulated function bool IsCallOutActive()
 
 simulated function float GetCloakDetectionRange()
 {
+	local byte i, index;
 	local float DefaultRange;
 	local float InRange;
-	local byte i;
-	local byte index;
 
 	InRange = 2000.f;
 	DefaultRange = InRange;
@@ -2662,8 +2613,7 @@ simulated function float GetCloakDetectionRange()
 
 simulated function ReceiveLocalizedMessage(class<LocalMessage> Message, optional int Switch)
 {
-	local byte i;
-	local byte index;
+	local byte i, index;
 
 	if (MyWMPRI != None)
 	{
@@ -2693,8 +2643,7 @@ simulated function ReceiveLocalizedMessage(class<LocalMessage> Message, optional
 
 simulated function bool ShouldSacrifice()
 {
-	local byte i;
-	local byte index;
+	local byte i, index;
 	local bool bSacrifice;
 
 	if (!bUsedSacrifice)
@@ -2736,8 +2685,7 @@ function NotifyPerkSacrificeExploded()
 
 simulated function bool DoorShouldNuke()
 {
-	local byte i;
-	local byte index;
+	local byte i, index;
 	local bool bTrap;
 
 	if (MyWMPRI != None)
@@ -2770,8 +2718,7 @@ simulated function bool DoorShouldNuke()
 
 simulated function bool CanExplosiveWeld()
 {
-	local byte i;
-	local byte index;
+	local byte i, index;
 	local bool bTrap;
 
 	if (MyWMPRI != None)
@@ -2912,8 +2859,7 @@ simulated function bool CanInteract(KFPawn_Human MyKFPH)
 
 simulated function bool IsSupplierActive()
 {
-	local byte i;
-	local byte index;
+	local byte i, index;
 	local bool bActive;
 
 	if (MyWMPRI != None)
@@ -2945,8 +2891,7 @@ simulated function bool IsSupplierActive()
 
 function WaveEnd(KFPlayerController KFPC)
 {
-	local byte i;
-	local byte index;
+	local byte i, index;
 
 	if (MyWMGRI != None && MyWMPRI != None)
 	{
@@ -2970,10 +2915,9 @@ function WaveEnd(KFPlayerController KFPC)
 
 simulated function DrawSpecialPerkHUD(Canvas C)
 {
+	local byte i, index;
 	local KFPawn_Monster KFPM;
 	local vector ViewLocation, ViewDir;
-	local int i;
-	local int index;
 	local float DetectionRangeSq, ThisDot;
 	local float HealthBarLength, HealthbarHeight;
 
@@ -3085,8 +3029,7 @@ simulated function DrawZedHealthbar(Canvas C, KFPawn_Monster KFPM, vector Camera
 // healing darts powerup function
 simulated function byte GetHealingDamageBoost()
 {
-	local byte i;
-	local byte index;
+	local byte i, index;
 	local byte InHealingDamageBoost;
 
 	InHealingDamageBoost = 0;
@@ -3115,8 +3058,7 @@ simulated function byte GetHealingDamageBoost()
 
 simulated function byte GetMaxHealingDamageBoost()
 {
-	local byte i;
-	local byte index;
+	local byte i, index;
 	local byte InMaxHealingDamageBoost;
 
 	InMaxHealingDamageBoost = 0;
@@ -3145,8 +3087,7 @@ simulated function byte GetMaxHealingDamageBoost()
 
 simulated function byte GetHealingShield()
 {
-	local byte i;
-	local byte index;
+	local byte i, index;
 	local byte InHealingShield;
 
 	InHealingShield = 0;
@@ -3175,8 +3116,7 @@ simulated function byte GetHealingShield()
 
 simulated function byte GetMaxHealingShield()
 {
-	local byte i;
-	local byte index;
+	local byte i, index;
 	local byte InMaxHealingShield;
 
 	InMaxHealingShield = 0;
@@ -3205,8 +3145,7 @@ simulated function byte GetMaxHealingShield()
 
 simulated function bool HasNightVision()
 {
-	local byte i;
-	local byte index;
+	local byte i, index;
 	local bool bActive;
 
 	if (MyWMPRI != None)
@@ -3239,8 +3178,7 @@ simulated function bool HasNightVision()
 
 simulated function class<EmitterCameraLensEffectBase> GetPerkLensEffect(class<KFDamageType> DmgType)
 {
-	local byte i;
-	local byte index;
+	local byte i, index;
 	local class<EmitterCameraLensEffectBase> CamEffect;
 
 	CamEffect = DmgType.default.CameraLensEffectTemplate;
@@ -3269,8 +3207,7 @@ simulated function class<EmitterCameraLensEffectBase> GetPerkLensEffect(class<KF
 
 function bool IsUnAffectedByZedTime()
 {
-	local byte i;
-	local byte index;
+	local byte i, index;
 	local bool bActive;
 
 	if (MyWMPRI != None)
@@ -3312,9 +3249,8 @@ function bool IsUnAffectedByZedTime()
 
 simulated function ApplyBatteryRechargeRate()
 {
+	local byte i, index;
 	local float InRechargeRateFL, InRechargeRateNVG;
-	local int i;
-	local int index;
 
 	if (OwnerPawn != None)
 	{
@@ -3353,8 +3289,7 @@ simulated function ApplyBatteryRechargeRate()
 
 simulated function bool ImmuneToCameraShake()
 {
-	local byte i;
-	local byte index;
+	local byte i, index;
 	local bool bActive;
 
 	if (MyWMPRI != None)
