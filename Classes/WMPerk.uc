@@ -343,7 +343,7 @@ function ServerComputePassiveBonuses()
 	PassiveKnockdownPower = 1.0f;
 	PassiveSnarePower = 1.0f;
 
-	if (MyWMPRI != None)
+	if (MyWMPRI != None && MyWMGRI != None)
 	{
 		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
@@ -400,7 +400,7 @@ simulated function ClientAndServerComputePassiveBonuses()
 	PassiveTightChoke = 1.0f;
 	PassivePenetration = 1.0f;
 
-	if (MyWMPRI != None)
+	if (MyWMPRI != None && MyWMGRI != None)
 	{
 		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
@@ -527,7 +527,7 @@ function ModifyDamageGiven(out int InDamage, optional Actor DamageCauser, option
 		MyKFW = GetOwnerWeapon();
 	}
 
-	if (MyWMPRI != None)
+	if (MyWMPRI != None && MyWMGRI != None)
 	{
 		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
@@ -550,12 +550,13 @@ function ModifyDamageGiven(out int InDamage, optional Actor DamageCauser, option
 			index = MyWMPRI.Purchase_EquipmentUpgrade[i];
 			MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.ModifyDamageGiven(InDamage, DefaultDamage, MyWMPRI.bEquipmentUpgrade[index], DamageCauser, MyKFPM, DamageInstigator, DamageType, HitZoneIdx, MyKFW);
 		}
+		for (i = 0; i <= 1; ++i)
+		{
+			if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
+				MyWMGRI.specialWaves[MyWMGRI.SpecialWaveID[i]].static.ModifyDamageGiven(InDamage, DefaultDamage, DamageCauser, MyKFPM, DamageInstigator, DamageType, HitZoneIdx, MyKFW);
+		}
 	}
-	for (i = 0; i <= 1; ++i)
-	{
-		if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
-			MyWMGRI.specialWaves[MyWMGRI.SpecialWaveID[i]].static.ModifyDamageGiven(InDamage, DefaultDamage, DamageCauser, MyKFPM, DamageInstigator, DamageType, HitZoneIdx, MyKFW);
-	}
+
 	if (InDamage < 0)
 		InDamage = 0;
 }
@@ -574,7 +575,7 @@ function ModifyHardAttackDamage(out int InDamage)
 
 	MyKFW = GetOwnerWeapon();
 
-	if (MyWMPRI != None)
+	if (MyWMPRI != None && MyWMGRI != None)
 	{
 		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
@@ -597,12 +598,13 @@ function ModifyHardAttackDamage(out int InDamage)
 			index = MyWMPRI.Purchase_EquipmentUpgrade[i];
 			MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.ModifyHardAttackDamage(InDamage, DefaultDamage, MyWMPRI.bEquipmentUpgrade[index], OwnerPawn);
 		}
+		for (i = 0; i <= 1; ++i)
+		{
+			if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
+				MyWMGRI.specialWaves[MyWMGRI.SpecialWaveID[i]].static.ModifyHardAttackDamage(InDamage, DefaultDamage, OwnerPawn);
+		}
 	}
-	for (i = 0; i <= 1; ++i)
-	{
-		if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
-			MyWMGRI.specialWaves[MyWMGRI.SpecialWaveID[i]].static.ModifyHardAttackDamage(InDamage, DefaultDamage, OwnerPawn);
-	}
+
 	if (InDamage < 0)
 		InDamage = 0;
 }
@@ -651,7 +653,7 @@ function ModifyDamageTaken(out int InDamage, optional class<DamageType> DamageTy
 	DefaultDamage = InDamage;
 	InDamage = Round(float(DefaultDamage) * PassiveDamageTaken);
 
-	if (MyWMPRI != None)
+	if (MyWMPRI != None && MyWMGRI != None)
 	{
 		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
@@ -674,15 +676,15 @@ function ModifyDamageTaken(out int InDamage, optional class<DamageType> DamageTy
 			index = MyWMPRI.Purchase_EquipmentUpgrade[i];
 			MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.ModifyDamageTaken(InDamage, DefaultDamage, MyWMPRI.bEquipmentUpgrade[index], OwnerPawn, DamageType, InstigatedBy, MyKFW);
 		}
+		for (i = 0; i <= 1; ++i)
+		{
+			if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
+				MyWMGRI.specialWaves[MyWMGRI.SpecialWaveID[i]].static.ModifyDamageTaken(InDamage, DefaultDamage, OwnerPawn, DamageType, InstigatedBy, MyKFW);
+		}
 	}
-	for (i = 0; i <= 1; ++i)
-	{
-		if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
-			MyWMGRI.specialWaves[MyWMGRI.SpecialWaveID[i]].static.ModifyDamageTaken(InDamage, DefaultDamage, OwnerPawn, DamageType, InstigatedBy, MyKFW);
-	}
-	if (InDamage<0)
-		InDamage = 1;
 
+	if (InDamage < 0)
+		InDamage = 1;
 }
 
 function ModifyHealth(out int InHealth)
@@ -697,7 +699,7 @@ function ModifyHealth(out int InHealth)
 
 	DefaultHealth = InHealth;
 
-	if (MyWMPRI != None)
+	if (MyWMPRI != None && MyWMGRI != None)
 	{
 		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
@@ -772,7 +774,7 @@ simulated function ModifyMeleeAttackSpeed(out float InDuration, KFWeapon KFW)
 	DefaultDuration = InDuration;
 	InDuration *= PassiveMeleeAttackSpeed;
 
-	if (MyWMPRI != None)
+	if (MyWMPRI != None && MyWMGRI != None)
 	{
 		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
@@ -795,12 +797,13 @@ simulated function ModifyMeleeAttackSpeed(out float InDuration, KFWeapon KFW)
 			index = MyWMPRI.Purchase_EquipmentUpgrade[i];
 			MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.ModifyMeleeAttackSpeed(InDuration, DefaultDuration, MyWMPRI.bEquipmentUpgrade[index], KFW);
 		}
+		for (i = 0; i <= 1; ++i)
+		{
+			if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
+				MyWMGRI.specialWaves[MyWMGRI.SpecialWaveID[i]].static.ModifyMeleeAttackSpeed(InDuration, DefaultDuration, KFW);
+		}
 	}
-	for (i = 0; i <= 1; ++i)
-	{
-		if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
-			MyWMGRI.specialWaves[MyWMGRI.SpecialWaveID[i]].static.ModifyMeleeAttackSpeed(InDuration, DefaultDuration, KFW);
-	}
+
 	if (InDuration <= 0)
 		InDuration = 0.05f;
 }
@@ -812,7 +815,7 @@ simulated function float GetReloadRateScale(KFWeapon KFW)
 
 	InReloadRateScale = PassiveReloadRateScale;
 
-	if (MyWMPRI != None)
+	if (MyWMPRI != None && MyWMGRI != None)
 	{
 		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
@@ -835,11 +838,11 @@ simulated function float GetReloadRateScale(KFWeapon KFW)
 			index = MyWMPRI.Purchase_EquipmentUpgrade[i];
 			MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.GetReloadRateScale(InReloadRateScale, MyWMPRI.bEquipmentUpgrade[index], KFW, OwnerPawn);
 		}
-	}
-	for (i = 0; i <= 1; ++i)
-	{
-		if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
-			MyWMGRI.specialWaves[MyWMGRI.SpecialWaveID[i]].static.GetReloadRateScale(InReloadRateScale, KFW, OwnerPawn);
+		for (i = 0; i <= 1; ++i)
+		{
+			if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
+				MyWMGRI.specialWaves[MyWMGRI.SpecialWaveID[i]].static.GetReloadRateScale(InReloadRateScale, KFW, OwnerPawn);
+		}
 	}
 
 	if (InReloadRateScale <= 0.05f)
@@ -862,7 +865,7 @@ function bool ModifyHealAmount(out float HealAmount)
 	HealAmount *= PassiveHealAmount;
 	MyKFW = GetOwnerWeapon();
 
-	if (MyWMPRI != None)
+	if (MyWMPRI != None && MyWMGRI != None)
 	{
 		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
@@ -885,12 +888,13 @@ function bool ModifyHealAmount(out float HealAmount)
 			index = MyWMPRI.Purchase_EquipmentUpgrade[i];
 			MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.ModifyHealAmount(HealAmount, DefaultHealAmount, MyWMPRI.bEquipmentUpgrade[index]);
 		}
+		for (i = 0; i <= 1; ++i)
+		{
+			if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
+				MyWMGRI.specialWaves[MyWMGRI.SpecialWaveID[i]].static.ModifyHealAmount(HealAmount, DefaultHealAmount);
+		}
 	}
-	for (i = 0; i <= 1; ++i)
-	{
-		if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
-			MyWMGRI.specialWaves[MyWMGRI.SpecialWaveID[i]].static.ModifyHealAmount(HealAmount, DefaultHealAmount);
-	}
+
 	return IsHealingSurgeActive();
 }
 
@@ -901,7 +905,7 @@ simulated function ModifyHealerRechargeTime(out float RechargeRate)
 
 	DefaultRechargeRate = RechargeRate;
 
-	if (MyWMPRI != None)
+	if (MyWMPRI != None && MyWMGRI != None)
 	{
 		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
@@ -918,11 +922,11 @@ simulated function ModifyHealerRechargeTime(out float RechargeRate)
 			index = MyWMPRI.Purchase_EquipmentUpgrade[i];
 			MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.ModifyHealerRechargeTime(RechargeRate, DefaultRechargeRate, MyWMPRI.bEquipmentUpgrade[index]);
 		}
-	}
-	for (i = 0; i <= 1; ++i)
-	{
-		if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
-			MyWMGRI.specialWaves[MyWMGRI.SpecialWaveID[i]].static.ModifyHealerRechargeTime(RechargeRate, DefaultRechargeRate);
+		for (i = 0; i <= 1; ++i)
+		{
+			if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
+				MyWMGRI.specialWaves[MyWMGRI.SpecialWaveID[i]].static.ModifyHealerRechargeTime(RechargeRate, DefaultRechargeRate);
+		}
 	}
 }
 
@@ -967,7 +971,7 @@ simulated function ModifyRecoil(out float CurrentRecoilModifier, KFWeapon KFW)
 	DefaultRecoilModifier = CurrentRecoilModifier;
 	CurrentRecoilModifier *= PassiveRecoil;
 
-	if (MyWMPRI != None)
+	if (MyWMPRI != None && MyWMGRI != None)
 	{
 		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
@@ -990,11 +994,11 @@ simulated function ModifyRecoil(out float CurrentRecoilModifier, KFWeapon KFW)
 			index = MyWMPRI.Purchase_EquipmentUpgrade[i];
 			MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.ModifyRecoil(CurrentRecoilModifier, DefaultRecoilModifier, MyWMPRI.bEquipmentUpgrade[index], KFW);
 		}
-	}
-	for (i = 0; i <= 1; ++i)
-	{
-		if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
-			MyWMGRI.specialWaves[MyWMGRI.SpecialWaveID[i]].static.ModifyRecoil(CurrentRecoilModifier, DefaultRecoilModifier, KFW);
+		for (i = 0; i <= 1; ++i)
+		{
+			if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
+				MyWMGRI.specialWaves[MyWMGRI.SpecialWaveID[i]].static.ModifyRecoil(CurrentRecoilModifier, DefaultRecoilModifier, KFW);
+		}
 	}
 
 	if (CurrentRecoilModifier < DefaultRecoilModifier * 0.08f)
@@ -1009,7 +1013,7 @@ simulated function ModifyWeaponBopDamping(out float BobDamping, KFWeapon PawnWea
 	DefaultBobDamping = BobDamping;
 	InBobDamping = DefaultBobDamping * PassiveBobDamp;
 
-	if (MyWMPRI != None)
+	if (MyWMPRI != None && MyWMGRI != None)
 	{
 		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
@@ -1032,11 +1036,11 @@ simulated function ModifyWeaponBopDamping(out float BobDamping, KFWeapon PawnWea
 			index = MyWMPRI.Purchase_EquipmentUpgrade[i];
 			MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.ModifyWeaponBopDamping(InBobDamping, DefaultBobDamping, MyWMPRI.bEquipmentUpgrade[index], PawnWeapon);
 		}
-	}
-	for (i = 0; i <= 1; ++i)
-	{
-		if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
-			MyWMGRI.specialWaves[MyWMGRI.SpecialWaveID[i]].static.ModifyWeaponBopDamping(InBobDamping, DefaultBobDamping, PawnWeapon);
+		for (i = 0; i <= 1; ++i)
+		{
+			if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
+				MyWMGRI.specialWaves[MyWMGRI.SpecialWaveID[i]].static.ModifyWeaponBopDamping(InBobDamping, DefaultBobDamping, PawnWeapon);
+		}
 	}
 
 	BobDamping = InBobDamping;
@@ -1051,7 +1055,7 @@ simulated function ModifyMagSizeAndNumber(KFWeapon KFW, out int MagazineCapacity
 	MagCapacity = MagazineCapacity;
 	DefaultMagazineCapacity = MagCapacity;
 
-	if (MyWMPRI != None && KFWeap_Healer_Syringe(KFW) == None)
+	if (MyWMPRI != None && MyWMGRI != None && KFWeap_Healer_Syringe(KFW) == None && KFWeap_Welder(KFW) == None)
 	{
 		MagCapacity = Round(float(MagCapacity) * PassiveMagazineCapacity);
 
@@ -1076,14 +1080,14 @@ simulated function ModifyMagSizeAndNumber(KFWeapon KFW, out int MagazineCapacity
 			index = MyWMPRI.Purchase_EquipmentUpgrade[i];
 			MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.ModifyMagSizeAndNumber(MagCapacity, DefaultMagazineCapacity, MyWMPRI.bEquipmentUpgrade[index], KFW, WeaponPerkClass, bSecondary, WeaponClassname);
 		}
-	}
-	for (i = 0; i <= 1; ++i)
-	{
-		if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE && KFWeap_Healer_Syringe(KFW) == None)
-			MyWMGRI.specialWaves[MyWMGRI.SpecialWaveID[i]].static.ModifyMagSizeAndNumber(MagCapacity, DefaultMagazineCapacity, KFW, WeaponPerkClass, bSecondary, WeaponClassname);
+		for (i = 0; i <= 1; ++i)
+		{
+			if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
+				MyWMGRI.specialWaves[MyWMGRI.SpecialWaveID[i]].static.ModifyMagSizeAndNumber(MagCapacity, DefaultMagazineCapacity, KFW, WeaponPerkClass, bSecondary, WeaponClassname);
+		}
 	}
 
-	if (KFWeap_Bow_Crossbow(KFW) == None || KFWeap_Bow_CompoundBow(KFW) == None) // crossbow and bow does not work well with more than 1 ammo per clip
+	if (KFWeap_Bow_Crossbow(KFW) == None && KFWeap_Bow_CompoundBow(KFW) == None) // crossbow and bow does not work well with more than 1 ammo per clip
 	{
 		if (!bSecondary)
 			MagazineCapacity = Clamp(MagCapacity, 0, MaxInt); //Prevent integer overflow
@@ -1101,11 +1105,11 @@ simulated function ModifySpareAmmoAmount(KFWeapon KFW, out int PrimarySpareAmmo,
 	local int i, index;
 	local int DefaultSpareAmmo;
 
-	if (KFW != None && PrimarySpareAmmo>0)
+	if (KFW != None && PrimarySpareAmmo > 0)
 	{
 		DefaultSpareAmmo = PrimarySpareAmmo;
 		PrimarySpareAmmo = Round(float(PrimarySpareAmmo) * PassiveSpareAmmo);
-		if (MyWMPRI != None)
+		if (MyWMPRI != None && MyWMGRI != None)
 		{
 			for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 			{
@@ -1128,11 +1132,11 @@ simulated function ModifySpareAmmoAmount(KFWeapon KFW, out int PrimarySpareAmmo,
 				index = MyWMPRI.Purchase_EquipmentUpgrade[i];
 				MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.ModifySpareAmmoAmount(PrimarySpareAmmo, DefaultSpareAmmo, MyWMPRI.bEquipmentUpgrade[index], KFW, TraderItem, bSecondary);
 			}
-		}
-		for (i = 0; i <= 1; ++i)
-		{
-			if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
-				MyWMGRI.specialWaves[MyWMGRI.SpecialWaveID[i]].static.ModifySpareAmmoAmount(PrimarySpareAmmo, DefaultSpareAmmo, KFW, TraderItem, bSecondary);
+			for (i = 0; i <= 1; ++i)
+			{
+				if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
+					MyWMGRI.specialWaves[MyWMGRI.SpecialWaveID[i]].static.ModifySpareAmmoAmount(PrimarySpareAmmo, DefaultSpareAmmo, KFW, TraderItem, bSecondary);
+			}
 		}
 
 		if (!bSecondary)
@@ -1156,7 +1160,7 @@ simulated function ModifyMaxSpareGrenadeAmount()
 	DefaultSpareGrenade = default.MaxGrenadeCount;
 	SpareGrenade = DefaultSpareGrenade;
 
-	if (MyWMPRI != None)
+	if (MyWMPRI != None && MyWMGRI != None)
 	{
 		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
@@ -1191,7 +1195,7 @@ simulated function ModifyWeldingRate(out float FastenRate, out float UnfastenRat
 	DefaultFastenRate = FastenRate;
 	DefaultUnfastenRate = UnfastenRate;
 
-	if (MyWMPRI != None)
+	if (MyWMPRI != None && MyWMGRI != None)
 	{
 		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
@@ -1208,11 +1212,11 @@ simulated function ModifyWeldingRate(out float FastenRate, out float UnfastenRat
 			index = MyWMPRI.Purchase_EquipmentUpgrade[i];
 			MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.ModifyWeldingRate(FastenRate, DefaultFastenRate, UnfastenRate, DefaultUnfastenRate, MyWMPRI.bEquipmentUpgrade[index]);
 		}
-	}
-	for (i = 0; i <= 1; ++i)
-	{
-		if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
-			MyWMGRI.specialWaves[MyWMGRI.SpecialWaveID[i]].static.ModifyWeldingRate(FastenRate, DefaultFastenRate, UnfastenRate, DefaultUnfastenRate);
+		for (i = 0; i <= 1; ++i)
+		{
+			if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
+				MyWMGRI.specialWaves[MyWMGRI.SpecialWaveID[i]].static.ModifyWeldingRate(FastenRate, DefaultFastenRate, UnfastenRate, DefaultUnfastenRate);
+		}
 	}
 }
 
@@ -1242,11 +1246,11 @@ function float GetZedTimeExtensionMax(byte Level)
 			index = MyWMPRI.Purchase_EquipmentUpgrade[i];
 			MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.GetZedTimeExtension(Extension, DefaultExtension, MyWMPRI.bEquipmentUpgrade[index]);
 		}
-	}
-	for (i = 0; i <= 1; ++i)
-	{
-		if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
-			MyWMGRI.specialWaves[MyWMGRI.SpecialWaveID[i]].static.GetZedTimeExtension(Extension, DefaultExtension);
+		for (i = 0; i <= 1; ++i)
+		{
+			if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
+				MyWMGRI.specialWaves[MyWMGRI.SpecialWaveID[i]].static.GetZedTimeExtension(Extension, DefaultExtension);
+		}
 	}
 
 	return Extension;
@@ -1309,7 +1313,7 @@ function ModifyDoTScaler(out float DoTScaler, optional class<KFDamageType> KFDT,
 
 	DefaultDoTScaler = DoTScaler;
 
-	if (MyWMPRI != None)
+	if (MyWMPRI != None && MyWMGRI != None)
 	{
 		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
@@ -1326,11 +1330,11 @@ function ModifyDoTScaler(out float DoTScaler, optional class<KFDamageType> KFDT,
 			index = MyWMPRI.Purchase_EquipmentUpgrade[i];
 			MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.ModifyDoTScaler(DotScaler, DefaultDoTScaler, MyWMPRI.bEquipmentUpgrade[index], KFDT, bNapalmInfected);
 		}
-	}
-	for (i = 0; i <= 1; ++i)
-	{
-		if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
-			MyWMGRI.specialWaves[MyWMGRI.SpecialWaveID[i]].static.ModifyDoTScaler(DotScaler, DefaultDoTScaler, KFDT, bNapalmInfected);
+		for (i = 0; i <= 1; ++i)
+		{
+			if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
+				MyWMGRI.specialWaves[MyWMGRI.SpecialWaveID[i]].static.ModifyDoTScaler(DotScaler, DefaultDoTScaler, KFDT, bNapalmInfected);
+		}
 	}
 }
 
@@ -1343,7 +1347,7 @@ simulated function ModifyRateOfFire(out float InRate, KFWeapon KFW)
 	if (KFWeap_FlameBase(KFW) == None)
 		InRate *= PassiveRateOfFire;
 
-	if (MyWMPRI != None)
+	if (MyWMPRI != None && MyWMGRI != None)
 	{
 		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
@@ -1366,12 +1370,13 @@ simulated function ModifyRateOfFire(out float InRate, KFWeapon KFW)
 			index = MyWMPRI.Purchase_EquipmentUpgrade[i];
 			MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.ModifyRateOfFire(InRate, DefaultRate, MyWMPRI.bEquipmentUpgrade[index], KFW);
 		}
+		for (i = 0; i <= 1; ++i)
+		{
+			if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
+				MyWMGRI.specialWaves[MyWMGRI.SpecialWaveID[i]].static.ModifyRateOfFire(InRate, DefaultRate, KFW);
+		}
 	}
-	for (i = 0; i <= 1; ++i)
-	{
-		if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
-			MyWMGRI.specialWaves[MyWMGRI.SpecialWaveID[i]].static.ModifyRateOfFire(InRate, DefaultRate, KFW);
-	}
+
 	if (InRate <= 0.005f)
 		InRate = 0.005f;
 }
@@ -1399,7 +1404,7 @@ simulated function float GetTightChokeModifier()
 	DefaultTight = 1.0f;
 	InTight = DefaultTight * PassiveTightChoke;
 
-	if (MyWMPRI != None)
+	if (MyWMPRI != None && MyWMGRI != None)
 	{
 		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
@@ -1422,12 +1427,13 @@ simulated function float GetTightChokeModifier()
 			index = MyWMPRI.Purchase_EquipmentUpgrade[i];
 			MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.ModifyTightChoke(InTight, DefaultTight, MyWMPRI.bEquipmentUpgrade[index], KFW, OwnerPawn);
 		}
+		for (i = 0; i <= 1; ++i)
+		{
+			if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
+				MyWMGRI.specialWaves[MyWMGRI.SpecialWaveID[i]].static.ModifyTightChoke(InTight, DefaultTight, KFW, OwnerPawn);
+		}
 	}
-	for (i = 0; i <= 1; ++i)
-	{
-		if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
-			MyWMGRI.specialWaves[MyWMGRI.SpecialWaveID[i]].static.ModifyTightChoke(InTight, DefaultTight, KFW, OwnerPawn);
-	}
+
 	if (InTight <= 0.005f)
 		InTight = 0.005f;
 
@@ -1455,7 +1461,7 @@ simulated function float GetPenetrationModifier(byte Level, class<KFDamageType> 
 
 	MyKFW = GetOwnerWeapon();
 
-	if (MyWMPRI != None)
+	if (MyWMPRI != None && MyWMGRI != None)
 	{
 		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
@@ -1478,11 +1484,11 @@ simulated function float GetPenetrationModifier(byte Level, class<KFDamageType> 
 			index = MyWMPRI.Purchase_EquipmentUpgrade[i];
 			MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.ModifyPenetration(InPenetration, DefaultPenetration, MyWMPRI.bEquipmentUpgrade[index], DamageType, OwnerPawn, bForce);
 		}
-	}
-	for (i = 0; i <= 1; ++i)
-	{
-		if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
-			MyWMGRI.specialWaves[MyWMGRI.SpecialWaveID[i]].static.ModifyPenetration(InPenetration, DefaultPenetration, DamageType, OwnerPawn, bForce);
+		for (i = 0; i <= 1; ++i)
+		{
+			if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
+				MyWMGRI.specialWaves[MyWMGRI.SpecialWaveID[i]].static.ModifyPenetration(InPenetration, DefaultPenetration, DamageType, OwnerPawn, bForce);
+		}
 	}
 
 	WMTimers.SavedPenetrationModifierValue = InPenetration;
@@ -1509,7 +1515,7 @@ function float GetStunPowerModifier(optional class<DamageType> DamageType, optio
 
 	MyKFW = GetOwnerWeapon();
 
-	if (MyWMPRI != None)
+	if (MyWMPRI != None && MyWMGRI != None)
 	{
 		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
@@ -1532,11 +1538,11 @@ function float GetStunPowerModifier(optional class<DamageType> DamageType, optio
 			index = MyWMPRI.Purchase_EquipmentUpgrade[i];
 			MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.ModifyStunPower(InStunPower, DefaultStunPower, MyWMPRI.bEquipmentUpgrade[index], DamageType, HitZoneIdx);
 		}
-	}
-	for (i = 0; i <= 1; ++i)
-	{
-		if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
-			MyWMGRI.specialWaves[MyWMGRI.SpecialWaveID[i]].static.ModifyStunPower(InStunPower, DefaultStunPower, DamageType, HitZoneIdx);
+		for (i = 0; i <= 1; ++i)
+		{
+			if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
+				MyWMGRI.specialWaves[MyWMGRI.SpecialWaveID[i]].static.ModifyStunPower(InStunPower, DefaultStunPower, DamageType, HitZoneIdx);
+		}
 	}
 
 	WMTimers.SavedStunPowerModifierValue = InStunPower;
@@ -1563,7 +1569,7 @@ function float GetStumblePowerModifier(optional KFPawn KFP, optional class<KFDam
 
 	MyKFW = GetOwnerWeapon();
 
-	if (MyWMPRI != None)
+	if (MyWMPRI != None && MyWMGRI != None)
 	{
 		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
@@ -1586,11 +1592,11 @@ function float GetStumblePowerModifier(optional KFPawn KFP, optional class<KFDam
 			index = MyWMPRI.Purchase_EquipmentUpgrade[i];
 			MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.ModifyStumblePower(InStumblePower, DefaultStumblePower, MyWMPRI.bEquipmentUpgrade[index], KFP, DamageType, CooldownModifier, BodyPart, OwnerPawn);
 		}
-	}
-	for (i = 0; i <= 1; ++i)
-	{
-		if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
-			MyWMGRI.specialWaves[MyWMGRI.SpecialWaveID[i]].static.ModifyStumblePower(InStumblePower, DefaultStumblePower, KFP, DamageType, CooldownModifier, BodyPart, OwnerPawn);
+		for (i = 0; i <= 1; ++i)
+		{
+			if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
+				MyWMGRI.specialWaves[MyWMGRI.SpecialWaveID[i]].static.ModifyStumblePower(InStumblePower, DefaultStumblePower, KFP, DamageType, CooldownModifier, BodyPart, OwnerPawn);
+		}
 	}
 
 	WMTimers.SavedStumblePowerModifierValue = InStumblePower;
@@ -1617,7 +1623,7 @@ function float GetKnockdownPowerModifier(optional class<DamageType> DamageType, 
 
 	MyKFW = GetOwnerWeapon();
 
-	if (MyWMPRI != None)
+	if (MyWMPRI != None && MyWMGRI != None)
 	{
 		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
@@ -1640,11 +1646,11 @@ function float GetKnockdownPowerModifier(optional class<DamageType> DamageType, 
 			index = MyWMPRI.Purchase_EquipmentUpgrade[i];
 			MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.ModifyKnockdownPower(InKnockdownPower, DefaultKnockdownPower, MyWMPRI.bEquipmentUpgrade[index], OwnerPawn, DamageType, BodyPart, bIsSprinting);
 		}
-	}
-	for (i = 0; i <= 1; ++i)
-	{
-		if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
-			MyWMGRI.specialWaves[MyWMGRI.SpecialWaveID[i]].static.ModifyKnockdownPower(InKnockdownPower, DefaultKnockdownPower, OwnerPawn, DamageType, BodyPart, bIsSprinting);
+		for (i = 0; i <= 1; ++i)
+		{
+			if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
+				MyWMGRI.specialWaves[MyWMGRI.SpecialWaveID[i]].static.ModifyKnockdownPower(InKnockdownPower, DefaultKnockdownPower, OwnerPawn, DamageType, BodyPart, bIsSprinting);
+		}
 	}
 
 	WMTimers.SavedKnockdownPowerModifierValue = InKnockdownPower;
@@ -1673,7 +1679,7 @@ simulated function float GetSnarePowerModifier(optional class<DamageType> Damage
 	DefaultSnarePower = InSnarePower;
 	InSnarePower *= PassiveSnarePower;
 
-	if (MyWMPRI != None)
+	if (MyWMPRI != None && MyWMGRI != None)
 	{
 		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
@@ -1690,11 +1696,11 @@ simulated function float GetSnarePowerModifier(optional class<DamageType> Damage
 			index = MyWMPRI.Purchase_EquipmentUpgrade[i];
 			MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.ModifySnarePower(InSnarePower, DefaultSnarePower, MyWMPRI.bEquipmentUpgrade[index], DamageType, HitZoneIdx);
 		}
-	}
-	for (i = 0; i <= 1; ++i)
-	{
-		if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
-			MyWMGRI.specialWaves[MyWMGRI.SpecialWaveID[i]].static.ModifySnarePower(InSnarePower, DefaultSnarePower, DamageType, HitZoneIdx);
+		for (i = 0; i <= 1; ++i)
+		{
+			if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
+				MyWMGRI.specialWaves[MyWMGRI.SpecialWaveID[i]].static.ModifySnarePower(InSnarePower, DefaultSnarePower, DamageType, HitZoneIdx);
+		}
 	}
 
 	WMTimers.SavedSnarePowerModifierValue = FMax(0.0f, InSnarePower - 1.0f);
@@ -1721,7 +1727,7 @@ simulated function ModifyWeaponSwitchTime(out float ModifiedSwitchTime)
 	DefaultSwitchTime = ModifiedSwitchTime;
 	ModifiedSwitchTime *= PassiveSwitchSpeed;
 
-	if (MyWMPRI != None)
+	if (MyWMPRI != None && MyWMGRI != None)
 	{
 		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
@@ -1744,11 +1750,11 @@ simulated function ModifyWeaponSwitchTime(out float ModifiedSwitchTime)
 			index = MyWMPRI.Purchase_EquipmentUpgrade[i];
 			MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.ModifyWeaponSwitchTime(ModifiedSwitchTime, DefaultSwitchTime, MyWMPRI.bEquipmentUpgrade[index], KFW);
 		}
-	}
-	for (i = 0; i <= 1; ++i)
-	{
-		if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
-			MyWMGRI.specialWaves[MyWMGRI.SpecialWaveID[i]].static.ModifyWeaponSwitchTime(ModifiedSwitchTime, DefaultSwitchTime, KFW);
+		for (i = 0; i <= 1; ++i)
+		{
+			if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
+				MyWMGRI.specialWaves[MyWMGRI.SpecialWaveID[i]].static.ModifyWeaponSwitchTime(ModifiedSwitchTime, DefaultSwitchTime, KFW);
+		}
 	}
 }
 
@@ -1775,7 +1781,7 @@ function AddVampireHealth(KFPlayerController KFPC, class<DamageType> DT)
 		InHealth = Max(0, InHealth);
 		DefaultHealth = InHealth;
 
-		if (MyWMPRI != None)
+		if (MyWMPRI != None && MyWMGRI != None)
 		{
 			for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 			{
@@ -1792,12 +1798,13 @@ function AddVampireHealth(KFPlayerController KFPC, class<DamageType> DT)
 				index = MyWMPRI.Purchase_EquipmentUpgrade[i];
 				MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.AddVampireHealth(InHealth, DefaultHealth, MyWMPRI.bEquipmentUpgrade[index], KFPC, DT);
 			}
+			for (i = 0; i <= 1; ++i)
+			{
+				if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
+					MyWMGRI.specialWaves[MyWMGRI.SpecialWaveID[i]].static.AddVampireHealth(InHealth, DefaultHealth, KFPC, DT);
+			}
 		}
-		for (i = 0; i <= 1; ++i)
-		{
-			if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
-				MyWMGRI.specialWaves[MyWMGRI.SpecialWaveID[i]].static.AddVampireHealth(InHealth, DefaultHealth, KFPC, DT);
-		}
+
 		KFPC.Pawn.HealDamage(InHealth, KFPC, class'KFDT_Healing', False, False);
 	}
 }
@@ -1809,7 +1816,7 @@ function bool CanSpreadNapalm()
 
 	bCanSpreadNapalm = False;
 
-	if (MyWMPRI != None)
+	if (MyWMPRI != None && MyWMGRI != None)
 	{
 		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
@@ -1832,16 +1839,17 @@ function bool CanSpreadNapalm()
 			if (bCanSpreadNapalm)
 				return True;
 		}
-	}
-	for (i = 0; i <= 1; ++i)
-	{
-		if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
+		for (i = 0; i <= 1; ++i)
 		{
-			bCanSpreadNapalm = MyWMGRI.specialWaves[MyWMGRI.SpecialWaveID[i]].static.CanSpreadNapalm(OwnerPawn);
-			if (bCanSpreadNapalm)
-				return True;
+			if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
+			{
+				bCanSpreadNapalm = MyWMGRI.specialWaves[MyWMGRI.SpecialWaveID[i]].static.CanSpreadNapalm(OwnerPawn);
+				if (bCanSpreadNapalm)
+					return True;
+			}
 		}
 	}
+
 	return False;
 }
 
@@ -1852,7 +1860,7 @@ simulated function bool CanKnockDownOnBump(KFPawn_Monster KFPM)
 
 	bCanKnockDown = False;
 
-	if (MyWMPRI != None)
+	if (MyWMPRI != None && MyWMGRI != None)
 	{
 		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
@@ -1875,16 +1883,17 @@ simulated function bool CanKnockDownOnBump(KFPawn_Monster KFPM)
 			if (bCanKnockDown)
 				return True;
 		}
-	}
-	for (i = 0; i <= 1; ++i)
-	{
-		if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
+		for (i = 0; i <= 1; ++i)
 		{
-			bCanKnockDown = MyWMGRI.specialWaves[MyWMGRI.SpecialWaveID[i]].static.ShouldKnockDownOnBump(KFPM, OwnerPawn);
-			if (bCanKnockDown)
-				return True;
+			if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
+			{
+				bCanKnockDown = MyWMGRI.specialWaves[MyWMGRI.SpecialWaveID[i]].static.ShouldKnockDownOnBump(KFPM, OwnerPawn);
+				if (bCanKnockDown)
+					return True;
+			}
 		}
 	}
+
 	return False;
 }
 
@@ -1903,7 +1912,7 @@ simulated function bool ShouldNeverDud()
 			KFW = KFWeapon(KFIM.PendingWeapon);
 	}
 
-	if (MyWMPRI != None)
+	if (MyWMPRI != None && MyWMGRI != None)
 	{
 		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
@@ -1926,16 +1935,17 @@ simulated function bool ShouldNeverDud()
 			if (bCouldExplode)
 				return True;
 		}
-	}
-	for (i = 0; i <= 1; ++i)
-	{
-		if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
+		for (i = 0; i <= 1; ++i)
 		{
-			bCouldExplode = MyWMGRI.specialWaves[MyWMGRI.SpecialWaveID[i]].static.ShouldNeverDud(KFW, OwnerPawn);
-			if (bCouldExplode)
-				return True;
+			if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
+			{
+				bCouldExplode = MyWMGRI.specialWaves[MyWMGRI.SpecialWaveID[i]].static.ShouldNeverDud(KFW, OwnerPawn);
+				if (bCouldExplode)
+					return True;
+			}
 		}
 	}
+
 	return False;
 }
 
@@ -1944,7 +1954,7 @@ function bool CouldBeZedShrapnel(class<KFDamageType> KFDT)
 	local byte i, index;
 	local bool bCouldExplode;
 
-	if (MyWMPRI != None)
+	if (MyWMPRI != None && MyWMGRI != None)
 	{
 		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
@@ -1967,16 +1977,17 @@ function bool CouldBeZedShrapnel(class<KFDamageType> KFDT)
 			if (bCouldExplode)
 				return True;
 		}
-	}
-	for (i = 0; i <= 1; ++i)
-	{
-		if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
+		for (i = 0; i <= 1; ++i)
 		{
-			bCouldExplode = MyWMGRI.specialWaves[MyWMGRI.SpecialWaveID[i]].static.CouldBeZedShrapnel(KFDT);
-			if (bCouldExplode)
-				return True;
+			if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
+			{
+				bCouldExplode = MyWMGRI.specialWaves[MyWMGRI.SpecialWaveID[i]].static.CouldBeZedShrapnel(KFDT);
+				if (bCouldExplode)
+					return True;
+			}
 		}
 	}
+
 	return False;
 }
 
@@ -1990,7 +2001,7 @@ simulated function bool ShouldShrapnel()
 	local byte i, index;
 	local bool bShouldExplode;
 
-	if (MyWMPRI != None)
+	if (MyWMPRI != None && MyWMGRI != None)
 	{
 		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
@@ -2013,16 +2024,17 @@ simulated function bool ShouldShrapnel()
 			if (bShouldExplode)
 				return True;
 		}
-	}
-	for (i = 0; i <= 1; ++i)
-	{
-		if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
+		for (i = 0; i <= 1; ++i)
 		{
-			bShouldExplode = MyWMGRI.specialWaves[MyWMGRI.SpecialWaveID[i]].static.ShouldShrapnel();
-			if (bShouldExplode)
-				return True;
+			if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
+			{
+				bShouldExplode = MyWMGRI.specialWaves[MyWMGRI.SpecialWaveID[i]].static.ShouldShrapnel();
+				if (bShouldExplode)
+					return True;
+			}
 		}
 	}
+
 	return False;
 }
 
@@ -2031,7 +2043,7 @@ simulated function bool IsRangeActive()
 	local byte i, index;
 	local bool bRangeActive;
 
-	if (MyWMPRI != None)
+	if (MyWMPRI != None && MyWMGRI != None)
 	{
 		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
@@ -2073,7 +2085,7 @@ simulated function bool IsGroundFireActive()
 	local byte i, index;
 	local bool bSplashActive;
 
-	if (MyWMPRI != None)
+	if (MyWMPRI != None && MyWMGRI != None)
 	{
 		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
@@ -2115,7 +2127,7 @@ simulated function bool GetUsingTactialReload(KFWeapon KFW)
 	local byte i, index;
 	local bool bTacticalReload;
 
-	if (MyWMPRI != None)
+	if (MyWMPRI != None && MyWMGRI != None)
 	{
 		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
@@ -2147,7 +2159,7 @@ simulated function InitiateWeapon(KFWeapon KFW)
 {
 	local int i, index;
 
-	if (MyWMPRI != None)
+	if (MyWMPRI != None && MyWMGRI != None)
 	{
 		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
@@ -2170,11 +2182,11 @@ simulated function InitiateWeapon(KFWeapon KFW)
 			index = MyWMPRI.Purchase_EquipmentUpgrade[i];
 			MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.InitiateWeapon(MyWMPRI.bEquipmentUpgrade[index], KFW, OwnerPawn);
 		}
-	}
-	for (i = 0; i <= 1; ++i)
-	{
-		if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
-			MyWMGRI.specialWaves[MyWMGRI.SpecialWaveID[i]].static.InitiateWeapon(KFW, OwnerPawn);
+		for (i = 0; i <= 1; ++i)
+		{
+			if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
+				MyWMGRI.specialWaves[MyWMGRI.SpecialWaveID[i]].static.InitiateWeapon(KFW, OwnerPawn);
+		}
 	}
 
 	ModifyMaxSpareGrenadeAmount();
@@ -2187,7 +2199,7 @@ simulated function float GetSelfHealingSurgePct()
 
 	InHealingPct = 0.0f;
 
-	if (MyWMPRI != None)
+	if (MyWMPRI != None && MyWMGRI != None)
 	{
 		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
@@ -2204,16 +2216,20 @@ simulated function float GetSelfHealingSurgePct()
 			index = MyWMPRI.Purchase_EquipmentUpgrade[i];
 			MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.GetSelfHealingSurgePct(InHealingPct, MyWMPRI.bEquipmentUpgrade[index]);
 		}
-	}
-	for (i = 0; i <= 1; ++i)
-	{
-		if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
-			MyWMGRI.specialWaves[MyWMGRI.SpecialWaveID[i]].static.GetSelfHealingSurgePct(InHealingPct);
+		for (i = 0; i <= 1; ++i)
+		{
+			if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
+				MyWMGRI.specialWaves[MyWMGRI.SpecialWaveID[i]].static.GetSelfHealingSurgePct(InHealingPct);
+		}
 	}
 
 	return InHealingPct;
 }
-simulated function bool IsHealingSurgeActive(){ return True; }
+
+simulated function bool IsHealingSurgeActive()
+{
+	return True;
+}
 
 simulated event float GetIronSightSpeedModifier(KFWeapon KFW)
 {
@@ -2223,7 +2239,7 @@ simulated event float GetIronSightSpeedModifier(KFWeapon KFW)
 	DefaultSpeed = 1.0f;
 	InSpeed = DefaultSpeed;
 
-	if (MyWMPRI != None)
+	if (MyWMPRI != None && MyWMGRI != None)
 	{
 		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
@@ -2246,11 +2262,11 @@ simulated event float GetIronSightSpeedModifier(KFWeapon KFW)
 			index = MyWMPRI.Purchase_EquipmentUpgrade[i];
 			MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.GetIronSightSpeedModifier(InSpeed, DefaultSpeed, MyWMPRI.bEquipmentUpgrade[index]);
 		}
-	}
-	for (i = 0; i <= 1; ++i)
-	{
-		if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
-			MyWMGRI.specialWaves[MyWMGRI.SpecialWaveID[i]].static.GetIronSightSpeedModifier(InSpeed, DefaultSpeed);
+		for (i = 0; i <= 1; ++i)
+		{
+			if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
+				MyWMGRI.specialWaves[MyWMGRI.SpecialWaveID[i]].static.GetIronSightSpeedModifier(InSpeed, DefaultSpeed);
+		}
 	}
 
 	return InSpeed;
@@ -2264,7 +2280,7 @@ simulated event float GetCrouchSpeedModifier(KFWeapon KFW)
 	DefaultSpeed = 1.0f;
 	InSpeed = DefaultSpeed;
 
-	if (MyWMPRI != None)
+	if (MyWMPRI != None && MyWMGRI != None)
 	{
 		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
@@ -2287,11 +2303,11 @@ simulated event float GetCrouchSpeedModifier(KFWeapon KFW)
 			index = MyWMPRI.Purchase_EquipmentUpgrade[i];
 			MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.GetCrouchSpeedModifier(InSpeed, DefaultSpeed, MyWMPRI.bEquipmentUpgrade[index]);
 		}
-	}
-	for (i = 0; i <= 1; ++i)
-	{
-		if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
-			MyWMGRI.specialWaves[MyWMGRI.SpecialWaveID[i]].static.GetCrouchSpeedModifier(InSpeed, DefaultSpeed);
+		for (i = 0; i <= 1; ++i)
+		{
+			if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
+				MyWMGRI.specialWaves[MyWMGRI.SpecialWaveID[i]].static.GetCrouchSpeedModifier(InSpeed, DefaultSpeed);
+		}
 	}
 
 	return InSpeed;
@@ -2301,7 +2317,7 @@ function simulated SetSuccessfullParry()
 {
 	local byte i, index;
 
-	if (MyWMPRI != None)
+	if (MyWMPRI != None && MyWMGRI != None)
 	{
 		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
@@ -2318,11 +2334,11 @@ function simulated SetSuccessfullParry()
 			index = MyWMPRI.Purchase_EquipmentUpgrade[i];
 			MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.SuccessfullParry(MyWMPRI.bEquipmentUpgrade[index], OwnerPawn);
 		}
-	}
-	for (i = 0; i <= 1; ++i)
-	{
-		if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
-			MyWMGRI.specialWaves[MyWMGRI.SpecialWaveID[i]].static.SuccessfullParry(OwnerPawn);
+		for (i = 0; i <= 1; ++i)
+		{
+			if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
+				MyWMGRI.specialWaves[MyWMGRI.SpecialWaveID[i]].static.SuccessfullParry(OwnerPawn);
+		}
 	}
 }
 
@@ -2331,7 +2347,7 @@ function bool CanNotBeGrabbed()
 	local byte i, index;
 	local bool bNoGrab;
 
-	if (MyWMPRI != None)
+	if (MyWMPRI != None && MyWMGRI != None)
 	{
 		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
@@ -2355,6 +2371,7 @@ function bool CanNotBeGrabbed()
 				return True;
 		}
 	}
+
 	return False;
 }
 
@@ -2363,7 +2380,7 @@ simulated function bool ShouldRandSirenResist()
 	local byte i, index;
 	local bool bResist;
 
-	if (MyWMPRI != None)
+	if (MyWMPRI != None && MyWMGRI != None)
 	{
 		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
@@ -2399,7 +2416,7 @@ simulated function bool GetIsUberAmmoActive(KFWeapon KFW)
 	MyWMPRI = WMPlayerReplicationInfo(MyPRI);
 	MyWMGRI = WMGameReplicationInfo(WorldInfo.GRI);
 
-	if (MyWMPRI != None)
+	if (MyWMPRI != None && MyWMGRI != None)
 	{
 		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
@@ -2422,16 +2439,17 @@ simulated function bool GetIsUberAmmoActive(KFWeapon KFW)
 			if (bUber)
 				return True;
 		}
-	}
-	for (i = 0; i <= 1; ++i)
-	{
-		if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
+		for (i = 0; i <= 1; ++i)
 		{
-			bUber = MyWMGRI.specialWaves[MyWMGRI.SpecialWaveID[i]].static.GetIsUberAmmoActive(KFW, OwnerPawn);
-			if (bUber)
-				return True;
+			if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
+			{
+				bUber = MyWMGRI.specialWaves[MyWMGRI.SpecialWaveID[i]].static.GetIsUberAmmoActive(KFW, OwnerPawn);
+				if (bUber)
+					return True;
+			}
 		}
 	}
+
 	return False;
 }
 
@@ -2439,7 +2457,7 @@ function HealingDamage(int HealAmount, KFPawn KFP, class<DamageType> DamageType)
 {
 	local byte i, index;
 
-	if (MyWMPRI != None)
+	if (MyWMPRI != None && MyWMGRI != None)
 	{
 		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
@@ -2456,11 +2474,11 @@ function HealingDamage(int HealAmount, KFPawn KFP, class<DamageType> DamageType)
 			index = MyWMPRI.Purchase_EquipmentUpgrade[i];
 			MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.HealingDamage(MyWMPRI.bEquipmentUpgrade[index], HealAmount, KFP, OwnerPawn, DamageType);
 		}
-	}
-	for (i = 0; i <= 1; ++i)
-	{
-		if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
-			MyWMGRI.specialWaves[MyWMGRI.SpecialWaveID[i]].static.HealingDamage(HealAmount, KFP, OwnerPawn, DamageType);
+		for (i = 0; i <= 1; ++i)
+		{
+			if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
+				MyWMGRI.specialWaves[MyWMGRI.SpecialWaveID[i]].static.HealingDamage(HealAmount, KFP, OwnerPawn, DamageType);
+		}
 	}
 }
 
@@ -2471,7 +2489,7 @@ simulated function float GetZedTimeModifier(KFWeapon W)
 
 	InModifier = 0.0f;
 
-	if (MyWMPRI != None)
+	if (MyWMPRI != None && MyWMGRI != None)
 	{
 		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
@@ -2488,11 +2506,11 @@ simulated function float GetZedTimeModifier(KFWeapon W)
 			index = MyWMPRI.Purchase_EquipmentUpgrade[i];
 			MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.GetZedTimeModifier(InModifier, MyWMPRI.bEquipmentUpgrade[index], W);
 		}
-	}
-	for (i = 0; i <= 1; ++i)
-	{
-		if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
-			MyWMGRI.specialWaves[MyWMGRI.SpecialWaveID[i]].static.GetZedTimeModifier(InModifier, W);
+		for (i = 0; i <= 1; ++i)
+		{
+			if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
+				MyWMGRI.specialWaves[MyWMGRI.SpecialWaveID[i]].static.GetZedTimeModifier(InModifier, W);
+		}
 	}
 
 	return InModifier;
@@ -2503,7 +2521,7 @@ simulated function bool CanSeeEnemyHealth()
 	local byte i, index;
 	local bool bCanSee;
 
-	if (MyWMPRI != None)
+	if (MyWMPRI != None && MyWMGRI != None)
 	{
 		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
@@ -2536,7 +2554,7 @@ simulated function bool IsCallOutActive()
 	local byte i, index;
 	local bool bCallOut;
 
-	if (MyWMPRI != None)
+	if (MyWMPRI != None && MyWMGRI != None)
 	{
 		bCanSeeCloakedZeds = False;
 
@@ -2584,7 +2602,7 @@ simulated function float GetCloakDetectionRange()
 	InRange = 2000.0f;
 	DefaultRange = InRange;
 
-	if (MyWMPRI != None)
+	if (MyWMPRI != None && MyWMGRI != None)
 	{
 		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
@@ -2601,11 +2619,11 @@ simulated function float GetCloakDetectionRange()
 			index = MyWMPRI.Purchase_EquipmentUpgrade[i];
 			MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.ModifyCloakDetectionRange(InRange, DefaultRange, MyWMPRI.bEquipmentUpgrade[index]);
 		}
-	}
-	for (i = 0; i <= 1; ++i)
-	{
-		if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
-			MyWMGRI.specialWaves[MyWMGRI.SpecialWaveID[i]].static.ModifyCloakDetectionRange(InRange, DefaultRange);
+		for (i = 0; i <= 1; ++i)
+		{
+			if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
+				MyWMGRI.specialWaves[MyWMGRI.SpecialWaveID[i]].static.ModifyCloakDetectionRange(InRange, DefaultRange);
+		}
 	}
 
 	return InRange;
@@ -2615,7 +2633,7 @@ simulated function ReceiveLocalizedMessage(class<LocalMessage> Message, optional
 {
 	local byte i, index;
 
-	if (MyWMPRI != None)
+	if (MyWMPRI != None && MyWMGRI != None)
 	{
 		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
@@ -2632,13 +2650,12 @@ simulated function ReceiveLocalizedMessage(class<LocalMessage> Message, optional
 			index = MyWMPRI.Purchase_EquipmentUpgrade[i];
 			MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.ReceiveLocalizedMessage(MyWMPRI.bEquipmentUpgrade[index], Message, OwnerPawn, Switch);
 		}
+		for (i = 0; i <= 1; ++i)
+		{
+			if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
+				MyWMGRI.specialWaves[MyWMGRI.SpecialWaveID[i]].static.ReceiveLocalizedMessage(Message, OwnerPawn, Switch);
+		}
 	}
-	for (i = 0; i <= 1; ++i)
-	{
-		if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
-			MyWMGRI.specialWaves[MyWMGRI.SpecialWaveID[i]].static.ReceiveLocalizedMessage(Message, OwnerPawn, Switch);
-	}
-
 }
 
 simulated function bool ShouldSacrifice()
@@ -2648,7 +2665,7 @@ simulated function bool ShouldSacrifice()
 
 	if (!bUsedSacrifice)
 	{
-		if (MyWMPRI != None)
+		if (MyWMPRI != None && MyWMGRI != None)
 		{
 			for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 			{
@@ -2673,6 +2690,7 @@ simulated function bool ShouldSacrifice()
 			}
 		}
 	}
+
 	return False;
 }
 
@@ -2688,7 +2706,7 @@ simulated function bool DoorShouldNuke()
 	local byte i, index;
 	local bool bTrap;
 
-	if (MyWMPRI != None)
+	if (MyWMPRI != None && MyWMGRI != None)
 	{
 		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
@@ -2721,7 +2739,7 @@ simulated function bool CanExplosiveWeld()
 	local byte i, index;
 	local bool bTrap;
 
-	if (MyWMPRI != None)
+	if (MyWMPRI != None && MyWMGRI != None)
 	{
 		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
@@ -2862,7 +2880,7 @@ simulated function bool IsSupplierActive()
 	local byte i, index;
 	local bool bActive;
 
-	if (MyWMPRI != None)
+	if (MyWMPRI != None && MyWMGRI != None)
 	{
 		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
@@ -2886,6 +2904,7 @@ simulated function bool IsSupplierActive()
 				return True;
 		}
 	}
+
 	return False;
 }
 
@@ -2893,7 +2912,7 @@ function WaveEnd(KFPlayerController KFPC)
 {
 	local byte i, index;
 
-	if (MyWMGRI != None && MyWMPRI != None)
+	if (MyWMPRI != None && MyWMGRI != None)
 	{
 		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
@@ -2963,7 +2982,7 @@ simulated function DrawSpecialPerkHUD(Canvas C)
 	}
 
 	// perk, skill, and equipment sections
-	if (MyWMGRI != None && MyWMPRI != None)
+	if (MyWMPRI != None && MyWMGRI != None)
 	{
 		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
@@ -2980,8 +2999,6 @@ simulated function DrawSpecialPerkHUD(Canvas C)
 			index = MyWMPRI.Purchase_EquipmentUpgrade[i];
 			MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.DrawOnHUD(MyWMPRI.bEquipmentUpgrade[index], C, OwnerPawn);
 		}
-
-		// special wave
 		for (i = 0; i <= 1; ++i)
 		{
 			if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
@@ -3034,7 +3051,7 @@ simulated function byte GetHealingDamageBoost()
 
 	InHealingDamageBoost = 0;
 
-	if (MyWMPRI != None)
+	if (MyWMPRI != None && MyWMGRI != None)
 	{
 		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
@@ -3063,7 +3080,7 @@ simulated function byte GetMaxHealingDamageBoost()
 
 	InMaxHealingDamageBoost = 0;
 
-	if (MyWMPRI != None)
+	if (MyWMPRI != None && MyWMGRI != None)
 	{
 		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
@@ -3092,7 +3109,7 @@ simulated function byte GetHealingShield()
 
 	InHealingShield = 0;
 
-	if (MyWMPRI != None)
+	if (MyWMPRI != None && MyWMGRI != None)
 	{
 		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
@@ -3121,7 +3138,7 @@ simulated function byte GetMaxHealingShield()
 
 	InMaxHealingShield = 0;
 
-	if (MyWMPRI != None)
+	if (MyWMPRI != None && MyWMGRI != None)
 	{
 		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
@@ -3148,7 +3165,7 @@ simulated function bool HasNightVision()
 	local byte i, index;
 	local bool bActive;
 
-	if (MyWMPRI != None)
+	if (MyWMPRI != None && MyWMGRI != None)
 	{
 		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
@@ -3183,7 +3200,7 @@ simulated function class<EmitterCameraLensEffectBase> GetPerkLensEffect(class<KF
 
 	CamEffect = DmgType.default.CameraLensEffectTemplate;
 
-	if (MyWMPRI != None)
+	if (MyWMPRI != None && MyWMGRI != None)
 	{
 		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
@@ -3210,7 +3227,7 @@ function bool IsUnAffectedByZedTime()
 	local byte i, index;
 	local bool bActive;
 
-	if (MyWMPRI != None)
+	if (MyWMPRI != None && MyWMGRI != None)
 	{
 		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
@@ -3257,7 +3274,7 @@ simulated function ApplyBatteryRechargeRate()
 		InRechargeRateFL = 1.0f;
 		InRechargeRateNVG = 1.0f;
 
-		if (MyWMPRI != None)
+		if (MyWMPRI != None && MyWMGRI != None)
 		{
 			for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 			{
@@ -3292,7 +3309,7 @@ simulated function bool ImmuneToCameraShake()
 	local byte i, index;
 	local bool bActive;
 
-	if (MyWMPRI != None)
+	if (MyWMPRI != None && MyWMGRI != None)
 	{
 		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
