@@ -802,7 +802,7 @@ simulated function ModifyMeleeAttackSpeed(out float InDuration, KFWeapon KFW)
 			MyWMGRI.specialWaves[MyWMGRI.SpecialWaveID[i]].static.ModifyMeleeAttackSpeed(InDuration, DefaultDuration, KFW);
 	}
 	if (InDuration <= 0)
-		InDuration = 0.05;
+		InDuration = 0.05f;
 }
 
 simulated function float GetReloadRateScale(KFWeapon KFW)
@@ -842,8 +842,8 @@ simulated function float GetReloadRateScale(KFWeapon KFW)
 			MyWMGRI.specialWaves[MyWMGRI.SpecialWaveID[i]].static.GetReloadRateScale(InReloadRateScale, KFW, OwnerPawn);
 	}
 
-	if (InReloadRateScale <= 0.05)
-		return 0.05;
+	if (InReloadRateScale <= 0.05f)
+		return 0.05f;
 	else
 		return InReloadRateScale;
 }
@@ -997,8 +997,8 @@ simulated function ModifyRecoil(out float CurrentRecoilModifier, KFWeapon KFW)
 			MyWMGRI.specialWaves[MyWMGRI.SpecialWaveID[i]].static.ModifyRecoil(CurrentRecoilModifier, DefaultRecoilModifier, KFW);
 	}
 
-	if (CurrentRecoilModifier < DefaultRecoilModifier*0.08)
-		CurrentRecoilModifier = DefaultRecoilModifier*0.08;
+	if (CurrentRecoilModifier < DefaultRecoilModifier * 0.08f)
+		CurrentRecoilModifier = DefaultRecoilModifier * 0.08f;
 }
 
 simulated function ModifyWeaponBopDamping(out float BobDamping, KFWeapon PawnWeapon)
@@ -1372,8 +1372,8 @@ simulated function ModifyRateOfFire(out float InRate, KFWeapon KFW)
 		if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
 			MyWMGRI.specialWaves[MyWMGRI.SpecialWaveID[i]].static.ModifyRateOfFire(InRate, DefaultRate, KFW);
 	}
-	if (InRate <= 0.005)
-		InRate = 0.005;
+	if (InRate <= 0.005f)
+		InRate = 0.005f;
 }
 
 simulated function float GetTightChokeModifier()
@@ -1428,8 +1428,8 @@ simulated function float GetTightChokeModifier()
 		if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
 			MyWMGRI.specialWaves[MyWMGRI.SpecialWaveID[i]].static.ModifyTightChoke(InTight, DefaultTight, KFW, OwnerPawn);
 	}
-	if (InTight <= 0.005)
-		InTight = 0.005;
+	if (InTight <= 0.005f)
+		InTight = 0.005f;
 
 	WMTimers.SavedTightChokeModifierValue = InTight;
 	WMTimers.SetTightChokeModifierTimer();
@@ -1697,10 +1697,10 @@ simulated function float GetSnarePowerModifier(optional class<DamageType> Damage
 			MyWMGRI.specialWaves[MyWMGRI.SpecialWaveID[i]].static.ModifySnarePower(InSnarePower, DefaultSnarePower, DamageType, HitZoneIdx);
 	}
 
-	WMTimers.SavedSnarePowerModifierValue = FMax(0.f, InSnarePower - 1.0f);
+	WMTimers.SavedSnarePowerModifierValue = FMax(0.0f, InSnarePower - 1.0f);
 	WMTimers.SetSnarePowerModifierTimer();
 
-	return FMax(0.f, InSnarePower - 1.0f);
+	return FMax(0.0f, InSnarePower - 1.0f);
 }
 
 simulated function ModifyWeaponSwitchTime(out float ModifiedSwitchTime)
@@ -2185,7 +2185,7 @@ simulated function float GetSelfHealingSurgePct()
 	local byte i, index;
 	local float InHealingPct;
 
-	InHealingPct = 0.000000;
+	InHealingPct = 0.0f;
 
 	if (MyWMPRI != None)
 	{
@@ -2220,7 +2220,7 @@ simulated event float GetIronSightSpeedModifier(KFWeapon KFW)
 	local int i, index;
 	local float InSpeed, DefaultSpeed;
 
-	DefaultSpeed = 1.000000;
+	DefaultSpeed = 1.0f;
 	InSpeed = DefaultSpeed;
 
 	if (MyWMPRI != None)
@@ -2261,7 +2261,7 @@ simulated event float GetCrouchSpeedModifier(KFWeapon KFW)
 	local int i, index;
 	local float InSpeed, DefaultSpeed;
 
-	DefaultSpeed = 1.000000;
+	DefaultSpeed = 1.0f;
 	InSpeed = DefaultSpeed;
 
 	if (MyWMPRI != None)
@@ -2469,7 +2469,7 @@ simulated function float GetZedTimeModifier(KFWeapon W)
 	local byte i, index;
 	local float InModifier;
 
-	InModifier = 0.f;
+	InModifier = 0.0f;
 
 	if (MyWMPRI != None)
 	{
@@ -2581,7 +2581,7 @@ simulated function float GetCloakDetectionRange()
 	local float DefaultRange;
 	local float InRange;
 
-	InRange = 2000.f;
+	InRange = 2000.0f;
 	DefaultRange = InRange;
 
 	if (MyWMPRI != None)
@@ -2927,8 +2927,8 @@ simulated function DrawSpecialPerkHUD(Canvas C)
 
 		if (CanSeeEnemyHealth())
 		{
-			HealthbarLength = FMin(50.f * (float(C.SizeX) / 1024.f), 50.f);
-			HealthbarHeight = FMin(6.f * (float(C.SizeX) / 1024.f), 6.f);
+			HealthbarLength = FMin(50.0f * (float(C.SizeX) / 1024.0f), 50.0f);
+			HealthbarHeight = FMin(6.0f * (float(C.SizeX) / 1024.0f), 6.0f);
 
 			ViewLocation = OwnerPawn.GetPawnViewLocation();
 			ViewDir = vector(OwnerPawn.GetViewRotation());
@@ -2944,7 +2944,7 @@ simulated function DrawSpecialPerkHUD(Canvas C)
 				}
 
 				ThisDot = ViewDir dot Normal(KFPM.Location - OwnerPawn.Location);
-				if (ThisDot > 0.f)
+				if (ThisDot > 0.0f)
 				{
 					DrawZedHealthbar(C, KFPM, ViewLocation, HealthbarHeight, HealthbarLength);
 				}
@@ -2997,11 +2997,11 @@ simulated function DrawZedHealthbar(Canvas C, KFPawn_Monster KFPM, vector Camera
 
 	if (KFPM.bCrawler && KFPM.Floor.Z <= -0.7f && KFPM.Physics == PHYS_Spider)
 	{
-		TargetLocation = KFPM.Location + vect(0,0,-1) * KFPM.GetCollisionHeight() * 1.2 * KFPM.CurrentBodyScale;
+		TargetLocation = KFPM.Location + vect(0,0,-1) * KFPM.GetCollisionHeight() * 1.2f * KFPM.CurrentBodyScale;
 	}
 	else
 	{
-		TargetLocation = KFPM.Location + vect(0,0,1) * KFPM.GetCollisionHeight() * 1.2 * KFPM.CurrentBodyScale;
+		TargetLocation = KFPM.Location + vect(0,0,1) * KFPM.GetCollisionHeight() * 1.2f * KFPM.CurrentBodyScale;
 	}
 
 	ScreenPos = C.Project(TargetLocation);
@@ -3012,16 +3012,16 @@ simulated function DrawZedHealthbar(Canvas C, KFPawn_Monster KFPM, vector Camera
 
 	if (class'KFGameEngine'.static.FastTrace_PhysX(TargetLocation, CameraLocation))
 	{
-		HealthScale = FClamp(float(KFPM.Health) / float(KFPM.HealthMax), 0.f, 1.0f);
+		HealthScale = FClamp(float(KFPM.Health) / float(KFPM.HealthMax), 0.0f, 1.0f);
 
 		C.EnableStencilTest(True);
 		C.SetDrawColor(0, 0, 0, 255);
-		C.SetPos(ScreenPos.X - HealthBarLength * 0.5, ScreenPos.Y);
+		C.SetPos(ScreenPos.X - HealthBarLength * 0.5f, ScreenPos.Y);
 		C.DrawTile(WhiteMaterial, HealthbarLength, HealthbarHeight, 0, 0, 32, 32);
 
 		C.SetDrawColor(237, 8, 0, 255);
-		C.SetPos(ScreenPos.X - HealthBarLength * 0.5 + 1.0, ScreenPos.Y + 1.0);
-		C.DrawTile(WhiteMaterial, (HealthBarLength - 2.0) * HealthScale, HealthbarHeight - 2.0, 0, 0, 32, 32);
+		C.SetPos(ScreenPos.X - HealthBarLength * 0.5f + 1.0f, ScreenPos.Y + 1.0f);
+		C.DrawTile(WhiteMaterial, (HealthBarLength - 2.0f) * HealthScale, HealthbarHeight - 2.0f, 0, 0, 32, 32);
 		C.EnableStencilTest(False);
 	}
 }
