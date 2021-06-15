@@ -2,7 +2,7 @@ class WMWeap_Bow_CompoundBow_Precious extends KFWeap_Bow_CompoundBow;
 
 defaultproperties
 {
-	SpareAmmoCapacity(0)=36 //20% increase
+	SpareAmmoCapacity(0)=42 //20% increase
 	InstantHitDamage(DEFAULT_FIREMODE)=350.0 //40% increase
 	FireInterval(DEFAULT_FIREMODE)=0.1 //50% increase
 	WeaponProjectiles(ALTFIRE_FIREMODE)=class'ZedternalReborn.WMProj_Bolt_CompoundBowCryo_Precious'
