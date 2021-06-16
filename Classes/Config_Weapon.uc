@@ -493,6 +493,18 @@ static function UpdateConfig()
 
 		if (default.Trader_NewWeaponEachWave == 2)
 			default.Trader_NewWeaponEachWave = 3;
+
+		i = default.WeaponVariant_VariantList.length;
+
+		newVariant.WeaponDef = "KFGame.KFWeapDef_FAMAS";
+		newVariant.WeaponDefVariant = "ZedternalReborn.WMWeapDef_FAMAS_Precious";
+		newVariant.DualWeaponDefVariant = "";
+		default.WeaponVariant_VariantList.AddItem(newVariant);
+
+		for (i = i; i < default.WeaponVariant_VariantList.length; ++i)
+		{
+			default.WeaponVariant_VariantList[i].Probability = 0.017500;
+		}
 	}
 
 	if (default.MODEVERSION < class'ZedternalReborn.Config_Base'.default.currentVersion)
