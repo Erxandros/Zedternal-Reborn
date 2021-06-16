@@ -175,4 +175,5 @@ defaultproperties
 	WeaponDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_HRG_SonicGun_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_HRG_SonicGun"));
 	WeaponDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_GravityImploder_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_GravityImploder"));
 	WeaponDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_FAMAS_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_FAMAS"));
+	WeaponDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_HRG_BarrierRifle_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_HRG_BarrierRifle"));
 }
