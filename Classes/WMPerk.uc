@@ -15,8 +15,10 @@ var private int StartingWeaponClassIndex;
 // Supplier Info
 struct SuppliedPawnInfo
 {
-	var KFPawn_Human SuppliedPawn;
+	var WMPawn_Human SuppliedPawn;
 	var bool bSuppliedAmmo;
+	var bool bSuppliedArmor;
+	var bool bSuppliedGrenades;
 };
 var private array<SuppliedPawnInfo> SuppliedPawnList;
 
@@ -452,14 +454,24 @@ simulated function ClientAndServerComputePassiveBonuses()
 
 simulated function ResetSupplier()
 {
+	local float PrimaryAmmoPercentage, SecondaryAmmoPercentage, ArmorPercentage;
+	local int GrenadeAmount;
+	local byte count;
+
 	if (MyPRI != None && IsSupplierActive())
 	{
 		if (SuppliedPawnList.Length > 0)
-		{
 			SuppliedPawnList.Remove(0, SuppliedPawnList.Length);
-		}
 
-		MyPRI.PerkSupplyLevel = 1;
+		SupplierModifiers(PrimaryAmmoPercentage, SecondaryAmmoPercentage, ArmorPercentage, GrenadeAmount);
+		if (PrimaryAmmoPercentage > 0.0f || SecondaryAmmoPercentage > 0.0f)
+			++count;
+		if (ArmorPercentage > 0.0f)
+			++count;
+		if (GrenadeAmount > 0)
+			++count;
+
+		MyPRI.PerkSupplyLevel = Clamp(count, 0, 2);
 
 		if (InteractionTrigger != None)
 		{
@@ -467,11 +479,16 @@ simulated function ResetSupplier()
 			InteractionTrigger = None;
 		}
 
-		if (CheckOwnerPawn())
+		if (CheckOwnerPawn() && MyPRI.PerkSupplyLevel > 0)
 		{
-			InteractionTrigger = Spawn(class'KFUsablePerkTrigger', OwnerPawn,, OwnerPawn.Location, OwnerPawn.Rotation,, True);
+			InteractionTrigger = Spawn(class'KFUsablePerkTrigger', OwnerPawn, , OwnerPawn.Location, OwnerPawn.Rotation, , True);
 			InteractionTrigger.SetBase(OwnerPawn);
-			InteractionTrigger.SetInteractionIndex(IMT_ReceiveAmmo);
+
+			if (PrimaryAmmoPercentage > 0.0f || SecondaryAmmoPercentage > 0.0f || ArmorPercentage > 0.0f)
+				InteractionTrigger.SetInteractionIndex(IMT_ReceiveAmmo);
+			else
+				InteractionTrigger.SetInteractionIndex(IMT_ReceiveGrenades);
+
 			OwnerPC.SetPendingInteractionMessage();
 		}
 	}
@@ -2767,111 +2784,150 @@ simulated function bool CanExplosiveWeld()
 	return False;
 }
 
-/**
- * @brief General interaction with another pawn, here: give ammo
- *
- * @param KFPH Pawn to interact with
- */
 simulated function Interact(KFPawn_Human KFPH)
 {
-	local KFWeapon KFW;
 	local int Idx;
+	local bool bCanSupplyAmmo, bCanSupplyArmor, bCanSupplyGrenades;
+	local bool bReceivedAmmo, bReceivedArmor, bReceivedGrenades;
+	local float PrimaryAmmoPercentage, SecondaryAmmoPercentage, ArmorPercentage;
+	local int GrenadeAmount;
+	local KFWeapon KFW;
+	local WMPawn_Human WMPH;
 	local KFPlayerController KFPC;
+	local KFInventoryManager KFIM;
 	local KFPlayerReplicationInfo UserPRI, OwnerPRI;
-	local bool bCanSupplyAmmo;
-	local bool bReceivedAmmo;
 	local SuppliedPawnInfo SPI;
 
 	// Do nothing if supplier isn't active
 	if (!IsSupplierActive())
-	{
 		return;
-	}
+
+	if (WMPawn_Human(KFPH) != None)
+		WMPH = WMPawn_Human(KFPH);
+	else
+		return;
 
 	bCanSupplyAmmo = True;
-	Idx = SuppliedPawnList.Find('SuppliedPawn', KFPH);
+	bCanSupplyArmor = True;
+	bCanSupplyGrenades = True;
+	Idx = SuppliedPawnList.Find('SuppliedPawn', WMPH);
 	if (Idx != INDEX_NONE)
 	{
 		bCanSupplyAmmo = !SuppliedPawnList[Idx].bSuppliedAmmo;
-		if (!bCanSupplyAmmo)
+		bCanSupplyArmor = !SuppliedPawnList[Idx].bSuppliedArmor;
+		bCanSupplyGrenades = !SuppliedPawnList[Idx].bSuppliedGrenades;
+		if (!bCanSupplyAmmo && !bCanSupplyArmor && !bCanSupplyGrenades)
 			return;
 	}
 
-	if (bCanSupplyAmmo)
+	SupplierModifiers(PrimaryAmmoPercentage, SecondaryAmmoPercentage, ArmorPercentage, GrenadeAmount);
+
+	if (bCanSupplyAmmo && (PrimaryAmmoPercentage > 0.0f || SecondaryAmmoPercentage > 0.0f))
 	{
-		foreach KFPH.InvManager.InventoryActors(class'KFWeapon', KFW)
+		foreach WMPH.InvManager.InventoryActors(class'KFWeapon', KFW)
 		{
 			if (KFW.static.DenyPerkResupply())
 				continue;
 
-			bReceivedAmmo = (KFW.AddAmmo(FCeil(float(KFW.GetMaxAmmoAmount(0)) * 0.3f)) > 0) ? True : bReceivedAmmo;
+			bReceivedAmmo = (KFW.AddAmmo(FCeil(KFW.GetMaxAmmoAmount(0) * PrimaryAmmoPercentage)) > 0) ? True : False;
 
 			if (KFW.CanRefillSecondaryAmmo())
-				bReceivedAmmo = (KFW.AddSecondaryAmmo(FCeil(float(KFW.GetMaxAmmoAmount(1)) * 0.3f)) > 0) ? True : bReceivedAmmo;
+				bReceivedAmmo = (KFW.AddSecondaryAmmo(FCeil(KFW.GetMaxAmmoAmount(1) * SecondaryAmmoPercentage)) > 0) ? True : bReceivedAmmo;
 		}
 	}
 
+	if (bCanSupplyArmor && ArmorPercentage > 0.0f && WMPH.ZedternalArmor != WMPH.GetMaxArmor())
+	{
+		WMPH.AddArmor(WMPH.ZedternalMaxArmor * ArmorPercentage);
+		bReceivedArmor = True;
+	}
+
+	if (bCanSupplyGrenades && GrenadeAmount > 0)
+	{
+		KFIM = KFInventoryManager(WMPH.InvManager);
+		if (KFIM != None)
+			bReceivedGrenades = KFIM.AddGrenades(GrenadeAmount);
+	}
+
 	// Add to array (if necessary) and flag as supplied as needed
-	if (bReceivedAmmo)
+	if (bReceivedAmmo || bReceivedArmor || bReceivedGrenades)
 	{
 		if (Idx == INDEX_NONE)
 		{
-			SPI.SuppliedPawn = KFPH;
+			SPI.SuppliedPawn = WMPH;
 			SPI.bSuppliedAmmo = bReceivedAmmo;
+			SPI.bSuppliedArmor = bReceivedArmor;
+			SPI.bSuppliedGrenades = bReceivedGrenades;
 			Idx = SuppliedPawnList.Length;
 			SuppliedPawnList.AddItem(SPI);
 		}
 		else
 		{
 			SuppliedPawnList[Idx].bSuppliedAmmo = SuppliedPawnList[Idx].bSuppliedAmmo || bReceivedAmmo;
+			SuppliedPawnList[Idx].bSuppliedArmor = SuppliedPawnList[Idx].bSuppliedArmor || bReceivedArmor;
+			SuppliedPawnList[Idx].bSuppliedGrenades = SuppliedPawnList[Idx].bSuppliedGrenades || bReceivedGrenades;
 		}
 
 		if (Role == ROLE_Authority)
 		{
-			KFPC = KFPlayerController(KFPH.Controller);
-			if (bReceivedAmmo)
+			KFPC = KFPlayerController(WMPH.Controller);
+			if (KFPC != None)
 			{
-				OwnerPC.ReceiveLocalizedMessage(class'KFLocalMessage_Game', GMT_GaveAmmoTo, KFPC.PlayerReplicationInfo);
-				KFPC.ReceiveLocalizedMessage(class'KFLocalMessage_Game', GMT_ReceivedAmmoFrom, OwnerPC.PlayerReplicationInfo);
-			}
+				if (bReceivedAmmo)
+				{
+					OwnerPC.ReceiveLocalizedMessage(class'KFLocalMessage_Game', bReceivedArmor ? GMT_GaveAmmoAndArmorTo : GMT_GaveAmmoTo, KFPC.PlayerReplicationInfo);
+					KFPC.ReceiveLocalizedMessage(class'KFLocalMessage_Game', bReceivedArmor ? GMT_ReceivedAmmoAndArmorFrom : GMT_ReceivedAmmoFrom, OwnerPC.PlayerReplicationInfo);
+				}
+				else if (bReceivedArmor)
+				{
+					OwnerPC.ReceiveLocalizedMessage(class'KFLocalMessage_Game', GMT_GaveArmorTo, KFPC.PlayerReplicationInfo);
+					KFPC.ReceiveLocalizedMessage(class'KFLocalMessage_Game', GMT_ReceivedArmorFrom, OwnerPC.PlayerReplicationInfo);
+				}
+				else if (bReceivedGrenades)
+				{
+					OwnerPC.ReceiveLocalizedMessage(class'KFLocalMessage_Game', GMT_GaveGrenadesTo, KFPC.PlayerReplicationInfo);
+					KFPC.ReceiveLocalizedMessage(class'KFLocalMessage_Game', GMT_ReceivedGrenadesFrom, OwnerPC.PlayerReplicationInfo);
+				}
 
-			UserPRI = KFPlayerReplicationInfo(KFPC.PlayerReplicationInfo);
-			OwnerPRI = KFPlayerReplicationInfo(OwnerPC.PlayerReplicationInfo);
-			if (UserPRI != None && OwnerPRI != None)
-			{
-				UserPRI.MarkSupplierOwnerUsed(OwnerPRI, SuppliedPawnList[Idx].bSuppliedAmmo, False);
+				UserPRI = KFPlayerReplicationInfo(KFPC.PlayerReplicationInfo);
+				OwnerPRI = KFPlayerReplicationInfo(OwnerPC.PlayerReplicationInfo);
+				if (UserPRI != None && OwnerPRI != None)
+					UserPRI.MarkSupplierOwnerUsed(OwnerPRI, SuppliedPawnList[Idx].bSuppliedAmmo, SuppliedPawnList[Idx].bSuppliedArmor || SuppliedPawnList[Idx].bSuppliedGrenades);
 			}
 		}
 	}
 	else if (Role == ROLE_Authority)
 	{
-		KFPC = KFPlayerController(KFPH.Controller);
-		KFPC.ReceiveLocalizedMessage(class'KFLocalMessage_Game', GMT_AmmoIsFull, OwnerPC.PlayerReplicationInfo);
+		KFPC = KFPlayerController(WMPH.Controller);
+		if (KFPC != None)
+		{
+			if (ArmorPercentage > 0.0f)
+				KFPC.ReceiveLocalizedMessage(class'KFLocalMessage_Game', GMT_AmmoAndArmorAreFull, OwnerPC.PlayerReplicationInfo);
+			else
+				KFPC.ReceiveLocalizedMessage(class'KFLocalMessage_Game', GMT_AmmoIsFull, OwnerPC.PlayerReplicationInfo);
+		}
 	}
 }
 
-/**
- * @brief Can other pawns interact with us?
- *
- * @param MyKFPH the other pawn
- * @return True/False
- */
 simulated function bool CanInteract(KFPawn_Human MyKFPH)
 {
-	local int Idx;
+	local float PrimaryAmmoPercentage, SecondaryAmmoPercentage, ArmorPercentage;
+	local int GrenadeAmount, Idx;
 
-	if (IsSupplierActive())
+	if (IsSupplierActive() && WMPawn_Human(MyKFPH) != None)
 	{
-		Idx = SuppliedPawnList.Find('SuppliedPawn', MyKFPH);
+		Idx = SuppliedPawnList.Find('SuppliedPawn', WMPawn_Human(MyKFPH));
 
 		// Pawn hasn't gotten anything from us yet
 		if (Idx == INDEX_NONE)
-		{
 			return True;
-		}
 
-		// Pawn hasn't gotten ammo
-		return !SuppliedPawnList[Idx].bSuppliedAmmo;
+		SupplierModifiers(PrimaryAmmoPercentage, SecondaryAmmoPercentage, ArmorPercentage, GrenadeAmount);
+
+		// Pawn hasn't gotten something
+		return (!SuppliedPawnList[Idx].bSuppliedAmmo && (PrimaryAmmoPercentage > 0.0f || SecondaryAmmoPercentage > 0.0f)) ||
+		(!SuppliedPawnList[Idx].bSuppliedArmor && ArmorPercentage > 0.0f) ||
+		(!SuppliedPawnList[Idx].bSuppliedGrenades && GrenadeAmount > 0);
 	}
 }
 
@@ -2906,6 +2962,40 @@ simulated function bool IsSupplierActive()
 	}
 
 	return False;
+}
+
+simulated function SupplierModifiers(out float PrimaryAmmoPercentage, out float SecondaryAmmoPercentage, out float ArmorPercentage, out int GrenadeAmount)
+{
+	local byte i, index;
+
+	PrimaryAmmoPercentage = 0.0f;
+	SecondaryAmmoPercentage = 0.0f;
+	ArmorPercentage = 0.0f;
+	GrenadeAmount = 0;
+
+	if (MyWMPRI != None && MyWMGRI != None)
+	{
+		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
+		{
+			index = MyWMPRI.Purchase_PerkUpgrade[i];
+			MyWMGRI.perkUpgrades[index].static.SupplierModifiers(MyWMPRI.bPerkUpgrade[index], PrimaryAmmoPercentage, SecondaryAmmoPercentage, ArmorPercentage, GrenadeAmount);
+		}
+		for (i = 0; i < MyWMPRI.Purchase_SkillUpgrade.length; ++i)
+		{
+			index = MyWMPRI.Purchase_SkillUpgrade[i];
+			MyWMGRI.skillUpgrades[index].SkillUpgrade.static.SupplierModifiers(MyWMPRI.bSkillUpgrade[index], PrimaryAmmoPercentage, SecondaryAmmoPercentage, ArmorPercentage, GrenadeAmount);
+		}
+		for (i = 0; i < MyWMPRI.Purchase_EquipmentUpgrade.length; ++i)
+		{
+			index = MyWMPRI.Purchase_EquipmentUpgrade[i];
+			MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.SupplierModifiers(MyWMPRI.bEquipmentUpgrade[index], PrimaryAmmoPercentage, SecondaryAmmoPercentage, ArmorPercentage, GrenadeAmount);
+		}
+	}
+
+	PrimaryAmmoPercentage = FClamp(PrimaryAmmoPercentage, 0.0f, 100.0f);
+	SecondaryAmmoPercentage = FClamp(SecondaryAmmoPercentage, 0.0f, 100.0f);
+	ArmorPercentage = FClamp(ArmorPercentage, 0.0f, 100.0f);
+	GrenadeAmount = Clamp(GrenadeAmount, 0, 255);
 }
 
 function WaveEnd(KFPlayerController KFPC)

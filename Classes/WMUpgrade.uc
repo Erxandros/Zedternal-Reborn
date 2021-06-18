@@ -67,6 +67,8 @@ static simulated function GetPerkLensEffect(out class<EmitterCameraLensEffectBas
 //InRechargeRateFL for flash light drain rate, InRechargeRateNVG for night vision goggles drain rate
 static simulated function GetBatteryRateScale(out float InRechargeRateFL, out float InRechargeRateNVG, int upgLevel, KFPawn OwnerPawn);
 
+static simulated function SupplierModifiers(int upgLevel, out float PrimaryAmmoPercentage, out float SecondaryAmmoPercentage, out float ArmorPercentage, out int GrenadeAmount);
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Boolean functions
