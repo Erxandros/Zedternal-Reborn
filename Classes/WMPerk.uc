@@ -2430,9 +2430,6 @@ simulated function bool GetIsUberAmmoActive(KFWeapon KFW)
 	local byte i, index;
 	local bool bUber;
 
-	MyWMPRI = WMPlayerReplicationInfo(MyPRI);
-	MyWMGRI = WMGameReplicationInfo(WorldInfo.GRI);
-
 	if (MyWMPRI != None && MyWMGRI != None)
 	{
 		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
