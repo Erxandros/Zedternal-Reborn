@@ -955,7 +955,7 @@ simulated function ModifySpeed(out float Speed)
 	DefaultSpeed = Speed;
 	Speed *= PassiveMovementSpeed;
 
-	if (MyPRI != None && OwnerPawn != None)
+	if (MyWMPRI != None && MyWMGRI != None)
 	{
 		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
 		{
@@ -972,11 +972,11 @@ simulated function ModifySpeed(out float Speed)
 			index = MyWMPRI.Purchase_EquipmentUpgrade[i];
 			MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.ModifySpeed(Speed, DefaultSpeed, MyWMPRI.bEquipmentUpgrade[index], OwnerPawn);
 		}
-	}
-	for (i = 0; i <= 1; ++i)
-	{
-		if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE && OwnerPawn != None)
-			MyWMGRI.specialWaves[MyWMGRI.SpecialWaveID[i]].static.ModifySpeed(Speed, DefaultSpeed, OwnerPawn);
+		for (i = 0; i <= 1; ++i)
+		{
+			if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
+				MyWMGRI.specialWaves[MyWMGRI.SpecialWaveID[i]].static.ModifySpeed(Speed, DefaultSpeed, OwnerPawn);
+		}
 	}
 }
 
