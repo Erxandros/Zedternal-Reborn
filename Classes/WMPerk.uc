@@ -46,7 +46,7 @@ var private float PassivePenetration;
 //Timers class to keep track of cached variables and flags
 var private WMPerk_Timers WMTimers;
 
-simulated function PreBeginPlay()
+simulated event PreBeginPlay()
 {
 	super.PreBeginPlay();
 
@@ -56,7 +56,7 @@ simulated function PreBeginPlay()
 		GetKnifeIndexFromClient();
 }
 
-simulated function PostBeginPlay()
+simulated event PostBeginPlay()
 {
 	super.PostBeginPlay();
 
