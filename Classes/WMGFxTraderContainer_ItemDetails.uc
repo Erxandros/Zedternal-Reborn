@@ -22,7 +22,7 @@ function SetPlayerItemDetails(out STraderItem TraderItem, int ItemPrice, optiona
 	ItemData.SetInt("upgradeWeight", 0);
 	ItemData.SetBool("bCanUpgrade", False);
 
-	ItemData.SetInt("weaponTier", INDEX_NONE);
+	ItemData.SetInt("weaponTier", UpgradeLevel);
 
 	ItemData.SetBool("bCanCarry", True);
 	ItemData.SetBool("bCanBuyOrSell", KFPC.GetPurchaseHelper().IsSellable(TraderItem));
@@ -30,7 +30,7 @@ function SetPlayerItemDetails(out STraderItem TraderItem, int ItemPrice, optiona
 
 	ItemData.SetBool("bCanFavorite", True);
 
-	SetGenericItemDetails(TraderItem, ItemData, INDEX_NONE);
+	SetGenericItemDetails(TraderItem, ItemData, UpgradeLevel);
 }
 
 defaultproperties
