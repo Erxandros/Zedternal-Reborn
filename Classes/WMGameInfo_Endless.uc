@@ -386,7 +386,7 @@ function RestartPlayer(Controller NewPlayer)
 			WMPC.DelayedPerkUpdate(TimeOffset);
 		}
 
-		if (!WMPRI.bHasPlayed && WMPC.Pawn != None && WMPC.Pawn.IsAliveAndWell())
+		if (!WMPRI.bHasPlayed && WMPRI.NumTimesReconnected > 0 && WMPC.Pawn != None && WMPC.Pawn.IsAliveAndWell())
 		{
 			WMPRI.Score = GetAdjustedDeathPenalty(WMPRI, True);
 			WMPRI.bHasPlayed = True;
@@ -1725,10 +1725,15 @@ function int GetAdjustedDeathPenalty(KFPlayerReplicationInfo KilledPlayerPRI, op
 	// new player (dosh is based on what team won during the game
 	if (bLateJoiner)
 	{
-		PlayerBase = Round(doshNewPlayer * class'ZedternalReborn.Config_Game'.default.Game_LateJoinerTotalDoshFactor);
-		`log("ZR Info: Player"@KilledPlayerPRI.PlayerName@"is late joiner, received"@PlayerBase@"dosh");
+		if (KilledPlayerPRI.NumTimesReconnected > 0)
+		{
+			PlayerBase = Round(doshNewPlayer * class'ZedternalReborn.Config_Game'.default.Game_LateJoinerTotalDoshFactor);
+			`log("ZR Info: Player"@KilledPlayerPRI.PlayerName@"is late joiner, received"@PlayerBase@"dosh");
 
-		return PlayerBase;
+			return PlayerBase;
+		}
+		else
+			return 0;
 	}
 
 	// count current number of players
