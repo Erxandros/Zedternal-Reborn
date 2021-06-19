@@ -206,6 +206,17 @@ function GiveHealthOverTime()
 	}
 }
 
+simulated function ToggleEquipment()
+{
+	local WMPerk MyPerk;
+
+	MyPerk = WMPerk(GetPerk());
+	if (MyPerk != None)
+		MyPerk.ApplyBatteryRechargeRate();
+
+	super.ToggleEquipment();
+}
+
 /*********************************************************************************************
 * Zedternal Armor
 ********************************************************************************************* */
