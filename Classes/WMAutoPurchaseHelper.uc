@@ -14,6 +14,11 @@ function InitializeOwnedItemList()
 	}
 }
 
+function bool CanUpgrade(STraderItem SelectedItem, out int CanCarryIndex, out int bCanAffordIndex, optional bool bPlayDialog)
+{
+	return False;
+}
+
 ////////
 //Copy and pasted from KFAutoPurchaseHelper, but changed GetItemIndicesFromArche to GetItemIndicesFromArcheZedternal and a few other minor things
 ////////
