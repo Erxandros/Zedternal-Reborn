@@ -66,6 +66,7 @@ simulated event PostBeginPlay()
 		if (MyWMPRI == None)
 			MyWMPRI = WMPlayerReplicationInfo(MyPRI);
 	}
+
 	MyWMGRI = WMGameReplicationInfo(WorldInfo.GRI);
 
 	if (WMTimers == None)
@@ -102,7 +103,10 @@ function SetPlayerDefaults(Pawn PlayerPawn)
 	if (OwnerPC != None)
 	{
 		MyPRI = KFPlayerReplicationInfo(OwnerPC.PlayerReplicationInfo);
+		MyWMPRI = WMPlayerReplicationInfo(MyPRI);
 	}
+
+	MyWMGRI = WMGameReplicationInfo(WorldInfo.GRI);
 
 	PerkSetOwnerHealthAndArmorZedternal(True);
 
@@ -113,7 +117,6 @@ function SetPlayerDefaults(Pawn PlayerPawn)
 simulated function PerkSetOwnerHealthAndArmorZedternal(optional bool bModifyHealth)
 {
 	local WMPawn_Human WMPH;
-	local WMPlayerReplicationInfo WMPRI;
 
 	// don't allow clients to set health, since health/healthmax/playerhealth/playerhealthpercent is replicated
 	if (Role < ROLE_Authority)
@@ -137,15 +140,11 @@ simulated function PerkSetOwnerHealthAndArmorZedternal(optional bool bModifyHeal
 		if (OwnerPC == None)
 			OwnerPC = KFPlayerController(Owner);
 
-		MyPRI = KFPlayerReplicationInfo(OwnerPC.PlayerReplicationInfo);
-		if (MyPRI != None)
-			WMPRI = WMPlayerReplicationInfo(MyPRI);
-
-		if (WMPRI != None)
+		if (MyWMPRI != None)
 		{
-			WMPRI.PlayerHealthInt = WMPH.Health;
-			WMPRI.PlayerHealth = FloatToByte(float(WMPH.Health) / float(WMPH.HealthMax));
-			WMPRI.PlayerHealthPercent = WMPRI.PlayerHealth;
+			MyWMPRI.PlayerHealthInt = WMPH.Health;
+			MyWMPRI.PlayerHealth = FloatToByte(float(WMPH.Health) / float(WMPH.HealthMax));
+			MyWMPRI.PlayerHealthPercent = MyWMPRI.PlayerHealth;
 		}
 
 		WMPH.ZedternalMaxArmor = WMPH.default.ZedternalMaxArmor;
@@ -153,38 +152,36 @@ simulated function PerkSetOwnerHealthAndArmorZedternal(optional bool bModifyHeal
 		WMPH.ZedternalArmor = Min(WMPH.ZedternalArmor, WMPH.ZedternalMaxArmor);
 		WMPH.AdjustArmorPct();
 
-		if (WMPRI != None)
-			WMPRI.PlayerArmorInt = WMPH.ZedternalArmor;
+		if (MyWMPRI != None)
+			MyWMPRI.PlayerArmorInt = WMPH.ZedternalArmor;
 	}
 }
 
 function ApplySkillsToPawn()
 {
-	local KFGameReplicationInfo KFGRI;
-
 	if (CheckOwnerPawn())
 	{
 		OwnerPawn.UpdateGroundSpeed();
 		OwnerPawn.bMovesFastInZedTime = IsUnAffectedByZedTime();
 
-		if (MyPRI == None)
-		{
-			MyPRI = KFPlayerReplicationInfo(OwnerPawn.PlayerReplicationInfo);
-		}
+		if (MyWMPRI == None)
+			MyWMPRI = WMPlayerReplicationInfo(OwnerPawn.PlayerReplicationInfo);
 
-		MyPRI.bExtraFireRange = IsRangeActive();
-		MyPRI.bSplashActive = IsGroundFireActive();
-		MyPRI.bNukeActive = False;
-		MyPRI.bConcussiveActive = False;
-		MyPRI.PerkSupplyLevel = 0;
+		MyWMPRI.bExtraFireRange = IsRangeActive();
+		MyWMPRI.bSplashActive = IsGroundFireActive();
+		MyWMPRI.bNukeActive = False;
+		MyWMPRI.bConcussiveActive = False;
+		MyWMPRI.PerkSupplyLevel = 0;
 
 		ApplyWeightLimits();
 		ApplyBatteryRechargeRate();
 		ServerComputePassiveBonuses();
 		ClientAndServerComputePassiveBonuses();
 
-		KFGRI = KFGameReplicationInfo(WorldInfo.GRI);
-		if (KFGRI != None && !KFGRI.bTraderIsOpen)
+		if (MyWMGRI == None)
+			MyWMGRI = WMGameReplicationInfo(WorldInfo.GRI);
+
+		if (MyWMGRI != None && !MyWMGRI.bTraderIsOpen)
 			ResetSupplier();
 	}
 }
@@ -458,7 +455,7 @@ simulated function ResetSupplier()
 	local int GrenadeAmount;
 	local byte count;
 
-	if (MyPRI != None && IsSupplierActive())
+	if (MyWMPRI != None && IsSupplierActive())
 	{
 		if (SuppliedPawnList.Length > 0)
 			SuppliedPawnList.Remove(0, SuppliedPawnList.Length);
@@ -471,7 +468,7 @@ simulated function ResetSupplier()
 		if (GrenadeAmount > 0)
 			++count;
 
-		MyPRI.PerkSupplyLevel = Clamp(count, 0, 2);
+		MyWMPRI.PerkSupplyLevel = Clamp(count, 0, 2);
 
 		if (InteractionTrigger != None)
 		{
@@ -479,7 +476,7 @@ simulated function ResetSupplier()
 			InteractionTrigger = None;
 		}
 
-		if (CheckOwnerPawn() && MyPRI.PerkSupplyLevel > 0)
+		if (CheckOwnerPawn() && MyWMPRI.PerkSupplyLevel > 0)
 		{
 			InteractionTrigger = Spawn(class'KFUsablePerkTrigger', OwnerPawn, , OwnerPawn.Location, OwnerPawn.Rotation, , True);
 			InteractionTrigger.SetBase(OwnerPawn);
@@ -2068,7 +2065,7 @@ simulated function bool IsRangeActive()
 			bRangeActive = MyWMGRI.perkUpgrades[index].static.IsRangeActive(MyWMPRI.bPerkUpgrade[index], OwnerPawn);
 			if (bRangeActive)
 			{
-				MyPRI.bExtraFireRange = True;
+				MyWMPRI.bExtraFireRange = True;
 				return True;
 			}
 		}
@@ -2078,7 +2075,7 @@ simulated function bool IsRangeActive()
 			bRangeActive = MyWMGRI.skillUpgrades[index].SkillUpgrade.static.IsRangeActive(MyWMPRI.bSkillUpgrade[index], OwnerPawn);
 			if (bRangeActive)
 			{
-				MyPRI.bExtraFireRange = True;
+				MyWMPRI.bExtraFireRange = True;
 				return True;
 			}
 		}
@@ -2088,7 +2085,7 @@ simulated function bool IsRangeActive()
 			bRangeActive = MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.IsRangeActive(MyWMPRI.bEquipmentUpgrade[index], OwnerPawn);
 			if (bRangeActive)
 			{
-				MyPRI.bExtraFireRange = True;
+				MyWMPRI.bExtraFireRange = True;
 				return True;
 			}
 		}
@@ -2110,7 +2107,7 @@ simulated function bool IsGroundFireActive()
 			bSplashActive = MyWMGRI.perkUpgrades[index].static.IsGroundFireActive(MyWMPRI.bPerkUpgrade[index], OwnerPawn);
 			if (bSplashActive)
 			{
-				MyPRI.bSplashActive = True;
+				MyWMPRI.bSplashActive = True;
 				return True;
 			}
 		}
@@ -2120,7 +2117,7 @@ simulated function bool IsGroundFireActive()
 			bSplashActive = MyWMGRI.skillUpgrades[index].SkillUpgrade.static.IsGroundFireActive(MyWMPRI.bSkillUpgrade[index], OwnerPawn);
 			if (bSplashActive)
 			{
-				MyPRI.bSplashActive = True;
+				MyWMPRI.bSplashActive = True;
 				return True;
 			}
 		}
@@ -2130,7 +2127,7 @@ simulated function bool IsGroundFireActive()
 			bSplashActive = MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.IsGroundFireActive(MyWMPRI.bEquipmentUpgrade[index], OwnerPawn);
 			if (bSplashActive)
 			{
-				MyPRI.bSplashActive = True;
+				MyWMPRI.bSplashActive = True;
 				return True;
 			}
 		}
