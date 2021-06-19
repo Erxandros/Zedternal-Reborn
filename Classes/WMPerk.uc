@@ -94,6 +94,21 @@ simulated function PlayerDied()
 	}
 }
 
+simulated function SetCachedVariables()
+{
+	if (OwnerPC == None)
+		OwnerPC = KFPlayerController(Owner);
+
+	if (OwnerPawn == None && OwnerPC != None)
+		OwnerPawn = KFPawn_Human(OwnerPC.Pawn);
+
+	if (MyWMPRI == None && OwnerPC != None)
+		MyWMPRI = WMPlayerReplicationInfo(OwnerPC.PlayerReplicationInfo);
+
+	if (MyWMGRI == None)
+		MyWMGRI = WMGameReplicationInfo(WorldInfo.GRI);
+}
+
 function SetPlayerDefaults(Pawn PlayerPawn)
 {
 	OwnerPawn = KFPawn_Human(PlayerPawn);
@@ -398,6 +413,9 @@ simulated function ClientAndServerComputePassiveBonuses()
 	PassiveRateOfFire = 1.0f;
 	PassiveTightChoke = 1.0f;
 	PassivePenetration = 1.0f;
+
+	if (OwnerPC == None || OwnerPawn == None || MyWMPRI == None || MyWMGRI == None)
+		SetCachedVariables();
 
 	if (MyWMPRI != None && MyWMGRI != None)
 	{
