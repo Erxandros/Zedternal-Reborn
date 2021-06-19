@@ -64,6 +64,9 @@ var int RerollCounter;
 //For first login
 var bool bHasPlayed;
 
+//For Supplier
+var bool bPerkTertiarySupplyUsed;
+
 replication
 {
 	if (bNetDirty && (Role == Role_Authority))
@@ -398,6 +401,28 @@ simulated function NotifyWaveEnded()
 
 	bHasVoted = False;
 	bVotingActive = False;
+}
+
+reliable client function MarkSupplierOwnerUsedZedternal(WMPlayerReplicationInfo SupplierPRI, optional bool bReceivedPrimary=True, optional bool bReceivedSecondary=True, optional bool bReceivedTertiary=True)
+{
+	if (SupplierPRI != None)
+	{
+		SupplierPRI.MarkSupplierUsedZedternal(bReceivedPrimary, bReceivedSecondary, bReceivedTertiary);
+	}
+}
+
+simulated function MarkSupplierUsedZedternal(bool bReceivedPrimary, bool bReceivedSecondary, bool bReceivedTertiary)
+{
+	bPerkPrimarySupplyUsed = bPerkPrimarySupplyUsed || bReceivedPrimary;
+	bPerkSecondarySupplyUsed = bPerkSecondarySupplyUsed || bReceivedSecondary;
+	bPerkTertiarySupplyUsed = bPerkTertiarySupplyUsed || bReceivedTertiary;
+}
+
+simulated function NotifyWaveStart()
+{
+	super.NotifyWaveStart();
+
+	bPerkTertiarySupplyUsed = False;
 }
 
 simulated function byte GetWeaponUpgrade(int index)

@@ -103,7 +103,7 @@ function SetPlayerDefaults(Pawn PlayerPawn)
 	if (OwnerPC != None)
 	{
 		MyPRI = KFPlayerReplicationInfo(OwnerPC.PlayerReplicationInfo);
-		MyWMPRI = WMPlayerReplicationInfo(MyPRI);
+		MyWMPRI = WMPlayerReplicationInfo(OwnerPC.PlayerReplicationInfo);
 	}
 
 	MyWMGRI = WMGameReplicationInfo(WorldInfo.GRI);
@@ -461,6 +461,7 @@ simulated function ResetSupplier()
 			SuppliedPawnList.Remove(0, SuppliedPawnList.Length);
 
 		SupplierModifiers(PrimaryAmmoPercentage, SecondaryAmmoPercentage, ArmorPercentage, GrenadeAmount);
+		count = 0;
 		if (PrimaryAmmoPercentage > 0.0f || SecondaryAmmoPercentage > 0.0f)
 			++count;
 		if (ArmorPercentage > 0.0f)
@@ -468,7 +469,7 @@ simulated function ResetSupplier()
 		if (GrenadeAmount > 0)
 			++count;
 
-		MyWMPRI.PerkSupplyLevel = Clamp(count, 0, 2);
+		MyWMPRI.PerkSupplyLevel = count;
 
 		if (InteractionTrigger != None)
 		{
@@ -2782,6 +2783,7 @@ simulated function Interact(KFPawn_Human KFPH)
 {
 	local int Idx;
 	local bool bCanSupplyAmmo, bCanSupplyArmor, bCanSupplyGrenades;
+	local bool bSupplyAmmoEnabled, bSupplyArmorEnabled, bSupplyGrenadesEnabled;
 	local bool bReceivedAmmo, bReceivedArmor, bReceivedGrenades;
 	local float PrimaryAmmoPercentage, SecondaryAmmoPercentage, ArmorPercentage;
 	local int GrenadeAmount;
@@ -2789,7 +2791,7 @@ simulated function Interact(KFPawn_Human KFPH)
 	local WMPawn_Human WMPH;
 	local KFPlayerController KFPC;
 	local KFInventoryManager KFIM;
-	local KFPlayerReplicationInfo UserPRI, OwnerPRI;
+	local WMPlayerReplicationInfo UserPRI, OwnerPRI;
 	local SuppliedPawnInfo SPI;
 
 	// Do nothing if supplier isn't active
@@ -2815,28 +2817,31 @@ simulated function Interact(KFPawn_Human KFPH)
 	}
 
 	SupplierModifiers(PrimaryAmmoPercentage, SecondaryAmmoPercentage, ArmorPercentage, GrenadeAmount);
+	bSupplyAmmoEnabled = PrimaryAmmoPercentage > 0.0f || SecondaryAmmoPercentage > 0.0f;
+	bSupplyArmorEnabled = ArmorPercentage > 0.0f;
+	bSupplyGrenadesEnabled = GrenadeAmount > 0;
 
-	if (bCanSupplyAmmo && (PrimaryAmmoPercentage > 0.0f || SecondaryAmmoPercentage > 0.0f))
+	if (bCanSupplyAmmo && bSupplyAmmoEnabled)
 	{
 		foreach WMPH.InvManager.InventoryActors(class'KFWeapon', KFW)
 		{
 			if (KFW.static.DenyPerkResupply())
 				continue;
 
-			bReceivedAmmo = (KFW.AddAmmo(FCeil(KFW.GetMaxAmmoAmount(0) * PrimaryAmmoPercentage)) > 0) ? True : False;
+			bReceivedAmmo = (KFW.AddAmmo(FCeil(float(KFW.GetMaxAmmoAmount(0)) * PrimaryAmmoPercentage)) > 0) ? True : bReceivedAmmo;
 
 			if (KFW.CanRefillSecondaryAmmo())
-				bReceivedAmmo = (KFW.AddSecondaryAmmo(FCeil(KFW.GetMaxAmmoAmount(1) * SecondaryAmmoPercentage)) > 0) ? True : bReceivedAmmo;
+				bReceivedAmmo = (KFW.AddSecondaryAmmo(FCeil(float(KFW.GetMaxAmmoAmount(1)) * SecondaryAmmoPercentage)) > 0) ? True : bReceivedAmmo;
 		}
 	}
 
-	if (bCanSupplyArmor && ArmorPercentage > 0.0f && WMPH.ZedternalArmor != WMPH.GetMaxArmor())
+	if (bCanSupplyArmor && bSupplyArmorEnabled && WMPH.ZedternalArmor != WMPH.GetMaxArmor())
 	{
 		WMPH.AddArmor(WMPH.ZedternalMaxArmor * ArmorPercentage);
 		bReceivedArmor = True;
 	}
 
-	if (bCanSupplyGrenades && GrenadeAmount > 0)
+	if (bCanSupplyGrenades && bSupplyGrenadesEnabled)
 	{
 		KFIM = KFInventoryManager(WMPH.InvManager);
 		if (KFIM != None)
@@ -2883,10 +2888,33 @@ simulated function Interact(KFPawn_Human KFPH)
 					KFPC.ReceiveLocalizedMessage(class'KFLocalMessage_Game', GMT_ReceivedGrenadesFrom, OwnerPC.PlayerReplicationInfo);
 				}
 
-				UserPRI = KFPlayerReplicationInfo(KFPC.PlayerReplicationInfo);
-				OwnerPRI = KFPlayerReplicationInfo(OwnerPC.PlayerReplicationInfo);
+				UserPRI = WMPlayerReplicationInfo(KFPC.PlayerReplicationInfo);
+				OwnerPRI = WMPlayerReplicationInfo(OwnerPC.PlayerReplicationInfo);
 				if (UserPRI != None && OwnerPRI != None)
-					UserPRI.MarkSupplierOwnerUsed(OwnerPRI, SuppliedPawnList[Idx].bSuppliedAmmo, SuppliedPawnList[Idx].bSuppliedArmor || SuppliedPawnList[Idx].bSuppliedGrenades);
+				{
+					if (OwnerPRI.PerkSupplyLevel == 3)
+					{
+						UserPRI.MarkSupplierOwnerUsedZedternal(OwnerPRI, SuppliedPawnList[Idx].bSuppliedAmmo, SuppliedPawnList[Idx].bSuppliedArmor, SuppliedPawnList[Idx].bSuppliedGrenades);
+					}
+					else if (OwnerPRI.PerkSupplyLevel == 2)
+					{
+						if (!bSupplyAmmoEnabled)
+							UserPRI.MarkSupplierOwnerUsedZedternal(OwnerPRI, SuppliedPawnList[Idx].bSuppliedArmor, SuppliedPawnList[Idx].bSuppliedGrenades);
+						else if (!bSupplyArmorEnabled)
+							UserPRI.MarkSupplierOwnerUsedZedternal(OwnerPRI, SuppliedPawnList[Idx].bSuppliedAmmo, SuppliedPawnList[Idx].bSuppliedGrenades);
+						else if (!bSupplyGrenadesEnabled)
+							UserPRI.MarkSupplierOwnerUsedZedternal(OwnerPRI, SuppliedPawnList[Idx].bSuppliedAmmo, SuppliedPawnList[Idx].bSuppliedArmor);
+					}
+					else if (OwnerPRI.PerkSupplyLevel == 1)
+					{
+						if (bSupplyAmmoEnabled)
+							UserPRI.MarkSupplierOwnerUsedZedternal(OwnerPRI, SuppliedPawnList[Idx].bSuppliedAmmo);
+						else if (bSupplyArmorEnabled)
+							UserPRI.MarkSupplierOwnerUsedZedternal(OwnerPRI, SuppliedPawnList[Idx].bSuppliedArmor);
+						else if (bSupplyGrenadesEnabled)
+							UserPRI.MarkSupplierOwnerUsedZedternal(OwnerPRI, SuppliedPawnList[Idx].bSuppliedGrenades);
+					}
+				}
 			}
 		}
 	}
@@ -3426,6 +3454,7 @@ defaultproperties
 	bUsedSacrifice=False
 	PerkBuildStatID=0
 	PerkIcon=Texture2D'UI_PerkIcons_TEX.UI_Horzine_H_Logo'
+	InteractIcon=Texture2D'UI_World_TEX.Support_Supplier_HUD'
 	ShrapnelExplosionTemplate=KFGameExplosion'KFGame.Default__KFPerk_Survivalist:ExploTemplate0'
 	WhiteMaterial=Texture2D'EngineResources.WhiteSquareTexture'
 

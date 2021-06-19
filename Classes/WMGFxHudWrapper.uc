@@ -4,6 +4,8 @@ var Texture2D backgroundIcon;
 var int zedBuffIndex;
 var float bgFactor;
 
+var const color SupplierThirdUsableColor;
+
 simulated function PostBeginPlay()
 {
 	SetTimer(1.5f, True, NameOf(UpdateWarningString));
@@ -235,12 +237,110 @@ simulated function UpdateWarningString()
 		zedBuffIndex = INDEX_NONE;
 }
 
+simulated function DrawPerkIcons(KFPawn_Human KFPH, float PerkIconSize, float PerkIconPosX, float PerkIconPosY, float SupplyIconPosX, float SupplyIconPosY, bool bDropShadow)
+{
+	local byte Count, PrestigeLevel;
+	local WMPlayerReplicationInfo WMPRI;
+	local color TempColor;
+	local float ResModifier;
+
+	WMPRI = WMPlayerReplicationInfo(KFPH.PlayerReplicationInfo);
+
+	if (WMPRI == None)
+		return;
+
+	PrestigeLevel = WMPRI.GetActivePerkPrestigeLevel();
+	ResModifier = WorldInfo.static.GetResolutionBasedHUDScale() * FriendlyHudScale;
+
+	if (WMPRI.CurrentVoiceCommsRequest == VCT_NONE && WMPRI.CurrentPerkClass != None && PrestigeLevel > 0)
+	{
+		Canvas.SetPos(PerkIconPosX, PerkIconPosY);
+		Canvas.DrawTile(WMPRI.CurrentPerkClass.default.PrestigeIcons[PrestigeLevel - 1], PerkIconSize, PerkIconSize, 0, 0, 256, 256);
+	}
+
+	if (PrestigeLevel > 0)
+	{
+		Canvas.SetPos(PerkIconPosX + (PerkIconSize * (1 - PrestigeIconScale)) / 2, PerkIconPosY + PerkIconSize * 0.05f);
+		Canvas.DrawTile(WMPRI.GetCurrentIconToDisplay(), PerkIconSize * PrestigeIconScale, PerkIconSize * PrestigeIconScale, 0, 0, 256, 256);
+	}
+	else
+	{
+		Canvas.SetPos(PerkIconPosX, PerkIconPosY);
+		Canvas.DrawTile(WMPRI.GetCurrentIconToDisplay(), PerkIconSize, PerkIconSize, 0, 0, 256, 256);
+	}
+
+	if (WMPRI.PerkSupplyLevel > 0 && WMPRI.CurrentPerkClass.static.GetInteractIcon() != None)
+	{
+		if (!bDropShadow)
+		{
+			Count = 0;
+			if (WMPRI.PerkSupplyLevel == 3)
+			{
+				if (WMPRI.bPerkPrimarySupplyUsed)
+					++Count;
+				if (WMPRI.bPerkSecondarySupplyUsed)
+					++Count;
+				if (WMPRI.bPerkTertiarySupplyUsed)
+					++Count;
+
+				if (Count == 3)
+				{
+					TempColor = SupplierActiveColor;
+				}
+				else if (Count == 2)
+				{
+					TempColor = SupplierThirdUsableColor;
+				}
+				else if (Count == 1)
+				{
+					TempColor = SupplierHalfUsableColor;
+				}
+				else
+				{
+					TempColor = SupplierUsableColor;
+				}
+			}
+			else if (WMPRI.PerkSupplyLevel == 2)
+			{
+				if (WMPRI.bPerkPrimarySupplyUsed)
+					++Count;
+				if (WMPRI.bPerkSecondarySupplyUsed)
+					++Count;
+
+				if (Count == 2)
+				{
+					TempColor = SupplierActiveColor;
+				}
+				else if (Count == 1)
+				{
+					TempColor = SupplierHalfUsableColor;
+				}
+				else
+				{
+					TempColor = SupplierUsableColor;
+				}
+			}
+			else if (WMPRI.PerkSupplyLevel == 1)
+			{
+				TempColor = WMPRI.bPerkPrimarySupplyUsed ? SupplierActiveColor : SupplierUsableColor;
+			}
+
+			Canvas.SetDrawColorStruct(TempColor);
+		}
+
+		Canvas.SetPos(SupplyIconPosX, SupplyIconPosY);
+		Canvas.DrawTile(WMPRI.CurrentPerkClass.static.GetInteractIcon(), (PlayerStatusIconSize * 0.75) * ResModifier, (PlayerStatusIconSize * 0.75) * ResModifier, 0, 0, 256, 256);
+	}
+}
+
 defaultproperties
 {
 	HUDClass=Class'ZedternalReborn.WMGFxMoviePlayer_HUD'
 	backgroundIcon=Texture2D'ZedternalReborn_Resource.ZedBuffs.UI_ZedBuff_Background'
 	zedBuffIndex=INDEX_NONE
 	bgFactor=0
+
+	SupplierThirdUsableColor=(R=192, G=160, B=0, A=192)
 
 	Name="Default__WMGFxHudWrapper"
 }
