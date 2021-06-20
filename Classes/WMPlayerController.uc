@@ -411,6 +411,14 @@ function NotifyAddInventory(Inventory NewItem)
 		Spawn(class'WMWeaponAmmoFix', NewItem);
 }
 
+simulated function SetNightVision(bool bEnabled)
+{
+	if (WMPerk(CurrentPerk) != None)
+		WMPerk(CurrentPerk).ApplyBatteryRechargeRate();
+
+	super.SetNightVision(bEnabled);
+}
+
 reliable client function GetPlatform()
 {
 	//If the server calls GetPlatform on the server and not the client, try again
