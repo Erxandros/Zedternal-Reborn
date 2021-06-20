@@ -40,20 +40,20 @@ static function UpdateConfig()
 	if (default.MODEVERSION < 9)
 	{
 		newEquipment.EquipmentPath = "ZedternalReborn.WMUpgrade_Equipment_HealthUp";
-		newEquipment.BasePrice = 500;
-		newEquipment.MaxPrice = 2500;
-		newEquipment.MaxLevel = 5;
-		default.EquipmentUpgrade_EquipmentUpgrades.AddItem(newEquipment);
-
-		newEquipment.EquipmentPath = "ZedternalReborn.WMUpgrade_Equipment_ArmorUp";
 		newEquipment.BasePrice = 400;
 		newEquipment.MaxPrice = 2000;
 		newEquipment.MaxLevel = 5;
 		default.EquipmentUpgrade_EquipmentUpgrades.AddItem(newEquipment);
 
+		newEquipment.EquipmentPath = "ZedternalReborn.WMUpgrade_Equipment_ArmorUp";
+		newEquipment.BasePrice = 300;
+		newEquipment.MaxPrice = 1500;
+		newEquipment.MaxLevel = 5;
+		default.EquipmentUpgrade_EquipmentUpgrades.AddItem(newEquipment);
+
 		newEquipment.EquipmentPath = "ZedternalReborn.WMUpgrade_Equipment_SpareBatteries";
-		newEquipment.BasePrice = 250;
-		newEquipment.MaxPrice = 1000;
+		newEquipment.BasePrice = 200;
+		newEquipment.MaxPrice = 800;
 		newEquipment.MaxLevel = 4;
 		default.EquipmentUpgrade_EquipmentUpgrades.AddItem(newEquipment);
 
