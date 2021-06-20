@@ -39,7 +39,7 @@ static function AddAmmunition(Pawn Player, int upgLevel)
 
 defaultproperties
 {
-	AmmoDivider=50.0f
+	AmmoDivider=40.0f
 	Probability(0)=0.125f
 	Probability(1)=0.25f
 
