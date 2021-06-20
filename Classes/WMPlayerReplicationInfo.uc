@@ -210,7 +210,7 @@ simulated function ClientUpdateCurrentIconToDisplay()
 
 	WMGRI = WMGameReplicationInfo(WorldInfo.GRI);
 
-	if (WMGRI != None)
+	if (WMGRI != None && PerkIconIndex < WMGRI.perkUpgrades.Length)
 		CurrentIconToDisplay = WMGRI.perkUpgrades[PerkIconIndex].static.GetUpgradeIcon(bPerkUpgrade[PerkIconIndex] - 1);
 }
 
