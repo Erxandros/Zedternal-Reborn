@@ -77,7 +77,7 @@ static simulated function DeleteHelperClass(Pawn OwnerPawn)
 
 defaultproperties
 {
-	AmmoDivider=50.0f
+	AmmoDivider=30.0f
 	HealthThreshold(0)=50
 	HealthThreshold(1)=25
 
