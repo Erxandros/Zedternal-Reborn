@@ -499,12 +499,7 @@ simulated function ResetSupplier()
 		{
 			InteractionTrigger = Spawn(class'KFUsablePerkTrigger', OwnerPawn, , OwnerPawn.Location, OwnerPawn.Rotation, , True);
 			InteractionTrigger.SetBase(OwnerPawn);
-
-			if (PrimaryAmmoPercentage > 0.0f || SecondaryAmmoPercentage > 0.0f || ArmorPercentage > 0.0f)
-				InteractionTrigger.SetInteractionIndex(IMT_ReceiveAmmo);
-			else
-				InteractionTrigger.SetInteractionIndex(IMT_ReceiveGrenades);
-
+			InteractionTrigger.SetInteractionIndex(IMT_ReceiveAmmo);
 			OwnerPC.SetPendingInteractionMessage();
 		}
 	}
