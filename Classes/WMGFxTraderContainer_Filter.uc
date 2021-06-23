@@ -27,50 +27,44 @@ function SetPerkFilterData(byte FilterIndex)
 	local int i;
 	local GFxObject DataProvider;
 	local GFxObject FilterObject;
-	local KFPlayerController KFPC;
-	local KFPlayerReplicationInfo KFPRI;
 
 	SetBool("filterVisibliity", True);
 
-	KFPC = KFPlayerController(GetPC());
-	if (KFPC != None)
+	if (DefaultPerk.Length == 0)
+		BuildPerkList();
+
+	if (DefaultPerk.Length != 0)
 	{
-		if (DefaultPerk.Length == 0)
-			BuildPerkList();
+		// WMPerk is always zero
+		SetInt("selectedIndex", 0);
 
-		KFPRI = KFPlayerReplicationInfo(KFPC.PlayerReplicationInfo);
-		if (KFPRI != None)
+		// Set the title of this filter based on either the perk or the off perk string
+		if (FilterIndex < DefaultPerk.Length - 1)
 		{
-			SetInt("selectedIndex", KFPRI.NetPerkIndex);
-
-			// Set the title of this filter based on either the perk or the off perk string
-			if (FilterIndex < DefaultPerk.Length - 1)
-			{
-				SetString("filterText", DefaultPerk[FilterIndex].default.PerkName);
-			}
-			else if (FilterIndex == DefaultPerk.Length - 1)
-			{
-				SetString("filterText", "Custom Weapons");
-			}
-			else
-			{
-				SetString("filterText", OffPerkString);
-			}
-
-			DataProvider = CreateArray();
-			for (i = 0; i < DefaultPerk.Length; ++i)
-			{
-				FilterObject = CreateObject("Object");
-				FilterObject.SetString("source", "img://"$DefaultPerk[i].static.GetPerkIconPath());
-				DataProvider.SetElementObject(i, FilterObject);
-			}
-
-			FilterObject = CreateObject("Object");
-			FilterObject.SetString("source", "img://"$class'KFGFxObject_TraderItems'.default.OffPerkIconPath);
-			DataProvider.SetElementObject(i, FilterObject);
-
-			SetObject("filterSource", DataProvider);
+			SetString("filterText", DefaultPerk[FilterIndex].default.PerkName);
 		}
+		else if (FilterIndex == DefaultPerk.Length - 1)
+		{
+			SetString("filterText", "Custom Weapons");
+		}
+		else
+		{
+			SetString("filterText", OffPerkString);
+		}
+
+		DataProvider = CreateArray();
+		for (i = 0; i < DefaultPerk.Length; ++i)
+		{
+			FilterObject = CreateObject("Object");
+			FilterObject.SetString("source", "img://"$DefaultPerk[i].static.GetPerkIconPath());
+			DataProvider.SetElementObject(i, FilterObject);
+		}
+
+		FilterObject = CreateObject("Object");
+		FilterObject.SetString("source", "img://"$class'KFGFxObject_TraderItems'.default.OffPerkIconPath);
+		DataProvider.SetElementObject(i, FilterObject);
+
+		SetObject("filterSource", DataProvider);
 	}
 }
 
