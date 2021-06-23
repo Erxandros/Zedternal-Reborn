@@ -1,6 +1,7 @@
 class WMGFxMenu_Trader extends KFGFxMenu_Trader;
 
 var int SelectedItemIndexInt;
+var int LastSelectedPerkIndex;
 
 function InitializeMenu( KFGFxMoviePlayer_Manager InManager )
 {
@@ -54,6 +55,18 @@ function OneSecondLoop()
 
 		RefreshItemComponents();
 	}
+}
+
+function int GetPerkIndex()
+{
+	return LastSelectedPerkIndex;
+}
+
+function Callback_FilterChanged(int FilterIndex)
+{
+	super.Callback_FilterChanged(FilterIndex);
+
+	LastSelectedPerkIndex = FilterIndex;
 }
 
 ////////
@@ -316,6 +329,7 @@ function ToggleFavorite(name ClassName)
 
 defaultproperties
 {
+	LastSelectedPerkIndex=9
 	SubWidgetBindings(1)=(WidgetName="FilterContainer",WidgetClass=Class'ZedternalReborn.WMGFxTraderContainer_Filter')
 	SubWidgetBindings(2)=(WidgetName="ShopContainer",WidgetClass=Class'ZedternalReborn.WMGFxTraderContainer_Store')
 	SubWidgetBindings(5)=(WidgetName="ItemDetailsContainer",WidgetClass=Class'ZedternalReborn.WMGFxTraderContainer_ItemDetails')
