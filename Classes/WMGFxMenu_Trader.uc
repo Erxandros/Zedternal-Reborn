@@ -1,7 +1,5 @@
 class WMGFxMenu_Trader extends KFGFxMenu_Trader;
 
-var bool bBlinkPerkButton;
-
 var int SelectedItemIndexInt;
 
 function InitializeMenu( KFGFxMoviePlayer_Manager InManager )
@@ -321,6 +319,6 @@ defaultproperties
 	SubWidgetBindings(1)=(WidgetName="FilterContainer",WidgetClass=Class'ZedternalReborn.WMGFxTraderContainer_Filter')
 	SubWidgetBindings(2)=(WidgetName="ShopContainer",WidgetClass=Class'ZedternalReborn.WMGFxTraderContainer_Store')
 	SubWidgetBindings(5)=(WidgetName="ItemDetailsContainer",WidgetClass=Class'ZedternalReborn.WMGFxTraderContainer_ItemDetails')
-	bBlinkPerkButton=false
+
 	Name="Default__WMGFxMenu_Trader"
 }
