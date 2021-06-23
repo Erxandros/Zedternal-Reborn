@@ -5,16 +5,21 @@ var array< class<KFPerk> > DefaultPerk;
 function BuildPerkList()
 {
 	local byte i;
+	local KFPlayerController KFPC;
 
-	// build perk list
-	DefaultPerk.Length = 0;
-	for (i = 0; i < class'KFGame.KFPlayerController'.default.PerkList.Length; ++i)
+	KFPC = KFPlayerController(GetPC());
+	if (KFPC != None)
 	{
-		DefaultPerk.AddItem(class'KFGame.KFPlayerController'.default.PerkList[i].PerkClass);
-	}
+		// Build perk list
+		DefaultPerk.Length = 0;
+		for (i = 1; i < KFPC.default.PerkList.Length; ++i)
+		{
+			DefaultPerk.AddItem(KFPC.default.PerkList[i].PerkClass);
+		}
 
-	if (WMPlayerController(GetPC()) != None)
-		DefaultPerk.AddItem(WMPlayerController(GetPC()).default.PerkList[0].PerkClass);
+		// Add WMPerk last
+		DefaultPerk.AddItem(KFPC.default.PerkList[0].PerkClass);
+	}
 }
 
 function SetPerkFilterData(byte FilterIndex)

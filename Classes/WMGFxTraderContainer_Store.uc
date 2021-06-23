@@ -87,9 +87,9 @@ function RefreshWeaponListByPerk(byte FilterIndex, const out array<STraderItem> 
 
 function class<KFPerk> GetPerkFilterClass(byte index)
 {
-	if (index < class'KFGame.KFPlayerController'.default.PerkList.Length)
-		return class'KFGame.KFPlayerController'.default.PerkList[index].PerkClass;
-	else if (index == class'KFGame.KFPlayerController'.default.PerkList.Length)
+	if (index < KFPC.default.PerkList.Length - 1)
+		return KFPC.default.PerkList[index + 1].PerkClass;
+	else if (index == KFPC.default.PerkList.Length - 1)
 		return KFPC.default.PerkList[0].PerkClass;
 	else
 		return None;

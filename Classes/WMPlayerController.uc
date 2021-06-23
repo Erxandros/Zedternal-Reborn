@@ -512,6 +512,16 @@ defaultproperties
 	PlatformType=0
 
 	PerkList(0)=(PerkClass=class'ZedternalReborn.WMPerk')
+	PerkList(1)=(PerkClass=class'KFGame.KFPerk_Berserker')
+	PerkList(2)=(PerkClass=class'KFGame.KFPerk_Commando')
+	PerkList(3)=(PerkClass=class'KFGame.KFPerk_Support')
+	PerkList(4)=(PerkClass=class'KFGame.KFPerk_FieldMedic')
+	PerkList(5)=(PerkClass=class'KFGame.KFPerk_Demolitionist')
+	PerkList(6)=(PerkClass=class'KFGame.KFPerk_Firebug')
+	PerkList(7)=(PerkClass=class'KFGame.KFPerk_Gunslinger')
+	PerkList(8)=(PerkClass=class'KFGame.KFPerk_Sharpshooter')
+	PerkList(9)=(PerkClass=class'KFGame.KFPerk_SWAT')
+	PerkList(10)=(PerkClass=class'KFGame.KFPerk_Survivalist')
 	PurchaseHelperClass=class'WMAutoPurchaseHelper'
 
 	Name="Default__WMPlayerController"
