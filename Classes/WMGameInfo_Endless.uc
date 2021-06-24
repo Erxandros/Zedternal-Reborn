@@ -2103,6 +2103,7 @@ function SetMonsterDefaults(KFPawn_Monster P)
 
 defaultproperties
 {
+	bForceMapSorting=False
 	bIsEndlessGame=True
 	GameDifficultyZedternal=0.0f
 	MaxGameDifficulty=4
