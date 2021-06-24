@@ -366,30 +366,59 @@ function RestartPlayer(Controller NewPlayer)
 	local WMPlayerController WMPC;
 	local WMPlayerReplicationInfo WMPRI;
 	local float TimeOffset;
-
-	super.RestartPlayer(NewPlayer);
+	local bool bWasWaitingForClientPerkData;
 
 	WMPC = WMPlayerController(NewPlayer);
 	WMPRI = WMPlayerReplicationInfo(NewPlayer.PlayerReplicationInfo);
 
 	if (WMPC != None && WMPRI != None)
 	{
-		WMPC.UpdateWeaponMagAndCap();
-
-		if (!isWaveActive() && WMPRI.NumTimesReconnected > 0)
+		if (IsPlayerReady(WMPRI))
 		{
-			TimeOffset = 0;
+			bWasWaitingForClientPerkData = WMPC.bWaitingForClientPerkData;
 
-			if (WMPRI.NumTimesReconnected > 1 && `TimeSince(WMPRI.LastQuitTime) < ReconnectRespawnTime)
-				TimeOffset = ReconnectRespawnTime - `TimeSince(WMPRI.LastQuitTime);
+			// If we have rejoined the match more than once, delay our respawn by some amount of time
+			if (MyKFGRI.bMatchHasBegun && WMPRI.NumTimesReconnected > 1 && `TimeSince(WMPRI.LastQuitTime) < ReconnectRespawnTime)
+			{
+				WMPC.StartSpectate();
+				WMPC.SetTimer(ReconnectRespawnTime - `TimeSince(WMPRI.LastQuitTime), False, NameOf(WMPC.SpawnReconnectedPlayer));
+			}
+			// If a wave is active, we spectate until the end of the wave
+			else if (IsWaveActive() && !bWasWaitingForClientPerkData)
+			{
+				WMPC.StartSpectate();
+			}
+			else
+			{
+				// Skip over KFGameInfo_Survival
+				super(KFGameInfo).RestartPlayer(NewPlayer);
 
-			WMPC.DelayedPerkUpdate(TimeOffset);
-		}
+				// Already gone through one RestartPlayer() cycle, don't process again
+				if (bWasWaitingForClientPerkData)
+					return;
 
-		if (!WMPRI.bHasPlayed && WMPRI.NumTimesReconnected > 0 && WMPC.Pawn != None && WMPC.Pawn.IsAliveAndWell())
-		{
-			WMPRI.Score = GetAdjustedDeathPenalty(WMPRI, True);
-			WMPRI.bHasPlayed = True;
+				WMPC.UpdateWeaponMagAndCap();
+
+				// Perk Update for rejoining players
+				if (!isWaveActive() && WMPRI.NumTimesReconnected > 0)
+				{
+					TimeOffset = 0;
+
+					if (WMPRI.NumTimesReconnected > 1 && `TimeSince(WMPRI.LastQuitTime) < ReconnectRespawnTime)
+						TimeOffset = ReconnectRespawnTime - `TimeSince(WMPRI.LastQuitTime);
+
+					WMPC.DelayedPerkUpdate(TimeOffset);
+				}
+
+				// Late joiner dosh
+				if (!WMPRI.bHasPlayed && WMPC.Pawn != None && WMPC.Pawn.IsAliveAndWell())
+				{
+					if (MyKFGRI.bMatchHasBegun)
+						WMPRI.Score = GetAdjustedDeathPenalty(WMPRI, True);
+
+					WMPRI.bHasPlayed = True;
+				}
+			}
 		}
 	}
 }
@@ -1722,18 +1751,13 @@ function int GetAdjustedDeathPenalty(KFPlayerReplicationInfo KilledPlayerPRI, op
 	local int PlayerBase, PlayerWave, PlayerCount, PlayerPerkBonus;
 	local KFPlayerController KFPC;
 
-	// new player (dosh is based on what team won during the game
+	// new player (dosh is based on what team won during the game)
 	if (bLateJoiner)
 	{
-		if (KilledPlayerPRI.NumTimesReconnected > 0)
-		{
-			PlayerBase = Round(doshNewPlayer * class'ZedternalReborn.Config_Game'.default.Game_LateJoinerTotalDoshFactor);
-			`log("ZR Info: Player"@KilledPlayerPRI.PlayerName@"is late joiner, received"@PlayerBase@"dosh");
+		PlayerBase = Round(doshNewPlayer * class'ZedternalReborn.Config_Game'.default.Game_LateJoinerTotalDoshFactor);
+		`log("ZR Info: Player"@KilledPlayerPRI.PlayerName@"is late joiner, received"@PlayerBase@"dosh");
 
-			return PlayerBase;
-		}
-		else
-			return 0;
+		return PlayerBase;
 	}
 
 	// count current number of players
