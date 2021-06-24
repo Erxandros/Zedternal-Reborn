@@ -344,7 +344,7 @@ function WaveEnded(EWaveEndCondition WinCondition)
 {
 	local WMPlayerController WMPC;
 
-	if(!bWaveStarted && !MyKFGRI.bTraderIsOpen)
+	if (!bWaveStarted && !MyKFGRI.bTraderIsOpen)
 		return;
 
 	super.WaveEnded(WinCondition);
@@ -1513,10 +1513,10 @@ function RepGameInfoHighPriority()
 	WMGRI.NumberOfTraderWeapons = Min(510, TraderItems.SaleItems.Length);
 	WMGRI.NumberOfStartingWeapons = Min(255, KFStartingWeaponPath.Length);
 	WMGRI.NumberOfSkillUpgrades = Min(255, class'ZedternalReborn.Config_SkillUpgrade'.default.SkillUpgrade_SkillUpgrades.length);
-	WMGRI.NumberOfWeaponUpgrades =  Min(`MAXWEAPONUPGRADES, weaponUpgradeArch.Length);
-	WMGRI.NumberOfEquipmentUpgrades =  Min(255, class'ZedternalReborn.Config_EquipmentUpgrade'.default.EquipmentUpgrade_EquipmentUpgrades.length);
+	WMGRI.NumberOfWeaponUpgrades = Min(`MAXWEAPONUPGRADES, weaponUpgradeArch.Length);
+	WMGRI.NumberOfEquipmentUpgrades = Min(255, class'ZedternalReborn.Config_EquipmentUpgrade'.default.EquipmentUpgrade_EquipmentUpgrades.length);
 
-	//Preinitialize the array size for the sever/standalone
+	//Pre-initialize the array size for the sever/standalone
 	WMGRI.skillUpgrades.Length = WMGRI.NumberOfSkillUpgrades;
 	WMGRI.weaponUpgradeList.Length = WMGRI.NumberOfWeaponUpgrades;
 	WMGRI.equipmentUpgrades.Length = WMGRI.NumberOfEquipmentUpgrades;
