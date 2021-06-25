@@ -66,7 +66,8 @@ function Callback_FilterChanged(int FilterIndex)
 {
 	super.Callback_FilterChanged(FilterIndex);
 
-	LastSelectedPerkIndex = FilterIndex;
+	if (CurrentTab == TI_Perks)
+		LastSelectedPerkIndex = FilterIndex;
 }
 
 ////////
