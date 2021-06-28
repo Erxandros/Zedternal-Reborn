@@ -2101,6 +2101,92 @@ function SetMonsterDefaults(KFPawn_Monster P)
 	}
 }
 
+function UpdateGameSettings()
+{
+	local name SessionName;
+	local KFOnlineGameSettings KFGameSettings;
+	local int NumHumanPlayers, i;
+	local KFGameEngine KFEngine;
+
+	if (WorldInfo.NetMode == NM_DedicatedServer || WorldInfo.NetMode == NM_ListenServer)
+	{
+		if (GameInterface != None)
+		{
+			KFEngine = KFGameEngine(class'Engine'.static.GetEngine());
+
+			SessionName = PlayerReplicationInfoClass.default.SessionName;
+
+			if (PlayfabInter != None && PlayfabInter.GetGameSettings() != None)
+			{
+				KFGameSettings = KFOnlineGameSettings(PlayfabInter.GetGameSettings());
+				KFGameSettings.bAvailableForTakeover = KFEngine.bAvailableForTakeover;
+			}
+			else
+				KFGameSettings = KFOnlineGameSettings(GameInterface.GetGameSettings(SessionName));
+
+			if (KFGameSettings != None)
+			{
+				KFGameSettings.Mode = GetGameModeNum();
+				KFGameSettings.Difficulty = GameDifficulty;
+
+				if (WaveNum == 0)
+				{
+					KFGameSettings.bInProgress = False;
+					KFGameSettings.CurrentWave = 1;
+				}
+				else
+				{
+					KFGameSettings.bInProgress = True;
+					KFGameSettings.CurrentWave = WaveNum;
+				}
+
+				if (MyKFGRI != None)
+					KFGameSettings.NumWaves = MyKFGRI.GetFinalWaveNum();
+				else
+					KFGameSettings.NumWaves = WaveMax - 1;
+
+				KFGameSettings.OwningPlayerName = class'GameReplicationInfo'.default.ServerName;
+
+				KFGameSettings.NumPublicConnections = MaxPlayersAllowed;
+				KFGameSettings.bRequiresPassword = RequiresPassword();
+				KFGameSettings.bCustom = bIsCustomGame;
+				KFGameSettings.bUsesStats = !IsUnrankedGame();
+				KFGameSettings.NumSpectators = NumSpectators;
+				if (MyKFGRI != None)
+					MyKFGRI.bCustom = bIsCustomGame;
+
+				// Set the map name
+				if (WorldInfo.IsConsoleDedicatedServer() || WorldInfo.IsEOSDedicatedServer())
+				{
+					KFGameSettings.MapName = WorldInfo.GetMapName(True);
+					if (GameReplicationInfo != None)
+					{
+						for (i = 0; i < GameReplicationInfo.PRIArray.Length; ++i)
+						{
+							if (!GameReplicationInfo.PRIArray[i].bBot && !GameReplicationInfo.PRIArray[i].bOnlySpectator && PlayerController(GameReplicationInfo.PRIArray[i].Owner) != None)
+								NumHumanPlayers++;
+						}
+					}
+
+					KFGameSettings.NumOpenPublicConnections = KFGameSettings.NumPublicConnections - NumHumanPlayers;
+				}
+
+				if (PlayfabInter != None && PlayfabInter.IsRegisteredWithPlayfab())
+				{
+					PlayfabInter.ServerUpdateOnlineGame();
+					if (WorldInfo.IsEOSDedicatedServer())
+						GameInterface.UpdateOnlineGame(SessionName, KFGameSettings, True);
+				}
+				else
+				{
+					//Trigger re-broadcast of game settings
+					GameInterface.UpdateOnlineGame(SessionName, KFGameSettings, True);
+				}
+			}
+		}
+	}
+}
+
 defaultproperties
 {
 	bForceMapSorting=False
