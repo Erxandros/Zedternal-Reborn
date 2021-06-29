@@ -2958,6 +2958,8 @@ simulated function bool CanInteract(KFPawn_Human MyKFPH)
 		(!SuppliedPawnList[Idx].bSuppliedArmor && ArmorPercentage > 0.0f) ||
 		(!SuppliedPawnList[Idx].bSuppliedGrenades && GrenadeAmount > 0);
 	}
+
+	return False;
 }
 
 simulated function bool IsSupplierActive()
