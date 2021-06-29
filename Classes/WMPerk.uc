@@ -192,12 +192,6 @@ function ApplySkillsToPawn()
 		ApplyBatteryRechargeRate();
 		ServerComputePassiveBonuses();
 		ClientAndServerComputePassiveBonuses();
-
-		if (MyWMGRI == None)
-			MyWMGRI = WMGameReplicationInfo(WorldInfo.GRI);
-
-		if (MyWMGRI != None && !MyWMGRI.bTraderIsOpen)
-			ResetSupplier();
 	}
 }
 
