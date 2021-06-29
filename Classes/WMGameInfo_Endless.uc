@@ -279,6 +279,8 @@ function StartMatch()
 
 function StartWave()
 {
+	local KFPlayerController KFPC;
+
 	//Closes trader on server
 	MyKFGRI.CloseTrader();
 	NotifyTraderClosed();
@@ -338,6 +340,13 @@ function StartWave()
 	// first spawn and music are delayed 5 seconds (KFAISpawnManager.TimeUntilNextSpawn == 5 initially), so line up dialog with them;
 	// fixes problem of clients not being ready to receive dialog at the instant the match starts;
 	SetTimer(5.0f, False, NameOf(PlayWaveStartDialog));
+
+	//Reset Supplier ability here
+	foreach WorldInfo.AllControllers(class'KFPlayerController', KFPC)
+	{
+		if (KFPC.GetPerk() != None)
+			KFPC.GetPerk().OnWaveStart();
+	}
 }
 
 function WaveEnded(EWaveEndCondition WinCondition)
