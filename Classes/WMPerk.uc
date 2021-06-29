@@ -186,7 +186,7 @@ function ApplySkillsToPawn()
 		MyWMPRI.bSplashActive = IsGroundFireActive();
 		MyWMPRI.bNukeActive = False;
 		MyWMPRI.bConcussiveActive = False;
-		MyWMPRI.PerkSupplyLevel = 0;
+		MyWMPRI.PerkSupplyLevel = IsSupplierActive() ? MyWMPRI.PerkSupplyLevel : 0;
 
 		ApplyWeightLimits();
 		ApplyBatteryRechargeRate();
