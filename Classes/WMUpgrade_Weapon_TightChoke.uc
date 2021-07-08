@@ -16,9 +16,9 @@ static function bool IsUpgradeCompatible(class<KFWeapon> KFW)
 	return False;
 }
 
-static simulated function ModifyTightChokePassive(out float tightChokeFactor, int upgLevel)
+static simulated function ModifyTightChoke(out float InTight, float DefaultTight, int upgLevel, KFWeapon KFW, KFPawn OwnerPawn)
 {
-	tightChokeFactor -= default.Spread * upgLevel;
+	InTight -= default.Spread * upgLevel;
 }
 
 defaultproperties
