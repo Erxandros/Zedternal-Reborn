@@ -15,6 +15,8 @@ var bool bReplaceMonstertoAdd;
 var float waveValueFactor;
 var float doshFactor;
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Functions to mark if a zed body has been changed by a special wave already
 function bool CheckZedBodyChange(const out Pawn entity)
 {
@@ -30,12 +32,13 @@ function UnSetBodyChangeFlag(const out Pawn entity)
 {
 	entity.bCanSwim = False;
 }
-////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 function WaveEnded()
 {
 	Destroy();
 }
+
 function Killed(Controller Killer, Controller KilledPlayer, Pawn KilledPawn, class<DamageType> DT);
 
 static function ModifyDamageGiven(out int InDamage, int DefaultDamage, optional Actor DamageCauser, optional KFPawn_Monster MyKFPM, optional KFPlayerController DamageInstigator, optional class<KFDamageType> DamageType, optional int HitZoneIdx, optional KFWeapon MyKFW);
@@ -72,11 +75,10 @@ static simulated function GetIronSightSpeedModifier(out float InSpeed, float Def
 static simulated function GetCrouchSpeedModifier(out float InSpeed, float DefaultSpeed);
 static simulated function ModifyCloakDetectionRange(out float InRange, float DefaultRange);
 static simulated function SuccessfullParry(KFPawn OwnerPawn);
-
 static function HealingDamage(int HealAmount, KFPawn HealedPawn, KFPawn InstigatorPawn, class<DamageType> DamageType);
 static simulated function ReceiveLocalizedMessage(class<LocalMessage> Message, KFPawn OwnerPawn, optional int MessageIndex);
 static simulated function DrawOnHUD(canvas C, KFPawn OwnerPawn);
-
+static simulated function InitiateWeapon(KFWeapon KFW, KFPawn OwnerPawn);
 
 static simulated function bool CanSpreadNapalm(KFPawn OwnerPawn)
 {
@@ -97,6 +99,7 @@ static function bool CouldBeZedShrapnel(class<KFDamageType> KFDT)
 {
 	return False;
 }
+
 static function bool ShouldShrapnel()
 {
 	return False;
@@ -105,18 +108,15 @@ static function bool ShouldShrapnel()
 static simulated function bool IsWeaponOnSpecificPerk(KFWeapon W, class<KFPerk> Perk)
 {
 	if (W != None)
-	{
 		return W.static.GetWeaponPerkClass(Perk) == Perk;
-	}
 
 	return False;
 }
+
 static function bool IsDamageTypeOnSpecificPerk(class<KFDamageType> KFDT, class<KFPerk> Perk)
 {
 	if (KFDT != None)
-	{
 		return KFDT.default.ModifierPerkList.Find(Perk) > INDEX_NONE;
-	}
 
 	return False;
 }
@@ -125,8 +125,6 @@ static simulated function bool GetIsUberAmmoActive(KFWeapon KFW, KFPawn OwnerPaw
 {
 	return False;
 }
-
-static simulated function InitiateWeapon(KFWeapon KFW, KFPawn OwnerPawn);
 
 defaultproperties
 {
