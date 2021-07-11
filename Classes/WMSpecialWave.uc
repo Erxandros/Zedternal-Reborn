@@ -126,6 +126,21 @@ static simulated function bool GetIsUberAmmoActive(KFWeapon KFW, KFPawn OwnerPaw
 	return False;
 }
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Custom functions (they are used for advance extension mods and addons)
+// Only use these functions if none of the above functions will work with your custom logic
+// You will need to call the corresponding function in WMPerk for these to function in special waves
+
+//Boolean functions
+static simulated function bool CustomBoolean1(string Identifier, KFWeapon MyKFW, KFPawn OwnerPawn,
+	optional int InputInt, optional float InputFloat, optional name InputClassName,
+	optional Object InputObject1, optional Object InputObject2, optional Object InputObject3)
+{
+	return False;
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 defaultproperties
 {
 	zedSpawnRateFactor=1.0f

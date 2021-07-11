@@ -3458,6 +3458,69 @@ simulated function bool ImmuneToCameraShake()
 	return False;
 }
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Custom functions (they are used for advance extension mods and addons)
+// The Identifier variable should be used to prevent collisions with other mods which use the same functions
+// Put a unique name and then verify the name in your custom upgrades/special waves to prevent incorrect triggering
+// The object inputs can be used for anything, you will just need to cast the object to the correct type
+
+simulated function bool CustomBoolean1(optional string Identifier = "", optional int InputInt = INDEX_NONE, optional float InputFloat = INDEX_NONE, optional name InputClassName, optional Object InputObject1, optional Object InputObject2, optional Object InputObject3)
+{
+	local int i, index;
+	local bool bActive;
+	local KFWeapon MyKFW;
+
+	MyKFW = GetOwnerWeapon();
+
+	if (MyWMPRI != None && MyWMGRI != None)
+	{
+		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
+		{
+			index = MyWMPRI.Purchase_PerkUpgrade[i];
+			bActive = MyWMGRI.perkUpgrades[index].static.CustomBoolean1(MyWMPRI.bPerkUpgrade[index], Identifier, MyKFW, OwnerPawn, InputInt, InputFloat, InputClassName, InputObject1, InputObject2, InputObject3);
+			if (bActive)
+				return True;
+		}
+		for (i = 0; i < MyWMPRI.Purchase_WeaponUpgrade.length; ++i)
+		{
+			index = MyWMPRI.Purchase_WeaponUpgrade[i];
+			if (isValidWeapon(MyWMGRI.weaponUpgradeList[index].KFWeapon, MyKFW))
+			{
+				bActive = MyWMGRI.weaponUpgradeList[index].KFWeaponUpgrade.static.CustomBoolean1(MyWMPRI.GetWeaponUpgrade(index), Identifier, MyKFW, OwnerPawn, InputInt, InputFloat, InputClassName, InputObject1, InputObject2, InputObject3);
+				if (bActive)
+					return True;
+			}
+		}
+		for (i = 0; i < MyWMPRI.Purchase_SkillUpgrade.length; ++i)
+		{
+			index = MyWMPRI.Purchase_SkillUpgrade[i];
+			bActive = MyWMGRI.skillUpgrades[index].SkillUpgrade.static.CustomBoolean1(MyWMPRI.bSkillUpgrade[index], Identifier, MyKFW, OwnerPawn, InputInt, InputFloat, InputClassName, InputObject1, InputObject2, InputObject3);
+			if (bActive)
+				return True;
+		}
+		for (i = 0; i < MyWMPRI.Purchase_EquipmentUpgrade.length; ++i)
+		{
+			index = MyWMPRI.Purchase_EquipmentUpgrade[i];
+			bActive = MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.CustomBoolean1(MyWMPRI.bEquipmentUpgrade[index], Identifier, MyKFW, OwnerPawn, InputInt, InputFloat, InputClassName, InputObject1, InputObject2, InputObject3);
+			if (bActive)
+				return True;
+		}
+		for (i = 0; i <= 1; ++i)
+		{
+			if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
+			{
+				bActive = MyWMGRI.specialWaves[MyWMGRI.SpecialWaveID[i]].static.CustomBoolean1(Identifier, MyKFW, OwnerPawn, InputInt, InputFloat, InputClassName, InputObject1, InputObject2, InputObject3);
+				if (bActive)
+					return True;
+			}
+		}
+	}
+
+	return False;
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 defaultproperties
 {
 	bUsedSacrifice=False

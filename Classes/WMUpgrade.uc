@@ -198,6 +198,21 @@ static function ModifyKnockdownPowerPassive(out float knockdownPowerFactor, int 
 static function ModifySnarePowerPassive(out float snarePowerFactor, int upgLevel);
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Custom functions (they are used for advance extension mods and addons)
+// Only use these functions if none of the above functions will work with your custom logic
+// You will need to call the corresponding function in WMPerk for these to function in upgrades
+
+//Boolean functions
+static simulated function bool CustomBoolean1(int upgLevel, string Identifier, KFWeapon MyKFW, KFPawn OwnerPawn,
+	optional int InputInt, optional float InputFloat, optional name InputClassName,
+	optional Object InputObject1, optional Object InputObject2, optional Object InputObject3)
+{
+	return False;
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 // Other stuff like tools
 static simulated function Texture2D GetupgradeIcon(int index)
 {
