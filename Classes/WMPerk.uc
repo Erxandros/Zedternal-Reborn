@@ -3465,7 +3465,7 @@ simulated function bool ImmuneToCameraShake()
 // Put a unique name and then verify the name in your custom upgrades/special waves to prevent incorrect triggering
 // The object inputs can be used for anything, you will just need to cast the object to the correct type
 
-simulated function bool ExtensionFuncBoolean(optional string Identifier = "", optional int InputInt = INDEX_NONE, optional float InputFloat = INDEX_NONE, optional name InputClassName, optional Object InputObject1, optional Object InputObject2, optional Object InputObject3)
+simulated function bool ExtensionFuncBoolean(string Identifier, optional int InputInt = INDEX_NONE, optional float InputFloat = INDEX_NONE, optional name InputClassName, optional Object InputObject1, optional Object InputObject2, optional Object InputObject3)
 {
 	local int i, index;
 	local bool bActive;
@@ -3520,7 +3520,7 @@ simulated function bool ExtensionFuncBoolean(optional string Identifier = "", op
 	return False;
 }
 
-simulated function int ExtensionFuncInteger(int DefaultValueIn, optional string Identifier = "", optional int InputInt = INDEX_NONE, optional float InputFloat = INDEX_NONE, optional name InputClassName, optional Object InputObject1, optional Object InputObject2, optional Object InputObject3)
+simulated function int ExtensionFuncInteger(int DefaultValueIn, string Identifier, optional int InputInt = INDEX_NONE, optional float InputFloat = INDEX_NONE, optional name InputClassName, optional Object InputObject1, optional Object InputObject2, optional Object InputObject3)
 {
 	local int i, index;
 	local int DefaultValue, InValue;
@@ -3564,7 +3564,7 @@ simulated function int ExtensionFuncInteger(int DefaultValueIn, optional string 
 	return InValue;
 }
 
-simulated function float ExtensionFuncFloat(float DefaultValueIn, optional string Identifier = "", optional int InputInt = INDEX_NONE, optional float InputFloat = INDEX_NONE, optional name InputClassName, optional Object InputObject1, optional Object InputObject2, optional Object InputObject3)
+simulated function float ExtensionFuncFloat(float DefaultValueIn, string Identifier, optional int InputInt = INDEX_NONE, optional float InputFloat = INDEX_NONE, optional name InputClassName, optional Object InputObject1, optional Object InputObject2, optional Object InputObject3)
 {
 	local int i, index;
 	local float DefaultValue, InValue;
