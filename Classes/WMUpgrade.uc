@@ -211,6 +211,16 @@ static simulated function bool ExtensionFuncBoolean(int upgLevel, string Identif
 {
 	return False;
 }
+
+//Integer function
+static simulated function ExtensionFuncInteger(out int InValue, int DefaultValue, int upgLevel, string Identifier,
+	KFWeapon MyKFW, KFPawn OwnerPawn, optional int InputInt, optional float InputFloat, optional name InputClassName,
+	optional Object InputObject1, optional Object InputObject2, optional Object InputObject3);
+
+//Float function
+static simulated function ExtensionFuncFloat(out float InValue, float DefaultValue, int upgLevel, string Identifier,
+	KFWeapon MyKFW, KFPawn OwnerPawn, optional int InputInt, optional float InputFloat, optional name InputClassName,
+	optional Object InputObject1, optional Object InputObject2, optional Object InputObject3);
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // Other stuff like tools

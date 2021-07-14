@@ -3519,6 +3519,94 @@ simulated function bool ExtensionFuncBoolean(optional string Identifier = "", op
 
 	return False;
 }
+
+simulated function int ExtensionFuncInteger(int DefaultValueIn, optional string Identifier = "", optional int InputInt = INDEX_NONE, optional float InputFloat = INDEX_NONE, optional name InputClassName, optional Object InputObject1, optional Object InputObject2, optional Object InputObject3)
+{
+	local int i, index;
+	local int DefaultValue, InValue;
+	local KFWeapon MyKFW;
+
+	DefaultValue = DefaultValueIn;
+	InValue = DefaultValue;
+
+	MyKFW = GetOwnerWeapon();
+
+	if (MyWMPRI != None && MyWMGRI != None)
+	{
+		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
+		{
+			index = MyWMPRI.Purchase_PerkUpgrade[i];
+			MyWMGRI.perkUpgrades[index].static.ExtensionFuncInteger(InValue, DefaultValue, MyWMPRI.bPerkUpgrade[index], Identifier, MyKFW, OwnerPawn, InputInt, InputFloat, InputClassName, InputObject1, InputObject2, InputObject3);
+		}
+		for (i = 0; i < MyWMPRI.Purchase_WeaponUpgrade.length; ++i)
+		{
+			index = MyWMPRI.Purchase_WeaponUpgrade[i];
+			if (isValidWeapon(MyWMGRI.weaponUpgradeList[index].KFWeapon, MyKFW))
+				MyWMGRI.weaponUpgradeList[index].KFWeaponUpgrade.static.ExtensionFuncInteger(InValue, DefaultValue, MyWMPRI.GetWeaponUpgrade(index), Identifier, MyKFW, OwnerPawn, InputInt, InputFloat, InputClassName, InputObject1, InputObject2, InputObject3);
+		}
+		for (i = 0; i < MyWMPRI.Purchase_SkillUpgrade.length; ++i)
+		{
+			index = MyWMPRI.Purchase_SkillUpgrade[i];
+			MyWMGRI.skillUpgrades[index].SkillUpgrade.static.ExtensionFuncInteger(InValue, DefaultValue, MyWMPRI.bSkillUpgrade[index], Identifier, MyKFW, OwnerPawn, InputInt, InputFloat, InputClassName, InputObject1, InputObject2, InputObject3);
+		}
+		for (i = 0; i < MyWMPRI.Purchase_EquipmentUpgrade.length; ++i)
+		{
+			index = MyWMPRI.Purchase_EquipmentUpgrade[i];
+			MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.ExtensionFuncInteger(InValue, DefaultValue, MyWMPRI.bEquipmentUpgrade[index], Identifier, MyKFW, OwnerPawn, InputInt, InputFloat, InputClassName, InputObject1, InputObject2, InputObject3);
+		}
+		for (i = 0; i <= 1; ++i)
+		{
+			if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
+				MyWMGRI.specialWaves[MyWMGRI.SpecialWaveID[i]].static.ExtensionFuncInteger(InValue, DefaultValue, Identifier, MyKFW, OwnerPawn, InputInt, InputFloat, InputClassName, InputObject1, InputObject2, InputObject3);
+		}
+	}
+
+	return InValue;
+}
+
+simulated function float ExtensionFuncFloat(float DefaultValueIn, optional string Identifier = "", optional int InputInt = INDEX_NONE, optional float InputFloat = INDEX_NONE, optional name InputClassName, optional Object InputObject1, optional Object InputObject2, optional Object InputObject3)
+{
+	local int i, index;
+	local float DefaultValue, InValue;
+	local KFWeapon MyKFW;
+
+	DefaultValue = DefaultValueIn;
+	InValue = DefaultValue;
+
+	MyKFW = GetOwnerWeapon();
+
+	if (MyWMPRI != None && MyWMGRI != None)
+	{
+		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.length; ++i)
+		{
+			index = MyWMPRI.Purchase_PerkUpgrade[i];
+			MyWMGRI.perkUpgrades[index].static.ExtensionFuncFloat(InValue, DefaultValue, MyWMPRI.bPerkUpgrade[index], Identifier, MyKFW, OwnerPawn, InputInt, InputFloat, InputClassName, InputObject1, InputObject2, InputObject3);
+		}
+		for (i = 0; i < MyWMPRI.Purchase_WeaponUpgrade.length; ++i)
+		{
+			index = MyWMPRI.Purchase_WeaponUpgrade[i];
+			if (isValidWeapon(MyWMGRI.weaponUpgradeList[index].KFWeapon, MyKFW))
+				MyWMGRI.weaponUpgradeList[index].KFWeaponUpgrade.static.ExtensionFuncFloat(InValue, DefaultValue, MyWMPRI.GetWeaponUpgrade(index), Identifier, MyKFW, OwnerPawn, InputInt, InputFloat, InputClassName, InputObject1, InputObject2, InputObject3);
+		}
+		for (i = 0; i < MyWMPRI.Purchase_SkillUpgrade.length; ++i)
+		{
+			index = MyWMPRI.Purchase_SkillUpgrade[i];
+			MyWMGRI.skillUpgrades[index].SkillUpgrade.static.ExtensionFuncFloat(InValue, DefaultValue, MyWMPRI.bSkillUpgrade[index], Identifier, MyKFW, OwnerPawn, InputInt, InputFloat, InputClassName, InputObject1, InputObject2, InputObject3);
+		}
+		for (i = 0; i < MyWMPRI.Purchase_EquipmentUpgrade.length; ++i)
+		{
+			index = MyWMPRI.Purchase_EquipmentUpgrade[i];
+			MyWMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.ExtensionFuncFloat(InValue, DefaultValue, MyWMPRI.bEquipmentUpgrade[index], Identifier, MyKFW, OwnerPawn, InputInt, InputFloat, InputClassName, InputObject1, InputObject2, InputObject3);
+		}
+		for (i = 0; i <= 1; ++i)
+		{
+			if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
+				MyWMGRI.specialWaves[MyWMGRI.SpecialWaveID[i]].static.ExtensionFuncFloat(InValue, DefaultValue, Identifier, MyKFW, OwnerPawn, InputInt, InputFloat, InputClassName, InputObject1, InputObject2, InputObject3);
+		}
+	}
+
+	return InValue;
+}
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 defaultproperties
