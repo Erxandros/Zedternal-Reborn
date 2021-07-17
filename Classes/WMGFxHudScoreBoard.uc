@@ -326,7 +326,7 @@ event Draw(Canvas ca)
 		else if (WMPRI.bWaitingPlayer)
 			S = "In Lobby";
 		else
-			S = " Lv" @string (WMPRI.GetActivePerkLevel());
+			S = " Lv" @string(WMPRI.PlayerLevel);
 
 		ScoreBoardCanvas.DrawText(S, , FontScalar, FontScalar);
 		//////
