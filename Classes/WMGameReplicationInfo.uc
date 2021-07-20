@@ -729,6 +729,11 @@ simulated function CloseTrader()
 	super.CloseTrader();
 }
 
+simulated function WaveStartedEndlessDialog()
+{
+	class'KFTraderDialogManager'.static.BroadcastEndlessStartWaveDialog(WaveNum, INDEX_NONE, WorldInfo);
+}
+
 simulated function PlayZedBuffSoundAndEffect()
 {
 	if (WMGFxHudWrapper(KFPlayerController(GetALocalPlayerController()).myHUD) != None)
