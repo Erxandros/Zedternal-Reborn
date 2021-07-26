@@ -29,6 +29,7 @@ var config bool Game_bUsePatriarchTraderVoice;
 var config bool Game_bUseHansTraderVoice;
 var config bool Game_bUseLockheartTraderVoice;
 var config bool Game_bUseSantaTraderVoice;
+var config bool Game_bUseObjectiveTraderVoice;
 
 var config bool Game_bAllowZedTeleport;
 var config bool Game_bAllowFastSpawning;
@@ -121,6 +122,11 @@ static function UpdateConfig()
 		default.Game_ExtraDoshWaveBonusMultiplier = 5;
 		default.Game_ExtraDoshPerkBonusDivider = 2;
 		default.Game_ExtraDoshPerkBonusMaxThreshold = 140;
+	}
+
+	if (default.MODEVERSION < 10)
+	{
+		default.Game_bUseObjectiveTraderVoice = false;
 	}
 
 	if (default.MODEVERSION < class'ZedternalReborn.Config_Base'.default.currentVersion)

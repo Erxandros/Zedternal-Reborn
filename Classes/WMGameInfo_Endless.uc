@@ -1503,6 +1503,8 @@ function SelectRandomTraderVoice()
 		traderVoiceList.AddItem(3);
 	if (class'ZedternalReborn.Config_Game'.default.Game_bUseSantaTraderVoice)
 		traderVoiceList.AddItem(4);
+	if (class'ZedternalReborn.Config_Game'.default.Game_bUseObjectiveTraderVoice)
+		traderVoiceList.AddItem(5);
 
 	if (traderVoiceList.length > 0)
 		TraderVoiceIndex = traderVoiceList[Rand(traderVoiceList.length)];

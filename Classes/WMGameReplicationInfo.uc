@@ -924,6 +924,7 @@ defaultproperties
 	TraderVoiceGroupClasses(2)=Class'KFGameContent.KFTraderVoiceGroup_Hans'
 	TraderVoiceGroupClasses(3)=Class'KFGameContent.KFTraderVoiceGroup_Lockheart'
 	TraderVoiceGroupClasses(4)=Class'KFGameContent.KFTraderVoiceGroup_Santa'
+	TraderVoiceGroupClasses(5)=Class'KFGameContent.KFTraderVoiceGroup_Objective'
 	ZedBuffMusic(0)=KFMusicTrackInfo'WW_MACT_Default.TI_SH_Boss_DieVolter'
 	ZedBuffMusic(1)=KFMusicTrackInfo'WW_MACT_Default.TI_Boss_Patriarch'
 	ZedBuffMusic(2)=KFMusicTrackInfo'WW_MACT_Default.TI_RG_Abomination'
