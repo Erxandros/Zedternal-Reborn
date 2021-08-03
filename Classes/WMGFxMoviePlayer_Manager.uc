@@ -65,6 +65,7 @@ defaultproperties
 	WidgetPaths.Add("../ZedternalReborn_Menus/ZedternalLobby/LobbyGUI.swf")
 	InGamePartyWidgetClass=Class'ZedternalReborn.WMGFxWidget_PartyInGame'
 	WidgetBindings(10)=(WidgetName="startMenu",WidgetClass=Class'ZedternalReborn.WMGFxMenu_StartGame')
+	WidgetBindings(20)=(WidgetName="postGameMenu",WidgetClass=class'ZedternalReborn.WMGFxMenu_PostGameReport')
 	WidgetBindings(21)=(WidgetName="traderMenu",WidgetClass=Class'ZedternalReborn.WMGFxMenu_Trader')
 	WidgetBindings(24)=(WidgetName="MenuBarWidget",WidgetClass=Class'ZedternalReborn.WMGFxWidget_MenuBar')
 

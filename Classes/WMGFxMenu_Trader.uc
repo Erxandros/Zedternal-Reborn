@@ -331,6 +331,7 @@ function ToggleFavorite(name ClassName)
 defaultproperties
 {
 	LastSelectedPerkIndex=9
+	SubWidgetBindings(0)=(WidgetName="gameInfoContainer",WidgetClass=class'ZedternalReborn.WMGFxTraderContainer_GameInfo')
 	SubWidgetBindings(1)=(WidgetName="FilterContainer",WidgetClass=Class'ZedternalReborn.WMGFxTraderContainer_Filter')
 	SubWidgetBindings(2)=(WidgetName="ShopContainer",WidgetClass=Class'ZedternalReborn.WMGFxTraderContainer_Store')
 	SubWidgetBindings(5)=(WidgetName="ItemDetailsContainer",WidgetClass=Class'ZedternalReborn.WMGFxTraderContainer_ItemDetails')

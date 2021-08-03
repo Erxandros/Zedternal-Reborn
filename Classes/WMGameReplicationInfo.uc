@@ -861,9 +861,14 @@ simulated function int GetNumPlayersAlive()
 	return NumPlayersAlive;
 }
 
+simulated function bool HasFinalWave()
+{
+	return WaveMax != byte(INDEX_NONE);
+}
+
 simulated function bool IsFinalWave()
 {
-	return False;
+	return HasFinalWave() && (WaveNum == WaveMax);
 }
 
 simulated function bool IsBossWave()
@@ -884,6 +889,11 @@ simulated function bool ShouldSetBossCamOnBossSpawn()
 simulated function bool ShouldSetBossCamOnBossDeath()
 {
 	return False;
+}
+
+simulated function int GetFinalWaveNum()
+{
+	return WaveMax;
 }
 
 simulated function array<int> GetKFSeqEventLevelLoadedIndices()

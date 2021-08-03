@@ -11,7 +11,7 @@ var float doshNewPlayer;
 var int lastSpecialWaveID_First, lastSpecialWaveID_Second;
 var int TimeBetweenWavesDefault, TimeBetweenWavesExtend;
 var bool bUseExtendedTraderTime, bUseStartingTraderTime, bUseAllTraders;
-var int startingWave, startingTraderTime, startingDosh;
+var int startingWave, finalWave, startingTraderTime, startingDosh;
 var byte startingMaxPlayerCount, TraderVoiceIndex;
 
 var float GameDifficultyZedternal;
@@ -44,6 +44,9 @@ event InitGame(string Options, out string ErrorMessage)
 {
 	// starting wave can be set through the console while launching the mod (by adding : ?wave=XXX)
 	startingWave = Min(class'GameInfo'.static.GetIntOption(Options, "wave", 0) - 1, 254);
+
+	// final wave can be set through the console while launching the mod (by adding : ?final=XXX)
+	finalWave = Min(class'GameInfo'.static.GetIntOption(Options, "final", 255), 255);
 
 	// starting trader time can be set through the console while launching the mod only with starting wave as well (by adding : ?tradertime=XXX)
 	startingTraderTime = class'GameInfo'.static.GetIntOption(Options, "tradertime", 0);
@@ -210,7 +213,7 @@ function InitSpawnManager()
 	else
 		GameDifficultyZedternal = GameDifficulty;
 
-	WaveMax = INDEX_NONE;
+	WaveMax = finalWave;
 	MyKFGRI.WaveMax = WaveMax;
 }
 
