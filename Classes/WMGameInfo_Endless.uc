@@ -213,10 +213,26 @@ function InitSpawnManager()
 	else
 		GameDifficultyZedternal = GameDifficulty;
 
+	InitWaveNumbers();
+}
+
+function InitWaveNumbers()
+{
+	if (startingWave >= 0)
+		WaveNum = startingWave;
+	else
+		WaveNum = class'ZedternalReborn.Config_Map'.static.GetStartingWave(WorldInfo.GetMapName(True));
+
 	if (finalWave < 255 && finalWave > 0)
 		WaveMax = finalWave;
 	else
 		WaveMax = class'ZedternalReborn.Config_Map'.static.GetFinalWave(WorldInfo.GetMapName(True));
+
+	if (WaveMax <= WaveNum)
+	{
+		`log("ZR Warning: Final wave was set to wave"@WaveMax@"but start wave is set to wave"@(WaveNum + 1)@". Moving final wave to wave"@(WaveNum + 1));
+		WaveMax = WaveNum + 1;
+	}
 
 	MyKFGRI.WaveMax = WaveMax;
 }
@@ -225,11 +241,6 @@ function StartMatch()
 {
 	local KFPlayerController KFPC;
 	local WMGameReplicationInfo WMGRI;
-
-	if (startingWave >= 0)
-		WaveNum = startingWave;
-	else
-		WaveNum = class'ZedternalReborn.Config_Map'.static.GetStartingWave(WorldInfo.GetMapName(True));
 
 	MyKFGRI.WaveNum = WaveNum;
 
