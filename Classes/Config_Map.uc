@@ -8,6 +8,7 @@ struct S_Map
 	var string MapName;
 	var int StartingDosh;
 	var int StartingWave;
+	var int FinalWave;
 	var int StartingTraderTime;
 	var float ZedNumberScale;
 	var float ZedSpawnRate;
@@ -19,6 +20,7 @@ struct S_Map
 	{
 		StartingDosh=400
 		StartingWave=1
+		FinalWave=255
 		StartingTraderTime=0
 		ZedNumberScale=1.000000
 		ZedSpawnRate=1.000000
@@ -63,6 +65,14 @@ static function UpdateConfig()
 		}
 	}
 
+	if (default.MODEVERSION < 10)
+	{
+		for (i = 0; i < default.Map_Settings.length; ++i)
+		{
+			default.Map_Settings[i].FinalWave = 255;
+		}
+	}
+
 	if (default.MODEVERSION < class'ZedternalReborn.Config_Base'.default.currentVersion)
 	{
 		default.MODEVERSION = class'ZedternalReborn.Config_Base'.default.currentVersion;
@@ -87,9 +97,20 @@ static function int GetStartingWave(string MapName)
 
 	index = default.Map_Settings.Find('MapName', MapName);
 	if (index != INDEX_NONE)
-		return Min(Max(default.Map_Settings[index].StartingWave - 1, 0), 254);
+		return Clamp(default.Map_Settings[index].StartingWave - 1, 0, 254);
 	else
 		return 0;
+}
+
+static function int GetFinalWave(string MapName)
+{
+	local int index;
+
+	index = default.Map_Settings.Find('MapName', MapName);
+	if (index != INDEX_NONE)
+		return Clamp(default.Map_Settings[index].FinalWave, 1, 255);
+	else
+		return 255;
 }
 
 static function int GetStartingTraderTime(string MapName)

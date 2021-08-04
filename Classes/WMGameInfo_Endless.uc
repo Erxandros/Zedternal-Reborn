@@ -213,7 +213,11 @@ function InitSpawnManager()
 	else
 		GameDifficultyZedternal = GameDifficulty;
 
-	WaveMax = finalWave;
+	if (finalWave < 255 && finalWave > 0)
+		WaveMax = finalWave;
+	else
+		WaveMax = class'ZedternalReborn.Config_Map'.static.GetFinalWave(WorldInfo.GetMapName(True));
+
 	MyKFGRI.WaveMax = WaveMax;
 }
 
