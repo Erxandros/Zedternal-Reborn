@@ -384,6 +384,47 @@ function SetupNextWave(byte NextWaveIndex, int TimeToNextWaveBuffer = 0)
 		}
 	}
 
+	// Inject additional zeds into the group list
+	if (class'ZedternalReborn.Config_Zed'.default.Zed_bEnableWaveGroupInjection)
+	{
+		for (i = 0; i < class'ZedternalReborn.Config_Zed'.default.Zed_ZedWaveGroupInject.Length; ++i)
+		{
+			if (class'ZedternalReborn.Config_Zed'.default.Zed_ZedWaveGroupInject[i].WaveNum == NextWaveIndex
+				&& class'ZedternalReborn.Config_Zed'.default.Zed_ZedWaveGroupInject[i].minDifficulty <= GameDifficultyZedternal
+				&& class'ZedternalReborn.Config_Zed'.default.Zed_ZedWaveGroupInject[i].maxDifficulty >= GameDifficultyZedternal)
+			{
+				bNewSquad = True;
+				switch (Caps(class'ZedternalReborn.Config_Zed'.default.Zed_ZedWaveGroupInject[i].Position))
+				{
+					case "BEG":
+						k = 0;
+						groupList.Insert(k, 1);
+						break;
+					case "MID":
+						k = groupList.Length / 2;
+						groupList.Insert(k, 1);
+						break;
+					case "END":
+						k = groupList.Length;
+						groupList.Add(1);
+						break;
+					default:
+						`log("ZR Error:" @ class'ZedternalReborn.Config_Zed'.default.Zed_ZedWaveGroupInject[i].Position @ "is not a known position for a wave group injection,"
+							@"only BEG, Mid, and END are valid positions. Please check your config and fix the broken Zed_ZedWaveGroupInject lines");
+						bNewSquad = False;
+						break;
+				}
+
+				if (bNewSquad)
+				{
+					groupList[k].MClass = class'ZedternalReborn.Config_Zed'.default.Zed_ZedWaveGroupInject[i].ZedClasses;
+					groupList[k].Delay = class'ZedternalReborn.Config_Zed'.default.Zed_ZedWaveGroupInject[i].ZedClasses.Length * customSpawnRate;
+					WaveTotalAI += class'ZedternalReborn.Config_Zed'.default.Zed_ZedWaveGroupInject[i].ZedClasses.Length;
+				}
+			}
+		}
+	}
+
 	// Clear out any leftover spawn squads from last wave
 	LeftoverSpawnSquad.Length = 0;
 

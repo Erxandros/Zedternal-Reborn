@@ -36,6 +36,18 @@ struct SZedVariant
 };
 var config array< SZedVariant > Zed_ZedVariant;
 
+var config bool Zed_bEnableWaveGroupInjection;
+
+struct SZedSpawnGroup
+{
+	var array< class<KFPawn_Monster> > ZedClasses;
+	var int WaveNum;
+	var string Position;
+	var int minDifficulty;
+	var int maxDifficulty;
+};
+var config array<SZedSpawnGroup> Zed_ZedWaveGroupInject;
+
 static function UpdateConfig()
 {
 	if (default.MODEVERSION < 1)
@@ -719,6 +731,22 @@ static function UpdateConfig()
 		default.Zed_ZedVariant[14].probability = 0.500000;
 		default.Zed_ZedVariant[14].minDifficulty = 0;
 		default.Zed_ZedVariant[14].maxDifficulty = 4;
+	}
+
+	if (default.MODEVERSION < 10)
+	{
+		default.Zed_bEnableWaveGroupInjection = false;
+
+		default.Zed_ZedWaveGroupInject.length = 1;
+		default.Zed_ZedWaveGroupInject[0].ZedClasses.length = 3;
+
+		default.Zed_ZedWaveGroupInject[0].ZedClasses[0] = Class'ZedternalReborn.WMPawn_ZedCrawler_Ultra';
+		default.Zed_ZedWaveGroupInject[0].ZedClasses[1] = Class'ZedternalReborn.WMPawn_ZedCrawler_Ultra';
+		default.Zed_ZedWaveGroupInject[0].ZedClasses[2] = Class'ZedternalReborn.WMPawn_ZedCrawler_Ultra';
+		default.Zed_ZedWaveGroupInject[0].WaveNum = 10;
+		default.Zed_ZedWaveGroupInject[0].Position = "END";
+		default.Zed_ZedWaveGroupInject[0].minDifficulty = 0;
+		default.Zed_ZedWaveGroupInject[0].maxDifficulty = 4;
 	}
 
 	if (default.MODEVERSION < class'ZedternalReborn.Config_Base'.default.currentVersion)
