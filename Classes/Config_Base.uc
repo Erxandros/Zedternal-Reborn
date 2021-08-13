@@ -1,29 +1,9 @@
-class Config_Base extends info
-	config(ZedternalReborn);
+class Config_Base extends Object;
 
-var int currentVersion;
-var int currentHotfix;
+const CurrentVersion = 9;
+const CurrentHotfix = 3;
 
-var array< class< Config_Base > > ConfigFiles;
-
-struct S_Difficulty_Int
-{
-	var int Normal;
-	var int Hard;
-	var int Suicidal;
-	var int HoE;
-	var int Custom;
-};
-struct S_Difficulty_Float
-{
-	var float Normal;
-	var float Hard;
-	var float Suicidal;
-	var float HoE;
-	var float Custom;
-};
-
-static function UpdateConfig();
+var array< class<Config_Common> > ConfigFiles;
 
 static function CheckDefaultValue()
 {
@@ -34,26 +14,24 @@ static function CheckDefaultValue()
 	for (i = 0; i < default.ConfigFiles.length; ++i)
 	{
 		default.ConfigFiles[i].static.UpdateConfig();
+		default.ConfigFiles[i].static.CheckConfigValues();
 	}
 }
 
 static function PrintVersion()
 {
-	if (default.currentHotfix == 0)
+	if (CurrentHotfix == 0)
 	{
-		`log("ZedternalReborn GameMode Version: " $ default.currentVersion);
+		`log("ZedternalReborn GameMode Version: " $ CurrentVersion);
 	}
 	else
 	{
-		`log("ZedternalReborn GameMode Version: " $ default.currentVersion $" Hotfix: " $ default.currentHotfix);
+		`log("ZedternalReborn GameMode Version: " $ CurrentVersion $" Hotfix: " $ CurrentHotfix);
 	}
 }
 
 defaultproperties
 {
-	currentVersion=9
-	currentHotfix=3
-
 	ConfigFiles(0)=class'ZedternalReborn.Config_Game'
 	ConfigFiles(1)=class'ZedternalReborn.Config_Difficulty'
 	ConfigFiles(2)=class'ZedternalReborn.Config_Waves'
@@ -69,4 +47,6 @@ defaultproperties
 	ConfigFiles(12)=class'ZedternalReborn.Config_Map'
 	ConfigFiles(13)=class'ZedternalReborn.Config_Objective'
 	ConfigFiles(14)=class'ZedternalReborn.Config_EquipmentUpgrade'
+
+	Name="Default__Config_Base"
 }

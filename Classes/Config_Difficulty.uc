@@ -1,4 +1,4 @@
-class Config_Difficulty extends Config_Base
+class Config_Difficulty extends Config_Common
 	config(ZedternalReborn);
 
 var config int MODEVERSION;
@@ -51,9 +51,9 @@ static function UpdateConfig()
 		default.ZedStat_SpeedMod.Custom = 0.950000;
 	}
 
-	if (default.MODEVERSION < class'ZedternalReborn.Config_Base'.default.currentVersion)
+	if (default.MODEVERSION < class'ZedternalReborn.Config_Base'.const.currentVersion)
 	{
-		default.MODEVERSION = class'ZedternalReborn.Config_Base'.default.currentVersion;
+		default.MODEVERSION = class'ZedternalReborn.Config_Base'.const.currentVersion;
 		static.StaticSaveConfig();
 	}
 }

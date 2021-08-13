@@ -1,4 +1,4 @@
-class Config_SkillUpgrade extends Config_Base
+class Config_SkillUpgrade extends Config_Common
 	config(ZedternalReborn);
 
 var config int MODEVERSION;
@@ -215,9 +215,9 @@ static function UpdateConfig()
 		default.SkillUpgrade_DeluxeSkillUnlock.PerkLevels[0] = 6;
 	}
 
-	if (default.MODEVERSION < class'ZedternalReborn.Config_Base'.default.currentVersion)
+	if (default.MODEVERSION < class'ZedternalReborn.Config_Base'.const.currentVersion)
 	{
-		default.MODEVERSION = class'ZedternalReborn.Config_Base'.default.currentVersion;
+		default.MODEVERSION = class'ZedternalReborn.Config_Base'.const.currentVersion;
 		static.StaticSaveConfig();
 	}
 }

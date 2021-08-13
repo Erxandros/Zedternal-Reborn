@@ -1,4 +1,4 @@
-class Config_ZedBuff extends Config_Base
+class Config_ZedBuff extends Config_Common
 	config(ZedternalReborn);
 
 var config int MODEVERSION;
@@ -179,9 +179,9 @@ static function UpdateConfig()
 		default.ZedBuff_bBonusTraderTimeGivenPerBuff = false;
 	}
 
-	if (default.MODEVERSION < class'ZedternalReborn.Config_Base'.default.currentVersion)
+	if (default.MODEVERSION < class'ZedternalReborn.Config_Base'.const.currentVersion)
 	{
-		default.MODEVERSION = class'ZedternalReborn.Config_Base'.default.currentVersion;
+		default.MODEVERSION = class'ZedternalReborn.Config_Base'.const.currentVersion;
 		static.StaticSaveConfig();
 	}
 }
