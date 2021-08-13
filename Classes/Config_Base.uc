@@ -5,13 +5,13 @@ const CurrentHotfix = 3;
 
 var array< class<Config_Common> > ConfigFiles;
 
-static function CheckDefaultValue()
+static function LoadConfigs()
 {
 	local byte i;
 
 	PrintVersion();
 
-	for (i = 0; i < default.ConfigFiles.length; ++i)
+	for (i = 0; i < default.ConfigFiles.Length; ++i)
 	{
 		default.ConfigFiles[i].static.UpdateConfig();
 		default.ConfigFiles[i].static.CheckConfigValues();
@@ -22,11 +22,11 @@ static function PrintVersion()
 {
 	if (CurrentHotfix == 0)
 	{
-		`log("ZedternalReborn GameMode Version: " $ CurrentVersion);
+		`log("ZedternalReborn GameMode Version:" @ CurrentVersion);
 	}
 	else
 	{
-		`log("ZedternalReborn GameMode Version: " $ CurrentVersion $" Hotfix: " $ CurrentHotfix);
+		`log("ZedternalReborn GameMode Version:" @ CurrentVersion @ "Hotfix:" @ CurrentHotfix);
 	}
 }
 

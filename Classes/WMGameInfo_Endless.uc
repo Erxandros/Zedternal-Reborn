@@ -108,7 +108,7 @@ event PostBeginPlay()
 	super.PostBeginPlay();
 
 	// Update Default Value
-	class'ZedternalReborn.Config_Base'.static.CheckDefaultValue();
+	class'ZedternalReborn.Config_Base'.static.LoadConfigs();
 
 	//Set all traders toggle
 	bUseAllTraders = class'ZedternalReborn.Config_Map'.static.GetAllTraders(WorldInfo.GetMapName(True));
