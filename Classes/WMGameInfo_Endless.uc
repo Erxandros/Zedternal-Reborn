@@ -1570,10 +1570,10 @@ function RepGameInfoHighPriority()
 	}
 
 	//Skill reroll
-	WMGRI.bAllowSkillReroll = class'Config_PerkUpgrade'.default.PerkUpgrade_bAllowSkillReroll;
-	WMGRI.RerollCost = class'Config_PerkUpgrade'.default.PerkUpgrade_SkillRerollCost.BasePrice;
-	WMGRI.RerollMultiplier = FMax(class'Config_PerkUpgrade'.default.PerkUpgrade_SkillRerollCost.NextRerollMultiplier, 1.0f);
-	WMGRI.RerollSkillSellPercent = FClamp(class'Config_PerkUpgrade'.default.PerkUpgrade_SkillRerollSellPercentage, 0.0f, 1.0f);
+	WMGRI.bAllowSkillReroll = class'Config_SkillReroll'.default.SkillReroll_bEnable;
+	WMGRI.RerollCost = class'Config_SkillReroll'.default.SkillReroll_BasePrice;
+	WMGRI.RerollMultiplier = class'Config_SkillReroll'.default.SkillReroll_NextRerollPriceMultiplier;
+	WMGRI.RerollSkillSellPercent = class'Config_SkillReroll'.default.SkillReroll_SkillRerollSellPercentage;
 
 	SetTimer(3.0f, False, NameOf(RepGameInfoNormalPriority));
 }
@@ -1652,10 +1652,10 @@ function RepGameInfoLowPriority()
 	}
 
 	//Perk Upgrades
-	for (b = 0; b < Min(255, class'ZedternalReborn.Config_PerkUpgrade'.default.PerkUpgrade_perkUpgrades.length); ++b)
+	for (b = 0; b < Min(255, class'ZedternalReborn.Config_PerkUpgrade'.default.PerkUpgrade_Upgrade.Length); ++b)
 	{
-		WMGRI.perkUpgradesStr[b] = class'ZedternalReborn.Config_PerkUpgrade'.default.PerkUpgrade_PerkUpgrades[b];
-		WMGRI.perkUpgrades[b] = class<WMUpgrade_Perk>(DynamicLoadObject(class'ZedternalReborn.Config_PerkUpgrade'.default.PerkUpgrade_PerkUpgrades[b], class'Class'));
+		WMGRI.perkUpgradesStr[b] = class'ZedternalReborn.Config_PerkUpgrade'.default.PerkUpgrade_Upgrade[b];
+		WMGRI.perkUpgrades[b] = class<WMUpgrade_Perk>(DynamicLoadObject(class'ZedternalReborn.Config_PerkUpgrade'.default.PerkUpgrade_Upgrade[b], class'Class'));
 	}
 
 	//Weapon Upgrades for the local standalone/server
@@ -1724,10 +1724,10 @@ function RepGameInfoLowPriority()
 	WMGRI.staticWeapon = StaticWeaponList.length;
 
 	//Perks, Skills and Weapons upgrades custom prices
-	WMGRI.perkMaxLevel = class'ZedternalReborn.Config_PerkUpgrade'.default.PerkUpgrade_Price.Length;
-	for (b = 0; b < Min(255, class'ZedternalReborn.Config_PerkUpgrade'.default.PerkUpgrade_Price.length); ++b)
+	WMGRI.perkMaxLevel = class'ZedternalReborn.Config_PerkUpgradeOptions'.default.PerkUpgrade_Price.Length;
+	for (b = 0; b < Min(255, class'ZedternalReborn.Config_PerkUpgradeOptions'.default.PerkUpgrade_Price.Length); ++b)
 	{
-		WMGRI.perkPrice[b] = class'ZedternalReborn.Config_PerkUpgrade'.default.PerkUpgrade_Price[b];
+		WMGRI.perkPrice[b] = class'ZedternalReborn.Config_PerkUpgradeOptions'.default.PerkUpgrade_Price[b];
 	}
 
 	WMGRI.skillPrice = class'ZedternalReborn.Config_SkillUpgrade'.default.SkillUpgrade_Price;
@@ -1746,20 +1746,20 @@ function RepPlayerInfo(WMPlayerReplicationInfo WMPRI)
 
 	`log("ZR Info: Reconnect Player"@WMPRI.PlayerName$":"@WMPRI.NumTimesReconnected);
 
-	if (WMPRI.NumTimesReconnected < 1 && class'ZedternalReborn.Config_PerkUpgrade'.default.PerkUpgrade_NbAvailablePerks > 0)
+	if (WMPRI.NumTimesReconnected < 1 && class'ZedternalReborn.Config_PerkUpgradeOptions'.default.PerkUpgrade_AvailablePerks > 0)
 	{
 		PerkIndex.Length = 0;
-		for (i = 0; i < class'ZedternalReborn.Config_PerkUpgrade'.default.PerkUpgrade_PerkUpgrades.length; ++i)
+		for (i = 0; i < class'ZedternalReborn.Config_PerkUpgrade'.default.PerkUpgrade_Upgrade.Length; ++i)
 		{
-			// check if the perk i should be in the trader (fixedPerk)
+			// check if the perk i should be in the trader (static perk)
 			bFound = False;
-			for (j = 0; j < class'ZedternalReborn.Config_PerkUpgrade'.default.PerkUpgrade_FixedperkUpgrades.Length; ++j)
+			for (j = 0; j < class'ZedternalReborn.Config_PerkUpgradeOptions'.default.PerkUpgrade_StaticPerkUpgrades.Length; ++j)
 			{
-				if (class'ZedternalReborn.Config_PerkUpgrade'.default.PerkUpgrade_FixedperkUpgrades[j] ~= class'ZedternalReborn.Config_PerkUpgrade'.default.PerkUpgrade_PerkUpgrades[i])
+				if (class'ZedternalReborn.Config_PerkUpgradeOptions'.default.PerkUpgrade_StaticPerkUpgrades[j] ~= class'ZedternalReborn.Config_PerkUpgrade'.default.PerkUpgrade_Upgrade[i])
 				{
 					bFound = True;
 					WMPRI.bPerkUpgradeAvailable[i] = 1;
-					j = class'ZedternalReborn.Config_PerkUpgrade'.default.PerkUpgrade_FixedperkUpgrades.Length;
+					j = class'ZedternalReborn.Config_PerkUpgradeOptions'.default.PerkUpgrade_StaticPerkUpgrades.Length;
 				}
 			}
 			if (!bFound)
@@ -1769,7 +1769,7 @@ function RepPlayerInfo(WMPlayerReplicationInfo WMPRI)
 			}
 		}
 
-		for (i = 0; i < class'ZedternalReborn.Config_PerkUpgrade'.default.PerkUpgrade_NbAvailablePerks - class'ZedternalReborn.Config_PerkUpgrade'.default.PerkUpgrade_FixedperkUpgrades.Length; ++i)
+		for (i = 0; i < class'ZedternalReborn.Config_PerkUpgradeOptions'.default.PerkUpgrade_AvailablePerks - class'ZedternalReborn.Config_PerkUpgradeOptions'.default.PerkUpgrade_StaticPerkUpgrades.Length; ++i)
 		{
 			if (PerkIndex.Length > 0)
 			{

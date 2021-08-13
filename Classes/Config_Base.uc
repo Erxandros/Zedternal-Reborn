@@ -41,12 +41,16 @@ defaultproperties
 	ConfigFiles(6)=class'ZedternalReborn.Config_Weapon'
 	ConfigFiles(7)=class'ZedternalReborn.Config_WeaponUpgrade'
 	ConfigFiles(8)=class'ZedternalReborn.Config_SpecialWave'
+
+	//ZedternalReborn_Upgrades
 	ConfigFiles(9)=class'ZedternalReborn.Config_PerkUpgrade'
-	ConfigFiles(10)=class'ZedternalReborn.Config_SkillUpgrade'
-	ConfigFiles(11)=class'ZedternalReborn.Config_WeaponUpgrade'
-	ConfigFiles(12)=class'ZedternalReborn.Config_Map'
-	ConfigFiles(13)=class'ZedternalReborn.Config_Objective'
-	ConfigFiles(14)=class'ZedternalReborn.Config_EquipmentUpgrade'
+	ConfigFiles(10)=class'ZedternalReborn.Config_PerkUpgradeOptions'
+	ConfigFiles(11)=class'ZedternalReborn.Config_SkillReroll'
+	ConfigFiles(12)=class'ZedternalReborn.Config_SkillUpgrade'
+	ConfigFiles(13)=class'ZedternalReborn.Config_WeaponUpgrade'
+	ConfigFiles(14)=class'ZedternalReborn.Config_Map'
+	ConfigFiles(15)=class'ZedternalReborn.Config_Objective'
+	ConfigFiles(16)=class'ZedternalReborn.Config_EquipmentUpgrade'
 
 	Name="Default__Config_Base"
 }
