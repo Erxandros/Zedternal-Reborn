@@ -29,7 +29,10 @@ static function PrintVersion()
 defaultproperties
 {
 	ConfigFiles(0)=class'ZedternalReborn.Config_Game'
+
+	//ZedternalReborn_Difficulty
 	ConfigFiles(1)=class'ZedternalReborn.Config_Difficulty'
+
 	ConfigFiles(2)=class'ZedternalReborn.Config_Waves'
 	ConfigFiles(3)=class'ZedternalReborn.Config_Player'
 	ConfigFiles(4)=class'ZedternalReborn.Config_Zed'

@@ -28,8 +28,8 @@ function GetAIHealthModifier(KFPawn_Monster P, float GameDifficulty, byte NumLiv
 
 	if (P != None)
 	{
-		HealthMod = class'ZedternalReborn.Config_Difficulty'.static.GetZedHealthMod(GameDifficulty);
-		HeadHealthMod = class'ZedternalReborn.Config_Difficulty'.static.GetZedHeadHealthMod(GameDifficulty);
+		HealthMod = class'ZedternalReborn.Config_Difficulty'.static.GetZedHealthModifier(GameDifficulty);
+		HeadHealthMod = class'ZedternalReborn.Config_Difficulty'.static.GetZedHeadHealthModifier(GameDifficulty);
 
 		// invalid scaling?
 		if (HealthMod <= 0)
@@ -66,8 +66,8 @@ function GetAIHealthModifier(KFPawn_Monster P, float GameDifficulty, byte NumLiv
 		// Add another multiplier based on the number of players and the zeds character info scalers
 		if (P.bLargeZed)
 		{
-			HealthMod += class'ZedternalReborn.Config_Difficulty'.static.GetLargeZedHealthModPerPlayer(GameDifficulty) * (NumLivingPlayers - 1);
-			HeadHealthMod += class'ZedternalReborn.Config_Difficulty'.static.GetLargeZedHealthModPerPlayer(GameDifficulty) * (NumLivingPlayers - 1);
+			HealthMod += class'ZedternalReborn.Config_Difficulty'.static.GetLargeZedHealthModifierPerPlayer(GameDifficulty) * (NumLivingPlayers - 1);
+			HeadHealthMod += class'ZedternalReborn.Config_Difficulty'.static.GetLargeZedHealthModifierPerPlayer(GameDifficulty) * (NumLivingPlayers - 1);
 		}
 	}
 }
@@ -86,10 +86,10 @@ function float GetAIDamageModifier(KFPawn_Monster P, float GameDifficulty, bool 
 
 	GameDifficulty = GameDifficultyZedternal;
 
-	if(bSoloPlay)
-		ZedDamageMod = class'ZedternalReborn.Config_Difficulty'.static.GetZedSoloDamageMod(GameDifficulty);
+	if (bSoloPlay)
+		ZedDamageMod = class'ZedternalReborn.Config_Difficulty'.static.GetZedSoloDamageModifier(GameDifficulty);
 	else
-		ZedDamageMod = class'ZedternalReborn.Config_Difficulty'.static.GetZedDamageMod(GameDifficulty);
+		ZedDamageMod = class'ZedternalReborn.Config_Difficulty'.static.GetZedDamageModifier(GameDifficulty);
 
 	// invalid scaling?
 	if (ZedDamageMod <= 0)
@@ -120,7 +120,7 @@ function float GetAISpeedMod(KFPawn_Monster P, float GameDifficulty)
 
 	GameDifficulty = GameDifficultyZedternal;
 
-	SpeedMod = class'ZedternalReborn.Config_Difficulty'.static.GetZedSpeedMod(GameDifficulty) * RandRange(0.9f, 1.1f);
+	SpeedMod = class'ZedternalReborn.Config_Difficulty'.static.GetZedSpeedModifier(GameDifficulty) * RandRange(0.9f, 1.1f);
 
 	// Zed buff
 	if (WMGRI == None)
