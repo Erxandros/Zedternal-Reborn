@@ -1554,7 +1554,7 @@ function RepGameInfoHighPriority()
 	WMGRI.NumberOfStartingWeapons = Min(255, KFStartingWeaponPath.Length);
 	WMGRI.NumberOfSkillUpgrades = Min(255, class'ZedternalReborn.Config_SkillUpgrade'.default.SkillUpgrade_Upgrade.Length);
 	WMGRI.NumberOfWeaponUpgrades = Min(`MAXWEAPONUPGRADES, weaponUpgradeArch.Length);
-	WMGRI.NumberOfEquipmentUpgrades = Min(255, class'ZedternalReborn.Config_EquipmentUpgrade'.default.EquipmentUpgrade_EquipmentUpgrades.length);
+	WMGRI.NumberOfEquipmentUpgrades = Min(255, class'ZedternalReborn.Config_EquipmentUpgrade'.default.EquipmentUpgrade_Upgrade.Length);
 
 	//Pre-initialize the array size for the sever/standalone
 	WMGRI.skillUpgrades.Length = WMGRI.NumberOfSkillUpgrades;
@@ -1696,24 +1696,24 @@ function RepGameInfoLowPriority()
 	}
 
 	//Equipment Upgrades
-	for (b = 0; b < Min(255, class'ZedternalReborn.Config_EquipmentUpgrade'.default.EquipmentUpgrade_EquipmentUpgrades.length); ++b)
+	for (b = 0; b < Min(255, class'ZedternalReborn.Config_EquipmentUpgrade'.default.EquipmentUpgrade_Upgrade.Length); ++b)
 	{
-		if (class'ZedternalReborn.Config_EquipmentUpgrade'.default.EquipmentUpgrade_EquipmentUpgrades[b].MaxLevel > 0)
+		if (class'ZedternalReborn.Config_EquipmentUpgrade'.default.EquipmentUpgrade_Upgrade[b].MaxLevel > 0)
 		{
-			WMGRI.equipmentUpgradesRepArray[b].EquipmentPathName = class'ZedternalReborn.Config_EquipmentUpgrade'.default.EquipmentUpgrade_EquipmentUpgrades[b].EquipmentPath;
-			WMGRI.equipmentUpgradesRepArray[b].BasePrice = class'ZedternalReborn.Config_EquipmentUpgrade'.default.EquipmentUpgrade_EquipmentUpgrades[b].BasePrice;
-			WMGRI.equipmentUpgradesRepArray[b].MaxPrice = class'ZedternalReborn.Config_EquipmentUpgrade'.default.EquipmentUpgrade_EquipmentUpgrades[b].MaxPrice;
-			WMGRI.equipmentUpgradesRepArray[b].MaxLevel = Clamp(class'ZedternalReborn.Config_EquipmentUpgrade'.default.EquipmentUpgrade_EquipmentUpgrades[b].MaxLevel, 0, 255);
+			WMGRI.equipmentUpgradesRepArray[b].EquipmentPathName = class'ZedternalReborn.Config_EquipmentUpgrade'.default.EquipmentUpgrade_Upgrade[b].EquipmentPath;
+			WMGRI.equipmentUpgradesRepArray[b].BasePrice = class'ZedternalReborn.Config_EquipmentUpgrade'.default.EquipmentUpgrade_Upgrade[b].BasePrice;
+			WMGRI.equipmentUpgradesRepArray[b].MaxPrice = class'ZedternalReborn.Config_EquipmentUpgrade'.default.EquipmentUpgrade_Upgrade[b].MaxPrice;
+			WMGRI.equipmentUpgradesRepArray[b].MaxLevel = class'ZedternalReborn.Config_EquipmentUpgrade'.default.EquipmentUpgrade_Upgrade[b].MaxLevel;
 			WMGRI.equipmentUpgradesRepArray[b].bValid = True;
 
-			WMGRI.equipmentUpgrades[b].EquipmentUpgrade = class<WMUpgrade_Equipment>(DynamicLoadObject(class'ZedternalReborn.Config_EquipmentUpgrade'.default.EquipmentUpgrade_EquipmentUpgrades[b].EquipmentPath, class'Class'));
-			WMGRI.equipmentUpgrades[b].BasePrice = class'ZedternalReborn.Config_EquipmentUpgrade'.default.EquipmentUpgrade_EquipmentUpgrades[b].BasePrice;
-			WMGRI.equipmentUpgrades[b].MaxPrice = class'ZedternalReborn.Config_EquipmentUpgrade'.default.EquipmentUpgrade_EquipmentUpgrades[b].MaxPrice;
-			WMGRI.equipmentUpgrades[b].MaxLevel = Clamp(class'ZedternalReborn.Config_EquipmentUpgrade'.default.EquipmentUpgrade_EquipmentUpgrades[b].MaxLevel, 0, 255);
+			WMGRI.equipmentUpgrades[b].EquipmentUpgrade = class<WMUpgrade_Equipment>(DynamicLoadObject(class'ZedternalReborn.Config_EquipmentUpgrade'.default.EquipmentUpgrade_Upgrade[b].EquipmentPath, class'Class'));
+			WMGRI.equipmentUpgrades[b].BasePrice = class'ZedternalReborn.Config_EquipmentUpgrade'.default.EquipmentUpgrade_Upgrade[b].BasePrice;
+			WMGRI.equipmentUpgrades[b].MaxPrice = class'ZedternalReborn.Config_EquipmentUpgrade'.default.EquipmentUpgrade_Upgrade[b].MaxPrice;
+			WMGRI.equipmentUpgrades[b].MaxLevel = class'ZedternalReborn.Config_EquipmentUpgrade'.default.EquipmentUpgrade_Upgrade[b].MaxLevel;
 			WMGRI.equipmentUpgrades[b].bDone = True;
 		}
 		else
-			`log("ZR Info: Equipment upgrade disabled because max level is zero:"@class'ZedternalReborn.Config_EquipmentUpgrade'.default.EquipmentUpgrade_EquipmentUpgrades[b].EquipmentPath);
+			`log("ZR Info: Equipment upgrade disabled because max level is zero:"@class'ZedternalReborn.Config_EquipmentUpgrade'.default.EquipmentUpgrade_Upgrade[b].EquipmentPath);
 	}
 
 	//Weapon unlocks
