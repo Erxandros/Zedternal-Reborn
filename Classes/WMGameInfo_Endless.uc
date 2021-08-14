@@ -1751,13 +1751,13 @@ function RepPlayerInfo(WMPlayerReplicationInfo WMPRI)
 		{
 			// check if the perk i should be in the trader (static perk)
 			bFound = False;
-			for (j = 0; j < class'ZedternalReborn.Config_PerkUpgradeOptions'.default.PerkUpgrade_StaticPerkUpgrades.Length; ++j)
+			for (j = 0; j < class'ZedternalReborn.Config_PerkUpgrade'.default.PerkUpgrade_StaticUpgrade.Length; ++j)
 			{
-				if (class'ZedternalReborn.Config_PerkUpgradeOptions'.default.PerkUpgrade_StaticPerkUpgrades[j] ~= class'ZedternalReborn.Config_PerkUpgrade'.default.PerkUpgrade_Upgrade[i])
+				if (class'ZedternalReborn.Config_PerkUpgrade'.default.PerkUpgrade_StaticUpgrade[j] ~= class'ZedternalReborn.Config_PerkUpgrade'.default.PerkUpgrade_Upgrade[i])
 				{
 					bFound = True;
 					WMPRI.bPerkUpgradeAvailable[i] = 1;
-					j = class'ZedternalReborn.Config_PerkUpgradeOptions'.default.PerkUpgrade_StaticPerkUpgrades.Length;
+					j = class'ZedternalReborn.Config_PerkUpgrade'.default.PerkUpgrade_StaticUpgrade.Length;
 				}
 			}
 			if (!bFound)
@@ -1767,7 +1767,7 @@ function RepPlayerInfo(WMPlayerReplicationInfo WMPRI)
 			}
 		}
 
-		for (i = 0; i < class'ZedternalReborn.Config_PerkUpgradeOptions'.default.PerkUpgrade_AvailablePerks - class'ZedternalReborn.Config_PerkUpgradeOptions'.default.PerkUpgrade_StaticPerkUpgrades.Length; ++i)
+		for (i = 0; i < class'ZedternalReborn.Config_PerkUpgradeOptions'.default.PerkUpgrade_AvailablePerks - class'ZedternalReborn.Config_PerkUpgrade'.default.PerkUpgrade_StaticUpgrade.Length; ++i)
 		{
 			if (PerkIndex.Length > 0)
 			{
