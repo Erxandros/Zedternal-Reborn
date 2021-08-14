@@ -38,7 +38,7 @@ static function CheckConfigValues()
 		Obj = class<WMUpgrade_Perk>(DynamicLoadObject(default.PerkUpgrade_Upgrade[i], class'Class', True));
 		if (Obj == None)
 		{
-			`log("ZR Warning: Perk upgrade" @ default.PerkUpgrade_Upgrade[i] @ "failed to load. Removing the upgrade from the list."
+			`log("ZR Error: Perk upgrade" @ default.PerkUpgrade_Upgrade[i] @ "failed to load. Skip adding the Perk upgrade to the game."
 				@"Please double check the name in the config and make sure the correct mod resources are installed.");
 			default.PerkUpgrade_Upgrade.Remove(i, 1);
 			--i;
