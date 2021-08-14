@@ -1552,7 +1552,7 @@ function RepGameInfoHighPriority()
 	//Optimization
 	WMGRI.NumberOfTraderWeapons = Min(510, TraderItems.SaleItems.Length);
 	WMGRI.NumberOfStartingWeapons = Min(255, KFStartingWeaponPath.Length);
-	WMGRI.NumberOfSkillUpgrades = Min(255, class'ZedternalReborn.Config_SkillUpgrade'.default.SkillUpgrade_SkillUpgrades.length);
+	WMGRI.NumberOfSkillUpgrades = Min(255, class'ZedternalReborn.Config_SkillUpgrade'.default.SkillUpgrade_Upgrade.Length);
 	WMGRI.NumberOfWeaponUpgrades = Min(`MAXWEAPONUPGRADES, weaponUpgradeArch.Length);
 	WMGRI.NumberOfEquipmentUpgrades = Min(255, class'ZedternalReborn.Config_EquipmentUpgrade'.default.EquipmentUpgrade_EquipmentUpgrades.length);
 
@@ -1562,11 +1562,9 @@ function RepGameInfoHighPriority()
 	WMGRI.equipmentUpgrades.Length = WMGRI.NumberOfEquipmentUpgrades;
 
 	//Get deluxe skill unlocks for perk level purchases
-	for (i = 0; i < class'ZedternalReborn.Config_SkillUpgrade'.default.SkillUpgrade_DeluxeSkillUnlock.PerkLevels.length; ++i)
+	for (i = 0; i < class'ZedternalReborn.Config_SkillUpgradeOptions'.default.SkillUpgrade_DeluxeSkillUnlock.PerkLevels.Length; ++i)
 	{
-		if (class'ZedternalReborn.Config_SkillUpgrade'.default.SkillUpgrade_DeluxeSkillUnlock.PerkLevels[i] > 0 &&
-			class'ZedternalReborn.Config_SkillUpgrade'.default.SkillUpgrade_DeluxeSkillUnlock.PerkLevels[i] < 256)
-			WMGRI.bDeluxeSkillUnlock[class'ZedternalReborn.Config_SkillUpgrade'.default.SkillUpgrade_DeluxeSkillUnlock.PerkLevels[i] - 1] = 1;
+		WMGRI.bDeluxeSkillUnlock[class'ZedternalReborn.Config_SkillUpgradeOptions'.default.SkillUpgrade_DeluxeSkillUnlock.PerkLevels[i] - 1] = 1;
 	}
 
 	//Skill reroll
@@ -1686,14 +1684,14 @@ function RepGameInfoLowPriority()
 	WMGRI.RepGameInfoWeaponUpgrades(WMGRI.weaponUpgradeRepArray_16, 15);
 
 	//Skill Upgrades
-	for (b = 0; b < Min(255, class'ZedternalReborn.Config_SkillUpgrade'.default.SkillUpgrade_SkillUpgrades.length); ++b)
+	for (b = 0; b < Min(255, class'ZedternalReborn.Config_SkillUpgrade'.default.SkillUpgrade_Upgrade.Length); ++b)
 	{
-		WMGRI.skillUpgradesRepArray[b].SkillPathName = class'ZedternalReborn.Config_SkillUpgrade'.default.SkillUpgrade_SkillUpgrades[b].SkillPath;
-		WMGRI.skillUpgradesRepArray[b].PerkPathName = class'ZedternalReborn.Config_SkillUpgrade'.default.SkillUpgrade_SkillUpgrades[b].PerkPath;
+		WMGRI.skillUpgradesRepArray[b].SkillPathName = class'ZedternalReborn.Config_SkillUpgrade'.default.SkillUpgrade_Upgrade[b].SkillPath;
+		WMGRI.skillUpgradesRepArray[b].PerkPathName = class'ZedternalReborn.Config_SkillUpgrade'.default.SkillUpgrade_Upgrade[b].PerkPath;
 		WMGRI.skillUpgradesRepArray[b].bValid = True;
 
-		WMGRI.skillUpgrades[b].SkillUpgrade = class<WMUpgrade_Skill>(DynamicLoadObject(class'ZedternalReborn.Config_SkillUpgrade'.default.SkillUpgrade_SkillUpgrades[b].SkillPath, class'Class'));
-		WMGRI.skillUpgrades[b].PerkPathName = class'ZedternalReborn.Config_SkillUpgrade'.default.SkillUpgrade_SkillUpgrades[b].PerkPath;
+		WMGRI.skillUpgrades[b].SkillUpgrade = class<WMUpgrade_Skill>(DynamicLoadObject(class'ZedternalReborn.Config_SkillUpgrade'.default.SkillUpgrade_Upgrade[b].SkillPath, class'Class'));
+		WMGRI.skillUpgrades[b].PerkPathName = class'ZedternalReborn.Config_SkillUpgrade'.default.SkillUpgrade_Upgrade[b].PerkPath;
 		WMGRI.skillUpgrades[b].bDone = True;
 	}
 
@@ -1730,8 +1728,8 @@ function RepGameInfoLowPriority()
 		WMGRI.perkPrice[b] = class'ZedternalReborn.Config_PerkUpgradeOptions'.default.PerkUpgrade_Price[b];
 	}
 
-	WMGRI.skillPrice = class'ZedternalReborn.Config_SkillUpgrade'.default.SkillUpgrade_Price;
-	WMGRI.skillDeluxePrice = class'ZedternalReborn.Config_SkillUpgrade'.default.SkillUpgrade_DeluxePrice;
+	WMGRI.skillPrice = class'ZedternalReborn.Config_SkillUpgradeOptions'.default.SkillUpgrade_Price;
+	WMGRI.skillDeluxePrice = class'ZedternalReborn.Config_SkillUpgradeOptions'.default.SkillUpgrade_DeluxePrice;
 	WMGRI.weaponMaxLevel = class'ZedternalReborn.Config_WeaponUpgrade'.default.WeaponUpgrade_MaxLevel;
 
 	WMGRI.bZRUMenuCommand = class'ZedternalReborn.Config_Game'.default.Game_bAllowZedternalUpgradeMenuCommand;
