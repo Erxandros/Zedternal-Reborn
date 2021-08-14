@@ -21,13 +21,9 @@ static function LoadConfigs()
 static function PrintVersion()
 {
 	if (CurrentHotfix == 0)
-	{
 		`log("ZedternalReborn GameMode Version:" @ CurrentVersion);
-	}
 	else
-	{
 		`log("ZedternalReborn GameMode Version:" @ CurrentVersion @ "Hotfix:" @ CurrentHotfix);
-	}
 }
 
 defaultproperties
