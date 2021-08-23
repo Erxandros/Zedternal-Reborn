@@ -45,13 +45,13 @@ function GetAIHealthModifier(KFPawn_Monster P, float GameDifficulty, byte NumLiv
 		{
 			if (P.bLargeZed)
 			{
-				HealthMod = class'ZedternalReborn.Config_ZedBuff'.static.GetMaxHealthBuff_LargeZed(HealthMod, GameDifficulty, WMGRI.WaveNum);
-				HeadHealthMod = class'ZedternalReborn.Config_ZedBuff'.static.GetMaxHealthBuff_LargeZed(HeadHealthMod, GameDifficulty, WMGRI.WaveNum);
+				HealthMod = class'ZedternalReborn.Config_DiffOverTime'.static.GetLargeZedHealthModifierOverTime(HealthMod, GameDifficulty, WMGRI.WaveNum);
+				HeadHealthMod = class'ZedternalReborn.Config_DiffOverTime'.static.GetLargeZedHealthModifierOverTime(HeadHealthMod, GameDifficulty, WMGRI.WaveNum);
 			}
 			else
 			{
-				HealthMod = class'ZedternalReborn.Config_ZedBuff'.static.GetMaxHealthBuff(HealthMod, GameDifficulty, WMGRI.WaveNum);
-				HeadHealthMod = class'ZedternalReborn.Config_ZedBuff'.static.GetMaxHealthBuff(HeadHealthMod, GameDifficulty, WMGRI.WaveNum);
+				HealthMod = class'ZedternalReborn.Config_DiffOverTime'.static.GetNormalZedHealthModifierOverTime(HealthMod, GameDifficulty, WMGRI.WaveNum);
+				HeadHealthMod = class'ZedternalReborn.Config_DiffOverTime'.static.GetNormalZedHealthModifierOverTime(HeadHealthMod, GameDifficulty, WMGRI.WaveNum);
 			}
 			for (i = 0; i < WMGRI.zedBuffs.length; ++i)
 			{
@@ -101,7 +101,7 @@ function float GetAIDamageModifier(KFPawn_Monster P, float GameDifficulty, bool 
 
 	if (WMGRI != None)
 	{
-		ZedDamageMod = class'ZedternalReborn.Config_ZedBuff'.static.GetDamageBuff(ZedDamageMod, GameDifficulty, WMGRI.WaveNum);
+		ZedDamageMod = class'ZedternalReborn.Config_DiffOverTime'.static.GetZedDamageModifierOverTime(ZedDamageMod, GameDifficulty, WMGRI.WaveNum);
 		for (i = 0; i < WMGRI.zedBuffs.length; ++i)
 		{
 			if (WMGRI.bZedBuffs[i] > 0)
@@ -128,7 +128,7 @@ function float GetAISpeedMod(KFPawn_Monster P, float GameDifficulty)
 
 	if (WMGRI != None)
 	{
-		SpeedMod = class'ZedternalReborn.Config_ZedBuff'.static.GetSpeedBuff(SpeedMod, GameDifficulty, WMGRI.WaveNum);
+		SpeedMod = class'ZedternalReborn.Config_DiffOverTime'.static.GetZedSpeedModifierOverTime(SpeedMod, GameDifficulty, WMGRI.WaveNum);
 		for (i = 0; i < WMGRI.zedBuffs.length; ++i)
 		{
 			if (WMGRI.bZedBuffs[i] > 0)
@@ -177,7 +177,7 @@ function float GetCharSprintChanceByDifficulty(KFPawn_Monster P, float GameDiffi
 	if (WMGRI != None)
 	{
 		if (KFPawn_ZedScrake(P) == None && KFPawn_ZedFleshpound(P) == None)
-			SprintChanceMod += class'ZedternalReborn.Config_ZedBuff'.static.GetSprintChanceBuff(GameDifficulty, WMGRI.WaveNum);
+			SprintChanceMod += class'ZedternalReborn.Config_DiffOverTime'.static.GetZedSprintChanceModifierOverTime(GameDifficulty, WMGRI.WaveNum);
 		for (i = 0; i < WMGRI.zedBuffs.length; ++i)
 		{
 			if (WMGRI.bZedBuffs[i] > 0)
@@ -240,7 +240,7 @@ function float GetKillCashModifier()
 
 	if (WMGRI != None)
 	{
-		DoshMod -= class'ZedternalReborn.Config_ZedBuff'.static.GetDoshPenalityBuff(WMGRI.WaveNum);
+		DoshMod -= class'ZedternalReborn.Config_DiffOverTime'.static.GetZedDoshPenalityModifierOverTime(WMGRI.WaveNum);
 		for (i = 0; i < WMGRI.zedBuffs.length; ++i)
 		{
 			if (WMGRI.bZedBuffs[i] > 0)
@@ -358,7 +358,7 @@ function float GetHardAttackChance()
 
 	if (WMGRI != None)
 	{
-		HardAttackChanceMod += class'ZedternalReborn.Config_ZedBuff'.static.GetHardAttackChanceBuff(WMGRI.WaveNum);
+		HardAttackChanceMod += class'ZedternalReborn.Config_DiffOverTime'.static.GetZedHardAttackChanceModifierOverTime(WMGRI.WaveNum);
 		for (i = 0; i < WMGRI.zedBuffs.length; ++i)
 		{
 			if (WMGRI.bZedBuffs[i] > 0)
