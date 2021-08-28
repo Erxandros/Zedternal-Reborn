@@ -3,7 +3,6 @@ class Config_Weapon extends Config_Common
 
 var config int MODEVERSION;
 
-var config int Weapon_PlayerStartingWeaponNumber;				// player spawn with this number of weapon (ex: if 2, then players could spawn with a shovel and ar-15)
 var config array< string > Trader_StaticWeaponDefs;				// weapon that will always be in the trader
 var config array< string > Trader_GrenadesDef;					// grenade avaiable in the trader
 var config array< string > Weapon_PlayerStartingWeaponDefList;	// players spawn with one or more of these weapon
@@ -33,8 +32,6 @@ static function UpdateConfig()
 
 	if (default.MODEVERSION < 1)
 	{
-		default.Weapon_PlayerStartingWeaponNumber = 1;
-
 		default.Trader_StaticWeaponDefs.length = 2;
 		default.Trader_StaticWeaponDefs[0] = "KFGame.KFWeapDef_MedicPistol";
 		default.Trader_StaticWeaponDefs[1] = "KFGame.KFWeapDef_9mm";

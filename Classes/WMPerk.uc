@@ -216,7 +216,7 @@ function AddDefaultInventory(KFPawn P)
 		if (WMGI != None && WMGI.PerkStartingWeapon.length > 0)
 		{
 			StartingWeaponsList = WMGI.PerkStartingWeapon;
-			for (i = 0; i < class'ZedternalReborn.Config_Weapon'.default.Weapon_PlayerStartingWeaponNumber; i++)
+			for (i = 0; i < class'ZedternalReborn.Config_Player'.default.Player_StartingWeaponAmount; i++)
 			{
 				if (StartingWeaponsList.Length > 0)
 				{
@@ -228,7 +228,7 @@ function AddDefaultInventory(KFPawn P)
 					StartingWeaponsList.Remove(choice, 1);
 				}
 				else
-					i = class'ZedternalReborn.Config_Weapon'.default.Weapon_PlayerStartingWeaponNumber;
+					i = class'ZedternalReborn.Config_Player'.default.Player_StartingWeaponAmount;
 			}
 		}
 		else
@@ -715,7 +715,7 @@ function ModifyHealth(out int InHealth)
 	local int DefaultHealth;
 
 	// Server Custom Balance
-	InHealth = class'ZedternalReborn.Config_Player'.default.Player_Health;
+	InHealth = class'ZedternalReborn.Config_Player'.default.Player_StartingMaxHealth;
 	if (InHealth <= 0)
 		InHealth = 100;
 
@@ -757,7 +757,7 @@ function ModifyArmorInt(out int MaxArmor)
 	local int DefaultArmor;
 
 	// Server Custom Balance
-	MaxArmor = class'ZedternalReborn.Config_Player'.default.Player_Armor;
+	MaxArmor = class'ZedternalReborn.Config_Player'.default.Player_StartingMaxArmor;
 	if (MaxArmor <= 0)
 		MaxArmor = 100;
 
@@ -1292,7 +1292,7 @@ function ApplyWeightLimits()
 		if (KFIM != None)
 		{
 			// Server Custom Balance
-			InWeightLimit = class'ZedternalReborn.Config_Player'.default.Player_Weight;
+			InWeightLimit = class'ZedternalReborn.Config_Player'.default.Player_StartingCarryWeight;
 			if (InWeightLimit == 0)
 				InWeightLimit = KFIM.default.MaxCarryBlocks;
 

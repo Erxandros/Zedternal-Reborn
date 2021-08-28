@@ -31,16 +31,16 @@ defaultproperties
 	//ZedternalReborn_Game
 	ConfigFiles(0)=class'ZedternalReborn.Config_GameOptions'
 	ConfigFiles(1)=class'ZedternalReborn.Config_Dosh'
-	ConfigFiles(2)=class'ZedternalReborn.Config_Trader'
-	ConfigFiles(3)=class'ZedternalReborn.Config_TraderVoice'
-	ConfigFiles(4)=class'ZedternalReborn.Config_Map'
+	ConfigFiles(2)=class'ZedternalReborn.Config_Player'
+	ConfigFiles(3)=class'ZedternalReborn.Config_Trader'
+	ConfigFiles(4)=class'ZedternalReborn.Config_TraderVoice'
+	ConfigFiles(5)=class'ZedternalReborn.Config_Map'
 
 	//ZedternalReborn_Difficulty
-	ConfigFiles(5)=class'ZedternalReborn.Config_Difficulty'
-	ConfigFiles(6)=class'ZedternalReborn.Config_DiffOverTime'
+	ConfigFiles(6)=class'ZedternalReborn.Config_Difficulty'
+	ConfigFiles(7)=class'ZedternalReborn.Config_DiffOverTime'
 
-	ConfigFiles(7)=class'ZedternalReborn.Config_Waves'
-	ConfigFiles(8)=class'ZedternalReborn.Config_Player'
+	ConfigFiles(8)=class'ZedternalReborn.Config_Waves'
 	ConfigFiles(9)=class'ZedternalReborn.Config_Zed'
 	ConfigFiles(10)=class'ZedternalReborn.Config_ZedBuff'
 	ConfigFiles(11)=class'ZedternalReborn.Config_Weapon'
