@@ -141,10 +141,10 @@ event PostBeginPlay()
 	lastSpecialWaveID_First = INDEX_NONE;
 	lastSpecialWaveID_Second = INDEX_NONE;
 
-	TimeBetweenWaves = class'ZedternalReborn.Config_Game'.static.GetTimeBetweenWave(GameDifficultyZedternal);
+	TimeBetweenWaves = class'ZedternalReborn.Config_GameOptions'.static.GetTimeBetweenWave(GameDifficultyZedternal);
 	TimeBetweenWavesDefault = TimeBetweenWaves;
 
-	TimeBetweenWavesExtend = class'ZedternalReborn.Config_Game'.static.GetTimeBetweenWaveHumanDied(GameDifficultyZedternal);
+	TimeBetweenWavesExtend = class'ZedternalReborn.Config_GameOptions'.static.GetTimeBetweenWaveHumanDied(GameDifficultyZedternal);
 	bUseExtendedTraderTime = False;
 	bUseStartingTraderTime = False;
 }
@@ -479,7 +479,7 @@ function SetupPickupItems()
 	// Set Weapon PickupFactory
 
 	//Add armor
-	if (class'ZedternalReborn.Config_Game'.default.Game_bArmorSpawnOnMap)
+	if (class'ZedternalReborn.Config_GameOptions'.default.Game_bArmorSpawnOnMap)
 	{
 		newPickup.ItemClass = Class'KFGameContent.KFInventory_Armor';
 		StartingItemPickups.AddItem(newPickup);
@@ -513,7 +513,7 @@ function SetupPickupItems()
 		KFPFID = KFPickupFactory_Item(ItemPickups[i]);
 		if (KFPFID != None)
 		{
-			if (class'ZedternalReborn.Config_Game'.default.Game_bArmorSpawnOnMap && KFPFID.ItemPickups.length == 1
+			if (class'ZedternalReborn.Config_GameOptions'.default.Game_bArmorSpawnOnMap && KFPFID.ItemPickups.length == 1
 				&& KFPFID.ItemPickups[0].ItemClass == Class'KFGameContent.KFInventory_Armor')
 				continue; //Do not replace an armor only spawn, unless armor is disabled from pickups
 			KFPFID.ItemPickups.length = 0;
@@ -528,7 +528,7 @@ function SetupPickupItems()
 	{
 		if (KFPFID != None)
 		{
-			if (class'ZedternalReborn.Config_Game'.default.Game_bArmorSpawnOnMap && KFPFID.ItemPickups.length == 1
+			if (class'ZedternalReborn.Config_GameOptions'.default.Game_bArmorSpawnOnMap && KFPFID.ItemPickups.length == 1
 				&& KFPFID.ItemPickups[0].ItemClass == Class'KFGameContent.KFInventory_Armor')
 				continue; //Do not replace an armor only spawn, unless armor is disabled from pickups
 			KFPFID.StartSleeping();
@@ -976,8 +976,8 @@ function array<int> InitializeTraderItems()
 	/////////////////////////////
 	// Armor and Grenade Price //
 	/////////////////////////////
-	TraderItems.ArmorPrice = class'ZedternalReborn.Config_Game'.static.GetArmorPrice(GameDifficultyZedternal);
-	TraderItems.GrenadePrice = class'ZedternalReborn.Config_Game'.static.GetGrenadePrice(GameDifficultyZedternal);
+	TraderItems.ArmorPrice = class'ZedternalReborn.Config_Trader'.static.GetArmorPrice(GameDifficultyZedternal);
+	TraderItems.GrenadePrice = class'ZedternalReborn.Config_Trader'.static.GetGrenadePrice(GameDifficultyZedternal);
 
 	if (WMGameReplicationInfo(MyKFGRI) != None)
 	{
@@ -1098,7 +1098,7 @@ function BuildWeaponList()
 		tempList[tempList.length] = i;
 	}
 	count = tempList.length;
-	for (i = 0; i < Min(class'ZedternalReborn.Config_Weapon'.default.Trader_StartingWeaponNumber, count); ++i)
+	for (i = 0; i < Min(class'ZedternalReborn.Config_Trader'.default.Trader_StartingWeaponNumber, count); ++i)
 	{
 		choice = Rand(tempList.length);
 		PerkStartingWeapon[i] = StartingWeaponList[tempList[choice]];
@@ -1122,7 +1122,7 @@ function BuildWeaponList()
 	}
 
 	//Adding randomly other weapons
-	for (i = StaticWeaponList.length + PerkStartingWeapon.Length; i < class'ZedternalReborn.Config_Weapon'.default.Trader_maxWeapon; ++i)
+	for (i = StaticWeaponList.length + PerkStartingWeapon.Length; i < class'ZedternalReborn.Config_Trader'.default.Trader_MaxWeapon; ++i)
 	{
 		if (weaponIndex.Length > 0)
 		{
@@ -1507,25 +1507,25 @@ function TraderItemsReplacementHelper(const out class<KFWeaponDefinition> OldWea
 
 function SelectRandomTraderVoice()
 {
-	local array< byte > traderVoiceList;
+	local array<byte> TraderVoiceList;
 
 	//TraderVoiceGroup
-	traderVoiceList.length = 0;
-	if (class'ZedternalReborn.Config_Game'.default.Game_bUseDefaultTraderVoice)
-		traderVoiceList.AddItem(0);
-	if (class'ZedternalReborn.Config_Game'.default.Game_bUsePatriarchTraderVoice)
-		traderVoiceList.AddItem(1);
-	if (class'ZedternalReborn.Config_Game'.default.Game_bUseHansTraderVoice)
-		traderVoiceList.AddItem(2);
-	if (class'ZedternalReborn.Config_Game'.default.Game_bUseLockheartTraderVoice)
-		traderVoiceList.AddItem(3);
-	if (class'ZedternalReborn.Config_Game'.default.Game_bUseSantaTraderVoice)
-		traderVoiceList.AddItem(4);
-	if (class'ZedternalReborn.Config_Game'.default.Game_bUseObjectiveTraderVoice)
-		traderVoiceList.AddItem(5);
+	TraderVoiceList.Length = 0;
+	if (class'ZedternalReborn.Config_TraderVoice'.default.TraderVoice_bUsePatriarchTrader)
+		TraderVoiceList.AddItem(0);
+	if (class'ZedternalReborn.Config_TraderVoice'.default.TraderVoice_bUseHansTrader)
+		TraderVoiceList.AddItem(1);
+	if (class'ZedternalReborn.Config_TraderVoice'.default.TraderVoice_bUseDefaultTrader)
+		TraderVoiceList.AddItem(2);
+	if (class'ZedternalReborn.Config_TraderVoice'.default.TraderVoice_bUseObjectiveTrader)
+		TraderVoiceList.AddItem(3);
+	if (class'ZedternalReborn.Config_TraderVoice'.default.TraderVoice_bUseLockheartTrader)
+		TraderVoiceList.AddItem(4);
+	if (class'ZedternalReborn.Config_TraderVoice'.default.TraderVoice_bUseSantaTrader)
+		TraderVoiceList.AddItem(5);
 
-	if (traderVoiceList.length > 0)
-		TraderVoiceIndex = traderVoiceList[Rand(traderVoiceList.length)];
+	if (TraderVoiceList.Length > 0)
+		TraderVoiceIndex = TraderVoiceList[Rand(TraderVoiceList.Length)];
 	else
 		TraderVoiceIndex = default.TraderVoiceIndex;
 }
@@ -1582,7 +1582,7 @@ function RepGameInfoNormalPriority()
 	local byte b;
 
 	//AmmoPriceFactor
-	MyKFGRI.GameAmmoCostScale = class'ZedternalReborn.Config_Game'.static.GetAmmoPriceFactor(GameDifficultyZedternal);
+	MyKFGRI.GameAmmoCostScale = class'ZedternalReborn.Config_Trader'.static.GetAmmoPriceFactor(GameDifficultyZedternal);
 
 	WMGRI = WMGameReplicationInfo(MyKFGRI);
 	if (WMGRI == None)
@@ -1596,7 +1596,7 @@ function RepGameInfoNormalPriority()
 	}
 
 	//Armor pickup enable
-	WMGRI.bArmorPickup = class'ZedternalReborn.Config_Game'.default.Game_bArmorSpawnOnMap ? 2 : 1; //2 is True, 1 is False
+	WMGRI.bArmorPickup = class'ZedternalReborn.Config_GameOptions'.default.Game_bArmorSpawnOnMap ? 2 : 1; //2 is True, 1 is False
 
 	//Starting/itempickup Weapon
 	for (b = 0; b < Min(255, KFStartingWeaponPath.Length); ++b)
@@ -1717,8 +1717,8 @@ function RepGameInfoLowPriority()
 	}
 
 	//Weapon unlocks
-	WMGRI.newWeaponEachWave = class'ZedternalReborn.Config_Weapon'.default.Trader_NewWeaponEachWave;
-	WMGRI.maxWeapon = class'ZedternalReborn.Config_Weapon'.default.Trader_MaxWeapon;
+	WMGRI.newWeaponEachWave = class'ZedternalReborn.Config_Trader'.default.Trader_NewWeaponEachWave;
+	WMGRI.maxWeapon = class'ZedternalReborn.Config_Trader'.default.Trader_MaxWeapon;
 	WMGRI.staticWeapon = StaticWeaponList.length;
 
 	//Perks, Skills and Weapons upgrades custom prices
@@ -1732,8 +1732,8 @@ function RepGameInfoLowPriority()
 	WMGRI.skillDeluxePrice = class'ZedternalReborn.Config_SkillUpgradeOptions'.default.SkillUpgrade_DeluxePrice;
 	WMGRI.weaponMaxLevel = class'ZedternalReborn.Config_WeaponUpgradeOptions'.default.WeaponUpgrade_MaxLevel;
 
-	WMGRI.bZRUMenuCommand = class'ZedternalReborn.Config_Game'.default.Game_bAllowZedternalUpgradeMenuCommand;
-	WMGRI.bZRUMenuAllWave = class'ZedternalReborn.Config_Game'.default.Game_bZedternalUpgradeMenuCommandAllWave;
+	WMGRI.bZRUMenuCommand = class'ZedternalReborn.Config_GameOptions'.default.Game_bAllowZedternalUpgradeMenuCommand;
+	WMGRI.bZRUMenuAllWave = class'ZedternalReborn.Config_GameOptions'.default.Game_bZedternalUpgradeMenuCommandAllWave;
 }
 
 function RepPlayerInfo(WMPlayerReplicationInfo WMPRI)
@@ -1792,7 +1792,7 @@ function int GetAdjustedDeathPenalty(KFPlayerReplicationInfo KilledPlayerPRI, op
 	// new player (dosh is based on what team won during the game)
 	if (bLateJoiner)
 	{
-		PlayerBase = Round(doshNewPlayer * class'ZedternalReborn.Config_Game'.default.Game_LateJoinerTotalDoshFactor);
+		PlayerBase = Round(doshNewPlayer * class'ZedternalReborn.Config_Dosh'.default.Dosh_LateJoinerTotalDoshFactor);
 		`log("ZR Info: Player"@KilledPlayerPRI.PlayerName@"is late joiner, received"@PlayerBase@"dosh");
 
 		return PlayerBase;
@@ -1806,18 +1806,12 @@ function int GetAdjustedDeathPenalty(KFPlayerReplicationInfo KilledPlayerPRI, op
 			++PlayerCount;
 	}
 
-	PlayerBase = class'ZedternalReborn.Config_Game'.default.Game_DoshPerWavePerPlayer + (class'ZedternalReborn.Config_Game'.default.Game_ExtraDoshPerWavePerPlayer * PlayerCount);
-	PlayerWave = WaveNum * class'ZedternalReborn.Config_Game'.default.Game_ExtraDoshWaveBonusMultiplier;
+	PlayerBase = class'ZedternalReborn.Config_Dosh'.static.GetBasePlayerWaveDoshReward(PlayerCount);
+	PlayerWave = WaveNum * class'ZedternalReborn.Config_Dosh'.default.Dosh_ExtraDoshWaveBonusMultiplier;
 
-	PlayerPerkBonus = 0;
-	if (class'ZedternalReborn.Config_Game'.default.Game_ExtraDoshPerkBonusDivider > 0 && class'ZedternalReborn.Config_Game'.default.Game_ExtraDoshPerkBonusMaxThreshold > 0)
-	{
-		PlayerPerkBonus = Min(WMPlayerReplicationInfo(KFPC.PlayerReplicationInfo).PlayerLevel, class'ZedternalReborn.Config_Game'.default.Game_ExtraDoshPerkBonusMaxThreshold)
-		* class'ZedternalReborn.Config_Game'.default.Game_DoshPerWavePerPlayer
-		/ (class'ZedternalReborn.Config_Game'.default.Game_ExtraDoshPerkBonusDivider * class'ZedternalReborn.Config_Game'.default.Game_ExtraDoshPerkBonusMaxThreshold);
-	}
+	PlayerPerkBonus = class'ZedternalReborn.Config_Dosh'.static.GetBonusPlayerWaveDoshReward(WMPlayerReplicationInfo(KFPC.PlayerReplicationInfo).PlayerLevel);
 
-	return Round(float(PlayerBase + PlayerWave + PlayerPerkBonus) * (1.0f - FClamp(class'ZedternalReborn.Config_Game'.static.GetDeathPenaltyDoshPct(GameDifficultyZedternal), 0.0f, 1.0f)));
+	return Round(float(PlayerBase + PlayerWave + PlayerPerkBonus) * (1.0f - FClamp(class'ZedternalReborn.Config_Dosh'.static.GetDeathPenaltyDoshPct(GameDifficultyZedternal), 0.0f, 1.0f)));
 }
 
 function float GetAdjustedAIDoshValue(class<KFPawn_Monster> MonsterClass)
@@ -1845,15 +1839,15 @@ function float GetAdjustedAIDoshValue(class<KFPawn_Monster> MonsterClass)
 
 	if (MonsterClass.default.bLargeZed)
 	{
-		TempValue *= class'ZedternalReborn.Config_Game'.static.GetLargeZedDoshFactor(GameDifficultyZedternal);
+		TempValue *= class'ZedternalReborn.Config_Dosh'.static.GetLargeZedDoshFactor(GameDifficultyZedternal);
 		if (PlayerCount > 1)
-			tempValue *= (1.f + (PlayerCount - 1) * class'ZedternalReborn.Config_Game'.default.Game_ExtraLargeZedDoshFactorPerPlayer);
+			tempValue *= (1.f + (PlayerCount - 1) * class'ZedternalReborn.Config_Dosh'.default.Dosh_ExtraLargeZedDoshFactorPerPlayer);
 	}
 	else
 	{
-		TempValue *= class'ZedternalReborn.Config_Game'.static.GetNormalZedDoshFactor(GameDifficultyZedternal);
+		TempValue *= class'ZedternalReborn.Config_Dosh'.static.GetNormalZedDoshFactor(GameDifficultyZedternal);
 		if (PlayerCount > 1)
-			tempValue *= (1.f + (PlayerCount - 1) * class'ZedternalReborn.Config_Game'.default.Game_ExtraNormalZedDoshFactorPerPlayer);
+			tempValue *= (1.f + (PlayerCount - 1) * class'ZedternalReborn.Config_Dosh'.default.Dosh_ExtraNormalZedDoshFactorPerPlayer);
 	}
 
 	return TempValue;
@@ -1939,27 +1933,21 @@ function RewardSurvivingPlayers()
 		T.AddScore(0, True);
 	}
 
-	PlayerBase = class'ZedternalReborn.Config_Game'.default.Game_DoshPerWavePerPlayer + (class'ZedternalReborn.Config_Game'.default.Game_ExtraDoshPerWavePerPlayer * PlayerCount);
-	PlayerWave = WaveNum * class'ZedternalReborn.Config_Game'.default.Game_ExtraDoshWaveBonusMultiplier;
+	PlayerBase = class'ZedternalReborn.Config_Dosh'.static.GetBasePlayerWaveDoshReward(PlayerCount);
+	PlayerWave = WaveNum * class'ZedternalReborn.Config_Dosh'.default.Dosh_ExtraDoshWaveBonusMultiplier;
 
 	`log("ZR Info: SCORING: Number of surviving players:" @ PlayerCount);
 	`log("ZR Info: SCORING: Base Dosh/survivng player:" @ PlayerBase);
 	`log("ZR Info: SCORING: Wave Dosh/survivng player:" @ PlayerWave);
 
 	// Add dosh for new players
-	doshNewPlayer += PlayerBase + class'ZedternalReborn.Config_Game'.default.Game_ExtraDoshPerWavePerPlayer + PlayerWave;
+	doshNewPlayer += PlayerBase + class'ZedternalReborn.Config_Dosh'.default.Dosh_ExtraDoshPerWavePerPlayer + PlayerWave;
 
 	foreach WorldInfo.AllControllers(class'KFPlayerController', KFPC)
 	{
 		if (KFPC.Pawn != None && KFPC.Pawn.IsAliveAndWell())
 		{
-			PlayerPerkBonus = 0;
-			if (class'ZedternalReborn.Config_Game'.default.Game_ExtraDoshPerkBonusDivider > 0 && class'ZedternalReborn.Config_Game'.default.Game_ExtraDoshPerkBonusMaxThreshold > 0)
-			{
-				PlayerPerkBonus = Min(WMPlayerReplicationInfo(KFPC.PlayerReplicationInfo).PlayerLevel, class'ZedternalReborn.Config_Game'.default.Game_ExtraDoshPerkBonusMaxThreshold)
-				* class'ZedternalReborn.Config_Game'.default.Game_DoshPerWavePerPlayer
-				/ (class'ZedternalReborn.Config_Game'.default.Game_ExtraDoshPerkBonusDivider * class'ZedternalReborn.Config_Game'.default.Game_ExtraDoshPerkBonusMaxThreshold);
-			}
+			PlayerPerkBonus = class'ZedternalReborn.Config_Dosh'.static.GetBonusPlayerWaveDoshReward(WMPlayerReplicationInfo(KFPC.PlayerReplicationInfo).PlayerLevel);
 
 			KFPlayerReplicationInfo(KFPC.PlayerReplicationInfo).AddDosh(PlayerBase + PlayerWave + PlayerPerkBonus, True);
 

@@ -387,7 +387,7 @@ simulated event ReplicatedEvent(name VarName)
 			break;
 
 		case 'TraderVoiceGroupIndex':
-			if(TraderDialogManager != None)
+			if (TraderDialogManager != None)
 				TraderDialogManager.TraderVoiceGroupClass = default.TraderVoiceGroupClasses[TraderVoiceGroupIndex];
 			break;
 
@@ -929,12 +929,12 @@ defaultproperties
 
 	SpecialWaveID(0)=INDEX_NONE
 	SpecialWaveID(1)=INDEX_NONE
-	TraderVoiceGroupClasses(0)=Class'KFGameContent.KFTraderVoiceGroup_Default'
-	TraderVoiceGroupClasses(1)=Class'KFGameContent.KFTraderVoiceGroup_Patriarch'
-	TraderVoiceGroupClasses(2)=Class'KFGameContent.KFTraderVoiceGroup_Hans'
-	TraderVoiceGroupClasses(3)=Class'KFGameContent.KFTraderVoiceGroup_Lockheart'
-	TraderVoiceGroupClasses(4)=Class'KFGameContent.KFTraderVoiceGroup_Santa'
-	TraderVoiceGroupClasses(5)=Class'KFGameContent.KFTraderVoiceGroup_Objective'
+	TraderVoiceGroupClasses(0)=Class'KFGameContent.KFTraderVoiceGroup_Patriarch'
+	TraderVoiceGroupClasses(1)=Class'KFGameContent.KFTraderVoiceGroup_Hans'
+	TraderVoiceGroupClasses(2)=Class'KFGameContent.KFTraderVoiceGroup_Default'
+	TraderVoiceGroupClasses(3)=Class'KFGameContent.KFTraderVoiceGroup_Objective'
+	TraderVoiceGroupClasses(4)=Class'KFGameContent.KFTraderVoiceGroup_Lockheart'
+	TraderVoiceGroupClasses(5)=Class'KFGameContent.KFTraderVoiceGroup_Santa'
 	ZedBuffMusic(0)=KFMusicTrackInfo'WW_MACT_Default.TI_SH_Boss_DieVolter'
 	ZedBuffMusic(1)=KFMusicTrackInfo'WW_MACT_Default.TI_Boss_Patriarch'
 	ZedBuffMusic(2)=KFMusicTrackInfo'WW_MACT_Default.TI_RG_Abomination'

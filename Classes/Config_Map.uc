@@ -1,5 +1,5 @@
 class Config_Map extends Config_Common
-	config(ZedternalReborn);
+	config(ZedternalReborn_Game);
 
 var config int MODEVERSION;
 
@@ -22,60 +22,37 @@ struct S_Map
 		StartingWave=1
 		FinalWave=255
 		StartingTraderTime=0
-		ZedNumberScale=1.000000
-		ZedSpawnRate=1.000000
+		ZedNumberScale=1.0f
+		ZedSpawnRate=1.0f
 		ZedStuckThreshold=4
 		ZedStuckTimeout=150
-		AllTraders=false
+		AllTraders=False
 	}
 };
 
-var config array< S_Map > Map_Settings;
+var config array<S_Map> Map_Settings;
 
 static function UpdateConfig()
 {
-	local int i;
-
 	if (default.MODEVERSION < 1)
 	{
-		default.Map_Settings.length = 1;
+		default.Map_Settings.Length = 1;
 
 		default.Map_Settings[0].MapName = "KF-BioticsLab";
-		default.Map_Settings[0].ZedNumberScale = 1.000000;
-		default.Map_Settings[0].ZedSpawnRate = 1.000000;
+		default.Map_Settings[0].StartingDosh = 400;
+		default.Map_Settings[0].StartingWave = 1;
+		default.Map_Settings[0].FinalWave = 255;
+		default.Map_Settings[0].StartingTraderTime = 0;
+		default.Map_Settings[0].ZedNumberScale = 1.0f;
+		default.Map_Settings[0].ZedSpawnRate = 1.0f;
+		default.Map_Settings[0].ZedStuckThreshold = 4;
+		default.Map_Settings[0].ZedStuckTimeout = 150;
+		default.Map_Settings[0].AllTraders = False;
 	}
 
-	if (default.MODEVERSION < 2)
+	if (default.MODEVERSION < class'ZedternalReborn.Config_Base'.const.CurrentVersion)
 	{
-		for (i = 0; i < default.Map_Settings.length; ++i)
-		{
-			default.Map_Settings[i].ZedStuckThreshold = 4;
-			default.Map_Settings[i].ZedStuckTimeout = 150;
-		}
-	}
-
-	if (default.MODEVERSION < 6)
-	{
-		for (i = 0; i < default.Map_Settings.length; ++i)
-		{
-			default.Map_Settings[i].StartingDosh = 400;
-			default.Map_Settings[i].StartingWave = 1;
-			default.Map_Settings[i].StartingTraderTime = 0;
-			default.Map_Settings[i].AllTraders = false;
-		}
-	}
-
-	if (default.MODEVERSION < 10)
-	{
-		for (i = 0; i < default.Map_Settings.length; ++i)
-		{
-			default.Map_Settings[i].FinalWave = 255;
-		}
-	}
-
-	if (default.MODEVERSION < class'ZedternalReborn.Config_Base'.const.currentVersion)
-	{
-		default.MODEVERSION = class'ZedternalReborn.Config_Base'.const.currentVersion;
+		default.MODEVERSION = class'ZedternalReborn.Config_Base'.const.CurrentVersion;
 		static.StaticSaveConfig();
 	}
 }
@@ -132,7 +109,7 @@ static function float GetZedNumberScale(string MapName)
 	if (index != INDEX_NONE)
 		return default.Map_Settings[index].ZedNumberScale;
 	else
-		return 1.f;
+		return 1.0f;
 }
 
 static function float GetZedSpawnRate(string MapName)
@@ -143,7 +120,7 @@ static function float GetZedSpawnRate(string MapName)
 	if (index != INDEX_NONE)
 		return default.Map_Settings[index].ZedSpawnRate;
 	else
-		return 1.f;
+		return 1.0f;
 }
 
 static function int GetZedStuckThreshold(string MapName)
@@ -176,9 +153,10 @@ static function bool GetAllTraders(string MapName)
 	if (index != INDEX_NONE)
 		return default.Map_Settings[index].AllTraders;
 	else
-		return false;
+		return False;
 }
 
 defaultproperties
 {
+	Name="Default__Config_Map"
 }

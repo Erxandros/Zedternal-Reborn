@@ -148,7 +148,7 @@ function float GetCharSprintChanceByDifficulty(KFPawn_Monster P, float GameDiffi
 	GameDifficulty = GameDifficultyZedternal;
 
 	// diable teleport ability
-	if (!class'ZedternalReborn.Config_Game'.default.Game_bAllowZedTeleport)
+	if (!class'ZedternalReborn.Config_GameOptions'.default.Game_bAllowZedTeleport)
 	{
 		KFAI = KFAIController_Monster(P.Controller);
 		if (KFAI != None)

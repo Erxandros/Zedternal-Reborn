@@ -3,9 +3,6 @@ class Config_Weapon extends Config_Common
 
 var config int MODEVERSION;
 
-var config int Trader_MaxWeapon;								// maximum number of weapons available in the trader per game
-var config int Trader_StartingWeaponNumber;						// number of weapon in trader at wave 1->2
-var config int Trader_NewWeaponEachWave;						// number of weapon added in the trader each wave
 var config int Weapon_PlayerStartingWeaponNumber;				// player spawn with this number of weapon (ex: if 2, then players could spawn with a shovel and ar-15)
 var config array< string > Trader_StaticWeaponDefs;				// weapon that will always be in the trader
 var config array< string > Trader_GrenadesDef;					// grenade avaiable in the trader
@@ -36,9 +33,6 @@ static function UpdateConfig()
 
 	if (default.MODEVERSION < 1)
 	{
-		default.Trader_MaxWeapon = 24;
-		default.Trader_StartingWeaponNumber = 3;
-		default.Trader_NewWeaponEachWave = 2;
 		default.Weapon_PlayerStartingWeaponNumber = 1;
 
 		default.Trader_StaticWeaponDefs.length = 2;
@@ -488,12 +482,6 @@ static function UpdateConfig()
 
 	if (default.MODEVERSION < 9)
 	{
-		if (default.Trader_MaxWeapon == 24)
-			default.Trader_MaxWeapon = 48;
-
-		if (default.Trader_NewWeaponEachWave == 2)
-			default.Trader_NewWeaponEachWave = 3;
-
 		i = default.WeaponVariant_VariantList.length;
 
 		newVariant.WeaponDef = "KFGame.KFWeapDef_FAMAS";
