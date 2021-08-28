@@ -46,25 +46,31 @@ defaultproperties
 	ConfigFiles(10)=class'ZedternalReborn.Config_SpecialWaveOverride'
 	ConfigFiles(11)=class'ZedternalReborn.Config_ZedBuff'
 
-	ConfigFiles(12)=class'ZedternalReborn.Config_Waves'
-	ConfigFiles(13)=class'ZedternalReborn.Config_Zed'
-
 	//ZedternalReborn_Upgrades
-	ConfigFiles(14)=class'ZedternalReborn.Config_PerkUpgrade'
-	ConfigFiles(15)=class'ZedternalReborn.Config_PerkUpgradeOptions'
-	ConfigFiles(16)=class'ZedternalReborn.Config_SkillReroll'
-	ConfigFiles(17)=class'ZedternalReborn.Config_SkillUpgrade'
-	ConfigFiles(18)=class'ZedternalReborn.Config_SkillUpgradeOptions'
-	ConfigFiles(19)=class'ZedternalReborn.Config_WeaponUpgrade'
-	ConfigFiles(20)=class'ZedternalReborn.Config_WeaponUpgradeOptions'
-	ConfigFiles(21)=class'ZedternalReborn.Config_EquipmentUpgrade'
+	ConfigFiles(12)=class'ZedternalReborn.Config_PerkUpgrade'
+	ConfigFiles(13)=class'ZedternalReborn.Config_PerkUpgradeOptions'
+	ConfigFiles(14)=class'ZedternalReborn.Config_SkillReroll'
+	ConfigFiles(15)=class'ZedternalReborn.Config_SkillUpgrade'
+	ConfigFiles(16)=class'ZedternalReborn.Config_SkillUpgradeOptions'
+	ConfigFiles(17)=class'ZedternalReborn.Config_WeaponUpgrade'
+	ConfigFiles(18)=class'ZedternalReborn.Config_WeaponUpgradeOptions'
+	ConfigFiles(19)=class'ZedternalReborn.Config_EquipmentUpgrade'
 
 	//ZedternalReborn_Weapons
-	ConfigFiles(22)=class'ZedternalReborn.Config_WeaponStarting'
-	ConfigFiles(23)=class'ZedternalReborn.Config_WeaponGrenade'
-	ConfigFiles(24)=class'ZedternalReborn.Config_WeaponStatic'
-	ConfigFiles(25)=class'ZedternalReborn.Config_WeaponCustom'
-	ConfigFiles(26)=class'ZedternalReborn.Config_WeaponVariant'
+	ConfigFiles(20)=class'ZedternalReborn.Config_WeaponStarting'
+	ConfigFiles(21)=class'ZedternalReborn.Config_WeaponGrenade'
+	ConfigFiles(22)=class'ZedternalReborn.Config_WeaponStatic'
+	ConfigFiles(23)=class'ZedternalReborn.Config_WeaponCustom'
+	ConfigFiles(24)=class'ZedternalReborn.Config_WeaponVariant'
+
+	//ZedternalReborn_ZedWaves
+	ConfigFiles(25)=class'ZedternalReborn.Config_WaveOptions'
+	ConfigFiles(26)=class'ZedternalReborn.Config_WaveValue'
+	ConfigFiles(27)=class'ZedternalReborn.Config_WaveSpawnRate'
+	ConfigFiles(28)=class'ZedternalReborn.Config_Zed'
+	ConfigFiles(29)=class'ZedternalReborn.Config_ZedValue'
+	ConfigFiles(30)=class'ZedternalReborn.Config_ZedVariant'
+	ConfigFiles(31)=class'ZedternalReborn.Config_ZedInject'
 
 	Name="Default__Config_Base"
 }

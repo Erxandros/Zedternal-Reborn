@@ -5,9 +5,6 @@ var config int MODEVERSION;
 
 var config bool Game_bArmorSpawnOnMap;
 
-var config bool Game_bAllowZedTeleport;
-var config bool Game_bAllowFastSpawning;
-
 var config bool Game_bAllowZedternalUpgradeMenuCommand;
 var config bool Game_bZedternalUpgradeMenuCommandAllWave;
 
@@ -19,9 +16,6 @@ static function UpdateConfig()
 	if (default.MODEVERSION < 1)
 	{
 		default.Game_bArmorSpawnOnMap = True;
-
-		default.Game_bAllowZedTeleport = False;
-		default.Game_bAllowFastSpawning = True;
 
 		default.Game_bAllowZedternalUpgradeMenuCommand = False;
 		default.Game_bZedternalUpgradeMenuCommandAllWave = False;

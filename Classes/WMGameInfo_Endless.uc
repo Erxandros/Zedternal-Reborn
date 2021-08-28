@@ -75,23 +75,23 @@ static function PreloadGlobalContentClasses()
 
 	// find all custom pawnclasses
 	NewClassList[0] = default.AIClassList[0];
-	for (i = 0; i < class'ZedternalReborn.Config_Zed'.default.Zed_Monsters.length; ++i)
+	for (i = 0; i < class'ZedternalReborn.Config_Zed'.default.Zed_Wave.Length; ++i)
 	{
-		tempClass = class'ZedternalReborn.Config_Zed'.default.Zed_Monsters[i].MClass;
+		tempClass = class'ZedternalReborn.Config_Zed'.default.Zed_Wave[i].ZedClass;
 		if (default.AIClassList.Find(tempClass) == INDEX_NONE && NewClassList.Find(tempClass) == INDEX_NONE)
 			NewClassList.AddItem(tempClass);
 	}
 
-	for (i = 0; i < class'ZedternalReborn.Config_Zed'.default.Zed_Value.length; ++i)
+	for (i = 0; i < class'ZedternalReborn.Config_ZedValue'.default.Zed_Value.Length; ++i)
 	{
-		tempClass = class'ZedternalReborn.Config_Zed'.default.Zed_Value[i].ZedClass;
+		tempClass = class'ZedternalReborn.Config_ZedValue'.default.Zed_Value[i].ZedClass;
 		if (default.AIClassList.Find(tempClass) == INDEX_NONE && NewClassList.Find(tempClass) == INDEX_NONE)
 			NewClassList.AddItem(tempClass);
 	}
 
-	for (i = 0; i < class'ZedternalReborn.Config_Zed'.default.Zed_ZedVariant.length; ++i)
+	for (i = 0; i < class'ZedternalReborn.Config_ZedVariant'.default.Zed_ZedVariant.Length; ++i)
 	{
-		tempClass = class'ZedternalReborn.Config_Zed'.default.Zed_ZedVariant[i].variantClass;
+		tempClass = class'ZedternalReborn.Config_ZedVariant'.default.Zed_ZedVariant[i].VariantClass;
 		if (default.AIClassList.Find(tempClass) == INDEX_NONE && NewClassList.Find(tempClass) == INDEX_NONE)
 			NewClassList.AddItem(tempClass);
 	}
