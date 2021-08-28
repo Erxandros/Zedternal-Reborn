@@ -1005,11 +1005,11 @@ function array<int> InitializeTraderItems()
 	}
 
 	//Add and register custom weapons
-	if (class'ZedternalReborn.Config_Weapon'.default.Weapon_bUseCustomWeaponList)
+	if (class'ZedternalReborn.Config_WeaponCustom'.default.Weapon_bUseCustomWeaponList)
 	{
-		for (i = 0; i < class'ZedternalReborn.Config_Weapon'.default.Weapon_CustomWeaponDef.length; ++i)
+		for (i = 0; i < class'ZedternalReborn.Config_WeaponCustom'.default.Weapon_CustomWeaponDef.length; ++i)
 		{
-			CustomWeaponDef = class<KFWeaponDefinition>(DynamicLoadObject(class'ZedternalReborn.Config_Weapon'.default.Weapon_CustomWeaponDef[i], class'Class'));
+			CustomWeaponDef = class<KFWeaponDefinition>(DynamicLoadObject(class'ZedternalReborn.Config_WeaponCustom'.default.Weapon_CustomWeaponDef[i], class'Class'));
 			if (CustomWeaponDef != None)
 			{
 				newWeapon.WeaponDef = CustomWeaponDef;
@@ -1022,11 +1022,11 @@ function array<int> InitializeTraderItems()
 				if (IsWeaponDefCanBeRandom(CustomWeaponDef))
 					weaponIndex[weaponIndex.Length] = count - 1;
 
-				`log("ZR Info: Custom weapon added:"@class'ZedternalReborn.Config_Weapon'.default.Weapon_CustomWeaponDef[i]);
+				`log("ZR Info: Custom weapon added:"@class'ZedternalReborn.Config_WeaponCustom'.default.Weapon_CustomWeaponDef[i]);
 			}
 			else
 			{
-				`log("ZR Warning: Custom weapon"@class'ZedternalReborn.Config_Weapon'.default.Weapon_CustomWeaponDef[i]@
+				`log("ZR Warning: Custom weapon"@class'ZedternalReborn.Config_WeaponCustom'.default.Weapon_CustomWeaponDef[i]@
 					"does not exist, please check spelling or make sure the workshop item is correctly installed");
 			}
 		}
@@ -1041,22 +1041,22 @@ function InitializeStaticAndStartingWeapons()
 	local class<KFWeaponDefinition> KFWeaponDefClass;
 
 	//Optimization: Add static and starting weapons to array for future use, and check if the weapons are valid
-	for (i = 0; i < class'ZedternalReborn.Config_Weapon'.default.Trader_StaticWeaponDefs.length; ++i)
+	for (i = 0; i < class'ZedternalReborn.Config_WeaponStatic'.default.Weapon_StaticWeaponDef.Length; ++i)
 	{
-		KFWeaponDefClass = class<KFWeaponDefinition>(DynamicLoadObject(class'ZedternalReborn.Config_Weapon'.default.Trader_StaticWeaponDefs[i], class'Class'));
+		KFWeaponDefClass = class<KFWeaponDefinition>(DynamicLoadObject(class'ZedternalReborn.Config_WeaponStatic'.default.Weapon_StaticWeaponDef[i], class'Class'));
 		if (KFWeaponDefClass != None)
 			StaticWeaponList.AddItem(KFWeaponDefClass);
 		else
-			`log("ZR Warning: Static weapon"@class'ZedternalReborn.Config_Weapon'.default.Trader_StaticWeaponDefs[i]@"does not exist, please check spelling or make sure the workshop item is correctly installed");
+			`log("ZR Warning: Static weapon"@class'ZedternalReborn.Config_WeaponStatic'.default.Weapon_StaticWeaponDef[i]@"does not exist, please check spelling or make sure the workshop item is correctly installed");
 	}
 
-	for (i = 0; i < class'ZedternalReborn.Config_Weapon'.default.Weapon_PlayerStartingWeaponDefList.length; ++i)
+	for (i = 0; i < class'ZedternalReborn.Config_WeaponStarting'.default.Weapon_StartingWeaponDef.length; ++i)
 	{
-		KFWeaponDefClass = class<KFWeaponDefinition>(DynamicLoadObject(class'ZedternalReborn.Config_Weapon'.default.Weapon_PlayerStartingWeaponDefList[i], class'Class'));
+		KFWeaponDefClass = class<KFWeaponDefinition>(DynamicLoadObject(class'ZedternalReborn.Config_WeaponStarting'.default.Weapon_StartingWeaponDef[i], class'Class'));
 		if (KFWeaponDefClass != None)
 			StartingWeaponList.AddItem(KFWeaponDefClass);
 		else
-			`log("ZR Warning: Starting weapon"@class'ZedternalReborn.Config_Weapon'.default.Weapon_PlayerStartingWeaponDefList[i]@"does not exist, please check spelling or make sure the workshop item is correctly installed");
+			`log("ZR Warning: Starting weapon"@class'ZedternalReborn.Config_WeaponStarting'.default.Weapon_StartingWeaponDef[i]@"does not exist, please check spelling or make sure the workshop item is correctly installed");
 	}
 }
 
@@ -1079,7 +1079,7 @@ function BuildWeaponList()
 	local array< int > tempList;
 
 	//get WeaponVariant Probability/Allowed
-	bAllowWeaponVariant = class'ZedternalReborn.Config_Weapon'.default.WeaponVariant_bAllowWeaponVariant;
+	bAllowWeaponVariant = class'ZedternalReborn.Config_WeaponVariant'.default.WeaponVariant_bAllowWeaponVariant;
 
 	InitializeStaticAndStartingWeapons();
 	weaponIndex = InitializeTraderItems();
@@ -1237,11 +1237,11 @@ function class<KFWeaponDefinition> FindSingleWeaponFromDual(const out class<KFWe
 			return TraderItems.SaleItems[i].WeaponDef;
 	}
 
-	for (i = 0; i < class'ZedternalReborn.Config_Weapon'.default.WeaponVariant_VariantList.length; ++i)
+	for (i = 0; i < class'ZedternalReborn.Config_WeaponVariant'.default.Weapon_VariantWeaponDef.length; ++i)
 	{
-		if (PathName(KFDW) ~= class'ZedternalReborn.Config_Weapon'.default.WeaponVariant_VariantList[i].DualWeaponDefVariant)
+		if (PathName(KFDW) ~= class'ZedternalReborn.Config_WeaponVariant'.default.Weapon_VariantWeaponDef[i].DualWeaponDefVariant)
 		{
-			WeaponVariantDefClass = class<KFWeaponDefinition>(DynamicLoadObject(class'ZedternalReborn.Config_Weapon'.default.WeaponVariant_VariantList[i].WeaponDefVariant, class'Class'));
+			WeaponVariantDefClass = class<KFWeaponDefinition>(DynamicLoadObject(class'ZedternalReborn.Config_WeaponVariant'.default.Weapon_VariantWeaponDef[i].WeaponDefVariant, class'Class'));
 			if (WeaponVariantDefClass != None)
 				return WeaponVariantDefClass;
 		}
@@ -1354,19 +1354,19 @@ function class<KFWeaponDefinition> ApplyRandomWeaponVariantStartingWeapon(const 
 
 	WeapDefinitionPath = PathName(BaseWeaponDef);
 
-	for (i = 0; i < class'ZedternalReborn.Config_Weapon'.default.WeaponVariant_VariantList.length; ++i)
+	for (i = 0; i < class'ZedternalReborn.Config_WeaponVariant'.default.Weapon_VariantWeaponDef.length; ++i)
 	{
-		if (class'ZedternalReborn.Config_Weapon'.default.WeaponVariant_VariantList[i].WeaponDef ~= WeapDefinitionPath && FRand() <= class'ZedternalReborn.Config_Weapon'.default.WeaponVariant_VariantList[i].Probability)
+		if (class'ZedternalReborn.Config_WeaponVariant'.default.Weapon_VariantWeaponDef[i].WeaponDef ~= WeapDefinitionPath && FRand() <= class'ZedternalReborn.Config_WeaponVariant'.default.Weapon_VariantWeaponDef[i].Probability)
 		{
-			WeaponVariantDef = class<KFWeaponDefinition>(DynamicLoadObject(class'ZedternalReborn.Config_Weapon'.default.WeaponVariant_VariantList[i].WeaponDefVariant, class'Class'));
+			WeaponVariantDef = class<KFWeaponDefinition>(DynamicLoadObject(class'ZedternalReborn.Config_WeaponVariant'.default.Weapon_VariantWeaponDef[i].WeaponDefVariant, class'Class'));
 			if (WeaponVariantDef != None)
 			{
 				TraderItemsReplacementHelper(BaseWeaponDef, WeaponVariantDef, INDEX_NONE, False);
 
 				//Adding dual weapon class to the trader
-				if (class'ZedternalReborn.Config_Weapon'.default.WeaponVariant_VariantList[i].DualWeaponDefVariant != "")
+				if (class'ZedternalReborn.Config_WeaponVariant'.default.Weapon_VariantWeaponDef[i].DualWeaponDefVariant != "")
 				{
-					WeaponVariantDualDef = class<KFWeaponDefinition>(DynamicLoadObject(class'ZedternalReborn.Config_Weapon'.default.WeaponVariant_VariantList[i].DualWeaponDefVariant, class'Class'));
+					WeaponVariantDualDef = class<KFWeaponDefinition>(DynamicLoadObject(class'ZedternalReborn.Config_WeaponVariant'.default.Weapon_VariantWeaponDef[i].DualWeaponDefVariant, class'Class'));
 					if (WeaponVariantDualDef != None)
 					{
 						//Check the base weapon to see if it has a dual class, if it does then replace the original dual with the variant dual
@@ -1423,19 +1423,19 @@ function ApplyRandomWeaponVariant(class<KFWeaponDefinition> KFWD, optional int i
 
 	WeapDefinitionPath = PathName(KFWD);
 
-	for (i = 0; i < class'ZedternalReborn.Config_Weapon'.default.WeaponVariant_VariantList.length; ++i)
+	for (i = 0; i < class'ZedternalReborn.Config_WeaponVariant'.default.Weapon_VariantWeaponDef.length; ++i)
 	{
-		if (class'ZedternalReborn.Config_Weapon'.default.WeaponVariant_VariantList[i].WeaponDef ~= WeapDefinitionPath && FRand() <= class'ZedternalReborn.Config_Weapon'.default.WeaponVariant_VariantList[i].Probability)
+		if (class'ZedternalReborn.Config_WeaponVariant'.default.Weapon_VariantWeaponDef[i].WeaponDef ~= WeapDefinitionPath && FRand() <= class'ZedternalReborn.Config_WeaponVariant'.default.Weapon_VariantWeaponDef[i].Probability)
 		{
-			WeaponVariantDef = class<KFWeaponDefinition>(DynamicLoadObject(class'ZedternalReborn.Config_Weapon'.default.WeaponVariant_VariantList[i].WeaponDefVariant, class'Class'));
+			WeaponVariantDef = class<KFWeaponDefinition>(DynamicLoadObject(class'ZedternalReborn.Config_WeaponVariant'.default.Weapon_VariantWeaponDef[i].WeaponDefVariant, class'Class'));
 			if (WeaponVariantDef != None)
 			{
 				TraderItemsReplacementHelper(KFWD, WeaponVariantDef, index);
 
 				//Adding dual weapon class to the trader
-				if (class'ZedternalReborn.Config_Weapon'.default.WeaponVariant_VariantList[i].DualWeaponDefVariant != "")
+				if (class'ZedternalReborn.Config_WeaponVariant'.default.Weapon_VariantWeaponDef[i].DualWeaponDefVariant != "")
 				{
-					WeaponVariantDef = class<KFWeaponDefinition>(DynamicLoadObject(class'ZedternalReborn.Config_Weapon'.default.WeaponVariant_VariantList[i].DualWeaponDefVariant, class'Class'));
+					WeaponVariantDef = class<KFWeaponDefinition>(DynamicLoadObject(class'ZedternalReborn.Config_WeaponVariant'.default.Weapon_VariantWeaponDef[i].DualWeaponDefVariant, class'Class'));
 					if (WeaponVariantDef != None)
 					{
 						//Check the base weapon to see if it has a dual class, if it does then replace the original dual with the variant dual
@@ -1589,10 +1589,10 @@ function RepGameInfoNormalPriority()
 		return;
 
 	//Grenades
-	for (b = 0; b < Min(255, class'ZedternalReborn.Config_Weapon'.default.Trader_grenadesDef.length); ++b)
+	for (b = 0; b < Min(255, class'ZedternalReborn.Config_WeaponGrenade'.default.Weapon_GrenadeDef.Length); ++b)
 	{
-		WMGRI.grenadesStr[b] = class'ZedternalReborn.Config_Weapon'.default.Trader_grenadesDef[b];
-		WMGRI.Grenades[b] = class<KFWeaponDefinition>(DynamicLoadObject(class'ZedternalReborn.Config_Weapon'.default.Trader_grenadesDef[b], class'Class'));
+		WMGRI.grenadesStr[b] = class'ZedternalReborn.Config_WeaponGrenade'.default.Weapon_GrenadeDef[b];
+		WMGRI.Grenades[b] = class<KFWeaponDefinition>(DynamicLoadObject(class'ZedternalReborn.Config_WeaponGrenade'.default.Weapon_GrenadeDef[b], class'Class'));
 	}
 
 	//Armor pickup enable

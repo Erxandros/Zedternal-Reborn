@@ -8,7 +8,7 @@ function BuildWeaponList()
 	local class<KFWeaponDefinition> KFWeaponDefClass;
 
 	//get WeaponVariant Probablity/Allowed
-	bAllowWeaponVariant = class'ZedternalReborn.Config_Weapon'.default.WeaponVariant_bAllowWeaponVariant;
+	bAllowWeaponVariant = class'ZedternalReborn.Config_WeaponVariant'.default.WeaponVariant_bAllowWeaponVariant;
 
 	InitializeStaticAndStartingWeapons();
 	weaponIndex = InitializeTraderItems();
