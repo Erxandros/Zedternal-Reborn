@@ -117,7 +117,7 @@ event PostBeginPlay()
 	BuildWeaponList();
 
 	// Setup special wave and overrides
-	if (class'ZedternalReborn.Config_SpecialWave'.default.SpecialWave_bAllowed || class'ZedternalReborn.Config_SpecialWave'.default.SpecialWaveOverride_bAllowed)
+	if (class'ZedternalReborn.Config_SpecialWave'.default.SpecialWave_bAllowed || class'ZedternalReborn.Config_SpecialWaveOverride'.default.SpecialWaveOverride_bAllowed)
 		CheckAndSetupSpecialWave();
 
 	// Set item pickups
@@ -799,17 +799,17 @@ function CheckAndSetupSpecialWave()
 			`log("ZR Warning: Special wave on line"@i + 1@"has an invalid special wave pathname for Path:"@class'ZedternalReborn.Config_SpecialWave'.default.SpecialWave_SpecialWaves[i].Path);
 	}
 
-	for (i = 0; i < class'ZedternalReborn.Config_SpecialWave'.default.SpecialWaveOverride_SpecialWaves.length; ++i)
+	for (i = 0; i < class'ZedternalReborn.Config_SpecialWaveOverride'.default.SpecialWaveOverride_SpecialWaves.length; ++i)
 	{
 		SWO.FirstID = INDEX_NONE;
 		SWO.SecondID = INDEX_NONE;
 
 		for (j = 0; j < SpecialWaveObjects.length; ++j)
 		{
-			if (PathName(SpecialWaveObjects[j].SWave) ~= class'ZedternalReborn.Config_SpecialWave'.default.SpecialWaveOverride_SpecialWaves[i].FirstPath)
+			if (PathName(SpecialWaveObjects[j].SWave) ~= class'ZedternalReborn.Config_SpecialWaveOverride'.default.SpecialWaveOverride_SpecialWaves[i].FirstPath)
 				SWO.FirstID = j;
 
-			if (PathName(SpecialWaveObjects[j].SWave) ~= class'ZedternalReborn.Config_SpecialWave'.default.SpecialWaveOverride_SpecialWaves[i].SecondPath)
+			if (PathName(SpecialWaveObjects[j].SWave) ~= class'ZedternalReborn.Config_SpecialWaveOverride'.default.SpecialWaveOverride_SpecialWaves[i].SecondPath)
 				SWO.SecondID = j;
 
 			if (SWO.FirstID != INDEX_NONE && SWO.SecondID != INDEX_NONE)
@@ -817,16 +817,16 @@ function CheckAndSetupSpecialWave()
 		}
 
 		if (SWO.FirstID == INDEX_NONE)
-			`log("ZR Warning: Special wave override on line"@i + 1@"has an invalid special wave pathname for FirstPath:"@class'ZedternalReborn.Config_SpecialWave'.default.SpecialWaveOverride_SpecialWaves[i].FirstPath);
+			`log("ZR Warning: Special wave override on line"@i + 1@"has an invalid special wave pathname for FirstPath:"@class'ZedternalReborn.Config_SpecialWaveOverride'.default.SpecialWaveOverride_SpecialWaves[i].FirstPath);
 
 		if (SWO.SecondID == INDEX_NONE)
-			`log("ZR Warning: Special wave override on line"@i + 1@"has an invalid special wave pathname for SecondPath:"@class'ZedternalReborn.Config_SpecialWave'.default.SpecialWaveOverride_SpecialWaves[i].SecondPath);
+			`log("ZR Warning: Special wave override on line"@i + 1@"has an invalid special wave pathname for SecondPath:"@class'ZedternalReborn.Config_SpecialWaveOverride'.default.SpecialWaveOverride_SpecialWaves[i].SecondPath);
 
 		if (SWO.FirstID == INDEX_NONE && SWO.SecondID == INDEX_NONE)
 			continue;
 
-		SWO.Wave = class'ZedternalReborn.Config_SpecialWave'.default.SpecialWaveOverride_SpecialWaves[i].Wave;
-		SWO.Probability = class'ZedternalReborn.Config_SpecialWave'.default.SpecialWaveOverride_SpecialWaves[i].Probability;
+		SWO.Wave = class'ZedternalReborn.Config_SpecialWaveOverride'.default.SpecialWaveOverride_SpecialWaves[i].Wave;
+		SWO.Probability = class'ZedternalReborn.Config_SpecialWaveOverride'.default.SpecialWaveOverride_SpecialWaves[i].Probability;
 		SpecialWaveOverrides.AddItem(SWO);
 	}
 }
@@ -840,7 +840,7 @@ function SetupSpecialWave()
 	SWList.length = 0;
 
 	// Check if it is a special wave override. If True, check all available special wave overrides
-	if (class'ZedternalReborn.Config_SpecialWave'.default.SpecialWaveOverride_bAllowed && WaveNum > 0)
+	if (class'ZedternalReborn.Config_SpecialWaveOverride'.default.SpecialWaveOverride_bAllowed && WaveNum > 0)
 	{
 		for (i = 0; i < SpecialWaveOverrides.length; ++i)
 		{

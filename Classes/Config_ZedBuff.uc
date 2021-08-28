@@ -1,17 +1,19 @@
 class Config_ZedBuff extends Config_Common
-	config(ZedternalReborn);
+	config(ZedternalReborn_Events);
 
 var config int MODEVERSION;
-
-struct S_BuffWaves
-{
-	var array<int> Waves;
-};
 
 var config bool ZedBuff_bEnable;
 var config bool ZedBuff_bBonusDoshGivenPerBuff;
 var config bool ZedBuff_bBonusTraderTimeGivenPerBuff;
 
+var config S_Difficulty_Int ZedBuff_TraderTimeBonus;
+var config S_Difficulty_Int ZedBuff_DoshBonus;
+
+struct S_BuffWaves
+{
+	var array<int> Waves;
+};
 var config S_BuffWaves ZedBuff_BuffWaves;
 
 struct S_BuffSetting
@@ -20,10 +22,7 @@ struct S_BuffSetting
 	var int MaxWave;
 	var string Path;
 };
-
 var config array<S_BuffSetting> ZedBuff_BuffPath;
-var config S_Difficulty_Int ZedBuff_TraderTimeBonus;
-var config S_Difficulty_Int ZedBuff_DoshBonus;
 
 static function UpdateConfig()
 {
@@ -34,6 +33,18 @@ static function UpdateConfig()
 		default.ZedBuff_bEnable = True;
 		default.ZedBuff_bBonusDoshGivenPerBuff = False;
 		default.ZedBuff_bBonusTraderTimeGivenPerBuff = False;
+
+		default.ZedBuff_TraderTimeBonus.Normal = 25;
+		default.ZedBuff_TraderTimeBonus.Hard = 25;
+		default.ZedBuff_TraderTimeBonus.Suicidal = 25;
+		default.ZedBuff_TraderTimeBonus.HoE = 25;
+		default.ZedBuff_TraderTimeBonus.Custom = 25;
+
+		default.ZedBuff_DoshBonus.Normal = 500;
+		default.ZedBuff_DoshBonus.Hard = 500;
+		default.ZedBuff_DoshBonus.Suicidal = 500;
+		default.ZedBuff_DoshBonus.HoE = 500;
+		default.ZedBuff_DoshBonus.Custom = 500;
 
 		default.ZedBuff_BuffWaves.Waves.Length = 8;
 		default.ZedBuff_BuffWaves.Waves[0] = 5;
@@ -85,18 +96,6 @@ static function UpdateConfig()
 			default.ZedBuff_BuffPath[i].MinWave = 17;
 			default.ZedBuff_BuffPath[i].MaxWave = 999;
 		}
-
-		default.ZedBuff_TraderTimeBonus.Normal = 25;
-		default.ZedBuff_TraderTimeBonus.Hard = 25;
-		default.ZedBuff_TraderTimeBonus.Suicidal = 25;
-		default.ZedBuff_TraderTimeBonus.HoE = 25;
-		default.ZedBuff_TraderTimeBonus.Custom = 25;
-
-		default.ZedBuff_DoshBonus.Normal = 500;
-		default.ZedBuff_DoshBonus.Hard = 500;
-		default.ZedBuff_DoshBonus.Suicidal = 500;
-		default.ZedBuff_DoshBonus.HoE = 500;
-		default.ZedBuff_DoshBonus.Custom = 500;
 	}
 
 	if (default.MODEVERSION < class'ZedternalReborn.Config_Base'.const.CurrentVersion)
@@ -114,7 +113,7 @@ static function bool IsWaveBuffZed(int Wave, out byte count)
 		return False;
 
 	count = 0;
-	for (i = 0; i < default.ZedBuff_BuffWaves.Waves.length; ++i)
+	for (i = 0; i < default.ZedBuff_BuffWaves.Waves.Length; ++i)
 	{
 		if (default.ZedBuff_BuffWaves.Waves[i] == Wave)
 			++count;

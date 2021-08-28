@@ -1,5 +1,5 @@
 class Config_SpecialWave extends Config_Common
-	config(ZedternalReborn);
+	config(ZedternalReborn_Events);
 
 var config int MODEVERSION;
 
@@ -12,32 +12,19 @@ struct SSpecialWave
 	var string Path;
 	var int MinWave, MaxWave;
 };
-
-var config array< SSpecialWave > SpecialWave_SpecialWaves;
-
-var config bool SpecialWaveOverride_bAllowed;
-
-struct SSpecialWaveOverride
-{
-	var int Wave;
-	var string FirstPath, SecondPath;
-	var float Probability;
-};
-
-var config array< SSpecialWaveOverride > SpecialWaveOverride_SpecialWaves;
+var config array<SSpecialWave> SpecialWave_SpecialWaves;
 
 static function UpdateConfig()
 {
 	local int i;
-	local SSpecialWave sWave;
 
 	if (default.MODEVERSION < 1)
 	{
-		default.SpecialWave_bAllowed = true;
-		default.SpecialWave_Probability = 0.270000;
-		default.SpecialWave_DoubleProbability = 0.220000;
+		default.SpecialWave_bAllowed = True;
+		default.SpecialWave_Probability = 0.27f;
+		default.SpecialWave_DoubleProbability = 0.22f;
 
-		default.SpecialWave_SpecialWaves.length = 41;
+		default.SpecialWave_SpecialWaves.length = 42;
 		default.SpecialWave_SpecialWaves[0].Path = "ZedternalReborn.WMSpecialWave_ClotBuster";
 		default.SpecialWave_SpecialWaves[1].Path = "ZedternalReborn.WMSpecialWave_Popcorn";
 		default.SpecialWave_SpecialWaves[2].Path = "ZedternalReborn.WMSpecialWave_CatchMe";
@@ -111,37 +98,19 @@ static function UpdateConfig()
 		default.SpecialWave_SpecialWaves[40].Path = "ZedternalReborn.WMSpecialWave_TheHorde";
 		default.SpecialWave_SpecialWaves[40].MinWave = 7;
 		default.SpecialWave_SpecialWaves[40].MaxWave = 999;
+		default.SpecialWave_SpecialWaves[41].Path = "ZedternalReborn.WMSpecialWave_InstaKill";
+		default.SpecialWave_SpecialWaves[41].MinWave = 0;
+		default.SpecialWave_SpecialWaves[41].MaxWave = 15;
 	}
 
-	if (default.MODEVERSION < 4)
+	if (default.MODEVERSION < class'ZedternalReborn.Config_Base'.const.CurrentVersion)
 	{
-		if (default.SpecialWave_SpecialWaves.Find('Path', "ZedternalReborn.WMSpecialWave_InstaKill") == INDEX_NONE)
-		{
-			sWave.Path = "ZedternalReborn.WMSpecialWave_InstaKill";
-			sWave.MinWave = 0;
-			sWave.MaxWave = 15;
-			default.SpecialWave_SpecialWaves.AddItem(sWave);
-		}
-	}
-
-	if (default.MODEVERSION < 6)
-	{
-		default.SpecialWaveOverride_bAllowed = false;
-		default.SpecialWaveOverride_SpecialWaves.length = 1;
-
-		default.SpecialWaveOverride_SpecialWaves[0].Wave = 5;
-		default.SpecialWaveOverride_SpecialWaves[0].FirstPath = "ZedternalReborn.WMSpecialWave_InstaKill";
-		default.SpecialWaveOverride_SpecialWaves[0].SecondPath = "ZedternalReborn.WMSpecialWave_UnlimitedAmmo";
-		default.SpecialWaveOverride_SpecialWaves[0].Probability = 0.8;
-	}
-
-	if (default.MODEVERSION < class'ZedternalReborn.Config_Base'.const.currentVersion)
-	{
-		default.MODEVERSION = class'ZedternalReborn.Config_Base'.const.currentVersion;
+		default.MODEVERSION = class'ZedternalReborn.Config_Base'.const.CurrentVersion;
 		static.StaticSaveConfig();
 	}
 }
 
 defaultproperties
 {
+	Name="Default__Config_SpecialWave"
 }
