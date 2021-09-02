@@ -197,7 +197,7 @@ static function CheckBasicConfigValues()
 		PerkExist = False;
 		for (p = 0; p < class'ZedternalReborn.Config_PerkUpgrade'.default.PerkUpgrade_Upgrade.Length; ++p)
 		{
-			if (default.SkillUpgrade_Upgrade[s].PerkPath ~= class'ZedternalReborn.Config_PerkUpgrade'.default.PerkUpgrade_Upgrade[p])
+			if (default.SkillUpgrade_Upgrade[s].PerkPath ~= class'ZedternalReborn.Config_PerkUpgrade'.default.PerkUpgrade_Upgrade[p].PerkPath)
 			{
 				PerkExist = True;
 				break;

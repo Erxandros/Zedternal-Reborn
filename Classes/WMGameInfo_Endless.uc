@@ -1657,7 +1657,7 @@ function RepGameInfoLowPriority()
 	//Perk Upgrades
 	for (b = 0; b < Min(255, ConfigInit.ValidPerkUpgrades.Length); ++b)
 	{
-		WMGRI.perkUpgradesStr[b] = ConfigInit.ValidPerkUpgrades[b];
+		WMGRI.perkUpgradesStr[b] = ConfigInit.ValidPerkUpgrades[b].PerkPath;
 		WMGRI.perkUpgrades[b] = ConfigInit.LoadedPerkUpgObjects[b];
 	}
 
@@ -1744,41 +1744,41 @@ function RepGameInfoLowPriority()
 function RepPlayerInfo(WMPlayerReplicationInfo WMPRI)
 {
 	local array<byte> PerkIndex;
-	local byte i, j, choice;
-	local bool bFound;
+	local byte i, Count, Choice;
 
 	`log("ZR Info: Reconnect Player"@WMPRI.PlayerName$":"@WMPRI.NumTimesReconnected);
 
 	if (WMPRI.NumTimesReconnected < 1 && class'ZedternalReborn.Config_PerkUpgradeOptions'.default.PerkUpgrade_AvailablePerks > 0)
 	{
 		PerkIndex.Length = 0;
+		Count = 0;
 		for (i = 0; i < ConfigInit.ValidPerkUpgrades.Length; ++i)
 		{
 			// check if the perk i should be in the trader (static perk)
-			bFound = False;
-			for (j = 0; j < class'ZedternalReborn.Config_PerkUpgrade'.default.PerkUpgrade_StaticUpgrade.Length; ++j)
+			if (ConfigInit.ValidPerkUpgrades[i].bIsStatic)
 			{
-				if (class'ZedternalReborn.Config_PerkUpgrade'.default.PerkUpgrade_StaticUpgrade[j] ~= ConfigInit.ValidPerkUpgrades[i])
-				{
-					bFound = True;
-					WMPRI.bPerkUpgradeAvailable[i] = 1;
-					j = class'ZedternalReborn.Config_PerkUpgrade'.default.PerkUpgrade_StaticUpgrade.Length;
-				}
+				WMPRI.bPerkUpgradeAvailable[i] = 1;
+				++Count;
 			}
-			if (!bFound)
+			else
 			{
-				PerkIndex[PerkIndex.Length] = i;
+				PerkIndex.AddItem(i);
 				WMPRI.bPerkUpgradeAvailable[i] = 0;
+			}
+
+			if (Count > class'ZedternalReborn.Config_PerkUpgradeOptions'.default.PerkUpgrade_AvailablePerks)
+			{
+				break;
 			}
 		}
 
-		for (i = 0; i < class'ZedternalReborn.Config_PerkUpgradeOptions'.default.PerkUpgrade_AvailablePerks - class'ZedternalReborn.Config_PerkUpgrade'.default.PerkUpgrade_StaticUpgrade.Length; ++i)
+		for (i = 0; i < class'ZedternalReborn.Config_PerkUpgradeOptions'.default.PerkUpgrade_AvailablePerks - Count; ++i)
 		{
 			if (PerkIndex.Length > 0)
 			{
-				choice = Rand(PerkIndex.Length);
-				WMPRI.bPerkUpgradeAvailable[PerkIndex[choice]] = 1;
-				PerkIndex.remove(choice, 1);
+				Choice = Rand(PerkIndex.Length);
+				WMPRI.bPerkUpgradeAvailable[PerkIndex[Choice]] = 1;
+				PerkIndex.Remove(Choice, 1);
 			}
 		}
 	}

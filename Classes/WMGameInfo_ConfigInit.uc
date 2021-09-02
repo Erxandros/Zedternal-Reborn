@@ -1,7 +1,7 @@
 class WMGameInfo_ConfigInit extends Object;
 
 //Upgrades
-var array<string> ValidPerkUpgrades;
+var array<S_PerkUpgrade> ValidPerkUpgrades;
 var array< class<WMUpgrade_Perk> > LoadedPerkUpgObjects;
 
 var array<S_SkillUpgrade> ValidSkillUpgrades;
