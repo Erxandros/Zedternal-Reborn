@@ -62,28 +62,15 @@ static function UpdateConfig()
 	}
 }
 
-static function CheckConfigValues()
+static function CheckBasicConfigValues()
 {
 	local int i;
-	local object Obj;
-
-	for (i = 0; i < default.EquipmentUpgrade_Upgrade.Length; ++i)
-	{
-		Obj = class<WMUpgrade_Equipment>(DynamicLoadObject(default.EquipmentUpgrade_Upgrade[i].EquipmentPath, class'Class', True));
-		if (Obj == None)
-		{
-			`log("ZR Error: Equipment upgrade" @ default.EquipmentUpgrade_Upgrade[i].EquipmentPath @ "failed to load. Skip adding the Equipment upgrade to the game."
-				@"Please double check the name in the config and make sure the correct mod resources are installed.");
-			default.EquipmentUpgrade_Upgrade.Remove(i, 1);
-			--i;
-		}
-	}
 
 	for (i = 0; i < default.EquipmentUpgrade_Upgrade.Length; ++i)
 	{
 		if (default.EquipmentUpgrade_Upgrade[i].BasePrice < 0)
 		{
-			`log("ZR Warning: BasePrice for Equipment upgrade" @ default.EquipmentUpgrade_Upgrade[i].EquipmentPath
+			`log("ZR Config: BasePrice for Equipment upgrade" @ default.EquipmentUpgrade_Upgrade[i].EquipmentPath
 				@"is set to" @ default.EquipmentUpgrade_Upgrade[i].BasePrice
 				@"which is not supported. Setting the base price to 0 (free) temporarily."
 				@"Please change the value in the config to a value greater than or equal to 0.");
@@ -92,7 +79,7 @@ static function CheckConfigValues()
 
 		if (default.EquipmentUpgrade_Upgrade[i].MaxPrice < 0)
 		{
-			`log("ZR Warning: MaxPrice for Equipment upgrade" @ default.EquipmentUpgrade_Upgrade[i].EquipmentPath
+			`log("ZR Config: MaxPrice for Equipment upgrade" @ default.EquipmentUpgrade_Upgrade[i].EquipmentPath
 				@"is set to" @ default.EquipmentUpgrade_Upgrade[i].MaxPrice
 				@"which is not supported. Setting the max price to 0 (free) temporarily."
 				@"Please change the value in the config to a value greater than or equal to 0.");
@@ -101,7 +88,7 @@ static function CheckConfigValues()
 
 		if (default.EquipmentUpgrade_Upgrade[i].MaxLevel < 0)
 		{
-			`log("ZR Warning: MaxLevel for Equipment upgrade" @ default.EquipmentUpgrade_Upgrade[i].EquipmentPath
+			`log("ZR Config: MaxLevel for Equipment upgrade" @ default.EquipmentUpgrade_Upgrade[i].EquipmentPath
 				@"is set to" @ default.EquipmentUpgrade_Upgrade[i].MaxLevel
 				@"which is not supported. Setting the max level to 0 (disable upgrade) temporarily."
 				@"Please change the value in the config to a value between 0 and 255.");
@@ -110,11 +97,35 @@ static function CheckConfigValues()
 
 		if (default.EquipmentUpgrade_Upgrade[i].MaxLevel > 255)
 		{
-			`log("ZR Warning: MaxLevel for Equipment upgrade" @ default.EquipmentUpgrade_Upgrade[i].EquipmentPath
+			`log("ZR Config: MaxLevel for Equipment upgrade" @ default.EquipmentUpgrade_Upgrade[i].EquipmentPath
 				@"is set to" @ default.EquipmentUpgrade_Upgrade[i].MaxLevel
 				@"which is not supported. Setting the max level to 255 (max level) temporarily."
 				@"Please change the value in the config to a value between 0 and 255.");
 			default.EquipmentUpgrade_Upgrade[i].MaxLevel = 255;
+		}
+	}
+}
+
+static function LoadConfigObjects(out array<S_EquipmentUpgrade> ValidUpgrades, out array< class<WMUpgrade_Equipment> > UpgradeObjects)
+{
+	local int i;
+	local class<WMUpgrade_Equipment> Obj;
+
+	ValidUpgrades.Length = 0;
+	UpgradeObjects.Length = 0;
+
+	for (i = 0; i < default.EquipmentUpgrade_Upgrade.Length; ++i)
+	{
+		Obj = class<WMUpgrade_Equipment>(DynamicLoadObject(default.EquipmentUpgrade_Upgrade[i].EquipmentPath, class'Class', True));
+		if (Obj == None)
+		{
+			`log("ZR Config: Equipment upgrade" @ default.EquipmentUpgrade_Upgrade[i].EquipmentPath @ "failed to load. Skip adding the Equipment upgrade to the game."
+				@"Please double check the name in the config and make sure the correct mod resources are installed.");
+		}
+		else
+		{
+			ValidUpgrades.AddItem(default.EquipmentUpgrade_Upgrade[i]);
+			UpgradeObjects.AddItem(Obj);
 		}
 	}
 }

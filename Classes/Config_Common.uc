@@ -19,7 +19,7 @@ struct S_Difficulty_Float
 };
 
 static function UpdateConfig();
-static function CheckConfigValues();
+static function CheckBasicConfigValues();
 
 defaultproperties
 {

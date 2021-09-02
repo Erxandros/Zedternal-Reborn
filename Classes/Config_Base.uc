@@ -14,7 +14,7 @@ static function LoadConfigs()
 	for (i = 0; i < default.ConfigFiles.Length; ++i)
 	{
 		default.ConfigFiles[i].static.UpdateConfig();
-		default.ConfigFiles[i].static.CheckConfigValues();
+		default.ConfigFiles[i].static.CheckBasicConfigValues();
 	}
 }
 

@@ -1,5 +1,7 @@
 class WMGameInfo_Endless extends KFGameInfo_Survival;
 
+var WMGameInfo_ConfigInit ConfigInit;
+
 var KFGFxObject_TraderItems DefaultTraderItems;
 var WMGFxObject_TraderItems TraderItems;
 var array<name> KFWeaponName;
@@ -109,6 +111,9 @@ event PostBeginPlay()
 
 	// Update Default Value
 	class'ZedternalReborn.Config_Base'.static.LoadConfigs();
+
+	ConfigInit = new class'WMGameInfo_ConfigInit';
+	ConfigInit.InitializeConfigData();
 
 	//Set all traders toggle
 	bUseAllTraders = class'ZedternalReborn.Config_Map'.static.GetAllTraders(WorldInfo.GetMapName(True));
@@ -1178,9 +1183,9 @@ function AddWeaponInTrader(const out class<KFWeaponDefinition> KFWD)
 	if (WMGRI != None && KFW != None)
 	{
 		AllowedUpgrades.length = 0;
-		for (i = 0; i < class'ZedternalReborn.Config_WeaponUpgrade'.default.WeaponUpgrade_Upgrade.Length; ++i)
+		for (i = 0; i < ConfigInit.ValidWeaponUpgrades.Length; ++i)
 		{
-			WMUW = class<WMUpgrade_Weapon>(DynamicLoadObject(class'ZedternalReborn.Config_WeaponUpgrade'.default.WeaponUpgrade_Upgrade[i], class'Class'));
+			WMUW = ConfigInit.LoadedWeaponUpgObjects[i];
 			if (WMUW != None && WMUW.static.IsUpgradeCompatible(KFW))
 				AllowedUpgrades.AddItem(WMUW);
 		}
@@ -1552,9 +1557,9 @@ function RepGameInfoHighPriority()
 	//Optimization
 	WMGRI.NumberOfTraderWeapons = Min(510, TraderItems.SaleItems.Length);
 	WMGRI.NumberOfStartingWeapons = Min(255, KFStartingWeaponPath.Length);
-	WMGRI.NumberOfSkillUpgrades = Min(255, class'ZedternalReborn.Config_SkillUpgrade'.default.SkillUpgrade_Upgrade.Length);
+	WMGRI.NumberOfSkillUpgrades = Min(255, ConfigInit.ValidSkillUpgrades.Length);
 	WMGRI.NumberOfWeaponUpgrades = Min(`MAXWEAPONUPGRADES, weaponUpgradeArch.Length);
-	WMGRI.NumberOfEquipmentUpgrades = Min(255, class'ZedternalReborn.Config_EquipmentUpgrade'.default.EquipmentUpgrade_Upgrade.Length);
+	WMGRI.NumberOfEquipmentUpgrades = Min(255, ConfigInit.ValidEquipmentUpgrades.Length);
 
 	//Pre-initialize the array size for the sever/standalone
 	WMGRI.skillUpgrades.Length = WMGRI.NumberOfSkillUpgrades;
@@ -1650,10 +1655,10 @@ function RepGameInfoLowPriority()
 	}
 
 	//Perk Upgrades
-	for (b = 0; b < Min(255, class'ZedternalReborn.Config_PerkUpgrade'.default.PerkUpgrade_Upgrade.Length); ++b)
+	for (b = 0; b < Min(255, ConfigInit.ValidPerkUpgrades.Length); ++b)
 	{
-		WMGRI.perkUpgradesStr[b] = class'ZedternalReborn.Config_PerkUpgrade'.default.PerkUpgrade_Upgrade[b];
-		WMGRI.perkUpgrades[b] = class<WMUpgrade_Perk>(DynamicLoadObject(class'ZedternalReborn.Config_PerkUpgrade'.default.PerkUpgrade_Upgrade[b], class'Class'));
+		WMGRI.perkUpgradesStr[b] = ConfigInit.ValidPerkUpgrades[b];
+		WMGRI.perkUpgrades[b] = ConfigInit.LoadedPerkUpgObjects[b];
 	}
 
 	//Weapon Upgrades for the local standalone/server
@@ -1684,36 +1689,36 @@ function RepGameInfoLowPriority()
 	WMGRI.RepGameInfoWeaponUpgrades(WMGRI.weaponUpgradeRepArray_16, 15);
 
 	//Skill Upgrades
-	for (b = 0; b < Min(255, class'ZedternalReborn.Config_SkillUpgrade'.default.SkillUpgrade_Upgrade.Length); ++b)
+	for (b = 0; b < Min(255, ConfigInit.ValidSkillUpgrades.Length); ++b)
 	{
-		WMGRI.skillUpgradesRepArray[b].SkillPathName = class'ZedternalReborn.Config_SkillUpgrade'.default.SkillUpgrade_Upgrade[b].SkillPath;
-		WMGRI.skillUpgradesRepArray[b].PerkPathName = class'ZedternalReborn.Config_SkillUpgrade'.default.SkillUpgrade_Upgrade[b].PerkPath;
+		WMGRI.skillUpgradesRepArray[b].SkillPathName = ConfigInit.ValidSkillUpgrades[b].SkillPath;
+		WMGRI.skillUpgradesRepArray[b].PerkPathName = ConfigInit.ValidSkillUpgrades[b].PerkPath;
 		WMGRI.skillUpgradesRepArray[b].bValid = True;
 
-		WMGRI.skillUpgrades[b].SkillUpgrade = class<WMUpgrade_Skill>(DynamicLoadObject(class'ZedternalReborn.Config_SkillUpgrade'.default.SkillUpgrade_Upgrade[b].SkillPath, class'Class'));
-		WMGRI.skillUpgrades[b].PerkPathName = class'ZedternalReborn.Config_SkillUpgrade'.default.SkillUpgrade_Upgrade[b].PerkPath;
+		WMGRI.skillUpgrades[b].SkillUpgrade = ConfigInit.LoadedSkillUpgObjects[b];
+		WMGRI.skillUpgrades[b].PerkPathName = ConfigInit.ValidSkillUpgrades[b].PerkPath;
 		WMGRI.skillUpgrades[b].bDone = True;
 	}
 
 	//Equipment Upgrades
-	for (b = 0; b < Min(255, class'ZedternalReborn.Config_EquipmentUpgrade'.default.EquipmentUpgrade_Upgrade.Length); ++b)
+	for (b = 0; b < Min(255, ConfigInit.ValidEquipmentUpgrades.Length); ++b)
 	{
-		if (class'ZedternalReborn.Config_EquipmentUpgrade'.default.EquipmentUpgrade_Upgrade[b].MaxLevel > 0)
+		if (ConfigInit.ValidEquipmentUpgrades[b].MaxLevel > 0)
 		{
-			WMGRI.equipmentUpgradesRepArray[b].EquipmentPathName = class'ZedternalReborn.Config_EquipmentUpgrade'.default.EquipmentUpgrade_Upgrade[b].EquipmentPath;
-			WMGRI.equipmentUpgradesRepArray[b].BasePrice = class'ZedternalReborn.Config_EquipmentUpgrade'.default.EquipmentUpgrade_Upgrade[b].BasePrice;
-			WMGRI.equipmentUpgradesRepArray[b].MaxPrice = class'ZedternalReborn.Config_EquipmentUpgrade'.default.EquipmentUpgrade_Upgrade[b].MaxPrice;
-			WMGRI.equipmentUpgradesRepArray[b].MaxLevel = class'ZedternalReborn.Config_EquipmentUpgrade'.default.EquipmentUpgrade_Upgrade[b].MaxLevel;
+			WMGRI.equipmentUpgradesRepArray[b].EquipmentPathName = ConfigInit.ValidEquipmentUpgrades[b].EquipmentPath;
+			WMGRI.equipmentUpgradesRepArray[b].BasePrice = ConfigInit.ValidEquipmentUpgrades[b].BasePrice;
+			WMGRI.equipmentUpgradesRepArray[b].MaxPrice = ConfigInit.ValidEquipmentUpgrades[b].MaxPrice;
+			WMGRI.equipmentUpgradesRepArray[b].MaxLevel = ConfigInit.ValidEquipmentUpgrades[b].MaxLevel;
 			WMGRI.equipmentUpgradesRepArray[b].bValid = True;
 
-			WMGRI.equipmentUpgrades[b].EquipmentUpgrade = class<WMUpgrade_Equipment>(DynamicLoadObject(class'ZedternalReborn.Config_EquipmentUpgrade'.default.EquipmentUpgrade_Upgrade[b].EquipmentPath, class'Class'));
-			WMGRI.equipmentUpgrades[b].BasePrice = class'ZedternalReborn.Config_EquipmentUpgrade'.default.EquipmentUpgrade_Upgrade[b].BasePrice;
-			WMGRI.equipmentUpgrades[b].MaxPrice = class'ZedternalReborn.Config_EquipmentUpgrade'.default.EquipmentUpgrade_Upgrade[b].MaxPrice;
-			WMGRI.equipmentUpgrades[b].MaxLevel = class'ZedternalReborn.Config_EquipmentUpgrade'.default.EquipmentUpgrade_Upgrade[b].MaxLevel;
+			WMGRI.equipmentUpgrades[b].EquipmentUpgrade = ConfigInit.LoadedEquipmentUpgObjects[b];
+			WMGRI.equipmentUpgrades[b].BasePrice = ConfigInit.ValidEquipmentUpgrades[b].BasePrice;
+			WMGRI.equipmentUpgrades[b].MaxPrice = ConfigInit.ValidEquipmentUpgrades[b].MaxPrice;
+			WMGRI.equipmentUpgrades[b].MaxLevel = ConfigInit.ValidEquipmentUpgrades[b].MaxLevel;
 			WMGRI.equipmentUpgrades[b].bDone = True;
 		}
 		else
-			`log("ZR Info: Equipment upgrade disabled because max level is zero:"@class'ZedternalReborn.Config_EquipmentUpgrade'.default.EquipmentUpgrade_Upgrade[b].EquipmentPath);
+			`log("ZR Info: Equipment upgrade disabled because max level is zero:"@ConfigInit.ValidEquipmentUpgrades[b].EquipmentPath);
 	}
 
 	//Weapon unlocks
@@ -1747,13 +1752,13 @@ function RepPlayerInfo(WMPlayerReplicationInfo WMPRI)
 	if (WMPRI.NumTimesReconnected < 1 && class'ZedternalReborn.Config_PerkUpgradeOptions'.default.PerkUpgrade_AvailablePerks > 0)
 	{
 		PerkIndex.Length = 0;
-		for (i = 0; i < class'ZedternalReborn.Config_PerkUpgrade'.default.PerkUpgrade_Upgrade.Length; ++i)
+		for (i = 0; i < ConfigInit.ValidPerkUpgrades.Length; ++i)
 		{
 			// check if the perk i should be in the trader (static perk)
 			bFound = False;
 			for (j = 0; j < class'ZedternalReborn.Config_PerkUpgrade'.default.PerkUpgrade_StaticUpgrade.Length; ++j)
 			{
-				if (class'ZedternalReborn.Config_PerkUpgrade'.default.PerkUpgrade_StaticUpgrade[j] ~= class'ZedternalReborn.Config_PerkUpgrade'.default.PerkUpgrade_Upgrade[i])
+				if (class'ZedternalReborn.Config_PerkUpgrade'.default.PerkUpgrade_StaticUpgrade[j] ~= ConfigInit.ValidPerkUpgrades[i])
 				{
 					bFound = True;
 					WMPRI.bPerkUpgradeAvailable[i] = 1;

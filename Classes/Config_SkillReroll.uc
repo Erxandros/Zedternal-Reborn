@@ -25,11 +25,11 @@ static function UpdateConfig()
 	}
 }
 
-static function CheckConfigValues()
+static function CheckBasicConfigValues()
 {
 	if (default.SkillReroll_BasePrice < 0)
 	{
-		`log("ZR Warning: SkillReroll_BasePrice is set to" @ default.SkillReroll_BasePrice
+		`log("ZR Config: SkillReroll_BasePrice is set to" @ default.SkillReroll_BasePrice
 			@"which is not supported. Setting the price to 0 (free) temporarily."
 			@"Please change the value in the config to a value greater than or equal to 0.");
 		default.SkillReroll_BasePrice = 0;
@@ -37,7 +37,7 @@ static function CheckConfigValues()
 
 	if (default.SkillReroll_NextRerollPriceMultiplier < 1.0f)
 	{
-		`log("ZR Warning: SkillReroll_NextRerollPriceMultiplier is set to" @ default.SkillReroll_NextRerollPriceMultiplier
+		`log("ZR Config: SkillReroll_NextRerollPriceMultiplier is set to" @ default.SkillReroll_NextRerollPriceMultiplier
 			@"which is not supported. Setting the price multiplier to 1.0 (no increase) temporarily."
 			@"Please change the value in the config to a value greater than or equal to 1.0.");
 		default.SkillReroll_NextRerollPriceMultiplier = 1.0f;
@@ -45,7 +45,7 @@ static function CheckConfigValues()
 
 	if (default.SkillReroll_SkillRerollSellPercentage < 0.0f)
 	{
-		`log("ZR Warning: SkillReroll_SkillRerollSellPercentage is set to" @ default.SkillReroll_SkillRerollSellPercentage
+		`log("ZR Config: SkillReroll_SkillRerollSellPercentage is set to" @ default.SkillReroll_SkillRerollSellPercentage
 			@"which is not supported. Setting the sell percentage to 0.0 (0%) temporarily."
 			@"Please change the value in the config to a value between 0.0 and 1.0.");
 		default.SkillReroll_SkillRerollSellPercentage = 0.0f;
@@ -53,7 +53,7 @@ static function CheckConfigValues()
 
 	if (default.SkillReroll_SkillRerollSellPercentage > 1.0f)
 	{
-		`log("ZR Warning: SkillReroll_SkillRerollSellPercentage is set to" @ default.SkillReroll_SkillRerollSellPercentage
+		`log("ZR Config: SkillReroll_SkillRerollSellPercentage is set to" @ default.SkillReroll_SkillRerollSellPercentage
 			@"which is not supported. Setting the sell percentage to 1.0 (100%) temporarily."
 			@"Please change the value in the config to a value between 0.0 and 1.0.");
 		default.SkillReroll_SkillRerollSellPercentage = 1.0f;

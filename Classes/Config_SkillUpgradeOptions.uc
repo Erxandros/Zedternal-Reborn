@@ -29,13 +29,13 @@ static function UpdateConfig()
 	}
 }
 
-static function CheckConfigValues()
+static function CheckBasicConfigValues()
 {
 	local int i;
 
 	if (default.SkillUpgrade_Price < 0)
 	{
-		`log("ZR Warning: SkillUpgrade_Price is set to" @ default.SkillUpgrade_Price
+		`log("ZR Config: SkillUpgrade_Price is set to" @ default.SkillUpgrade_Price
 			@"which is not supported. Setting the price to 0 (free) temporarily."
 			@"Please change the value in the config to a value greater than or equal to 0.");
 		default.SkillUpgrade_Price = 0;
@@ -43,7 +43,7 @@ static function CheckConfigValues()
 
 	if (default.SkillUpgrade_DeluxePrice < 0)
 	{
-		`log("ZR Warning: SkillUpgrade_DeluxePrice is set to" @ default.SkillUpgrade_DeluxePrice
+		`log("ZR Config: SkillUpgrade_DeluxePrice is set to" @ default.SkillUpgrade_DeluxePrice
 			@"which is not supported. Setting the price to 0 (free) temporarily."
 			@"Please change the value in the config to a value greater than or equal to 0.");
 		default.SkillUpgrade_DeluxePrice = 0;
@@ -53,7 +53,7 @@ static function CheckConfigValues()
 	{
 		if (default.SkillUpgrade_DeluxeSkillUnlock.PerkLevels[i] < 1)
 		{
-			`log("ZR Warning: SkillUpgrade_DeluxeSkillUnlock.PerkLevels has an entry" @ default.SkillUpgrade_DeluxeSkillUnlock.PerkLevels[i]
+			`log("ZR Config: SkillUpgrade_DeluxeSkillUnlock.PerkLevels has an entry" @ default.SkillUpgrade_DeluxeSkillUnlock.PerkLevels[i]
 				@"which is not supported. Setting the level to 1 (first perk level) temporarily."
 				@"Please change the value in the config to a value between 1 and 255.");
 			default.SkillUpgrade_DeluxeSkillUnlock.PerkLevels[i] = 1;
@@ -61,8 +61,8 @@ static function CheckConfigValues()
 
 		if (default.SkillUpgrade_DeluxeSkillUnlock.PerkLevels[i] > 255)
 		{
-			`log("ZR Warning: SkillUpgrade_DeluxeSkillUnlock.PerkLevels has an entry" @ default.SkillUpgrade_DeluxeSkillUnlock.PerkLevels[i]
-				@"which is not supported. Setting the level to 255 (last perk level) temporarily."
+			`log("ZR Config: SkillUpgrade_DeluxeSkillUnlock.PerkLevels has an entry" @ default.SkillUpgrade_DeluxeSkillUnlock.PerkLevels[i]
+				@"which is not supported. Setting the level to 255 (max perk level) temporarily."
 				@"Please change the value in the config to a value between 1 and 255.");
 			default.SkillUpgrade_DeluxeSkillUnlock.PerkLevels[i] = 255;
 		}

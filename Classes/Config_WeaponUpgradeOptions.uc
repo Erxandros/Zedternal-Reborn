@@ -13,7 +13,7 @@ static function UpdateConfig()
 	if (default.MODEVERSION < 1)
 	{
 		default.WeaponUpgrade_PriceUnit = 50;
-		default.WeaponUpgrade_PriceFactor = 0.150000;
+		default.WeaponUpgrade_PriceFactor = 0.15f;
 		default.WeaponUpgrade_NumberUpgradePerWeapon = 3;
 		default.WeaponUpgrade_MaxLevel = 3;
 	}
@@ -25,11 +25,11 @@ static function UpdateConfig()
 	}
 }
 
-static function CheckConfigValues()
+static function CheckBasicConfigValues()
 {
 	if (default.WeaponUpgrade_PriceUnit < 0)
 	{
-		`log("ZR Warning: WeaponUpgrade_PriceUnit is set to" @ default.WeaponUpgrade_PriceUnit
+		`log("ZR Config: WeaponUpgrade_PriceUnit is set to" @ default.WeaponUpgrade_PriceUnit
 			@"which is not supported. Setting the price unit to 0 (free) temporarily."
 			@"Please change the value in the config to a value greater than or equal to 0.");
 		default.WeaponUpgrade_PriceUnit = 0;
@@ -37,7 +37,7 @@ static function CheckConfigValues()
 
 	if (default.WeaponUpgrade_PriceFactor < 0.0f)
 	{
-		`log("ZR Warning: WeaponUpgrade_PriceFactor is set to" @ default.WeaponUpgrade_PriceFactor
+		`log("ZR Config: WeaponUpgrade_PriceFactor is set to" @ default.WeaponUpgrade_PriceFactor
 			@"which is not supported. Setting the price factor to 0.0 (0% increase) temporarily."
 			@"Please change the value in the config to a value greater than or equal to 0.0.");
 		default.WeaponUpgrade_PriceFactor = 0.0f;
@@ -45,7 +45,7 @@ static function CheckConfigValues()
 
 	if (default.WeaponUpgrade_NumberUpgradePerWeapon < 0)
 	{
-		`log("ZR Warning: WeaponUpgrade_NumberUpgradePerWeapon is set to" @ default.WeaponUpgrade_NumberUpgradePerWeapon
+		`log("ZR Config: WeaponUpgrade_NumberUpgradePerWeapon is set to" @ default.WeaponUpgrade_NumberUpgradePerWeapon
 			@"which is not supported. Setting the number of upgrades to 0 (no upgrades) temporarily."
 			@"Please change the value in the config to a value greater than or equal to 0.");
 		default.WeaponUpgrade_NumberUpgradePerWeapon = 0;
@@ -53,7 +53,7 @@ static function CheckConfigValues()
 
 	if (default.WeaponUpgrade_MaxLevel < 1)
 	{
-		`log("ZR Warning: WeaponUpgrade_MaxLevel is set to" @ default.WeaponUpgrade_MaxLevel
+		`log("ZR Config: WeaponUpgrade_MaxLevel is set to" @ default.WeaponUpgrade_MaxLevel
 			@"which is not supported. Setting the max level to 1 (only one level) temporarily."
 			@"Please change the value in the config to a value greater than or equal to 1.");
 		default.WeaponUpgrade_MaxLevel = 1;

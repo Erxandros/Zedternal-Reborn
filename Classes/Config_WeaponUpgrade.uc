@@ -43,34 +43,27 @@ static function UpdateConfig()
 	}
 }
 
-static function CheckConfigValues()
+static function LoadConfigObjects(out array<string> ValidUpgrades, out array< class<WMUpgrade_Weapon> > UpgradeObjects)
 {
 	local int i;
-	local object Obj;
+	local class<WMUpgrade_Weapon> Obj;
+
+	ValidUpgrades.Length = 0;
+	UpgradeObjects.Length = 0;
 
 	for (i = 0; i < default.WeaponUpgrade_Upgrade.Length; ++i)
 	{
 		Obj = class<WMUpgrade_Weapon>(DynamicLoadObject(default.WeaponUpgrade_Upgrade[i], class'Class', True));
 		if (Obj == None)
 		{
-			`log("ZR Error: Weapon upgrade" @ default.WeaponUpgrade_Upgrade[i] @ "failed to load."
+			`log("ZR Config: Weapon upgrade" @ default.WeaponUpgrade_Upgrade[i] @ "failed to load."
 				@"Skip adding the Weapon upgrade to the game."
 				@"Please double check the name in the config and make sure the correct mod resources are installed.");
-			default.WeaponUpgrade_Upgrade.Remove(i, 1);
-			--i;
 		}
-	}
-
-	for (i = 0; i < default.WeaponUpgrade_StaticUpgrade.Length; ++i)
-	{
-		Obj = class<WMUpgrade_Weapon>(DynamicLoadObject(default.WeaponUpgrade_StaticUpgrade[i], class'Class', True));
-		if (Obj == None)
+		else
 		{
-			`log("ZR Error: Static Weapon upgrade" @ default.WeaponUpgrade_StaticUpgrade[i] @ "failed to load."
-				@"Skip adding the static Weapon upgrade to the game."
-				@"Please double check the name in the config and make sure the correct mod resources are installed.");
-			default.WeaponUpgrade_StaticUpgrade.Remove(i, 1);
-			--i;
+			ValidUpgrades.AddItem(default.WeaponUpgrade_Upgrade[i]);
+			UpgradeObjects.AddItem(Obj);
 		}
 	}
 }

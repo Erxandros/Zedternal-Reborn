@@ -29,33 +29,26 @@ static function UpdateConfig()
 	}
 }
 
-static function CheckConfigValues()
+static function LoadConfigObjects(out array<string> ValidUpgrades, out array< class<WMUpgrade_Perk> > UpgradeObjects)
 {
 	local int i;
-	local object Obj;
+	local class<WMUpgrade_Perk> Obj;
+
+	ValidUpgrades.Length = 0;
+	UpgradeObjects.Length = 0;
 
 	for (i = 0; i < default.PerkUpgrade_Upgrade.Length; ++i)
 	{
 		Obj = class<WMUpgrade_Perk>(DynamicLoadObject(default.PerkUpgrade_Upgrade[i], class'Class', True));
 		if (Obj == None)
 		{
-			`log("ZR Error: Perk upgrade" @ default.PerkUpgrade_Upgrade[i] @ "failed to load. Skip adding the Perk upgrade to the game."
+			`log("ZR Config: Perk upgrade" @ default.PerkUpgrade_Upgrade[i] @ "failed to load. Skip adding the Perk upgrade to the game."
 				@"Please double check the name in the config and make sure the correct mod resources are installed.");
-			default.PerkUpgrade_Upgrade.Remove(i, 1);
-			--i;
 		}
-	}
-
-	for (i = 0; i < default.PerkUpgrade_StaticUpgrade.Length; ++i)
-	{
-		Obj = class<WMUpgrade_Perk>(DynamicLoadObject(default.PerkUpgrade_StaticUpgrade[i], class'Class', True));
-		if (Obj == None)
+		else
 		{
-			`log("ZR Warning: Static Perk upgrade" @ default.PerkUpgrade_StaticUpgrade[i]
-				@"does not exist. Skip adding the static Perk upgrade to the game."
-				@"Please double check the name in the config and make sure the correct mod resources are installed.");
-			default.PerkUpgrade_StaticUpgrade.Remove(i, 1);
-			--i;
+			ValidUpgrades.AddItem(default.PerkUpgrade_Upgrade[i]);
+			UpgradeObjects.AddItem(Obj);
 		}
 	}
 }

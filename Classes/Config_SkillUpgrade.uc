@@ -187,30 +187,54 @@ static function UpdateConfig()
 	}
 }
 
-static function CheckConfigValues()
+static function CheckBasicConfigValues()
+{
+	local int s, p;
+	local bool PerkExist;
+
+	for (s = 0; s < default.SkillUpgrade_Upgrade.Length; ++s)
+	{
+		PerkExist = False;
+		for (p = 0; p < class'ZedternalReborn.Config_PerkUpgrade'.default.PerkUpgrade_Upgrade.Length; ++p)
+		{
+			if (default.SkillUpgrade_Upgrade[s].PerkPath ~= class'ZedternalReborn.Config_PerkUpgrade'.default.PerkUpgrade_Upgrade[p])
+			{
+				PerkExist = True;
+				break;
+			}
+		}
+
+		if (!PerkExist)
+		{
+			`log("ZR Config: Skill upgrade" @ default.SkillUpgrade_Upgrade[s].SkillPath @ "is not paired with a valid Perk upgrade"
+				@default.SkillUpgrade_Upgrade[s].PerkPath $ ". Skip adding the Skill upgrade to the game."
+				@"Please double check the name in the config and make sure the correct mod resources are installed.");
+			default.SkillUpgrade_Upgrade.Remove(s, 1);
+			--s;
+		}
+	}
+}
+
+static function LoadConfigObjects(out array<S_SkillUpgrade> ValidUpgrades, out array< class<WMUpgrade_Skill> > UpgradeObjects)
 {
 	local int i;
-	local object Obj;
+	local class<WMUpgrade_Skill> Obj;
+
+	ValidUpgrades.Length = 0;
+	UpgradeObjects.Length = 0;
 
 	for (i = 0; i < default.SkillUpgrade_Upgrade.Length; ++i)
 	{
 		Obj = class<WMUpgrade_Skill>(DynamicLoadObject(default.SkillUpgrade_Upgrade[i].SkillPath, class'Class', True));
 		if (Obj == None)
 		{
-			`log("ZR Error: Skill upgrade" @ default.SkillUpgrade_Upgrade[i].SkillPath @ "failed to load. Skip adding the Skill upgrade to the game."
+			`log("ZR Config: Skill upgrade" @ default.SkillUpgrade_Upgrade[i].SkillPath @ "failed to load. Skip adding the Skill upgrade to the game."
 				@"Please double check the name in the config and make sure the correct mod resources are installed.");
-			default.SkillUpgrade_Upgrade.Remove(i, 1);
-			--i;
 		}
-
-		Obj = class<WMUpgrade_Perk>(DynamicLoadObject(default.SkillUpgrade_Upgrade[i].PerkPath, class'Class', True));
-		if (Obj == None)
+		else
 		{
-			`log("ZR Error: Skill upgrade" @ default.SkillUpgrade_Upgrade[i].SkillPath @ "is not paired with a valid Perk upgrade"
-				@default.SkillUpgrade_Upgrade[i].PerkPath $ ". Skip adding the Skill upgrade to the game."
-				@"Please double check the name in the config and make sure the correct mod resources are installed.");
-			default.SkillUpgrade_Upgrade.Remove(i, 1);
-			--i;
+			ValidUpgrades.AddItem(default.SkillUpgrade_Upgrade[i]);
+			UpgradeObjects.AddItem(Obj);
 		}
 	}
 }

@@ -27,7 +27,7 @@ static function UpdateConfig()
 	}
 }
 
-static function CheckConfigValues()
+static function CheckBasicConfigValues()
 {
 	local int i;
 
@@ -35,7 +35,7 @@ static function CheckConfigValues()
 	{
 		if (default.PerkUpgrade_Price[i] < 0)
 		{
-			`log("ZR Warning: PerkUpgrade_Price for perk level" @ (i + 1) @ "is set to" @ default.PerkUpgrade_Price[i]
+			`log("ZR Config: PerkUpgrade_Price for perk level" @ (i + 1) @ "is set to" @ default.PerkUpgrade_Price[i]
 				@"which is not supported. Setting the price to 0 (free) temporarily."
 				@"Please change the value in the config to a value greater than or equal to 0.");
 			default.PerkUpgrade_Price[i] = 0;
@@ -44,7 +44,7 @@ static function CheckConfigValues()
 
 	if (default.PerkUpgrade_AvailablePerks < 0)
 	{
-		`log("ZR Warning: PerkUpgrade_AvailablePerks is set to" @ default.PerkUpgrade_AvailablePerks
+		`log("ZR Config: PerkUpgrade_AvailablePerks is set to" @ default.PerkUpgrade_AvailablePerks
 			@"which is not supported. Setting the number to 0 (no perks) temporarily."
 			@"Please change the value in the config to a value greater than or equal to 0.");
 		default.PerkUpgrade_AvailablePerks = 0;
