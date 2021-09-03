@@ -1,19 +1,28 @@
-class WMPlayerController extends KFPlayerController
-	config(ZedternalReborn_LocalData);
+class WMPlayerController extends KFPlayerController;
 
 var int HUD_perkIndex;
 var int UPG_UpgradeListIndex;
 var bool bShouldUpdateHUDPerkIcon;
 var bool bShouldUpdateGrenadeIcon;
 
-var config byte KnifeIndex;
-var config string GrenadePath;
+var Config_LocalPreferences Preferences;
 
 //For scoreboard
 var byte PlatformType;
 
 //For command
 var bool bUpgradeMenuOpen;
+
+simulated event PreBeginPlay()
+{
+	super.PreBeginPlay();
+
+	if (WorldInfo.NetMode == NM_Client || WorldInfo.NetMode == NM_Standalone)
+	{
+		Preferences = new class'Config_LocalPreferences';
+		Preferences.SaveConfig();
+	}
+}
 
 simulated event PostBeginPlay()
 {
@@ -280,7 +289,7 @@ simulated function CheckPreferredGrenade()
 			if (WMGRI.grenadesStr[i] ~= "")
 				break;
 
-			if (WMGRI.grenadesStr[i] ~= GrenadePath)
+			if (WMGRI.grenadesStr[i] ~= Preferences.GrenadePath)
 			{
 				bFound = True;
 				break;
@@ -304,8 +313,8 @@ simulated function ChangeGrenade(int Index)
 
 	bShouldUpdateGrenadeIcon = True;
 
-	GrenadePath = WMGameReplicationInfo(WorldInfo.GRI).grenadesStr[Index];
-	SaveConfig();
+	Preferences.GrenadePath = WMGameReplicationInfo(WorldInfo.GRI).grenadesStr[Index];
+	Preferences.SaveConfig();
 }
 
 reliable server function ChangeGrenadeServer(int Index)
@@ -341,8 +350,8 @@ simulated function ChangeKnife(int Index)
 			ChangeKnifeServer(index);
 
 			// Change knifeindex and save it as local data (client side)
-			KnifeIndex = Index;
-			SaveConfig();
+			Preferences.KnifeIndex = Index;
+			Preferences.SaveConfig();
 		}
 	}
 }

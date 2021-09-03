@@ -260,8 +260,8 @@ reliable client function GetKnifeIndexFromClient()
 
 	WMPC = WMPlayerController(OwnerPC);
 
-	if (WMPC != None)
-		index = WMPC.KnifeIndex;
+	if (WMPC != None && WMPC.Preferences != None)
+		index = WMPC.Preferences.KnifeIndex;
 	else
 		index = 0;
 

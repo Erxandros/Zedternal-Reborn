@@ -497,7 +497,7 @@ function Callback_InventoryFilter(int FilterIndex)
 			ItemObject.SetBool("recyclable", False);
 			ItemObject.SetInt("definition", j);
 			ItemObject.SetInt("type", 0);
-			if (i == WMPC.KnifeIndex)
+			if (WMPC.Preferences != None && i == WMPC.Preferences.KnifeIndex)
 			{
 				ItemObject.SetBool("active", True);
 				ItemObject.SetInt("type", 1);
