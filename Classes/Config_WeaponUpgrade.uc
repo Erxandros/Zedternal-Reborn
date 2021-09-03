@@ -7,14 +7,17 @@ struct S_WeaponUpgrade
 {
 	var string WeaponPath;
 	var bool bIsStatic;
+
+	structdefaultproperties
+	{
+		bIsStatic=False
+	}
 };
 
 var config array<S_WeaponUpgrade> WeaponUpgrade_Upgrade;
 
 static function UpdateConfig()
 {
-	local int i;
-
 	if (default.MODEVERSION < 1)
 	{
 		default.WeaponUpgrade_Upgrade.Length = 23;
@@ -42,11 +45,6 @@ static function UpdateConfig()
 		default.WeaponUpgrade_Upgrade[20].WeaponPath = "ZedternalReborn.WMUpgrade_Weapon_TightChoke";
 		default.WeaponUpgrade_Upgrade[21].WeaponPath = "ZedternalReborn.WMUpgrade_Weapon_AmmunitionConsumption";
 		default.WeaponUpgrade_Upgrade[22].WeaponPath = "ZedternalReborn.WMUpgrade_Weapon_Damage_Fleshpound";
-
-		for (i = 1; i <= 22; ++i)
-		{
-			default.WeaponUpgrade_Upgrade[22].bIsStatic = False;
-		}
 	}
 
 	if (default.MODEVERSION < class'ZedternalReborn.Config_Base'.const.CurrentVersion)

@@ -11,13 +11,17 @@ struct S_Variant
 	var string WeaponDefVariant;
 	var string DualWeaponDefVariant;
 	var float Probability;
+
+	structdefaultproperties
+	{
+		DualWeaponDefVariant=""
+		Probability=0.05f
+	}
 };
 var config array<S_Variant> Weapon_VariantWeaponDef; //List of weapon variants
 
 static function UpdateConfig()
 {
-	local int i;
-
 	if (default.MODEVERSION < 1)
 	{
 		default.WeaponVariant_bAllowWeaponVariant = True;
@@ -189,12 +193,6 @@ static function UpdateConfig()
 		default.Weapon_VariantWeaponDef[81].WeaponDefVariant = "ZedternalReborn.WMWeapDef_HRG_BlastBrawlers_Precious";
 		default.Weapon_VariantWeaponDef[82].WeaponDef = "KFGame.KFWeapDef_ThermiteBore";
 		default.Weapon_VariantWeaponDef[82].WeaponDefVariant = "ZedternalReborn.WMWeapDef_ThermiteBore_Precious";
-
-		for (i = 0; i <= 82; ++i)
-		{
-			default.Weapon_VariantWeaponDef[i].DualWeaponDefVariant = "";
-		}
-
 		default.Weapon_VariantWeaponDef[83].WeaponDef = "KFGame.KFWeapDef_FlareGun";
 		default.Weapon_VariantWeaponDef[83].WeaponDefVariant = "ZedternalReborn.WMWeapDef_FlareGun_Precious";
 		default.Weapon_VariantWeaponDef[83].DualWeaponDefVariant = "ZedternalReborn.WMWeapDef_FlareGunDual_Precious";
@@ -225,11 +223,6 @@ static function UpdateConfig()
 		default.Weapon_VariantWeaponDef[92].WeaponDef = "KFGame.KFWeapDef_Pistol_G18C";
 		default.Weapon_VariantWeaponDef[92].WeaponDefVariant = "ZedternalReborn.WMWeapDef_Pistol_G18C_Precious";
 		default.Weapon_VariantWeaponDef[92].DualWeaponDefVariant = "ZedternalReborn.WMWeapDef_Pistol_DualG18_Precious";
-
-		for (i = 0; i <= 92; ++i)
-		{
-			default.Weapon_VariantWeaponDef[i].Probability = 0.0175f;
-		}
 	}
 
 	if (default.MODEVERSION < class'ZedternalReborn.Config_Base'.const.CurrentVersion)

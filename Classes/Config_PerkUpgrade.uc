@@ -7,14 +7,17 @@ struct S_PerkUpgrade
 {
 	var string PerkPath;
 	var bool bIsStatic;
+
+	structdefaultproperties
+	{
+		bIsStatic=False
+	}
 };
 
 var config array<S_PerkUpgrade> PerkUpgrade_Upgrade;
 
 static function UpdateConfig()
 {
-	local int i;
-
 	if (default.MODEVERSION < 1)
 	{
 		default.PerkUpgrade_Upgrade.Length = 10;
@@ -28,11 +31,6 @@ static function UpdateConfig()
 		default.PerkUpgrade_Upgrade[7].PerkPath = "ZedternalReborn.WMUpgrade_Perk_Support";
 		default.PerkUpgrade_Upgrade[8].PerkPath = "ZedternalReborn.WMUpgrade_Perk_FireBug";
 		default.PerkUpgrade_Upgrade[9].PerkPath = "ZedternalReborn.WMUpgrade_Perk_Survivalist";
-
-		for (i = 0; i <= 9; ++i)
-		{
-			default.PerkUpgrade_Upgrade[i].bIsStatic = False;
-		}
 	}
 
 	if (default.MODEVERSION < class'ZedternalReborn.Config_Base'.const.CurrentVersion)
