@@ -7,7 +7,7 @@ var array< class<WMUpgrade_Perk> > LoadedPerkUpgObjects;
 var array<S_SkillUpgrade> ValidSkillUpgrades;
 var array< class<WMUpgrade_Skill> > LoadedSkillUpgObjects;
 
-var array<string> ValidWeaponUpgrades;
+var array<S_WeaponUpgrade> ValidWeaponUpgrades;
 var array< class<WMUpgrade_Weapon> > LoadedWeaponUpgObjects;
 
 var array<S_EquipmentUpgrade> ValidEquipmentUpgrades;

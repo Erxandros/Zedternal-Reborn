@@ -1187,13 +1187,12 @@ function AddWeaponInTrader(const out class<KFWeaponDefinition> KFWD)
 		{
 			WMUW = ConfigInit.LoadedWeaponUpgObjects[i];
 			if (WMUW != None && WMUW.static.IsUpgradeCompatible(KFW))
-				AllowedUpgrades.AddItem(WMUW);
-		}
-		for (i = 0; i < class'ZedternalReborn.Config_WeaponUpgrade'.default.WeaponUpgrade_StaticUpgrade.Length; ++i)
-		{
-			WMUW = class<WMUpgrade_Weapon>(DynamicLoadObject(class'ZedternalReborn.Config_WeaponUpgrade'.default.WeaponUpgrade_StaticUpgrade[i], class'Class'));
-			if (WMUW != None && WMUW.static.IsUpgradeCompatible(KFW))
-				StaticUpgrades.AddItem(WMUW);
+			{
+				if (ConfigInit.ValidWeaponUpgrades[i].bIsStatic)
+					StaticUpgrades.AddItem(WMUW);
+				else
+					AllowedUpgrades.AddItem(WMUW);
+			}
 		}
 
 		for (i = 0; i < class'ZedternalReborn.Config_WeaponUpgradeOptions'.default.WeaponUpgrade_NumberUpgradePerWeapon; ++i)
