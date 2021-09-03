@@ -62,11 +62,11 @@ static function float GetZedHealthModifier(int Difficulty)
 {
 	switch (Difficulty)
 	{
-		case 0 :	return default.ZedMod_HealthModifier.Normal;
-		case 1 :	return default.ZedMod_HealthModifier.Hard;
-		case 2 :	return default.ZedMod_HealthModifier.Suicidal;
-		case 3 :	return default.ZedMod_HealthModifier.HoE;
-		default:	return default.ZedMod_HealthModifier.Custom;
+		case 0 : return default.ZedMod_HealthModifier.Normal;
+		case 1 : return default.ZedMod_HealthModifier.Hard;
+		case 2 : return default.ZedMod_HealthModifier.Suicidal;
+		case 3 : return default.ZedMod_HealthModifier.HoE;
+		default: return default.ZedMod_HealthModifier.Custom;
 	}
 }
 
@@ -74,11 +74,11 @@ static function float GetLargeZedHealthModifierPerPlayer(int Difficulty)
 {
 	switch (Difficulty)
 	{
-		case 0 :	return default.ZedMod_LargeZedHealthModifierPerPlayer.Normal;
-		case 1 :	return default.ZedMod_LargeZedHealthModifierPerPlayer.Hard;
-		case 2 :	return default.ZedMod_LargeZedHealthModifierPerPlayer.Suicidal;
-		case 3 :	return default.ZedMod_LargeZedHealthModifierPerPlayer.HoE;
-		default:	return default.ZedMod_LargeZedHealthModifierPerPlayer.Custom;
+		case 0 : return default.ZedMod_LargeZedHealthModifierPerPlayer.Normal;
+		case 1 : return default.ZedMod_LargeZedHealthModifierPerPlayer.Hard;
+		case 2 : return default.ZedMod_LargeZedHealthModifierPerPlayer.Suicidal;
+		case 3 : return default.ZedMod_LargeZedHealthModifierPerPlayer.HoE;
+		default: return default.ZedMod_LargeZedHealthModifierPerPlayer.Custom;
 	}
 }
 
@@ -86,11 +86,11 @@ static function float GetZedHeadHealthModifier(int Difficulty)
 {
 	switch (Difficulty)
 	{
-		case 0 :	return default.ZedMod_HeadHealthModifier.Normal;
-		case 1 :	return default.ZedMod_HeadHealthModifier.Hard;
-		case 2 :	return default.ZedMod_HeadHealthModifier.Suicidal;
-		case 3 :	return default.ZedMod_HeadHealthModifier.HoE;
-		default:	return default.ZedMod_HeadHealthModifier.Custom;
+		case 0 : return default.ZedMod_HeadHealthModifier.Normal;
+		case 1 : return default.ZedMod_HeadHealthModifier.Hard;
+		case 2 : return default.ZedMod_HeadHealthModifier.Suicidal;
+		case 3 : return default.ZedMod_HeadHealthModifier.HoE;
+		default: return default.ZedMod_HeadHealthModifier.Custom;
 	}
 }
 
@@ -98,11 +98,11 @@ static function float GetZedDamageModifier(int Difficulty)
 {
 	switch (Difficulty)
 	{
-		case 0 :	return default.ZedMod_DamageModifier.Normal;
-		case 1 :	return default.ZedMod_DamageModifier.Hard;
-		case 2 :	return default.ZedMod_DamageModifier.Suicidal;
-		case 3 :	return default.ZedMod_DamageModifier.HoE;
-		default:	return default.ZedMod_DamageModifier.Custom;
+		case 0 : return default.ZedMod_DamageModifier.Normal;
+		case 1 : return default.ZedMod_DamageModifier.Hard;
+		case 2 : return default.ZedMod_DamageModifier.Suicidal;
+		case 3 : return default.ZedMod_DamageModifier.HoE;
+		default: return default.ZedMod_DamageModifier.Custom;
 	}
 }
 
@@ -110,11 +110,11 @@ static function float GetZedSoloDamageModifier(int Difficulty)
 {
 	switch (Difficulty)
 	{
-		case 0 :	return default.ZedMod_SoloDamageModifier.Normal;
-		case 1 :	return default.ZedMod_SoloDamageModifier.Hard;
-		case 2 :	return default.ZedMod_SoloDamageModifier.Suicidal;
-		case 3 :	return default.ZedMod_SoloDamageModifier.HoE;
-		default:	return default.ZedMod_SoloDamageModifier.Custom;
+		case 0 : return default.ZedMod_SoloDamageModifier.Normal;
+		case 1 : return default.ZedMod_SoloDamageModifier.Hard;
+		case 2 : return default.ZedMod_SoloDamageModifier.Suicidal;
+		case 3 : return default.ZedMod_SoloDamageModifier.HoE;
+		default: return default.ZedMod_SoloDamageModifier.Custom;
 	}
 }
 
@@ -122,11 +122,11 @@ static function float GetZedSpeedModifier(int Difficulty)
 {
 	switch (Difficulty)
 	{
-		case 0 :	return default.ZedMod_SpeedModifier.Normal;
-		case 1 :	return default.ZedMod_SpeedModifier.Hard;
-		case 2 :	return default.ZedMod_SpeedModifier.Suicidal;
-		case 3 :	return default.ZedMod_SpeedModifier.HoE;
-		default:	return default.ZedMod_SpeedModifier.Custom;
+		case 0 : return default.ZedMod_SpeedModifier.Normal;
+		case 1 : return default.ZedMod_SpeedModifier.Hard;
+		case 2 : return default.ZedMod_SpeedModifier.Suicidal;
+		case 3 : return default.ZedMod_SpeedModifier.HoE;
+		default: return default.ZedMod_SpeedModifier.Custom;
 	}
 }
 

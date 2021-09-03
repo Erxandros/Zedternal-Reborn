@@ -62,11 +62,11 @@ static function float GetNormalZedDoshFactor(int Difficulty)
 {
 	switch (Difficulty)
 	{
-		case 0 :	return default.Dosh_NormalZedDoshFactor.Normal;
-		case 1 :	return default.Dosh_NormalZedDoshFactor.Hard;
-		case 2 :	return default.Dosh_NormalZedDoshFactor.Suicidal;
-		case 3 :	return default.Dosh_NormalZedDoshFactor.HoE;
-		default:	return default.Dosh_NormalZedDoshFactor.Custom;
+		case 0 : return default.Dosh_NormalZedDoshFactor.Normal;
+		case 1 : return default.Dosh_NormalZedDoshFactor.Hard;
+		case 2 : return default.Dosh_NormalZedDoshFactor.Suicidal;
+		case 3 : return default.Dosh_NormalZedDoshFactor.HoE;
+		default: return default.Dosh_NormalZedDoshFactor.Custom;
 	}
 }
 
@@ -74,11 +74,11 @@ static function float GetLargeZedDoshFactor(int Difficulty)
 {
 	switch (Difficulty)
 	{
-		case 0 :	return default.Dosh_LargeZedDoshFactor.Normal;
-		case 1 :	return default.Dosh_LargeZedDoshFactor.Hard;
-		case 2 :	return default.Dosh_LargeZedDoshFactor.Suicidal;
-		case 3 :	return default.Dosh_LargeZedDoshFactor.HoE;
-		default:	return default.Dosh_LargeZedDoshFactor.Custom;
+		case 0 : return default.Dosh_LargeZedDoshFactor.Normal;
+		case 1 : return default.Dosh_LargeZedDoshFactor.Hard;
+		case 2 : return default.Dosh_LargeZedDoshFactor.Suicidal;
+		case 3 : return default.Dosh_LargeZedDoshFactor.HoE;
+		default: return default.Dosh_LargeZedDoshFactor.Custom;
 	}
 }
 
