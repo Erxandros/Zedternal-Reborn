@@ -105,17 +105,23 @@ static function PreloadGlobalContentClasses()
 	}
 }
 
+event PreBeginPlay()
+{
+	super.PreBeginPlay();
+
+	// Update and check default values
+	class'ZedternalReborn.Config_Base'.static.LoadConfigs();
+
+	// Create config data holder and load all valid values
+	ConfigInit = new class'WMGameInfo_ConfigInit';
+	ConfigInit.InitializeConfigData();
+}
+
 event PostBeginPlay()
 {
 	super.PostBeginPlay();
 
-	// Update Default Value
-	class'ZedternalReborn.Config_Base'.static.LoadConfigs();
-
-	ConfigInit = new class'WMGameInfo_ConfigInit';
-	ConfigInit.InitializeConfigData();
-
-	//Set all traders toggle
+	// Set all traders toggle
 	bUseAllTraders = class'ZedternalReborn.Config_Map'.static.GetAllTraders(WorldInfo.GetMapName(True));
 
 	// Available weapon are random each wave. Need to build the list
