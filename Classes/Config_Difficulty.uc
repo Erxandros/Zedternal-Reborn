@@ -36,25 +36,135 @@ static function UpdateConfig()
 		default.ZedMod_DamageModifier.Hard = 0.7f;
 		default.ZedMod_DamageModifier.Suicidal = 0.8f;
 		default.ZedMod_DamageModifier.HoE = 0.9f;
-		default.ZedMod_DamageModifier.Custom = 0.7f;
+		default.ZedMod_DamageModifier.Custom = 0.9f;
 
 		default.ZedMod_SoloDamageModifier.Normal = 0.6f;
 		default.ZedMod_SoloDamageModifier.Hard = 0.7f;
 		default.ZedMod_SoloDamageModifier.Suicidal = 0.8f;
 		default.ZedMod_SoloDamageModifier.HoE = 0.9f;
-		default.ZedMod_SoloDamageModifier.Custom = 0.7f;
+		default.ZedMod_SoloDamageModifier.Custom = 0.9f;
 
 		default.ZedMod_SpeedModifier.Normal = 0.925f;
 		default.ZedMod_SpeedModifier.Hard = 0.95f;
 		default.ZedMod_SpeedModifier.Suicidal = 0.975f;
 		default.ZedMod_SpeedModifier.HoE = 1.0f;
-		default.ZedMod_SpeedModifier.Custom = 0.95f;
+		default.ZedMod_SpeedModifier.Custom = 1.0f;
 	}
 
 	if (default.MODEVERSION < class'ZedternalReborn.Config_Base'.const.CurrentVersion)
 	{
 		default.MODEVERSION = class'ZedternalReborn.Config_Base'.const.CurrentVersion;
 		static.StaticSaveConfig();
+	}
+}
+
+static function CheckBasicConfigValues()
+{
+	local byte i;
+
+	for (i = 0; i < NumberOfDiffs; ++i)
+	{
+		if (GetZedHealthModifier(i) < 0.05f)
+		{
+			`log("ZR Config: Modifier for ZED health at difficulty" @ GetDiffString(i)
+				@"is set to" @ GetZedHealthModifier(i)
+				@"which is not supported. Setting the modifier to the minimum value of 0.05 (5%) temporarily."
+				@"Please change the value in the config to a value greater than or equal to 0.05.");
+
+			switch (i)
+			{
+				case 0 : default.ZedMod_HealthModifier.Normal = 0.05f; break;
+				case 1 : default.ZedMod_HealthModifier.Hard = 0.05f; break;
+				case 2 : default.ZedMod_HealthModifier.Suicidal = 0.05f; break;
+				case 3 : default.ZedMod_HealthModifier.HoE = 0.05f; break;
+				default: default.ZedMod_HealthModifier.Custom = 0.05f; break;
+			}
+		}
+
+		if (GetLargeZedHealthModifierPerPlayer(i) < 0.0f)
+		{
+			`log("ZR Config: Modifier for ZED large health bonus at difficulty" @ GetDiffString(i)
+				@"is set to" @ GetLargeZedHealthModifierPerPlayer(i)
+				@"which is not supported. Setting the modifier to the minimum value of 0.0 (0%) temporarily."
+				@"Please change the value in the config to a value greater than or equal to 0.0.");
+
+			switch (i)
+			{
+				case 0 : default.ZedMod_LargeZedHealthModifierPerPlayer.Normal = 0.0f; break;
+				case 1 : default.ZedMod_LargeZedHealthModifierPerPlayer.Hard = 0.0f; break;
+				case 2 : default.ZedMod_LargeZedHealthModifierPerPlayer.Suicidal = 0.0f; break;
+				case 3 : default.ZedMod_LargeZedHealthModifierPerPlayer.HoE = 0.0f; break;
+				default: default.ZedMod_LargeZedHealthModifierPerPlayer.Custom = 0.0f; break;
+			}
+		}
+
+		if (GetZedHeadHealthModifier(i) < 0.05f)
+		{
+			`log("ZR Config: Modifier for ZED head health at difficulty" @ GetDiffString(i)
+				@"is set to" @ GetZedHeadHealthModifier(i)
+				@"which is not supported. Setting the modifier to the minimum value of 0.05 (5%) temporarily."
+				@"Please change the value in the config to a value greater than or equal to 0.05.");
+
+			switch (i)
+			{
+				case 0 : default.ZedMod_HeadHealthModifier.Normal = 0.05f; break;
+				case 1 : default.ZedMod_HeadHealthModifier.Hard = 0.05f; break;
+				case 2 : default.ZedMod_HeadHealthModifier.Suicidal = 0.05f; break;
+				case 3 : default.ZedMod_HeadHealthModifier.HoE = 0.05f; break;
+				default: default.ZedMod_HeadHealthModifier.Custom = 0.05f; break;
+			}
+		}
+
+		if (GetZedDamageModifier(i) < 0.05f)
+		{
+			`log("ZR Config: Modifier for ZED damage at difficulty" @ GetDiffString(i)
+				@"is set to" @ GetZedDamageModifier(i)
+				@"which is not supported. Setting the modifier to the minimum value of 0.05 (5%) temporarily."
+				@"Please change the value in the config to a value greater than or equal to 0.05.");
+
+			switch (i)
+			{
+				case 0 : default.ZedMod_DamageModifier.Normal = 0.05f; break;
+				case 1 : default.ZedMod_DamageModifier.Hard = 0.05f; break;
+				case 2 : default.ZedMod_DamageModifier.Suicidal = 0.05f; break;
+				case 3 : default.ZedMod_DamageModifier.HoE = 0.05f; break;
+				default: default.ZedMod_DamageModifier.Custom = 0.05f; break;
+			}
+		}
+
+		if (GetZedSoloDamageModifier(i) < 0.05f)
+		{
+			`log("ZR Config: Modifier for ZED solo damage at difficulty" @ GetDiffString(i)
+				@"is set to" @ GetZedSoloDamageModifier(i)
+				@"which is not supported. Setting the modifier to the minimum value of 0.05 (5%) temporarily."
+				@"Please change the value in the config to a value greater than or equal to 0.05.");
+
+			switch (i)
+			{
+				case 0 : default.ZedMod_SoloDamageModifier.Normal = 0.05f; break;
+				case 1 : default.ZedMod_SoloDamageModifier.Hard = 0.05f; break;
+				case 2 : default.ZedMod_SoloDamageModifier.Suicidal = 0.05f; break;
+				case 3 : default.ZedMod_SoloDamageModifier.HoE = 0.05f; break;
+				default: default.ZedMod_SoloDamageModifier.Custom = 0.05f; break;
+			}
+		}
+
+		if (GetZedSpeedModifier(i) < 0.05f)
+		{
+			`log("ZR Config: Modifier for ZED speed at difficulty" @ GetDiffString(i)
+				@"is set to" @ GetZedSpeedModifier(i)
+				@"which is not supported. Setting the modifier to the minimum value of 0.05 (5%) temporarily."
+				@"Please change the value in the config to a value greater than or equal to 0.05.");
+
+			switch (i)
+			{
+				case 0 : default.ZedMod_SpeedModifier.Normal = 0.05f; break;
+				case 1 : default.ZedMod_SpeedModifier.Hard = 0.05f; break;
+				case 2 : default.ZedMod_SpeedModifier.Suicidal = 0.05f; break;
+				case 3 : default.ZedMod_SpeedModifier.HoE = 0.05f; break;
+				default: default.ZedMod_SpeedModifier.Custom = 0.05f; break;
+			}
+		}
 	}
 }
 
