@@ -7,6 +7,8 @@ var config S_Difficulty_Float DiffOverTime_NormalZedHealthIncPerWave;
 var config S_Difficulty_Float DiffOverTime_NormalZedHealthPowerPerWave;
 var config S_Difficulty_Float DiffOverTime_LargeZedHealthIncPerWave;
 var config S_Difficulty_Float DiffOverTime_LargeZedHealthPowerPerWave;
+var config S_Difficulty_Float DiffOverTime_OmegaZedHealthIncPerWave;
+var config S_Difficulty_Float DiffOverTime_OmegaZedHealthPowerPerWave;
 var config S_Difficulty_Float DiffOverTime_ZedDamageIncPerWave;
 var config S_Difficulty_Float DiffOverTime_ZedDamagePowerPerWave;
 var config S_Difficulty_Float DiffOverTime_ZedSpeedIncPerWave;
@@ -43,6 +45,18 @@ static function UpdateConfig()
 		default.DiffOverTime_LargeZedHealthPowerPerWave.Suicidal = 0.05f;
 		default.DiffOverTime_LargeZedHealthPowerPerWave.HoE = 0.05f;
 		default.DiffOverTime_LargeZedHealthPowerPerWave.Custom = 0.05f;
+
+		default.DiffOverTime_OmegaZedHealthIncPerWave.Normal = 0.003f;
+		default.DiffOverTime_OmegaZedHealthIncPerWave.Hard = 0.003f;
+		default.DiffOverTime_OmegaZedHealthIncPerWave.Suicidal = 0.003f;
+		default.DiffOverTime_OmegaZedHealthIncPerWave.HoE = 0.003f;
+		default.DiffOverTime_OmegaZedHealthIncPerWave.Custom = 0.003f;
+
+		default.DiffOverTime_OmegaZedHealthPowerPerWave.Normal = 0.05f;
+		default.DiffOverTime_OmegaZedHealthPowerPerWave.Hard = 0.05f;
+		default.DiffOverTime_OmegaZedHealthPowerPerWave.Suicidal = 0.05f;
+		default.DiffOverTime_OmegaZedHealthPowerPerWave.HoE = 0.05f;
+		default.DiffOverTime_OmegaZedHealthPowerPerWave.Custom = 0.05f;
 
 		default.DiffOverTime_ZedDamageIncPerWave.Normal = 0.015f;
 		default.DiffOverTime_ZedDamageIncPerWave.Hard = 0.015f;
@@ -140,6 +154,24 @@ static function CheckBasicConfigValues()
 				@"which is not supported. Setting the increase to the minimum value of 0.0 (0%, no exponential increase) temporarily."
 				@"Please change the value in the config to a value greater than or equal to 0.0.");
 			SetStructValueFloat(default.DiffOverTime_LargeZedHealthPowerPerWave, i, 0.0f);
+		}
+
+		if (GetStructValueFloat(default.DiffOverTime_OmegaZedHealthIncPerWave, i) < 0.0f)
+		{
+			`log("ZR Config: Linear increase for omega ZED health at difficulty" @ GetDiffString(i)
+				@"is set to" @ GetStructValueFloat(default.DiffOverTime_OmegaZedHealthIncPerWave, i)
+				@"which is not supported. Setting the increase to the minimum value of 0.0 (0%, no linear increase) temporarily."
+				@"Please change the value in the config to a value greater than or equal to 0.0.");
+			SetStructValueFloat(default.DiffOverTime_OmegaZedHealthIncPerWave, i, 0.0f);
+		}
+
+		if (GetStructValueFloat(default.DiffOverTime_OmegaZedHealthPowerPerWave, i) < 0.0f)
+		{
+			`log("ZR Config: Power increase for omega ZED health at difficulty" @ GetDiffString(i)
+				@"is set to" @ GetStructValueFloat(default.DiffOverTime_OmegaZedHealthPowerPerWave, i)
+				@"which is not supported. Setting the increase to the minimum value of 0.0 (0%, no exponential increase) temporarily."
+				@"Please change the value in the config to a value greater than or equal to 0.0.");
+			SetStructValueFloat(default.DiffOverTime_OmegaZedHealthPowerPerWave, i, 0.0f);
 		}
 
 		if (GetStructValueFloat(default.DiffOverTime_ZedDamageIncPerWave, i) < 0.0f)
@@ -244,6 +276,23 @@ static function float GetLargeZedHealthModifierOverTime(float mod, int Difficult
 		case 2 : factor = default.DiffOverTime_LargeZedHealthIncPerWave.Suicidal; power = default.DiffOverTime_LargeZedHealthPowerPerWave.Suicidal; break;
 		case 3 : factor = default.DiffOverTime_LargeZedHealthIncPerWave.HoE; power = default.DiffOverTime_LargeZedHealthPowerPerWave.HoE; break;
 		default: factor = default.DiffOverTime_LargeZedHealthIncPerWave.Custom;	power = default.DiffOverTime_LargeZedHealthPowerPerWave.Custom; break;
+	}
+
+	wave = float(WaveNum - 1);
+	return (mod + factor * wave) ** (1.0f + power * wave);
+}
+
+static function float GetOmegaZedHealthModifierOverTime(float mod, int Difficulty, int WaveNum)
+{
+	local float factor, power, wave;
+
+	switch (Difficulty)
+	{
+		case 0 : factor = default.DiffOverTime_OmegaZedHealthIncPerWave.Normal; power = default.DiffOverTime_OmegaZedHealthPowerPerWave.Normal; break;
+		case 1 : factor = default.DiffOverTime_OmegaZedHealthIncPerWave.Hard; power = default.DiffOverTime_OmegaZedHealthPowerPerWave.Hard; break;
+		case 2 : factor = default.DiffOverTime_OmegaZedHealthIncPerWave.Suicidal; power = default.DiffOverTime_OmegaZedHealthPowerPerWave.Suicidal; break;
+		case 3 : factor = default.DiffOverTime_OmegaZedHealthIncPerWave.HoE; power = default.DiffOverTime_OmegaZedHealthPowerPerWave.HoE; break;
+		default: factor = default.DiffOverTime_OmegaZedHealthIncPerWave.Custom;	power = default.DiffOverTime_OmegaZedHealthPowerPerWave.Custom; break;
 	}
 
 	wave = float(WaveNum - 1);

@@ -47,7 +47,12 @@ function GetAIHealthModifier(KFPawn_Monster P, float GameDifficulty, byte NumLiv
 
 		if (WMGRI != None)
 		{
-			if (P.bLargeZed)
+			if (P.bVersusZed)
+			{
+				HealthMod = class'ZedternalReborn.Config_DiffOverTime'.static.GetOmegaZedHealthModifierOverTime(HealthMod, GameDifficultyZedternal, WMGRI.WaveNum);
+				HeadHealthMod = class'ZedternalReborn.Config_DiffOverTime'.static.GetOmegaZedHealthModifierOverTime(HeadHealthMod, GameDifficultyZedternal, WMGRI.WaveNum);
+			}
+			else if (P.bLargeZed)
 			{
 				HealthMod = class'ZedternalReborn.Config_DiffOverTime'.static.GetLargeZedHealthModifierOverTime(HealthMod, GameDifficultyZedternal, WMGRI.WaveNum);
 				HeadHealthMod = class'ZedternalReborn.Config_DiffOverTime'.static.GetLargeZedHealthModifierOverTime(HeadHealthMod, GameDifficultyZedternal, WMGRI.WaveNum);
