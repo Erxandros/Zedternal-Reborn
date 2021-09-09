@@ -230,7 +230,7 @@ function float GetKillCashModifier()
 
 	if (WMGRI != None)
 	{
-		DoshMod -= class'ZedternalReborn.Config_DiffOverTime'.static.GetZedDoshPenaltyModifierOverTime(WMGRI.WaveNum);
+		DoshMod -= class'ZedternalReborn.Config_DiffOverTime'.static.GetZedDoshPenaltyModifierOverTime(GameDifficultyZedternal, WMGRI.WaveNum);
 		for (i = 0; i < WMGRI.zedBuffs.length; ++i)
 		{
 			if (WMGRI.bZedBuffs[i] > 0)
@@ -348,7 +348,7 @@ function float GetHardAttackChance()
 
 	if (WMGRI != None)
 	{
-		HardAttackChanceMod += class'ZedternalReborn.Config_DiffOverTime'.static.GetZedHardAttackChanceModifierOverTime(WMGRI.WaveNum);
+		HardAttackChanceMod += class'ZedternalReborn.Config_DiffOverTime'.static.GetZedHardAttackChanceModifierOverTime(GameDifficultyZedternal, WMGRI.WaveNum);
 		for (i = 0; i < WMGRI.zedBuffs.length; ++i)
 		{
 			if (WMGRI.bZedBuffs[i] > 0)

@@ -12,9 +12,9 @@ var config S_Difficulty_Float DiffOverTime_ZedDamagePowerPerWave;
 var config S_Difficulty_Float DiffOverTime_ZedSpeedIncPerWave;
 var config S_Difficulty_Float DiffOverTime_ZedSpeedPowerPerWave;
 var config S_Difficulty_Float DiffOverTime_ZedSprintChanceIncPerWave;
-var config float DiffOverTime_ZedDoshPenaltyPerWave;
-var config float DiffOverTime_ZedDoshPenaltyLimit;
-var config float DiffOverTime_ZedHardAttackChanceIncPerWave;
+var config S_Difficulty_Float DiffOverTime_ZedHardAttackChanceIncPerWave;
+var config S_Difficulty_Float DiffOverTime_ZedDoshPenaltyPerWave;
+var config S_Difficulty_Float DiffOverTime_ZedDoshPenaltyLimit;
 
 static function UpdateConfig()
 {
@@ -74,10 +74,23 @@ static function UpdateConfig()
 		default.DiffOverTime_ZedSprintChanceIncPerWave.HoE = 0.0125f;
 		default.DiffOverTime_ZedSprintChanceIncPerWave.Custom = 0.0125f;
 
-		default.DiffOverTime_ZedDoshPenaltyPerWave = 0.022f;
-		default.DiffOverTime_ZedDoshPenaltyLimit = 0.6f;
+		default.DiffOverTime_ZedHardAttackChanceIncPerWave.Normal = 0.03f;
+		default.DiffOverTime_ZedHardAttackChanceIncPerWave.Hard = 0.03f;
+		default.DiffOverTime_ZedHardAttackChanceIncPerWave.Suicidal = 0.03f;
+		default.DiffOverTime_ZedHardAttackChanceIncPerWave.HoE = 0.03f;
+		default.DiffOverTime_ZedHardAttackChanceIncPerWave.Custom = 0.03f;
 
-		default.DiffOverTime_ZedHardAttackChanceIncPerWave = 0.03f;
+		default.DiffOverTime_ZedDoshPenaltyPerWave.Normal = 0.022f;
+		default.DiffOverTime_ZedDoshPenaltyPerWave.Hard = 0.022f;
+		default.DiffOverTime_ZedDoshPenaltyPerWave.Suicidal = 0.022f;
+		default.DiffOverTime_ZedDoshPenaltyPerWave.HoE = 0.022f;
+		default.DiffOverTime_ZedDoshPenaltyPerWave.Custom = 0.022f;
+
+		default.DiffOverTime_ZedDoshPenaltyLimit.Normal = 0.6f;
+		default.DiffOverTime_ZedDoshPenaltyLimit.Hard = 0.6f;
+		default.DiffOverTime_ZedDoshPenaltyLimit.Suicidal = 0.6f;
+		default.DiffOverTime_ZedDoshPenaltyLimit.HoE = 0.6f;
+		default.DiffOverTime_ZedDoshPenaltyLimit.Custom = 0.6f;
 	}
 
 	if (default.MODEVERSION < class'ZedternalReborn.Config_Base'.const.CurrentVersion)
@@ -173,33 +186,33 @@ static function CheckBasicConfigValues()
 				@"Please change the value in the config to a value greater than or equal to 0.0.");
 			SetStructValueFloat(default.DiffOverTime_ZedSprintChanceIncPerWave, i, 0.0f);
 		}
-	}
 
-	if (default.DiffOverTime_ZedDoshPenaltyPerWave < 0.0f)
-	{
-		`log("ZR Config: Modifier for ZED dosh penalty"
-			@"is set to" @ default.DiffOverTime_ZedDoshPenaltyPerWave
-			@"which is not supported. Setting the increase to the minimum value of 0.0 (0%, no penalty increase) temporarily."
-			@"Please change the value in the config to a value greater than or equal to 0.0.");
-		default.DiffOverTime_ZedDoshPenaltyPerWave = 0.0f;
-	}
+		if (GetStructValueFloat(default.DiffOverTime_ZedHardAttackChanceIncPerWave, i) < 0.0f)
+		{
+			`log("ZR Config: Linear increase for ZED hard attack chance at difficulty" @ GetDiffString(i)
+				@"is set to" @ GetStructValueFloat(default.DiffOverTime_ZedHardAttackChanceIncPerWave, i)
+				@"which is not supported. Setting the increase to the minimum value of 0.0 (0%, no linear increase) temporarily."
+				@"Please change the value in the config to a value greater than or equal to 0.0.");
+			SetStructValueFloat(default.DiffOverTime_ZedHardAttackChanceIncPerWave, i, 0.0f);
+		}
 
-	if (default.DiffOverTime_ZedDoshPenaltyLimit < 0.0f)
-	{
-		`log("ZR Config: Max cap for ZED dosh penalty"
-			@"is set to" @ default.DiffOverTime_ZedDoshPenaltyLimit
-			@"which is not supported. Setting the cap to the minimum value of 0.0 (0%, no penalty) temporarily."
-			@"Please change the value in the config to a value greater than or equal to 0.0.");
-		default.DiffOverTime_ZedDoshPenaltyLimit = 0.0f;
-	}
+		if (GetStructValueFloat(default.DiffOverTime_ZedDoshPenaltyPerWave, i) < 0.0f)
+		{
+			`log("ZR Config: Modifier for ZED dosh penalty at difficulty" @ GetDiffString(i)
+				@"is set to" @ GetStructValueFloat(default.DiffOverTime_ZedDoshPenaltyPerWave, i)
+				@"which is not supported. Setting the increase to the minimum value of 0.0 (0%, no penalty increase) temporarily."
+				@"Please change the value in the config to a value greater than or equal to 0.0.");
+			SetStructValueFloat(default.DiffOverTime_ZedDoshPenaltyPerWave, i, 0.0f);
+		}
 
-	if (default.DiffOverTime_ZedHardAttackChanceIncPerWave < 0.0f)
-	{
-		`log("ZR Config: Linear increase for ZED hard attack chance"
-			@"is set to" @ default.DiffOverTime_ZedHardAttackChanceIncPerWave
-			@"which is not supported. Setting the increase to the minimum value of 0.0 (0%, no linear increase) temporarily."
-			@"Please change the value in the config to a value greater than or equal to 0.0.");
-		default.DiffOverTime_ZedHardAttackChanceIncPerWave = 0.0f;
+		if (GetStructValueFloat(default.DiffOverTime_ZedDoshPenaltyLimit, i) < 0.0f)
+		{
+			`log("ZR Config: Max cap for ZED dosh penalty at difficulty" @ GetDiffString(i)
+				@"is set to" @ GetStructValueFloat(default.DiffOverTime_ZedDoshPenaltyLimit, i)
+				@"which is not supported. Setting the cap to the minimum value of 0.0 (0%, no penalty) temporarily."
+				@"Please change the value in the config to a value greater than or equal to 0.0.");
+			SetStructValueFloat(default.DiffOverTime_ZedDoshPenaltyLimit, i, 0.0f);
+		}
 	}
 }
 
@@ -287,14 +300,36 @@ static function float GetZedSprintChanceModifierOverTime(int Difficulty, int Wav
 	return factor * float(WaveNum - 1);
 }
 
-static function float GetZedDoshPenaltyModifierOverTime(int WaveNum)
+static function float GetZedHardAttackChanceModifierOverTime(int Difficulty, int WaveNum)
 {
-	return FMin(default.DiffOverTime_ZedDoshPenaltyLimit, default.DiffOverTime_ZedDoshPenaltyPerWave * float(WaveNum - 1));
+	local float factor;
+
+	switch (Difficulty)
+	{
+		case 0 : factor = default.DiffOverTime_ZedHardAttackChanceIncPerWave.Normal; break;
+		case 1 : factor = default.DiffOverTime_ZedHardAttackChanceIncPerWave.Hard; break;
+		case 2 : factor = default.DiffOverTime_ZedHardAttackChanceIncPerWave.Suicidal; break;
+		case 3 : factor = default.DiffOverTime_ZedHardAttackChanceIncPerWave.HoE; break;
+		default: factor = default.DiffOverTime_ZedHardAttackChanceIncPerWave.Custom; break;
+	}
+
+	return factor * float(WaveNum - 1);
 }
 
-static function float GetZedHardAttackChanceModifierOverTime(int WaveNum)
+static function float GetZedDoshPenaltyModifierOverTime(int Difficulty, int WaveNum)
 {
-	return default.DiffOverTime_ZedHardAttackChanceIncPerWave * float(WaveNum - 1);
+	local float factor, limit;
+
+	switch (Difficulty)
+	{
+		case 0 : factor = default.DiffOverTime_ZedDoshPenaltyPerWave.Normal; limit = default.DiffOverTime_ZedDoshPenaltyLimit.Normal; break;
+		case 1 : factor = default.DiffOverTime_ZedDoshPenaltyPerWave.Hard; limit = default.DiffOverTime_ZedDoshPenaltyLimit.Hard; break;
+		case 2 : factor = default.DiffOverTime_ZedDoshPenaltyPerWave.Suicidal; limit = default.DiffOverTime_ZedDoshPenaltyLimit.Suicidal; break;
+		case 3 : factor = default.DiffOverTime_ZedDoshPenaltyPerWave.HoE; limit = default.DiffOverTime_ZedDoshPenaltyLimit.HoE; break;
+		default: factor = default.DiffOverTime_ZedDoshPenaltyPerWave.Custom; limit = default.DiffOverTime_ZedDoshPenaltyLimit.Custom; break;
+	}
+
+	return FMin(limit, factor * float(WaveNum - 1));
 }
 
 defaultproperties
