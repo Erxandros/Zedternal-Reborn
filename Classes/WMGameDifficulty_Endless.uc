@@ -240,7 +240,7 @@ function float GetKillCashModifier()
 
 	if (WMGRI != None)
 	{
-		DoshMod -= class'ZedternalReborn.Config_DiffOverTime'.static.GetZedDoshPenalityModifierOverTime(WMGRI.WaveNum);
+		DoshMod -= class'ZedternalReborn.Config_DiffOverTime'.static.GetZedDoshPenaltyModifierOverTime(WMGRI.WaveNum);
 		for (i = 0; i < WMGRI.zedBuffs.length; ++i)
 		{
 			if (WMGRI.bZedBuffs[i] > 0)
