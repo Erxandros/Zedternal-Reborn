@@ -1,4 +1,4 @@
-class Config_Difficulty extends Config_Common
+class Config_DifficultyNormal extends Config_Common
 	config(ZedternalReborn_Difficulty);
 
 var config int MODEVERSION;
@@ -194,5 +194,5 @@ static function float GetZedSpeedModifier(int Difficulty)
 
 defaultproperties
 {
-	Name="Default__Config_Difficulty"
+	Name="Default__Config_DifficultyNormal"
 }
