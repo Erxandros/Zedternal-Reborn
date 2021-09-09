@@ -8,11 +8,10 @@ var config S_Difficulty_Float Dosh_ExtraNormalZedDoshFactorPerPlayer; //extra am
 var config S_Difficulty_Float Dosh_LargeZedDoshFactor;
 var config S_Difficulty_Float Dosh_ExtraLargeZedDoshFactorPerPlayer; //extra amount of dosh won based on number of other players
 
-var config int Dosh_BaseDoshWaveRewardPerPlayer; //Base amount of Dosh granted to every player for a completed wave
-var config int Dosh_ExtraDoshPerWavePerPlayer; //Extra Dosh granted base on the number of players, PlayerCount * this variable
-var config int Dosh_ExtraDoshWaveBonusMultiplier; //Extra Dosh granted base on the current wave number, WaveNum * this variable
-var config int Dosh_ExtraDoshPerkBonusDivider; //Extra Dosh granted base on the player's current perk level, this variable divides the DoshPerWavePerPlayer variable and sets the result as the max possible bonus Dosh.
-var config int Dosh_ExtraDoshPerkBonusMaxThreshold; //Extra Dosh granted base on the player's current perk level, this variable determines the minimum perk level needed to get the maximum bonus Dosh.
+var config S_Difficulty_Int Dosh_BaseDoshWaveReward; //Base amount of Dosh granted to every player for a completed wave
+var config S_Difficulty_Int Dosh_ExtraDoshRewardPerPlayer; //Extra Dosh granted base on the number of players, PlayerCount * this variable
+var config S_Difficulty_Int Dosh_ExtraDoshPerWaveBonusMultiplier; //Extra Dosh granted base on the current wave number, WaveNum * this variable
+var config S_Difficulty_Int Dosh_ExtraDoshPerPerkLevelBonusMultiplier; //Extra Dosh granted base on the player's current perk level, Perk Level * this variable.
 
 var config float Dosh_LateJoinerTotalDoshFactor; //When a new player joins mid-game, give him Dosh won (by other players) * this variable
 var config S_Difficulty_Float Dosh_DeathPenaltyDoshPct; //Dosh percentage penalty when dying
@@ -45,11 +44,29 @@ static function UpdateConfig()
 		default.Dosh_ExtraLargeZedDoshFactorPerPlayer.HoE = 0.08f;
 		default.Dosh_ExtraLargeZedDoshFactorPerPlayer.Custom = 0.08f;
 
-		default.Dosh_BaseDoshWaveRewardPerPlayer = 660;
-		default.Dosh_ExtraDoshPerWavePerPlayer = 20;
-		default.Dosh_ExtraDoshWaveBonusMultiplier = 5;
-		default.Dosh_ExtraDoshPerkBonusDivider = 2;
-		default.Dosh_ExtraDoshPerkBonusMaxThreshold = 140;
+		default.Dosh_BaseDoshWaveReward.Normal = 660;
+		default.Dosh_BaseDoshWaveReward.Hard = 660;
+		default.Dosh_BaseDoshWaveReward.Suicidal = 660;
+		default.Dosh_BaseDoshWaveReward.HoE = 660;
+		default.Dosh_BaseDoshWaveReward.Custom = 660;
+
+		default.Dosh_ExtraDoshRewardPerPlayer.Normal = 20;
+		default.Dosh_ExtraDoshRewardPerPlayer.Hard = 20;
+		default.Dosh_ExtraDoshRewardPerPlayer.Suicidal = 20;
+		default.Dosh_ExtraDoshRewardPerPlayer.HoE = 20;
+		default.Dosh_ExtraDoshRewardPerPlayer.Custom = 20;
+
+		default.Dosh_ExtraDoshPerWaveBonusMultiplier.Normal = 5;
+		default.Dosh_ExtraDoshPerWaveBonusMultiplier.Hard = 5;
+		default.Dosh_ExtraDoshPerWaveBonusMultiplier.Suicidal = 5;
+		default.Dosh_ExtraDoshPerWaveBonusMultiplier.HoE = 5;
+		default.Dosh_ExtraDoshPerWaveBonusMultiplier.Custom = 5;
+
+		default.Dosh_ExtraDoshPerPerkLevelBonusMultiplier.Normal = 3;
+		default.Dosh_ExtraDoshPerPerkLevelBonusMultiplier.Hard = 3;
+		default.Dosh_ExtraDoshPerPerkLevelBonusMultiplier.Suicidal = 3;
+		default.Dosh_ExtraDoshPerPerkLevelBonusMultiplier.HoE = 3;
+		default.Dosh_ExtraDoshPerPerkLevelBonusMultiplier.Custom = 3;
 
 		default.Dosh_LateJoinerTotalDoshFactor = 0.7f;
 
@@ -99,20 +116,52 @@ static function float GetLargeZedDoshFactor(int Difficulty, int PlayerCount)
 	return factor * (1.0f + (PlayerCount - 1) * extra);
 }
 
-static function int GetBasePlayerWaveDoshReward(int PlayerCount)
+static function int GetBaseWaveDoshReward(int Difficulty, int PlayerCount)
 {
-	return default.Dosh_BaseDoshWaveRewardPerPlayer + default.Dosh_ExtraDoshPerWavePerPlayer * PlayerCount;
+	local float Base, Extra;
+
+	switch (Difficulty)
+	{
+		case 0 : Base = default.Dosh_BaseDoshWaveReward.Normal; Extra = default.Dosh_ExtraDoshRewardPerPlayer.Normal; break;
+		case 1 : Base = default.Dosh_BaseDoshWaveReward.Hard; Extra = default.Dosh_ExtraDoshRewardPerPlayer.Hard; break;
+		case 2 : Base = default.Dosh_BaseDoshWaveReward.Suicidal; Extra = default.Dosh_ExtraDoshRewardPerPlayer.Suicidal; break;
+		case 3 : Base = default.Dosh_BaseDoshWaveReward.HoE; Extra = default.Dosh_ExtraDoshRewardPerPlayer.HoE; break;
+		default: Base = default.Dosh_BaseDoshWaveReward.Custom; Extra = default.Dosh_ExtraDoshRewardPerPlayer.Custom; break;
+	}
+
+	return Base + Extra * PlayerCount;
 }
 
-static function int GetBonusPlayerWaveDoshReward(int PlayerLevel)
+static function int GetBonusWaveDoshReward(int Difficulty, int WaveNum)
 {
-	if (default.Dosh_ExtraDoshPerkBonusDivider > 0 && default.Dosh_ExtraDoshPerkBonusMaxThreshold > 0)
+	local float Multiplier;
+
+	switch (Difficulty)
 	{
-		return Min(PlayerLevel, default.Dosh_ExtraDoshPerkBonusMaxThreshold) * default.Dosh_BaseDoshWaveRewardPerPlayer
-		/ (default.Dosh_ExtraDoshPerkBonusDivider * default.Dosh_ExtraDoshPerkBonusMaxThreshold);
+		case 0 : Multiplier = default.Dosh_ExtraDoshPerWaveBonusMultiplier.Normal; break;
+		case 1 : Multiplier = default.Dosh_ExtraDoshPerWaveBonusMultiplier.Hard; break;
+		case 2 : Multiplier = default.Dosh_ExtraDoshPerWaveBonusMultiplier.Suicidal; break;
+		case 3 : Multiplier = default.Dosh_ExtraDoshPerWaveBonusMultiplier.HoE; break;
+		default: Multiplier = default.Dosh_ExtraDoshPerWaveBonusMultiplier.Custom; break;
 	}
-	else
-		return 0;
+
+	return WaveNum * Multiplier;
+}
+
+static function int GetBonusPlayerLevelDoshReward(int Difficulty, int PlayerLevel)
+{
+	local float Multiplier;
+
+	switch (Difficulty)
+	{
+		case 0 : Multiplier = default.Dosh_ExtraDoshPerPerkLevelBonusMultiplier.Normal; break;
+		case 1 : Multiplier = default.Dosh_ExtraDoshPerPerkLevelBonusMultiplier.Hard; break;
+		case 2 : Multiplier = default.Dosh_ExtraDoshPerPerkLevelBonusMultiplier.Suicidal; break;
+		case 3 : Multiplier = default.Dosh_ExtraDoshPerPerkLevelBonusMultiplier.HoE; break;
+		default: Multiplier = default.Dosh_ExtraDoshPerPerkLevelBonusMultiplier.Custom; break;
+	}
+
+	return PlayerLevel * Multiplier;
 }
 
 static function float GetDeathPenaltyDoshPct(int Difficulty)

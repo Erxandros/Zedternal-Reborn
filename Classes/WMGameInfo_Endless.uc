@@ -1816,10 +1816,9 @@ function int GetAdjustedDeathPenalty(KFPlayerReplicationInfo KilledPlayerPRI, op
 			++PlayerCount;
 	}
 
-	PlayerBase = class'ZedternalReborn.Config_Dosh'.static.GetBasePlayerWaveDoshReward(PlayerCount);
-	PlayerWave = WaveNum * class'ZedternalReborn.Config_Dosh'.default.Dosh_ExtraDoshWaveBonusMultiplier;
-
-	PlayerPerkBonus = class'ZedternalReborn.Config_Dosh'.static.GetBonusPlayerWaveDoshReward(WMPlayerReplicationInfo(KFPC.PlayerReplicationInfo).PlayerLevel);
+	PlayerBase = class'ZedternalReborn.Config_Dosh'.static.GetBaseWaveDoshReward(GameDifficultyZedternal, PlayerCount);
+	PlayerWave = class'ZedternalReborn.Config_Dosh'.static.GetBonusWaveDoshReward(GameDifficultyZedternal, WaveNum);
+	PlayerPerkBonus = class'ZedternalReborn.Config_Dosh'.static.GetBonusPlayerLevelDoshReward(GameDifficultyZedternal, WMPlayerReplicationInfo(KFPC.PlayerReplicationInfo).PlayerLevel);
 
 	return Round(float(PlayerBase + PlayerWave + PlayerPerkBonus) * (1.0f - FClamp(class'ZedternalReborn.Config_Dosh'.static.GetDeathPenaltyDoshPct(GameDifficultyZedternal), 0.0f, 1.0f)));
 }
@@ -1935,21 +1934,21 @@ function RewardSurvivingPlayers()
 		T.AddScore(0, True);
 	}
 
-	PlayerBase = class'ZedternalReborn.Config_Dosh'.static.GetBasePlayerWaveDoshReward(PlayerCount);
-	PlayerWave = WaveNum * class'ZedternalReborn.Config_Dosh'.default.Dosh_ExtraDoshWaveBonusMultiplier;
+	PlayerBase = class'ZedternalReborn.Config_Dosh'.static.GetBaseWaveDoshReward(GameDifficultyZedternal, PlayerCount);
+	PlayerWave = class'ZedternalReborn.Config_Dosh'.static.GetBonusWaveDoshReward(GameDifficultyZedternal, WaveNum);
 
 	`log("ZR Info: SCORING: Number of surviving players:" @ PlayerCount);
 	`log("ZR Info: SCORING: Base Dosh/survivng player:" @ PlayerBase);
 	`log("ZR Info: SCORING: Wave Dosh/survivng player:" @ PlayerWave);
 
 	// Add dosh for new players
-	doshNewPlayer += PlayerBase + class'ZedternalReborn.Config_Dosh'.default.Dosh_ExtraDoshPerWavePerPlayer + PlayerWave;
+	doshNewPlayer += class'ZedternalReborn.Config_Dosh'.static.GetBaseWaveDoshReward(GameDifficultyZedternal, PlayerCount + 1) + PlayerWave;
 
 	foreach WorldInfo.AllControllers(class'KFPlayerController', KFPC)
 	{
 		if (KFPC.Pawn != None && KFPC.Pawn.IsAliveAndWell())
 		{
-			PlayerPerkBonus = class'ZedternalReborn.Config_Dosh'.static.GetBonusPlayerWaveDoshReward(WMPlayerReplicationInfo(KFPC.PlayerReplicationInfo).PlayerLevel);
+			PlayerPerkBonus = class'ZedternalReborn.Config_Dosh'.static.GetBonusPlayerLevelDoshReward(GameDifficultyZedternal, WMPlayerReplicationInfo(KFPC.PlayerReplicationInfo).PlayerLevel);
 
 			KFPlayerReplicationInfo(KFPC.PlayerReplicationInfo).AddDosh(PlayerBase + PlayerWave + PlayerPerkBonus, True);
 
@@ -2213,7 +2212,6 @@ function UpdateGameSettings()
 defaultproperties
 {
 	bIsEndlessGame=True
-	GameDifficultyZedternal=0.0f
 	MaxGameDifficulty=4
 	MaxPlayersAllowed=128
 	ReservationTimeout=120
