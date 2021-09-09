@@ -2087,15 +2087,10 @@ function SetMonsterDefaults(KFPawn_Monster P)
 	HealthMod = 1.0f;
 	HeadHealthMod = 1.0f;
 
-	// Scale speed back for omega/special zeds
-	if (P.bVersusZed)
-		StartingSpeedMod = DifficultyInfo.GetAISpeedMod(P, GameDifficulty) * 0.7f;
-	else
-		StartingSpeedMod = DifficultyInfo.GetAISpeedMod(P, GameDifficulty);
-
 	// Scale health, damage, and speed
 	DifficultyInfo.GetAIHealthModifier(P, GameDifficulty, LivingPlayerCount, HealthMod, HeadHealthMod);
 	P.DifficultyDamageMod = DifficultyInfo.GetAIDamageModifier(P, GameDifficulty, bOnePlayerAtStart);
+	StartingSpeedMod = DifficultyInfo.GetAISpeedMod(P, GameDifficulty);
 	TotalSpeedMod = GameConductor.CurrentAIMovementSpeedMod * StartingSpeedMod;
 
 	// Scale movement speed
