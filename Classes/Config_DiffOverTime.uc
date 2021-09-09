@@ -80,11 +80,11 @@ static function UpdateConfig()
 		default.DiffOverTime_ZedHardAttackChanceIncPerWave.HoE = 0.03f;
 		default.DiffOverTime_ZedHardAttackChanceIncPerWave.Custom = 0.03f;
 
-		default.DiffOverTime_ZedDoshPenaltyPerWave.Normal = 0.022f;
-		default.DiffOverTime_ZedDoshPenaltyPerWave.Hard = 0.022f;
-		default.DiffOverTime_ZedDoshPenaltyPerWave.Suicidal = 0.022f;
-		default.DiffOverTime_ZedDoshPenaltyPerWave.HoE = 0.022f;
-		default.DiffOverTime_ZedDoshPenaltyPerWave.Custom = 0.022f;
+		default.DiffOverTime_ZedDoshPenaltyPerWave.Normal = 0.02f;
+		default.DiffOverTime_ZedDoshPenaltyPerWave.Hard = 0.02f;
+		default.DiffOverTime_ZedDoshPenaltyPerWave.Suicidal = 0.02f;
+		default.DiffOverTime_ZedDoshPenaltyPerWave.HoE = 0.02f;
+		default.DiffOverTime_ZedDoshPenaltyPerWave.Custom = 0.02f;
 
 		default.DiffOverTime_ZedDoshPenaltyLimit.Normal = 0.6f;
 		default.DiffOverTime_ZedDoshPenaltyLimit.Hard = 0.6f;
