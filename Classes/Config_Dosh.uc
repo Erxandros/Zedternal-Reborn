@@ -4,9 +4,9 @@ class Config_Dosh extends Config_Common
 var config int MODEVERSION;
 
 var config S_Difficulty_Float Dosh_NormalZedDoshFactor;
+var config S_Difficulty_Float Dosh_ExtraNormalZedDoshFactorPerPlayer; //extra amount of dosh won based on number of other players
 var config S_Difficulty_Float Dosh_LargeZedDoshFactor;
-var config float Dosh_ExtraNormalZedDoshFactorPerPlayer; //extra amount of dosh won based on number of players
-var config float Dosh_ExtraLargeZedDoshFactorPerPlayer; //extra amount of dosh won based on number of players
+var config S_Difficulty_Float Dosh_ExtraLargeZedDoshFactorPerPlayer; //extra amount of dosh won based on number of other players
 
 var config int Dosh_BaseDoshWaveRewardPerPlayer; //Base amount of Dosh granted to every player for a completed wave
 var config int Dosh_ExtraDoshPerWavePerPlayer; //Extra Dosh granted base on the number of players, PlayerCount * this variable
@@ -27,14 +27,23 @@ static function UpdateConfig()
 		default.Dosh_NormalZedDoshFactor.HoE = 1.2f;
 		default.Dosh_NormalZedDoshFactor.Custom = 1.2f;
 
-		default.Dosh_LargeZedDoshFactor.Normal = 0.7f;
-		default.Dosh_LargeZedDoshFactor.Hard = 0.7f;
+		default.Dosh_ExtraNormalZedDoshFactorPerPlayer.Normal = 0.05f;
+		default.Dosh_ExtraNormalZedDoshFactorPerPlayer.Hard = 0.05f;
+		default.Dosh_ExtraNormalZedDoshFactorPerPlayer.Suicidal = 0.05f;
+		default.Dosh_ExtraNormalZedDoshFactorPerPlayer.HoE = 0.05f;
+		default.Dosh_ExtraNormalZedDoshFactorPerPlayer.Custom = 0.05f;
+
+		default.Dosh_LargeZedDoshFactor.Normal = 0.75f;
+		default.Dosh_LargeZedDoshFactor.Hard = 0.725f;
 		default.Dosh_LargeZedDoshFactor.Suicidal = 0.7f;
 		default.Dosh_LargeZedDoshFactor.HoE = 0.7f;
 		default.Dosh_LargeZedDoshFactor.Custom = 0.7f;
 
-		default.Dosh_ExtraNormalZedDoshFactorPerPlayer = 0.05f;
-		default.Dosh_ExtraLargeZedDoshFactorPerPlayer = 0.08f;
+		default.Dosh_ExtraLargeZedDoshFactorPerPlayer.Normal = 0.08f;
+		default.Dosh_ExtraLargeZedDoshFactorPerPlayer.Hard = 0.08f;
+		default.Dosh_ExtraLargeZedDoshFactorPerPlayer.Suicidal = 0.08f;
+		default.Dosh_ExtraLargeZedDoshFactorPerPlayer.HoE = 0.08f;
+		default.Dosh_ExtraLargeZedDoshFactorPerPlayer.Custom = 0.08f;
 
 		default.Dosh_BaseDoshWaveRewardPerPlayer = 660;
 		default.Dosh_ExtraDoshPerWavePerPlayer = 20;
@@ -58,28 +67,36 @@ static function UpdateConfig()
 	}
 }
 
-static function float GetNormalZedDoshFactor(int Difficulty)
+static function float GetNormalZedDoshFactor(int Difficulty, int PlayerCount)
 {
+	local float factor, extra;
+
 	switch (Difficulty)
 	{
-		case 0 : return default.Dosh_NormalZedDoshFactor.Normal;
-		case 1 : return default.Dosh_NormalZedDoshFactor.Hard;
-		case 2 : return default.Dosh_NormalZedDoshFactor.Suicidal;
-		case 3 : return default.Dosh_NormalZedDoshFactor.HoE;
-		default: return default.Dosh_NormalZedDoshFactor.Custom;
+		case 0 : factor = default.Dosh_NormalZedDoshFactor.Normal; extra = default.Dosh_ExtraNormalZedDoshFactorPerPlayer.Normal; break;
+		case 1 : factor = default.Dosh_NormalZedDoshFactor.Hard; extra = default.Dosh_ExtraNormalZedDoshFactorPerPlayer.Hard; break;
+		case 2 : factor = default.Dosh_NormalZedDoshFactor.Suicidal; extra = default.Dosh_ExtraNormalZedDoshFactorPerPlayer.Suicidal; break;
+		case 3 : factor = default.Dosh_NormalZedDoshFactor.HoE; extra = default.Dosh_ExtraNormalZedDoshFactorPerPlayer.HoE; break;
+		default: factor = default.Dosh_NormalZedDoshFactor.Custom; extra = default.Dosh_ExtraNormalZedDoshFactorPerPlayer.Custom; break;
 	}
+
+	return factor * (1.0f + (PlayerCount - 1) * extra);
 }
 
-static function float GetLargeZedDoshFactor(int Difficulty)
+static function float GetLargeZedDoshFactor(int Difficulty, int PlayerCount)
 {
+	local float factor, extra;
+
 	switch (Difficulty)
 	{
-		case 0 : return default.Dosh_LargeZedDoshFactor.Normal;
-		case 1 : return default.Dosh_LargeZedDoshFactor.Hard;
-		case 2 : return default.Dosh_LargeZedDoshFactor.Suicidal;
-		case 3 : return default.Dosh_LargeZedDoshFactor.HoE;
-		default: return default.Dosh_LargeZedDoshFactor.Custom;
+		case 0 : factor = default.Dosh_LargeZedDoshFactor.Normal; extra = default.Dosh_ExtraLargeZedDoshFactorPerPlayer.Normal; break;
+		case 1 : factor = default.Dosh_LargeZedDoshFactor.Hard; extra = default.Dosh_ExtraLargeZedDoshFactorPerPlayer.Hard; break;
+		case 2 : factor = default.Dosh_LargeZedDoshFactor.Suicidal; extra = default.Dosh_ExtraLargeZedDoshFactorPerPlayer.Suicidal; break;
+		case 3 : factor = default.Dosh_LargeZedDoshFactor.HoE; extra = default.Dosh_ExtraLargeZedDoshFactorPerPlayer.HoE; break;
+		default: factor = default.Dosh_LargeZedDoshFactor.Custom; extra = default.Dosh_ExtraLargeZedDoshFactorPerPlayer.Custom; break;
 	}
+
+	return factor * (1.0f + (PlayerCount - 1) * extra);
 }
 
 static function int GetBasePlayerWaveDoshReward(int PlayerCount)

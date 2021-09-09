@@ -1848,17 +1848,9 @@ function float GetAdjustedAIDoshValue(class<KFPawn_Monster> MonsterClass)
 	}
 
 	if (MonsterClass.default.bLargeZed)
-	{
-		TempValue *= class'ZedternalReborn.Config_Dosh'.static.GetLargeZedDoshFactor(GameDifficultyZedternal);
-		if (PlayerCount > 1)
-			tempValue *= (1.f + (PlayerCount - 1) * class'ZedternalReborn.Config_Dosh'.default.Dosh_ExtraLargeZedDoshFactorPerPlayer);
-	}
+		TempValue *= class'ZedternalReborn.Config_Dosh'.static.GetLargeZedDoshFactor(GameDifficultyZedternal, PlayerCount);
 	else
-	{
-		TempValue *= class'ZedternalReborn.Config_Dosh'.static.GetNormalZedDoshFactor(GameDifficultyZedternal);
-		if (PlayerCount > 1)
-			tempValue *= (1.f + (PlayerCount - 1) * class'ZedternalReborn.Config_Dosh'.default.Dosh_ExtraNormalZedDoshFactorPerPlayer);
-	}
+		TempValue *= class'ZedternalReborn.Config_Dosh'.static.GetNormalZedDoshFactor(GameDifficultyZedternal, PlayerCount);
 
 	return TempValue;
 }
