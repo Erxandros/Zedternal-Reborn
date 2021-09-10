@@ -66,55 +66,49 @@ static function CheckBasicConfigValues()
 	{
 		if (GetStructValueFloat(default.ZedNormal_HealthModifier, i) < 0.05f)
 		{
-			`log("ZR Config: Modifier for normal ZED health at difficulty" @ GetDiffString(i)
-				@"is set to" @ GetStructValueFloat(default.ZedNormal_HealthModifier, i)
-				@"which is not supported. Setting the modifier to the minimum value of 0.05 (5%) temporarily."
-				@"Please change the value in the config to a value greater than or equal to 0.05.");
+			LogBadStructConfigMessage(i, "Modifier for normal ZED health", "modifier",
+				string(GetStructValueFloat(default.ZedNormal_HealthModifier, i)),
+				"0.05", "5%", "ZedNormal_HealthModifier", 0);
 			SetStructValueFloat(default.ZedNormal_HealthModifier, i, 0.05f);
 		}
 
 		if (GetStructValueFloat(default.ZedNormal_ExtraHealthModifierPerPlayer, i) < 0.0f)
 		{
-			`log("ZR Config: Modifier for normal ZED extra health per player at difficulty" @ GetDiffString(i)
-				@"is set to" @ GetStructValueFloat(default.ZedNormal_ExtraHealthModifierPerPlayer, i)
-				@"which is not supported. Setting the modifier to the minimum value of 0.0 (0%) temporarily."
-				@"Please change the value in the config to a value greater than or equal to 0.0.");
+			LogBadStructConfigMessage(i, "Modifier for normal ZED extra health per player", "modifier",
+				string(GetStructValueFloat(default.ZedNormal_ExtraHealthModifierPerPlayer, i)),
+				"0.0", "0%", "ZedNormal_ExtraHealthModifierPerPlayer", 0);
 			SetStructValueFloat(default.ZedNormal_ExtraHealthModifierPerPlayer, i, 0.0f);
 		}
 
 		if (GetStructValueFloat(default.ZedNormal_HeadHealthModifier, i) < 0.05f)
 		{
-			`log("ZR Config: Modifier for normal ZED head health at difficulty" @ GetDiffString(i)
-				@"is set to" @ GetStructValueFloat(default.ZedNormal_HeadHealthModifier, i)
-				@"which is not supported. Setting the modifier to the minimum value of 0.05 (5%) temporarily."
-				@"Please change the value in the config to a value greater than or equal to 0.05.");
+			LogBadStructConfigMessage(i, "Modifier for normal ZED head health", "modifier",
+				string(GetStructValueFloat(default.ZedNormal_HeadHealthModifier, i)),
+				"0.05", "5%", "ZedNormal_HeadHealthModifier", 0);
 			SetStructValueFloat(default.ZedNormal_HeadHealthModifier, i, 0.05f);
 		}
 
 		if (GetStructValueFloat(default.ZedNormal_DamageModifier, i) < 0.05f)
 		{
-			`log("ZR Config: Modifier for normal ZED damage at difficulty" @ GetDiffString(i)
-				@"is set to" @ GetStructValueFloat(default.ZedNormal_DamageModifier, i)
-				@"which is not supported. Setting the modifier to the minimum value of 0.05 (5%) temporarily."
-				@"Please change the value in the config to a value greater than or equal to 0.05.");
+			LogBadStructConfigMessage(i, "Modifier for normal ZED damage", "modifier",
+				string(GetStructValueFloat(default.ZedNormal_DamageModifier, i)),
+				"0.05", "5%", "ZedNormal_DamageModifier", 0);
 			SetStructValueFloat(default.ZedNormal_DamageModifier, i, 0.05f);
 		}
 
 		if (GetStructValueFloat(default.ZedNormal_SoloDamageModifier, i) < 0.05f)
 		{
-			`log("ZR Config: Modifier for normal ZED solo damage at difficulty" @ GetDiffString(i)
-				@"is set to" @ GetStructValueFloat(default.ZedNormal_SoloDamageModifier, i)
-				@"which is not supported. Setting the modifier to the minimum value of 0.05 (5%) temporarily."
-				@"Please change the value in the config to a value greater than or equal to 0.05.");
+			LogBadStructConfigMessage(i, "Modifier for normal ZED solo damage", "modifier",
+				string(GetStructValueFloat(default.ZedNormal_SoloDamageModifier, i)),
+				"0.05", "5%", "ZedNormal_SoloDamageModifier", 0);
 			SetStructValueFloat(default.ZedNormal_SoloDamageModifier, i, 0.05f);
 		}
 
 		if (GetStructValueFloat(default.ZedNormal_SpeedModifier, i) < 0.05f)
 		{
-			`log("ZR Config: Modifier for normal ZED speed at difficulty" @ GetDiffString(i)
-				@"is set to" @ GetStructValueFloat(default.ZedNormal_SpeedModifier, i)
-				@"which is not supported. Setting the modifier to the minimum value of 0.05 (5%) temporarily."
-				@"Please change the value in the config to a value greater than or equal to 0.05.");
+			LogBadStructConfigMessage(i, "Modifier for normal ZED speed", "modifier",
+				string(GetStructValueFloat(default.ZedNormal_SpeedModifier, i)),
+				"0.05", "5%", "ZedNormal_SpeedModifier", 0);
 			SetStructValueFloat(default.ZedNormal_SpeedModifier, i, 0.05f);
 		}
 	}

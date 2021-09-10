@@ -66,55 +66,49 @@ static function CheckBasicConfigValues()
 	{
 		if (GetStructValueFloat(default.ZedOmega_HealthModifier, i) < 0.05f)
 		{
-			`log("ZR Config: Modifier for omega ZED health at difficulty" @ GetDiffString(i)
-				@"is set to" @ GetStructValueFloat(default.ZedOmega_HealthModifier, i)
-				@"which is not supported. Setting the modifier to the minimum value of 0.05 (5%) temporarily."
-				@"Please change the value in the config to a value greater than or equal to 0.05.");
+			LogBadStructConfigMessage(i, "Modifier for omega ZED health", "modifier",
+				string(GetStructValueFloat(default.ZedOmega_HealthModifier, i)),
+				"0.05", "5%", "ZedOmega_HealthModifier", 0);
 			SetStructValueFloat(default.ZedOmega_HealthModifier, i, 0.05f);
 		}
 
 		if (GetStructValueFloat(default.ZedOmega_ExtraHealthModifierPerPlayer, i) < 0.0f)
 		{
-			`log("ZR Config: Modifier for omega ZED extra health per player at difficulty" @ GetDiffString(i)
-				@"is set to" @ GetStructValueFloat(default.ZedOmega_ExtraHealthModifierPerPlayer, i)
-				@"which is not supported. Setting the modifier to the minimum value of 0.0 (0%) temporarily."
-				@"Please change the value in the config to a value greater than or equal to 0.0.");
+			LogBadStructConfigMessage(i, "Modifier for omega ZED extra health per player", "modifier",
+				string(GetStructValueFloat(default.ZedOmega_ExtraHealthModifierPerPlayer, i)),
+				"0.0", "0%", "ZedOmega_ExtraHealthModifierPerPlayer", 0);
 			SetStructValueFloat(default.ZedOmega_ExtraHealthModifierPerPlayer, i, 0.0f);
 		}
 
 		if (GetStructValueFloat(default.ZedOmega_HeadHealthModifier, i) < 0.05f)
 		{
-			`log("ZR Config: Modifier for omega ZED head health at difficulty" @ GetDiffString(i)
-				@"is set to" @ GetStructValueFloat(default.ZedOmega_HeadHealthModifier, i)
-				@"which is not supported. Setting the modifier to the minimum value of 0.05 (5%) temporarily."
-				@"Please change the value in the config to a value greater than or equal to 0.05.");
+			LogBadStructConfigMessage(i, "Modifier for omega ZED head health", "modifier",
+				string(GetStructValueFloat(default.ZedOmega_HeadHealthModifier, i)),
+				"0.05", "5%", "ZedOmega_HeadHealthModifier", 0);
 			SetStructValueFloat(default.ZedOmega_HeadHealthModifier, i, 0.05f);
 		}
 
 		if (GetStructValueFloat(default.ZedOmega_DamageModifier, i) < 0.05f)
 		{
-			`log("ZR Config: Modifier for omega ZED damage at difficulty" @ GetDiffString(i)
-				@"is set to" @ GetStructValueFloat(default.ZedOmega_DamageModifier, i)
-				@"which is not supported. Setting the modifier to the minimum value of 0.05 (5%) temporarily."
-				@"Please change the value in the config to a value greater than or equal to 0.05.");
+			LogBadStructConfigMessage(i, "Modifier for omega ZED damage", "modifier",
+				string(GetStructValueFloat(default.ZedOmega_DamageModifier, i)),
+				"0.05", "5%", "ZedOmega_DamageModifier", 0);
 			SetStructValueFloat(default.ZedOmega_DamageModifier, i, 0.05f);
 		}
 
 		if (GetStructValueFloat(default.ZedOmega_SoloDamageModifier, i) < 0.05f)
 		{
-			`log("ZR Config: Modifier for omega ZED solo damage at difficulty" @ GetDiffString(i)
-				@"is set to" @ GetStructValueFloat(default.ZedOmega_SoloDamageModifier, i)
-				@"which is not supported. Setting the modifier to the minimum value of 0.05 (5%) temporarily."
-				@"Please change the value in the config to a value greater than or equal to 0.05.");
+			LogBadStructConfigMessage(i, "Modifier for omega ZED solo damage", "modifier",
+				string(GetStructValueFloat(default.ZedOmega_SoloDamageModifier, i)),
+				"0.05", "5%", "ZedOmega_SoloDamageModifier", 0);
 			SetStructValueFloat(default.ZedOmega_SoloDamageModifier, i, 0.05f);
 		}
 
 		if (GetStructValueFloat(default.ZedOmega_SpeedModifier, i) < 0.05f)
 		{
-			`log("ZR Config: Modifier for omega ZED speed at difficulty" @ GetDiffString(i)
-				@"is set to" @ GetStructValueFloat(default.ZedOmega_SpeedModifier, i)
-				@"which is not supported. Setting the modifier to the minimum value of 0.05 (5%) temporarily."
-				@"Please change the value in the config to a value greater than or equal to 0.05.");
+			LogBadStructConfigMessage(i, "Modifier for omega ZED speed", "modifier",
+				string(GetStructValueFloat(default.ZedOmega_SpeedModifier, i)),
+				"0.05", "5%", "ZedOmega_SpeedModifier", 0);
 			SetStructValueFloat(default.ZedOmega_SpeedModifier, i, 0.05f);
 		}
 	}

@@ -66,55 +66,49 @@ static function CheckBasicConfigValues()
 	{
 		if (GetStructValueFloat(default.ZedLarge_HealthModifier, i) < 0.05f)
 		{
-			`log("ZR Config: Modifier for large ZED health at difficulty" @ GetDiffString(i)
-				@"is set to" @ GetStructValueFloat(default.ZedLarge_HealthModifier, i)
-				@"which is not supported. Setting the modifier to the minimum value of 0.05 (5%) temporarily."
-				@"Please change the value in the config to a value greater than or equal to 0.05.");
+			LogBadStructConfigMessage(i, "Modifier for large ZED health", "modifier",
+				string(GetStructValueFloat(default.ZedLarge_HealthModifier, i)),
+				"0.05", "5%", "ZedLarge_HealthModifier", 0);
 			SetStructValueFloat(default.ZedLarge_HealthModifier, i, 0.05f);
 		}
 
 		if (GetStructValueFloat(default.ZedLarge_ExtraHealthModifierPerPlayer, i) < 0.0f)
 		{
-			`log("ZR Config: Modifier for large ZED extra health per player at difficulty" @ GetDiffString(i)
-				@"is set to" @ GetStructValueFloat(default.ZedLarge_ExtraHealthModifierPerPlayer, i)
-				@"which is not supported. Setting the modifier to the minimum value of 0.0 (0%) temporarily."
-				@"Please change the value in the config to a value greater than or equal to 0.0.");
+			LogBadStructConfigMessage(i, "Modifier for large ZED extra health per player", "modifier",
+				string(GetStructValueFloat(default.ZedLarge_ExtraHealthModifierPerPlayer, i)),
+				"0.0", "0%", "ZedLarge_ExtraHealthModifierPerPlayer", 0);
 			SetStructValueFloat(default.ZedLarge_ExtraHealthModifierPerPlayer, i, 0.0f);
 		}
 
 		if (GetStructValueFloat(default.ZedLarge_HeadHealthModifier, i) < 0.05f)
 		{
-			`log("ZR Config: Modifier for large ZED head health at difficulty" @ GetDiffString(i)
-				@"is set to" @ GetStructValueFloat(default.ZedLarge_HeadHealthModifier, i)
-				@"which is not supported. Setting the modifier to the minimum value of 0.05 (5%) temporarily."
-				@"Please change the value in the config to a value greater than or equal to 0.05.");
+			LogBadStructConfigMessage(i, "Modifier for large ZED head health", "modifier",
+				string(GetStructValueFloat(default.ZedLarge_HeadHealthModifier, i)),
+				"0.05", "5%", "ZedLarge_HeadHealthModifier", 0);
 			SetStructValueFloat(default.ZedLarge_HeadHealthModifier, i, 0.05f);
 		}
 
 		if (GetStructValueFloat(default.ZedLarge_DamageModifier, i) < 0.05f)
 		{
-			`log("ZR Config: Modifier for large ZED damage at difficulty" @ GetDiffString(i)
-				@"is set to" @ GetStructValueFloat(default.ZedLarge_DamageModifier, i)
-				@"which is not supported. Setting the modifier to the minimum value of 0.05 (5%) temporarily."
-				@"Please change the value in the config to a value greater than or equal to 0.05.");
+			LogBadStructConfigMessage(i, "Modifier for large ZED damage", "modifier",
+				string(GetStructValueFloat(default.ZedLarge_DamageModifier, i)),
+				"0.05", "5%", "ZedLarge_DamageModifier", 0);
 			SetStructValueFloat(default.ZedLarge_DamageModifier, i, 0.05f);
 		}
 
 		if (GetStructValueFloat(default.ZedLarge_SoloDamageModifier, i) < 0.05f)
 		{
-			`log("ZR Config: Modifier for large ZED solo damage at difficulty" @ GetDiffString(i)
-				@"is set to" @ GetStructValueFloat(default.ZedLarge_SoloDamageModifier, i)
-				@"which is not supported. Setting the modifier to the minimum value of 0.05 (5%) temporarily."
-				@"Please change the value in the config to a value greater than or equal to 0.05.");
+			LogBadStructConfigMessage(i, "Modifier for large ZED solo damage", "modifier",
+				string(GetStructValueFloat(default.ZedLarge_SoloDamageModifier, i)),
+				"0.05", "5%", "ZedLarge_SoloDamageModifier", 0);
 			SetStructValueFloat(default.ZedLarge_SoloDamageModifier, i, 0.05f);
 		}
 
 		if (GetStructValueFloat(default.ZedLarge_SpeedModifier, i) < 0.05f)
 		{
-			`log("ZR Config: Modifier for large ZED speed at difficulty" @ GetDiffString(i)
-				@"is set to" @ GetStructValueFloat(default.ZedLarge_SpeedModifier, i)
-				@"which is not supported. Setting the modifier to the minimum value of 0.05 (5%) temporarily."
-				@"Please change the value in the config to a value greater than or equal to 0.05.");
+			LogBadStructConfigMessage(i, "Modifier for large ZED speed", "modifier",
+				string(GetStructValueFloat(default.ZedLarge_SpeedModifier, i)),
+				"0.05", "5%", "ZedLarge_SpeedModifier", 0);
 			SetStructValueFloat(default.ZedLarge_SpeedModifier, i, 0.05f);
 		}
 	}
