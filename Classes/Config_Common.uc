@@ -83,6 +83,27 @@ static function string GetDiffString(int Difficulty)
 	}
 }
 
+static function string GetSignString(int Sign)
+{
+	switch (Sign)
+	{
+		case 0 : return "greater than or equal to";
+		case 1 : return "lesser than or equal to";
+		case 2 : return "greater than";
+		case 3 : return "lesser than";
+		default: return "equal to";
+	}
+}
+
+static function LogBadStructConfigMessage(int Difficulty, string Description, string DataType, string OriginalData,
+	string CorrectData, string CorrectDataFormatted, string ConfigVariableName, int Sign)
+{
+	`log("ZR Config:" @Description @"at difficulty" @GetDiffString(Difficulty)
+		@"is set to" @OriginalData @"which is not supported."
+		@"Setting the" @DataType @"to the minimum value of" @CorrectData @"(" $CorrectDataFormatted $") temporarily."
+		@"Please change the value in the config," @ConfigVariableName $", to a value" @GetSignString(Sign) @CorrectData);
+}
+
 defaultproperties
 {
 	Name="Default__Config_Common"
