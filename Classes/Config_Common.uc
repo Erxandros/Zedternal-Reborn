@@ -100,7 +100,7 @@ static function LogBadStructConfigMessage(int Difficulty, string Description, st
 {
 	`log("ZR Config:" @Description @"at difficulty" @GetDiffString(Difficulty)
 		@"is set to" @OriginalData @"which is not supported."
-		@"Setting the" @DataType @"to the minimum value of" @CorrectData @"(" $CorrectDataFormatted $") temporarily."
+		@"Setting the" @DataType @"to the value of" @CorrectData @"(" $CorrectDataFormatted $") temporarily."
 		@"Please change the value in the config," @ConfigVariableName $", to a value" @GetSignString(Sign) @CorrectData);
 }
 
