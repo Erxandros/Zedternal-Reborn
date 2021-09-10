@@ -88,6 +88,102 @@ static function UpdateConfig()
 	}
 }
 
+static function CheckBasicConfigValues()
+{
+	local byte i;
+
+	for (i = 0; i < NumberOfDiffs; ++i)
+	{
+		if (GetStructValueFloat(default.Dosh_NormalZedDoshFactor, i) < 0.0f)
+		{
+			LogBadStructConfigMessage(i, "Modifier for normal ZED dosh reward", "modifier",
+				string(GetStructValueFloat(default.Dosh_NormalZedDoshFactor, i)),
+				"0.0", "0%, no dosh reward", "Dosh_NormalZedDoshFactor", 0);
+			SetStructValueFloat(default.Dosh_NormalZedDoshFactor, i, 0.0f);
+		}
+
+		if (GetStructValueFloat(default.Dosh_ExtraNormalZedDoshFactorPerPlayer, i) < 0.0f)
+		{
+			LogBadStructConfigMessage(i, "Modifier for normal ZED extra dosh reward per player", "modifier",
+				string(GetStructValueFloat(default.Dosh_ExtraNormalZedDoshFactorPerPlayer, i)),
+				"0.0", "0%, no extra dosh reward", "Dosh_ExtraNormalZedDoshFactorPerPlayer", 0);
+			SetStructValueFloat(default.Dosh_ExtraNormalZedDoshFactorPerPlayer, i, 0.0f);
+		}
+
+		if (GetStructValueFloat(default.Dosh_LargeZedDoshFactor, i) < 0.0f)
+		{
+			LogBadStructConfigMessage(i, "Modifier for large ZED dosh reward", "modifier",
+				string(GetStructValueFloat(default.Dosh_LargeZedDoshFactor, i)),
+				"0.0", "0%, no dosh reward", "Dosh_LargeZedDoshFactor", 0);
+			SetStructValueFloat(default.Dosh_LargeZedDoshFactor, i, 0.0f);
+		}
+
+		if (GetStructValueFloat(default.Dosh_ExtraLargeZedDoshFactorPerPlayer, i) < 0.0f)
+		{
+			LogBadStructConfigMessage(i, "Modifier for large ZED extra dosh reward per player", "modifier",
+				string(GetStructValueFloat(default.Dosh_ExtraLargeZedDoshFactorPerPlayer, i)),
+				"0.0", "0%, no extra dosh reward", "Dosh_ExtraLargeZedDoshFactorPerPlayer", 0);
+			SetStructValueFloat(default.Dosh_ExtraLargeZedDoshFactorPerPlayer, i, 0.0f);
+		}
+
+		if (GetStructValueInt(default.Dosh_BaseDoshWaveReward, i) < 0)
+		{
+			LogBadStructConfigMessage(i, "Base dosh wave reward", "amount",
+				string(GetStructValueInt(default.Dosh_BaseDoshWaveReward, i)),
+				"0", "0 dosh, no base dosh reward", "Dosh_BaseDoshWaveReward", 0);
+			SetStructValueInt(default.Dosh_BaseDoshWaveReward, i, 0);
+		}
+
+		if (GetStructValueInt(default.Dosh_ExtraDoshRewardPerPlayer, i) < 0)
+		{
+			LogBadStructConfigMessage(i, "Extra dosh wave reward per player", "amount",
+				string(GetStructValueInt(default.Dosh_ExtraDoshRewardPerPlayer, i)),
+				"0", "0 dosh, no extra dosh reward", "Dosh_ExtraDoshRewardPerPlayer", 0);
+			SetStructValueInt(default.Dosh_ExtraDoshRewardPerPlayer, i, 0);
+		}
+
+		if (GetStructValueInt(default.Dosh_ExtraDoshPerWaveBonusMultiplier, i) < 0)
+		{
+			LogBadStructConfigMessage(i, "Extra dosh wave reward per wave number", "multiplier",
+				string(GetStructValueInt(default.Dosh_ExtraDoshPerWaveBonusMultiplier, i)),
+				"0", "0x, no extra dosh reward", "Dosh_ExtraDoshPerWaveBonusMultiplier", 0);
+			SetStructValueInt(default.Dosh_ExtraDoshPerWaveBonusMultiplier, i, 0);
+		}
+
+		if (GetStructValueInt(default.Dosh_ExtraDoshPerPerkLevelBonusMultiplier, i) < 0)
+		{
+			LogBadStructConfigMessage(i, "Extra dosh wave reward per perk level", "multiplier",
+				string(GetStructValueInt(default.Dosh_ExtraDoshPerPerkLevelBonusMultiplier, i)),
+				"0", "0x, no extra dosh reward", "Dosh_ExtraDoshPerPerkLevelBonusMultiplier", 0);
+			SetStructValueInt(default.Dosh_ExtraDoshPerPerkLevelBonusMultiplier, i, 0);
+		}
+
+		if (GetStructValueFloat(default.Dosh_LateJoinerTotalDoshFactor, i) < 0.0f)
+		{
+			LogBadStructConfigMessage(i, "Modifier for late joiner dosh amount", "modifier",
+				string(GetStructValueFloat(default.Dosh_LateJoinerTotalDoshFactor, i)),
+				"0.0", "0%, no late joiner dosh", "Dosh_LateJoinerTotalDoshFactor", 0);
+			SetStructValueFloat(default.Dosh_LateJoinerTotalDoshFactor, i, 0.0f);
+		}
+
+		if (GetStructValueFloat(default.Dosh_DeathPenaltyDoshPct, i) < 0.0f)
+		{
+			LogBadStructConfigMessage(i, "Percentage of wave dosh lost on death", "percentage",
+				string(GetStructValueFloat(default.Dosh_DeathPenaltyDoshPct, i)),
+				"0.0", "0%, no dosh penalty", "Dosh_DeathPenaltyDoshPct", 0);
+			SetStructValueFloat(default.Dosh_DeathPenaltyDoshPct, i, 0.0f);
+		}
+
+		if (GetStructValueFloat(default.Dosh_DeathPenaltyDoshPct, i) > 1.0f)
+		{
+			LogBadStructConfigMessage(i, "Percentage of wave dosh lost on death", "percentage",
+				string(GetStructValueFloat(default.Dosh_DeathPenaltyDoshPct, i)),
+				"1.0", "100%, all dosh earned during wave lost on death", "Dosh_DeathPenaltyDoshPct", 1);
+			SetStructValueFloat(default.Dosh_DeathPenaltyDoshPct, i, 1.0f);
+		}
+	}
+}
+
 static function float GetNormalZedDoshFactor(int Difficulty, int PlayerCount)
 {
 	local float Factor, Extra;
