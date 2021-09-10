@@ -122,127 +122,113 @@ static function CheckBasicConfigValues()
 	{
 		if (GetStructValueFloat(default.DiffOverTime_NormalZedHealthIncPerWave, i) < 0.0f)
 		{
-			`log("ZR Config: Linear increase for normal ZED health at difficulty" @ GetDiffString(i)
-				@"is set to" @ GetStructValueFloat(default.DiffOverTime_NormalZedHealthIncPerWave, i)
-				@"which is not supported. Setting the increase to the minimum value of 0.0 (0%, no linear increase) temporarily."
-				@"Please change the value in the config to a value greater than or equal to 0.0.");
+			LogBadStructConfigMessage(i, "Linear increase for normal ZED health", "increase",
+				string(GetStructValueFloat(default.DiffOverTime_NormalZedHealthIncPerWave, i)),
+				"0.0", "0%, no linear increase", "DiffOverTime_NormalZedHealthIncPerWave", 0);
 			SetStructValueFloat(default.DiffOverTime_NormalZedHealthIncPerWave, i, 0.0f);
 		}
 
 		if (GetStructValueFloat(default.DiffOverTime_NormalZedHealthPowerPerWave, i) < 0.0f)
 		{
-			`log("ZR Config: Power increase for normal ZED health at difficulty" @ GetDiffString(i)
-				@"is set to" @ GetStructValueFloat(default.DiffOverTime_NormalZedHealthPowerPerWave, i)
-				@"which is not supported. Setting the increase to the minimum value of 0.0 (0%, no exponential increase) temporarily."
-				@"Please change the value in the config to a value greater than or equal to 0.0.");
+			LogBadStructConfigMessage(i, "Power increase for normal ZED health", "increase",
+				string(GetStructValueFloat(default.DiffOverTime_NormalZedHealthPowerPerWave, i)),
+				"0.0", "0%, no exponential increase", "DiffOverTime_NormalZedHealthPowerPerWave", 0);
 			SetStructValueFloat(default.DiffOverTime_NormalZedHealthPowerPerWave, i, 0.0f);
 		}
 
 		if (GetStructValueFloat(default.DiffOverTime_LargeZedHealthIncPerWave, i) < 0.0f)
 		{
-			`log("ZR Config: Linear increase for large ZED health at difficulty" @ GetDiffString(i)
-				@"is set to" @ GetStructValueFloat(default.DiffOverTime_LargeZedHealthIncPerWave, i)
-				@"which is not supported. Setting the increase to the minimum value of 0.0 (0%, no linear increase) temporarily."
-				@"Please change the value in the config to a value greater than or equal to 0.0.");
+			LogBadStructConfigMessage(i, "Linear increase for large ZED health", "increase",
+				string(GetStructValueFloat(default.DiffOverTime_LargeZedHealthIncPerWave, i)),
+				"0.0", "0%, no linear increase", "DiffOverTime_LargeZedHealthIncPerWave", 0);
 			SetStructValueFloat(default.DiffOverTime_LargeZedHealthIncPerWave, i, 0.0f);
 		}
 
 		if (GetStructValueFloat(default.DiffOverTime_LargeZedHealthPowerPerWave, i) < 0.0f)
 		{
-			`log("ZR Config: Power increase for large ZED health at difficulty" @ GetDiffString(i)
-				@"is set to" @ GetStructValueFloat(default.DiffOverTime_LargeZedHealthPowerPerWave, i)
-				@"which is not supported. Setting the increase to the minimum value of 0.0 (0%, no exponential increase) temporarily."
-				@"Please change the value in the config to a value greater than or equal to 0.0.");
+			LogBadStructConfigMessage(i, "Power increase for large ZED health", "increase",
+				string(GetStructValueFloat(default.DiffOverTime_LargeZedHealthPowerPerWave, i)),
+				"0.0", "0%, no exponential increase", "DiffOverTime_LargeZedHealthPowerPerWave", 0);
 			SetStructValueFloat(default.DiffOverTime_LargeZedHealthPowerPerWave, i, 0.0f);
 		}
 
 		if (GetStructValueFloat(default.DiffOverTime_OmegaZedHealthIncPerWave, i) < 0.0f)
 		{
-			`log("ZR Config: Linear increase for omega ZED health at difficulty" @ GetDiffString(i)
-				@"is set to" @ GetStructValueFloat(default.DiffOverTime_OmegaZedHealthIncPerWave, i)
-				@"which is not supported. Setting the increase to the minimum value of 0.0 (0%, no linear increase) temporarily."
-				@"Please change the value in the config to a value greater than or equal to 0.0.");
+			LogBadStructConfigMessage(i, "Linear increase for omega ZED health", "increase",
+				string(GetStructValueFloat(default.DiffOverTime_OmegaZedHealthIncPerWave, i)),
+				"0.0", "0%, no linear increase", "DiffOverTime_OmegaZedHealthIncPerWave", 0);
 			SetStructValueFloat(default.DiffOverTime_OmegaZedHealthIncPerWave, i, 0.0f);
 		}
 
 		if (GetStructValueFloat(default.DiffOverTime_OmegaZedHealthPowerPerWave, i) < 0.0f)
 		{
-			`log("ZR Config: Power increase for omega ZED health at difficulty" @ GetDiffString(i)
-				@"is set to" @ GetStructValueFloat(default.DiffOverTime_OmegaZedHealthPowerPerWave, i)
-				@"which is not supported. Setting the increase to the minimum value of 0.0 (0%, no exponential increase) temporarily."
-				@"Please change the value in the config to a value greater than or equal to 0.0.");
+			LogBadStructConfigMessage(i, "Power increase for omega ZED health", "increase",
+				string(GetStructValueFloat(default.DiffOverTime_OmegaZedHealthPowerPerWave, i)),
+				"0.0", "0%, no exponential increase", "DiffOverTime_OmegaZedHealthPowerPerWave", 0);
 			SetStructValueFloat(default.DiffOverTime_OmegaZedHealthPowerPerWave, i, 0.0f);
 		}
 
 		if (GetStructValueFloat(default.DiffOverTime_ZedDamageIncPerWave, i) < 0.0f)
 		{
-			`log("ZR Config: Linear increase for ZED damage at difficulty" @ GetDiffString(i)
-				@"is set to" @ GetStructValueFloat(default.DiffOverTime_ZedDamageIncPerWave, i)
-				@"which is not supported. Setting the increase to the minimum value of 0.0 (0%, no linear increase) temporarily."
-				@"Please change the value in the config to a value greater than or equal to 0.0.");
+			LogBadStructConfigMessage(i, "Linear increase for ZED damage", "increase",
+				string(GetStructValueFloat(default.DiffOverTime_ZedDamageIncPerWave, i)),
+				"0.0", "0%, no linear increase", "DiffOverTime_ZedDamageIncPerWave", 0);
 			SetStructValueFloat(default.DiffOverTime_ZedDamageIncPerWave, i, 0.0f);
 		}
 
 		if (GetStructValueFloat(default.DiffOverTime_ZedDamagePowerPerWave, i) < 0.0f)
 		{
-			`log("ZR Config: Power increase for ZED damage at difficulty" @ GetDiffString(i)
-				@"is set to" @ GetStructValueFloat(default.DiffOverTime_ZedDamagePowerPerWave, i)
-				@"which is not supported. Setting the increase to the minimum value of 0.0 (0%, no exponential increase) temporarily."
-				@"Please change the value in the config to a value greater than or equal to 0.0.");
+			LogBadStructConfigMessage(i, "Power increase for ZED damage", "increase",
+				string(GetStructValueFloat(default.DiffOverTime_ZedDamagePowerPerWave, i)),
+				"0.0", "0%, no exponential increase", "DiffOverTime_ZedDamagePowerPerWave", 0);
 			SetStructValueFloat(default.DiffOverTime_ZedDamagePowerPerWave, i, 0.0f);
 		}
 
 		if (GetStructValueFloat(default.DiffOverTime_ZedSpeedIncPerWave, i) < 0.0f)
 		{
-			`log("ZR Config: Linear increase for ZED speed at difficulty" @ GetDiffString(i)
-				@"is set to" @ GetStructValueFloat(default.DiffOverTime_ZedSpeedIncPerWave, i)
-				@"which is not supported. Setting the increase to the minimum value of 0.0 (0%, no linear increase) temporarily."
-				@"Please change the value in the config to a value greater than or equal to 0.0.");
+			LogBadStructConfigMessage(i, "Linear increase for ZED speed", "increase",
+				string(GetStructValueFloat(default.DiffOverTime_ZedSpeedIncPerWave, i)),
+				"0.0", "0%, no linear increase", "DiffOverTime_ZedSpeedIncPerWave", 0);
 			SetStructValueFloat(default.DiffOverTime_ZedSpeedIncPerWave, i, 0.0f);
 		}
 
 		if (GetStructValueFloat(default.DiffOverTime_ZedSpeedPowerPerWave, i) < 0.0f)
 		{
-			`log("ZR Config: Power increase for ZED speed at difficulty" @ GetDiffString(i)
-				@"is set to" @ GetStructValueFloat(default.DiffOverTime_ZedSpeedPowerPerWave, i)
-				@"which is not supported. Setting the increase to the minimum value of 0.0 (0%, no exponential increase) temporarily."
-				@"Please change the value in the config to a value greater than or equal to 0.0.");
+			LogBadStructConfigMessage(i, "Power increase for ZED speed", "increase",
+				string(GetStructValueFloat(default.DiffOverTime_ZedSpeedPowerPerWave, i)),
+				"0.0", "0%, no exponential increase", "DiffOverTime_ZedSpeedPowerPerWave", 0);
 			SetStructValueFloat(default.DiffOverTime_ZedSpeedPowerPerWave, i, 0.0f);
 		}
 
 		if (GetStructValueFloat(default.DiffOverTime_ZedSprintChanceIncPerWave, i) < 0.0f)
 		{
-			`log("ZR Config: Linear increase for ZED sprint chance at difficulty" @ GetDiffString(i)
-				@"is set to" @ GetStructValueFloat(default.DiffOverTime_ZedSprintChanceIncPerWave, i)
-				@"which is not supported. Setting the increase to the minimum value of 0.0 (0%, no linear increase) temporarily."
-				@"Please change the value in the config to a value greater than or equal to 0.0.");
+			LogBadStructConfigMessage(i, "Linear increase for ZED sprint chance", "increase",
+				string(GetStructValueFloat(default.DiffOverTime_ZedSprintChanceIncPerWave, i)),
+				"0.0", "0%, no linear increase", "DiffOverTime_ZedSprintChanceIncPerWave", 0);
 			SetStructValueFloat(default.DiffOverTime_ZedSprintChanceIncPerWave, i, 0.0f);
 		}
 
 		if (GetStructValueFloat(default.DiffOverTime_ZedHardAttackChanceIncPerWave, i) < 0.0f)
 		{
-			`log("ZR Config: Linear increase for ZED hard attack chance at difficulty" @ GetDiffString(i)
-				@"is set to" @ GetStructValueFloat(default.DiffOverTime_ZedHardAttackChanceIncPerWave, i)
-				@"which is not supported. Setting the increase to the minimum value of 0.0 (0%, no linear increase) temporarily."
-				@"Please change the value in the config to a value greater than or equal to 0.0.");
+			LogBadStructConfigMessage(i, "Linear increase for ZED hard attack chance", "increase",
+				string(GetStructValueFloat(default.DiffOverTime_ZedHardAttackChanceIncPerWave, i)),
+				"0.0", "0%, no linear increase", "DiffOverTime_ZedHardAttackChanceIncPerWave", 0);
 			SetStructValueFloat(default.DiffOverTime_ZedHardAttackChanceIncPerWave, i, 0.0f);
 		}
 
 		if (GetStructValueFloat(default.DiffOverTime_ZedDoshPenaltyPerWave, i) < 0.0f)
 		{
-			`log("ZR Config: Modifier for ZED dosh penalty at difficulty" @ GetDiffString(i)
-				@"is set to" @ GetStructValueFloat(default.DiffOverTime_ZedDoshPenaltyPerWave, i)
-				@"which is not supported. Setting the increase to the minimum value of 0.0 (0%, no penalty increase) temporarily."
-				@"Please change the value in the config to a value greater than or equal to 0.0.");
+			LogBadStructConfigMessage(i, "Modifier for ZED dosh penalty", "increase",
+				string(GetStructValueFloat(default.DiffOverTime_ZedDoshPenaltyPerWave, i)),
+				"0.0", "0%, no penalty increase", "DiffOverTime_ZedDoshPenaltyPerWave", 0);
 			SetStructValueFloat(default.DiffOverTime_ZedDoshPenaltyPerWave, i, 0.0f);
 		}
 
 		if (GetStructValueFloat(default.DiffOverTime_ZedDoshPenaltyLimit, i) < 0.0f)
 		{
-			`log("ZR Config: Max cap for ZED dosh penalty at difficulty" @ GetDiffString(i)
-				@"is set to" @ GetStructValueFloat(default.DiffOverTime_ZedDoshPenaltyLimit, i)
-				@"which is not supported. Setting the cap to the minimum value of 0.0 (0%, no penalty) temporarily."
-				@"Please change the value in the config to a value greater than or equal to 0.0.");
+			LogBadStructConfigMessage(i, "Max cap for ZED dosh penalty", "cap",
+				string(GetStructValueFloat(default.DiffOverTime_ZedDoshPenaltyLimit, i)),
+				"0.0", "0%, no penalty", "DiffOverTime_ZedDoshPenaltyLimit", 0);
 			SetStructValueFloat(default.DiffOverTime_ZedDoshPenaltyLimit, i, 0.0f);
 		}
 	}
