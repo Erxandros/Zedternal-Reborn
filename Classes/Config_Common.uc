@@ -2,6 +2,15 @@ class Config_Common extends Object;
 
 const NumberOfDiffs = 5;
 
+struct S_Difficulty_Bool
+{
+	var bool Normal;
+	var bool Hard;
+	var bool Suicidal;
+	var bool HoE;
+	var bool Custom;
+};
+
 struct S_Difficulty_Int
 {
 	var int Normal;
@@ -22,6 +31,30 @@ struct S_Difficulty_Float
 
 static function UpdateConfig();
 static function CheckBasicConfigValues();
+
+static function bool GetStructValueBool(const out S_Difficulty_Bool StructBool, int Difficulty)
+{
+	switch (Difficulty)
+	{
+		case 0 : return StructBool.Normal;
+		case 1 : return StructBool.Hard;
+		case 2 : return StructBool.Suicidal;
+		case 3 : return StructBool.HoE;
+		default: return StructBool.Custom;
+	}
+}
+
+static function SetStructValueBool(out S_Difficulty_Bool StructBool, int Difficulty, bool Value)
+{
+	switch (Difficulty)
+	{
+		case 0 : StructBool.Normal = Value; break;
+		case 1 : StructBool.Hard = Value; break;
+		case 2 : StructBool.Suicidal = Value; break;
+		case 3 : StructBool.HoE = Value; break;
+		default: StructBool.Custom = Value; break;
+	}
+}
 
 static function int GetStructValueInt(const out S_Difficulty_Int StructInt, int Difficulty)
 {
