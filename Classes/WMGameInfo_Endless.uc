@@ -579,11 +579,10 @@ function SetupObjectiveZones()
 		NewObjective = Spawn(class'WMMapObjective_DoshHold');
 		if (NewObjective != None)
 		{
-			NewObjective.ActivatePctChance = FClamp(class'ZedternalReborn.Config_Objective'.default.Objective_Probability, 0.01f, 1.0f);
-			NewObjective.DoshRewardsZedternal = Max(0, class'ZedternalReborn.Config_Objective'.default.Objective_BaseMoney);
-			NewObjective.PctOfWaveZedsKilledForMaxRewardZedternal = FClamp(class'ZedternalReborn.Config_Objective'.static.GetPctOfWaveKilledForMaxReward(GameDifficultyZedternal), 0.01f, 1.0f);
-			NewObjective.DoshDifficultyScalarZedternal = FMax(0.0f, class'ZedternalReborn.Config_Objective'.static.GetDoshDifficultyModifier(GameDifficultyZedternal));
-			NewObjective.DoshDifficultyScalarIncPerWaveZedternal = FMax(0.0f, class'ZedternalReborn.Config_Objective'.static.GetDoshDifficultyModifierIncPerWave(GameDifficultyZedternal));
+			NewObjective.ActivatePctChance = class'ZedternalReborn.Config_Objective'.static.GetObjectiveProbability(GameDifficultyZedternal);
+			NewObjective.DoshRewardsZedternal = class'ZedternalReborn.Config_Objective'.static.GetObjectiveBaseDoshReward(GameDifficultyZedternal);
+			NewObjective.PctOfWaveZedsKilledForMaxRewardZedternal = class'ZedternalReborn.Config_Objective'.static.GetPctOfWaveKilledForMaxReward(GameDifficultyZedternal);
+			NewObjective.DoshScalarIncPerWaveZedternal = class'ZedternalReborn.Config_Objective'.static.GetDoshIncreaseModifierPerWave(GameDifficultyZedternal);
 
 			NewObjective.Parent = OldObjectiveZones[b];
 			NewObjective.ParentName = OldObjectiveZones[b].Name;
@@ -2066,7 +2065,7 @@ function byte GetGameIntensityForMusic()
 
 function bool IsMapObjectiveEnabled()
 {
-	return class'ZedternalReborn.Config_Objective'.default.Objective_bEnable;
+	return class'ZedternalReborn.Config_Objective'.static.GetShouldEnableObjective(GameDifficultyZedternal);
 }
 
 /** Adjusts AI pawn default settings by game difficulty and player count */

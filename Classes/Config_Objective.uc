@@ -3,21 +3,33 @@ class Config_Objective extends Config_Common
 
 var config int MODEVERSION;
 
-var config bool Objective_bEnable;
-var config float Objective_Probability;
-var config int Objective_BaseMoney;
+var config S_Difficulty_Bool Objective_bEnable;
+var config S_Difficulty_Float Objective_Probability;
+var config S_Difficulty_Int Objective_BaseDosh;
 var config S_Difficulty_Float Objective_PctOfWaveKilledForMaxReward;
-var config S_Difficulty_Float Objective_DoshDifficultyModifier;
-var config S_Difficulty_Float Objective_DoshDifficultyModifierIncPerWave;
+var config S_Difficulty_Float Objective_DoshIncreaseModifierPerWave;
 
 static function UpdateConfig()
 {
 	if (default.MODEVERSION < 1)
 	{
-		default.Objective_bEnable = True;
+		default.Objective_bEnable.Normal = True;
+		default.Objective_bEnable.Hard = True;
+		default.Objective_bEnable.Suicidal = True;
+		default.Objective_bEnable.HoE = True;
+		default.Objective_bEnable.Custom = True;
 
-		default.Objective_Probability = 0.25f;
-		default.Objective_BaseMoney = 180;
+		default.Objective_Probability.Normal = 0.25f;
+		default.Objective_Probability.Hard = 0.25f;
+		default.Objective_Probability.Suicidal = 0.25f;
+		default.Objective_Probability.HoE = 0.25f;
+		default.Objective_Probability.Custom = 0.25f;
+
+		default.Objective_BaseDosh.Normal = 180;
+		default.Objective_BaseDosh.Hard = 225;
+		default.Objective_BaseDosh.Suicidal = 270;
+		default.Objective_BaseDosh.HoE = 315;
+		default.Objective_BaseDosh.Custom = 315;
 
 		default.Objective_PctOfWaveKilledForMaxReward.Normal = 0.65f;
 		default.Objective_PctOfWaveKilledForMaxReward.Hard = 0.70f;
@@ -25,23 +37,53 @@ static function UpdateConfig()
 		default.Objective_PctOfWaveKilledForMaxReward.HoE = 0.80f;
 		default.Objective_PctOfWaveKilledForMaxReward.Custom = 0.80f;
 
-		default.Objective_DoshDifficultyModifier.Normal = 1.0f;
-		default.Objective_DoshDifficultyModifier.Hard = 1.25f;
-		default.Objective_DoshDifficultyModifier.Suicidal = 1.5f;
-		default.Objective_DoshDifficultyModifier.HoE = 1.75f;
-		default.Objective_DoshDifficultyModifier.Custom = 2.0f;
-
-		default.Objective_DoshDifficultyModifierIncPerWave.Normal = 0.15f;
-		default.Objective_DoshDifficultyModifierIncPerWave.Hard = 0.10f;
-		default.Objective_DoshDifficultyModifierIncPerWave.Suicidal = 0.10f;
-		default.Objective_DoshDifficultyModifierIncPerWave.HoE = 0.05f;
-		default.Objective_DoshDifficultyModifierIncPerWave.Custom = 0.05f;
+		default.Objective_DoshIncreaseModifierPerWave.Normal = 0.15f;
+		default.Objective_DoshIncreaseModifierPerWave.Hard = 0.10f;
+		default.Objective_DoshIncreaseModifierPerWave.Suicidal = 0.10f;
+		default.Objective_DoshIncreaseModifierPerWave.HoE = 0.05f;
+		default.Objective_DoshIncreaseModifierPerWave.Custom = 0.05f;
 	}
 
 	if (default.MODEVERSION < class'ZedternalReborn.Config_Base'.const.CurrentVersion)
 	{
 		default.MODEVERSION = class'ZedternalReborn.Config_Base'.const.CurrentVersion;
 		static.StaticSaveConfig();
+	}
+}
+
+static function bool GetShouldEnableObjective(int Difficulty)
+{
+	switch (Difficulty)
+	{
+		case 0 : return default.Objective_bEnable.Normal;
+		case 1 : return default.Objective_bEnable.Hard;
+		case 2 : return default.Objective_bEnable.Suicidal;
+		case 3 : return default.Objective_bEnable.HoE;
+		default: return default.Objective_bEnable.Custom;
+	}
+}
+
+static function float GetObjectiveProbability(int Difficulty)
+{
+	switch (Difficulty)
+	{
+		case 0 : return default.Objective_Probability.Normal;
+		case 1 : return default.Objective_Probability.Hard;
+		case 2 : return default.Objective_Probability.Suicidal;
+		case 3 : return default.Objective_Probability.HoE;
+		default: return default.Objective_Probability.Custom;
+	}
+}
+
+static function int GetObjectiveBaseDoshReward(int Difficulty)
+{
+	switch (Difficulty)
+	{
+		case 0 : return default.Objective_BaseDosh.Normal;
+		case 1 : return default.Objective_BaseDosh.Hard;
+		case 2 : return default.Objective_BaseDosh.Suicidal;
+		case 3 : return default.Objective_BaseDosh.HoE;
+		default: return default.Objective_BaseDosh.Custom;
 	}
 }
 
@@ -57,27 +99,15 @@ static function float GetPctOfWaveKilledForMaxReward(int Difficulty)
 	}
 }
 
-static function float GetDoshDifficultyModifier(int Difficulty)
+static function float GetDoshIncreaseModifierPerWave(int Difficulty)
 {
 	switch (Difficulty)
 	{
-		case 0 : return default.Objective_DoshDifficultyModifier.Normal;
-		case 1 : return default.Objective_DoshDifficultyModifier.Hard;
-		case 2 : return default.Objective_DoshDifficultyModifier.Suicidal;
-		case 3 : return default.Objective_DoshDifficultyModifier.HoE;
-		default: return default.Objective_DoshDifficultyModifier.Custom;
-	}
-}
-
-static function float GetDoshDifficultyModifierIncPerWave(int Difficulty)
-{
-	switch (Difficulty)
-	{
-		case 0 : return default.Objective_DoshDifficultyModifierIncPerWave.Normal;
-		case 1 : return default.Objective_DoshDifficultyModifierIncPerWave.Hard;
-		case 2 : return default.Objective_DoshDifficultyModifierIncPerWave.Suicidal;
-		case 3 : return default.Objective_DoshDifficultyModifierIncPerWave.HoE;
-		default: return default.Objective_DoshDifficultyModifierIncPerWave.Custom;
+		case 0 : return default.Objective_DoshIncreaseModifierPerWave.Normal;
+		case 1 : return default.Objective_DoshIncreaseModifierPerWave.Hard;
+		case 2 : return default.Objective_DoshIncreaseModifierPerWave.Suicidal;
+		case 3 : return default.Objective_DoshIncreaseModifierPerWave.HoE;
+		default: return default.Objective_DoshIncreaseModifierPerWave.Custom;
 	}
 }
 

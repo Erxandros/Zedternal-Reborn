@@ -9,15 +9,14 @@ var repnotify Name ParentName;
 var float ActivatePctChance;
 var int DoshRewardsZedternal;
 var float PctOfWaveZedsKilledForMaxRewardZedternal;
-var float DoshDifficultyScalarZedternal;
-var float DoshDifficultyScalarIncPerWaveZedternal;
+var float DoshScalarIncPerWaveZedternal;
 
 // Replication
 replication
 {
 	if (bNetInitial)
 		ActivatePctChance, DoshRewardsZedternal, PctOfWaveZedsKilledForMaxRewardZedternal,
-		DoshDifficultyScalarZedternal, DoshDifficultyScalarIncPerWaveZedternal, ParentName;
+		DoshScalarIncPerWaveZedternal, ParentName;
 
 	if (bNetDirty)
 		bActive;
@@ -124,8 +123,8 @@ simulated function ActivateObjective()
 		//		to avoid first tick replication not having a controller.
 		Parent.SetTimer(0.01f, false, 'ActivationVO');
 
-		Parent.SetTimer(1.f, true, 'Timer_CheckPawnCount');
-		Parent.SetTimer(1.f, true, 'Timer_CheckWaveProgress');
+		Parent.SetTimer(1.0f, true, 'Timer_CheckPawnCount');
+		Parent.SetTimer(1.0f, true, 'Timer_CheckWaveProgress');
 		Parent.PrevWaveProgress = 0;
 		Parent.bRemindPlayers = true;
 	}
@@ -348,9 +347,9 @@ simulated function int GetMaxDoshReward()
 
 	KFGRI = KFGameReplicationInfo(WorldInfo.GRI);
 	if (KFGRI != none)
-		return DoshRewardsZedternal * (DoshDifficultyScalarZedternal + DoshDifficultyScalarIncPerWaveZedternal * KFGRI.WaveNum);
+		return DoshRewardsZedternal * (1.0f + DoshScalarIncPerWaveZedternal * KFGRI.WaveNum);
 
-	return DoshRewardsZedternal * DoshDifficultyScalarZedternal;
+	return DoshRewardsZedternal;
 }
 
 simulated function int GetVoshReward()
@@ -408,7 +407,7 @@ simulated function float GetProgress()
 
 simulated function bool IsComplete()
 {
-	return GetProgress() > 0.f && !bActive;
+	return GetProgress() > 0.0f && !bActive;
 }
 
 simulated function bool HasFailedObjective()
