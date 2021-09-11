@@ -3,10 +3,10 @@ class Config_GameOptions extends Config_Common
 
 var config int MODEVERSION;
 
-var config bool Game_bArmorSpawnOnMap;
+var config S_Difficulty_Bool Game_bArmorSpawnOnMap;
 
-var config bool Game_bAllowZedternalUpgradeMenuCommand;
-var config bool Game_bZedternalUpgradeMenuCommandAllWave;
+var config S_Difficulty_Bool Game_bAllowZedternalUpgradeMenuCommand;
+var config S_Difficulty_Bool Game_bZedternalUpgradeMenuCommandAllWave;
 
 var config S_Difficulty_Int Game_TimeBetweenWave;
 var config S_Difficulty_Int Game_TimeBetweenWaveIfPlayerDead;
@@ -15,10 +15,23 @@ static function UpdateConfig()
 {
 	if (default.MODEVERSION < 1)
 	{
-		default.Game_bArmorSpawnOnMap = True;
+		default.Game_bArmorSpawnOnMap.Normal = True;
+		default.Game_bArmorSpawnOnMap.Hard = True;
+		default.Game_bArmorSpawnOnMap.Suicidal = True;
+		default.Game_bArmorSpawnOnMap.HoE = True;
+		default.Game_bArmorSpawnOnMap.Custom = True;
 
-		default.Game_bAllowZedternalUpgradeMenuCommand = False;
-		default.Game_bZedternalUpgradeMenuCommandAllWave = False;
+		default.Game_bAllowZedternalUpgradeMenuCommand.Normal = False;
+		default.Game_bAllowZedternalUpgradeMenuCommand.Hard = False;
+		default.Game_bAllowZedternalUpgradeMenuCommand.Suicidal = False;
+		default.Game_bAllowZedternalUpgradeMenuCommand.HoE = False;
+		default.Game_bAllowZedternalUpgradeMenuCommand.Custom = False;
+
+		default.Game_bZedternalUpgradeMenuCommandAllWave.Normal = False;
+		default.Game_bZedternalUpgradeMenuCommandAllWave.Hard = False;
+		default.Game_bZedternalUpgradeMenuCommandAllWave.Suicidal = False;
+		default.Game_bZedternalUpgradeMenuCommandAllWave.HoE = False;
+		default.Game_bZedternalUpgradeMenuCommandAllWave.Custom = False;
 
 		default.Game_TimeBetweenWave.Normal = 90;
 		default.Game_TimeBetweenWave.Hard = 80;
@@ -37,6 +50,42 @@ static function UpdateConfig()
 	{
 		default.MODEVERSION = class'ZedternalReborn.Config_Base'.const.CurrentVersion;
 		static.StaticSaveConfig();
+	}
+}
+
+static function bool GetShouldArmorSpawnOnMap(int Difficulty)
+{
+	switch (Difficulty)
+	{
+		case 0 : return default.Game_bArmorSpawnOnMap.Normal;
+		case 1 : return default.Game_bArmorSpawnOnMap.Hard;
+		case 2 : return default.Game_bArmorSpawnOnMap.Suicidal;
+		case 3 : return default.Game_bArmorSpawnOnMap.HoE;
+		default: return default.Game_bArmorSpawnOnMap.Custom;
+	}
+}
+
+static function bool GetAllowUpgradeCommand(int Difficulty)
+{
+	switch (Difficulty)
+	{
+		case 0 : return default.Game_bAllowZedternalUpgradeMenuCommand.Normal;
+		case 1 : return default.Game_bAllowZedternalUpgradeMenuCommand.Hard;
+		case 2 : return default.Game_bAllowZedternalUpgradeMenuCommand.Suicidal;
+		case 3 : return default.Game_bAllowZedternalUpgradeMenuCommand.HoE;
+		default: return default.Game_bAllowZedternalUpgradeMenuCommand.Custom;
+	}
+}
+
+static function bool GetAllowUpgradeCommandAllWave(int Difficulty)
+{
+	switch (Difficulty)
+	{
+		case 0 : return default.Game_bZedternalUpgradeMenuCommandAllWave.Normal;
+		case 1 : return default.Game_bZedternalUpgradeMenuCommandAllWave.Hard;
+		case 2 : return default.Game_bZedternalUpgradeMenuCommandAllWave.Suicidal;
+		case 3 : return default.Game_bZedternalUpgradeMenuCommandAllWave.HoE;
+		default: return default.Game_bZedternalUpgradeMenuCommandAllWave.Custom;
 	}
 }
 

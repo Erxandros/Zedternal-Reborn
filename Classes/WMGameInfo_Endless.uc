@@ -481,6 +481,7 @@ function SetupNextTrader()
 function SetupPickupItems()
 {
 	local int i;
+	local bool bShouldArmorSpawn;
 	local KFPickupFactory_Item KFPFID;
 	local array<ItemPickup> StartingItemPickups;
 	local class<KFWeapon> startingWeaponClass;
@@ -490,9 +491,10 @@ function SetupPickupItems()
 	// Set Weapon PickupFactory
 
 	//Add armor
-	if (class'ZedternalReborn.Config_GameOptions'.default.Game_bArmorSpawnOnMap)
+	bShouldArmorSpawn = class'ZedternalReborn.Config_GameOptions'.static.GetShouldArmorSpawnOnMap(GameDifficultyZedternal);
+	if (bShouldArmorSpawn)
 	{
-		newPickup.ItemClass = Class'KFGameContent.KFInventory_Armor';
+		newPickup.ItemClass = class'KFGameContent.KFInventory_Armor';
 		StartingItemPickups.AddItem(newPickup);
 	}
 
@@ -524,9 +526,9 @@ function SetupPickupItems()
 		KFPFID = KFPickupFactory_Item(ItemPickups[i]);
 		if (KFPFID != None)
 		{
-			if (class'ZedternalReborn.Config_GameOptions'.default.Game_bArmorSpawnOnMap && KFPFID.ItemPickups.length == 1
-				&& KFPFID.ItemPickups[0].ItemClass == Class'KFGameContent.KFInventory_Armor')
+			if (bShouldArmorSpawn && KFPFID.ItemPickups.length == 1 && KFPFID.ItemPickups[0].ItemClass == class'KFGameContent.KFInventory_Armor')
 				continue; //Do not replace an armor only spawn, unless armor is disabled from pickups
+
 			KFPFID.ItemPickups.length = 0;
 			KFPFID.ItemPickups = StartingItemPickups;
 			ItemPickups[i] = KFPFID;
@@ -539,9 +541,9 @@ function SetupPickupItems()
 	{
 		if (KFPFID != None)
 		{
-			if (class'ZedternalReborn.Config_GameOptions'.default.Game_bArmorSpawnOnMap && KFPFID.ItemPickups.length == 1
-				&& KFPFID.ItemPickups[0].ItemClass == Class'KFGameContent.KFInventory_Armor')
+			if (bShouldArmorSpawn && KFPFID.ItemPickups.length == 1 && KFPFID.ItemPickups[0].ItemClass == class'KFGameContent.KFInventory_Armor')
 				continue; //Do not replace an armor only spawn, unless armor is disabled from pickups
+
 			KFPFID.StartSleeping();
 			KFPFID.ItemPickups.length = 0;
 			KFPFID.ItemPickups = StartingItemPickups;
@@ -1307,7 +1309,7 @@ function int GetWeaponUpgradePrice(const out class<KFWeaponDefinition> KFWD)
 		return Max(unit, Round(float(KFWD.default.BuyPrice) * class'ZedternalReborn.Config_WeaponUpgradeOptions'.default.WeaponUpgrade_PriceFactor / unit) * unit);
 }
 
-function bool IsWeaponDefCanBeRandom(const Class<KFWeaponDefinition> KFWepDef)
+function bool IsWeaponDefCanBeRandom(const class<KFWeaponDefinition> KFWepDef)
 {
 	local int i;
 	local class<KFWeap_DualBase> KFDualWeaponTemp;
@@ -1606,7 +1608,7 @@ function RepGameInfoNormalPriority()
 	}
 
 	//Armor pickup enable
-	WMGRI.bArmorPickup = class'ZedternalReborn.Config_GameOptions'.default.Game_bArmorSpawnOnMap ? 2 : 1; //2 is True, 1 is False
+	WMGRI.bArmorPickup = class'ZedternalReborn.Config_GameOptions'.static.GetShouldArmorSpawnOnMap(GameDifficultyZedternal) ? 2 : 1; //2 is True, 1 is False
 
 	//Starting/itempickup Weapon
 	for (b = 0; b < Min(255, KFStartingWeaponPath.Length); ++b)
@@ -1742,8 +1744,8 @@ function RepGameInfoLowPriority()
 	WMGRI.skillDeluxePrice = class'ZedternalReborn.Config_SkillUpgradeOptions'.default.SkillUpgrade_DeluxePrice;
 	WMGRI.weaponMaxLevel = class'ZedternalReborn.Config_WeaponUpgradeOptions'.default.WeaponUpgrade_MaxLevel;
 
-	WMGRI.bZRUMenuCommand = class'ZedternalReborn.Config_GameOptions'.default.Game_bAllowZedternalUpgradeMenuCommand;
-	WMGRI.bZRUMenuAllWave = class'ZedternalReborn.Config_GameOptions'.default.Game_bZedternalUpgradeMenuCommandAllWave;
+	WMGRI.bZRUMenuCommand = class'ZedternalReborn.Config_GameOptions'.static.GetAllowUpgradeCommand(GameDifficultyZedternal);
+	WMGRI.bZRUMenuAllWave = class'ZedternalReborn.Config_GameOptions'.static.GetAllowUpgradeCommandAllWave(GameDifficultyZedternal);
 }
 
 function RepPlayerInfo(WMPlayerReplicationInfo WMPRI)
@@ -2217,18 +2219,18 @@ defaultproperties
 	ReservationTimeout=120
 	TraderVoiceIndex=0
 
-	DefaultPawnClass=Class'ZedternalReborn.WMPawn_Human'
+	DefaultPawnClass=class'ZedternalReborn.WMPawn_Human'
 	DefaultTraderItems=KFGFxObject_TraderItems'GP_Trader_ARCH.DefaultTraderItems'
-	DifficultyInfoClass=Class'ZedternalReborn.WMGameDifficulty_Endless'
-	DifficultyInfoConsoleClass=Class'ZedternalReborn.WMGameDifficulty_Endless_Console'
-	GameReplicationInfoClass=Class'ZedternalReborn.WMGameReplicationInfo'
-	HUDType=Class'ZedternalReborn.WMGFxScoreBoardWrapper'
-	KFGFxManagerClass=Class'ZedternalReborn.WMGFxMoviePlayer_Manager'
-	PlayerControllerClass=Class'ZedternalReborn.WMPlayerController'
-	PlayerReplicationInfoClass=Class'ZedternalReborn.WMPlayerReplicationInfo'
-	SpawnManagerClasses(0)=Class'ZedternalReborn.WMAISpawnManager'
-	SpawnManagerClasses(1)=Class'ZedternalReborn.WMAISpawnManager'
-	SpawnManagerClasses(2)=Class'ZedternalReborn.WMAISpawnManager'
+	DifficultyInfoClass=class'ZedternalReborn.WMGameDifficulty_Endless'
+	DifficultyInfoConsoleClass=class'ZedternalReborn.WMGameDifficulty_Endless_Console'
+	GameReplicationInfoClass=class'ZedternalReborn.WMGameReplicationInfo'
+	HUDType=class'ZedternalReborn.WMGFxScoreBoardWrapper'
+	KFGFxManagerClass=class'ZedternalReborn.WMGFxMoviePlayer_Manager'
+	PlayerControllerClass=class'ZedternalReborn.WMPlayerController'
+	PlayerReplicationInfoClass=class'ZedternalReborn.WMPlayerReplicationInfo'
+	SpawnManagerClasses(0)=class'ZedternalReborn.WMAISpawnManager'
+	SpawnManagerClasses(1)=class'ZedternalReborn.WMAISpawnManager'
+	SpawnManagerClasses(2)=class'ZedternalReborn.WMAISpawnManager'
 
 	Name="Default__WMGameInfo_Endless"
 }
