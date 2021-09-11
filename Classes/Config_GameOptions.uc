@@ -53,6 +53,30 @@ static function UpdateConfig()
 	}
 }
 
+static function CheckBasicConfigValues()
+{
+	local byte i;
+
+	for (i = 0; i < NumberOfDiffs; ++i)
+	{
+		if (GetStructValueInt(default.Game_TimeBetweenWave, i) < 10)
+		{
+			LogBadStructConfigMessage(i, "Standard trader time", "seconds",
+				string(GetStructValueInt(default.Game_TimeBetweenWave, i)),
+				"10", "10 seconds", "Game_TimeBetweenWave", 0);
+			SetStructValueInt(default.Game_TimeBetweenWave, i, 10);
+		}
+
+		if (GetStructValueInt(default.Game_TimeBetweenWaveIfPlayerDead, i) < 10)
+		{
+			LogBadStructConfigMessage(i, "Trader time if a player died", "seconds",
+				string(GetStructValueInt(default.Game_TimeBetweenWaveIfPlayerDead, i)),
+				"10", "10 seconds", "Game_TimeBetweenWaveIfPlayerDead", 0);
+			SetStructValueInt(default.Game_TimeBetweenWaveIfPlayerDead, i, 10);
+		}
+	}
+}
+
 static function bool GetShouldArmorSpawnOnMap(int Difficulty)
 {
 	switch (Difficulty)
