@@ -51,6 +51,62 @@ static function UpdateConfig()
 	}
 }
 
+static function CheckBasicConfigValues()
+{
+	local byte i;
+
+	for (i = 0; i < NumberOfDiffs; ++i)
+	{
+		if (GetStructValueFloat(default.Objective_Probability, i) < 0.0f)
+		{
+			LogBadStructConfigMessage(i, "Objective probability trigger", "percent",
+				string(GetStructValueFloat(default.Objective_Probability, i)),
+				"0.0", "0%, never activates", "Objective_Probability", 0);
+			SetStructValueFloat(default.Objective_Probability, i, 0.0f);
+		}
+
+		if (GetStructValueFloat(default.Objective_Probability, i) > 1.0f)
+		{
+			LogBadStructConfigMessage(i, "Objective probability trigger", "percent",
+				string(GetStructValueFloat(default.Objective_Probability, i)),
+				"1.0", "100%, always activates", "Objective_Probability", 1);
+			SetStructValueFloat(default.Objective_Probability, i, 1.0f);
+		}
+
+		if (GetStructValueInt(default.Objective_BaseDosh, i) < 0)
+		{
+			LogBadStructConfigMessage(i, "Objective base dosh reward", "dosh",
+				string(GetStructValueInt(default.Objective_BaseDosh, i)),
+				"0", "0 dosh, no reward", "Objective_BaseDosh", 0);
+			SetStructValueInt(default.Objective_BaseDosh, i, 0);
+		}
+
+		if (GetStructValueFloat(default.Objective_PctOfWaveKilledForMaxReward, i) < 0.0f)
+		{
+			LogBadStructConfigMessage(i, "Objective total wave killed percentage", "percent",
+				string(GetStructValueFloat(default.Objective_PctOfWaveKilledForMaxReward, i)),
+				"0.0", "0%, none of the wave", "Objective_PctOfWaveKilledForMaxReward", 0);
+			SetStructValueFloat(default.Objective_PctOfWaveKilledForMaxReward, i, 0.0f);
+		}
+
+		if (GetStructValueFloat(default.Objective_PctOfWaveKilledForMaxReward, i) > 1.0f)
+		{
+			LogBadStructConfigMessage(i, "Objective total wave killed percentage", "percent",
+				string(GetStructValueFloat(default.Objective_PctOfWaveKilledForMaxReward, i)),
+				"1.0", "100%, the entire wave", "Objective_PctOfWaveKilledForMaxReward", 1);
+			SetStructValueFloat(default.Objective_PctOfWaveKilledForMaxReward, i, 1.0f);
+		}
+
+		if (GetStructValueFloat(default.Objective_DoshIncreaseModifierPerWave, i) < 0.0f)
+		{
+			LogBadStructConfigMessage(i, "Objective dosh increase per wave modifier", "modifier",
+				string(GetStructValueFloat(default.Objective_DoshIncreaseModifierPerWave, i)),
+				"0.0", "0%, no increase", "Objective_DoshIncreaseModifierPerWave", 0);
+			SetStructValueFloat(default.Objective_DoshIncreaseModifierPerWave, i, 0.0f);
+		}
+	}
+}
+
 static function bool GetShouldEnableObjective(int Difficulty)
 {
 	switch (Difficulty)
