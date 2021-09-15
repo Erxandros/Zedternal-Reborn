@@ -3,9 +3,9 @@ class Config_Trader extends Config_Common
 
 var config int MODEVERSION;
 
-var config int Trader_MaxWeapon;
-var config int Trader_StartingWeaponNumber;
-var config int Trader_NewWeaponEachWave;
+var config S_Difficulty_Int Trader_MaxWeapon;
+var config S_Difficulty_Int Trader_StartingWeaponNumber;
+var config S_Difficulty_Int Trader_NewWeaponEachWave;
 
 var config S_Difficulty_Float Trader_AmmoPriceFactor;
 var config S_Difficulty_Int Trader_ArmorPrice;
@@ -15,9 +15,23 @@ static function UpdateConfig()
 {
 	if (default.MODEVERSION < 1)
 	{
-		default.Trader_MaxWeapon = 48;
-		default.Trader_StartingWeaponNumber = 3;
-		default.Trader_NewWeaponEachWave = 3;
+		default.Trader_MaxWeapon.Normal = 48;
+		default.Trader_MaxWeapon.Hard = 44;
+		default.Trader_MaxWeapon.Suicidal = 40;
+		default.Trader_MaxWeapon.HoE = 36;
+		default.Trader_MaxWeapon.Custom = 36;
+
+		default.Trader_StartingWeaponNumber.Normal = 3;
+		default.Trader_StartingWeaponNumber.Hard = 3;
+		default.Trader_StartingWeaponNumber.Suicidal = 3;
+		default.Trader_StartingWeaponNumber.HoE = 3;
+		default.Trader_StartingWeaponNumber.Custom = 3;
+
+		default.Trader_NewWeaponEachWave.Normal = 4;
+		default.Trader_NewWeaponEachWave.Hard = 3;
+		default.Trader_NewWeaponEachWave.Suicidal = 3;
+		default.Trader_NewWeaponEachWave.HoE = 2;
+		default.Trader_NewWeaponEachWave.Custom = 2;
 
 		default.Trader_AmmoPriceFactor.Normal = 0.7f;
 		default.Trader_AmmoPriceFactor.Hard = 0.7f;
@@ -42,6 +56,42 @@ static function UpdateConfig()
 	{
 		default.MODEVERSION = class'ZedternalReborn.Config_Base'.const.CurrentVersion;
 		static.StaticSaveConfig();
+	}
+}
+
+static function int GetMaxWeapon(int Difficulty)
+{
+	switch (Difficulty)
+	{
+		case 0 : return default.Trader_MaxWeapon.Normal;
+		case 1 : return default.Trader_MaxWeapon.Hard;
+		case 2 : return default.Trader_MaxWeapon.Suicidal;
+		case 3 : return default.Trader_MaxWeapon.HoE;
+		default: return default.Trader_MaxWeapon.Custom;
+	}
+}
+
+static function int GetStartingWeaponNumber(int Difficulty)
+{
+	switch (Difficulty)
+	{
+		case 0 : return default.Trader_StartingWeaponNumber.Normal;
+		case 1 : return default.Trader_StartingWeaponNumber.Hard;
+		case 2 : return default.Trader_StartingWeaponNumber.Suicidal;
+		case 3 : return default.Trader_StartingWeaponNumber.HoE;
+		default: return default.Trader_StartingWeaponNumber.Custom;
+	}
+}
+
+static function int GetNewWeaponEachWave(int Difficulty)
+{
+	switch (Difficulty)
+	{
+		case 0 : return default.Trader_NewWeaponEachWave.Normal;
+		case 1 : return default.Trader_NewWeaponEachWave.Hard;
+		case 2 : return default.Trader_NewWeaponEachWave.Suicidal;
+		case 3 : return default.Trader_NewWeaponEachWave.HoE;
+		default: return default.Trader_NewWeaponEachWave.Custom;
 	}
 }
 

@@ -1112,7 +1112,7 @@ function BuildWeaponList()
 		tempList[tempList.length] = i;
 	}
 	count = tempList.length;
-	for (i = 0; i < Min(class'ZedternalReborn.Config_Trader'.default.Trader_StartingWeaponNumber, count); ++i)
+	for (i = 0; i < Min(class'ZedternalReborn.Config_Trader'.static.GetStartingWeaponNumber(GameDifficultyZedternal), count); ++i)
 	{
 		choice = Rand(tempList.length);
 		PerkStartingWeapon[i] = StartingWeaponList[tempList[choice]];
@@ -1136,7 +1136,7 @@ function BuildWeaponList()
 	}
 
 	//Adding randomly other weapons
-	for (i = StaticWeaponList.length + PerkStartingWeapon.Length; i < class'ZedternalReborn.Config_Trader'.default.Trader_MaxWeapon; ++i)
+	for (i = StaticWeaponList.length + PerkStartingWeapon.Length; i < class'ZedternalReborn.Config_Trader'.static.GetMaxWeapon(GameDifficultyZedternal); ++i)
 	{
 		if (weaponIndex.Length > 0)
 		{
@@ -1730,8 +1730,8 @@ function RepGameInfoLowPriority()
 	}
 
 	//Weapon unlocks
-	WMGRI.newWeaponEachWave = class'ZedternalReborn.Config_Trader'.default.Trader_NewWeaponEachWave;
-	WMGRI.maxWeapon = class'ZedternalReborn.Config_Trader'.default.Trader_MaxWeapon;
+	WMGRI.newWeaponEachWave = class'ZedternalReborn.Config_Trader'.static.GetNewWeaponEachWave(GameDifficultyZedternal);
+	WMGRI.maxWeapon = class'ZedternalReborn.Config_Trader'.static.GetMaxWeapon(GameDifficultyZedternal);
 	WMGRI.staticWeapon = StaticWeaponList.length;
 
 	//Perks, Skills and Weapons upgrades custom prices
