@@ -5,8 +5,8 @@ var config int MODEVERSION;
 
 var config S_Difficulty_Int Wave_BaseValue;
 var config S_Difficulty_Int Wave_ValueIncPerwave;
-var config float Wave_ValueFactorPerWave;
-var config float Wave_ValuePowerPerWave;
+var config S_Difficulty_Float Wave_ValueFactorPerWave;
+var config S_Difficulty_Float Wave_ValuePowerPerWave;
 var config array<float> Wave_ValueFactorPerPlayer;
 
 static function UpdateConfig()
@@ -25,8 +25,17 @@ static function UpdateConfig()
 		default.Wave_ValueIncPerwave.HoE = 30;
 		default.Wave_ValueIncPerwave.Custom = 28;
 
-		default.Wave_ValueFactorPerWave = 0.052f;
-		default.Wave_ValuePowerPerWave = 0.0065f;
+		default.Wave_ValueFactorPerWave.Normal = 0.052f;
+		default.Wave_ValueFactorPerWave.Hard = 0.052f;
+		default.Wave_ValueFactorPerWave.Suicidal = 0.052f;
+		default.Wave_ValueFactorPerWave.HoE = 0.052f;
+		default.Wave_ValueFactorPerWave.Custom = 0.052f;
+
+		default.Wave_ValuePowerPerWave.Normal = 0.0065f;
+		default.Wave_ValuePowerPerWave.Hard = 0.0065f;
+		default.Wave_ValuePowerPerWave.Suicidal = 0.0065f;
+		default.Wave_ValuePowerPerWave.HoE = 0.0065f;
+		default.Wave_ValuePowerPerWave.Custom = 0.0065f;
 
 		default.Wave_ValueFactorPerPlayer[0] = 1.2f;
 		default.Wave_ValueFactorPerPlayer[1] = 1.75f;
@@ -64,6 +73,30 @@ static function int GetValueIncPerwave(int Difficulty)
 		case 2 : return default.Wave_ValueIncPerwave.Suicidal;
 		case 3 : return default.Wave_ValueIncPerwave.HoE;
 		default: return default.Wave_ValueIncPerwave.Custom;
+	}
+}
+
+static function float GetValueFactorPerWave(int Difficulty)
+{
+	switch (Difficulty)
+	{
+		case 0 : return default.Wave_ValueFactorPerWave.Normal;
+		case 1 : return default.Wave_ValueFactorPerWave.Hard;
+		case 2 : return default.Wave_ValueFactorPerWave.Suicidal;
+		case 3 : return default.Wave_ValueFactorPerWave.HoE;
+		default: return default.Wave_ValueFactorPerWave.Custom;
+	}
+}
+
+static function float GetValuePowerPerWave(int Difficulty)
+{
+	switch (Difficulty)
+	{
+		case 0 : return default.Wave_ValuePowerPerWave.Normal;
+		case 1 : return default.Wave_ValuePowerPerWave.Hard;
+		case 2 : return default.Wave_ValuePowerPerWave.Suicidal;
+		case 3 : return default.Wave_ValuePowerPerWave.HoE;
+		default: return default.Wave_ValuePowerPerWave.Custom;
 	}
 }
 
