@@ -12,6 +12,8 @@ var const array< class<KFWeaponDefinition> > KnivesWeaponDef;
 var private byte KnifeIndexFromClient;
 var private int StartingWeaponClassIndex;
 
+var private int Difficulty;
+
 // Supplier Info
 struct SuppliedPawnInfo
 {
@@ -71,6 +73,21 @@ simulated event PostBeginPlay()
 
 	if (WMTimers == None)
 		WMTimers = Spawn(class'WMPerk_Timers', self); //Try again just in case
+
+	CacheCurrentDifficulty();
+}
+
+function CacheCurrentDifficulty()
+{
+	if (Role < ROLE_Authority)
+	{
+		return;
+	}
+
+	if (WMGameInfo_Endless(WorldInfo.Game) != None)
+	{
+		Difficulty = WMGameInfo_Endless(WorldInfo.Game).GameDifficultyZedternal;
+	}
 }
 
 function bool ShouldGetAllTheXP()
@@ -213,10 +230,10 @@ function AddDefaultInventory(KFPawn P)
 
 		WMGI = WMGameInfo_Endless(MyKFGI);
 
-		if (WMGI != None && WMGI.PerkStartingWeapon.length > 0)
+		if (WMGI != None && WMGI.PerkStartingWeapon.Length > 0)
 		{
 			StartingWeaponsList = WMGI.PerkStartingWeapon;
-			for (i = 0; i < class'ZedternalReborn.Config_Player'.default.Player_StartingWeaponAmount; i++)
+			for (i = 0; i < class'ZedternalReborn.Config_Player'.static.GetStartingWeaponAmount(Difficulty); ++i)
 			{
 				if (StartingWeaponsList.Length > 0)
 				{
@@ -228,7 +245,7 @@ function AddDefaultInventory(KFPawn P)
 					StartingWeaponsList.Remove(choice, 1);
 				}
 				else
-					i = class'ZedternalReborn.Config_Player'.default.Player_StartingWeaponAmount;
+					break;
 			}
 		}
 		else
@@ -528,7 +545,7 @@ function ModifyDamageGiven(out int InDamage, optional Actor DamageCauser, option
 	// Server Custom Balance
 	if (DamageType != None)
 	{
-		for (i = 0; i < class'ZedternalReborn.Config_Player'.default.Player_DamageGivenFactor.length; ++i)
+		for (i = 0; i < class'ZedternalReborn.Config_Player'.default.Player_DamageGivenFactor.Length; ++i)
 		{
 			if (ClassIsChildOf(DamageType, class'ZedternalReborn.Config_Player'.default.Player_DamageGivenFactor[i].DamageType))
 				InDamage += Round(float(DefaultDamage) * (class'ZedternalReborn.Config_Player'.default.Player_DamageGivenFactor[i].Factor - 1.0f));
@@ -659,15 +676,15 @@ function ModifyDamageTaken(out int InDamage, optional class<DamageType> DamageTy
 	// Server Custom Balance
 	if (DamageType != None)
 	{
-		for (i = 0; i < class'ZedternalReborn.Config_Player'.default.Player_DamageTakenFactor.length; ++i)
+		for (i = 0; i < class'ZedternalReborn.Config_Player'.default.Player_DamageTakenFactor.Length; ++i)
 		{
 			if (ClassIsChildOf(DamageType, class'ZedternalReborn.Config_Player'.default.Player_DamageTakenFactor[i].DamageType))
 				InDamage += Round(float(DefaultDamage) * (class'ZedternalReborn.Config_Player'.default.Player_DamageTakenFactor[i].Factor - 1.0f));
 		}
 
-		if (MyKFW.IsMeleeWeapon() && class'ZedternalReborn.Config_Player'.default.Player_DamageTakenFactorWhileHoldingMelee != 0)
+		if (MyKFW.IsMeleeWeapon())
 		{
-			InDamage += Round(float(DefaultDamage) * (class'ZedternalReborn.Config_Player'.default.Player_DamageTakenFactorWhileHoldingMelee - 1.0f));
+			InDamage += Round(float(DefaultDamage) * (class'ZedternalReborn.Config_Player'.static.GetDamageTakenFactorWhileHoldingMelee(Difficulty) - 1.0f));
 		}
 	}
 
@@ -715,9 +732,7 @@ function ModifyHealth(out int InHealth)
 	local int DefaultHealth;
 
 	// Server Custom Balance
-	InHealth = class'ZedternalReborn.Config_Player'.default.Player_StartingMaxHealth;
-	if (InHealth <= 0)
-		InHealth = 100;
+	InHealth = class'ZedternalReborn.Config_Player'.static.GetStartingMaxHealth(Difficulty);
 
 	DefaultHealth = InHealth;
 
@@ -757,9 +772,7 @@ function ModifyArmorInt(out int MaxArmor)
 	local int DefaultArmor;
 
 	// Server Custom Balance
-	MaxArmor = class'ZedternalReborn.Config_Player'.default.Player_StartingMaxArmor;
-	if (MaxArmor <= 0)
-		MaxArmor = 100;
+	MaxArmor = class'ZedternalReborn.Config_Player'.static.GetStartingMaxArmor(Difficulty);
 
 	DefaultArmor = MaxArmor;
 
@@ -882,7 +895,7 @@ function bool ModifyHealAmount(out float HealAmount)
 	DefaultHealAmount = HealAmount;
 
 	// Server Custom Balance
-	HealAmount *= class'ZedternalReborn.Config_Player'.default.Player_HealAmountFactor;
+	HealAmount *= class'ZedternalReborn.Config_Player'.static.GetHealAmountFactor(Difficulty);
 
 	HealAmount *= PassiveHealAmount;
 	MyKFW = GetOwnerWeapon();
@@ -1292,9 +1305,7 @@ function ApplyWeightLimits()
 		if (KFIM != None)
 		{
 			// Server Custom Balance
-			InWeightLimit = class'ZedternalReborn.Config_Player'.default.Player_StartingCarryWeight;
-			if (InWeightLimit == 0)
-				InWeightLimit = KFIM.default.MaxCarryBlocks;
+			InWeightLimit = class'ZedternalReborn.Config_Player'.static.GetStartingCarryWeight(Difficulty);
 
 			DefaultWeightLimit = InWeightLimit;
 
@@ -1794,7 +1805,7 @@ function AddVampireHealth(KFPlayerController KFPC, class<DamageType> DT)
 		// Server Custom Balance
 		if (DT != None)
 		{
-			for (i = 0; i < class'ZedternalReborn.Config_Player'.default.Player_VampireEffect.length; ++i)
+			for (i = 0; i < class'ZedternalReborn.Config_Player'.default.Player_VampireEffect.Length; ++i)
 			{
 				if (ClassIsChildOf(DT ,class'ZedternalReborn.Config_Player'.default.Player_VampireEffect[i].DamageType))
 					InHealth += class'ZedternalReborn.Config_Player'.default.Player_VampireEffect[i].HealAmount;

@@ -106,6 +106,7 @@ function SacrificeExplode()
 function ThrowActiveWeapon(optional bool bDestroyWeap)
 {
 	local KFWeapon TempWeapon;
+	local int Difficulty;
 
 	// Only throw on server
 	if (Role < ROLE_Authority)
@@ -113,8 +114,13 @@ function ThrowActiveWeapon(optional bool bDestroyWeap)
 		return;
 	}
 
+	if (WMGameInfo_Endless(WorldInfo.Game) != None)
+	{
+		Difficulty = WMGameInfo_Endless(WorldInfo.Game).GameDifficultyZedternal;
+	}
+
 	// If we're dead, always throw all weapons
-	if (class'ZedternalReborn.Config_Player'.default.Player_bDropAllWeaponsWhenDead && InvManager != None && Health <= 0)
+	if (class'ZedternalReborn.Config_Player'.static.GetDropAllWeaponsWhenDead(Difficulty) && InvManager != None && Health <= 0)
 	{
 		foreach InvManager.InventoryActors(class'KFWeapon', TempWeapon)
 		{
