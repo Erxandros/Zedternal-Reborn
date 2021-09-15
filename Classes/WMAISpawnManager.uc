@@ -92,7 +92,7 @@ function SetupNextWave(byte NextWaveIndex, int TimeToNextWaveBuffer = 0)
 
 	WMGRI = WMGameReplicationInfo(WorldInfo.GRI);
 
-	bAllowTurboSpawn = class'ZedternalReborn.Config_WaveOptions'.default.Wave_bAllowFastSpawning;
+	bAllowTurboSpawn = class'ZedternalReborn.Config_WaveOptions'.static.GetAllowFastSpawning(GameDifficultyZedternal);
 
 	lastZedInfo.length = 0; // Clear the lastZedInfo array just in case
 
@@ -161,7 +161,7 @@ function SetupNextWave(byte NextWaveIndex, int TimeToNextWaveBuffer = 0)
 				}
 			}
 			// Remove exceeded elements
-			while (MToA.Length > class'ZedternalReborn.Config_WaveOptions'.default.Wave_MaxUniqueZedsInWave && MToA.Length > 1)
+			while (MToA.Length > class'ZedternalReborn.Config_WaveOptions'.static.GetMaxUniqueZedsInWave(GameDifficultyZedternal) && MToA.Length > 1)
 			{
 				choice = Rand(MToA.Length);
 				MToA.Remove(choice, 1);
@@ -200,7 +200,7 @@ function SetupNextWave(byte NextWaveIndex, int TimeToNextWaveBuffer = 0)
 			}
 		}
 		// Remove exceeded elements
-		while (MToA.Length > class'ZedternalReborn.Config_WaveOptions'.default.Wave_MaxUniqueZedsInWave && MToA.Length > 1)
+		while (MToA.Length > class'ZedternalReborn.Config_WaveOptions'.static.GetMaxUniqueZedsInWave(GameDifficultyZedternal) && MToA.Length > 1)
 		{
 			choice = Rand(MToA.Length);
 			MToA.Remove(choice, 1);
@@ -308,7 +308,7 @@ function SetupNextWave(byte NextWaveIndex, int TimeToNextWaveBuffer = 0)
 	// now, we can create the list of ZEDs (meaning that at the beginning of the wave, we already know which ZEDs and when they will spawn)
 	bNewSquad = True;
 	noLargeZedCountDown = 0; // this script will try to avoid spamming large zeds using this variable
-	maxNumberOfZed = class'ZedternalReborn.Config_WaveOptions'.default.Wave_MaxNumberOfZedsToSpawn;
+	maxNumberOfZed = class'ZedternalReborn.Config_WaveOptions'.static.GetMaxNumberOfZedsToSpawn(GameDifficultyZedternal);
 	while (waveValue > 0 && WaveTotalAI < maxNumberOfZed && MToA.Length > 0)
 	{
 		choice = Rand(MToA.Length);
@@ -467,7 +467,7 @@ function ESquadType GetDesiredSquadTypeForZedList(array< class<KFPawn_Monster> >
 
 function int GetMaxMonsters()
 {
-	return class'ZedternalReborn.Config_WaveOptions'.default.Wave_MaxSpawnedZedsOnLevel;
+	return class'ZedternalReborn.Config_WaveOptions'.static.GetMaxSpawnedZedsOnLevel(GameDifficultyZedternal);
 }
 
 function Update()

@@ -187,7 +187,7 @@ function float GetCharSprintChanceByDifficulty(KFPawn_Monster P, float GameDiffi
 	local KFAIController_Monster KFAI;
 
 	// Disable teleport ability
-	if (!class'ZedternalReborn.Config_WaveOptions'.default.Wave_bAllowZedTeleport)
+	if (!class'ZedternalReborn.Config_WaveOptions'.static.GetAllowZedTeleport(GameDifficultyZedternal))
 	{
 		KFAI = KFAIController_Monster(P.Controller);
 		if (KFAI != None)
