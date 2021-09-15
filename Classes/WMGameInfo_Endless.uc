@@ -129,7 +129,7 @@ event PostBeginPlay()
 
 	// Setup special wave and overrides
 	if (class'ZedternalReborn.Config_SpecialWave'.static.GetSpecialWaveAllowed(GameDifficultyZedternal)
-		|| class'ZedternalReborn.Config_SpecialWaveOverride'.default.SpecialWaveOverride_bAllowed)
+		|| class'ZedternalReborn.Config_SpecialWaveOverride'.static.GetSpecialWaveOverrideAllowed(GameDifficultyZedternal))
 		CheckAndSetupSpecialWave();
 
 	// Set item pickups
@@ -853,7 +853,7 @@ function SetupSpecialWave()
 	SWList.length = 0;
 
 	// Check if it is a special wave override. If True, check all available special wave overrides
-	if (class'ZedternalReborn.Config_SpecialWaveOverride'.default.SpecialWaveOverride_bAllowed && WaveNum > 0)
+	if (class'ZedternalReborn.Config_SpecialWaveOverride'.static.GetSpecialWaveOverrideAllowed(GameDifficultyZedternal) && WaveNum > 0)
 	{
 		for (i = 0; i < SpecialWaveOverrides.length; ++i)
 		{

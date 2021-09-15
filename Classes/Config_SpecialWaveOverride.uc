@@ -3,7 +3,7 @@ class Config_SpecialWaveOverride extends Config_Common
 
 var config int MODEVERSION;
 
-var config bool SpecialWaveOverride_bAllowed;
+var config S_Difficulty_Bool SpecialWaveOverride_bAllowed;
 
 struct SSpecialWaveOverride
 {
@@ -17,7 +17,11 @@ static function UpdateConfig()
 {
 	if (default.MODEVERSION < 1)
 	{
-		default.SpecialWaveOverride_bAllowed = False;
+		default.SpecialWaveOverride_bAllowed.Normal = False;
+		default.SpecialWaveOverride_bAllowed.Hard = False;
+		default.SpecialWaveOverride_bAllowed.Suicidal = False;
+		default.SpecialWaveOverride_bAllowed.HoE = False;
+		default.SpecialWaveOverride_bAllowed.Custom = False;
 
 		default.SpecialWaveOverride_SpecialWaves.Length = 3;
 		default.SpecialWaveOverride_SpecialWaves[0].Wave = 5;
@@ -38,6 +42,18 @@ static function UpdateConfig()
 	{
 		default.MODEVERSION = class'ZedternalReborn.Config_Base'.const.CurrentVersion;
 		static.StaticSaveConfig();
+	}
+}
+
+static function bool GetSpecialWaveOverrideAllowed(int Difficulty)
+{
+	switch (Difficulty)
+	{
+		case 0 : return default.SpecialWaveOverride_bAllowed.Normal;
+		case 1 : return default.SpecialWaveOverride_bAllowed.Hard;
+		case 2 : return default.SpecialWaveOverride_bAllowed.Suicidal;
+		case 3 : return default.SpecialWaveOverride_bAllowed.HoE;
+		default: return default.SpecialWaveOverride_bAllowed.Custom;
 	}
 }
 
