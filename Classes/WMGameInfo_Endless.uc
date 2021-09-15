@@ -128,7 +128,8 @@ event PostBeginPlay()
 	BuildWeaponList();
 
 	// Setup special wave and overrides
-	if (class'ZedternalReborn.Config_SpecialWave'.default.SpecialWave_bAllowed || class'ZedternalReborn.Config_SpecialWaveOverride'.default.SpecialWaveOverride_bAllowed)
+	if (class'ZedternalReborn.Config_SpecialWave'.static.GetSpecialWaveAllowed(GameDifficultyZedternal)
+		|| class'ZedternalReborn.Config_SpecialWaveOverride'.default.SpecialWaveOverride_bAllowed)
 		CheckAndSetupSpecialWave();
 
 	// Set item pickups
@@ -891,7 +892,8 @@ function SetupSpecialWave()
 	}
 
 	// Check if it is a special wave. If True, build available special wave list (SWList)
-	if (class'ZedternalReborn.Config_SpecialWave'.default.SpecialWave_bAllowed && WaveNum > 0 && FRand() < class'ZedternalReborn.Config_SpecialWave'.default.SpecialWave_Probability)
+	if (class'ZedternalReborn.Config_SpecialWave'.static.GetSpecialWaveAllowed(GameDifficultyZedternal) && WaveNum > 0
+		&& FRand() < class'ZedternalReborn.Config_SpecialWave'.static.GetSpecialWaveProbability(GameDifficultyZedternal))
 	{
 		for (i = 0; i < SpecialWaveObjects.length; ++i)
 		{
@@ -912,7 +914,7 @@ function SetupSpecialWave()
 		SWList.Remove(index, 1);
 
 		// check for a double special wave
-		if (SWList.length != 0 && FRand() < class'ZedternalReborn.Config_SpecialWave'.default.SpecialWave_DoubleProbability)
+		if (SWList.length != 0 && FRand() < class'ZedternalReborn.Config_SpecialWave'.static.GetSpecialWaveDoubleProbability(GameDifficultyZedternal))
 		{
 			index = Rand(SWList.Length);
 			if (lastSpecialWaveID_Second == SWList[index] || lastSpecialWaveID_First == SWList[index])

@@ -3,9 +3,9 @@ class Config_SpecialWave extends Config_Common
 
 var config int MODEVERSION;
 
-var config bool SpecialWave_bAllowed;
-var config float SpecialWave_Probability;
-var config float SpecialWave_DoubleProbability;
+var config S_Difficulty_Bool SpecialWave_bAllowed;
+var config S_Difficulty_Float SpecialWave_Probability;
+var config S_Difficulty_Float SpecialWave_DoubleProbability;
 
 struct SSpecialWave
 {
@@ -20,11 +20,25 @@ static function UpdateConfig()
 
 	if (default.MODEVERSION < 1)
 	{
-		default.SpecialWave_bAllowed = True;
-		default.SpecialWave_Probability = 0.27f;
-		default.SpecialWave_DoubleProbability = 0.22f;
+		default.SpecialWave_bAllowed.Normal = True;
+		default.SpecialWave_bAllowed.Hard = True;
+		default.SpecialWave_bAllowed.Suicidal = True;
+		default.SpecialWave_bAllowed.HoE = True;
+		default.SpecialWave_bAllowed.Custom = True;
 
-		default.SpecialWave_SpecialWaves.length = 42;
+		default.SpecialWave_Probability.Normal = 0.27f;
+		default.SpecialWave_Probability.Hard = 0.27f;
+		default.SpecialWave_Probability.Suicidal = 0.27f;
+		default.SpecialWave_Probability.HoE = 0.27f;
+		default.SpecialWave_Probability.Custom = 0.27f;
+
+		default.SpecialWave_DoubleProbability.Normal = 0.22f;
+		default.SpecialWave_DoubleProbability.Hard = 0.22f;
+		default.SpecialWave_DoubleProbability.Suicidal = 0.22f;
+		default.SpecialWave_DoubleProbability.HoE = 0.22f;
+		default.SpecialWave_DoubleProbability.Custom = 0.22f;
+
+		default.SpecialWave_SpecialWaves.Length = 42;
 		default.SpecialWave_SpecialWaves[0].Path = "ZedternalReborn.WMSpecialWave_ClotBuster";
 		default.SpecialWave_SpecialWaves[1].Path = "ZedternalReborn.WMSpecialWave_Popcorn";
 		default.SpecialWave_SpecialWaves[2].Path = "ZedternalReborn.WMSpecialWave_CatchMe";
@@ -107,6 +121,42 @@ static function UpdateConfig()
 	{
 		default.MODEVERSION = class'ZedternalReborn.Config_Base'.const.CurrentVersion;
 		static.StaticSaveConfig();
+	}
+}
+
+static function bool GetSpecialWaveAllowed(int Difficulty)
+{
+	switch (Difficulty)
+	{
+		case 0 : return default.SpecialWave_bAllowed.Normal;
+		case 1 : return default.SpecialWave_bAllowed.Hard;
+		case 2 : return default.SpecialWave_bAllowed.Suicidal;
+		case 3 : return default.SpecialWave_bAllowed.HoE;
+		default: return default.SpecialWave_bAllowed.Custom;
+	}
+}
+
+static function float GetSpecialWaveProbability(int Difficulty)
+{
+	switch (Difficulty)
+	{
+		case 0 : return default.SpecialWave_Probability.Normal;
+		case 1 : return default.SpecialWave_Probability.Hard;
+		case 2 : return default.SpecialWave_Probability.Suicidal;
+		case 3 : return default.SpecialWave_Probability.HoE;
+		default: return default.SpecialWave_Probability.Custom;
+	}
+}
+
+static function float GetSpecialWaveDoubleProbability(int Difficulty)
+{
+	switch (Difficulty)
+	{
+		case 0 : return default.SpecialWave_DoubleProbability.Normal;
+		case 1 : return default.SpecialWave_DoubleProbability.Hard;
+		case 2 : return default.SpecialWave_DoubleProbability.Suicidal;
+		case 3 : return default.SpecialWave_DoubleProbability.HoE;
+		default: return default.SpecialWave_DoubleProbability.Custom;
 	}
 }
 
