@@ -249,10 +249,10 @@ function SetupNextWave(byte NextWaveIndex, int TimeToNextWaveBuffer = 0)
 
 	// we need to compute the spawn rate
 	// 1) spawn rate factor at current wave
-	customSpawnRate = 1.0f / (class'ZedternalReborn.Config_WaveSpawnRate'.static.GetZedSpawnRate(GameDifficultyZedternal) + class'ZedternalReborn.Config_WaveSpawnRate'.default.Wave_ZedSpawnRateIncPerWave * (NextWaveIndex - 1));
+	customSpawnRate = 1.0f / (class'ZedternalReborn.Config_WaveSpawnRate'.static.GetZedSpawnRate(GameDifficultyZedternal) + class'ZedternalReborn.Config_WaveSpawnRate'.static.GetZedSpawnRateIncPerWave(GameDifficultyZedternal) * float(NextWaveIndex - 1));
 
 	// 2) spawn rate power to greatly increase spawn rate at late waves
-	customSpawnRate = customSpawnRate ** (1.0f + class'ZedternalReborn.Config_WaveSpawnRate'.default.Wave_ZedSpawnRatePowerPerWave * float(NextWaveIndex - 1));
+	customSpawnRate = customSpawnRate ** (1.0f + class'ZedternalReborn.Config_WaveSpawnRate'.static.GetZedSpawnRatePowerPerWave(GameDifficultyZedternal) * float(NextWaveIndex - 1));
 
 	// 3) spawn rate factor based on number of players
 	customSpawnRate = customSpawnRate / class'ZedternalReborn.Config_WaveSpawnRate'.static.ZedSpawnRateFactor(NbPlayer);

@@ -4,8 +4,8 @@ class Config_WaveSpawnRate extends Config_Common
 var config int MODEVERSION;
 
 var config S_Difficulty_Float Wave_ZedSpawnRate;
-var config float Wave_ZedSpawnRateIncPerWave;
-var config float Wave_ZedSpawnRatePowerPerWave;
+var config S_Difficulty_Float Wave_ZedSpawnRateIncPerWave;
+var config S_Difficulty_Float Wave_ZedSpawnRatePowerPerWave;
 var config array<float> Wave_ZedSpawnRatePerPlayer;
 
 static function UpdateConfig()
@@ -18,8 +18,17 @@ static function UpdateConfig()
 		default.Wave_ZedSpawnRate.HoE = 1.1f;
 		default.Wave_ZedSpawnRate.Custom = 1.1f;
 
-		default.Wave_ZedSpawnRateIncPerWave = 0.02f;
-		default.Wave_ZedSpawnRatePowerPerWave = 0.14f;
+		default.Wave_ZedSpawnRateIncPerWave.Normal = 0.02f;
+		default.Wave_ZedSpawnRateIncPerWave.Hard = 0.02f;
+		default.Wave_ZedSpawnRateIncPerWave.Suicidal = 0.02f;
+		default.Wave_ZedSpawnRateIncPerWave.HoE = 0.02f;
+		default.Wave_ZedSpawnRateIncPerWave.Custom = 0.02f;
+
+		default.Wave_ZedSpawnRatePowerPerWave.Normal = 0.14f;
+		default.Wave_ZedSpawnRatePowerPerWave.Hard = 0.14f;
+		default.Wave_ZedSpawnRatePowerPerWave.Suicidal = 0.14f;
+		default.Wave_ZedSpawnRatePowerPerWave.HoE = 0.14f;
+		default.Wave_ZedSpawnRatePowerPerWave.Custom = 0.14f;
 
 		default.Wave_ZedSpawnRatePerPlayer[0] = 1.0f;
 		default.Wave_ZedSpawnRatePerPlayer[1] = 1.7f;
@@ -45,6 +54,30 @@ static function float GetZedSpawnRate(int Difficulty)
 		case 2 : return default.Wave_ZedSpawnRate.Suicidal;
 		case 3 : return default.Wave_ZedSpawnRate.HoE;
 		default: return default.Wave_ZedSpawnRate.Custom;
+	}
+}
+
+static function float GetZedSpawnRateIncPerWave(int Difficulty)
+{
+	switch (Difficulty)
+	{
+		case 0 : return default.Wave_ZedSpawnRateIncPerWave.Normal;
+		case 1 : return default.Wave_ZedSpawnRateIncPerWave.Hard;
+		case 2 : return default.Wave_ZedSpawnRateIncPerWave.Suicidal;
+		case 3 : return default.Wave_ZedSpawnRateIncPerWave.HoE;
+		default: return default.Wave_ZedSpawnRateIncPerWave.Custom;
+	}
+}
+
+static function float GetZedSpawnRatePowerPerWave(int Difficulty)
+{
+	switch (Difficulty)
+	{
+		case 0 : return default.Wave_ZedSpawnRatePowerPerWave.Normal;
+		case 1 : return default.Wave_ZedSpawnRatePowerPerWave.Hard;
+		case 2 : return default.Wave_ZedSpawnRatePowerPerWave.Suicidal;
+		case 3 : return default.Wave_ZedSpawnRatePowerPerWave.HoE;
+		default: return default.Wave_ZedSpawnRatePowerPerWave.Custom;
 	}
 }
 
