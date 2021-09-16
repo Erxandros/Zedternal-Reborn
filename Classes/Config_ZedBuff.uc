@@ -3,9 +3,9 @@ class Config_ZedBuff extends Config_Common
 
 var config int MODEVERSION;
 
-var config bool ZedBuff_bEnable;
-var config bool ZedBuff_bBonusDoshGivenPerBuff;
-var config bool ZedBuff_bBonusTraderTimeGivenPerBuff;
+var config S_Difficulty_Bool ZedBuff_bEnable;
+var config S_Difficulty_Bool ZedBuff_bBonusDoshGivenPerBuff;
+var config S_Difficulty_Bool ZedBuff_bBonusTraderTimeGivenPerBuff;
 
 var config S_Difficulty_Int ZedBuff_TraderTimeBonus;
 var config S_Difficulty_Int ZedBuff_DoshBonus;
@@ -30,9 +30,23 @@ static function UpdateConfig()
 
 	if (default.MODEVERSION < 1)
 	{
-		default.ZedBuff_bEnable = True;
-		default.ZedBuff_bBonusDoshGivenPerBuff = False;
-		default.ZedBuff_bBonusTraderTimeGivenPerBuff = False;
+		default.ZedBuff_bEnable.Normal = True;
+		default.ZedBuff_bEnable.Hard = True;
+		default.ZedBuff_bEnable.Suicidal = True;
+		default.ZedBuff_bEnable.HoE = True;
+		default.ZedBuff_bEnable.Custom = True;
+
+		default.ZedBuff_bBonusDoshGivenPerBuff.Normal = False;
+		default.ZedBuff_bBonusDoshGivenPerBuff.Hard = False;
+		default.ZedBuff_bBonusDoshGivenPerBuff.Suicidal = False;
+		default.ZedBuff_bBonusDoshGivenPerBuff.HoE = False;
+		default.ZedBuff_bBonusDoshGivenPerBuff.Custom = False;
+
+		default.ZedBuff_bBonusTraderTimeGivenPerBuff.Normal = False;
+		default.ZedBuff_bBonusTraderTimeGivenPerBuff.Hard = False;
+		default.ZedBuff_bBonusTraderTimeGivenPerBuff.Suicidal = False;
+		default.ZedBuff_bBonusTraderTimeGivenPerBuff.HoE = False;
+		default.ZedBuff_bBonusTraderTimeGivenPerBuff.Custom = False;
 
 		default.ZedBuff_TraderTimeBonus.Normal = 25;
 		default.ZedBuff_TraderTimeBonus.Hard = 25;
@@ -105,24 +119,56 @@ static function UpdateConfig()
 	}
 }
 
-static function bool IsWaveBuffZed(int Wave, out byte count)
+static function bool GetZedBuffEnable(int Difficulty)
 {
-	local int i;
+	switch (Difficulty)
+	{
+		case 0 : return default.ZedBuff_bEnable.Normal;
+		case 1 : return default.ZedBuff_bEnable.Hard;
+		case 2 : return default.ZedBuff_bEnable.Suicidal;
+		case 3 : return default.ZedBuff_bEnable.HoE;
+		default: return default.ZedBuff_bEnable.Custom;
+	}
+}
 
-	if (!default.ZedBuff_bEnable)
-		return False;
+static function bool GetBonusDoshGivenPerBuff(int Difficulty)
+{
+	switch (Difficulty)
+	{
+		case 0 : return default.ZedBuff_bBonusDoshGivenPerBuff.Normal;
+		case 1 : return default.ZedBuff_bBonusDoshGivenPerBuff.Hard;
+		case 2 : return default.ZedBuff_bBonusDoshGivenPerBuff.Suicidal;
+		case 3 : return default.ZedBuff_bBonusDoshGivenPerBuff.HoE;
+		default: return default.ZedBuff_bBonusDoshGivenPerBuff.Custom;
+	}
+}
 
-	count = 0;
+static function bool GetBonusTraderTimeGivenPerBuff(int Difficulty)
+{
+	switch (Difficulty)
+	{
+		case 0 : return default.ZedBuff_bBonusTraderTimeGivenPerBuff.Normal;
+		case 1 : return default.ZedBuff_bBonusTraderTimeGivenPerBuff.Hard;
+		case 2 : return default.ZedBuff_bBonusTraderTimeGivenPerBuff.Suicidal;
+		case 3 : return default.ZedBuff_bBonusTraderTimeGivenPerBuff.HoE;
+		default: return default.ZedBuff_bBonusTraderTimeGivenPerBuff.Custom;
+	}
+}
+
+static function bool IsWaveBuffZed(int Wave, out byte Count)
+{
+	local int i, Buffs;
+
+	Buffs = 0;
 	for (i = 0; i < default.ZedBuff_BuffWaves.Waves.Length; ++i)
 	{
 		if (default.ZedBuff_BuffWaves.Waves[i] == Wave)
-			++count;
-
-		if (count >= 255)
-			break;
+			++Buffs;
 	}
 
-	return count > 0;
+	Count = Min(Buffs, 255);
+
+	return Buffs > 0;
 }
 
 static function int GetTraderTimeBonus(int Difficulty)

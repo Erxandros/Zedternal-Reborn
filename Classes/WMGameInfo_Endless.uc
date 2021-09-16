@@ -618,22 +618,26 @@ function SetupObjectiveZones()
 
 function CheckZedBuff()
 {
-	local byte count;
+	local byte Count;
 
-	if (class'ZedternalReborn.Config_ZedBuff'.static.IsWaveBuffZed(WaveNum + 1, count))
-		ApplyRandomZedBuff(WaveNum + 1, True, count);
+	if (class'ZedternalReborn.Config_ZedBuff'.static.GetZedBuffEnable(GameDifficultyZedternal)
+		&& class'ZedternalReborn.Config_ZedBuff'.static.IsWaveBuffZed(WaveNum + 1, Count))
+		ApplyRandomZedBuff(WaveNum + 1, True, Count);
 }
 
 // Used when starting match at higher wave
 function CheckForPreviousZedBuff()
 {
-	local int testedWave;
-	local byte count;
+	local int TestedWave;
+	local byte Count;
 
-	for (testedWave = 1; testedWave <= WaveNum + 1; ++testedWave)
+	if (class'ZedternalReborn.Config_ZedBuff'.static.GetZedBuffEnable(GameDifficultyZedternal))
 	{
-		if (class'ZedternalReborn.Config_ZedBuff'.static.IsWaveBuffZed(testedWave, count))
-			ApplyRandomZedBuff(testedWave, False, count);
+		for (TestedWave = 1; TestedWave <= WaveNum + 1; ++TestedWave)
+		{
+			if (class'ZedternalReborn.Config_ZedBuff'.static.IsWaveBuffZed(TestedWave, Count))
+				ApplyRandomZedBuff(TestedWave, False, Count);
+		}
 	}
 }
 
@@ -651,7 +655,8 @@ function ApplyRandomZedBuff(int Wave, bool bRewardPlayer, byte count)
 		// build available buff list
 		for (i = 0; i < Min(255, WMGRI.zedBuffs.length); ++i)
 		{
-			if (WMGRI.bZedBuffs[i] == 0 && class'ZedternalReborn.Config_ZedBuff'.default.ZedBuff_BuffPath[i].minWave <= Wave && class'ZedternalReborn.Config_ZedBuff'.default.ZedBuff_BuffPath[i].maxWave >= Wave)
+			if (WMGRI.bZedBuffs[i] == 0 && class'ZedternalReborn.Config_ZedBuff'.default.ZedBuff_BuffPath[i].MinWave <= Wave
+				&& class'ZedternalReborn.Config_ZedBuff'.default.ZedBuff_BuffPath[i].MaxWave >= Wave)
 				buffIndex.AddItem(i);
 		}
 
@@ -679,7 +684,7 @@ function ApplyRandomZedBuff(int Wave, bool bRewardPlayer, byte count)
 			// reward players, well, for being good :]
 			if (bRewardPlayer)
 			{
-				if (class'ZedternalReborn.Config_ZedBuff'.default.ZedBuff_bBonusDoshGivenPerBuff)
+				if (class'ZedternalReborn.Config_ZedBuff'.static.GetBonusDoshGivenPerBuff(GameDifficultyZedternal))
 					doshMultiplier = Max(1, countOriginal - Max(0, count));
 				else
 					doshMultiplier = 1;
@@ -755,7 +760,8 @@ function OpenTrader()
 	else
 		TimeBetweenWaves = TimeBetweenWavesDefault;
 
-	if (class'ZedternalReborn.Config_ZedBuff'.static.IsWaveBuffZed(WaveNum + 1, count))
+	if (class'ZedternalReborn.Config_ZedBuff'.static.GetZedBuffEnable(GameDifficultyZedternal)
+		&& class'ZedternalReborn.Config_ZedBuff'.static.IsWaveBuffZed(WaveNum + 1, count))
 	{
 		WMGRI = WMGameReplicationInfo(MyKFGRI);
 
@@ -765,14 +771,15 @@ function OpenTrader()
 			timeMultiplier = 0;
 			for (i = 0; i < Min(255, WMGRI.zedBuffs.length); ++i)
 			{
-				if (WMGRI.bZedBuffs[i] == 0 && class'ZedternalReborn.Config_ZedBuff'.default.ZedBuff_BuffPath[i].minWave <= WaveNum + 1 && class'ZedternalReborn.Config_ZedBuff'.default.ZedBuff_BuffPath[i].maxWave >= WaveNum + 1)
+				if (WMGRI.bZedBuffs[i] == 0 && class'ZedternalReborn.Config_ZedBuff'.default.ZedBuff_BuffPath[i].MinWave <= WaveNum + 1
+					&& class'ZedternalReborn.Config_ZedBuff'.default.ZedBuff_BuffPath[i].MaxWave >= WaveNum + 1)
 					++timeMultiplier;
 			}
 		}
 		else
 			timeMultiplier = 1; //If WMGRI is not available, default to 1
 
-		if (class'ZedternalReborn.Config_ZedBuff'.default.ZedBuff_bBonusTraderTimeGivenPerBuff)
+		if (class'ZedternalReborn.Config_ZedBuff'.static.GetBonusTraderTimeGivenPerBuff(GameDifficultyZedternal))
 			timeMultiplier = Min(timeMultiplier, count);
 		else
 			timeMultiplier = 1;
