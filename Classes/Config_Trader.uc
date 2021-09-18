@@ -59,6 +59,62 @@ static function UpdateConfig()
 	}
 }
 
+static function CheckBasicConfigValues()
+{
+	local byte i;
+
+	for (i = 0; i < NumberOfDiffs; ++i)
+	{
+		if (GetStructValueInt(default.Trader_MaxWeapon, i) < 0)
+		{
+			LogBadStructConfigMessage(i, "Trader max weapons", "amount of weapons",
+				string(GetStructValueInt(default.Trader_MaxWeapon, i)),
+				"0", "0 max weapons", "Trader_MaxWeapon", 0);
+			SetStructValueInt(default.Trader_MaxWeapon, i, 0);
+		}
+
+		if (GetStructValueInt(default.Trader_StartingWeaponNumber, i) < 0)
+		{
+			LogBadStructConfigMessage(i, "Trader starting weapons", "amount of weapons",
+				string(GetStructValueInt(default.Trader_StartingWeaponNumber, i)),
+				"0", "0 starting weapons", "Trader_StartingWeaponNumber", 0);
+			SetStructValueInt(default.Trader_StartingWeaponNumber, i, 0);
+		}
+
+		if (GetStructValueInt(default.Trader_NewWeaponEachWave, i) < 0)
+		{
+			LogBadStructConfigMessage(i, "Trader new weapons each wave", "amount of weapons",
+				string(GetStructValueInt(default.Trader_NewWeaponEachWave, i)),
+				"0", "0 new weapons each wave", "Trader_NewWeaponEachWave", 0);
+			SetStructValueInt(default.Trader_NewWeaponEachWave, i, 0);
+		}
+
+		if (GetStructValueFloat(default.Trader_AmmoPriceFactor, i) < 0.0f)
+		{
+			LogBadStructConfigMessage(i, "Trader ammo price factor", "factor",
+				string(GetStructValueFloat(default.Trader_AmmoPriceFactor, i)),
+				"0.0", "0%, free ammo", "Trader_AmmoPriceFactor", 0);
+			SetStructValueFloat(default.Trader_AmmoPriceFactor, i, 0.0f);
+		}
+
+		if (GetStructValueInt(default.Trader_ArmorPrice, i) < 0)
+		{
+			LogBadStructConfigMessage(i, "Trader armor price per percent", "armor price",
+				string(GetStructValueInt(default.Trader_ArmorPrice, i)),
+				"0", "0 dosh per percent, free armor", "Trader_ArmorPrice", 0);
+			SetStructValueInt(default.Trader_ArmorPrice, i, 0);
+		}
+
+		if (GetStructValueInt(default.Trader_GrenadePrice, i) < 0)
+		{
+			LogBadStructConfigMessage(i, "Trader grenade price", "grenade price",
+				string(GetStructValueInt(default.Trader_GrenadePrice, i)),
+				"0", "0 dosh, free grenades", "Trader_GrenadePrice", 0);
+			SetStructValueInt(default.Trader_GrenadePrice, i, 0);
+		}
+	}
+}
+
 static function int GetMaxWeapon(int Difficulty)
 {
 	switch (Difficulty)
