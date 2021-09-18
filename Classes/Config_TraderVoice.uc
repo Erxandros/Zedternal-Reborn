@@ -29,6 +29,20 @@ static function UpdateConfig()
 	}
 }
 
+static function CheckBasicConfigValues()
+{
+	if (!default.TraderVoice_bUsePatriarchTrader
+		&& !default.TraderVoice_bUseHansTrader
+		&& !default.TraderVoice_bUseDefaultTrader
+		&& !default.TraderVoice_bUseObjectiveTrader
+		&& !default.TraderVoice_bUseLockheartTrader
+		&& !default.TraderVoice_bUseSantaTrader)
+	{
+		`log("ZR Config: No trader voice selected, defaulting to Patriarch trader voice."
+			@"Please select one more more trader voices from Config_TraderVoice");
+	}
+}
+
 defaultproperties
 {
 	Name="Default__Config_TraderVoice"
