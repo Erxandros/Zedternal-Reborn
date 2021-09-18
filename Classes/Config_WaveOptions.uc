@@ -51,6 +51,38 @@ static function UpdateConfig()
 	}
 }
 
+static function CheckBasicConfigValues()
+{
+	local byte i;
+
+	for (i = 0; i < NumberOfDiffs; ++i)
+	{
+		if (GetStructValueInt(default.Wave_MaxUniqueZedsInWave, i) < 1)
+		{
+			LogBadStructConfigMessage(i, "Max unique zeds in wave", "amount of weapons",
+				string(GetStructValueInt(default.Wave_MaxUniqueZedsInWave, i)),
+				"1", "1 unique zed", "Wave_MaxUniqueZedsInWave", 0);
+			SetStructValueInt(default.Wave_MaxUniqueZedsInWave, i, 1);
+		}
+
+		if (GetStructValueInt(default.Wave_MaxSpawnedZedsOnLevel, i) < 1)
+		{
+			LogBadStructConfigMessage(i, "Max amount of zeds allowed on the map at once", "amount of zeds",
+				string(GetStructValueInt(default.Wave_MaxSpawnedZedsOnLevel, i)),
+				"1", "1 zed", "Wave_MaxSpawnedZedsOnLevel", 0);
+			SetStructValueInt(default.Wave_MaxSpawnedZedsOnLevel, i, 1);
+		}
+
+		if (GetStructValueInt(default.Wave_MaxNumberOfZedsToSpawn, i) < 1)
+		{
+			LogBadStructConfigMessage(i, "Max number of zeds for the wave counter", "amount of zeds",
+				string(GetStructValueInt(default.Wave_MaxNumberOfZedsToSpawn, i)),
+				"1", "1 zed", "Wave_MaxNumberOfZedsToSpawn", 0);
+			SetStructValueInt(default.Wave_MaxNumberOfZedsToSpawn, i, 1);
+		}
+	}
+}
+
 static function bool GetAllowZedTeleport(int Difficulty)
 {
 	switch (Difficulty)
