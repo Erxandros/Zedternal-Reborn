@@ -116,6 +116,95 @@ static function UpdateConfig()
 	}
 }
 
+static function CheckBasicConfigValues()
+{
+	local int i;
+
+	for (i = 0; i < NumberOfDiffs; ++i)
+	{
+		if (GetStructValueInt(default.Player_StartingWeaponAmount, i) < 0)
+		{
+			LogBadStructConfigMessage(i, "Player starting weapons amount", "amount of weapons",
+				string(GetStructValueInt(default.Player_StartingWeaponAmount, i)),
+				"0", "0 weapons, no starting weapons", "Player_StartingWeaponAmount", 0);
+			SetStructValueInt(default.Player_StartingWeaponAmount, i, 0);
+		}
+
+		if (GetStructValueInt(default.Player_StartingMaxHealth, i) < 1)
+		{
+			LogBadStructConfigMessage(i, "Player starting max health", "amount of health",
+				string(GetStructValueInt(default.Player_StartingMaxHealth, i)),
+				"1", "1 max health", "Player_StartingMaxHealth", 0);
+			SetStructValueInt(default.Player_StartingMaxHealth, i, 1);
+		}
+
+		if (GetStructValueInt(default.Player_StartingMaxArmor, i) < 1)
+		{
+			LogBadStructConfigMessage(i, "Player starting max armor", "amount of armor",
+				string(GetStructValueInt(default.Player_StartingMaxArmor, i)),
+				"1", "1 max armor", "Player_StartingMaxArmor", 0);
+			SetStructValueInt(default.Player_StartingMaxArmor, i, 1);
+		}
+
+		if (GetStructValueInt(default.Player_StartingCarryWeight, i) < 1)
+		{
+			LogBadStructConfigMessage(i, "Player starting carry weight", "amount of carry capacity",
+				string(GetStructValueInt(default.Player_StartingCarryWeight, i)),
+				"1", "1 carry weight", "Player_StartingCarryWeight", 0);
+			SetStructValueInt(default.Player_StartingCarryWeight, i, 1);
+		}
+
+		if (GetStructValueFloat(default.Player_HealAmountFactor, i) < 0.0f)
+		{
+			LogBadStructConfigMessage(i, "Player healing factor", "factor",
+				string(GetStructValueFloat(default.Player_HealAmountFactor, i)),
+				"0.0", "0%, no healing", "Player_HealAmountFactor", 0);
+			SetStructValueFloat(default.Player_HealAmountFactor, i, 0.0f);
+		}
+
+		if (GetStructValueFloat(default.Player_DamageTakenFactorWhileHoldingMelee, i) < 0.0f)
+		{
+			LogBadStructConfigMessage(i, "Player damage taken factor while holding melee", "factor",
+				string(GetStructValueFloat(default.Player_DamageTakenFactorWhileHoldingMelee, i)),
+				"0.0", "0%, no damage taken", "Player_DamageTakenFactorWhileHoldingMelee", 0);
+			SetStructValueFloat(default.Player_DamageTakenFactorWhileHoldingMelee, i, 0.0f);
+		}
+	}
+
+	for (i = 0; i < default.Player_DamageGivenFactor.Length; ++i)
+	{
+		if (default.Player_DamageGivenFactor[i].Factor < 0.0f)
+		{
+			LogBadConfigMessage("Player damage given factor for damage type" @ default.Player_DamageGivenFactor[i].DamageType,
+				"factor", string(default.Player_DamageGivenFactor[i].Factor),
+				"0.0", "0%, no damage given", "Player_DamageGivenFactor", 0);
+			default.Player_DamageGivenFactor[i].Factor = 0.0f;
+		}
+	}
+
+	for (i = 0; i < default.Player_DamageTakenFactor.Length; ++i)
+	{
+		if (default.Player_DamageTakenFactor[i].Factor < 0.0f)
+		{
+			LogBadConfigMessage("Player damage taken factor for damage type" @ default.Player_DamageTakenFactor[i].DamageType,
+				"factor", string(default.Player_DamageTakenFactor[i].Factor),
+				"0.0", "0%, no damage taken", "Player_DamageTakenFactor", 0);
+			default.Player_DamageTakenFactor[i].Factor = 0.0f;
+		}
+	}
+
+	for (i = 0; i < default.Player_VampireEffect.Length; ++i)
+	{
+		if (default.Player_VampireEffect[i].HealAmount < 0)
+		{
+			LogBadConfigMessage("Player vampire effect for damage type" @ default.Player_VampireEffect[i].DamageType,
+				"amount of healing", string(default.Player_VampireEffect[i].HealAmount),
+				"0", "no healing", "Player_VampireEffect", 0);
+			default.Player_VampireEffect[i].HealAmount = 0;
+		}
+	}
+}
+
 static function bool GetDropAllWeaponsWhenDead(int Difficulty)
 {
 	switch (Difficulty)
