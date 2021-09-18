@@ -67,49 +67,49 @@ static function CheckBasicConfigValues()
 	{
 		if (GetStructValueInt(default.Trader_MaxWeapon, i) < 0)
 		{
-			LogBadStructConfigMessage(i, "Trader max weapons", "amount of weapons",
+			LogBadStructConfigMessage(i, "Trader_MaxWeapon",
 				string(GetStructValueInt(default.Trader_MaxWeapon, i)),
-				"0", "0 max weapons", "Trader_MaxWeapon", 0);
+				"0", "0 max weapons", "value >= 0");
 			SetStructValueInt(default.Trader_MaxWeapon, i, 0);
 		}
 
 		if (GetStructValueInt(default.Trader_StartingWeaponNumber, i) < 0)
 		{
-			LogBadStructConfigMessage(i, "Trader starting weapons", "amount of weapons",
+			LogBadStructConfigMessage(i, "Trader_StartingWeaponNumber",
 				string(GetStructValueInt(default.Trader_StartingWeaponNumber, i)),
-				"0", "0 starting weapons", "Trader_StartingWeaponNumber", 0);
+				"0", "0 starting weapons in trader", "value >= 0");
 			SetStructValueInt(default.Trader_StartingWeaponNumber, i, 0);
 		}
 
 		if (GetStructValueInt(default.Trader_NewWeaponEachWave, i) < 0)
 		{
-			LogBadStructConfigMessage(i, "Trader new weapons each wave", "amount of weapons",
+			LogBadStructConfigMessage(i, "Trader_NewWeaponEachWave",
 				string(GetStructValueInt(default.Trader_NewWeaponEachWave, i)),
-				"0", "0 new weapons each wave", "Trader_NewWeaponEachWave", 0);
+				"0", "0 new weapons each wave", "value >= 0");
 			SetStructValueInt(default.Trader_NewWeaponEachWave, i, 0);
 		}
 
 		if (GetStructValueFloat(default.Trader_AmmoPriceFactor, i) < 0.0f)
 		{
-			LogBadStructConfigMessage(i, "Trader ammo price factor", "factor",
+			LogBadStructConfigMessage(i, "Trader_AmmoPriceFactor",
 				string(GetStructValueFloat(default.Trader_AmmoPriceFactor, i)),
-				"0.0", "0%, free ammo", "Trader_AmmoPriceFactor", 0);
+				"0.0", "0%, free ammo", "value >= 0.0");
 			SetStructValueFloat(default.Trader_AmmoPriceFactor, i, 0.0f);
 		}
 
 		if (GetStructValueInt(default.Trader_ArmorPrice, i) < 0)
 		{
-			LogBadStructConfigMessage(i, "Trader armor price per percent", "armor price",
+			LogBadStructConfigMessage(i, "Trader_ArmorPrice",
 				string(GetStructValueInt(default.Trader_ArmorPrice, i)),
-				"0", "0 dosh per percent, free armor", "Trader_ArmorPrice", 0);
+				"0", "0 dosh per percent, free armor", "value >= 0");
 			SetStructValueInt(default.Trader_ArmorPrice, i, 0);
 		}
 
 		if (GetStructValueInt(default.Trader_GrenadePrice, i) < 0)
 		{
-			LogBadStructConfigMessage(i, "Trader grenade price", "grenade price",
+			LogBadStructConfigMessage(i, "Trader_GrenadePrice",
 				string(GetStructValueInt(default.Trader_GrenadePrice, i)),
-				"0", "0 dosh, free grenades", "Trader_GrenadePrice", 0);
+				"0", "0 dosh, free grenades", "value >= 0");
 			SetStructValueInt(default.Trader_GrenadePrice, i, 0);
 		}
 	}

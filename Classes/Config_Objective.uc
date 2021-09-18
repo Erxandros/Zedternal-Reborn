@@ -59,49 +59,49 @@ static function CheckBasicConfigValues()
 	{
 		if (GetStructValueFloat(default.Objective_Probability, i) < 0.0f)
 		{
-			LogBadStructConfigMessage(i, "Objective probability trigger", "percent",
+			LogBadStructConfigMessage(i, "Objective_Probability",
 				string(GetStructValueFloat(default.Objective_Probability, i)),
-				"0.0", "0%, never activates", "Objective_Probability", 0);
+				"0.0", "0%, never activates", "1.0 >= value >= 0.0");
 			SetStructValueFloat(default.Objective_Probability, i, 0.0f);
 		}
 
 		if (GetStructValueFloat(default.Objective_Probability, i) > 1.0f)
 		{
-			LogBadStructConfigMessage(i, "Objective probability trigger", "percent",
+			LogBadStructConfigMessage(i, "Objective_Probability",
 				string(GetStructValueFloat(default.Objective_Probability, i)),
-				"1.0", "100%, always activates", "Objective_Probability", 1);
+				"1.0", "100%, always activates", "1.0 >= value >= 0.0");
 			SetStructValueFloat(default.Objective_Probability, i, 1.0f);
 		}
 
 		if (GetStructValueInt(default.Objective_BaseDosh, i) < 0)
 		{
-			LogBadStructConfigMessage(i, "Objective base dosh reward", "dosh",
+			LogBadStructConfigMessage(i, "Objective_BaseDosh",
 				string(GetStructValueInt(default.Objective_BaseDosh, i)),
-				"0", "0 dosh, no reward", "Objective_BaseDosh", 0);
+				"0", "0 dosh, no reward", "value >= 0");
 			SetStructValueInt(default.Objective_BaseDosh, i, 0);
 		}
 
 		if (GetStructValueFloat(default.Objective_PctOfWaveKilledForMaxReward, i) < 0.0f)
 		{
-			LogBadStructConfigMessage(i, "Objective total wave killed percentage", "percent",
+			LogBadStructConfigMessage(i, "Objective_PctOfWaveKilledForMaxReward",
 				string(GetStructValueFloat(default.Objective_PctOfWaveKilledForMaxReward, i)),
-				"0.0", "0%, none of the wave", "Objective_PctOfWaveKilledForMaxReward", 0);
+				"0.0", "0%, none of the wave", "1.0 >= value >= 0.0");
 			SetStructValueFloat(default.Objective_PctOfWaveKilledForMaxReward, i, 0.0f);
 		}
 
 		if (GetStructValueFloat(default.Objective_PctOfWaveKilledForMaxReward, i) > 1.0f)
 		{
-			LogBadStructConfigMessage(i, "Objective total wave killed percentage", "percent",
+			LogBadStructConfigMessage(i, "Objective_PctOfWaveKilledForMaxReward",
 				string(GetStructValueFloat(default.Objective_PctOfWaveKilledForMaxReward, i)),
-				"1.0", "100%, the entire wave", "Objective_PctOfWaveKilledForMaxReward", 1);
+				"1.0", "100%, the entire wave", "1.0 >= value >= 0.0");
 			SetStructValueFloat(default.Objective_PctOfWaveKilledForMaxReward, i, 1.0f);
 		}
 
 		if (GetStructValueFloat(default.Objective_DoshIncreaseModifierPerWave, i) < 0.0f)
 		{
-			LogBadStructConfigMessage(i, "Objective dosh increase per wave modifier", "modifier",
+			LogBadStructConfigMessage(i, "Objective_DoshIncreaseModifierPerWave",
 				string(GetStructValueFloat(default.Objective_DoshIncreaseModifierPerWave, i)),
-				"0.0", "0%, no increase", "Objective_DoshIncreaseModifierPerWave", 0);
+				"0.0", "0%, no increase", "value >= 0.0");
 			SetStructValueFloat(default.Objective_DoshIncreaseModifierPerWave, i, 0.0f);
 		}
 	}

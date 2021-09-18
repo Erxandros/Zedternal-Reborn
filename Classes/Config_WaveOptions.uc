@@ -59,25 +59,25 @@ static function CheckBasicConfigValues()
 	{
 		if (GetStructValueInt(default.Wave_MaxUniqueZedsInWave, i) < 1)
 		{
-			LogBadStructConfigMessage(i, "Max unique zeds in wave", "amount of weapons",
+			LogBadStructConfigMessage(i, "Wave_MaxUniqueZedsInWave",
 				string(GetStructValueInt(default.Wave_MaxUniqueZedsInWave, i)),
-				"1", "1 unique zed", "Wave_MaxUniqueZedsInWave", 0);
+				"1", "1 unique zed in wave", "value >= 1");
 			SetStructValueInt(default.Wave_MaxUniqueZedsInWave, i, 1);
 		}
 
 		if (GetStructValueInt(default.Wave_MaxSpawnedZedsOnLevel, i) < 1)
 		{
-			LogBadStructConfigMessage(i, "Max amount of zeds allowed on the map at once", "amount of zeds",
+			LogBadStructConfigMessage(i, "Wave_MaxSpawnedZedsOnLevel",
 				string(GetStructValueInt(default.Wave_MaxSpawnedZedsOnLevel, i)),
-				"1", "1 zed", "Wave_MaxSpawnedZedsOnLevel", 0);
+				"1", "1 zed on level", "value >= 1");
 			SetStructValueInt(default.Wave_MaxSpawnedZedsOnLevel, i, 1);
 		}
 
 		if (GetStructValueInt(default.Wave_MaxNumberOfZedsToSpawn, i) < 1)
 		{
-			LogBadStructConfigMessage(i, "Max number of zeds for the wave counter", "amount of zeds",
+			LogBadStructConfigMessage(i, "Wave_MaxNumberOfZedsToSpawn",
 				string(GetStructValueInt(default.Wave_MaxNumberOfZedsToSpawn, i)),
-				"1", "1 zed", "Wave_MaxNumberOfZedsToSpawn", 0);
+				"1", "1 zed", "value >= 1");
 			SetStructValueInt(default.Wave_MaxNumberOfZedsToSpawn, i, 1);
 		}
 	}

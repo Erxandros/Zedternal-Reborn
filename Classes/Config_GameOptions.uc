@@ -61,17 +61,17 @@ static function CheckBasicConfigValues()
 	{
 		if (GetStructValueInt(default.Game_TimeBetweenWave, i) < 10)
 		{
-			LogBadStructConfigMessage(i, "Standard trader time", "seconds",
+			LogBadStructConfigMessage(i, "Game_TimeBetweenWave",
 				string(GetStructValueInt(default.Game_TimeBetweenWave, i)),
-				"10", "10 seconds", "Game_TimeBetweenWave", 0);
+				"10", "10 seconds", "value >= 10");
 			SetStructValueInt(default.Game_TimeBetweenWave, i, 10);
 		}
 
 		if (GetStructValueInt(default.Game_TimeBetweenWaveIfPlayerDead, i) < 10)
 		{
-			LogBadStructConfigMessage(i, "Trader time if a player died", "seconds",
+			LogBadStructConfigMessage(i, "Game_TimeBetweenWaveIfPlayerDead",
 				string(GetStructValueInt(default.Game_TimeBetweenWaveIfPlayerDead, i)),
-				"10", "10 seconds", "Game_TimeBetweenWaveIfPlayerDead", 0);
+				"10", "10 seconds", "value >= 10");
 			SetStructValueInt(default.Game_TimeBetweenWaveIfPlayerDead, i, 10);
 		}
 	}

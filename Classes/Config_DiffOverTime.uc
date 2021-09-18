@@ -122,113 +122,113 @@ static function CheckBasicConfigValues()
 	{
 		if (GetStructValueFloat(default.DiffOverTime_NormalZedHealthIncPerWave, i) < 0.0f)
 		{
-			LogBadStructConfigMessage(i, "Linear increase for normal ZED health", "increase",
+			LogBadStructConfigMessage(i, "DiffOverTime_NormalZedHealthIncPerWave",
 				string(GetStructValueFloat(default.DiffOverTime_NormalZedHealthIncPerWave, i)),
-				"0.0", "0%, no linear increase", "DiffOverTime_NormalZedHealthIncPerWave", 0);
+				"0.0", "0%, no linear increase", "value >= 0.0");
 			SetStructValueFloat(default.DiffOverTime_NormalZedHealthIncPerWave, i, 0.0f);
 		}
 
 		if (GetStructValueFloat(default.DiffOverTime_NormalZedHealthPowerPerWave, i) < 0.0f)
 		{
-			LogBadStructConfigMessage(i, "Power increase for normal ZED health", "increase",
+			LogBadStructConfigMessage(i, "DiffOverTime_NormalZedHealthPowerPerWave",
 				string(GetStructValueFloat(default.DiffOverTime_NormalZedHealthPowerPerWave, i)),
-				"0.0", "0%, no exponential increase", "DiffOverTime_NormalZedHealthPowerPerWave", 0);
+				"0.0", "0%, no exponential increase", "value >= 0.0");
 			SetStructValueFloat(default.DiffOverTime_NormalZedHealthPowerPerWave, i, 0.0f);
 		}
 
 		if (GetStructValueFloat(default.DiffOverTime_LargeZedHealthIncPerWave, i) < 0.0f)
 		{
-			LogBadStructConfigMessage(i, "Linear increase for large ZED health", "increase",
+			LogBadStructConfigMessage(i, "DiffOverTime_LargeZedHealthIncPerWave",
 				string(GetStructValueFloat(default.DiffOverTime_LargeZedHealthIncPerWave, i)),
-				"0.0", "0%, no linear increase", "DiffOverTime_LargeZedHealthIncPerWave", 0);
+				"0.0", "0%, no linear increase", "value >= 0.0");
 			SetStructValueFloat(default.DiffOverTime_LargeZedHealthIncPerWave, i, 0.0f);
 		}
 
 		if (GetStructValueFloat(default.DiffOverTime_LargeZedHealthPowerPerWave, i) < 0.0f)
 		{
-			LogBadStructConfigMessage(i, "Power increase for large ZED health", "increase",
+			LogBadStructConfigMessage(i, "DiffOverTime_LargeZedHealthPowerPerWave",
 				string(GetStructValueFloat(default.DiffOverTime_LargeZedHealthPowerPerWave, i)),
-				"0.0", "0%, no exponential increase", "DiffOverTime_LargeZedHealthPowerPerWave", 0);
+				"0.0", "0%, no exponential increase", "value >= 0.0");
 			SetStructValueFloat(default.DiffOverTime_LargeZedHealthPowerPerWave, i, 0.0f);
 		}
 
 		if (GetStructValueFloat(default.DiffOverTime_OmegaZedHealthIncPerWave, i) < 0.0f)
 		{
-			LogBadStructConfigMessage(i, "Linear increase for omega ZED health", "increase",
+			LogBadStructConfigMessage(i, "DiffOverTime_OmegaZedHealthIncPerWave",
 				string(GetStructValueFloat(default.DiffOverTime_OmegaZedHealthIncPerWave, i)),
-				"0.0", "0%, no linear increase", "DiffOverTime_OmegaZedHealthIncPerWave", 0);
+				"0.0", "0%, no linear increase", "value >= 0.0");
 			SetStructValueFloat(default.DiffOverTime_OmegaZedHealthIncPerWave, i, 0.0f);
 		}
 
 		if (GetStructValueFloat(default.DiffOverTime_OmegaZedHealthPowerPerWave, i) < 0.0f)
 		{
-			LogBadStructConfigMessage(i, "Power increase for omega ZED health", "increase",
+			LogBadStructConfigMessage(i, "DiffOverTime_OmegaZedHealthPowerPerWave",
 				string(GetStructValueFloat(default.DiffOverTime_OmegaZedHealthPowerPerWave, i)),
-				"0.0", "0%, no exponential increase", "DiffOverTime_OmegaZedHealthPowerPerWave", 0);
+				"0.0", "0%, no exponential increase", "value >= 0.0");
 			SetStructValueFloat(default.DiffOverTime_OmegaZedHealthPowerPerWave, i, 0.0f);
 		}
 
 		if (GetStructValueFloat(default.DiffOverTime_ZedDamageIncPerWave, i) < 0.0f)
 		{
-			LogBadStructConfigMessage(i, "Linear increase for ZED damage", "increase",
+			LogBadStructConfigMessage(i, "DiffOverTime_ZedDamageIncPerWave",
 				string(GetStructValueFloat(default.DiffOverTime_ZedDamageIncPerWave, i)),
-				"0.0", "0%, no linear increase", "DiffOverTime_ZedDamageIncPerWave", 0);
+				"0.0", "0%, no linear increase", "value >= 0.0");
 			SetStructValueFloat(default.DiffOverTime_ZedDamageIncPerWave, i, 0.0f);
 		}
 
 		if (GetStructValueFloat(default.DiffOverTime_ZedDamagePowerPerWave, i) < 0.0f)
 		{
-			LogBadStructConfigMessage(i, "Power increase for ZED damage", "increase",
+			LogBadStructConfigMessage(i, "DiffOverTime_ZedDamagePowerPerWave",
 				string(GetStructValueFloat(default.DiffOverTime_ZedDamagePowerPerWave, i)),
-				"0.0", "0%, no exponential increase", "DiffOverTime_ZedDamagePowerPerWave", 0);
+				"0.0", "0%, no exponential increase", "value >= 0.0");
 			SetStructValueFloat(default.DiffOverTime_ZedDamagePowerPerWave, i, 0.0f);
 		}
 
 		if (GetStructValueFloat(default.DiffOverTime_ZedSpeedIncPerWave, i) < 0.0f)
 		{
-			LogBadStructConfigMessage(i, "Linear increase for ZED speed", "increase",
+			LogBadStructConfigMessage(i, "DiffOverTime_ZedSpeedIncPerWave",
 				string(GetStructValueFloat(default.DiffOverTime_ZedSpeedIncPerWave, i)),
-				"0.0", "0%, no linear increase", "DiffOverTime_ZedSpeedIncPerWave", 0);
+				"0.0", "0%, no linear increase", "value >= 0.0");
 			SetStructValueFloat(default.DiffOverTime_ZedSpeedIncPerWave, i, 0.0f);
 		}
 
 		if (GetStructValueFloat(default.DiffOverTime_ZedSpeedPowerPerWave, i) < 0.0f)
 		{
-			LogBadStructConfigMessage(i, "Power increase for ZED speed", "increase",
+			LogBadStructConfigMessage(i, "DiffOverTime_ZedSpeedPowerPerWave",
 				string(GetStructValueFloat(default.DiffOverTime_ZedSpeedPowerPerWave, i)),
-				"0.0", "0%, no exponential increase", "DiffOverTime_ZedSpeedPowerPerWave", 0);
+				"0.0", "0%, no exponential increase", "value >= 0.0");
 			SetStructValueFloat(default.DiffOverTime_ZedSpeedPowerPerWave, i, 0.0f);
 		}
 
 		if (GetStructValueFloat(default.DiffOverTime_ZedSprintChanceIncPerWave, i) < 0.0f)
 		{
-			LogBadStructConfigMessage(i, "Linear increase for ZED sprint chance", "increase",
+			LogBadStructConfigMessage(i, "DiffOverTime_ZedSprintChanceIncPerWave",
 				string(GetStructValueFloat(default.DiffOverTime_ZedSprintChanceIncPerWave, i)),
-				"0.0", "0%, no linear increase", "DiffOverTime_ZedSprintChanceIncPerWave", 0);
+				"0.0", "0%, no linear increase", "value >= 0.0");
 			SetStructValueFloat(default.DiffOverTime_ZedSprintChanceIncPerWave, i, 0.0f);
 		}
 
 		if (GetStructValueFloat(default.DiffOverTime_ZedHardAttackChanceIncPerWave, i) < 0.0f)
 		{
-			LogBadStructConfigMessage(i, "Linear increase for ZED hard attack chance", "increase",
+			LogBadStructConfigMessage(i, "DiffOverTime_ZedHardAttackChanceIncPerWave",
 				string(GetStructValueFloat(default.DiffOverTime_ZedHardAttackChanceIncPerWave, i)),
-				"0.0", "0%, no linear increase", "DiffOverTime_ZedHardAttackChanceIncPerWave", 0);
+				"0.0", "0%, no linear increase", "value >= 0.0");
 			SetStructValueFloat(default.DiffOverTime_ZedHardAttackChanceIncPerWave, i, 0.0f);
 		}
 
 		if (GetStructValueFloat(default.DiffOverTime_ZedDoshPenaltyPerWave, i) < 0.0f)
 		{
-			LogBadStructConfigMessage(i, "Modifier for ZED dosh penalty", "increase",
+			LogBadStructConfigMessage(i, "DiffOverTime_ZedDoshPenaltyPerWave",
 				string(GetStructValueFloat(default.DiffOverTime_ZedDoshPenaltyPerWave, i)),
-				"0.0", "0%, no penalty increase", "DiffOverTime_ZedDoshPenaltyPerWave", 0);
+				"0.0", "0%, no penalty increase", "value >= 0.0");
 			SetStructValueFloat(default.DiffOverTime_ZedDoshPenaltyPerWave, i, 0.0f);
 		}
 
 		if (GetStructValueFloat(default.DiffOverTime_ZedDoshPenaltyLimit, i) < 0.0f)
 		{
-			LogBadStructConfigMessage(i, "Max cap for ZED dosh penalty", "cap",
+			LogBadStructConfigMessage(i, "DiffOverTime_ZedDoshPenaltyLimit",
 				string(GetStructValueFloat(default.DiffOverTime_ZedDoshPenaltyLimit, i)),
-				"0.0", "0%, no penalty", "DiffOverTime_ZedDoshPenaltyLimit", 0);
+				"0.0", "0%, no penalty", "value >= 0.0");
 			SetStructValueFloat(default.DiffOverTime_ZedDoshPenaltyLimit, i, 0.0f);
 		}
 	}

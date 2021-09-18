@@ -66,49 +66,49 @@ static function CheckBasicConfigValues()
 	{
 		if (GetStructValueFloat(default.ZedNormal_HealthModifier, i) < 0.05f)
 		{
-			LogBadStructConfigMessage(i, "Modifier for normal ZED health", "modifier",
+			LogBadStructConfigMessage(i, "ZedNormal_HealthModifier",
 				string(GetStructValueFloat(default.ZedNormal_HealthModifier, i)),
-				"0.05", "5%", "ZedNormal_HealthModifier", 0);
+				"0.05", "5%", "value >= 0.05");
 			SetStructValueFloat(default.ZedNormal_HealthModifier, i, 0.05f);
 		}
 
 		if (GetStructValueFloat(default.ZedNormal_ExtraHealthModifierPerPlayer, i) < 0.0f)
 		{
-			LogBadStructConfigMessage(i, "Modifier for normal ZED extra health per player", "modifier",
+			LogBadStructConfigMessage(i, "ZedNormal_ExtraHealthModifierPerPlayer",
 				string(GetStructValueFloat(default.ZedNormal_ExtraHealthModifierPerPlayer, i)),
-				"0.0", "0%", "ZedNormal_ExtraHealthModifierPerPlayer", 0);
+				"0.0", "0%", "value >= 0.0");
 			SetStructValueFloat(default.ZedNormal_ExtraHealthModifierPerPlayer, i, 0.0f);
 		}
 
 		if (GetStructValueFloat(default.ZedNormal_HeadHealthModifier, i) < 0.05f)
 		{
-			LogBadStructConfigMessage(i, "Modifier for normal ZED head health", "modifier",
+			LogBadStructConfigMessage(i, "ZedNormal_HeadHealthModifier",
 				string(GetStructValueFloat(default.ZedNormal_HeadHealthModifier, i)),
-				"0.05", "5%", "ZedNormal_HeadHealthModifier", 0);
+				"0.05", "5%", "value >= 0.05");
 			SetStructValueFloat(default.ZedNormal_HeadHealthModifier, i, 0.05f);
 		}
 
 		if (GetStructValueFloat(default.ZedNormal_DamageModifier, i) < 0.05f)
 		{
-			LogBadStructConfigMessage(i, "Modifier for normal ZED damage", "modifier",
+			LogBadStructConfigMessage(i, "ZedNormal_DamageModifier",
 				string(GetStructValueFloat(default.ZedNormal_DamageModifier, i)),
-				"0.05", "5%", "ZedNormal_DamageModifier", 0);
+				"0.05", "5%", "value >= 0.05");
 			SetStructValueFloat(default.ZedNormal_DamageModifier, i, 0.05f);
 		}
 
 		if (GetStructValueFloat(default.ZedNormal_SoloDamageModifier, i) < 0.05f)
 		{
-			LogBadStructConfigMessage(i, "Modifier for normal ZED solo damage", "modifier",
+			LogBadStructConfigMessage(i, "ZedNormal_SoloDamageModifier",
 				string(GetStructValueFloat(default.ZedNormal_SoloDamageModifier, i)),
-				"0.05", "5%", "ZedNormal_SoloDamageModifier", 0);
+				"0.05", "5%", "value >= 0.05");
 			SetStructValueFloat(default.ZedNormal_SoloDamageModifier, i, 0.05f);
 		}
 
 		if (GetStructValueFloat(default.ZedNormal_SpeedModifier, i) < 0.05f)
 		{
-			LogBadStructConfigMessage(i, "Modifier for normal ZED speed", "modifier",
+			LogBadStructConfigMessage(i, "ZedNormal_SpeedModifier",
 				string(GetStructValueFloat(default.ZedNormal_SpeedModifier, i)),
-				"0.05", "5%", "ZedNormal_SpeedModifier", 0);
+				"0.05", "5%", "value >= 0.05");
 			SetStructValueFloat(default.ZedNormal_SpeedModifier, i, 0.05f);
 		}
 	}

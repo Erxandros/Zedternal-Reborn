@@ -96,89 +96,89 @@ static function CheckBasicConfigValues()
 	{
 		if (GetStructValueFloat(default.Dosh_NormalZedDoshFactor, i) < 0.0f)
 		{
-			LogBadStructConfigMessage(i, "Modifier for normal ZED dosh reward", "modifier",
+			LogBadStructConfigMessage(i, "Dosh_NormalZedDoshFactor",
 				string(GetStructValueFloat(default.Dosh_NormalZedDoshFactor, i)),
-				"0.0", "0%, no dosh reward", "Dosh_NormalZedDoshFactor", 0);
+				"0.0", "0%, no dosh reward", "value >= 0.0");
 			SetStructValueFloat(default.Dosh_NormalZedDoshFactor, i, 0.0f);
 		}
 
 		if (GetStructValueFloat(default.Dosh_ExtraNormalZedDoshFactorPerPlayer, i) < 0.0f)
 		{
-			LogBadStructConfigMessage(i, "Modifier for normal ZED extra dosh reward per player", "modifier",
+			LogBadStructConfigMessage(i, "Dosh_ExtraNormalZedDoshFactorPerPlayer",
 				string(GetStructValueFloat(default.Dosh_ExtraNormalZedDoshFactorPerPlayer, i)),
-				"0.0", "0%, no extra dosh reward", "Dosh_ExtraNormalZedDoshFactorPerPlayer", 0);
+				"0.0", "0%, no extra dosh reward", "value >= 0.0");
 			SetStructValueFloat(default.Dosh_ExtraNormalZedDoshFactorPerPlayer, i, 0.0f);
 		}
 
 		if (GetStructValueFloat(default.Dosh_LargeZedDoshFactor, i) < 0.0f)
 		{
-			LogBadStructConfigMessage(i, "Modifier for large ZED dosh reward", "modifier",
+			LogBadStructConfigMessage(i, "Dosh_LargeZedDoshFactor",
 				string(GetStructValueFloat(default.Dosh_LargeZedDoshFactor, i)),
-				"0.0", "0%, no dosh reward", "Dosh_LargeZedDoshFactor", 0);
+				"0.0", "0%, no dosh reward", "value >= 0.0");
 			SetStructValueFloat(default.Dosh_LargeZedDoshFactor, i, 0.0f);
 		}
 
 		if (GetStructValueFloat(default.Dosh_ExtraLargeZedDoshFactorPerPlayer, i) < 0.0f)
 		{
-			LogBadStructConfigMessage(i, "Modifier for large ZED extra dosh reward per player", "modifier",
+			LogBadStructConfigMessage(i, "Dosh_ExtraLargeZedDoshFactorPerPlayer",
 				string(GetStructValueFloat(default.Dosh_ExtraLargeZedDoshFactorPerPlayer, i)),
-				"0.0", "0%, no extra dosh reward", "Dosh_ExtraLargeZedDoshFactorPerPlayer", 0);
+				"0.0", "0%, no extra dosh reward", "value >= 0.0");
 			SetStructValueFloat(default.Dosh_ExtraLargeZedDoshFactorPerPlayer, i, 0.0f);
 		}
 
 		if (GetStructValueInt(default.Dosh_BaseDoshWaveReward, i) < 0)
 		{
-			LogBadStructConfigMessage(i, "Base dosh wave reward", "amount",
+			LogBadStructConfigMessage(i, "Dosh_BaseDoshWaveReward",
 				string(GetStructValueInt(default.Dosh_BaseDoshWaveReward, i)),
-				"0", "0 dosh, no base dosh reward", "Dosh_BaseDoshWaveReward", 0);
+				"0", "0 dosh, no base dosh reward", "value >= 0");
 			SetStructValueInt(default.Dosh_BaseDoshWaveReward, i, 0);
 		}
 
 		if (GetStructValueInt(default.Dosh_ExtraDoshRewardPerPlayer, i) < 0)
 		{
-			LogBadStructConfigMessage(i, "Extra dosh wave reward per player", "amount",
+			LogBadStructConfigMessage(i, "Dosh_ExtraDoshRewardPerPlayer",
 				string(GetStructValueInt(default.Dosh_ExtraDoshRewardPerPlayer, i)),
-				"0", "0 dosh, no extra dosh reward", "Dosh_ExtraDoshRewardPerPlayer", 0);
+				"0", "0 dosh, no extra dosh reward", "value >= 0");
 			SetStructValueInt(default.Dosh_ExtraDoshRewardPerPlayer, i, 0);
 		}
 
 		if (GetStructValueInt(default.Dosh_ExtraDoshPerWaveBonusMultiplier, i) < 0)
 		{
-			LogBadStructConfigMessage(i, "Extra dosh wave reward per wave number", "multiplier",
+			LogBadStructConfigMessage(i, "Dosh_ExtraDoshPerWaveBonusMultiplier",
 				string(GetStructValueInt(default.Dosh_ExtraDoshPerWaveBonusMultiplier, i)),
-				"0", "0x, no extra dosh reward", "Dosh_ExtraDoshPerWaveBonusMultiplier", 0);
+				"0", "0x, no extra dosh multiplier", "value >= 0");
 			SetStructValueInt(default.Dosh_ExtraDoshPerWaveBonusMultiplier, i, 0);
 		}
 
 		if (GetStructValueInt(default.Dosh_ExtraDoshPerPerkLevelBonusMultiplier, i) < 0)
 		{
-			LogBadStructConfigMessage(i, "Extra dosh wave reward per perk level", "multiplier",
+			LogBadStructConfigMessage(i, "Dosh_ExtraDoshPerPerkLevelBonusMultiplier",
 				string(GetStructValueInt(default.Dosh_ExtraDoshPerPerkLevelBonusMultiplier, i)),
-				"0", "0x, no extra dosh reward", "Dosh_ExtraDoshPerPerkLevelBonusMultiplier", 0);
+				"0", "0x, no extra dosh multiplier", "value >= 0");
 			SetStructValueInt(default.Dosh_ExtraDoshPerPerkLevelBonusMultiplier, i, 0);
 		}
 
 		if (GetStructValueFloat(default.Dosh_LateJoinerTotalDoshFactor, i) < 0.0f)
 		{
-			LogBadStructConfigMessage(i, "Modifier for late joiner dosh amount", "modifier",
+			LogBadStructConfigMessage(i, "Dosh_LateJoinerTotalDoshFactor",
 				string(GetStructValueFloat(default.Dosh_LateJoinerTotalDoshFactor, i)),
-				"0.0", "0%, no late joiner dosh", "Dosh_LateJoinerTotalDoshFactor", 0);
+				"0.0", "0%, no late joiner dosh", "value >= 0.0");
 			SetStructValueFloat(default.Dosh_LateJoinerTotalDoshFactor, i, 0.0f);
 		}
 
 		if (GetStructValueFloat(default.Dosh_DeathPenaltyDoshPct, i) < 0.0f)
 		{
-			LogBadStructConfigMessage(i, "Percentage of wave dosh lost on death", "percentage",
+			LogBadStructConfigMessage(i, "Dosh_DeathPenaltyDoshPct",
 				string(GetStructValueFloat(default.Dosh_DeathPenaltyDoshPct, i)),
-				"0.0", "0%, no dosh penalty", "Dosh_DeathPenaltyDoshPct", 0);
+				"0.0", "0%, no dosh penalty", "1.0 >= value >= 0.0");
 			SetStructValueFloat(default.Dosh_DeathPenaltyDoshPct, i, 0.0f);
 		}
 
 		if (GetStructValueFloat(default.Dosh_DeathPenaltyDoshPct, i) > 1.0f)
 		{
-			LogBadStructConfigMessage(i, "Percentage of wave dosh lost on death", "percentage",
+			LogBadStructConfigMessage(i, "Dosh_DeathPenaltyDoshPct",
 				string(GetStructValueFloat(default.Dosh_DeathPenaltyDoshPct, i)),
-				"1.0", "100%, all dosh earned during wave lost on death", "Dosh_DeathPenaltyDoshPct", 1);
+				"1.0", "100%, loose all wave dosh on death", "1.0 >= value >= 0.0");
 			SetStructValueFloat(default.Dosh_DeathPenaltyDoshPct, i, 1.0f);
 		}
 	}

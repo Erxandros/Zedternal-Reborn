@@ -66,49 +66,49 @@ static function CheckBasicConfigValues()
 	{
 		if (GetStructValueFloat(default.ZedOmega_HealthModifier, i) < 0.05f)
 		{
-			LogBadStructConfigMessage(i, "Modifier for omega ZED health", "modifier",
+			LogBadStructConfigMessage(i, "ZedOmega_HealthModifier",
 				string(GetStructValueFloat(default.ZedOmega_HealthModifier, i)),
-				"0.05", "5%", "ZedOmega_HealthModifier", 0);
+				"0.05", "5%", "value >= 0.05");
 			SetStructValueFloat(default.ZedOmega_HealthModifier, i, 0.05f);
 		}
 
 		if (GetStructValueFloat(default.ZedOmega_ExtraHealthModifierPerPlayer, i) < 0.0f)
 		{
-			LogBadStructConfigMessage(i, "Modifier for omega ZED extra health per player", "modifier",
+			LogBadStructConfigMessage(i, "ZedOmega_ExtraHealthModifierPerPlayer",
 				string(GetStructValueFloat(default.ZedOmega_ExtraHealthModifierPerPlayer, i)),
-				"0.0", "0%", "ZedOmega_ExtraHealthModifierPerPlayer", 0);
+				"0.0", "0%", "value >= 0.0");
 			SetStructValueFloat(default.ZedOmega_ExtraHealthModifierPerPlayer, i, 0.0f);
 		}
 
 		if (GetStructValueFloat(default.ZedOmega_HeadHealthModifier, i) < 0.05f)
 		{
-			LogBadStructConfigMessage(i, "Modifier for omega ZED head health", "modifier",
+			LogBadStructConfigMessage(i, "ZedOmega_HeadHealthModifier",
 				string(GetStructValueFloat(default.ZedOmega_HeadHealthModifier, i)),
-				"0.05", "5%", "ZedOmega_HeadHealthModifier", 0);
+				"0.05", "5%", "value >= 0.05");
 			SetStructValueFloat(default.ZedOmega_HeadHealthModifier, i, 0.05f);
 		}
 
 		if (GetStructValueFloat(default.ZedOmega_DamageModifier, i) < 0.05f)
 		{
-			LogBadStructConfigMessage(i, "Modifier for omega ZED damage", "modifier",
+			LogBadStructConfigMessage(i, "ZedOmega_DamageModifier",
 				string(GetStructValueFloat(default.ZedOmega_DamageModifier, i)),
-				"0.05", "5%", "ZedOmega_DamageModifier", 0);
+				"0.05", "5%", "value >= 0.05");
 			SetStructValueFloat(default.ZedOmega_DamageModifier, i, 0.05f);
 		}
 
 		if (GetStructValueFloat(default.ZedOmega_SoloDamageModifier, i) < 0.05f)
 		{
-			LogBadStructConfigMessage(i, "Modifier for omega ZED solo damage", "modifier",
+			LogBadStructConfigMessage(i, "ZedOmega_SoloDamageModifier",
 				string(GetStructValueFloat(default.ZedOmega_SoloDamageModifier, i)),
-				"0.05", "5%", "ZedOmega_SoloDamageModifier", 0);
+				"0.05", "5%", "value >= 0.05");
 			SetStructValueFloat(default.ZedOmega_SoloDamageModifier, i, 0.05f);
 		}
 
 		if (GetStructValueFloat(default.ZedOmega_SpeedModifier, i) < 0.05f)
 		{
-			LogBadStructConfigMessage(i, "Modifier for omega ZED speed", "modifier",
+			LogBadStructConfigMessage(i, "ZedOmega_SpeedModifier",
 				string(GetStructValueFloat(default.ZedOmega_SpeedModifier, i)),
-				"0.05", "5%", "ZedOmega_SpeedModifier", 0);
+				"0.05", "5%", "value >= 0.05");
 			SetStructValueFloat(default.ZedOmega_SpeedModifier, i, 0.05f);
 		}
 	}
