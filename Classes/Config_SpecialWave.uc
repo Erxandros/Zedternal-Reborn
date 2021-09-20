@@ -124,6 +124,75 @@ static function UpdateConfig()
 	}
 }
 
+static function CheckBasicConfigValues()
+{
+	local int i, temp;
+
+	for (i = 0; i < NumberOfDiffs; ++i)
+	{
+
+		if (GetStructValueFloat(default.SpecialWave_Probability, i) < 0.0f)
+		{
+			LogBadStructConfigMessage(i, "SpecialWave_Probability",
+				string(GetStructValueFloat(default.SpecialWave_Probability, i)),
+				"0.0", "0%, never activates", "1.0 >= value >= 0.0");
+			SetStructValueFloat(default.SpecialWave_Probability, i, 0.0f);
+		}
+
+		if (GetStructValueFloat(default.SpecialWave_Probability, i) > 1.0f)
+		{
+			LogBadStructConfigMessage(i, "SpecialWave_Probability",
+				string(GetStructValueFloat(default.SpecialWave_Probability, i)),
+				"1.0", "100%, always activates", "1.0 >= value >= 0.0");
+			SetStructValueFloat(default.SpecialWave_Probability, i, 1.0f);
+		}
+
+		if (GetStructValueFloat(default.SpecialWave_DoubleProbability, i) < 0.0f)
+		{
+			LogBadStructConfigMessage(i, "SpecialWave_DoubleProbability",
+				string(GetStructValueFloat(default.SpecialWave_DoubleProbability, i)),
+				"0.0", "0%, never activates", "1.0 >= value >= 0.0");
+			SetStructValueFloat(default.SpecialWave_DoubleProbability, i, 0.0f);
+		}
+
+		if (GetStructValueFloat(default.SpecialWave_DoubleProbability, i) > 1.0f)
+		{
+			LogBadStructConfigMessage(i, "SpecialWave_DoubleProbability",
+				string(GetStructValueFloat(default.SpecialWave_DoubleProbability, i)),
+				"1.0", "100%, always activates", "1.0 >= value >= 0.0");
+			SetStructValueFloat(default.SpecialWave_DoubleProbability, i, 1.0f);
+		}
+	}
+
+	for (i = 0; i < default.SpecialWave_SpecialWaves.Length; ++i)
+	{
+		if (default.SpecialWave_SpecialWaves[i].MinWave < 0)
+		{
+			LogBadConfigMessage("SpecialWave_SpecialWaves -" @ default.SpecialWave_SpecialWaves[i].Path @ "- MinWave",
+				string(default.SpecialWave_SpecialWaves[i].MinWave),
+				"0", "first wave", "value >= 0");
+			default.SpecialWave_SpecialWaves[i].MinWave = 0;
+		}
+
+		if (default.SpecialWave_SpecialWaves[i].MaxWave < 0)
+		{
+			LogBadConfigMessage("SpecialWave_SpecialWaves -" @ default.SpecialWave_SpecialWaves[i].Path @ "- MaxWave",
+				string(default.SpecialWave_SpecialWaves[i].MaxWave),
+				"0", "first wave", "value >= 0");
+			default.SpecialWave_SpecialWaves[i].MaxWave = 0;
+		}
+
+		if (default.SpecialWave_SpecialWaves[i].MinWave > default.SpecialWave_SpecialWaves[i].MaxWave)
+		{
+			`log("ZR Config:" @ "SpecialWave_SpecialWaves -" @ default.SpecialWave_SpecialWaves[i].Path
+				@ "- MinWave is greater than MaxWave which is invalid. Flipping the values temporarily.");
+			temp = default.SpecialWave_SpecialWaves[i].MinWave;
+			default.SpecialWave_SpecialWaves[i].MinWave = default.SpecialWave_SpecialWaves[i].MaxWave;
+			default.SpecialWave_SpecialWaves[i].MaxWave = temp;
+		}
+	}
+}
+
 static function bool GetSpecialWaveAllowed(int Difficulty)
 {
 	switch (Difficulty)
