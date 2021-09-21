@@ -45,6 +45,49 @@ static function UpdateConfig()
 	}
 }
 
+static function CheckBasicConfigValues()
+{
+	local byte i;
+
+	for (i = 0; i < NumberOfDiffs; ++i)
+	{
+		if (GetStructValueFloat(default.Wave_ZedSpawnRate, i) < 0.05f)
+		{
+			LogBadStructConfigMessage(i, "Wave_ZedSpawnRate",
+				string(GetStructValueFloat(default.Wave_ZedSpawnRate, i)),
+				"0.05", "5% of default spawn rate", "value >= 0.05");
+			SetStructValueFloat(default.Wave_ZedSpawnRate, i, 0.05f);
+		}
+
+		if (GetStructValueFloat(default.Wave_ZedSpawnRateIncPerWave, i) < 0.0f)
+		{
+			LogBadStructConfigMessage(i, "Wave_ZedSpawnRateIncPerWave",
+				string(GetStructValueFloat(default.Wave_ZedSpawnRateIncPerWave, i)),
+				"0.0", "0%, no linear increase", "value >= 0.0");
+			SetStructValueFloat(default.Wave_ZedSpawnRateIncPerWave, i, 0.0f);
+		}
+
+		if (GetStructValueFloat(default.Wave_ZedSpawnRatePowerPerWave, i) < 0.0f)
+		{
+			LogBadStructConfigMessage(i, "Wave_ZedSpawnRatePowerPerWave",
+				string(GetStructValueFloat(default.Wave_ZedSpawnRatePowerPerWave, i)),
+				"0.0", "0%, no exponential increase", "value >= 0.0");
+			SetStructValueFloat(default.Wave_ZedSpawnRatePowerPerWave, i, 0.0f);
+		}
+	}
+
+	for (i = 0; i < Min(128, default.Wave_ZedSpawnRatePerPlayer.Length); ++i)
+	{
+		if (default.Wave_ZedSpawnRatePerPlayer[i] < 1.0f)
+		{
+			LogBadConfigMessage("Wave_ZedSpawnRatePerPlayer - Line" @ string(i + 1),
+				string(default.Wave_ZedSpawnRatePerPlayer[i]),
+				"1.0", "100%, default spawn rate", "value >= 1.0");
+			default.Wave_ZedSpawnRatePerPlayer[i] = 1.0f;
+		}
+	}
+}
+
 static function float GetZedSpawnRate(int Difficulty)
 {
 	switch (Difficulty)
@@ -83,25 +126,25 @@ static function float GetZedSpawnRatePowerPerWave(int Difficulty)
 
 static function float ZedSpawnRateFactor(int NbPlayer)
 {
-	local int arrayLength;
-	local float delta;
+	local int ArrayLength;
+	local float Delta;
 
-	arrayLength = default.Wave_ZedSpawnRatePerPlayer.Length;
+	ArrayLength = default.Wave_ZedSpawnRatePerPlayer.Length;
 
-	if (arrayLength == 0)
+	if (ArrayLength == 0)
 		return 1.0f;
 	else if (NbPlayer == 0)
 		return default.Wave_ZedSpawnRatePerPlayer[0];
-	else if (NbPlayer <= arrayLength)
+	else if (NbPlayer <= ArrayLength)
 		return default.Wave_ZedSpawnRatePerPlayer[NbPlayer - 1];
 	else
 	{
-		if (arrayLength == 1)
+		if (ArrayLength == 1)
 			return default.Wave_ZedSpawnRatePerPlayer[0] * NbPlayer;
 		else
 		{
-			delta = FMax(0.0f, default.Wave_ZedSpawnRatePerPlayer[arrayLength - 1] - default.Wave_ZedSpawnRatePerPlayer[arrayLength - 2]);
-			return delta * (NbPlayer - arrayLength) + default.Wave_ZedSpawnRatePerPlayer[arrayLength - 1];
+			Delta = FMax(0.0f, default.Wave_ZedSpawnRatePerPlayer[ArrayLength - 1] - default.Wave_ZedSpawnRatePerPlayer[ArrayLength - 2]);
+			return Delta * (NbPlayer - ArrayLength) + default.Wave_ZedSpawnRatePerPlayer[ArrayLength - 1];
 		}
 	}
 }
