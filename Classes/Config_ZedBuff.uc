@@ -18,8 +18,7 @@ var config S_BuffWaves ZedBuff_BuffWaves;
 
 struct S_BuffSetting
 {
-	var int MinWave;
-	var int MaxWave;
+	var int MinWave, MaxWave;
 	var string Path;
 };
 var config array<S_BuffSetting> ZedBuff_BuffPath;
@@ -116,6 +115,69 @@ static function UpdateConfig()
 	{
 		default.MODEVERSION = class'ZedternalReborn.Config_Base'.const.CurrentVersion;
 		static.StaticSaveConfig();
+	}
+}
+
+static function CheckBasicConfigValues()
+{
+	local int i, temp;
+
+	for (i = 0; i < NumberOfDiffs; ++i)
+	{
+		if (GetStructValueInt(default.ZedBuff_TraderTimeBonus, i) < 0)
+		{
+			LogBadStructConfigMessage(i, "ZedBuff_TraderTimeBonus",
+				string(GetStructValueInt(default.ZedBuff_TraderTimeBonus, i)),
+				"0", "0 seconds, no bonus trader time", "value >= 0");
+			SetStructValueInt(default.ZedBuff_TraderTimeBonus, i, 0);
+		}
+
+		if (GetStructValueInt(default.ZedBuff_DoshBonus, i) < 0)
+		{
+			LogBadStructConfigMessage(i, "ZedBuff_DoshBonus",
+				string(GetStructValueInt(default.ZedBuff_DoshBonus, i)),
+				"0", "0 dosh, no bonus dosh", "value >= 0");
+			SetStructValueInt(default.ZedBuff_DoshBonus, i, 0);
+		}
+	}
+
+	for (i = 0; i < default.ZedBuff_BuffWaves.Waves.Length; ++i)
+	{
+		if (default.ZedBuff_BuffWaves.Waves[i] < 0)
+		{
+			LogBadConfigMessage("ZedBuff_BuffWaves - Position" @ string(i + 1),
+				string(default.ZedBuff_BuffWaves.Waves[i]),
+				"0", "first wave", "value >= 0");
+			default.ZedBuff_BuffWaves.Waves[i] = 0;
+		}
+	}
+
+	for (i = 0; i < default.ZedBuff_BuffPath.Length; ++i)
+	{
+		if (default.ZedBuff_BuffPath[i].MinWave < 0)
+		{
+			LogBadConfigMessage("ZedBuff_BuffPath - Line" @ string(i + 1) @ "- MinWave",
+				string(default.ZedBuff_BuffPath[i].MinWave),
+				"0", "first wave", "value >= 0");
+			default.ZedBuff_BuffPath[i].MinWave = 0;
+		}
+
+		if (default.ZedBuff_BuffPath[i].MaxWave < 0)
+		{
+			LogBadConfigMessage("ZedBuff_BuffPath - Line" @ string(i + 1) @ "- MaxWave",
+				string(default.ZedBuff_BuffPath[i].MaxWave),
+				"0", "first wave", "value >= 0");
+			default.ZedBuff_BuffPath[i].MaxWave = 0;
+		}
+
+		if (default.ZedBuff_BuffPath[i].MinWave > default.ZedBuff_BuffPath[i].MaxWave)
+		{
+			`log("ZR Config:" @ "ZedBuff_BuffPath - Line" @ string(i + 1)
+				@ "- MinWave is greater than MaxWave which is invalid. Flipping the values temporarily.");
+			temp = default.ZedBuff_BuffPath[i].MinWave;
+			default.ZedBuff_BuffPath[i].MinWave = default.ZedBuff_BuffPath[i].MaxWave;
+			default.ZedBuff_BuffPath[i].MaxWave = temp;
+		}
 	}
 }
 
