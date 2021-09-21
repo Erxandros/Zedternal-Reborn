@@ -31,11 +31,11 @@ static function UpdateConfig()
 		default.Wave_ZedSpawnRatePowerPerWave.Custom = 0.14f;
 
 		default.Wave_ZedSpawnRatePerPlayer[0] = 1.0f;
-		default.Wave_ZedSpawnRatePerPlayer[1] = 1.7f;
-		default.Wave_ZedSpawnRatePerPlayer[2] = 2.4f;
-		default.Wave_ZedSpawnRatePerPlayer[3] = 3.0f;
-		default.Wave_ZedSpawnRatePerPlayer[4] = 3.5f;
-		default.Wave_ZedSpawnRatePerPlayer[5] = 4.1f;
+		default.Wave_ZedSpawnRatePerPlayer[1] = 1.8f;
+		default.Wave_ZedSpawnRatePerPlayer[2] = 2.6f;
+		default.Wave_ZedSpawnRatePerPlayer[3] = 3.3f;
+		default.Wave_ZedSpawnRatePerPlayer[4] = 4.0f;
+		default.Wave_ZedSpawnRatePerPlayer[5] = 4.6f;
 	}
 
 	if (default.MODEVERSION < class'ZedternalReborn.Config_Base'.const.CurrentVersion)
@@ -82,7 +82,7 @@ static function CheckBasicConfigValues()
 		{
 			LogBadConfigMessage("Wave_ZedSpawnRatePerPlayer - Line" @ string(i + 1),
 				string(default.Wave_ZedSpawnRatePerPlayer[i]),
-				"1.0", "100%, default spawn rate", "value >= 1.0");
+				"1.0", "1x, no spawn rate change", "value >= 1.0");
 			default.Wave_ZedSpawnRatePerPlayer[i] = 1.0f;
 		}
 	}
