@@ -198,13 +198,37 @@ static function UpdateConfig()
 	}
 }
 
+static function CheckBasicConfigValues()
+{
+	local int i;
+
+	for (i = 0; i < default.Zed_Value.Length; ++i)
+	{
+		if (default.Zed_Value[i].Value < 1)
+		{
+			LogBadConfigMessage("Zed_Value - Line" @ string(i + 1) @ "- Value",
+				string(default.Zed_Value[i].Value),
+				"1", "1 point", "value >= 1");
+			default.Zed_Value[i].Value = 1;
+		}
+
+		if (default.Zed_Value[i].ValuePerExtraPlayer < 0)
+		{
+			LogBadConfigMessage("Zed_Value - Line" @ string(i + 1) @ "- ValuePerExtraPlayer",
+				string(default.Zed_Value[i].ValuePerExtraPlayer),
+				"0", "0 points, no additional points for extra players", "value >= 0");
+			default.Zed_Value[i].ValuePerExtraPlayer = 0;
+		}
+	}
+}
+
 static function int GetZedValue(class<KFPawn_Monster> KFPM, int NbPlayer)
 {
-	local int index;
+	local int i;
 
-	index = default.Zed_Value.Find('ZedClass', KFPM);
-	if (index != INDEX_NONE)
-		return default.Zed_Value[index].Value + default.Zed_Value[index].ValuePerExtraPlayer * (Max(1, NbPlayer) - 1);
+	i = default.Zed_Value.Find('ZedClass', KFPM);
+	if (i != INDEX_NONE)
+		return default.Zed_Value[i].Value + default.Zed_Value[i].ValuePerExtraPlayer * (Max(1, NbPlayer) - 1);
 	else
 		return KFPM.static.GetDoshValue();
 }
