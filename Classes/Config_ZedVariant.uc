@@ -131,6 +131,71 @@ static function UpdateConfig()
 	}
 }
 
+static function CheckBasicConfigValues()
+{
+	local int i, temp;
+
+	for (i = 0; i < default.Zed_ZedVariant.Length; ++i)
+	{
+		if (default.Zed_ZedVariant[i].Probability < 0.0f)
+		{
+			LogBadConfigMessage("Zed_ZedVariant - Line" @ string(i + 1) @ "- Probability",
+				string(default.Zed_ZedVariant[i].Probability),
+				"0.0", "0%, never selected", "1.0 >= value >= 0");
+			default.Zed_ZedVariant[i].Probability = 0.0f;
+		}
+
+		if (default.Zed_ZedVariant[i].Probability > 1.0f)
+		{
+			LogBadConfigMessage("Zed_ZedVariant - Line" @ string(i + 1) @ "- Probability",
+				string(default.Zed_ZedVariant[i].Probability),
+				"1.0", "100%, always selected", "1.0 >= value >= 0");
+			default.Zed_ZedVariant[i].Probability = 1.0f;
+		}
+
+		if (default.Zed_ZedVariant[i].MinDiff < 0)
+		{
+			LogBadConfigMessage("Zed_ZedVariant - Line" @ string(i + 1) @ "- MinDiff",
+				string(default.Zed_ZedVariant[i].MinDiff),
+				"0", "normal difficulty", "4 >= value >= 0");
+			default.Zed_ZedVariant[i].MinDiff = 0;
+		}
+
+		if (default.Zed_ZedVariant[i].MinDiff > 4)
+		{
+			LogBadConfigMessage("Zed_ZedVariant - Line" @ string(i + 1) @ "- MinDiff",
+				string(default.Zed_ZedVariant[i].MinDiff),
+				"4", "custom difficulty", "4 >= value >= 0");
+			default.Zed_ZedVariant[i].MinDiff = 4;
+		}
+
+		if (default.Zed_ZedVariant[i].MaxDiff < 0)
+		{
+			LogBadConfigMessage("Zed_ZedVariant - Line" @ string(i + 1) @ "- MaxDiff",
+				string(default.Zed_ZedVariant[i].MaxDiff),
+				"0", "normal difficulty", "4 >= value >= 1");
+			default.Zed_ZedVariant[i].MaxDiff = 0;
+		}
+
+		if (default.Zed_ZedVariant[i].MaxDiff < 4)
+		{
+			LogBadConfigMessage("Zed_ZedVariant - Line" @ string(i + 1) @ "- MaxDiff",
+				string(default.Zed_ZedVariant[i].MaxDiff),
+				"4", "custom difficulty", "4 >= value >= 1");
+			default.Zed_ZedVariant[i].MaxDiff = 4;
+		}
+
+		if (default.Zed_ZedVariant[i].MinDiff > default.Zed_ZedVariant[i].MaxDiff)
+		{
+			`log("ZR Config:" @ "Zed_ZedVariant - Line" @ string(i + 1)
+				@ "- MinDiff is greater than MaxDiff which is invalid. Flipping the values temporarily.");
+			temp = default.Zed_ZedVariant[i].MinDiff;
+			default.Zed_ZedVariant[i].MinDiff = default.Zed_ZedVariant[i].MaxDiff;
+			default.Zed_ZedVariant[i].MaxDiff = temp;
+		}
+	}
+}
+
 defaultproperties
 {
 	Name="Default__Config_ZedVariant"
