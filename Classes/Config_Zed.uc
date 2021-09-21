@@ -415,6 +415,64 @@ static function UpdateConfig()
 	}
 }
 
+static function CheckBasicConfigValues()
+{
+	local int i, temp;
+
+	for (i = 0; i < default.Zed_Wave.Length; ++i)
+	{
+		if (default.Zed_Wave[i].MinWave < 0)
+		{
+			LogBadConfigMessage("Zed_Wave - Line" @ string(i + 1) @ "- MinWave",
+				string(default.Zed_Wave[i].MinWave),
+				"0", "first wave", "value >= 0");
+			default.Zed_Wave[i].MinWave = 0;
+		}
+
+		if (default.Zed_Wave[i].MaxWave < 0)
+		{
+			LogBadConfigMessage("Zed_Wave - Line" @ string(i + 1) @ "- MaxWave",
+				string(default.Zed_Wave[i].MaxWave),
+				"0", "first wave", "value >= 0");
+			default.Zed_Wave[i].MaxWave = 0;
+		}
+
+		if (default.Zed_Wave[i].MinWave > default.Zed_Wave[i].MaxWave)
+		{
+			`log("ZR Config:" @ "Zed_Wave - Line" @ string(i + 1)
+				@ "- MinWave is greater than MaxWave which is invalid. Flipping the values temporarily.");
+			temp = default.Zed_Wave[i].MinWave;
+			default.Zed_Wave[i].MinWave = default.Zed_Wave[i].MaxWave;
+			default.Zed_Wave[i].MaxWave = temp;
+		}
+
+		if (default.Zed_Wave[i].MinGr < 1)
+		{
+			LogBadConfigMessage("Zed_Wave - Line" @ string(i + 1) @ "- MinGr",
+				string(default.Zed_Wave[i].MinGr),
+				"1", "1 zed", "value >= 1");
+			default.Zed_Wave[i].MinGr = 1;
+		}
+
+		if (default.Zed_Wave[i].MaxGr < 1)
+		{
+			LogBadConfigMessage("Zed_Wave - Line" @ string(i + 1) @ "- MaxGr",
+				string(default.Zed_Wave[i].MaxGr),
+				"1", "1 zed", "value >= 1");
+			default.Zed_Wave[i].MaxGr = 1;
+		}
+
+		if (default.Zed_Wave[i].MinGr > default.Zed_Wave[i].MaxGr)
+		{
+			`log("ZR Config:" @ "Zed_Wave - Line" @ string(i + 1)
+				@ "- MinGr is greater than MaxGr which is invalid. Flipping the values temporarily.");
+			temp = default.Zed_Wave[i].MinGr;
+			default.Zed_Wave[i].MinGr = default.Zed_Wave[i].MaxGr;
+			default.Zed_Wave[i].MaxGr = temp;
+		}
+	}
+}
+
 defaultproperties
 {
 	Name="Default__Config_Zed"
