@@ -45,6 +45,38 @@ static function UpdateConfig()
 	}
 }
 
+static function CheckBasicConfigValues()
+{
+	local int i;
+
+	for (i = 0; i < default.SpecialWaveOverride_SpecialWaves.Length; ++i)
+	{
+		if (default.SpecialWaveOverride_SpecialWaves[i].Wave < 0)
+		{
+			LogBadConfigMessage("SpecialWaveOverride_SpecialWaves - Line" @ string(i + 1) @ "- Wave",
+				string(default.SpecialWaveOverride_SpecialWaves[i].Wave),
+				"0", "first wave", "value >= 0");
+			default.SpecialWaveOverride_SpecialWaves[i].Wave = 0;
+		}
+
+		if (default.SpecialWaveOverride_SpecialWaves[i].Probability < 0.0f)
+		{
+			LogBadConfigMessage("SpecialWaveOverride_SpecialWaves - Line" @ string(i + 1) @ "- Probability",
+				string(default.SpecialWaveOverride_SpecialWaves[i].Probability),
+				"0.0", "0%, never activates", "1.0 >= value >= 0.0");
+			default.SpecialWaveOverride_SpecialWaves[i].Probability = 0.0f;
+		}
+
+		if (default.SpecialWaveOverride_SpecialWaves[i].Probability > 1.0f)
+		{
+			LogBadConfigMessage("SpecialWaveOverride_SpecialWaves - Line" @ string(i + 1) @ "- Probability",
+				string(default.SpecialWaveOverride_SpecialWaves[i].Probability),
+				"1.0", "100%, always activates", "1.0 >= value >= 0.0");
+			default.SpecialWaveOverride_SpecialWaves[i].Probability = 1.0f;
+		}
+	}
+}
+
 static function bool GetSpecialWaveOverrideAllowed(int Difficulty)
 {
 	switch (Difficulty)
