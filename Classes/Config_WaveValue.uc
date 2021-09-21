@@ -14,16 +14,16 @@ static function UpdateConfig()
 	if (default.MODEVERSION < 1)
 	{
 		default.Wave_BaseValue.Normal = 130;
-		default.Wave_BaseValue.Hard = 150;
+		default.Wave_BaseValue.Hard = 145;
 		default.Wave_BaseValue.Suicidal = 160;
-		default.Wave_BaseValue.HoE = 170;
-		default.Wave_BaseValue.Custom = 150;
+		default.Wave_BaseValue.HoE = 175;
+		default.Wave_BaseValue.Custom = 175;
 
 		default.Wave_ValueIncPerwave.Normal = 26;
 		default.Wave_ValueIncPerwave.Hard = 28;
-		default.Wave_ValueIncPerwave.Suicidal = 29;
-		default.Wave_ValueIncPerwave.HoE = 30;
-		default.Wave_ValueIncPerwave.Custom = 28;
+		default.Wave_ValueIncPerwave.Suicidal = 30;
+		default.Wave_ValueIncPerwave.HoE = 32;
+		default.Wave_ValueIncPerwave.Custom = 32;
 
 		default.Wave_ValueFactorPerWave.Normal = 0.052f;
 		default.Wave_ValueFactorPerWave.Hard = 0.052f;
@@ -37,18 +37,69 @@ static function UpdateConfig()
 		default.Wave_ValuePowerPerWave.HoE = 0.0065f;
 		default.Wave_ValuePowerPerWave.Custom = 0.0065f;
 
-		default.Wave_ValueFactorPerPlayer[0] = 1.2f;
-		default.Wave_ValueFactorPerPlayer[1] = 1.75f;
-		default.Wave_ValueFactorPerPlayer[2] = 2.5f;
+		default.Wave_ValueFactorPerPlayer[0] = 1.0f;
+		default.Wave_ValueFactorPerPlayer[1] = 1.7f;
+		default.Wave_ValueFactorPerPlayer[2] = 2.4f;
 		default.Wave_ValueFactorPerPlayer[3] = 3.1f;
-		default.Wave_ValueFactorPerPlayer[4] = 3.7f;
-		default.Wave_ValueFactorPerPlayer[5] = 4.3f;
+		default.Wave_ValueFactorPerPlayer[4] = 3.8f;
+		default.Wave_ValueFactorPerPlayer[5] = 4.4f;
 	}
 
 	if (default.MODEVERSION < class'ZedternalReborn.Config_Base'.const.CurrentVersion)
 	{
 		default.MODEVERSION = class'ZedternalReborn.Config_Base'.const.CurrentVersion;
 		static.StaticSaveConfig();
+	}
+}
+
+static function CheckBasicConfigValues()
+{
+	local byte i;
+
+	for (i = 0; i < NumberOfDiffs; ++i)
+	{
+		if (GetStructValueInt(default.Wave_BaseValue, i) < 0)
+		{
+			LogBadStructConfigMessage(i, "Wave_BaseValue",
+				string(GetStructValueInt(default.Wave_BaseValue, i)),
+				"0", "0 points", "value >= 0");
+			SetStructValueInt(default.Wave_BaseValue, i, 0);
+		}
+
+		if (GetStructValueInt(default.Wave_ValueIncPerwave, i) < 0)
+		{
+			LogBadStructConfigMessage(i, "Wave_ValueIncPerwave",
+				string(GetStructValueInt(default.Wave_ValueIncPerwave, i)),
+				"0", "0 points, no linear points increase", "value >= 0");
+			SetStructValueInt(default.Wave_ValueIncPerwave, i, 0);
+		}
+
+		if (GetStructValueFloat(default.Wave_ValueFactorPerWave, i) < 0.0f)
+		{
+			LogBadStructConfigMessage(i, "Wave_ValueFactorPerWave",
+				string(GetStructValueFloat(default.Wave_ValueFactorPerWave, i)),
+				"0.0", "0%, no linear increase modifier", "value >= 0.0");
+			SetStructValueFloat(default.Wave_ValueFactorPerWave, i, 0.0f);
+		}
+
+		if (GetStructValueFloat(default.Wave_ValuePowerPerWave, i) < 0.0f)
+		{
+			LogBadStructConfigMessage(i, "Wave_ValuePowerPerWave",
+				string(GetStructValueFloat(default.Wave_ValuePowerPerWave, i)),
+				"0.0", "0%, no exponential increase", "value >= 0.0");
+			SetStructValueFloat(default.Wave_ValuePowerPerWave, i, 0.0f);
+		}
+	}
+
+	for (i = 0; i < Min(128, default.Wave_ValueFactorPerPlayer.Length); ++i)
+	{
+		if (default.Wave_ValueFactorPerPlayer[i] < 1.0f)
+		{
+			LogBadConfigMessage("Wave_ValueFactorPerPlayer - Line" @ string(i + 1),
+				string(default.Wave_ValueFactorPerPlayer[i]),
+				"1.0", "1x, no points change", "value >= 1.0");
+			default.Wave_ValueFactorPerPlayer[i] = 1.0f;
+		}
 	}
 }
 
@@ -102,25 +153,25 @@ static function float GetValuePowerPerWave(int Difficulty)
 
 static function float GetValueFactor(int NbPlayer)
 {
-	local int arrayLength;
-	local float delta;
+	local int ArrayLength;
+	local float Delta;
 
-	arrayLength = default.Wave_ValueFactorPerPlayer.Length;
+	ArrayLength = default.Wave_ValueFactorPerPlayer.Length;
 
-	if (arrayLength == 0)
+	if (ArrayLength == 0)
 		return 1.0f;
 	else if (NbPlayer == 0)
 		return default.Wave_ValueFactorPerPlayer[0];
-	else if (NbPlayer <= arrayLength)
+	else if (NbPlayer <= ArrayLength)
 		return default.Wave_ValueFactorPerPlayer[NbPlayer - 1];
 	else
 	{
-		if (arrayLength == 1)
+		if (ArrayLength == 1)
 			return default.Wave_ValueFactorPerPlayer[0] * NbPlayer;
 		else
 		{
-			delta = FMax(0.0f, default.Wave_ValueFactorPerPlayer[arrayLength - 1] - default.Wave_ValueFactorPerPlayer[arrayLength - 2]);
-			return delta * (NbPlayer - arrayLength) + default.Wave_ValueFactorPerPlayer[arrayLength - 1];
+			Delta = FMax(0.0f, default.Wave_ValueFactorPerPlayer[ArrayLength - 1] - default.Wave_ValueFactorPerPlayer[ArrayLength - 2]);
+			return Delta * (NbPlayer - ArrayLength) + default.Wave_ValueFactorPerPlayer[ArrayLength - 1];
 		}
 	}
 }
