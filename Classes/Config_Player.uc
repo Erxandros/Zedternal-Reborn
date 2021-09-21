@@ -175,7 +175,7 @@ static function CheckBasicConfigValues()
 	{
 		if (default.Player_DamageGivenFactor[i].Factor < 0.0f)
 		{
-			LogBadConfigMessage("Player_DamageGivenFactor -" @string(default.Player_DamageGivenFactor[i].DamageType),
+			LogBadConfigMessage("Player_DamageGivenFactor - Line" @ string(i + 1) @ "- Factor",
 				string(default.Player_DamageGivenFactor[i].Factor),
 				"0.0", "0%, no damage given", "value >= 0.0");
 			default.Player_DamageGivenFactor[i].Factor = 0.0f;
@@ -186,7 +186,7 @@ static function CheckBasicConfigValues()
 	{
 		if (default.Player_DamageTakenFactor[i].Factor < 0.0f)
 		{
-			LogBadConfigMessage("Player_DamageTakenFactor -" @string(default.Player_DamageTakenFactor[i].DamageType),
+			LogBadConfigMessage("Player_DamageTakenFactor - Line" @ string(i + 1) @ "- Factor",
 				string(default.Player_DamageTakenFactor[i].Factor),
 				"0.0", "0%, no damage taken", "value >= 0.0");
 			default.Player_DamageTakenFactor[i].Factor = 0.0f;
@@ -197,7 +197,7 @@ static function CheckBasicConfigValues()
 	{
 		if (default.Player_VampireEffect[i].HealAmount < 0)
 		{
-			LogBadConfigMessage("Player_VampireEffect -" @string(default.Player_VampireEffect[i].DamageType),
+			LogBadConfigMessage("Player_VampireEffect - Line" @ string(i + 1) @ "- HealAmount",
 				string(default.Player_VampireEffect[i].HealAmount),
 				"0", "0 points, no healing", "value >= 0");
 			default.Player_VampireEffect[i].HealAmount = 0;
