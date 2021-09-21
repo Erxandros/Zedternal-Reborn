@@ -232,6 +232,30 @@ static function UpdateConfig()
 	}
 }
 
+static function CheckBasicConfigValues()
+{
+	local int i;
+
+	for (i = 0; i < default.Weapon_VariantWeaponDef.Length; ++i)
+	{
+		if (default.Weapon_VariantWeaponDef[i].Probability < 0.0f)
+		{
+			LogBadConfigMessage("Weapon_VariantWeaponDef - Line" @ string(i + 1) @ "- Probability",
+				string(default.Weapon_VariantWeaponDef[i].Probability),
+				"0.0", "0%, never selected", "1.0 >= value >= 0.0");
+			default.Weapon_VariantWeaponDef[i].Probability = 0.0f;
+		}
+
+		if (default.Weapon_VariantWeaponDef[i].Probability > 1.0f)
+		{
+			LogBadConfigMessage("Weapon_VariantWeaponDef - Line" @ string(i + 1) @ "- Probability",
+				string(default.Weapon_VariantWeaponDef[i].Probability),
+				"1.0", "100%, always selected", "1.0 >= value >= 0.0");
+			default.Weapon_VariantWeaponDef[i].Probability = 1.0f;
+		}
+	}
+}
+
 defaultproperties
 {
 	Name="Default__Config_WeaponVariant"
