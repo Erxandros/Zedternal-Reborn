@@ -168,7 +168,7 @@ static function CheckBasicConfigValues()
 	{
 		if (default.SpecialWave_SpecialWaves[i].MinWave < 0)
 		{
-			LogBadConfigMessage("SpecialWave_SpecialWaves -" @ default.SpecialWave_SpecialWaves[i].Path @ "- MinWave",
+			LogBadConfigMessage("SpecialWave_SpecialWaves - Line" @ string(i + 1) @ "- MinWave",
 				string(default.SpecialWave_SpecialWaves[i].MinWave),
 				"0", "first wave", "value >= 0");
 			default.SpecialWave_SpecialWaves[i].MinWave = 0;
@@ -176,7 +176,7 @@ static function CheckBasicConfigValues()
 
 		if (default.SpecialWave_SpecialWaves[i].MaxWave < 0)
 		{
-			LogBadConfigMessage("SpecialWave_SpecialWaves -" @ default.SpecialWave_SpecialWaves[i].Path @ "- MaxWave",
+			LogBadConfigMessage("SpecialWave_SpecialWaves - Line" @ string(i + 1) @ "- MaxWave",
 				string(default.SpecialWave_SpecialWaves[i].MaxWave),
 				"0", "first wave", "value >= 0");
 			default.SpecialWave_SpecialWaves[i].MaxWave = 0;
@@ -184,7 +184,7 @@ static function CheckBasicConfigValues()
 
 		if (default.SpecialWave_SpecialWaves[i].MinWave > default.SpecialWave_SpecialWaves[i].MaxWave)
 		{
-			`log("ZR Config:" @ "SpecialWave_SpecialWaves -" @ default.SpecialWave_SpecialWaves[i].Path
+			`log("ZR Config:" @ "SpecialWave_SpecialWaves - Line" @ string(i + 1)
 				@ "- MinWave is greater than MaxWave which is invalid. Flipping the values temporarily.");
 			temp = default.SpecialWave_SpecialWaves[i].MinWave;
 			default.SpecialWave_SpecialWaves[i].MinWave = default.SpecialWave_SpecialWaves[i].MaxWave;
