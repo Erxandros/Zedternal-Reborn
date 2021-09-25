@@ -445,20 +445,36 @@ static function CheckBasicConfigValues()
 			default.Zed_Wave[i].MaxWave = temp;
 		}
 
-		if (default.Zed_Wave[i].MinGr < 1)
+		if (default.Zed_Wave[i].MinGr < 0)
 		{
 			LogBadConfigMessage("Zed_Wave - Line" @ string(i + 1) @ "- MinGr",
 				string(default.Zed_Wave[i].MinGr),
-				"1", "1 zed", "value >= 1");
-			default.Zed_Wave[i].MinGr = 1;
+				"0", "0 zeds, no zeds spawn", "8 >= value >= 0");
+			default.Zed_Wave[i].MinGr = 0;
 		}
 
-		if (default.Zed_Wave[i].MaxGr < 1)
+		if (default.Zed_Wave[i].MinGr > 8)
+		{
+			LogBadConfigMessage("Zed_Wave - Line" @ string(i + 1) @ "- MinGr",
+				string(default.Zed_Wave[i].MinGr),
+				"8", "8 zeds, max zed group spawn size", "8 >= value >= 0");
+			default.Zed_Wave[i].MinGr = 8;
+		}
+
+		if (default.Zed_Wave[i].MaxGr < 0)
 		{
 			LogBadConfigMessage("Zed_Wave - Line" @ string(i + 1) @ "- MaxGr",
 				string(default.Zed_Wave[i].MaxGr),
-				"1", "1 zed", "value >= 1");
-			default.Zed_Wave[i].MaxGr = 1;
+				"0", "0 zeds, no zeds spawn", "8 >= value >= 0");
+			default.Zed_Wave[i].MaxGr = 0;
+		}
+
+		if (default.Zed_Wave[i].MaxGr > 8)
+		{
+			LogBadConfigMessage("Zed_Wave - Line" @ string(i + 1) @ "- MaxGr",
+				string(default.Zed_Wave[i].MaxGr),
+				"8", "8 zeds, max zed group spawn size", "8 >= value >= 0");
+			default.Zed_Wave[i].MaxGr = 8;
 		}
 
 		if (default.Zed_Wave[i].MinGr > default.Zed_Wave[i].MaxGr)
