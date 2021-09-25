@@ -35,17 +35,17 @@ static function CheckBasicConfigValues()
 
 	if (default.SkillUpgrade_Price < 0)
 	{
-		`log("ZR Config: SkillUpgrade_Price is set to" @ default.SkillUpgrade_Price
-			@"which is not supported. Setting the price to 0 (free) temporarily."
-			@"Please change the value in the config to a value greater than or equal to 0.");
+		LogBadConfigMessage("SkillUpgrade_Price",
+			string(default.SkillUpgrade_Price),
+			"0", "0 dosh, free", "value >= 0");
 		default.SkillUpgrade_Price = 0;
 	}
 
 	if (default.SkillUpgrade_DeluxePrice < 0)
 	{
-		`log("ZR Config: SkillUpgrade_DeluxePrice is set to" @ default.SkillUpgrade_DeluxePrice
-			@"which is not supported. Setting the price to 0 (free) temporarily."
-			@"Please change the value in the config to a value greater than or equal to 0.");
+		LogBadConfigMessage("SkillUpgrade_DeluxePrice",
+			string(default.SkillUpgrade_DeluxePrice),
+			"0", "0 dosh, free", "value >= 0");
 		default.SkillUpgrade_DeluxePrice = 0;
 	}
 
@@ -53,17 +53,17 @@ static function CheckBasicConfigValues()
 	{
 		if (default.SkillUpgrade_DeluxeSkillUnlock.PerkLevels[i] < 1)
 		{
-			`log("ZR Config: SkillUpgrade_DeluxeSkillUnlock.PerkLevels has an entry" @ default.SkillUpgrade_DeluxeSkillUnlock.PerkLevels[i]
-				@"which is not supported. Setting the level to 1 (first perk level) temporarily."
-				@"Please change the value in the config to a value between 1 and 255.");
+			LogBadConfigMessage("SkillUpgrade_DeluxeSkillUnlock - Position" @ string(i + 1),
+				string(default.SkillUpgrade_DeluxeSkillUnlock.PerkLevels[i]),
+				"1", "first perk level", "255 >= value >= 1");
 			default.SkillUpgrade_DeluxeSkillUnlock.PerkLevels[i] = 1;
 		}
 
 		if (default.SkillUpgrade_DeluxeSkillUnlock.PerkLevels[i] > 255)
 		{
-			`log("ZR Config: SkillUpgrade_DeluxeSkillUnlock.PerkLevels has an entry" @ default.SkillUpgrade_DeluxeSkillUnlock.PerkLevels[i]
-				@"which is not supported. Setting the level to 255 (max perk level) temporarily."
-				@"Please change the value in the config to a value between 1 and 255.");
+			LogBadConfigMessage("SkillUpgrade_DeluxeSkillUnlock - Position" @ string(i + 1),
+				string(default.SkillUpgrade_DeluxeSkillUnlock.PerkLevels[i]),
+				"255", "max perk level", "255 >= value >= 1");
 			default.SkillUpgrade_DeluxeSkillUnlock.PerkLevels[i] = 255;
 		}
 	}

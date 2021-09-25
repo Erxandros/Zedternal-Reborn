@@ -70,37 +70,33 @@ static function CheckBasicConfigValues()
 	{
 		if (default.EquipmentUpgrade_Upgrade[i].BasePrice < 0)
 		{
-			`log("ZR Config: BasePrice for Equipment upgrade" @ default.EquipmentUpgrade_Upgrade[i].EquipmentPath
-				@"is set to" @ default.EquipmentUpgrade_Upgrade[i].BasePrice
-				@"which is not supported. Setting the base price to 0 (free) temporarily."
-				@"Please change the value in the config to a value greater than or equal to 0.");
+			LogBadConfigMessage("EquipmentUpgrade_Upgrade - Line" @ string(i + 1) @ "- BasePrice",
+				string(default.EquipmentUpgrade_Upgrade[i].BasePrice),
+				"0", "0 dosh, free", "value >= 0");
 			default.EquipmentUpgrade_Upgrade[i].BasePrice = 0;
 		}
 
 		if (default.EquipmentUpgrade_Upgrade[i].MaxPrice < 0)
 		{
-			`log("ZR Config: MaxPrice for Equipment upgrade" @ default.EquipmentUpgrade_Upgrade[i].EquipmentPath
-				@"is set to" @ default.EquipmentUpgrade_Upgrade[i].MaxPrice
-				@"which is not supported. Setting the max price to 0 (free) temporarily."
-				@"Please change the value in the config to a value greater than or equal to 0.");
+			LogBadConfigMessage("EquipmentUpgrade_Upgrade - Line" @ string(i + 1) @ "- MaxPrice",
+				string(default.EquipmentUpgrade_Upgrade[i].MaxPrice),
+				"0", "0 dosh, free", "value >= 0");
 			default.EquipmentUpgrade_Upgrade[i].MaxPrice = 0;
 		}
 
 		if (default.EquipmentUpgrade_Upgrade[i].MaxLevel < 0)
 		{
-			`log("ZR Config: MaxLevel for Equipment upgrade" @ default.EquipmentUpgrade_Upgrade[i].EquipmentPath
-				@"is set to" @ default.EquipmentUpgrade_Upgrade[i].MaxLevel
-				@"which is not supported. Setting the max level to 0 (disable upgrade) temporarily."
-				@"Please change the value in the config to a value between 0 and 255.");
+			LogBadConfigMessage("EquipmentUpgrade_Upgrade - Line" @ string(i + 1) @ "- MaxLevel",
+				string(default.EquipmentUpgrade_Upgrade[i].MaxLevel),
+				"0", "0 levels, disable upgrade", "value >= 0");
 			default.EquipmentUpgrade_Upgrade[i].MaxLevel = 0;
 		}
 
 		if (default.EquipmentUpgrade_Upgrade[i].MaxLevel > 255)
 		{
-			`log("ZR Config: MaxLevel for Equipment upgrade" @ default.EquipmentUpgrade_Upgrade[i].EquipmentPath
-				@"is set to" @ default.EquipmentUpgrade_Upgrade[i].MaxLevel
-				@"which is not supported. Setting the max level to 255 (max level) temporarily."
-				@"Please change the value in the config to a value between 0 and 255.");
+			LogBadConfigMessage("EquipmentUpgrade_Upgrade - Line" @ string(i + 1) @ "- MaxLevel",
+				string(default.EquipmentUpgrade_Upgrade[i].MaxLevel),
+				"255", "255 levels, max upgrade", "value >= 0");
 			default.EquipmentUpgrade_Upgrade[i].MaxLevel = 255;
 		}
 	}

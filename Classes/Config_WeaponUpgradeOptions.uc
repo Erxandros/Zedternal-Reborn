@@ -29,33 +29,33 @@ static function CheckBasicConfigValues()
 {
 	if (default.WeaponUpgrade_PriceUnit < 0)
 	{
-		`log("ZR Config: WeaponUpgrade_PriceUnit is set to" @ default.WeaponUpgrade_PriceUnit
-			@"which is not supported. Setting the price unit to 0 (free) temporarily."
-			@"Please change the value in the config to a value greater than or equal to 0.");
+		LogBadConfigMessage("WeaponUpgrade_PriceUnit",
+			string(default.WeaponUpgrade_PriceUnit),
+			"0", "0 dosh, free", "value >= 0");
 		default.WeaponUpgrade_PriceUnit = 0;
 	}
 
 	if (default.WeaponUpgrade_PriceFactor < 0.0f)
 	{
-		`log("ZR Config: WeaponUpgrade_PriceFactor is set to" @ default.WeaponUpgrade_PriceFactor
-			@"which is not supported. Setting the price factor to 0.0 (0% increase) temporarily."
-			@"Please change the value in the config to a value greater than or equal to 0.0.");
+		LogBadConfigMessage("WeaponUpgrade_PriceFactor",
+			string(default.WeaponUpgrade_PriceFactor),
+			"0.0", "0% of base weapon price", "value >= 0.0");
 		default.WeaponUpgrade_PriceFactor = 0.0f;
 	}
 
 	if (default.WeaponUpgrade_NumberUpgradePerWeapon < 0)
 	{
-		`log("ZR Config: WeaponUpgrade_NumberUpgradePerWeapon is set to" @ default.WeaponUpgrade_NumberUpgradePerWeapon
-			@"which is not supported. Setting the number of upgrades to 0 (no upgrades) temporarily."
-			@"Please change the value in the config to a value greater than or equal to 0.");
+		LogBadConfigMessage("WeaponUpgrade_NumberUpgradePerWeapon",
+			string(default.WeaponUpgrade_NumberUpgradePerWeapon),
+			"0", "0 upgrades, disabled", "value >= 0");
 		default.WeaponUpgrade_NumberUpgradePerWeapon = 0;
 	}
 
 	if (default.WeaponUpgrade_MaxLevel < 1)
 	{
-		`log("ZR Config: WeaponUpgrade_MaxLevel is set to" @ default.WeaponUpgrade_MaxLevel
-			@"which is not supported. Setting the max level to 1 (only one level) temporarily."
-			@"Please change the value in the config to a value greater than or equal to 1.");
+		LogBadConfigMessage("WeaponUpgrade_MaxLevel",
+			string(default.WeaponUpgrade_MaxLevel),
+			"1", "1 level", "value >= 1");
 		default.WeaponUpgrade_MaxLevel = 1;
 	}
 }
