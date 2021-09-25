@@ -173,7 +173,7 @@ static function CheckBasicConfigValues()
 		{
 			LogBadConfigMessage("Zed_ZedVariant - Line" @ string(i + 1) @ "- MaxDiff",
 				string(default.Zed_ZedVariant[i].MaxDiff),
-				"0", "normal difficulty", "4 >= value >= 1");
+				"0", "normal difficulty", "4 >= value >= 0");
 			default.Zed_ZedVariant[i].MaxDiff = 0;
 		}
 
@@ -181,7 +181,7 @@ static function CheckBasicConfigValues()
 		{
 			LogBadConfigMessage("Zed_ZedVariant - Line" @ string(i + 1) @ "- MaxDiff",
 				string(default.Zed_ZedVariant[i].MaxDiff),
-				"4", "custom difficulty", "4 >= value >= 1");
+				"4", "custom difficulty", "4 >= value >= 0");
 			default.Zed_ZedVariant[i].MaxDiff = 4;
 		}
 
