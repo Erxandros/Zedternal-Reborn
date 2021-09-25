@@ -177,7 +177,7 @@ static function CheckBasicConfigValues()
 			default.Zed_ZedVariant[i].MaxDiff = 0;
 		}
 
-		if (default.Zed_ZedVariant[i].MaxDiff < 4)
+		if (default.Zed_ZedVariant[i].MaxDiff > 4)
 		{
 			LogBadConfigMessage("Zed_ZedVariant - Line" @ string(i + 1) @ "- MaxDiff",
 				string(default.Zed_ZedVariant[i].MaxDiff),
