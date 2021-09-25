@@ -67,9 +67,7 @@ static function LoadConfigObjects(out array<S_WeaponUpgrade> ValidUpgrades, out 
 		Obj = class<WMUpgrade_Weapon>(DynamicLoadObject(default.WeaponUpgrade_Upgrade[i].WeaponPath, class'Class', True));
 		if (Obj == None)
 		{
-			`log("ZR Config: Weapon upgrade" @ default.WeaponUpgrade_Upgrade[i].WeaponPath @ "failed to load."
-				@"Skip adding the Weapon upgrade to the game."
-				@"Please double check the name in the config and make sure the correct mod resources are installed.");
+			LogBadLoadObjectConfigMessage("WeaponUpgrade_Upgrade", i, default.WeaponUpgrade_Upgrade[i].WeaponPath);
 		}
 		else
 		{

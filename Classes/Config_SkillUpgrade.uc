@@ -208,7 +208,7 @@ static function CheckBasicConfigValues()
 		{
 			`log("ZR Config: Skill upgrade" @ default.SkillUpgrade_Upgrade[s].SkillPath @ "is not paired with a valid Perk upgrade"
 				@default.SkillUpgrade_Upgrade[s].PerkPath $ ". Skip adding the Skill upgrade to the game."
-				@"Please double check the name in the config and make sure the correct mod resources are installed.");
+				@"Check if the spelling in the config is correct and make sure the correct mod resources are installed.");
 			default.SkillUpgrade_Upgrade.Remove(s, 1);
 			--s;
 		}
@@ -228,8 +228,7 @@ static function LoadConfigObjects(out array<S_SkillUpgrade> ValidUpgrades, out a
 		Obj = class<WMUpgrade_Skill>(DynamicLoadObject(default.SkillUpgrade_Upgrade[i].SkillPath, class'Class', True));
 		if (Obj == None)
 		{
-			`log("ZR Config: Skill upgrade" @ default.SkillUpgrade_Upgrade[i].SkillPath @ "failed to load. Skip adding the Skill upgrade to the game."
-				@"Please double check the name in the config and make sure the correct mod resources are installed.");
+			LogBadLoadObjectConfigMessage("SkillUpgrade_Upgrade", i, default.SkillUpgrade_Upgrade[i].SkillPath);
 		}
 		else
 		{

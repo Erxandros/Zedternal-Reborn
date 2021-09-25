@@ -53,8 +53,7 @@ static function LoadConfigObjects(out array<S_PerkUpgrade> ValidUpgrades, out ar
 		Obj = class<WMUpgrade_Perk>(DynamicLoadObject(default.PerkUpgrade_Upgrade[i].PerkPath, class'Class', True));
 		if (Obj == None)
 		{
-			`log("ZR Config: Perk upgrade" @ default.PerkUpgrade_Upgrade[i].PerkPath @ "failed to load. Skip adding the Perk upgrade to the game."
-				@"Please double check the name in the config and make sure the correct mod resources are installed.");
+			LogBadLoadObjectConfigMessage("PerkUpgrade_Upgrade", i, default.PerkUpgrade_Upgrade[i].PerkPath);
 		}
 		else
 		{

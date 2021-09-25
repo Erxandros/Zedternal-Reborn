@@ -130,6 +130,12 @@ static function LogBadFlipConfigMessage(string ConfigVariableName, string Var1, 
 		@"which is invalid. Flipping the values temporarily.");
 }
 
+static function LogBadLoadObjectConfigMessage(string ConfigVariableName, int Line, string ObjectName)
+{
+	`log("ZR Config:" @ConfigVariableName @"- Line" @string(Line) @"-" @ObjectName @"has failed to load."
+		@"Check if the spelling in the config is correct and make sure the correct mod resources are installed.");
+}
+
 static function LogBadStructConfigMessage(int Difficulty, string ConfigVariableName, string OriginalData, string CorrectData,
 	string CorrectDataFormatted, string ValidRange)
 {

@@ -115,8 +115,7 @@ static function LoadConfigObjects(out array<S_EquipmentUpgrade> ValidUpgrades, o
 		Obj = class<WMUpgrade_Equipment>(DynamicLoadObject(default.EquipmentUpgrade_Upgrade[i].EquipmentPath, class'Class', True));
 		if (Obj == None)
 		{
-			`log("ZR Config: Equipment upgrade" @ default.EquipmentUpgrade_Upgrade[i].EquipmentPath @ "failed to load. Skip adding the Equipment upgrade to the game."
-				@"Please double check the name in the config and make sure the correct mod resources are installed.");
+			LogBadLoadObjectConfigMessage("EquipmentUpgrade_Upgrade", i, default.EquipmentUpgrade_Upgrade[i].EquipmentPath);
 		}
 		else
 		{
