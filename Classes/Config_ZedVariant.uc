@@ -187,8 +187,7 @@ static function CheckBasicConfigValues()
 
 		if (default.Zed_ZedVariant[i].MinDiff > default.Zed_ZedVariant[i].MaxDiff)
 		{
-			`log("ZR Config:" @ "Zed_ZedVariant - Line" @ string(i + 1)
-				@ "- MinDiff is greater than MaxDiff which is invalid. Flipping the values temporarily.");
+			LogBadFlipConfigMessage("Zed_ZedVariant - Line" @ string(i + 1), "MinDiff", "MaxDiff");
 			temp = default.Zed_ZedVariant[i].MinDiff;
 			default.Zed_ZedVariant[i].MinDiff = default.Zed_ZedVariant[i].MaxDiff;
 			default.Zed_ZedVariant[i].MaxDiff = temp;

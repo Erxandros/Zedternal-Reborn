@@ -124,6 +124,12 @@ static function LogBadConfigMessage(string ConfigVariableName, string OriginalDa
 		@"Valid value range is:" @ValidRange);
 }
 
+static function LogBadFlipConfigMessage(string ConfigVariableName, string Var1, string Var2)
+{
+	`log("ZR Config:" @ConfigVariableName @"-" @Var1 @"is greater than" @Var2
+		@"which is invalid. Flipping the values temporarily.");
+}
+
 static function LogBadStructConfigMessage(int Difficulty, string ConfigVariableName, string OriginalData, string CorrectData,
 	string CorrectDataFormatted, string ValidRange)
 {

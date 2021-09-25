@@ -184,8 +184,7 @@ static function CheckBasicConfigValues()
 
 		if (default.SpecialWave_SpecialWaves[i].MinWave > default.SpecialWave_SpecialWaves[i].MaxWave)
 		{
-			`log("ZR Config:" @ "SpecialWave_SpecialWaves - Line" @ string(i + 1)
-				@ "- MinWave is greater than MaxWave which is invalid. Flipping the values temporarily.");
+			LogBadFlipConfigMessage("SpecialWave_SpecialWaves - Line" @ string(i + 1), "MinWave", "MaxWave");
 			temp = default.SpecialWave_SpecialWaves[i].MinWave;
 			default.SpecialWave_SpecialWaves[i].MinWave = default.SpecialWave_SpecialWaves[i].MaxWave;
 			default.SpecialWave_SpecialWaves[i].MaxWave = temp;

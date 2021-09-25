@@ -172,8 +172,7 @@ static function CheckBasicConfigValues()
 
 		if (default.ZedBuff_BuffPath[i].MinWave > default.ZedBuff_BuffPath[i].MaxWave)
 		{
-			`log("ZR Config:" @ "ZedBuff_BuffPath - Line" @ string(i + 1)
-				@ "- MinWave is greater than MaxWave which is invalid. Flipping the values temporarily.");
+			LogBadFlipConfigMessage("ZedBuff_BuffPath - Line" @ string(i + 1), "MinWave", "MaxWave");
 			temp = default.ZedBuff_BuffPath[i].MinWave;
 			default.ZedBuff_BuffPath[i].MinWave = default.ZedBuff_BuffPath[i].MaxWave;
 			default.ZedBuff_BuffPath[i].MaxWave = temp;

@@ -439,8 +439,7 @@ static function CheckBasicConfigValues()
 
 		if (default.Zed_Wave[i].MinWave > default.Zed_Wave[i].MaxWave)
 		{
-			`log("ZR Config:" @ "Zed_Wave - Line" @ string(i + 1)
-				@ "- MinWave is greater than MaxWave which is invalid. Flipping the values temporarily.");
+			LogBadFlipConfigMessage("Zed_Wave - Line" @ string(i + 1), "MinWave", "MaxWave");
 			temp = default.Zed_Wave[i].MinWave;
 			default.Zed_Wave[i].MinWave = default.Zed_Wave[i].MaxWave;
 			default.Zed_Wave[i].MaxWave = temp;
@@ -464,8 +463,7 @@ static function CheckBasicConfigValues()
 
 		if (default.Zed_Wave[i].MinGr > default.Zed_Wave[i].MaxGr)
 		{
-			`log("ZR Config:" @ "Zed_Wave - Line" @ string(i + 1)
-				@ "- MinGr is greater than MaxGr which is invalid. Flipping the values temporarily.");
+			LogBadFlipConfigMessage("Zed_Wave - Line" @ string(i + 1), "MinGr", "MaxGr");
 			temp = default.Zed_Wave[i].MinGr;
 			default.Zed_Wave[i].MinGr = default.Zed_Wave[i].MaxGr;
 			default.Zed_Wave[i].MaxGr = temp;
