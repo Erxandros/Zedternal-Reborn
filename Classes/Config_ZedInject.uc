@@ -38,6 +38,87 @@ static function UpdateConfig()
 	}
 }
 
+static function CheckBasicConfigValues()
+{
+	local int i, temp;
+
+	for (i = 0; i < default.Zed_WaveGroupInject.Length; ++i)
+	{
+		if (default.Zed_WaveGroupInject[i].WaveNum < 0)
+		{
+			LogBadConfigMessage("Zed_WaveGroupInject - Line" @ string(i + 1) @ "- WaveNum",
+				string(default.Zed_WaveGroupInject[i].WaveNum),
+				"0", "first wave", "value >= 0");
+			default.Zed_WaveGroupInject[i].WaveNum = 0;
+		}
+
+		if (Caps(default.Zed_WaveGroupInject[i].Position) != "BEG" && Caps(default.Zed_WaveGroupInject[i].Position) != "MID"
+			&& Caps(default.Zed_WaveGroupInject[i].Position) != "END")
+		{
+			LogBadConfigMessage("Zed_WaveGroupInject - Line" @ string(i + 1) @ "- Position",
+				Caps(default.Zed_WaveGroupInject[i].Position),
+				"END", "END, add zeds to end of wave", "value == BEG or value == MID or value == END");
+			default.Zed_WaveGroupInject[i].Position = "END";
+		}
+
+		if (default.Zed_WaveGroupInject[i].MinDiff < 0)
+		{
+			LogBadConfigMessage("Zed_WaveGroupInject - Line" @ string(i + 1) @ "- MinDiff",
+				string(default.Zed_WaveGroupInject[i].MinDiff),
+				"0", "normal difficulty", "4 >= value >= 0");
+			default.Zed_WaveGroupInject[i].MinDiff = 0;
+		}
+
+		if (default.Zed_WaveGroupInject[i].MinDiff > 4)
+		{
+			LogBadConfigMessage("Zed_WaveGroupInject - Line" @ string(i + 1) @ "- MinDiff",
+				string(default.Zed_WaveGroupInject[i].MinDiff),
+				"4", "custom difficulty", "4 >= value >= 0");
+			default.Zed_WaveGroupInject[i].MinDiff = 4;
+		}
+
+		if (default.Zed_WaveGroupInject[i].MaxDiff < 0)
+		{
+			LogBadConfigMessage("Zed_WaveGroupInject - Line" @ string(i + 1) @ "- MaxDiff",
+				string(default.Zed_WaveGroupInject[i].MaxDiff),
+				"0", "normal difficulty", "4 >= value >= 0");
+			default.Zed_WaveGroupInject[i].MaxDiff = 0;
+		}
+
+		if (default.Zed_WaveGroupInject[i].MaxDiff > 4)
+		{
+			LogBadConfigMessage("Zed_WaveGroupInject - Line" @ string(i + 1) @ "- MaxDiff",
+				string(default.Zed_WaveGroupInject[i].MaxDiff),
+				"4", "custom difficulty", "4 >= value >= 0");
+			default.Zed_WaveGroupInject[i].MaxDiff = 4;
+		}
+
+		if (default.Zed_WaveGroupInject[i].MinDiff > default.Zed_WaveGroupInject[i].MaxDiff)
+		{
+			LogBadFlipConfigMessage("Zed_WaveGroupInject - Line" @ string(i + 1), "MinDiff", "MaxDiff");
+			temp = default.Zed_WaveGroupInject[i].MinDiff;
+			default.Zed_WaveGroupInject[i].MinDiff = default.Zed_WaveGroupInject[i].MaxDiff;
+			default.Zed_WaveGroupInject[i].MaxDiff = temp;
+		}
+
+		if (default.Zed_WaveGroupInject[i].Count < 0)
+		{
+			LogBadConfigMessage("Zed_WaveGroupInject - Line" @ string(i + 1) @ "- Count",
+				string(default.Zed_WaveGroupInject[i].Count),
+				"0", "0 zeds, disabled", "8 >= value >= 0");
+			default.Zed_WaveGroupInject[i].Count = 0;
+		}
+
+		if (default.Zed_WaveGroupInject[i].Count > 8)
+		{
+			LogBadConfigMessage("Zed_WaveGroupInject - Line" @ string(i + 1) @ "- Count",
+				string(default.Zed_WaveGroupInject[i].Count),
+				"8", "8 zeds, max zed group spawn size", "8 >= value >= 0");
+			default.Zed_WaveGroupInject[i].Count = 0;
+		}
+	}
+}
+
 defaultproperties
 {
 	Name="Default__Config_ZedInject"
