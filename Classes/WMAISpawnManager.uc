@@ -417,9 +417,12 @@ function SetupNextWave(byte NextWaveIndex, int TimeToNextWaveBuffer = 0)
 
 				if (bNewSquad)
 				{
-					groupList[k].MClass = class'ZedternalReborn.Config_ZedInject'.default.Zed_WaveGroupInject[i].ZedClasses;
-					groupList[k].Delay = class'ZedternalReborn.Config_ZedInject'.default.Zed_WaveGroupInject[i].ZedClasses.Length * customSpawnRate;
-					WaveTotalAI += class'ZedternalReborn.Config_ZedInject'.default.Zed_WaveGroupInject[i].ZedClasses.Length;
+					for (number = 0; number < class'ZedternalReborn.Config_ZedInject'.default.Zed_WaveGroupInject[i].Count; ++number)
+					{
+						groupList[k].MClass.AddItem(class'ZedternalReborn.Config_ZedInject'.default.Zed_WaveGroupInject[i].ZedClass);
+					}
+					groupList[k].Delay = class'ZedternalReborn.Config_ZedInject'.default.Zed_WaveGroupInject[i].Count * customSpawnRate;
+					WaveTotalAI += class'ZedternalReborn.Config_ZedInject'.default.Zed_WaveGroupInject[i].Count;
 				}
 			}
 		}
