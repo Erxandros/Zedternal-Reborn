@@ -10,7 +10,7 @@ var array<string> KFStartingWeaponPath;
 var array< class<KFWeaponDefinition> > PerkStartingWeapon;
 var array< class<KFWeaponDefinition> > StaticWeaponList, StartingWeaponList;
 var float doshNewPlayer;
-var int lastSpecialWaveID_First, lastSpecialWaveID_Second;
+
 var int TimeBetweenWavesDefault, TimeBetweenWavesExtend;
 var bool bUseExtendedTraderTime, bUseStartingTraderTime, bUseAllTraders;
 var int startingWave, finalWave, startingTraderTime, startingDosh;
@@ -26,9 +26,13 @@ struct S_Weapon_Upgrade
 };
 var array<S_Weapon_Upgrade> weaponUpgradeArch;
 
+//Special Waves
+var int LastSpecialWaveID_First, LastSpecialWaveID_Second;
+var array< class<WMSpecialWave> > SpecialWaveList;
+
 struct S_Special_Wave
 {
-	var class<WMSpecialWave> SWave;
+	var int ID;
 	var int MinWave, MaxWave;
 };
 var array<S_Special_Wave> SpecialWaveObjects;
@@ -127,10 +131,8 @@ event PostBeginPlay()
 	// Available weapon are random each wave. Need to build the list
 	BuildWeaponList();
 
-	// Setup special wave and overrides
-	if (class'ZedternalReborn.Config_SpecialWave'.static.GetSpecialWaveAllowed(GameDifficultyZedternal)
-		|| class'ZedternalReborn.Config_SpecialWaveOverride'.static.GetSpecialWaveOverrideAllowed(GameDifficultyZedternal))
-		CheckAndSetupSpecialWave();
+	// Initialize special wave and overrides
+	InitializeSpecialWave();
 
 	// Set item pickups
 	SetupPickupItems();
@@ -150,8 +152,8 @@ event PostBeginPlay()
 	else
 		doshNewPlayer = class'ZedternalReborn.Config_Map'.static.GetStartingDosh(WorldInfo.GetMapName(True));
 
-	lastSpecialWaveID_First = INDEX_NONE;
-	lastSpecialWaveID_Second = INDEX_NONE;
+	LastSpecialWaveID_First = INDEX_NONE;
+	LastSpecialWaveID_Second = INDEX_NONE;
 
 	TimeBetweenWaves = class'ZedternalReborn.Config_GameOptions'.static.GetTimeBetweenWave(GameDifficultyZedternal);
 	TimeBetweenWavesDefault = TimeBetweenWaves;
@@ -796,65 +798,64 @@ function BossDied(Controller Killer, optional bool bCheckWaveEnded = True)
 	CheckWaveEnd();
 }
 
-function CheckAndSetupSpecialWave()
+function InitializeSpecialWave()
 {
-	local int i, j;
-	local S_Special_Wave_Override SWO;
+	local int i, Ins;
 	local S_Special_Wave SW;
-	local class<WMSpecialWave> WMSW;
+	local S_Special_Wave_Override SWO;
 
-	for (i = 0; i < class'ZedternalReborn.Config_SpecialWave'.default.SpecialWave_SpecialWaves.length; ++i)
+	if (class'ZedternalReborn.Config_SpecialWave'.static.GetSpecialWaveAllowed(GameDifficultyZedternal)
+		&& class'ZedternalReborn.Config_SpecialWaveOverride'.static.GetSpecialWaveOverrideAllowed(GameDifficultyZedternal))
 	{
-		WMSW = class<WMSpecialWave>(DynamicLoadObject(class'ZedternalReborn.Config_SpecialWave'.default.SpecialWave_SpecialWaves[i].Path, class'Class'));
-
-		if (WMSW != None)
+		//Combine the lists
+		SpecialWaveList = ConfigInit.LoadedSpecialWaveObjects;
+		for (i = 0; i < ConfigInit.LoadedSWOverrideObjects.Length; ++i)
 		{
-			SW.SWave = WMSW;
-			SW.MinWave = class'ZedternalReborn.Config_SpecialWave'.default.SpecialWave_SpecialWaves[i].MinWave;
-			SW.MaxWave = class'ZedternalReborn.Config_SpecialWave'.default.SpecialWave_SpecialWaves[i].MaxWave;
+			if (ConfigInit.static.BinarySearch(SpecialWaveList, PathName(ConfigInit.LoadedSWOverrideObjects[i]), Ins) == INDEX_NONE)
+					SpecialWaveList.InsertItem(Ins, ConfigInit.LoadedSWOverrideObjects[i]);
+		}
+	}
+	else if (class'ZedternalReborn.Config_SpecialWave'.static.GetSpecialWaveAllowed(GameDifficultyZedternal))
+		SpecialWaveList = ConfigInit.LoadedSpecialWaveObjects;
+	else if (class'ZedternalReborn.Config_SpecialWaveOverride'.static.GetSpecialWaveOverrideAllowed(GameDifficultyZedternal))
+		SpecialWaveList = ConfigInit.LoadedSWOverrideObjects;
 
+	if (class'ZedternalReborn.Config_SpecialWave'.static.GetSpecialWaveAllowed(GameDifficultyZedternal))
+	{
+		for (i = 0; i < ConfigInit.ValidSpecialWaves.Length; ++i)
+		{
+			SW.ID = ConfigInit.static.BinarySearch(SpecialWaveList, ConfigInit.ValidSpecialWaves[i].Path, Ins);
+			SW.MinWave = ConfigInit.ValidSpecialWaves[i].MinWave;
+			SW.MaxWave = ConfigInit.ValidSpecialWaves[i].MaxWave;
 			SpecialWaveObjects.AddItem(SW);
 		}
-		else
-			`log("ZR Warning: Special wave on line"@i + 1@"has an invalid special wave pathname for Path:"@class'ZedternalReborn.Config_SpecialWave'.default.SpecialWave_SpecialWaves[i].Path);
 	}
 
-	for (i = 0; i < class'ZedternalReborn.Config_SpecialWaveOverride'.default.SpecialWaveOverride_SpecialWaves.length; ++i)
+	if (class'ZedternalReborn.Config_SpecialWaveOverride'.static.GetSpecialWaveOverrideAllowed(GameDifficultyZedternal))
 	{
-		SWO.FirstID = INDEX_NONE;
-		SWO.SecondID = INDEX_NONE;
-
-		for (j = 0; j < SpecialWaveObjects.length; ++j)
+		for (i = 0; i < ConfigInit.ValidSpecialWaveOverrides.Length; ++i)
 		{
-			if (PathName(SpecialWaveObjects[j].SWave) ~= class'ZedternalReborn.Config_SpecialWaveOverride'.default.SpecialWaveOverride_SpecialWaves[i].FirstPath)
-				SWO.FirstID = j;
-
-			if (PathName(SpecialWaveObjects[j].SWave) ~= class'ZedternalReborn.Config_SpecialWaveOverride'.default.SpecialWaveOverride_SpecialWaves[i].SecondPath)
-				SWO.SecondID = j;
-
-			if (SWO.FirstID != INDEX_NONE && SWO.SecondID != INDEX_NONE)
-				break;
+			SWO.Wave = ConfigInit.ValidSpecialWaveOverrides[i].Wave;
+			SWO.FirstID = ConfigInit.static.BinarySearch(SpecialWaveList, ConfigInit.ValidSpecialWaveOverrides[i].FirstPath, Ins);
+			SWO.SecondID = ConfigInit.static.BinarySearch(SpecialWaveList, ConfigInit.ValidSpecialWaveOverrides[i].SecondPath, Ins);
+			SWO.Probability = ConfigInit.ValidSpecialWaveOverrides[i].Probability;
+			SpecialWaveOverrides.AddItem(SWO);
 		}
+	}
 
-		if (SWO.FirstID == INDEX_NONE)
-			`log("ZR Warning: Special wave override on line"@i + 1@"has an invalid special wave pathname for FirstPath:"@class'ZedternalReborn.Config_SpecialWaveOverride'.default.SpecialWaveOverride_SpecialWaves[i].FirstPath);
-
-		if (SWO.SecondID == INDEX_NONE)
-			`log("ZR Warning: Special wave override on line"@i + 1@"has an invalid special wave pathname for SecondPath:"@class'ZedternalReborn.Config_SpecialWaveOverride'.default.SpecialWaveOverride_SpecialWaves[i].SecondPath);
-
-		if (SWO.FirstID == INDEX_NONE && SWO.SecondID == INDEX_NONE)
-			continue;
-
-		SWO.Wave = class'ZedternalReborn.Config_SpecialWaveOverride'.default.SpecialWaveOverride_SpecialWaves[i].Wave;
-		SWO.Probability = class'ZedternalReborn.Config_SpecialWaveOverride'.default.SpecialWaveOverride_SpecialWaves[i].Probability;
-		SpecialWaveOverrides.AddItem(SWO);
+	if (SpecialWaveList.Length > 255)
+	{
+		SpecialWaveList.Length = 255;
+		`log("ZR Warning: Special waves list exceed 255 elements which is not valid for replication."
+			@"Trimmed the list down to 255 elements, some special waves defined in the config will never"
+			@"execute because of this change.");
 	}
 }
 
 function SetupSpecialWave()
 {
 	local int index;
-	local array< int > SWList;
+	local array<int> SWList;
 	local int i;
 
 	SWList.length = 0;
@@ -866,10 +867,10 @@ function SetupSpecialWave()
 		{
 			if (SpecialWaveOverrides[i].Wave == (WaveNum + 1) && FRand() < SpecialWaveOverrides[i].Probability)
 			{
-				if (SpecialWaveOverrides[i].FirstID != INDEX_NONE)
+				if (SpecialWaveOverrides[i].FirstID != INDEX_NONE && SpecialWaveOverrides[i].FirstID < 255)
 					SWList.AddItem(SpecialWaveOverrides[i].FirstID);
 
-				if (SpecialWaveOverrides[i].SecondID != INDEX_NONE && SpecialWaveOverrides[i].SecondID != SpecialWaveOverrides[i].FirstID)
+				if (SpecialWaveOverrides[i].SecondID != INDEX_NONE && SpecialWaveOverrides[i].SecondID < 255)
 					SWList.AddItem(SpecialWaveOverrides[i].SecondID);
 
 				break;
@@ -879,21 +880,21 @@ function SetupSpecialWave()
 		if (SWList.length != 0)
 		{
 			WMGameReplicationInfo(MyKFGRI).SpecialWaveID[0] = SWList[0];
-			lastSpecialWaveID_First = SWList[0];
+			LastSpecialWaveID_First = SWList[0];
 
 			if (SWList.length > 1)
 			{
 				WMGameReplicationInfo(MyKFGRI).SpecialWaveID[1] = SWList[1];
-				lastSpecialWaveID_Second = SWList[1];
+				LastSpecialWaveID_Second = SWList[1];
 			}
 			else
-				lastSpecialWaveID_Second = INDEX_NONE;
+				LastSpecialWaveID_Second = INDEX_NONE;
 
 			// if playing solo, trigger special wave visual effect
 			if (WorldInfo.NetMode != NM_DedicatedServer)
 				WMGameReplicationInfo(MyKFGRI).TriggerSpecialWaveMessage();
 
-			SetTimer(5.f, False, NameOf(SetSpecialWaveActor));
+			SetTimer(5.0f, False, NameOf(SetSpecialWaveActor));
 			return;
 		}
 	}
@@ -902,10 +903,11 @@ function SetupSpecialWave()
 	if (class'ZedternalReborn.Config_SpecialWave'.static.GetSpecialWaveAllowed(GameDifficultyZedternal) && WaveNum > 0
 		&& FRand() < class'ZedternalReborn.Config_SpecialWave'.static.GetSpecialWaveProbability(GameDifficultyZedternal))
 	{
-		for (i = 0; i < SpecialWaveObjects.length; ++i)
+		for (i = 0; i < SpecialWaveObjects.Length; ++i)
 		{
-			if (SpecialWaveObjects[i].MinWave <= (WaveNum + 1) && SpecialWaveObjects[i].MaxWave >= (WaveNum + 1))
-				SWList.AddItem(i);
+			if (SpecialWaveObjects[i].ID != INDEX_NONE && SpecialWaveObjects[i].ID < 255
+				&& SpecialWaveObjects[i].MinWave <= (WaveNum + 1) && SpecialWaveObjects[i].MaxWave >= (WaveNum + 1))
+				SWList.AddItem(SpecialWaveObjects[i].ID);
 		}
 	}
 
@@ -913,34 +915,34 @@ function SetupSpecialWave()
 	if (SWList.length != 0)
 	{
 		index = Rand(SWList.Length);
-		if (lastSpecialWaveID_First == SWList[index] || lastSpecialWaveID_Second == SWList[index])
+		if (LastSpecialWaveID_First == SWList[index] || LastSpecialWaveID_Second == SWList[index])
 			index = Rand(SWList.Length); //Re-roll the special wave if it was used recently
 
 		WMGameReplicationInfo(MyKFGRI).SpecialWaveID[0] = SWList[index];
-		lastSpecialWaveID_First = SWList[index];
+		LastSpecialWaveID_First = SWList[index];
 		SWList.Remove(index, 1);
 
 		// check for a double special wave
 		if (SWList.length != 0 && FRand() < class'ZedternalReborn.Config_SpecialWave'.static.GetSpecialWaveDoubleProbability(GameDifficultyZedternal))
 		{
 			index = Rand(SWList.Length);
-			if (lastSpecialWaveID_Second == SWList[index] || lastSpecialWaveID_First == SWList[index])
+			if (LastSpecialWaveID_Second == SWList[index] || LastSpecialWaveID_First == SWList[index])
 				index = Rand(SWList.Length); //Re-roll the special wave if it was used recently
 
 			WMGameReplicationInfo(MyKFGRI).SpecialWaveID[1] = SWList[index];
-			lastSpecialWaveID_Second = SWList[index];
+			LastSpecialWaveID_Second = SWList[index];
 		}
 		else
 		{
 			WMGameReplicationInfo(MyKFGRI).SpecialWaveID[1] = INDEX_NONE;
-			lastSpecialWaveID_Second = INDEX_NONE;
+			LastSpecialWaveID_Second = INDEX_NONE;
 		}
 
 		// if playing solo, trigger special wave visual effect
 		if (WorldInfo.NetMode != NM_DedicatedServer)
 			WMGameReplicationInfo(MyKFGRI).TriggerSpecialWaveMessage();
 
-		SetTimer(5.f, False, NameOf(SetSpecialWaveActor));
+		SetTimer(5.0f, False, NameOf(SetSpecialWaveActor));
 	}
 	else
 	{
@@ -1632,10 +1634,10 @@ function RepGameInfoNormalPriority()
 	}
 
 	//Special Waves
-	for (b = 0; b < Min(255, SpecialWaveObjects.length); ++b)
+	for (b = 0; b < Min(255, SpecialWaveList.Length); ++b)
 	{
-		WMGRI.specialWavesStr[b] = PathName(SpecialWaveObjects[b].SWave);
-		WMGRI.specialWaves[b] = SpecialWaveObjects[b].SWave;
+		WMGRI.specialWavesStr[b] = PathName(SpecialWaveList[b]);
+		WMGRI.specialWaves[b] = SpecialWaveList[b];
 	}
 
 	SetTimer(3.0f, False, NameOf(RepGameInfoLowPriority));
@@ -1948,8 +1950,8 @@ function RewardSurvivingPlayers()
 	PlayerWave = class'ZedternalReborn.Config_Dosh'.static.GetBonusWaveDoshReward(GameDifficultyZedternal, WaveNum);
 
 	`log("ZR Info: SCORING: Number of surviving players:" @ PlayerCount);
-	`log("ZR Info: SCORING: Base Dosh/survivng player:" @ PlayerBase);
-	`log("ZR Info: SCORING: Wave Dosh/survivng player:" @ PlayerWave);
+	`log("ZR Info: SCORING: Base Dosh/surviving player:" @ PlayerBase);
+	`log("ZR Info: SCORING: Wave Dosh/surviving player:" @ PlayerWave);
 
 	// Add dosh for new players
 	doshNewPlayer += class'ZedternalReborn.Config_Dosh'.static.GetBaseWaveDoshReward(GameDifficultyZedternal, PlayerCount + 1) + PlayerWave;

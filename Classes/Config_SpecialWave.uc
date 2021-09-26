@@ -7,12 +7,12 @@ var config S_Difficulty_Bool SpecialWave_bAllowed;
 var config S_Difficulty_Float SpecialWave_Probability;
 var config S_Difficulty_Float SpecialWave_DoubleProbability;
 
-struct SSpecialWave
+struct S_SpecialWave
 {
 	var string Path;
 	var int MinWave, MaxWave;
 };
-var config array<SSpecialWave> SpecialWave_SpecialWaves;
+var config array<S_SpecialWave> SpecialWave_SpecialWaves;
 
 static function UpdateConfig()
 {
@@ -188,6 +188,31 @@ static function CheckBasicConfigValues()
 			temp = default.SpecialWave_SpecialWaves[i].MinWave;
 			default.SpecialWave_SpecialWaves[i].MinWave = default.SpecialWave_SpecialWaves[i].MaxWave;
 			default.SpecialWave_SpecialWaves[i].MaxWave = temp;
+		}
+	}
+}
+
+static function LoadConfigObjects(out array<S_SpecialWave> ValidWaves, out array< class<WMSpecialWave> > WaveObjects)
+{
+	local int i, Ins;
+	local class<WMSpecialWave> Obj;
+
+	ValidWaves.Length = 0;
+	WaveObjects.Length = 0;
+
+	for (i = 0; i < default.SpecialWave_SpecialWaves.Length; ++i)
+	{
+		Obj = class<WMSpecialWave>(DynamicLoadObject(default.SpecialWave_SpecialWaves[i].Path, class'Class', True));
+		if (Obj == None)
+		{
+			LogBadLoadObjectConfigMessage("SpecialWave_SpecialWaves", i, default.SpecialWave_SpecialWaves[i].Path);
+		}
+		else
+		{
+			ValidWaves.AddItem(default.SpecialWave_SpecialWaves[i]);
+
+			if (class'ZedternalReborn.WMGameInfo_ConfigInit'.static.BinarySearch(WaveObjects, PathName(Obj), Ins) == INDEX_NONE)
+				WaveObjects.InsertItem(Ins, Obj);
 		}
 	}
 }

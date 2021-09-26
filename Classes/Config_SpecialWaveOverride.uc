@@ -5,13 +5,13 @@ var config int MODEVERSION;
 
 var config S_Difficulty_Bool SpecialWaveOverride_bAllowed;
 
-struct SSpecialWaveOverride
+struct S_SpecialWaveOverride
 {
 	var int Wave;
 	var string FirstPath, SecondPath;
 	var float Probability;
 };
-var config array<SSpecialWaveOverride> SpecialWaveOverride_SpecialWaves;
+var config array<S_SpecialWaveOverride> SpecialWaveOverride_SpecialWaves;
 
 static function UpdateConfig()
 {
@@ -73,6 +73,68 @@ static function CheckBasicConfigValues()
 				string(default.SpecialWaveOverride_SpecialWaves[i].Probability),
 				"1.0", "100%, always activates", "1.0 >= value >= 0.0");
 			default.SpecialWaveOverride_SpecialWaves[i].Probability = 1.0f;
+		}
+
+		if (default.SpecialWaveOverride_SpecialWaves[i].SecondPath ~= default.SpecialWaveOverride_SpecialWaves[i].FirstPath)
+		{
+			`log("ZR Config: SpecialWaveOverride_SpecialWaves - Line" @ string(i + 1) @ "- FirstPath and SecondPath are"
+				@ "equal which is an invalid configuration. FirstPath and SecondPath must be unique (no duplicates)."
+				@ "Temporarily removing SecondPath.");
+			default.SpecialWaveOverride_SpecialWaves[i].SecondPath = "";
+		}
+	}
+}
+
+static function LoadConfigObjects(out array<S_SpecialWaveOverride> ValidWaves, out array< class<WMSpecialWave> > WaveObjects)
+{
+	local bool First, Second;
+	local int i, Ins;
+	local class<WMSpecialWave> Obj;
+
+	ValidWaves.Length = 0;
+	WaveObjects.Length = 0;
+
+	for (i = 0; i < default.SpecialWaveOverride_SpecialWaves.Length; ++i)
+	{
+		First = False;
+		if (default.SpecialWaveOverride_SpecialWaves[i].FirstPath != "")
+		{
+			Obj = class<WMSpecialWave>(DynamicLoadObject(default.SpecialWaveOverride_SpecialWaves[i].FirstPath, class'Class', True));
+			if (Obj == None)
+			{
+				LogBadLoadObjectConfigMessage("SpecialWaveOverride_SpecialWaves - FirstPath", i,
+					default.SpecialWaveOverride_SpecialWaves[i].FirstPath);
+			}
+			else
+			{
+				First = True;
+
+				if (class'ZedternalReborn.WMGameInfo_ConfigInit'.static.BinarySearch(WaveObjects, PathName(Obj), Ins) == INDEX_NONE)
+					WaveObjects.InsertItem(Ins, Obj);
+			}
+		}
+
+		Second = False;
+		if (default.SpecialWaveOverride_SpecialWaves[i].SecondPath != "")
+		{
+			Obj = class<WMSpecialWave>(DynamicLoadObject(default.SpecialWaveOverride_SpecialWaves[i].SecondPath, class'Class', True));
+			if (Obj == None)
+			{
+				LogBadLoadObjectConfigMessage("SpecialWaveOverride_SpecialWaves - SecondPath", i,
+					default.SpecialWaveOverride_SpecialWaves[i].SecondPath);
+			}
+			else
+			{
+				Second = True;
+
+				if (class'ZedternalReborn.WMGameInfo_ConfigInit'.static.BinarySearch(WaveObjects, PathName(Obj), Ins) == INDEX_NONE)
+					WaveObjects.InsertItem(Ins, Obj);
+			}
+		}
+
+		if (First || Second)
+		{
+			ValidWaves.AddItem(default.SpecialWaveOverride_SpecialWaves[i]);
 		}
 	}
 }
