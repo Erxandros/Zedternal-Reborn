@@ -11,20 +11,20 @@ var config S_Difficulty_Int Player_StartingCarryWeight;
 var config S_Difficulty_Float Player_HealAmountFactor;
 var config S_Difficulty_Float Player_DamageTakenFactorWhileHoldingMelee;
 
-struct SDamage
+struct S_Damage
 {
-	var class<DamageType> DamageType;
+	var string DamageType;
 	var float Factor;
 };
-var config array<SDamage> Player_DamageGivenFactor;
-var config array<SDamage> Player_DamageTakenFactor;
+var config array<S_Damage> Player_DamageGivenFactor;
+var config array<S_Damage> Player_DamageTakenFactor;
 
-struct SVampire
+struct S_Vampire
 {
-	var class<DamageType> DamageType;
+	var string DamageType;
 	var int HealAmount;
 };
-var config array<SVampire> Player_VampireEffect;
+var config array<S_Vampire> Player_VampireEffect;
 
 static function UpdateConfig()
 {
@@ -73,39 +73,39 @@ static function UpdateConfig()
 		default.Player_DamageTakenFactorWhileHoldingMelee.Custom = 0.9f;
 
 		default.Player_DamageGivenFactor.Length = 6;
-		default.Player_DamageGivenFactor[0].DamageType = class'KFGame.KFDT_Bludgeon';
+		default.Player_DamageGivenFactor[0].DamageType = "KFGame.KFDT_Bludgeon";
 		default.Player_DamageGivenFactor[0].Factor = 1.15f;
-		default.Player_DamageGivenFactor[1].DamageType = class'KFGame.KFDT_Piercing';
+		default.Player_DamageGivenFactor[1].DamageType = "KFGame.KFDT_Piercing";
 		default.Player_DamageGivenFactor[1].Factor = 1.15f;
-		default.Player_DamageGivenFactor[2].DamageType = class'KFGame.KFDT_Slashing';
+		default.Player_DamageGivenFactor[2].DamageType = "KFGame.KFDT_Slashing";
 		default.Player_DamageGivenFactor[2].Factor = 1.15f;
-		default.Player_DamageGivenFactor[3].DamageType = class'KFGame.KFDT_Fire';
+		default.Player_DamageGivenFactor[3].DamageType = "KFGame.KFDT_Fire";
 		default.Player_DamageGivenFactor[3].Factor = 1.1f;
-		default.Player_DamageGivenFactor[4].DamageType = class'KFGameContent.KFDT_Freeze_FreezeThrower';
+		default.Player_DamageGivenFactor[4].DamageType = "KFGameContent.KFDT_Freeze_FreezeThrower";
 		default.Player_DamageGivenFactor[4].Factor = 1.15f;
-		default.Player_DamageGivenFactor[5].DamageType = class'KFGame.KFDT_Toxic_MedicGrenade';
+		default.Player_DamageGivenFactor[5].DamageType = "KFGame.KFDT_Toxic_MedicGrenade";
 		default.Player_DamageGivenFactor[5].Factor = 0.8f;
 
 		default.Player_DamageTakenFactor.Length = 6;
-		default.Player_DamageTakenFactor[0].DamageType = class'KFGame.KFDT_Fire';
+		default.Player_DamageTakenFactor[0].DamageType = "KFGame.KFDT_Fire";
 		default.Player_DamageTakenFactor[0].Factor = 0.9f;
-		default.Player_DamageTakenFactor[1].DamageType = class'KFGameContent.KFDT_Explosive_HuskSuicide';
+		default.Player_DamageTakenFactor[1].DamageType = "KFGameContent.KFDT_Explosive_HuskSuicide";
 		default.Player_DamageTakenFactor[1].Factor = 0.75f;
-		default.Player_DamageTakenFactor[2].DamageType = class'KFGameContent.KFDT_FleshpoundKing_ChestBeam';
+		default.Player_DamageTakenFactor[2].DamageType = "KFGameContent.KFDT_FleshpoundKing_ChestBeam";
 		default.Player_DamageTakenFactor[2].Factor = 0.75f;
-		default.Player_DamageTakenFactor[3].DamageType = class'KFGameContent.KFDT_Explosive_HansHEGrenade';
+		default.Player_DamageTakenFactor[3].DamageType = "KFGameContent.KFDT_Explosive_HansHEGrenade";
 		default.Player_DamageTakenFactor[3].Factor = 0.75f;
-		default.Player_DamageTakenFactor[4].DamageType = class'KFGameContent.KFDT_Explosive_PatMissile';
+		default.Player_DamageTakenFactor[4].DamageType = "KFGameContent.KFDT_Explosive_PatMissile";
 		default.Player_DamageTakenFactor[4].Factor = 0.75f;
-		default.Player_DamageTakenFactor[5].DamageType = class'KFGameContent.KFDT_EMP_MatriarchPlasmaCannon';
+		default.Player_DamageTakenFactor[5].DamageType = "KFGameContent.KFDT_EMP_MatriarchPlasmaCannon";
 		default.Player_DamageTakenFactor[5].Factor = 0.75f;
 
 		default.Player_VampireEffect.Length = 3;
-		default.Player_VampireEffect[0].DamageType = class'KFGame.KFDT_Bludgeon';
+		default.Player_VampireEffect[0].DamageType = "KFGame.KFDT_Bludgeon";
 		default.Player_VampireEffect[0].HealAmount = 3;
-		default.Player_VampireEffect[1].DamageType = class'KFGame.KFDT_Piercing';
+		default.Player_VampireEffect[1].DamageType = "KFGame.KFDT_Piercing";
 		default.Player_VampireEffect[1].HealAmount = 3;
-		default.Player_VampireEffect[2].DamageType = class'KFGame.KFDT_Slashing';
+		default.Player_VampireEffect[2].DamageType = "KFGame.KFDT_Slashing";
 		default.Player_VampireEffect[2].HealAmount = 3;
 	}
 
@@ -201,6 +201,75 @@ static function CheckBasicConfigValues()
 				string(default.Player_VampireEffect[i].HealAmount),
 				"0", "0 points, no healing", "value >= 0");
 			default.Player_VampireEffect[i].HealAmount = 0;
+		}
+	}
+}
+
+static function LoadConfigObjects_DamageGiven(out array<S_Damage> ValidDT, out array< class<DamageType> > DTObjects)
+{
+	local int i;
+	local class<DamageType> Obj;
+
+	ValidDT.Length = 0;
+	DTObjects.Length = 0;
+
+	for (i = 0; i < default.Player_DamageGivenFactor.Length; ++i)
+	{
+		Obj = class<DamageType>(DynamicLoadObject(default.Player_DamageGivenFactor[i].DamageType, class'Class', True));
+		if (Obj == None)
+		{
+			LogBadLoadObjectConfigMessage("Player_DamageGivenFactor", i, default.Player_DamageGivenFactor[i].DamageType);
+		}
+		else
+		{
+			ValidDT.AddItem(default.Player_DamageGivenFactor[i]);
+			DTObjects.AddItem(Obj);
+		}
+	}
+}
+
+static function LoadConfigObjects_DamageTaken(out array<S_Damage> ValidDT, out array< class<DamageType> > DTObjects)
+{
+	local int i;
+	local class<DamageType> Obj;
+
+	ValidDT.Length = 0;
+	DTObjects.Length = 0;
+
+	for (i = 0; i < default.Player_DamageTakenFactor.Length; ++i)
+	{
+		Obj = class<DamageType>(DynamicLoadObject(default.Player_DamageTakenFactor[i].DamageType, class'Class', True));
+		if (Obj == None)
+		{
+			LogBadLoadObjectConfigMessage("Player_DamageTakenFactor", i, default.Player_DamageTakenFactor[i].DamageType);
+		}
+		else
+		{
+			ValidDT.AddItem(default.Player_DamageTakenFactor[i]);
+			DTObjects.AddItem(Obj);
+		}
+	}
+}
+
+static function LoadConfigObjects_Vampire(out array<S_Vampire> ValidDT, out array< class<DamageType> > DTObjects)
+{
+	local int i;
+	local class<DamageType> Obj;
+
+	ValidDT.Length = 0;
+	DTObjects.Length = 0;
+
+	for (i = 0; i < default.Player_VampireEffect.Length; ++i)
+	{
+		Obj = class<DamageType>(DynamicLoadObject(default.Player_VampireEffect[i].DamageType, class'Class', True));
+		if (Obj == None)
+		{
+			LogBadLoadObjectConfigMessage("Player_VampireEffect", i, default.Player_VampireEffect[i].DamageType);
+		}
+		else
+		{
+			ValidDT.AddItem(default.Player_VampireEffect[i]);
+			DTObjects.AddItem(Obj);
 		}
 	}
 }
