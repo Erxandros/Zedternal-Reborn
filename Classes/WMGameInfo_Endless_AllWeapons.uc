@@ -1,58 +1,28 @@
 class WMGameInfo_Endless_AllWeapons extends WMGameInfo_Endless;
 
-function BuildWeaponList()
+function PickWeapons(out array<int> WeaponIndex, int Begin)
 {
 	local int i;
-	local bool bAllowWeaponVariant;
-	local array<int> weaponIndex;
-	local class<KFWeaponDefinition> KFWeaponDefClass;
 
-	//get WeaponVariant Probablity/Allowed
-	bAllowWeaponVariant = class'ZedternalReborn.Config_WeaponVariant'.default.WeaponVariant_bAllowWeaponVariant;
-
-	InitializeStaticAndStartingWeapons();
-	weaponIndex = InitializeTraderItems();
-	if (bAllowWeaponVariant)
-		CheckForStartingWeaponVariants();
-
-	////////////////////////
-	// Create weapon list //
-	////////////////////////
-
-	weaponUpgradeArch.length = 0;
-
-	//create starting weapon list and adding them in the trader
-	for (i = 0; i < StartingWeaponList.length; ++i)
+	for (i = 0; i < WeaponIndex.Length; ++i)
 	{
-		PerkStartingWeapon[i] = StartingWeaponList[i];
-		KFStartingWeaponPath[i] = PerkStartingWeapon[i].default.WeaponClassPath;
+		AddWeaponInTrader(TraderItems.SaleItems[WeaponIndex[i]].WeaponDef);
+	}
+}
 
-		CheckForWeaponOverrides(StartingWeaponList[i]);
+function int CombineWeaponsStartingWeapon(out array<S_Weapon_Data> CombinedWeaponList, out array< class<KFWeaponDefinition> > BaseWepDef,
+	out array< class<KFWeapon> > BaseWep)
+{
+	local int i;
+
+	for (i = 0; i < ConfigInit.StartingWeaponObjects.Length; ++i)
+	{
+		StartingWeaponPath.AddItem(PathName(ConfigInit.StartingWeaponObjects[i]));
 	}
 
-	//adding static weapon in the trader
-	for (i = 0; i < StaticWeaponList.length; ++i)
-	{
-		if (bAllowWeaponVariant)
-			ApplyRandomWeaponVariant(StaticWeaponList[i]);
-		else
-			CheckForWeaponOverrides(StaticWeaponList[i]);
-	}
+	CombineWeapons(CombinedWeaponList, ConfigInit.StartingWeaponDefObjects, ConfigInit.StartingWeaponObjects);
 
-	//Adding other weapons
-	for (i = 0; i < weaponIndex.length; ++i)
-	{
-		KFWeaponDefClass = TraderItems.SaleItems[weaponIndex[i]].WeaponDef;
-		if (KFWeaponDefClass != None)
-		{
-			if (bAllowWeaponVariant)
-				ApplyRandomWeaponVariant(TraderItems.SaleItems[weaponIndex[i]].WeaponDef, weaponIndex[i]);
-			else
-				CheckForWeaponOverrides(TraderItems.SaleItems[weaponIndex[i]].WeaponDef, weaponIndex[i]);
-		}
-	}
-
-	SetTraderItemsAndPrintWeaponList();
+	return ConfigInit.StartingWeaponDefObjects.Length;
 }
 
 defaultproperties

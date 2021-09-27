@@ -256,6 +256,51 @@ static function CheckBasicConfigValues()
 	}
 }
 
+static function LoadConfigObjects(out array<float> VariantProbability, out array< class<KFWeaponDefinition> > WeaponDefObjects,
+	out array< class<KFWeaponDefinition> > WeaponVarObjects, out array< class<KFWeaponDefinition> > WeaponDualObjects)
+{
+	local bool Dual;
+	local int i;
+	local class<KFWeaponDefinition> Obj, VarObj, DualObj;
+
+	WeaponDefObjects.Length = 0;
+
+	for (i = 0; i < default.Weapon_VariantWeaponDef.Length; ++i)
+	{
+		Obj = class<KFWeaponDefinition>(DynamicLoadObject(default.Weapon_VariantWeaponDef[i].WeaponDef, class'Class', True));
+		if (Obj == None)
+		{
+			LogBadLoadObjectConfigMessage("Weapon_VariantWeaponDef", i + 1, default.Weapon_VariantWeaponDef[i].WeaponDef);
+			continue;
+		}
+
+		VarObj = class<KFWeaponDefinition>(DynamicLoadObject(default.Weapon_VariantWeaponDef[i].WeaponDefVariant, class'Class', True));
+		if (VarObj == None)
+		{
+			LogBadLoadObjectConfigMessage("Weapon_VariantWeaponDef", i + 1, default.Weapon_VariantWeaponDef[i].WeaponDefVariant);
+			continue;
+		}
+
+		Dual = False;
+		if (default.Weapon_VariantWeaponDef[i].DualWeaponDefVariant != "")
+		{
+			DualObj = class<KFWeaponDefinition>(DynamicLoadObject(default.Weapon_VariantWeaponDef[i].DualWeaponDefVariant, class'Class', True));
+			if (DualObj == None)
+				LogBadLoadObjectConfigMessage("Weapon_VariantWeaponDef", i + 1, default.Weapon_VariantWeaponDef[i].DualWeaponDefVariant);
+			else
+				Dual = True;
+		}
+
+		VariantProbability.AddItem(default.Weapon_VariantWeaponDef[i].Probability);
+		WeaponDefObjects.AddItem(Obj);
+		WeaponVarObjects.AddItem(VarObj);
+		if (Dual)
+			WeaponDualObjects.AddItem(DualObj);
+		else
+			WeaponDualObjects.AddItem(None);
+	}
+}
+
 defaultproperties
 {
 	Name="Default__Config_WeaponVariant"

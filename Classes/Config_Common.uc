@@ -136,6 +136,13 @@ static function LogBadLoadObjectConfigMessage(string ConfigVariableName, int Lin
 		@"Check if the spelling in the config is correct and make sure the correct mod resources are installed.");
 }
 
+static function LogBadLoadWeaponConfigMessage(string ConfigVariableName, int Line, string ObjectName, string WeaponName)
+{
+	`log("ZR Config:" @ConfigVariableName @"- Line" @string(Line) @"-" @ObjectName @"has failed to load its KFWeapon class"
+		@WeaponName @", this is a sign of a broken weapon. Removing the weapon temporarily."
+		@"Check if the external mod resources are not corrupted, otherwise an update will be needed to fix the broken weapon.");
+}
+
 static function LogBadStructConfigMessage(int Difficulty, string ConfigVariableName, string OriginalData, string CorrectData,
 	string CorrectDataFormatted, string ValidRange)
 {

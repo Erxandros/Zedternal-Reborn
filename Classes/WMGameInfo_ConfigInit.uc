@@ -20,6 +20,23 @@ var array< class<WMUpgrade_Weapon> > LoadedWeaponUpgObjects;
 var array<S_EquipmentUpgrade> ValidEquipmentUpgrades;
 var array< class<WMUpgrade_Equipment> > LoadedEquipmentUpgObjects;
 
+//Weapons
+var array< class<KFWeaponDefinition> > CustomWeaponDefObjects;
+var array< class<KFWeapon> > CustomWeaponObjects;
+
+var array< class<KFWeaponDefinition> > GrenadeWeaponDefObjects;
+
+var array< class<KFWeaponDefinition> > StartingWeaponDefObjects;
+var array< class<KFWeapon> > StartingWeaponObjects;
+
+var array< class<KFWeaponDefinition> > StaticWeaponDefObjects;
+var array< class<KFWeapon> > StaticWeaponObjects;
+
+var array<float> VariantProbs;
+var array< class<KFWeaponDefinition> > VarBaseWeaponDefObjects;
+var array< class<KFWeaponDefinition> > VarRepWeaponDefObjects;
+var array< class<KFWeaponDefinition> > VarDualWeaponDefObjects;
+
 function InitializeConfigData()
 {
 	class'ZedternalReborn.Config_SpecialWave'.static.LoadConfigObjects(ValidSpecialWaves, LoadedSpecialWaveObjects);
@@ -28,6 +45,12 @@ function InitializeConfigData()
 	class'ZedternalReborn.Config_SkillUpgrade'.static.LoadConfigObjects(ValidSkillUpgrades, LoadedSkillUpgObjects);
 	class'ZedternalReborn.Config_WeaponUpgrade'.static.LoadConfigObjects(ValidWeaponUpgrades, LoadedWeaponUpgObjects);
 	class'ZedternalReborn.Config_EquipmentUpgrade'.static.LoadConfigObjects(ValidEquipmentUpgrades, LoadedEquipmentUpgObjects);
+	class'ZedternalReborn.Config_WeaponCustom'.static.LoadConfigObjects(CustomWeaponDefObjects, CustomWeaponObjects);
+	class'ZedternalReborn.Config_WeaponGrenade'.static.LoadConfigObjects(GrenadeWeaponDefObjects);
+	class'ZedternalReborn.Config_WeaponStarting'.static.LoadConfigObjects(StartingWeaponDefObjects, StartingWeaponObjects);
+	class'ZedternalReborn.Config_WeaponStatic'.static.LoadConfigObjects(StaticWeaponDefObjects, StaticWeaponObjects);
+	class'ZedternalReborn.Config_WeaponVariant'.static.LoadConfigObjects(VariantProbs, VarBaseWeaponDefObjects,
+		VarRepWeaponDefObjects, VarDualWeaponDefObjects);
 }
 
 function static int BinarySearch(const out array<object> InArray, string ObjName, out int Low)

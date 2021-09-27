@@ -247,9 +247,9 @@ function AddDefaultInventory(KFPawn P)
 
 		WMGI = WMGameInfo_Endless(MyKFGI);
 
-		if (WMGI != None && WMGI.PerkStartingWeapon.Length > 0)
+		if (WMGI != None && WMGI.StartingWeapons.Length > 0)
 		{
-			StartingWeaponsList = WMGI.PerkStartingWeapon;
+			StartingWeaponsList = WMGI.StartingWeapons;
 			for (i = 0; i < class'ZedternalReborn.Config_Player'.static.GetStartingWeaponAmount(Difficulty); ++i)
 			{
 				if (StartingWeaponsList.Length > 0)

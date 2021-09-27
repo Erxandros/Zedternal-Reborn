@@ -27,6 +27,28 @@ static function UpdateConfig()
 	}
 }
 
+static function LoadConfigObjects(out array< class<KFWeaponDefinition> > WeaponDefObjects)
+{
+	local int i, Ins;
+	local class<KFWeaponDefinition> Obj;
+
+	WeaponDefObjects.Length = 0;
+
+	for (i = 0; i < default.Weapon_GrenadeDef.Length; ++i)
+	{
+		Obj = class<KFWeaponDefinition>(DynamicLoadObject(default.Weapon_GrenadeDef[i], class'Class', True));
+		if (Obj == None)
+		{
+			LogBadLoadObjectConfigMessage("Weapon_GrenadeDef", i + 1, default.Weapon_GrenadeDef[i]);
+		}
+		else
+		{
+			if (class'ZedternalReborn.WMGameInfo_ConfigInit'.static.BinarySearch(WeaponDefObjects, PathName(Obj), Ins) == INDEX_NONE)
+				WeaponDefObjects.InsertItem(Ins, Obj);
+		}
+	}
+}
+
 defaultproperties
 {
 	Name="Default__Config_WeaponGrenade"
