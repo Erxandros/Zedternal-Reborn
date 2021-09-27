@@ -102,7 +102,7 @@ static function LoadConfigObjects(out array<S_SpecialWaveOverride> ValidWaves, o
 			Obj = class<WMSpecialWave>(DynamicLoadObject(default.SpecialWaveOverride_SpecialWaves[i].FirstPath, class'Class', True));
 			if (Obj == None)
 			{
-				LogBadLoadObjectConfigMessage("SpecialWaveOverride_SpecialWaves - FirstPath", i,
+				LogBadLoadObjectConfigMessage("SpecialWaveOverride_SpecialWaves - FirstPath", i + 1,
 					default.SpecialWaveOverride_SpecialWaves[i].FirstPath);
 			}
 			else
@@ -120,7 +120,7 @@ static function LoadConfigObjects(out array<S_SpecialWaveOverride> ValidWaves, o
 			Obj = class<WMSpecialWave>(DynamicLoadObject(default.SpecialWaveOverride_SpecialWaves[i].SecondPath, class'Class', True));
 			if (Obj == None)
 			{
-				LogBadLoadObjectConfigMessage("SpecialWaveOverride_SpecialWaves - SecondPath", i,
+				LogBadLoadObjectConfigMessage("SpecialWaveOverride_SpecialWaves - SecondPath", i + 1,
 					default.SpecialWaveOverride_SpecialWaves[i].SecondPath);
 			}
 			else

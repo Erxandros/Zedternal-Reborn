@@ -218,7 +218,7 @@ static function LoadConfigObjects_DamageGiven(out array<S_Damage> ValidDT, out a
 		Obj = class<DamageType>(DynamicLoadObject(default.Player_DamageGivenFactor[i].DamageType, class'Class', True));
 		if (Obj == None)
 		{
-			LogBadLoadObjectConfigMessage("Player_DamageGivenFactor", i, default.Player_DamageGivenFactor[i].DamageType);
+			LogBadLoadObjectConfigMessage("Player_DamageGivenFactor", i + 1, default.Player_DamageGivenFactor[i].DamageType);
 		}
 		else
 		{
@@ -241,7 +241,7 @@ static function LoadConfigObjects_DamageTaken(out array<S_Damage> ValidDT, out a
 		Obj = class<DamageType>(DynamicLoadObject(default.Player_DamageTakenFactor[i].DamageType, class'Class', True));
 		if (Obj == None)
 		{
-			LogBadLoadObjectConfigMessage("Player_DamageTakenFactor", i, default.Player_DamageTakenFactor[i].DamageType);
+			LogBadLoadObjectConfigMessage("Player_DamageTakenFactor", i + 1, default.Player_DamageTakenFactor[i].DamageType);
 		}
 		else
 		{
@@ -264,7 +264,7 @@ static function LoadConfigObjects_Vampire(out array<S_Vampire> ValidDT, out arra
 		Obj = class<DamageType>(DynamicLoadObject(default.Player_VampireEffect[i].DamageType, class'Class', True));
 		if (Obj == None)
 		{
-			LogBadLoadObjectConfigMessage("Player_VampireEffect", i, default.Player_VampireEffect[i].DamageType);
+			LogBadLoadObjectConfigMessage("Player_VampireEffect", i + 1, default.Player_VampireEffect[i].DamageType);
 		}
 		else
 		{

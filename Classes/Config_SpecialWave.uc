@@ -205,7 +205,7 @@ static function LoadConfigObjects(out array<S_SpecialWave> ValidWaves, out array
 		Obj = class<WMSpecialWave>(DynamicLoadObject(default.SpecialWave_SpecialWaves[i].Path, class'Class', True));
 		if (Obj == None)
 		{
-			LogBadLoadObjectConfigMessage("SpecialWave_SpecialWaves", i, default.SpecialWave_SpecialWaves[i].Path);
+			LogBadLoadObjectConfigMessage("SpecialWave_SpecialWaves", i + 1, default.SpecialWave_SpecialWaves[i].Path);
 		}
 		else
 		{
