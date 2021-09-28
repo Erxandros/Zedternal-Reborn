@@ -2,26 +2,26 @@ class WMGameInfo_ConfigInit extends Object;
 
 //Events
 var array<S_SpecialWave> ValidSpecialWaves;
-var array< class<WMSpecialWave> > LoadedSpecialWaveObjects;
+var array< class<WMSpecialWave> > SpecialWaveObjects;
 
 var array<S_SpecialWaveOverride> ValidSpecialWaveOverrides;
-var array< class<WMSpecialWave> > LoadedSWOverrideObjects;
+var array< class<WMSpecialWave> > SWOverrideObjects;
 
 var array<S_ZedBuff> ValidZedBuffs;
 var array< class<WMZedBuff> > ZedBuffObjects;
 
 //Upgrades
 var array<S_PerkUpgrade> ValidPerkUpgrades;
-var array< class<WMUpgrade_Perk> > LoadedPerkUpgObjects;
+var array< class<WMUpgrade_Perk> > PerkUpgObjects;
 
 var array<S_SkillUpgrade> ValidSkillUpgrades;
-var array< class<WMUpgrade_Skill> > LoadedSkillUpgObjects;
+var array< class<WMUpgrade_Skill> > SkillUpgObjects;
 
 var array<S_WeaponUpgrade> ValidWeaponUpgrades;
-var array< class<WMUpgrade_Weapon> > LoadedWeaponUpgObjects;
+var array< class<WMUpgrade_Weapon> > WeaponUpgObjects;
 
 var array<S_EquipmentUpgrade> ValidEquipmentUpgrades;
-var array< class<WMUpgrade_Equipment> > LoadedEquipmentUpgObjects;
+var array< class<WMUpgrade_Equipment> > EquipmentUpgObjects;
 
 //Weapons
 var array< class<KFWeaponDefinition> > CustomWeaponDefObjects;
@@ -42,13 +42,13 @@ var array< class<KFWeaponDefinition> > VarDualWeaponDefObjects;
 
 function InitializeConfigData()
 {
-	class'ZedternalReborn.Config_SpecialWave'.static.LoadConfigObjects(ValidSpecialWaves, LoadedSpecialWaveObjects);
-	class'ZedternalReborn.Config_SpecialWaveOverride'.static.LoadConfigObjects(ValidSpecialWaveOverrides, LoadedSWOverrideObjects);
+	class'ZedternalReborn.Config_SpecialWave'.static.LoadConfigObjects(ValidSpecialWaves, SpecialWaveObjects);
+	class'ZedternalReborn.Config_SpecialWaveOverride'.static.LoadConfigObjects(ValidSpecialWaveOverrides, SWOverrideObjects);
 	class'ZedternalReborn.Config_ZedBuff'.static.LoadConfigObjects(ValidZedBuffs, ZedBuffObjects);
-	class'ZedternalReborn.Config_PerkUpgrade'.static.LoadConfigObjects(ValidPerkUpgrades, LoadedPerkUpgObjects);
-	class'ZedternalReborn.Config_SkillUpgrade'.static.LoadConfigObjects(ValidSkillUpgrades, LoadedSkillUpgObjects);
-	class'ZedternalReborn.Config_WeaponUpgrade'.static.LoadConfigObjects(ValidWeaponUpgrades, LoadedWeaponUpgObjects);
-	class'ZedternalReborn.Config_EquipmentUpgrade'.static.LoadConfigObjects(ValidEquipmentUpgrades, LoadedEquipmentUpgObjects);
+	class'ZedternalReborn.Config_PerkUpgrade'.static.LoadConfigObjects(ValidPerkUpgrades, PerkUpgObjects);
+	class'ZedternalReborn.Config_SkillUpgrade'.static.LoadConfigObjects(ValidSkillUpgrades, SkillUpgObjects);
+	class'ZedternalReborn.Config_WeaponUpgrade'.static.LoadConfigObjects(ValidWeaponUpgrades, WeaponUpgObjects);
+	class'ZedternalReborn.Config_EquipmentUpgrade'.static.LoadConfigObjects(ValidEquipmentUpgrades, EquipmentUpgObjects);
 	class'ZedternalReborn.Config_WeaponCustom'.static.LoadConfigObjects(CustomWeaponDefObjects, CustomWeaponObjects);
 	class'ZedternalReborn.Config_WeaponGrenade'.static.LoadConfigObjects(GrenadeWeaponDefObjects);
 	class'ZedternalReborn.Config_WeaponStarting'.static.LoadConfigObjects(StartingWeaponDefObjects, StartingWeaponObjects);

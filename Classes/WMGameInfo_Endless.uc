@@ -866,17 +866,17 @@ function InitializeSpecialWave()
 		&& class'ZedternalReborn.Config_SpecialWaveOverride'.static.GetSpecialWaveOverrideAllowed(GameDifficultyZedternal))
 	{
 		//Combine the lists
-		SpecialWaveList = ConfigInit.LoadedSpecialWaveObjects;
-		for (i = 0; i < ConfigInit.LoadedSWOverrideObjects.Length; ++i)
+		SpecialWaveList = ConfigInit.SpecialWaveObjects;
+		for (i = 0; i < ConfigInit.SWOverrideObjects.Length; ++i)
 		{
-			if (ConfigInit.static.BinarySearch(SpecialWaveList, PathName(ConfigInit.LoadedSWOverrideObjects[i]), Ins) == INDEX_NONE)
-					SpecialWaveList.InsertItem(Ins, ConfigInit.LoadedSWOverrideObjects[i]);
+			if (ConfigInit.static.BinarySearch(SpecialWaveList, PathName(ConfigInit.SWOverrideObjects[i]), Ins) == INDEX_NONE)
+					SpecialWaveList.InsertItem(Ins, ConfigInit.SWOverrideObjects[i]);
 		}
 	}
 	else if (class'ZedternalReborn.Config_SpecialWave'.static.GetSpecialWaveAllowed(GameDifficultyZedternal))
-		SpecialWaveList = ConfigInit.LoadedSpecialWaveObjects;
+		SpecialWaveList = ConfigInit.SpecialWaveObjects;
 	else if (class'ZedternalReborn.Config_SpecialWaveOverride'.static.GetSpecialWaveOverrideAllowed(GameDifficultyZedternal))
-		SpecialWaveList = ConfigInit.LoadedSWOverrideObjects;
+		SpecialWaveList = ConfigInit.SWOverrideObjects;
 
 	if (class'ZedternalReborn.Config_SpecialWave'.static.GetSpecialWaveAllowed(GameDifficultyZedternal))
 	{
@@ -1475,7 +1475,7 @@ function AddWeaponInTrader(const class<KFWeaponDefinition> KFWD)
 		AllowedUpgrades.Length = 0;
 		for (i = 0; i < ConfigInit.ValidWeaponUpgrades.Length; ++i)
 		{
-			WMUW = ConfigInit.LoadedWeaponUpgObjects[i];
+			WMUW = ConfigInit.WeaponUpgObjects[i];
 			if (WMUW != None && WMUW.static.IsUpgradeCompatible(KFW))
 			{
 				if (ConfigInit.ValidWeaponUpgrades[i].bIsStatic)
@@ -1693,7 +1693,7 @@ function RepGameInfoLowPriority()
 	for (b = 0; b < Min(255, ConfigInit.ValidPerkUpgrades.Length); ++b)
 	{
 		WMGRI.perkUpgradesStr[b] = ConfigInit.ValidPerkUpgrades[b].PerkPath;
-		WMGRI.perkUpgrades[b] = ConfigInit.LoadedPerkUpgObjects[b];
+		WMGRI.perkUpgrades[b] = ConfigInit.PerkUpgObjects[b];
 	}
 
 	//Weapon Upgrades for the local standalone/server
@@ -1730,7 +1730,7 @@ function RepGameInfoLowPriority()
 		WMGRI.skillUpgradesRepArray[b].PerkPathName = ConfigInit.ValidSkillUpgrades[b].PerkPath;
 		WMGRI.skillUpgradesRepArray[b].bValid = True;
 
-		WMGRI.skillUpgrades[b].SkillUpgrade = ConfigInit.LoadedSkillUpgObjects[b];
+		WMGRI.skillUpgrades[b].SkillUpgrade = ConfigInit.SkillUpgObjects[b];
 		WMGRI.skillUpgrades[b].PerkPathName = ConfigInit.ValidSkillUpgrades[b].PerkPath;
 		WMGRI.skillUpgrades[b].bDone = True;
 	}
@@ -1746,7 +1746,7 @@ function RepGameInfoLowPriority()
 			WMGRI.equipmentUpgradesRepArray[b].MaxLevel = ConfigInit.ValidEquipmentUpgrades[b].MaxLevel;
 			WMGRI.equipmentUpgradesRepArray[b].bValid = True;
 
-			WMGRI.equipmentUpgrades[b].EquipmentUpgrade = ConfigInit.LoadedEquipmentUpgObjects[b];
+			WMGRI.equipmentUpgrades[b].EquipmentUpgrade = ConfigInit.EquipmentUpgObjects[b];
 			WMGRI.equipmentUpgrades[b].BasePrice = ConfigInit.ValidEquipmentUpgrades[b].BasePrice;
 			WMGRI.equipmentUpgrades[b].MaxPrice = ConfigInit.ValidEquipmentUpgrades[b].MaxPrice;
 			WMGRI.equipmentUpgrades[b].MaxLevel = ConfigInit.ValidEquipmentUpgrades[b].MaxLevel;
