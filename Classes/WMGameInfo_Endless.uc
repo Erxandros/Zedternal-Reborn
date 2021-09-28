@@ -1,6 +1,6 @@
 class WMGameInfo_Endless extends KFGameInfo_Survival;
 
-var WMGameInfo_ConfigInit ConfigInit;
+var WMGameInfo_ConfigData ConfigData;
 
 var KFGFxObject_TraderItems DefaultTraderItems;
 var WMGFxObject_TraderItems TraderItems;
@@ -141,8 +141,8 @@ event PreBeginPlay()
 	class'ZedternalReborn.Config_Base'.static.LoadConfigs();
 
 	// Create config data holder and load all valid values
-	ConfigInit = new class'WMGameInfo_ConfigInit';
-	ConfigInit.InitializeConfigData();
+	ConfigData = new class'WMGameInfo_ConfigData';
+	ConfigData.InitializeConfigData();
 }
 
 event PostBeginPlay()
@@ -652,17 +652,17 @@ function InitializeZedBuff()
 
 	if (class'ZedternalReborn.Config_ZedBuff'.static.GetZedBuffEnable(GameDifficultyZedternal))
 	{
-		for (i = 0; i < ConfigInit.ValidZedBuffs.Length; ++i)
+		for (i = 0; i < ConfigData.ValidZedBuffs.Length; ++i)
 		{
-			ZB.ID = ConfigInit.static.BinarySearch(ConfigInit.ZedBuffObjects, ConfigInit.ValidZedBuffs[i].Path, Ins);
-			ZB.MinWave = ConfigInit.ValidZedBuffs[i].MinWave;
-			ZB.MaxWave = ConfigInit.ValidZedBuffs[i].MaxWave;
+			ZB.ID = ConfigData.static.BinarySearch(ConfigData.ZedBuffObjects, ConfigData.ValidZedBuffs[i].Path, Ins);
+			ZB.MinWave = ConfigData.ValidZedBuffs[i].MinWave;
+			ZB.MaxWave = ConfigData.ValidZedBuffs[i].MaxWave;
 			ZB.bActivated = False;
 			ZedBuffSettings.AddItem(ZB);
 		}
 	}
 
-	if (ConfigInit.ZedBuffObjects.Length > 255)
+	if (ConfigData.ZedBuffObjects.Length > 255)
 	{
 		`log("ZR Warning: Zed buffs list exceed 255 elements which is not valid for replication."
 			@"Trimmed the list down to 255 elements, some zed buffs defined in the config will never"
@@ -866,37 +866,37 @@ function InitializeSpecialWave()
 		&& class'ZedternalReborn.Config_SpecialWaveOverride'.static.GetSpecialWaveOverrideAllowed(GameDifficultyZedternal))
 	{
 		//Combine the lists
-		SpecialWaveList = ConfigInit.SpecialWaveObjects;
-		for (i = 0; i < ConfigInit.SWOverrideObjects.Length; ++i)
+		SpecialWaveList = ConfigData.SpecialWaveObjects;
+		for (i = 0; i < ConfigData.SWOverrideObjects.Length; ++i)
 		{
-			if (ConfigInit.static.BinarySearch(SpecialWaveList, PathName(ConfigInit.SWOverrideObjects[i]), Ins) == INDEX_NONE)
-					SpecialWaveList.InsertItem(Ins, ConfigInit.SWOverrideObjects[i]);
+			if (ConfigData.static.BinarySearch(SpecialWaveList, PathName(ConfigData.SWOverrideObjects[i]), Ins) == INDEX_NONE)
+					SpecialWaveList.InsertItem(Ins, ConfigData.SWOverrideObjects[i]);
 		}
 	}
 	else if (class'ZedternalReborn.Config_SpecialWave'.static.GetSpecialWaveAllowed(GameDifficultyZedternal))
-		SpecialWaveList = ConfigInit.SpecialWaveObjects;
+		SpecialWaveList = ConfigData.SpecialWaveObjects;
 	else if (class'ZedternalReborn.Config_SpecialWaveOverride'.static.GetSpecialWaveOverrideAllowed(GameDifficultyZedternal))
-		SpecialWaveList = ConfigInit.SWOverrideObjects;
+		SpecialWaveList = ConfigData.SWOverrideObjects;
 
 	if (class'ZedternalReborn.Config_SpecialWave'.static.GetSpecialWaveAllowed(GameDifficultyZedternal))
 	{
-		for (i = 0; i < ConfigInit.ValidSpecialWaves.Length; ++i)
+		for (i = 0; i < ConfigData.ValidSpecialWaves.Length; ++i)
 		{
-			SW.ID = ConfigInit.static.BinarySearch(SpecialWaveList, ConfigInit.ValidSpecialWaves[i].Path, Ins);
-			SW.MinWave = ConfigInit.ValidSpecialWaves[i].MinWave;
-			SW.MaxWave = ConfigInit.ValidSpecialWaves[i].MaxWave;
+			SW.ID = ConfigData.static.BinarySearch(SpecialWaveList, ConfigData.ValidSpecialWaves[i].Path, Ins);
+			SW.MinWave = ConfigData.ValidSpecialWaves[i].MinWave;
+			SW.MaxWave = ConfigData.ValidSpecialWaves[i].MaxWave;
 			SpecialWaveObjects.AddItem(SW);
 		}
 	}
 
 	if (class'ZedternalReborn.Config_SpecialWaveOverride'.static.GetSpecialWaveOverrideAllowed(GameDifficultyZedternal))
 	{
-		for (i = 0; i < ConfigInit.ValidSpecialWaveOverrides.Length; ++i)
+		for (i = 0; i < ConfigData.ValidSpecialWaveOverrides.Length; ++i)
 		{
-			SWO.Wave = ConfigInit.ValidSpecialWaveOverrides[i].Wave;
-			SWO.FirstID = ConfigInit.static.BinarySearch(SpecialWaveList, ConfigInit.ValidSpecialWaveOverrides[i].FirstPath, Ins);
-			SWO.SecondID = ConfigInit.static.BinarySearch(SpecialWaveList, ConfigInit.ValidSpecialWaveOverrides[i].SecondPath, Ins);
-			SWO.Probability = ConfigInit.ValidSpecialWaveOverrides[i].Probability;
+			SWO.Wave = ConfigData.ValidSpecialWaveOverrides[i].Wave;
+			SWO.FirstID = ConfigData.static.BinarySearch(SpecialWaveList, ConfigData.ValidSpecialWaveOverrides[i].FirstPath, Ins);
+			SWO.SecondID = ConfigData.static.BinarySearch(SpecialWaveList, ConfigData.ValidSpecialWaveOverrides[i].SecondPath, Ins);
+			SWO.Probability = ConfigData.ValidSpecialWaveOverrides[i].Probability;
 			SpecialWaveOverrides.AddItem(SWO);
 		}
 	}
@@ -1129,14 +1129,14 @@ function int CombineAllWeapons(out array<S_Weapon_Data> CombinedWeaponList)
 	local array< class<KFWeapon> > BaseWep;
 
 	//Static Weapons
-	CombineWeapons(CombinedWeaponList, ConfigInit.StaticWeaponDefObjects, ConfigInit.StaticWeaponObjects);
+	CombineWeapons(CombinedWeaponList, ConfigData.StaticWeaponDefObjects, ConfigData.StaticWeaponObjects);
 
 	//Starting Weapons
 	StartNum = CombineWeaponsStartingWeapon(CombinedWeaponList, BaseWepDef, BaseWep);
 
 	//Custom Weapons
 	if (class'ZedternalReborn.Config_WeaponCustom'.default.Weapon_bUseCustomWeaponList)
-		CombineWeapons(CombinedWeaponList, ConfigInit.CustomWeaponDefObjects, ConfigInit.CustomWeaponObjects);
+		CombineWeapons(CombinedWeaponList, ConfigData.CustomWeaponDefObjects, ConfigData.CustomWeaponObjects);
 
 	//Base Weapons
 	BaseWepDef.Length = 0;
@@ -1148,7 +1148,7 @@ function int CombineAllWeapons(out array<S_Weapon_Data> CombinedWeaponList)
 	}
 	CombineWeapons(CombinedWeaponList, BaseWepDef, BaseWep);
 
-	return ConfigInit.StaticWeaponDefObjects.Length + StartNum;
+	return ConfigData.StaticWeaponDefObjects.Length + StartNum;
 }
 
 function CombineWeapons(out array<S_Weapon_Data> CombinedWeaponList, const out array< class<KFWeaponDefinition> > DefArray,
@@ -1229,7 +1229,7 @@ function int CombineWeaponsStartingWeapon(out array<S_Weapon_Data> CombinedWeapo
 	BaseWep.Length = 0;
 
 	//Starting Weapons
-	for (i = 0; i < ConfigInit.StartingWeaponDefObjects.Length; ++i)
+	for (i = 0; i < ConfigData.StartingWeaponDefObjects.Length; ++i)
 	{
 		RandList.AddItem(i);
 	}
@@ -1237,8 +1237,8 @@ function int CombineWeaponsStartingWeapon(out array<S_Weapon_Data> CombinedWeapo
 	for (i = 0; i < Min(class'ZedternalReborn.Config_Trader'.static.GetStartingWeaponNumber(GameDifficultyZedternal), Count); ++i)
 	{
 		Choice = Rand(RandList.Length);
-		BaseWepDef.AddItem(ConfigInit.StartingWeaponDefObjects[RandList[Choice]]);
-		BaseWep.AddItem(ConfigInit.StartingWeaponObjects[RandList[Choice]]);
+		BaseWepDef.AddItem(ConfigData.StartingWeaponDefObjects[RandList[Choice]]);
+		BaseWep.AddItem(ConfigData.StartingWeaponObjects[RandList[Choice]]);
 		StartingWeaponPath.AddItem(PathName(BaseWep[i]));
 		RandList.Remove(Choice, 1);
 	}
@@ -1273,17 +1273,17 @@ function S_Weapon_Data ApplyRandomWeaponVariant(S_Weapon_Data WepData)
 		return WepData;
 
 	WeapDefinitionPath = PathName(WepData.KFWeapDefSingle);
-	for (i = 0; i < ConfigInit.VariantProbs.Length; ++i)
+	for (i = 0; i < ConfigData.VariantProbs.Length; ++i)
 	{
-		if (PathName(ConfigInit.VarBaseWeaponDefObjects[i]) ~= WeapDefinitionPath && FRand() <= ConfigInit.VariantProbs[i])
+		if (PathName(ConfigData.VarBaseWeaponDefObjects[i]) ~= WeapDefinitionPath && FRand() <= ConfigData.VariantProbs[i])
 		{
 			WepData.bVariant = True;
-			WepData.KFWeapDefSingleReplace = ConfigInit.VarRepWeaponDefObjects[i];
+			WepData.KFWeapDefSingleReplace = ConfigData.VarRepWeaponDefObjects[i];
 			`log("ZR Info: Replace weapon variant:"@WeapDefinitionPath@"=>"@PathName(WepData.KFWeapDefSingleReplace));
 
-			if (ConfigInit.VarDualWeaponDefObjects[i] != None)
+			if (ConfigData.VarDualWeaponDefObjects[i] != None)
 			{
-				WepData.KFWeapDefDualReplace = ConfigInit.VarDualWeaponDefObjects[i];
+				WepData.KFWeapDefDualReplace = ConfigData.VarDualWeaponDefObjects[i];
 
 				if (WepData.KFWeapDefDual != None)
 					`log("ZR Info: Replace dual weapon variant:"@PathName(WepData.KFWeapDefDual)@"=>"@PathName(WepData.KFWeapDefDualReplace));
@@ -1356,7 +1356,7 @@ function SetStartingWeapons(const out array<S_Weapon_Data> CombinedWeaponList)
 
 	for (i = 0; i < StartingWeaponPath.Length; ++i)
 	{
-		for (x = 0; x < ConfigInit.StaticWeaponDefObjects.Length + StartingWeaponPath.Length; ++x)
+		for (x = 0; x < ConfigData.StaticWeaponDefObjects.Length + StartingWeaponPath.Length; ++x)
 		{
 			if (StartingWeaponPath[i] ~= PathName(CombinedWeaponList[x].KFWeapSingle))
 			{
@@ -1473,12 +1473,12 @@ function AddWeaponInTrader(const class<KFWeaponDefinition> KFWD)
 	if (WMGRI != None && KFW != None)
 	{
 		AllowedUpgrades.Length = 0;
-		for (i = 0; i < ConfigInit.ValidWeaponUpgrades.Length; ++i)
+		for (i = 0; i < ConfigData.ValidWeaponUpgrades.Length; ++i)
 		{
-			WMUW = ConfigInit.WeaponUpgObjects[i];
+			WMUW = ConfigData.WeaponUpgObjects[i];
 			if (WMUW != None && WMUW.static.IsUpgradeCompatible(KFW))
 			{
-				if (ConfigInit.ValidWeaponUpgrades[i].bIsStatic)
+				if (ConfigData.ValidWeaponUpgrades[i].bIsStatic)
 					StaticUpgrades.AddItem(WMUW);
 				else
 					AllowedUpgrades.AddItem(WMUW);
@@ -1592,9 +1592,9 @@ function RepGameInfoHighPriority()
 	//Optimization
 	WMGRI.NumberOfTraderWeapons = Min(510, TraderItems.SaleItems.Length);
 	WMGRI.NumberOfStartingWeapons = Min(255, StartingWeaponPath.Length);
-	WMGRI.NumberOfSkillUpgrades = Min(255, ConfigInit.ValidSkillUpgrades.Length);
+	WMGRI.NumberOfSkillUpgrades = Min(255, ConfigData.ValidSkillUpgrades.Length);
 	WMGRI.NumberOfWeaponUpgrades = Min(`MAXWEAPONUPGRADES, WeaponUpgradeArch.Length);
-	WMGRI.NumberOfEquipmentUpgrades = Min(255, ConfigInit.ValidEquipmentUpgrades.Length);
+	WMGRI.NumberOfEquipmentUpgrades = Min(255, ConfigData.ValidEquipmentUpgrades.Length);
 
 	//Pre-initialize the array size for the sever/standalone
 	WMGRI.skillUpgrades.Length = WMGRI.NumberOfSkillUpgrades;
@@ -1629,10 +1629,10 @@ function RepGameInfoNormalPriority()
 		return;
 
 	//Grenades
-	for (b = 0; b < Min(255, ConfigInit.GrenadeWeaponDefObjects.Length); ++b)
+	for (b = 0; b < Min(255, ConfigData.GrenadeWeaponDefObjects.Length); ++b)
 	{
-		WMGRI.grenadesStr[b] = PathName(ConfigInit.GrenadeWeaponDefObjects[b]);
-		WMGRI.Grenades[b] = ConfigInit.GrenadeWeaponDefObjects[b];
+		WMGRI.grenadesStr[b] = PathName(ConfigData.GrenadeWeaponDefObjects[b]);
+		WMGRI.Grenades[b] = ConfigData.GrenadeWeaponDefObjects[b];
 	}
 
 	//Armor pickup enable
@@ -1645,10 +1645,10 @@ function RepGameInfoNormalPriority()
 	}
 
 	//ZedBuff
-	for (b = 0; b < Min(255, ConfigInit.ZedBuffObjects.Length); ++b)
+	for (b = 0; b < Min(255, ConfigData.ZedBuffObjects.Length); ++b)
 	{
-		WMGRI.zedBuffStr[b] = PathName(ConfigInit.ZedBuffObjects[b]);
-		WMGRI.zedBuffs[b] = ConfigInit.ZedBuffObjects[b];
+		WMGRI.zedBuffStr[b] = PathName(ConfigData.ZedBuffObjects[b]);
+		WMGRI.zedBuffs[b] = ConfigData.ZedBuffObjects[b];
 	}
 
 	//Special Waves
@@ -1690,10 +1690,10 @@ function RepGameInfoLowPriority()
 	}
 
 	//Perk Upgrades
-	for (b = 0; b < Min(255, ConfigInit.ValidPerkUpgrades.Length); ++b)
+	for (b = 0; b < Min(255, ConfigData.ValidPerkUpgrades.Length); ++b)
 	{
-		WMGRI.perkUpgradesStr[b] = ConfigInit.ValidPerkUpgrades[b].PerkPath;
-		WMGRI.perkUpgrades[b] = ConfigInit.PerkUpgObjects[b];
+		WMGRI.perkUpgradesStr[b] = ConfigData.ValidPerkUpgrades[b].PerkPath;
+		WMGRI.perkUpgrades[b] = ConfigData.PerkUpgObjects[b];
 	}
 
 	//Weapon Upgrades for the local standalone/server
@@ -1724,42 +1724,42 @@ function RepGameInfoLowPriority()
 	WMGRI.RepGameInfoWeaponUpgrades(WMGRI.weaponUpgradeRepArray_16, 15);
 
 	//Skill Upgrades
-	for (b = 0; b < Min(255, ConfigInit.ValidSkillUpgrades.Length); ++b)
+	for (b = 0; b < Min(255, ConfigData.ValidSkillUpgrades.Length); ++b)
 	{
-		WMGRI.skillUpgradesRepArray[b].SkillPathName = ConfigInit.ValidSkillUpgrades[b].SkillPath;
-		WMGRI.skillUpgradesRepArray[b].PerkPathName = ConfigInit.ValidSkillUpgrades[b].PerkPath;
+		WMGRI.skillUpgradesRepArray[b].SkillPathName = ConfigData.ValidSkillUpgrades[b].SkillPath;
+		WMGRI.skillUpgradesRepArray[b].PerkPathName = ConfigData.ValidSkillUpgrades[b].PerkPath;
 		WMGRI.skillUpgradesRepArray[b].bValid = True;
 
-		WMGRI.skillUpgrades[b].SkillUpgrade = ConfigInit.SkillUpgObjects[b];
-		WMGRI.skillUpgrades[b].PerkPathName = ConfigInit.ValidSkillUpgrades[b].PerkPath;
+		WMGRI.skillUpgrades[b].SkillUpgrade = ConfigData.SkillUpgObjects[b];
+		WMGRI.skillUpgrades[b].PerkPathName = ConfigData.ValidSkillUpgrades[b].PerkPath;
 		WMGRI.skillUpgrades[b].bDone = True;
 	}
 
 	//Equipment Upgrades
-	for (b = 0; b < Min(255, ConfigInit.ValidEquipmentUpgrades.Length); ++b)
+	for (b = 0; b < Min(255, ConfigData.ValidEquipmentUpgrades.Length); ++b)
 	{
-		if (ConfigInit.ValidEquipmentUpgrades[b].MaxLevel > 0)
+		if (ConfigData.ValidEquipmentUpgrades[b].MaxLevel > 0)
 		{
-			WMGRI.equipmentUpgradesRepArray[b].EquipmentPathName = ConfigInit.ValidEquipmentUpgrades[b].EquipmentPath;
-			WMGRI.equipmentUpgradesRepArray[b].BasePrice = ConfigInit.ValidEquipmentUpgrades[b].BasePrice;
-			WMGRI.equipmentUpgradesRepArray[b].MaxPrice = ConfigInit.ValidEquipmentUpgrades[b].MaxPrice;
-			WMGRI.equipmentUpgradesRepArray[b].MaxLevel = ConfigInit.ValidEquipmentUpgrades[b].MaxLevel;
+			WMGRI.equipmentUpgradesRepArray[b].EquipmentPathName = ConfigData.ValidEquipmentUpgrades[b].EquipmentPath;
+			WMGRI.equipmentUpgradesRepArray[b].BasePrice = ConfigData.ValidEquipmentUpgrades[b].BasePrice;
+			WMGRI.equipmentUpgradesRepArray[b].MaxPrice = ConfigData.ValidEquipmentUpgrades[b].MaxPrice;
+			WMGRI.equipmentUpgradesRepArray[b].MaxLevel = ConfigData.ValidEquipmentUpgrades[b].MaxLevel;
 			WMGRI.equipmentUpgradesRepArray[b].bValid = True;
 
-			WMGRI.equipmentUpgrades[b].EquipmentUpgrade = ConfigInit.EquipmentUpgObjects[b];
-			WMGRI.equipmentUpgrades[b].BasePrice = ConfigInit.ValidEquipmentUpgrades[b].BasePrice;
-			WMGRI.equipmentUpgrades[b].MaxPrice = ConfigInit.ValidEquipmentUpgrades[b].MaxPrice;
-			WMGRI.equipmentUpgrades[b].MaxLevel = ConfigInit.ValidEquipmentUpgrades[b].MaxLevel;
+			WMGRI.equipmentUpgrades[b].EquipmentUpgrade = ConfigData.EquipmentUpgObjects[b];
+			WMGRI.equipmentUpgrades[b].BasePrice = ConfigData.ValidEquipmentUpgrades[b].BasePrice;
+			WMGRI.equipmentUpgrades[b].MaxPrice = ConfigData.ValidEquipmentUpgrades[b].MaxPrice;
+			WMGRI.equipmentUpgrades[b].MaxLevel = ConfigData.ValidEquipmentUpgrades[b].MaxLevel;
 			WMGRI.equipmentUpgrades[b].bDone = True;
 		}
 		else
-			`log("ZR Info: Equipment upgrade disabled because max level is zero:"@ConfigInit.ValidEquipmentUpgrades[b].EquipmentPath);
+			`log("ZR Info: Equipment upgrade disabled because max level is zero:"@ConfigData.ValidEquipmentUpgrades[b].EquipmentPath);
 	}
 
 	//Weapon unlocks
 	WMGRI.newWeaponEachWave = class'ZedternalReborn.Config_Trader'.static.GetNewWeaponEachWave(GameDifficultyZedternal);
 	WMGRI.maxWeapon = class'ZedternalReborn.Config_Trader'.static.GetMaxWeapon(GameDifficultyZedternal);
-	WMGRI.staticWeapon = ConfigInit.StaticWeaponDefObjects.Length;
+	WMGRI.staticWeapon = ConfigData.StaticWeaponDefObjects.Length;
 
 	//Perks, Skills and Weapons upgrades custom prices
 	WMGRI.perkMaxLevel = class'ZedternalReborn.Config_PerkUpgradeOptions'.default.PerkUpgrade_Price.Length;
@@ -1787,10 +1787,10 @@ function RepPlayerInfo(WMPlayerReplicationInfo WMPRI)
 	{
 		PerkIndex.Length = 0;
 		Count = 0;
-		for (i = 0; i < ConfigInit.ValidPerkUpgrades.Length; ++i)
+		for (i = 0; i < ConfigData.ValidPerkUpgrades.Length; ++i)
 		{
 			// check if the perk i should be in the trader (static perk)
-			if (ConfigInit.ValidPerkUpgrades[i].bIsStatic)
+			if (ConfigData.ValidPerkUpgrades[i].bIsStatic)
 			{
 				WMPRI.bPerkUpgradeAvailable[i] = 1;
 				++Count;

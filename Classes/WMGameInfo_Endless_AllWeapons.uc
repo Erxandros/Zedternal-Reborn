@@ -15,14 +15,14 @@ function int CombineWeaponsStartingWeapon(out array<S_Weapon_Data> CombinedWeapo
 {
 	local int i;
 
-	for (i = 0; i < ConfigInit.StartingWeaponObjects.Length; ++i)
+	for (i = 0; i < ConfigData.StartingWeaponObjects.Length; ++i)
 	{
-		StartingWeaponPath.AddItem(PathName(ConfigInit.StartingWeaponObjects[i]));
+		StartingWeaponPath.AddItem(PathName(ConfigData.StartingWeaponObjects[i]));
 	}
 
-	CombineWeapons(CombinedWeaponList, ConfigInit.StartingWeaponDefObjects, ConfigInit.StartingWeaponObjects);
+	CombineWeapons(CombinedWeaponList, ConfigData.StartingWeaponDefObjects, ConfigData.StartingWeaponObjects);
 
-	return ConfigInit.StartingWeaponDefObjects.Length;
+	return ConfigData.StartingWeaponDefObjects.Length;
 }
 
 defaultproperties

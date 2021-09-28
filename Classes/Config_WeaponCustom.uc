@@ -47,7 +47,7 @@ static function LoadConfigObjects(out array< class<KFWeaponDefinition> > WeaponD
 			continue;
 		}
 
-		if (class'ZedternalReborn.WMGameInfo_ConfigInit'.static.BinarySearch(WeaponDefObjects, PathName(ObjDef), Ins) == INDEX_NONE)
+		if (class'ZedternalReborn.WMGameInfo_ConfigData'.static.BinarySearch(WeaponDefObjects, PathName(ObjDef), Ins) == INDEX_NONE)
 		{
 			WeaponDefObjects.InsertItem(Ins, ObjDef);
 			WeaponObjects.InsertItem(Ins, ObjWep);

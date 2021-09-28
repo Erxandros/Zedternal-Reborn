@@ -1,4 +1,4 @@
-class WMGameInfo_ConfigInit extends Object;
+class WMGameInfo_ConfigData extends Object;
 
 //Events
 var array<S_SpecialWave> ValidSpecialWaves;

@@ -199,7 +199,7 @@ static function LoadConfigObjects(out array<S_ZedBuff> ValidBuffs, out array< cl
 		{
 			ValidBuffs.AddItem(default.ZedBuff_ZedBuffs[i]);
 
-			if (class'ZedternalReborn.WMGameInfo_ConfigInit'.static.BinarySearch(BuffObjects, PathName(Obj), Ins) == INDEX_NONE)
+			if (class'ZedternalReborn.WMGameInfo_ConfigData'.static.BinarySearch(BuffObjects, PathName(Obj), Ins) == INDEX_NONE)
 				BuffObjects.InsertItem(Ins, Obj);
 		}
 	}
