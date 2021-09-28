@@ -76,7 +76,7 @@ var int RerollCost;
 var float RerollMultiplier;
 var float RerollSkillSellPercent;
 var int weaponMaxLevel;
-var byte bZedBuffs[255];
+var byte ActiveZedBuffs[255];
 var byte bDeluxeSkillUnlock[255];
 
 var repnotify WeaponUpgradeRepStruct weaponUpgradeRepArray_1[255];
@@ -176,7 +176,7 @@ replication
 		perkUpgradesStr, skillUpgradesRepArray, equipmentUpgradesRepArray, specialWavesStr, grenadesStr, zedBuffStr,
 		SpecialWaveID, bNewZedBuff, newWeaponEachWave, maxWeapon, staticWeapon, ArmorPrice, GrenadePrice, TraderVoiceGroupIndex,
 		bArmorPickup, perkPrice, perkMaxLevel, skillPrice, skillDeluxePrice, bAllowSkillReroll, RerollCost, RerollMultiplier,
-		RerollSkillSellPercent, weaponMaxLevel, bZedBuffs, bDeluxeSkillUnlock,
+		RerollSkillSellPercent, weaponMaxLevel, ActiveZedBuffs, bDeluxeSkillUnlock,
 		weaponUpgradeRepArray_1, weaponUpgradeRepArray_2, weaponUpgradeRepArray_3, weaponUpgradeRepArray_4,
 		weaponUpgradeRepArray_5, weaponUpgradeRepArray_6, weaponUpgradeRepArray_7, weaponUpgradeRepArray_8,
 		weaponUpgradeRepArray_9, weaponUpgradeRepArray_10, weaponUpgradeRepArray_11, weaponUpgradeRepArray_12,

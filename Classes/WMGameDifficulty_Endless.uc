@@ -22,7 +22,7 @@ function SetDifficultySettings(float GameDifficulty)
 
 function GetAIHealthModifier(KFPawn_Monster P, float GameDifficulty, byte NumLivingPlayers, out float HealthMod, out float HeadHealthMod, optional bool bApplyDifficultyScaling=True)
 {
-	local byte i;
+	local byte i, x;
 
 	if (P != None)
 	{
@@ -64,10 +64,13 @@ function GetAIHealthModifier(KFPawn_Monster P, float GameDifficulty, byte NumLiv
 			}
 			for (i = 0; i < WMGRI.zedBuffs.Length; ++i)
 			{
-				if (WMGRI.bZedBuffs[i] > 0)
+				if (WMGRI.ActiveZedBuffs[i] > 0)
 				{
-					WMGRI.zedBuffs[i].static.ModifyZedHealthMod(HealthMod, P, GameDifficultyZedternal, NumLivingPlayers);
-					WMGRI.zedBuffs[i].static.ModifyZedHeadHealthMod(HeadHealthMod, P, GameDifficultyZedternal, NumLivingPlayers);
+					for (x = 0; x < WMGRI.ActiveZedBuffs[i]; ++x)
+					{
+						WMGRI.zedBuffs[i].static.ModifyZedHealthMod(HealthMod, P, GameDifficultyZedternal, NumLivingPlayers);
+						WMGRI.zedBuffs[i].static.ModifyZedHeadHealthMod(HeadHealthMod, P, GameDifficultyZedternal, NumLivingPlayers);
+					}
 				}
 			}
 		}
@@ -101,7 +104,7 @@ function GetVersusHealthModifier(KFPawn_Monster P, byte NumLivingPlayers, out fl
 function float GetAIDamageModifier(KFPawn_Monster P, float GameDifficulty, bool bSoloPlay)
 {
 	local float ZedDamageMod;
-	local byte i;
+	local byte i, x;
 
 	ZedDamageMod = 1.0f;
 
@@ -134,8 +137,13 @@ function float GetAIDamageModifier(KFPawn_Monster P, float GameDifficulty, bool 
 			ZedDamageMod = class'ZedternalReborn.Config_DiffOverTime'.static.GetZedDamageModifierOverTime(ZedDamageMod, GameDifficultyZedternal, WMGRI.WaveNum);
 			for (i = 0; i < WMGRI.zedBuffs.Length; ++i)
 			{
-				if (WMGRI.bZedBuffs[i] > 0)
-					WMGRI.zedBuffs[i].static.ModifyZedDamageMod(ZedDamageMod, P, GameDifficultyZedternal);
+				if (WMGRI.ActiveZedBuffs[i] > 0)
+				{
+					for (x = 0; x < WMGRI.ActiveZedBuffs[i]; ++x)
+					{
+						WMGRI.zedBuffs[i].static.ModifyZedDamageMod(ZedDamageMod, P, GameDifficultyZedternal);
+					}
+				}
 			}
 		}
 	}
@@ -147,7 +155,7 @@ function float GetAIDamageModifier(KFPawn_Monster P, float GameDifficulty, bool 
 function float GetAISpeedMod(KFPawn_Monster P, float GameDifficulty)
 {
 	local float SpeedMod;
-	local byte i;
+	local byte i, x;
 
 	SpeedMod = 1.0f;
 
@@ -171,8 +179,13 @@ function float GetAISpeedMod(KFPawn_Monster P, float GameDifficulty)
 			SpeedMod = class'ZedternalReborn.Config_DiffOverTime'.static.GetZedSpeedModifierOverTime(SpeedMod, GameDifficultyZedternal, WMGRI.WaveNum);
 			for (i = 0; i < WMGRI.zedBuffs.Length; ++i)
 			{
-				if (WMGRI.bZedBuffs[i] > 0)
-					WMGRI.zedBuffs[i].static.ModifyZedSpeedMod(SpeedMod, P, GameDifficultyZedternal);
+				if (WMGRI.ActiveZedBuffs[i] > 0)
+				{
+					for (x = 0; x < WMGRI.ActiveZedBuffs[i]; ++x)
+					{
+						WMGRI.zedBuffs[i].static.ModifyZedSpeedMod(SpeedMod, P, GameDifficultyZedternal);
+					}
+				}
 			}
 		}
 	}
@@ -183,7 +196,7 @@ function float GetAISpeedMod(KFPawn_Monster P, float GameDifficulty)
 function float GetCharSprintChanceByDifficulty(KFPawn_Monster P, float GameDifficulty)
 {
 	local float SprintChanceMod;
-	local byte i;
+	local byte i, x;
 	local KFAIController_Monster KFAI;
 
 	// Disable teleport ability
@@ -218,8 +231,13 @@ function float GetCharSprintChanceByDifficulty(KFPawn_Monster P, float GameDiffi
 			SprintChanceMod += class'ZedternalReborn.Config_DiffOverTime'.static.GetZedSprintChanceModifierOverTime(GameDifficultyZedternal, WMGRI.WaveNum);
 		for (i = 0; i < WMGRI.zedBuffs.Length; ++i)
 		{
-			if (WMGRI.bZedBuffs[i] > 0)
-				WMGRI.zedBuffs[i].static.ModifyZedSprintChanceMod(SprintChanceMod, P, GameDifficultyZedternal);
+			if (WMGRI.ActiveZedBuffs[i] > 0)
+			{
+				for (x = 0; x < WMGRI.ActiveZedBuffs[i]; ++x)
+				{
+					WMGRI.zedBuffs[i].static.ModifyZedSprintChanceMod(SprintChanceMod, P, GameDifficultyZedternal);
+				}
+			}
 		}
 	}
 
@@ -229,7 +247,7 @@ function float GetCharSprintChanceByDifficulty(KFPawn_Monster P, float GameDiffi
 function float GetCharSprintWhenDamagedChanceByDifficulty(KFPawn_Monster P, float GameDifficulty)
 {
 	local float SprintChanceMod;
-	local byte i;
+	local byte i, x;
 
 	if (GameDifficultyZedternal >= 3.0f)
 	{
@@ -253,8 +271,13 @@ function float GetCharSprintWhenDamagedChanceByDifficulty(KFPawn_Monster P, floa
 	{
 		for (i = 0; i < WMGRI.zedBuffs.Length; ++i)
 		{
-			if (WMGRI.bZedBuffs[i] > 0)
-				WMGRI.zedBuffs[i].static.ModifyDamagedZedSprintChanceMod(SprintChanceMod, P, GameDifficultyZedternal);
+			if (WMGRI.ActiveZedBuffs[i] > 0)
+			{
+				for (x = 0; x < WMGRI.ActiveZedBuffs[i]; ++x)
+				{
+					WMGRI.zedBuffs[i].static.ModifyDamagedZedSprintChanceMod(SprintChanceMod, P, GameDifficultyZedternal);
+				}
+			}
 		}
 	}
 
@@ -265,7 +288,7 @@ function float GetCharSprintWhenDamagedChanceByDifficulty(KFPawn_Monster P, floa
 function float GetKillCashModifier()
 {
 	local float DoshMod;
-	local byte i;
+	local byte i, x;
 
 	DoshMod = CurrentSettings.DoshKillMod;
 
@@ -277,8 +300,13 @@ function float GetKillCashModifier()
 		DoshMod -= class'ZedternalReborn.Config_DiffOverTime'.static.GetZedDoshPenaltyModifierOverTime(GameDifficultyZedternal, WMGRI.WaveNum);
 		for (i = 0; i < WMGRI.zedBuffs.Length; ++i)
 		{
-			if (WMGRI.bZedBuffs[i] > 0)
-				WMGRI.zedBuffs[i].static.ModifyZedDoshMod(DoshMod);
+			if (WMGRI.ActiveZedBuffs[i] > 0)
+			{
+				for (x = 0; x < WMGRI.ActiveZedBuffs[i]; ++x)
+				{
+					WMGRI.zedBuffs[i].static.ModifyZedDoshMod(DoshMod);
+				}
+			}
 		}
 	}
 
@@ -289,7 +317,7 @@ function float GetKillCashModifier()
 function float GetItemPickupModifier()
 {
 	local float ItemPickupMod;
-	local byte i;
+	local byte i, x;
 
 	ItemPickupMod = CurrentSettings.ItemPickupsMod;
 
@@ -300,8 +328,13 @@ function float GetItemPickupModifier()
 	{
 		for (i = 0; i < WMGRI.zedBuffs.Length; ++i)
 		{
-			if (WMGRI.bZedBuffs[i] > 0)
-				WMGRI.zedBuffs[i].static.ModifyItemPickupMod(ItemPickupMod);
+			if (WMGRI.ActiveZedBuffs[i] > 0)
+			{
+				for (x = 0; x < WMGRI.ActiveZedBuffs[i]; ++x)
+				{
+					WMGRI.zedBuffs[i].static.ModifyItemPickupMod(ItemPickupMod);
+				}
+			}
 		}
 	}
 
@@ -312,7 +345,7 @@ function float GetItemPickupModifier()
 function float GetAmmoPickupModifier()
 {
 	local float AmmoPickupMod;
-	local byte i;
+	local byte i, x;
 
 	AmmoPickupMod = CurrentSettings.AmmoPickupsMod;
 
@@ -323,8 +356,13 @@ function float GetAmmoPickupModifier()
 	{
 		for (i = 0; i < WMGRI.zedBuffs.Length; ++i)
 		{
-			if (WMGRI.bZedBuffs[i] > 0)
-				WMGRI.zedBuffs[i].static.ModifyAmmoPickupMod(AmmoPickupMod);
+			if (WMGRI.ActiveZedBuffs[i] > 0)
+			{
+				for (x = 0; x < WMGRI.ActiveZedBuffs[i]; ++x)
+				{
+					WMGRI.zedBuffs[i].static.ModifyAmmoPickupMod(AmmoPickupMod);
+				}
+			}
 		}
 	}
 
@@ -334,7 +372,7 @@ function float GetAmmoPickupModifier()
 function float GetWeakAttackChance()
 {
 	local float WeakAttackChanceMod;
-	local byte i;
+	local byte i, x;
 
 	WeakAttackChanceMod = CurrentSettings.WeakAttackChance;
 
@@ -345,8 +383,13 @@ function float GetWeakAttackChance()
 	{
 		for (i = 0; i < WMGRI.zedBuffs.Length; ++i)
 		{
-			if (WMGRI.bZedBuffs[i] > 0)
-				WMGRI.zedBuffs[i].static.ModifyWeakAttackChanceMod(WeakAttackChanceMod);
+			if (WMGRI.ActiveZedBuffs[i] > 0)
+			{
+				for (x = 0; x < WMGRI.ActiveZedBuffs[i]; ++x)
+				{
+					WMGRI.zedBuffs[i].static.ModifyWeakAttackChanceMod(WeakAttackChanceMod);
+				}
+			}
 		}
 	}
 
@@ -356,7 +399,7 @@ function float GetWeakAttackChance()
 function float GetMediumAttackChance()
 {
 	local float MediumAttackChanceMod;
-	local byte i;
+	local byte i, x;
 
 	MediumAttackChanceMod = CurrentSettings.MediumAttackChance;
 
@@ -367,8 +410,13 @@ function float GetMediumAttackChance()
 	{
 		for (i = 0; i < WMGRI.zedBuffs.Length; ++i)
 		{
-			if (WMGRI.bZedBuffs[i] > 0)
-				WMGRI.zedBuffs[i].static.ModifyMediumAttackChanceMod(MediumAttackChanceMod);
+			if (WMGRI.ActiveZedBuffs[i] > 0)
+			{
+				for (x = 0; x < WMGRI.ActiveZedBuffs[i]; ++x)
+				{
+					WMGRI.zedBuffs[i].static.ModifyMediumAttackChanceMod(MediumAttackChanceMod);
+				}
+			}
 		}
 	}
 
@@ -378,7 +426,7 @@ function float GetMediumAttackChance()
 function float GetHardAttackChance()
 {
 	local float HardAttackChanceMod;
-	local byte i;
+	local byte i, x;
 
 	HardAttackChanceMod = CurrentSettings.HardAttackChance;
 
@@ -390,8 +438,13 @@ function float GetHardAttackChance()
 		HardAttackChanceMod += class'ZedternalReborn.Config_DiffOverTime'.static.GetZedHardAttackChanceModifierOverTime(GameDifficultyZedternal, WMGRI.WaveNum);
 		for (i = 0; i < WMGRI.zedBuffs.Length; ++i)
 		{
-			if (WMGRI.bZedBuffs[i] > 0)
-				WMGRI.zedBuffs[i].static.ModifyHardAttackChanceMod(HardAttackChanceMod);
+			if (WMGRI.ActiveZedBuffs[i] > 0)
+			{
+				for (x = 0; x < WMGRI.ActiveZedBuffs[i]; ++x)
+				{
+					WMGRI.zedBuffs[i].static.ModifyHardAttackChanceMod(HardAttackChanceMod);
+				}
+			}
 		}
 	}
 
@@ -401,7 +454,7 @@ function float GetHardAttackChance()
 function float GetSpawnRateModifier()
 {
 	local float SpawnRateMod;
-	local byte i;
+	local byte i, x;
 
 	SpawnRateMod = CurrentSettings.SpawnRateModifier;
 
@@ -412,8 +465,13 @@ function float GetSpawnRateModifier()
 	{
 		for (i = 0; i < WMGRI.zedBuffs.Length; ++i)
 		{
-			if (WMGRI.bZedBuffs[i] > 0)
-				WMGRI.zedBuffs[i].static.ModifySpawnRateMod(SpawnRateMod);
+			if (WMGRI.ActiveZedBuffs[i] > 0)
+			{
+				for (x = 0; x < WMGRI.ActiveZedBuffs[i]; ++x)
+				{
+					WMGRI.zedBuffs[i].static.ModifySpawnRateMod(SpawnRateMod);
+				}
+			}
 		}
 	}
 
@@ -424,7 +482,7 @@ function float GetSpawnRateModifier()
 function float GetDamageResistanceModifier(byte NumLivingPlayers)
 {
 	local float DamageResistanceMod;
-	local byte i;
+	local byte i, x;
 
 	DamageResistanceMod = GetNumPlayersModifier(NumPlayers_ZedDamageResistance, NumLivingPlayers);
 
@@ -435,8 +493,13 @@ function float GetDamageResistanceModifier(byte NumLivingPlayers)
 	{
 		for (i = 0; i < WMGRI.zedBuffs.Length; ++i)
 		{
-			if (WMGRI.bZedBuffs[i] > 0)
-				WMGRI.zedBuffs[i].static.ModifyDamageResistanceMod(DamageResistanceMod, NumLivingPlayers);
+			if (WMGRI.ActiveZedBuffs[i] > 0)
+			{
+				for (x = 0; x < WMGRI.ActiveZedBuffs[i]; ++x)
+				{
+					WMGRI.zedBuffs[i].static.ModifyDamageResistanceMod(DamageResistanceMod, NumLivingPlayers);
+				}
+			}
 		}
 	}
 

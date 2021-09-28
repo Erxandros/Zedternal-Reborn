@@ -7,6 +7,9 @@ var array< class<WMSpecialWave> > LoadedSpecialWaveObjects;
 var array<S_SpecialWaveOverride> ValidSpecialWaveOverrides;
 var array< class<WMSpecialWave> > LoadedSWOverrideObjects;
 
+var array<S_ZedBuff> ValidZedBuffs;
+var array< class<WMZedBuff> > ZedBuffObjects;
+
 //Upgrades
 var array<S_PerkUpgrade> ValidPerkUpgrades;
 var array< class<WMUpgrade_Perk> > LoadedPerkUpgObjects;
@@ -41,6 +44,7 @@ function InitializeConfigData()
 {
 	class'ZedternalReborn.Config_SpecialWave'.static.LoadConfigObjects(ValidSpecialWaves, LoadedSpecialWaveObjects);
 	class'ZedternalReborn.Config_SpecialWaveOverride'.static.LoadConfigObjects(ValidSpecialWaveOverrides, LoadedSWOverrideObjects);
+	class'ZedternalReborn.Config_ZedBuff'.static.LoadConfigObjects(ValidZedBuffs, ZedBuffObjects);
 	class'ZedternalReborn.Config_PerkUpgrade'.static.LoadConfigObjects(ValidPerkUpgrades, LoadedPerkUpgObjects);
 	class'ZedternalReborn.Config_SkillUpgrade'.static.LoadConfigObjects(ValidSkillUpgrades, LoadedSkillUpgObjects);
 	class'ZedternalReborn.Config_WeaponUpgrade'.static.LoadConfigObjects(ValidWeaponUpgrades, LoadedWeaponUpgObjects);

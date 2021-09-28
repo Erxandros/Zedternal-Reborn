@@ -15,7 +15,7 @@ simulated function PostBeginPlay()
 
 event DrawHUD()
 {
-	local string buffTitle, spwTitle;
+	local string buffTitle, buffStack, spwTitle;
 	local Texture2D buffIcon;
 	local int i, nb, total;
 	local float size;
@@ -37,7 +37,7 @@ event DrawHUD()
 
 	if (!WMGRI.bTraderIsOpen && WMGRI.SpecialWaveID[0] != INDEX_NONE && WMGRI.bDrawSpecialWave)
 	{
-		size = 0.5;
+		size = 0.5f;
 
 		//draw warning
 		if (WMGRI.SpecialWaveID[1] == INDEX_NONE)
@@ -87,18 +87,18 @@ event DrawHUD()
 	nb = 0;
 	total = 0;
 
-	for (i = 0; i < WMGRI.zedBuffs.length; ++i)
+	for (i = 0; i < WMGRI.zedBuffs.Length; ++i)
 	{
-		if (WMGRI.bZedBuffs[i] == 1)
+		if (WMGRI.ActiveZedBuffs[i] > 0)
 			++total;
 	}
 
 	if (bgFactor == 0)
-		bgFactor = 0.0474072 * Canvas.SizeX / backgroundIcon.SizeX;
+		bgFactor = 0.0474072f * Canvas.SizeX / backgroundIcon.SizeX;
 
 	if (zedBuffIndex == 0)
 	{
-		size = 0.65;
+		size = 0.65f;
 
 		//draw warning
 		buffTitle = "!!! ZEDS ARE EVOLVING !!!";
@@ -106,7 +106,7 @@ event DrawHUD()
 		XL *= size;
 		YL *= size;
 		X = Canvas.SizeX * 0.5f - XL / 2;
-		Y = Canvas.SizeY * 0.022f + 0.0474072 * Canvas.SizeX * 1.05f;
+		Y = Canvas.SizeY * 0.022f + 0.0474072f * Canvas.SizeX * 1.05f;
 
 		////////////////////////////////////////////////
 		////////////////////////////////////////////////
@@ -135,14 +135,14 @@ event DrawHUD()
 	}
 	else if (zedBuffIndex != INDEX_NONE)
 	{
-		size = 0.55;
+		size = 0.55f;
 
 		buffTitle = WMGRI.zedBuffs[zedBuffIndex - 1].default.buffDescription;
 		Canvas.StrLen(buffTitle, XL, YL);
 		XL *= size;
 		YL *= size;
 		X = Canvas.SizeX * 0.5f - XL / 2;
-		Y = Canvas.SizeY * 0.022f + 0.0474072 * Canvas.SizeX * 1.05f;
+		Y = Canvas.SizeY * 0.022f + 0.0474072f * Canvas.SizeX * 1.05f;
 		////////////////////////////////////////////////
 		////////////////////////////////////////////////
 		//draw shadow
@@ -169,12 +169,12 @@ event DrawHUD()
 		////////////////////////////////////////////////
 	}
 
-	for (i = 0; i < WMGRI.zedBuffs.length; ++i)
+	for (i = 0; i < WMGRI.zedBuffs.Length; ++i)
 	{
-		if (WMGRI.bZedBuffs[i] == 1)
+		if (WMGRI.ActiveZedBuffs[i] > 0)
 		{
 			buffIcon = WMGRI.zedBuffs[i].default.buffIcon;
-			iconFactor = 0.0474072 * Canvas.SizeX / buffIcon.SizeX;
+			iconFactor = 0.0474072f * Canvas.SizeX / buffIcon.SizeX;
 
 			//draw icon
 			Y = Canvas.SizeY * 0.022f;
@@ -201,6 +201,35 @@ event DrawHUD()
 				Canvas.SetDrawColor(160, 160, 160, 255);
 				Canvas.DrawTexture(buffIcon, iconFactor);
 			}
+
+			// Stacked zed buffs
+			if (WMGRI.ActiveZedBuffs[i] > 1)
+			{
+				size = 0.4f;
+				buffStack = "x" $ string(WMGRI.ActiveZedBuffs[i]);
+
+				//draw shadow
+				Canvas.SetDrawColor(0, 0, 0, 100);
+				Canvas.SetPos(X + 1, Y + 2);
+				Canvas.DrawText(buffStack, True, size, size);
+
+				//draw outlines
+				Canvas.SetDrawColor(0, 0, 0, 255);
+				Canvas.SetPos(X + 2, Y - 1);
+				Canvas.DrawText(buffStack, True, size, size);
+				Canvas.SetPos(X + 2, Y + 1);
+				Canvas.DrawText(buffStack, True, size, size);
+				Canvas.SetPos(X + 4, Y - 1);
+				Canvas.DrawText(buffStack, True, size, size);
+				Canvas.SetPos(X + 4, Y + 1);
+				Canvas.DrawText(buffStack, True, size, size);
+
+				//draw text
+				Canvas.SetPos(X + 3, Y);
+				Canvas.SetDrawColor(225, 20, 20, 255);
+				Canvas.DrawText(buffStack, True, size, size);
+			}
+
 			++nb;
 		}
 	}
@@ -226,7 +255,7 @@ simulated function UpdateWarningString()
 
 	zedBuffIndex = Max(1, zedBuffIndex + 1);
 	count = 0;
-	while(zedBuffIndex <= 255 && WMGRI.bZedBuffs[zedBuffIndex - 1] == 0 && count <= 255)
+	while(zedBuffIndex <= 255 && WMGRI.ActiveZedBuffs[zedBuffIndex - 1] == 0 && count <= 255)
 	{
 		++zedBuffIndex;
 		++count;
