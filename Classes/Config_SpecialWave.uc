@@ -211,7 +211,7 @@ static function LoadConfigObjects(out array<S_SpecialWave> ValidWaves, out array
 		{
 			ValidWaves.AddItem(default.SpecialWave_SpecialWaves[i]);
 
-			if (class'ZedternalReborn.WMGameInfo_ConfigData'.static.BinarySearch(WaveObjects, PathName(Obj), Ins) == INDEX_NONE)
+			if (class'ZedternalReborn.WMBinaryOps'.static.BinarySearchUnique(WaveObjects, PathName(Obj), Ins))
 				WaveObjects.InsertItem(Ins, Obj);
 		}
 	}

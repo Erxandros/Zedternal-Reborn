@@ -109,7 +109,7 @@ static function LoadConfigObjects(out array<S_SpecialWaveOverride> ValidWaves, o
 			{
 				First = True;
 
-				if (class'ZedternalReborn.WMGameInfo_ConfigData'.static.BinarySearch(WaveObjects, PathName(Obj), Ins) == INDEX_NONE)
+				if (class'ZedternalReborn.WMBinaryOps'.static.BinarySearchUnique(WaveObjects, PathName(Obj), Ins))
 					WaveObjects.InsertItem(Ins, Obj);
 			}
 		}
@@ -127,7 +127,7 @@ static function LoadConfigObjects(out array<S_SpecialWaveOverride> ValidWaves, o
 			{
 				Second = True;
 
-				if (class'ZedternalReborn.WMGameInfo_ConfigData'.static.BinarySearch(WaveObjects, PathName(Obj), Ins) == INDEX_NONE)
+				if (class'ZedternalReborn.WMBinaryOps'.static.BinarySearchUnique(WaveObjects, PathName(Obj), Ins))
 					WaveObjects.InsertItem(Ins, Obj);
 			}
 		}

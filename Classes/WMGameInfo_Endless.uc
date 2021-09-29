@@ -624,14 +624,14 @@ function SetupObjectiveZones()
 
 function InitializeZedBuff()
 {
-	local int i, Ins;
+	local int i;
 	local S_Zed_Buff ZB;
 
 	if (class'ZedternalReborn.Config_ZedBuff'.static.GetZedBuffEnable(GameDifficultyZedternal))
 	{
 		for (i = 0; i < ConfigData.ValidZedBuffs.Length; ++i)
 		{
-			ZB.ID = ConfigData.static.BinarySearch(ConfigData.ZedBuffObjects, ConfigData.ValidZedBuffs[i].Path, Ins);
+			ZB.ID = class'ZedternalReborn.WMBinaryOps'.static.BinarySearch(ConfigData.ZedBuffObjects, ConfigData.ValidZedBuffs[i].Path);
 			ZB.MinWave = ConfigData.ValidZedBuffs[i].MinWave;
 			ZB.MaxWave = ConfigData.ValidZedBuffs[i].MaxWave;
 			ZB.bActivated = False;
@@ -846,7 +846,7 @@ function InitializeSpecialWave()
 		SpecialWaveList = ConfigData.SpecialWaveObjects;
 		for (i = 0; i < ConfigData.SWOverrideObjects.Length; ++i)
 		{
-			if (ConfigData.static.BinarySearch(SpecialWaveList, PathName(ConfigData.SWOverrideObjects[i]), Ins) == INDEX_NONE)
+			if (class'ZedternalReborn.WMBinaryOps'.static.BinarySearchUnique(SpecialWaveList, PathName(ConfigData.SWOverrideObjects[i]), Ins))
 					SpecialWaveList.InsertItem(Ins, ConfigData.SWOverrideObjects[i]);
 		}
 	}
@@ -859,7 +859,7 @@ function InitializeSpecialWave()
 	{
 		for (i = 0; i < ConfigData.ValidSpecialWaves.Length; ++i)
 		{
-			SW.ID = ConfigData.static.BinarySearch(SpecialWaveList, ConfigData.ValidSpecialWaves[i].Path, Ins);
+			SW.ID = class'ZedternalReborn.WMBinaryOps'.static.BinarySearch(SpecialWaveList, ConfigData.ValidSpecialWaves[i].Path);
 			SW.MinWave = ConfigData.ValidSpecialWaves[i].MinWave;
 			SW.MaxWave = ConfigData.ValidSpecialWaves[i].MaxWave;
 			SpecialWaveObjects.AddItem(SW);
@@ -871,8 +871,8 @@ function InitializeSpecialWave()
 		for (i = 0; i < ConfigData.ValidSpecialWaveOverrides.Length; ++i)
 		{
 			SWO.Wave = ConfigData.ValidSpecialWaveOverrides[i].Wave;
-			SWO.FirstID = ConfigData.static.BinarySearch(SpecialWaveList, ConfigData.ValidSpecialWaveOverrides[i].FirstPath, Ins);
-			SWO.SecondID = ConfigData.static.BinarySearch(SpecialWaveList, ConfigData.ValidSpecialWaveOverrides[i].SecondPath, Ins);
+			SWO.FirstID = class'ZedternalReborn.WMBinaryOps'.static.BinarySearch(SpecialWaveList, ConfigData.ValidSpecialWaveOverrides[i].FirstPath);
+			SWO.SecondID = class'ZedternalReborn.WMBinaryOps'.static.BinarySearch(SpecialWaveList, ConfigData.ValidSpecialWaveOverrides[i].SecondPath);
 			SWO.Probability = ConfigData.ValidSpecialWaveOverrides[i].Probability;
 			SpecialWaveOverrides.AddItem(SWO);
 		}

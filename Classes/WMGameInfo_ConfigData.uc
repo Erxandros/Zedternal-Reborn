@@ -57,27 +57,6 @@ function InitializeConfigData()
 		VarRepWeaponDefObjects, VarDualWeaponDefObjects);
 }
 
-function static int BinarySearch(const out array<object> InArray, string ObjName, out int Low)
-{
-	local int Mid, High;
-
-	ObjName = Caps(ObjName);
-	Low = 0;
-	High = InArray.Length - 1;
-	while (Low <= High)
-	{
-		Mid = (Low + High) / 2;
-		if (ObjName < Caps(PathName(InArray[Mid])))
-			High = Mid - 1;
-		else if (ObjName > Caps(PathName(InArray[Mid])))
-			Low = Mid + 1;
-		else
-			return Mid;
-	}
-
-	return INDEX_NONE;
-}
-
 defaultproperties
 {
 	Name="Default__WMGameInfo_ConfigInit"
