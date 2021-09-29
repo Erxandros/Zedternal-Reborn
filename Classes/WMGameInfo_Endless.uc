@@ -376,7 +376,7 @@ function StartWave()
 	// first spawn and music are delayed 5 seconds (KFAISpawnManager.TimeUntilNextSpawn == 5 initially), so line up dialog with them;
 	// fixes problem of clients not being ready to receive dialog at the instant the match starts;
 	// Do not play for Patriarch and Hans endless dialog
-	if (TraderVoiceIndex != 1 && TraderVoiceIndex != 2)
+	if (TraderVoiceIndex != 0 && TraderVoiceIndex != 1)
 		SetTimer(5.0f, False, NameOf(PlayWaveStartDialog));
 
 	//Reset Supplier ability here
@@ -392,7 +392,7 @@ function WaveStarted()
 	super.WaveStarted();
 
 	//For Patriarch and Hans endless dialog only
-	if (TraderVoiceIndex == 1 || TraderVoiceIndex == 2)
+	if (TraderVoiceIndex == 0 || TraderVoiceIndex == 1)
 		SetTimer(1.0f, false, 'WaveStartedEndlessDialog', WMGameReplicationInfo(GameReplicationInfo));
 }
 
