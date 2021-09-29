@@ -10,12 +10,16 @@ function PostBeginPlay()
 
 function UpdateZed()
 {
-	if (WMAISpawnManager(WMGameInfo_Endless(WorldInfo.Game).SpawnManager) != None && WMAISpawnManager(WMGameInfo_Endless(WorldInfo.Game).SpawnManager).groupList.Length > 0)
+	local WMAISpawnManager WMAISP;
+
+	WMAISP = WMAISpawnManager(WMGameInfo_Endless(class'WorldInfo'.static.GetWorldInfo().Game).SpawnManager);
+
+	if (WMAISP != None && WMAISP.GroupList.Length > 0)
 	{
-		WMAISpawnManager(WMGameInfo_Endless(WorldInfo.Game).SpawnManager).groupList[WMAISpawnManager(WMGameInfo_Endless(WorldInfo.Game).SpawnManager).groupList.Length - 1].MClass[3] = class'KFGameContent.KFPawn_ZedSiren';
-		WMAISpawnManager(WMGameInfo_Endless(WorldInfo.Game).SpawnManager).groupList[WMAISpawnManager(WMGameInfo_Endless(WorldInfo.Game).SpawnManager).groupList.Length - 1].MClass[2] = class'KFGameContent.KFPawn_ZedSiren';
-		WMAISpawnManager(WMGameInfo_Endless(WorldInfo.Game).SpawnManager).groupList[WMAISpawnManager(WMGameInfo_Endless(WorldInfo.Game).SpawnManager).groupList.Length - 1].MClass[1] = class'KFGameContent.KFPawn_ZedSiren';
-		WMAISpawnManager(WMGameInfo_Endless(WorldInfo.Game).SpawnManager).groupList[WMAISpawnManager(WMGameInfo_Endless(WorldInfo.Game).SpawnManager).groupList.Length - 1].MClass[0] = class'KFGameContent.KFPawn_ZedSiren';
+		WMAISP.GroupList[WMAISP.GroupList.Length - 1].ZedClasses[3] = class'KFGameContent.KFPawn_ZedSiren';
+		WMAISP.GroupList[WMAISP.GroupList.Length - 1].ZedClasses[2] = class'KFGameContent.KFPawn_ZedSiren';
+		WMAISP.GroupList[WMAISP.GroupList.Length - 1].ZedClasses[1] = class'KFGameContent.KFPawn_ZedSiren';
+		WMAISP.GroupList[WMAISP.GroupList.Length - 1].ZedClasses[0] = class'KFGameContent.KFPawn_ZedSiren';
 	}
 }
 

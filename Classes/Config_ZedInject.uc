@@ -5,15 +5,15 @@ var config int MODEVERSION;
 
 var config bool Zed_bEnableWaveGroupInjection;
 
-struct SZedSpawnGroup
+struct S_ZedSpawnGroup
 {
 	var int WaveNum;
+	var string ZedPath;
 	var string Position;
-	var int MinDiff, MaxDiff;
-	var class<KFPawn_Monster> ZedClass;
 	var int Count;
+	var int MinDiff, MaxDiff;
 };
-var config array<SZedSpawnGroup> Zed_WaveGroupInject;
+var config array<S_ZedSpawnGroup> Zed_WaveGroupInject;
 
 static function UpdateConfig()
 {
@@ -24,11 +24,11 @@ static function UpdateConfig()
 		default.Zed_WaveGroupInject.Length = 1;
 
 		default.Zed_WaveGroupInject[0].WaveNum = 10;
+		default.Zed_WaveGroupInject[0].ZedPath = "ZedternalReborn.WMPawn_ZedCrawler_Ultra";
 		default.Zed_WaveGroupInject[0].Position = "END";
+		default.Zed_WaveGroupInject[0].Count = 3;
 		default.Zed_WaveGroupInject[0].MinDiff = 0;
 		default.Zed_WaveGroupInject[0].MaxDiff = 4;
-		default.Zed_WaveGroupInject[0].ZedClass = class'ZedternalReborn.WMPawn_ZedCrawler_Ultra';
-		default.Zed_WaveGroupInject[0].Count = 3;
 	}
 
 	if (default.MODEVERSION < class'ZedternalReborn.Config_Base'.const.CurrentVersion)
@@ -115,6 +115,31 @@ static function CheckBasicConfigValues()
 				string(default.Zed_WaveGroupInject[i].Count),
 				"8", "8 zeds, max zed group spawn size", "8 >= value >= 0");
 			default.Zed_WaveGroupInject[i].Count = 0;
+		}
+	}
+}
+
+static function LoadConfigObjects(out array<S_ZedSpawnGroup> ValidZedGroupInjects, out array< class<KFPawn_Monster> > ZedObjects)
+{
+	local int i, Ins;
+	local class<KFPawn_Monster> Obj;
+
+	ValidZedGroupInjects.Length = 0;
+	ZedObjects.Length = 0;
+
+	for (i = 0; i < default.Zed_WaveGroupInject.Length; ++i)
+	{
+		Obj = class<KFPawn_Monster>(DynamicLoadObject(default.Zed_WaveGroupInject[i].ZedPath, class'Class', True));
+		if (Obj == None)
+		{
+			LogBadLoadObjectConfigMessage("Zed_WaveGroupInject", i + 1, default.Zed_WaveGroupInject[i].ZedPath);
+		}
+		else
+		{
+			ValidZedGroupInjects.AddItem(default.Zed_WaveGroupInject[i]);
+
+			if (class'ZedternalReborn.WMBinaryOps'.static.BinarySearchUnique(ZedObjects, PathName(Obj), Ins))
+				ZedObjects.InsertItem(Ins, Obj);
 		}
 	}
 }

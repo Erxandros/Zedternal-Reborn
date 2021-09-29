@@ -13,8 +13,8 @@ function SpawnEmperor()
 	local WMAISpawnManager WMAISP;
 
 	WMAISP = WMAISpawnManager(WMGameInfo_Endless(class'WorldInfo'.static.GetWorldInfo().Game).SpawnManager);
-	if (WMAISP != None && WMAISP.groupList.Length > 0)
-		WMAISP.groupList[0].MClass[0] = EmperorClass;
+	if (WMAISP != None && WMAISP.GroupList.Length > 0)
+		WMAISP.GroupList[0].ZedClasses[0] = EmperorClass;
 }
 
 defaultproperties

@@ -96,41 +96,7 @@ event InitGame(string Options, out string ErrorMessage)
 
 static function PreloadGlobalContentClasses()
 {
-	local class<KFPawn_Monster> PawnClass;
-	local array< class<KFPawn_Monster> > NewClassList;
-	local class<KFPawn_Monster> tempClass;
-	local int i;
-
 	super.PreloadGlobalContentClasses();
-
-	// find all custom pawnclasses
-	NewClassList[0] = default.AIClassList[0];
-	for (i = 0; i < class'ZedternalReborn.Config_Zed'.default.Zed_Wave.Length; ++i)
-	{
-		tempClass = class'ZedternalReborn.Config_Zed'.default.Zed_Wave[i].ZedClass;
-		if (default.AIClassList.Find(tempClass) == INDEX_NONE && NewClassList.Find(tempClass) == INDEX_NONE)
-			NewClassList.AddItem(tempClass);
-	}
-
-	for (i = 0; i < class'ZedternalReborn.Config_ZedValue'.default.Zed_Value.Length; ++i)
-	{
-		tempClass = class'ZedternalReborn.Config_ZedValue'.default.Zed_Value[i].ZedClass;
-		if (default.AIClassList.Find(tempClass) == INDEX_NONE && NewClassList.Find(tempClass) == INDEX_NONE)
-			NewClassList.AddItem(tempClass);
-	}
-
-	for (i = 0; i < class'ZedternalReborn.Config_ZedVariant'.default.Zed_ZedVariant.Length; ++i)
-	{
-		tempClass = class'ZedternalReborn.Config_ZedVariant'.default.Zed_ZedVariant[i].VariantClass;
-		if (default.AIClassList.Find(tempClass) == INDEX_NONE && NewClassList.Find(tempClass) == INDEX_NONE)
-			NewClassList.AddItem(tempClass);
-	}
-
-	// Preload content of custom PawnClass
-	foreach NewClassList(PawnClass)
-	{
-		PawnClass.static.PreloadContent();
-	}
 }
 
 event PreBeginPlay()
@@ -143,6 +109,10 @@ event PreBeginPlay()
 	// Create config data holder and load all valid values
 	ConfigData = new class'WMGameInfo_ConfigData';
 	ConfigData.InitializeConfigData();
+
+	// Create and process config data for spawn manager
+	if (WMAISpawnManager(SpawnManager) != None)
+		WMAISpawnManager(SpawnManager).InitializeZedSpawnData();
 }
 
 event PostBeginPlay()
