@@ -96,7 +96,14 @@ event InitGame(string Options, out string ErrorMessage)
 
 static function PreloadGlobalContentClasses()
 {
+	local int i;
+
 	super.PreloadGlobalContentClasses();
+
+	for (i = 0; i < class'ZedternalReborn.WMZedPreload'.default.ZedternalZeds.Length; ++i)
+	{
+		class'ZedternalReborn.WMZedPreload'.default.ZedternalZeds[i].static.PreloadContent();
+	}
 }
 
 event PreBeginPlay()
