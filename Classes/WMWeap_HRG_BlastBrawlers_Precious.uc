@@ -1,4 +1,4 @@
-class WMWeap_HRG_BlastBrawlers_Precious extends KFWeap_HRG_BlastBrawlers;
+class WMWeap_HRG_BlastBrawlers_Precious extends WMWeap_HRG_BlastBrawlers;
 
 defaultproperties
 {
