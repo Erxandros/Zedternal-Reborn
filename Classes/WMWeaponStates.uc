@@ -34,7 +34,7 @@ defaultproperties
 	WeaponAttackStates(10)="MeleeChainAttacking"
 	WeaponAttackStates(11)="MeleeHeavyAttacking"
 	WeaponAttackStates(12)="MeleeSustained"
-	WeaponAttackStates(13)="MineReconstructorCharge"	
+	WeaponAttackStates(13)="MineReconstructorCharge"
 	WeaponAttackStates(14)="SprayingFire"
 	WeaponAttackStates(15)="SprayingFireLazer"
 	WeaponAttackStates(16)="UltimateAttackState"
