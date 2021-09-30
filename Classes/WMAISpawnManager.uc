@@ -136,7 +136,7 @@ function InitializeZedArrays()
 		{
 			InjectList.Add(1);
 
-			InjectList[InjectList.Length - 1].ZedID = class'ZedternalReborn.WMBinaryOps'.static.BinarySearch(ZedList, ConfigData.ValidZedWaves[i].ZedPath);
+			InjectList[InjectList.Length - 1].ZedID = class'ZedternalReborn.WMBinaryOps'.static.BinarySearch(ZedList, ConfigData.ValidZedInjects[i].ZedPath);
 			InjectList[InjectList.Length - 1].WaveNum = ConfigData.ValidZedInjects[i].WaveNum;
 			if (ConfigData.ValidZedInjects[i].Position ~= "BEG")
 				InjectList[InjectList.Length - 1].Position = 0;
