@@ -173,13 +173,16 @@ function InitializeZedArrays()
 	//Make Zed Variant array
 	for (i = 0; i < ConfigData.ValidZedVariants.Length; ++i)
 	{
-		VariantList.Add(1);
+		if (ConfigData.ValidZedVariants[i].Probability > 0.0f)
+		{
+			VariantList.Add(1);
 
-		VariantList[VariantList.Length - 1].ZedID = class'ZedternalReborn.WMBinaryOps'.static.BinarySearch(ZedList, ConfigData.ValidZedVariants[i].ZedPath);
-		VariantList[VariantList.Length - 1].ZedID = class'ZedternalReborn.WMBinaryOps'.static.BinarySearch(ZedList, ConfigData.ValidZedVariants[i].VariantPath);
-		VariantList[VariantList.Length - 1].Probability = ConfigData.ValidZedVariants[i].Probability;
-		VariantList[VariantList.Length - 1].MinDiff = ConfigData.ValidZedVariants[i].MinDiff;
-		VariantList[VariantList.Length - 1].MaxDiff = ConfigData.ValidZedVariants[i].MaxDiff;
+			VariantList[VariantList.Length - 1].ZedID = class'ZedternalReborn.WMBinaryOps'.static.BinarySearch(ZedList, ConfigData.ValidZedVariants[i].ZedPath);
+			VariantList[VariantList.Length - 1].ZedID = class'ZedternalReborn.WMBinaryOps'.static.BinarySearch(ZedList, ConfigData.ValidZedVariants[i].VariantPath);
+			VariantList[VariantList.Length - 1].Probability = ConfigData.ValidZedVariants[i].Probability;
+			VariantList[VariantList.Length - 1].MinDiff = ConfigData.ValidZedVariants[i].MinDiff;
+			VariantList[VariantList.Length - 1].MaxDiff = ConfigData.ValidZedVariants[i].MaxDiff;
+		}
 	}
 }
 
