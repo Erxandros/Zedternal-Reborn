@@ -25,6 +25,7 @@ struct S_Zed_Inject
 	var byte WaveNum;
 	var byte Position;
 	var byte Count;
+	var float Probability;
 	var byte MinDiff, MaxDiff;
 };
 var array<S_Zed_Inject> InjectList;
@@ -132,7 +133,7 @@ function InitializeZedArrays()
 	//Make Zed Inject array
 	for (i = 0; i < ConfigData.ValidZedInjects.Length; ++i)
 	{
-		if (ConfigData.ValidZedInjects[i].WaveNum < 256 && ConfigData.ValidZedInjects[i].Count > 0)
+		if (ConfigData.ValidZedInjects[i].WaveNum < 256 && ConfigData.ValidZedInjects[i].Count > 0 && ConfigData.ValidZedInjects[i].Probability > 0.0f)
 		{
 			InjectList.Add(1);
 
@@ -145,6 +146,7 @@ function InitializeZedArrays()
 			else //END
 				InjectList[InjectList.Length - 1].Position = 2;
 			InjectList[InjectList.Length - 1].Count = ConfigData.ValidZedInjects[i].Count;
+			InjectList[InjectList.Length - 1].Probability = ConfigData.ValidZedInjects[i].Probability;
 			InjectList[InjectList.Length - 1].MinDiff = ConfigData.ValidZedInjects[i].MinDiff;
 			InjectList[InjectList.Length - 1].MaxDiff = ConfigData.ValidZedInjects[i].MaxDiff;
 		}
@@ -438,8 +440,8 @@ function SetupNextWave(byte NextWaveIndex, int TimeToNextWaveBuffer = 0)
 	{
 		for (i = 0; i < InjectList.Length; ++i)
 		{
-			if (InjectList[i].WaveNum == NextWaveIndex && InjectList[i].MinDiff <= GameDifficultyZedternal
-				&& InjectList[i].MaxDiff >= GameDifficultyZedternal)
+			if (InjectList[i].WaveNum == NextWaveIndex && InjectList[i].Probability >= FRand()
+				&& InjectList[i].MinDiff <= GameDifficultyZedternal && InjectList[i].MaxDiff >= GameDifficultyZedternal)
 			{
 				switch (InjectList[i].Position)
 				{

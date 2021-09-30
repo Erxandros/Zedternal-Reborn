@@ -11,7 +11,14 @@ struct S_ZedSpawnGroup
 	var string ZedPath;
 	var string Position;
 	var int Count;
+	var float Probability;
 	var int MinDiff, MaxDiff;
+
+	structdefaultproperties
+	{
+		Position = "END";
+		Probability = 1.0f;
+	}
 };
 var config array<S_ZedSpawnGroup> Zed_WaveGroupInject;
 
@@ -27,6 +34,7 @@ static function UpdateConfig()
 		default.Zed_WaveGroupInject[0].ZedPath = "ZedternalReborn.WMPawn_ZedCrawler_Ultra";
 		default.Zed_WaveGroupInject[0].Position = "END";
 		default.Zed_WaveGroupInject[0].Count = 3;
+		default.Zed_WaveGroupInject[0].Probability = 1.0f;
 		default.Zed_WaveGroupInject[0].MinDiff = 0;
 		default.Zed_WaveGroupInject[0].MaxDiff = 4;
 	}
@@ -59,6 +67,38 @@ static function CheckBasicConfigValues()
 				Caps(default.Zed_WaveGroupInject[i].Position),
 				"END", "END, add zeds to end of wave", "value == BEG or value == MID or value == END");
 			default.Zed_WaveGroupInject[i].Position = "END";
+		}
+
+		if (default.Zed_WaveGroupInject[i].Count < 0)
+		{
+			LogBadConfigMessage("Zed_WaveGroupInject - Line" @ string(i + 1) @ "- Count",
+				string(default.Zed_WaveGroupInject[i].Count),
+				"0", "0 zeds, disabled", "8 >= value >= 0");
+			default.Zed_WaveGroupInject[i].Count = 0;
+		}
+
+		if (default.Zed_WaveGroupInject[i].Count > 8)
+		{
+			LogBadConfigMessage("Zed_WaveGroupInject - Line" @ string(i + 1) @ "- Count",
+				string(default.Zed_WaveGroupInject[i].Count),
+				"8", "8 zeds, max zed group spawn size", "8 >= value >= 0");
+			default.Zed_WaveGroupInject[i].Count = 8;
+		}
+
+		if (default.Zed_WaveGroupInject[i].Probability < 0.0f)
+		{
+			LogBadConfigMessage("Zed_WaveGroupInject - Line" @ string(i + 1) @ "- Probability",
+				string(default.Zed_WaveGroupInject[i].Probability),
+				"0.0", "0%, never selected", "1.0 >= value >= 0.0");
+			default.Zed_WaveGroupInject[i].Probability = 0.0f;
+		}
+
+		if (default.Zed_WaveGroupInject[i].Probability > 1.0f)
+		{
+			LogBadConfigMessage("Zed_WaveGroupInject - Line" @ string(i + 1) @ "- Probability",
+				string(default.Zed_WaveGroupInject[i].Probability),
+				"1.0", "100%, always selected", "1.0 >= value >= 0.0");
+			default.Zed_WaveGroupInject[i].Probability = 1.0f;
 		}
 
 		if (default.Zed_WaveGroupInject[i].MinDiff < 0)
@@ -99,22 +139,6 @@ static function CheckBasicConfigValues()
 			temp = default.Zed_WaveGroupInject[i].MinDiff;
 			default.Zed_WaveGroupInject[i].MinDiff = default.Zed_WaveGroupInject[i].MaxDiff;
 			default.Zed_WaveGroupInject[i].MaxDiff = temp;
-		}
-
-		if (default.Zed_WaveGroupInject[i].Count < 0)
-		{
-			LogBadConfigMessage("Zed_WaveGroupInject - Line" @ string(i + 1) @ "- Count",
-				string(default.Zed_WaveGroupInject[i].Count),
-				"0", "0 zeds, disabled", "8 >= value >= 0");
-			default.Zed_WaveGroupInject[i].Count = 0;
-		}
-
-		if (default.Zed_WaveGroupInject[i].Count > 8)
-		{
-			LogBadConfigMessage("Zed_WaveGroupInject - Line" @ string(i + 1) @ "- Count",
-				string(default.Zed_WaveGroupInject[i].Count),
-				"8", "8 zeds, max zed group spawn size", "8 >= value >= 0");
-			default.Zed_WaveGroupInject[i].Count = 0;
 		}
 	}
 }
