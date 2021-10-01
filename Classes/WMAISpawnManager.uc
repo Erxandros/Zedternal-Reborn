@@ -81,6 +81,9 @@ function InitializeZedSpawnData()
 	InitializeZedArrays();
 
 	bAllowTurboSpawn = class'ZedternalReborn.Config_WaveOptions'.static.GetAllowFastSpawning(GameDifficultyZedternal);
+
+	// Reset the total waves active time when starting a new match
+	TotalWavesActiveTime = 0;
 }
 
 function InitializeZedArrays()
@@ -477,10 +480,6 @@ function SetupNextWave(byte NextWaveIndex, int TimeToNextWaveBuffer = 0)
 
 	WaveStartTime = WorldInfo.TimeSeconds;
 	TimeUntilNextSpawn = 5.5f;
-
-	// Reset the total waves active time on first wave
-	if (NextWaveIndex == 1)
-		TotalWavesActiveTime = 0;
 
 	if (WMGRI != None && (WMGRI.bDebugSpawnManager || WMGRI.bGameConductorGraphingEnabled))
 	{
