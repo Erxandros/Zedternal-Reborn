@@ -300,7 +300,7 @@ function SetupNextWave(byte NextWaveIndex, int TimeToNextWaveBuffer = 0)
 		float(class'ZedternalReborn.Config_WaveValue'.static.GetValueIncPerwave(GameDifficultyZedternal)) * float(NextWaveIndex - 1);
 
 	// 2) wave points factor at current wave (so wave value vs wave number is not linear)
-	TempWaveValue *= 1.0f + class'ZedternalReborn.Config_WaveValue'.static.GetValueFactorPerWave(GameDifficultyZedternal) * float(NextWaveIndex);
+	TempWaveValue *= 1.0f + class'ZedternalReborn.Config_WaveValue'.static.GetValueFactorPerWave(GameDifficultyZedternal) * float(NextWaveIndex - 1);
 
 	// 3) wave points power at current wave (greatly increase wave value at high waves)
 	TempWaveValue = TempWaveValue ** (1.0f + class'ZedternalReborn.Config_WaveValue'.static.GetValuePowerPerWave(GameDifficultyZedternal) * float(NextWaveIndex - 1));
@@ -479,7 +479,7 @@ function SetupNextWave(byte NextWaveIndex, int TimeToNextWaveBuffer = 0)
 	TimeUntilNextSpawn = 5.5f;
 
 	// Reset the total waves active time on first wave
-	if (NextWaveIndex == 0)
+	if (NextWaveIndex == 1)
 		TotalWavesActiveTime = 0;
 
 	if (WMGRI != None && (WMGRI.bDebugSpawnManager || WMGRI.bGameConductorGraphingEnabled))
