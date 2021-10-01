@@ -124,7 +124,7 @@ function InitializeZedArrays()
 
 			WaveList[WaveList.Length - 1].ZedID = class'ZedternalReborn.WMBinaryOps'.static.BinarySearch(ZedList, ConfigData.ValidZedWaves[i].ZedPath);
 			WaveList[WaveList.Length - 1].MinWave = ConfigData.ValidZedWaves[i].MinWave;
-			WaveList[WaveList.Length - 1].MaxWave = ConfigData.ValidZedWaves[i].MaxWave;
+			WaveList[WaveList.Length - 1].MaxWave = Min(ConfigData.ValidZedWaves[i].MaxWave, 255);
 			WaveList[WaveList.Length - 1].MinGr = ConfigData.ValidZedWaves[i].MinGr;
 			WaveList[WaveList.Length - 1].MaxGr = ConfigData.ValidZedWaves[i].MaxGr;
 		}
