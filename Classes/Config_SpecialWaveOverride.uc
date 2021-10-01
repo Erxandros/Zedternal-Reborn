@@ -55,7 +55,7 @@ static function CheckBasicConfigValues()
 		{
 			LogBadConfigMessage("SpecialWaveOverride_SpecialWaves - Line" @ string(i + 1) @ "- Wave",
 				string(default.SpecialWaveOverride_SpecialWaves[i].Wave),
-				"0", "first wave", "value >= 0");
+				"0", "wave 0, never activated", "value >= 0");
 			default.SpecialWaveOverride_SpecialWaves[i].Wave = 0;
 		}
 

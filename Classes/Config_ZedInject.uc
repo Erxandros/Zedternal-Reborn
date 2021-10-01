@@ -56,7 +56,7 @@ static function CheckBasicConfigValues()
 		{
 			LogBadConfigMessage("Zed_WaveGroupInject - Line" @ string(i + 1) @ "- WaveNum",
 				string(default.Zed_WaveGroupInject[i].WaveNum),
-				"0", "first wave", "value >= 0");
+				"0", "wave 0, never activated", "value >= 0");
 			default.Zed_WaveGroupInject[i].WaveNum = 0;
 		}
 

@@ -425,7 +425,7 @@ static function CheckBasicConfigValues()
 		{
 			LogBadConfigMessage("Zed_Wave - Line" @ string(i + 1) @ "- MinWave",
 				string(default.Zed_Wave[i].MinWave),
-				"0", "first wave", "value >= 0");
+				"0", "wave 0", "value >= 0");
 			default.Zed_Wave[i].MinWave = 0;
 		}
 
@@ -433,7 +433,7 @@ static function CheckBasicConfigValues()
 		{
 			LogBadConfigMessage("Zed_Wave - Line" @ string(i + 1) @ "- MaxWave",
 				string(default.Zed_Wave[i].MaxWave),
-				"0", "first wave", "value >= 0");
+				"0", "wave 0", "value >= 0");
 			default.Zed_Wave[i].MaxWave = 0;
 		}
 

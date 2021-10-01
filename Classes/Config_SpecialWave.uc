@@ -170,7 +170,7 @@ static function CheckBasicConfigValues()
 		{
 			LogBadConfigMessage("SpecialWave_SpecialWaves - Line" @ string(i + 1) @ "- MinWave",
 				string(default.SpecialWave_SpecialWaves[i].MinWave),
-				"0", "first wave", "value >= 0");
+				"0", "wave 0", "value >= 0");
 			default.SpecialWave_SpecialWaves[i].MinWave = 0;
 		}
 
@@ -178,7 +178,7 @@ static function CheckBasicConfigValues()
 		{
 			LogBadConfigMessage("SpecialWave_SpecialWaves - Line" @ string(i + 1) @ "- MaxWave",
 				string(default.SpecialWave_SpecialWaves[i].MaxWave),
-				"0", "first wave", "value >= 0");
+				"0", "wave 0", "value >= 0");
 			default.SpecialWave_SpecialWaves[i].MaxWave = 0;
 		}
 

@@ -147,7 +147,7 @@ static function CheckBasicConfigValues()
 		{
 			LogBadConfigMessage("ZedBuff_BuffWaves - Position" @ string(i + 1),
 				string(default.ZedBuff_BuffWaves.Waves[i]),
-				"0", "first wave", "value >= 0");
+				"0", "wave 0, never activated", "value >= 0");
 			default.ZedBuff_BuffWaves.Waves[i] = 0;
 		}
 	}
@@ -158,7 +158,7 @@ static function CheckBasicConfigValues()
 		{
 			LogBadConfigMessage("ZedBuff_ZedBuffs - Line" @ string(i + 1) @ "- MinWave",
 				string(default.ZedBuff_ZedBuffs[i].MinWave),
-				"0", "first wave", "value >= 0");
+				"0", "wave 0", "value >= 0");
 			default.ZedBuff_ZedBuffs[i].MinWave = 0;
 		}
 
@@ -166,7 +166,7 @@ static function CheckBasicConfigValues()
 		{
 			LogBadConfigMessage("ZedBuff_ZedBuffs - Line" @ string(i + 1) @ "- MaxWave",
 				string(default.ZedBuff_ZedBuffs[i].MaxWave),
-				"0", "first wave", "value >= 0");
+				"0", "wave 0", "value >= 0");
 			default.ZedBuff_ZedBuffs[i].MaxWave = 0;
 		}
 

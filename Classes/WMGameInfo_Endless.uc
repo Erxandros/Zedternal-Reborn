@@ -321,12 +321,12 @@ function StartWave()
 	MyKFGRI.CloseTrader();
 	NotifyTraderClosed();
 
-	//Check and set special wave
-	SetupSpecialWave();
-
 	//Increment wave
 	++WaveNum;
 	MyKFGRI.WaveNum = WaveNum;
+
+	//Check and set special wave
+	SetupSpecialWave();
 
 	//Check and set objectives
 	if (IsMapObjectiveEnabled())
@@ -652,8 +652,8 @@ function CheckZedBuff()
 	local int Count;
 
 	if (class'ZedternalReborn.Config_ZedBuff'.static.GetZedBuffEnable(GameDifficultyZedternal)
-		&& class'ZedternalReborn.Config_ZedBuff'.static.IsWaveBuffZed(WaveNum + 1, Count))
-		ApplyRandomZedBuff(WaveNum + 1, True, Count);
+		&& class'ZedternalReborn.Config_ZedBuff'.static.IsWaveBuffZed(WaveNum, Count))
+		ApplyRandomZedBuff(WaveNum, True, Count);
 }
 
 // Used when starting match at higher wave
@@ -663,7 +663,7 @@ function CheckForPreviousZedBuff()
 
 	if (class'ZedternalReborn.Config_ZedBuff'.static.GetZedBuffEnable(GameDifficultyZedternal))
 	{
-		for (TestedWave = 1; TestedWave <= WaveNum + 1; ++TestedWave)
+		for (TestedWave = 1; TestedWave <= WaveNum; ++TestedWave)
 		{
 			if (class'ZedternalReborn.Config_ZedBuff'.static.IsWaveBuffZed(TestedWave, Count))
 				ApplyRandomZedBuff(TestedWave, False, Count);
@@ -797,7 +797,7 @@ function OpenTrader()
 		TimeBetweenWaves = TimeBetweenWavesDefault;
 
 	if (class'ZedternalReborn.Config_ZedBuff'.static.GetZedBuffEnable(GameDifficultyZedternal)
-		&& class'ZedternalReborn.Config_ZedBuff'.static.IsWaveBuffZed(WaveNum + 1, Count))
+		&& class'ZedternalReborn.Config_ZedBuff'.static.IsWaveBuffZed(WaveNum, Count))
 	{
 		WMGRI = WMGameReplicationInfo(MyKFGRI);
 
@@ -808,7 +808,7 @@ function OpenTrader()
 			for (i = 0; i < ZedBuffSettings.Length; ++i)
 			{
 				if (!ZedBuffSettings[i].bActivated && ZedBuffSettings[i].ID != INDEX_NONE && ZedBuffSettings[i].ID < 255
-					&& ZedBuffSettings[i].MinWave <= WaveNum + 1 && ZedBuffSettings[i].MaxWave >= WaveNum + 1
+					&& ZedBuffSettings[i].MinWave <= WaveNum && ZedBuffSettings[i].MaxWave >= WaveNum
 					&& WMGRI.ActiveZedBuffs[ZedBuffSettings[i].ID] < 50)
 					++TimeMultiplier;
 			}
@@ -896,11 +896,11 @@ function SetupSpecialWave()
 	SWList.length = 0;
 
 	// Check if it is a special wave override. If True, check all available special wave overrides
-	if (class'ZedternalReborn.Config_SpecialWaveOverride'.static.GetSpecialWaveOverrideAllowed(GameDifficultyZedternal) && WaveNum > 0)
+	if (class'ZedternalReborn.Config_SpecialWaveOverride'.static.GetSpecialWaveOverrideAllowed(GameDifficultyZedternal))
 	{
 		for (i = 0; i < SpecialWaveOverrides.length; ++i)
 		{
-			if (SpecialWaveOverrides[i].Wave == (WaveNum + 1) && FRand() < SpecialWaveOverrides[i].Probability)
+			if (SpecialWaveOverrides[i].Wave == WaveNum && FRand() < SpecialWaveOverrides[i].Probability)
 			{
 				if (SpecialWaveOverrides[i].FirstID != INDEX_NONE && SpecialWaveOverrides[i].FirstID < 255)
 					SWList.AddItem(SpecialWaveOverrides[i].FirstID);
@@ -935,13 +935,13 @@ function SetupSpecialWave()
 	}
 
 	// Check if it is a special wave. If True, build available special wave list (SWList)
-	if (class'ZedternalReborn.Config_SpecialWave'.static.GetSpecialWaveAllowed(GameDifficultyZedternal) && WaveNum > 0
+	if (class'ZedternalReborn.Config_SpecialWave'.static.GetSpecialWaveAllowed(GameDifficultyZedternal)
 		&& FRand() < class'ZedternalReborn.Config_SpecialWave'.static.GetSpecialWaveProbability(GameDifficultyZedternal))
 	{
 		for (i = 0; i < SpecialWaveObjects.Length; ++i)
 		{
 			if (SpecialWaveObjects[i].ID != INDEX_NONE && SpecialWaveObjects[i].ID < 255
-				&& SpecialWaveObjects[i].MinWave <= (WaveNum + 1) && SpecialWaveObjects[i].MaxWave >= (WaveNum + 1))
+				&& SpecialWaveObjects[i].MinWave <= WaveNum && SpecialWaveObjects[i].MaxWave >= WaveNum)
 				SWList.AddItem(SpecialWaveObjects[i].ID);
 		}
 	}
