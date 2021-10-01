@@ -7,7 +7,7 @@ var config bool Zed_bEnableWaveGroupInjection;
 
 struct S_ZedSpawnGroup
 {
-	var int WaveNum;
+	var int Wave;
 	var string ZedPath;
 	var string Position;
 	var int Count;
@@ -30,7 +30,7 @@ static function UpdateConfig()
 
 		default.Zed_WaveGroupInject.Length = 1;
 
-		default.Zed_WaveGroupInject[0].WaveNum = 10;
+		default.Zed_WaveGroupInject[0].Wave = 10;
 		default.Zed_WaveGroupInject[0].ZedPath = "ZedternalReborn.WMPawn_ZedCrawler_Ultra";
 		default.Zed_WaveGroupInject[0].Position = "END";
 		default.Zed_WaveGroupInject[0].Count = 3;
@@ -52,12 +52,12 @@ static function CheckBasicConfigValues()
 
 	for (i = 0; i < default.Zed_WaveGroupInject.Length; ++i)
 	{
-		if (default.Zed_WaveGroupInject[i].WaveNum < 0)
+		if (default.Zed_WaveGroupInject[i].Wave < 0)
 		{
-			LogBadConfigMessage("Zed_WaveGroupInject - Line" @ string(i + 1) @ "- WaveNum",
-				string(default.Zed_WaveGroupInject[i].WaveNum),
+			LogBadConfigMessage("Zed_WaveGroupInject - Line" @ string(i + 1) @ "- Wave",
+				string(default.Zed_WaveGroupInject[i].Wave),
 				"0", "wave 0, never activated", "value >= 0");
-			default.Zed_WaveGroupInject[i].WaveNum = 0;
+			default.Zed_WaveGroupInject[i].Wave = 0;
 		}
 
 		if (Caps(default.Zed_WaveGroupInject[i].Position) != "BEG" && Caps(default.Zed_WaveGroupInject[i].Position) != "MID"

@@ -22,7 +22,7 @@ var array<S_Zed_Value> ValueList;
 struct S_Zed_Inject
 {
 	var int ZedID;
-	var byte WaveNum;
+	var byte Wave;
 	var byte Position;
 	var byte Count;
 	var float Probability;
@@ -136,12 +136,12 @@ function InitializeZedArrays()
 	//Make Zed Inject array
 	for (i = 0; i < ConfigData.ValidZedInjects.Length; ++i)
 	{
-		if (ConfigData.ValidZedInjects[i].WaveNum < 256 && ConfigData.ValidZedInjects[i].Count > 0 && ConfigData.ValidZedInjects[i].Probability > 0.0f)
+		if (ConfigData.ValidZedInjects[i].Wave < 256 && ConfigData.ValidZedInjects[i].Count > 0 && ConfigData.ValidZedInjects[i].Probability > 0.0f)
 		{
 			InjectList.Add(1);
 
 			InjectList[InjectList.Length - 1].ZedID = class'ZedternalReborn.WMBinaryOps'.static.BinarySearch(ZedList, ConfigData.ValidZedInjects[i].ZedPath);
-			InjectList[InjectList.Length - 1].WaveNum = ConfigData.ValidZedInjects[i].WaveNum;
+			InjectList[InjectList.Length - 1].Wave = ConfigData.ValidZedInjects[i].Wave;
 			if (ConfigData.ValidZedInjects[i].Position ~= "BEG")
 				InjectList[InjectList.Length - 1].Position = 0;
 			else if (ConfigData.ValidZedInjects[i].Position ~= "MID")
@@ -446,7 +446,7 @@ function SetupNextWave(byte NextWaveIndex, int TimeToNextWaveBuffer = 0)
 	{
 		for (i = 0; i < InjectList.Length; ++i)
 		{
-			if (InjectList[i].WaveNum == NextWaveIndex && InjectList[i].Probability >= FRand()
+			if (InjectList[i].Wave == NextWaveIndex && InjectList[i].Probability >= FRand()
 				&& InjectList[i].MinDiff <= GameDifficultyZedternal && InjectList[i].MaxDiff >= GameDifficultyZedternal)
 			{
 				switch (InjectList[i].Position)
