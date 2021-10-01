@@ -1092,6 +1092,7 @@ function int InitializeTraderItems(out array<int> WeaponIndex)
 	//////////////////////
 
 	RandStart = CombineAllWeapons(CombinedWeaponList);
+	CheckWeaponList(CombinedWeaponList);
 	ApplyVariantsAndOverrides(CombinedWeaponList);
 	SetStartingWeapons(CombinedWeaponList);
 	RegisterWeapons(CombinedWeaponList, WeaponIndex, RandStart);
@@ -1223,6 +1224,17 @@ function int CombineWeaponsStartingWeapon(out array<S_Weapon_Data> CombinedWeapo
 	CombineWeapons(CombinedWeaponList, BaseWepDef, BaseWep);
 
 	return BaseWepDef.Length;
+}
+
+function CheckWeaponList(out array<S_Weapon_Data> CombinedWeaponList)
+{
+	if (CombinedWeaponList.Length > 510)
+	{
+		CombinedWeaponList.Length = 510;
+		`log("ZR Warning: Weapon list exceed 510 elements which is not valid for replication."
+			@"Trimmed the list down to 510 elements, some weapons defined in the config will never"
+			@"be added to the trader because of this change.");
+	}
 }
 
 function ApplyVariantsAndOverrides(out array<S_Weapon_Data> CombinedWeaponList)
