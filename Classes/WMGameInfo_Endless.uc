@@ -1121,8 +1121,11 @@ function int CombineAllWeapons(out array<S_Weapon_Data> CombinedWeaponList)
 	BaseWep.Length = 0;
 	for (i = 0; i < DefaultTraderItems.SaleItems.Length; ++i)
 	{
-		BaseWepDef.AddItem(DefaultTraderItems.SaleItems[i].WeaponDef);
-		BaseWep.AddItem(class<KFWeapon>(DynamicLoadObject(DefaultTraderItems.SaleItems[i].WeaponDef.default.WeaponClassPath, class'Class')));
+		if (DefaultTraderItems.SaleItems[i].WeaponDef != None)
+		{
+			BaseWepDef.AddItem(DefaultTraderItems.SaleItems[i].WeaponDef);
+			BaseWep.AddItem(class<KFWeapon>(DynamicLoadObject(DefaultTraderItems.SaleItems[i].WeaponDef.default.WeaponClassPath, class'Class')));
+		}
 	}
 	CombineWeapons(CombinedWeaponList, BaseWepDef, BaseWep);
 
