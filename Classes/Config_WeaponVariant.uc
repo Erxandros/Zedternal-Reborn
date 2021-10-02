@@ -26,7 +26,7 @@ static function UpdateConfig()
 	{
 		default.WeaponVariant_bAllowWeaponVariant = True;
 
-		default.Weapon_VariantWeaponDef.Length = 93;
+		default.Weapon_VariantWeaponDef.Length = 94;
 		default.Weapon_VariantWeaponDef[0].WeaponDef = "KFGame.KFWeapDef_AA12";
 		default.Weapon_VariantWeaponDef[0].WeaponDefVariant = "ZedternalReborn.WMWeapDef_AA12_Precious";
 		default.Weapon_VariantWeaponDef[1].WeaponDef = "KFGame.KFWeapDef_AbominationAxe";
@@ -223,6 +223,8 @@ static function UpdateConfig()
 		default.Weapon_VariantWeaponDef[91].WeaponDefVariant = "ZedternalReborn.WMWeapDef_Winchester1894_Precious";
 		default.Weapon_VariantWeaponDef[92].WeaponDef = "KFGame.KFWeapDef_Zweihander";
 		default.Weapon_VariantWeaponDef[92].WeaponDefVariant = "ZedternalReborn.WMWeapDef_Zweihander_Precious";
+		default.Weapon_VariantWeaponDef[93].WeaponDef = "KFGame.KFWeapDef_HRG_Boomy";
+		default.Weapon_VariantWeaponDef[93].WeaponDefVariant = "ZedternalReborn.WMWeapDef_HRG_Boomy_Precious";
 	}
 
 	if (default.MODEVERSION < class'ZedternalReborn.Config_Base'.const.CurrentVersion)

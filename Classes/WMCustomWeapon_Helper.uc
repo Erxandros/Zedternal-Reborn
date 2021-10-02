@@ -179,4 +179,5 @@ defaultproperties
 	WeaponDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_HRG_BarrierRifle_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_HRG_BarrierRifle"));
 	WeaponDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_HRG_BlastBrawlers_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_HRG_BlastBrawlers"));
 	WeaponDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_ThermiteBore_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_ThermiteBore"));
+	WeaponDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_HRG_Boomy_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_HRG_Boomy"));
 }
