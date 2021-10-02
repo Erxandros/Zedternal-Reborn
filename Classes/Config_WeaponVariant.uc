@@ -26,7 +26,7 @@ static function UpdateConfig()
 	{
 		default.WeaponVariant_bAllowWeaponVariant = True;
 
-		default.Weapon_VariantWeaponDef.Length = 95;
+		default.Weapon_VariantWeaponDef.Length = 96;
 		default.Weapon_VariantWeaponDef[0].WeaponDef = "KFGame.KFWeapDef_AA12";
 		default.Weapon_VariantWeaponDef[0].WeaponDefVariant = "ZedternalReborn.WMWeapDef_AA12_Precious";
 		default.Weapon_VariantWeaponDef[1].WeaponDef = "KFGame.KFWeapDef_AbominationAxe";
@@ -227,6 +227,8 @@ static function UpdateConfig()
 		default.Weapon_VariantWeaponDef[93].WeaponDefVariant = "ZedternalReborn.WMWeapDef_HRG_Boomy_Precious";
 		default.Weapon_VariantWeaponDef[94].WeaponDef = "KFGame.KFWeapDef_HRG_Energy";
 		default.Weapon_VariantWeaponDef[94].WeaponDefVariant = "ZedternalReborn.WMWeapDef_HRG_Energy_Precious";
+		default.Weapon_VariantWeaponDef[95].WeaponDef = "KFGame.KFWeapDef_ParasiteImplanter";
+		default.Weapon_VariantWeaponDef[95].WeaponDefVariant = "ZedternalReborn.WMWeapDef_ParasiteImplanter_Precious";
 	}
 
 	if (default.MODEVERSION < class'ZedternalReborn.Config_Base'.const.CurrentVersion)
