@@ -3,46 +3,46 @@ class Config_Dosh extends Config_Common
 
 var config int MODEVERSION;
 
-var config S_Difficulty_Float Dosh_NormalZedDoshFactor;
-var config S_Difficulty_Float Dosh_ExtraNormalZedDoshFactorPerPlayer; //Extra amount of dosh won based on number of other players
-var config S_Difficulty_Float Dosh_LargeZedDoshFactor;
-var config S_Difficulty_Float Dosh_ExtraLargeZedDoshFactorPerPlayer; //Extra amount of dosh won based on number of other players
+var config S_Difficulty_Float Dosh_NormalZedDoshMultiplier;
+var config S_Difficulty_Float Dosh_ExtraNormalZedDoshIncPerPlayer; //Extra amount of dosh won based on number of other players
+var config S_Difficulty_Float Dosh_LargeZedDoshMultiplier;
+var config S_Difficulty_Float Dosh_ExtraLargeZedDoshIncPerPlayer; //Extra amount of dosh won based on number of other players
 
 var config S_Difficulty_Int Dosh_BaseDoshWaveReward; //Base amount of Dosh granted to every player for a completed wave
 var config S_Difficulty_Int Dosh_ExtraDoshRewardPerPlayer; //Extra Dosh granted base on the number of players, PlayerCount * this variable
 var config S_Difficulty_Int Dosh_ExtraDoshPerWaveBonusMultiplier; //Extra Dosh granted base on the current wave number, WaveNum * this variable
 var config S_Difficulty_Int Dosh_ExtraDoshPerPerkLevelBonusMultiplier; //Extra Dosh granted base on the player's current perk level, Perk Level * this variable.
 
-var config S_Difficulty_Float Dosh_LateJoinerTotalDoshFactor; //When a new player joins mid-game, give him Dosh won (by other players) * this variable
+var config S_Difficulty_Float Dosh_LateJoinerTotalDoshMultiplier; //When a new player joins mid-game, give him Dosh won (by other players) * this variable
 var config S_Difficulty_Float Dosh_DeathPenaltyDoshPct; //Dosh percentage penalty when dying
 
 static function UpdateConfig()
 {
 	if (default.MODEVERSION < 1)
 	{
-		default.Dosh_NormalZedDoshFactor.Normal = 1.25f;
-		default.Dosh_NormalZedDoshFactor.Hard = 1.225f;
-		default.Dosh_NormalZedDoshFactor.Suicidal = 1.2f;
-		default.Dosh_NormalZedDoshFactor.HoE = 1.2f;
-		default.Dosh_NormalZedDoshFactor.Custom = 1.2f;
+		default.Dosh_NormalZedDoshMultiplier.Normal = 1.25f;
+		default.Dosh_NormalZedDoshMultiplier.Hard = 1.225f;
+		default.Dosh_NormalZedDoshMultiplier.Suicidal = 1.2f;
+		default.Dosh_NormalZedDoshMultiplier.HoE = 1.2f;
+		default.Dosh_NormalZedDoshMultiplier.Custom = 1.2f;
 
-		default.Dosh_ExtraNormalZedDoshFactorPerPlayer.Normal = 0.05f;
-		default.Dosh_ExtraNormalZedDoshFactorPerPlayer.Hard = 0.05f;
-		default.Dosh_ExtraNormalZedDoshFactorPerPlayer.Suicidal = 0.05f;
-		default.Dosh_ExtraNormalZedDoshFactorPerPlayer.HoE = 0.05f;
-		default.Dosh_ExtraNormalZedDoshFactorPerPlayer.Custom = 0.05f;
+		default.Dosh_ExtraNormalZedDoshIncPerPlayer.Normal = 0.05f;
+		default.Dosh_ExtraNormalZedDoshIncPerPlayer.Hard = 0.05f;
+		default.Dosh_ExtraNormalZedDoshIncPerPlayer.Suicidal = 0.05f;
+		default.Dosh_ExtraNormalZedDoshIncPerPlayer.HoE = 0.05f;
+		default.Dosh_ExtraNormalZedDoshIncPerPlayer.Custom = 0.05f;
 
-		default.Dosh_LargeZedDoshFactor.Normal = 0.75f;
-		default.Dosh_LargeZedDoshFactor.Hard = 0.725f;
-		default.Dosh_LargeZedDoshFactor.Suicidal = 0.7f;
-		default.Dosh_LargeZedDoshFactor.HoE = 0.7f;
-		default.Dosh_LargeZedDoshFactor.Custom = 0.7f;
+		default.Dosh_LargeZedDoshMultiplier.Normal = 0.75f;
+		default.Dosh_LargeZedDoshMultiplier.Hard = 0.725f;
+		default.Dosh_LargeZedDoshMultiplier.Suicidal = 0.7f;
+		default.Dosh_LargeZedDoshMultiplier.HoE = 0.7f;
+		default.Dosh_LargeZedDoshMultiplier.Custom = 0.7f;
 
-		default.Dosh_ExtraLargeZedDoshFactorPerPlayer.Normal = 0.08f;
-		default.Dosh_ExtraLargeZedDoshFactorPerPlayer.Hard = 0.08f;
-		default.Dosh_ExtraLargeZedDoshFactorPerPlayer.Suicidal = 0.08f;
-		default.Dosh_ExtraLargeZedDoshFactorPerPlayer.HoE = 0.08f;
-		default.Dosh_ExtraLargeZedDoshFactorPerPlayer.Custom = 0.08f;
+		default.Dosh_ExtraLargeZedDoshIncPerPlayer.Normal = 0.08f;
+		default.Dosh_ExtraLargeZedDoshIncPerPlayer.Hard = 0.08f;
+		default.Dosh_ExtraLargeZedDoshIncPerPlayer.Suicidal = 0.08f;
+		default.Dosh_ExtraLargeZedDoshIncPerPlayer.HoE = 0.08f;
+		default.Dosh_ExtraLargeZedDoshIncPerPlayer.Custom = 0.08f;
 
 		default.Dosh_BaseDoshWaveReward.Normal = 660;
 		default.Dosh_BaseDoshWaveReward.Hard = 660;
@@ -68,11 +68,11 @@ static function UpdateConfig()
 		default.Dosh_ExtraDoshPerPerkLevelBonusMultiplier.HoE = 3;
 		default.Dosh_ExtraDoshPerPerkLevelBonusMultiplier.Custom = 3;
 
-		default.Dosh_LateJoinerTotalDoshFactor.Normal = 0.7f;
-		default.Dosh_LateJoinerTotalDoshFactor.Hard = 0.7f;
-		default.Dosh_LateJoinerTotalDoshFactor.Suicidal = 0.7f;
-		default.Dosh_LateJoinerTotalDoshFactor.HoE = 0.7f;
-		default.Dosh_LateJoinerTotalDoshFactor.Custom = 0.7f;
+		default.Dosh_LateJoinerTotalDoshMultiplier.Normal = 0.7f;
+		default.Dosh_LateJoinerTotalDoshMultiplier.Hard = 0.7f;
+		default.Dosh_LateJoinerTotalDoshMultiplier.Suicidal = 0.7f;
+		default.Dosh_LateJoinerTotalDoshMultiplier.HoE = 0.7f;
+		default.Dosh_LateJoinerTotalDoshMultiplier.Custom = 0.7f;
 
 		default.Dosh_DeathPenaltyDoshPct.Normal = 0.05f;
 		default.Dosh_DeathPenaltyDoshPct.Hard = 0.1f;
@@ -94,36 +94,36 @@ static function CheckBasicConfigValues()
 
 	for (i = 0; i < NumberOfDiffs; ++i)
 	{
-		if (GetStructValueFloat(default.Dosh_NormalZedDoshFactor, i) < 0.0f)
+		if (GetStructValueFloat(default.Dosh_NormalZedDoshMultiplier, i) < 0.0f)
 		{
-			LogBadStructConfigMessage(i, "Dosh_NormalZedDoshFactor",
-				string(GetStructValueFloat(default.Dosh_NormalZedDoshFactor, i)),
+			LogBadStructConfigMessage(i, "Dosh_NormalZedDoshMultiplier",
+				string(GetStructValueFloat(default.Dosh_NormalZedDoshMultiplier, i)),
 				"0.0", "0%, no dosh reward", "value >= 0.0");
-			SetStructValueFloat(default.Dosh_NormalZedDoshFactor, i, 0.0f);
+			SetStructValueFloat(default.Dosh_NormalZedDoshMultiplier, i, 0.0f);
 		}
 
-		if (GetStructValueFloat(default.Dosh_ExtraNormalZedDoshFactorPerPlayer, i) < 0.0f)
+		if (GetStructValueFloat(default.Dosh_ExtraNormalZedDoshIncPerPlayer, i) < 0.0f)
 		{
-			LogBadStructConfigMessage(i, "Dosh_ExtraNormalZedDoshFactorPerPlayer",
-				string(GetStructValueFloat(default.Dosh_ExtraNormalZedDoshFactorPerPlayer, i)),
-				"0.0", "0%, no extra dosh reward", "value >= 0.0");
-			SetStructValueFloat(default.Dosh_ExtraNormalZedDoshFactorPerPlayer, i, 0.0f);
+			LogBadStructConfigMessage(i, "Dosh_ExtraNormalZedDoshIncPerPlayer",
+				string(GetStructValueFloat(default.Dosh_ExtraNormalZedDoshIncPerPlayer, i)),
+				"0.0", "0% increase, no extra dosh reward", "value >= 0.0");
+			SetStructValueFloat(default.Dosh_ExtraNormalZedDoshIncPerPlayer, i, 0.0f);
 		}
 
-		if (GetStructValueFloat(default.Dosh_LargeZedDoshFactor, i) < 0.0f)
+		if (GetStructValueFloat(default.Dosh_LargeZedDoshMultiplier, i) < 0.0f)
 		{
-			LogBadStructConfigMessage(i, "Dosh_LargeZedDoshFactor",
-				string(GetStructValueFloat(default.Dosh_LargeZedDoshFactor, i)),
+			LogBadStructConfigMessage(i, "Dosh_LargeZedDoshMultiplier",
+				string(GetStructValueFloat(default.Dosh_LargeZedDoshMultiplier, i)),
 				"0.0", "0%, no dosh reward", "value >= 0.0");
-			SetStructValueFloat(default.Dosh_LargeZedDoshFactor, i, 0.0f);
+			SetStructValueFloat(default.Dosh_LargeZedDoshMultiplier, i, 0.0f);
 		}
 
-		if (GetStructValueFloat(default.Dosh_ExtraLargeZedDoshFactorPerPlayer, i) < 0.0f)
+		if (GetStructValueFloat(default.Dosh_ExtraLargeZedDoshIncPerPlayer, i) < 0.0f)
 		{
-			LogBadStructConfigMessage(i, "Dosh_ExtraLargeZedDoshFactorPerPlayer",
-				string(GetStructValueFloat(default.Dosh_ExtraLargeZedDoshFactorPerPlayer, i)),
-				"0.0", "0%, no extra dosh reward", "value >= 0.0");
-			SetStructValueFloat(default.Dosh_ExtraLargeZedDoshFactorPerPlayer, i, 0.0f);
+			LogBadStructConfigMessage(i, "Dosh_ExtraLargeZedDoshIncPerPlayer",
+				string(GetStructValueFloat(default.Dosh_ExtraLargeZedDoshIncPerPlayer, i)),
+				"0.0", "0% increase, no extra dosh reward", "value >= 0.0");
+			SetStructValueFloat(default.Dosh_ExtraLargeZedDoshIncPerPlayer, i, 0.0f);
 		}
 
 		if (GetStructValueInt(default.Dosh_BaseDoshWaveReward, i) < 0)
@@ -158,12 +158,12 @@ static function CheckBasicConfigValues()
 			SetStructValueInt(default.Dosh_ExtraDoshPerPerkLevelBonusMultiplier, i, 0);
 		}
 
-		if (GetStructValueFloat(default.Dosh_LateJoinerTotalDoshFactor, i) < 0.0f)
+		if (GetStructValueFloat(default.Dosh_LateJoinerTotalDoshMultiplier, i) < 0.0f)
 		{
-			LogBadStructConfigMessage(i, "Dosh_LateJoinerTotalDoshFactor",
-				string(GetStructValueFloat(default.Dosh_LateJoinerTotalDoshFactor, i)),
+			LogBadStructConfigMessage(i, "Dosh_LateJoinerTotalDoshMultiplier",
+				string(GetStructValueFloat(default.Dosh_LateJoinerTotalDoshMultiplier, i)),
 				"0.0", "0%, no late joiner dosh", "value >= 0.0");
-			SetStructValueFloat(default.Dosh_LateJoinerTotalDoshFactor, i, 0.0f);
+			SetStructValueFloat(default.Dosh_LateJoinerTotalDoshMultiplier, i, 0.0f);
 		}
 
 		if (GetStructValueFloat(default.Dosh_DeathPenaltyDoshPct, i) < 0.0f)
@@ -184,36 +184,36 @@ static function CheckBasicConfigValues()
 	}
 }
 
-static function float GetNormalZedDoshFactor(int Difficulty, int PlayerCount)
+static function float GetNormalZedDoshMultiplier(int Difficulty, int PlayerCount)
 {
-	local float Factor, Extra;
+	local float Base, Extra;
 
 	switch (Difficulty)
 	{
-		case 0 : Factor = default.Dosh_NormalZedDoshFactor.Normal; Extra = default.Dosh_ExtraNormalZedDoshFactorPerPlayer.Normal; break;
-		case 1 : Factor = default.Dosh_NormalZedDoshFactor.Hard; Extra = default.Dosh_ExtraNormalZedDoshFactorPerPlayer.Hard; break;
-		case 2 : Factor = default.Dosh_NormalZedDoshFactor.Suicidal; Extra = default.Dosh_ExtraNormalZedDoshFactorPerPlayer.Suicidal; break;
-		case 3 : Factor = default.Dosh_NormalZedDoshFactor.HoE; Extra = default.Dosh_ExtraNormalZedDoshFactorPerPlayer.HoE; break;
-		default: Factor = default.Dosh_NormalZedDoshFactor.Custom; Extra = default.Dosh_ExtraNormalZedDoshFactorPerPlayer.Custom; break;
+		case 0 : Base = default.Dosh_NormalZedDoshMultiplier.Normal; Extra = default.Dosh_ExtraNormalZedDoshIncPerPlayer.Normal; break;
+		case 1 : Base = default.Dosh_NormalZedDoshMultiplier.Hard; Extra = default.Dosh_ExtraNormalZedDoshIncPerPlayer.Hard; break;
+		case 2 : Base = default.Dosh_NormalZedDoshMultiplier.Suicidal; Extra = default.Dosh_ExtraNormalZedDoshIncPerPlayer.Suicidal; break;
+		case 3 : Base = default.Dosh_NormalZedDoshMultiplier.HoE; Extra = default.Dosh_ExtraNormalZedDoshIncPerPlayer.HoE; break;
+		default: Base = default.Dosh_NormalZedDoshMultiplier.Custom; Extra = default.Dosh_ExtraNormalZedDoshIncPerPlayer.Custom; break;
 	}
 
-	return Factor * (1.0f + (PlayerCount - 1) * Extra);
+	return Base * (1.0f + (PlayerCount - 1) * Extra);
 }
 
-static function float GetLargeZedDoshFactor(int Difficulty, int PlayerCount)
+static function float GetLargeZedDoshMultiplier(int Difficulty, int PlayerCount)
 {
-	local float Factor, Extra;
+	local float Base, Extra;
 
 	switch (Difficulty)
 	{
-		case 0 : Factor = default.Dosh_LargeZedDoshFactor.Normal; Extra = default.Dosh_ExtraLargeZedDoshFactorPerPlayer.Normal; break;
-		case 1 : Factor = default.Dosh_LargeZedDoshFactor.Hard; Extra = default.Dosh_ExtraLargeZedDoshFactorPerPlayer.Hard; break;
-		case 2 : Factor = default.Dosh_LargeZedDoshFactor.Suicidal; Extra = default.Dosh_ExtraLargeZedDoshFactorPerPlayer.Suicidal; break;
-		case 3 : Factor = default.Dosh_LargeZedDoshFactor.HoE; Extra = default.Dosh_ExtraLargeZedDoshFactorPerPlayer.HoE; break;
-		default: Factor = default.Dosh_LargeZedDoshFactor.Custom; Extra = default.Dosh_ExtraLargeZedDoshFactorPerPlayer.Custom; break;
+		case 0 : Base = default.Dosh_LargeZedDoshMultiplier.Normal; Extra = default.Dosh_ExtraLargeZedDoshIncPerPlayer.Normal; break;
+		case 1 : Base = default.Dosh_LargeZedDoshMultiplier.Hard; Extra = default.Dosh_ExtraLargeZedDoshIncPerPlayer.Hard; break;
+		case 2 : Base = default.Dosh_LargeZedDoshMultiplier.Suicidal; Extra = default.Dosh_ExtraLargeZedDoshIncPerPlayer.Suicidal; break;
+		case 3 : Base = default.Dosh_LargeZedDoshMultiplier.HoE; Extra = default.Dosh_ExtraLargeZedDoshIncPerPlayer.HoE; break;
+		default: Base = default.Dosh_LargeZedDoshMultiplier.Custom; Extra = default.Dosh_ExtraLargeZedDoshIncPerPlayer.Custom; break;
 	}
 
-	return Factor * (1.0f + (PlayerCount - 1) * Extra);
+	return Base * (1.0f + (PlayerCount - 1) * Extra);
 }
 
 static function int GetBaseWaveDoshReward(int Difficulty, int PlayerCount)
@@ -229,50 +229,50 @@ static function int GetBaseWaveDoshReward(int Difficulty, int PlayerCount)
 		default: Base = default.Dosh_BaseDoshWaveReward.Custom; Extra = default.Dosh_ExtraDoshRewardPerPlayer.Custom; break;
 	}
 
-	return Base + Extra * PlayerCount;
+	return Base + PlayerCount * Extra;
 }
 
 static function int GetBonusWaveDoshReward(int Difficulty, int WaveNum)
 {
-	local float Multiplier;
+	local float Base;
 
 	switch (Difficulty)
 	{
-		case 0 : Multiplier = default.Dosh_ExtraDoshPerWaveBonusMultiplier.Normal; break;
-		case 1 : Multiplier = default.Dosh_ExtraDoshPerWaveBonusMultiplier.Hard; break;
-		case 2 : Multiplier = default.Dosh_ExtraDoshPerWaveBonusMultiplier.Suicidal; break;
-		case 3 : Multiplier = default.Dosh_ExtraDoshPerWaveBonusMultiplier.HoE; break;
-		default: Multiplier = default.Dosh_ExtraDoshPerWaveBonusMultiplier.Custom; break;
+		case 0 : Base = default.Dosh_ExtraDoshPerWaveBonusMultiplier.Normal; break;
+		case 1 : Base = default.Dosh_ExtraDoshPerWaveBonusMultiplier.Hard; break;
+		case 2 : Base = default.Dosh_ExtraDoshPerWaveBonusMultiplier.Suicidal; break;
+		case 3 : Base = default.Dosh_ExtraDoshPerWaveBonusMultiplier.HoE; break;
+		default: Base = default.Dosh_ExtraDoshPerWaveBonusMultiplier.Custom; break;
 	}
 
-	return WaveNum * Multiplier;
+	return Base * WaveNum;
 }
 
 static function int GetBonusPlayerLevelDoshReward(int Difficulty, int PlayerLevel)
 {
-	local float Multiplier;
+	local float Base;
 
 	switch (Difficulty)
 	{
-		case 0 : Multiplier = default.Dosh_ExtraDoshPerPerkLevelBonusMultiplier.Normal; break;
-		case 1 : Multiplier = default.Dosh_ExtraDoshPerPerkLevelBonusMultiplier.Hard; break;
-		case 2 : Multiplier = default.Dosh_ExtraDoshPerPerkLevelBonusMultiplier.Suicidal; break;
-		case 3 : Multiplier = default.Dosh_ExtraDoshPerPerkLevelBonusMultiplier.HoE; break;
-		default: Multiplier = default.Dosh_ExtraDoshPerPerkLevelBonusMultiplier.Custom; break;
+		case 0 : Base = default.Dosh_ExtraDoshPerPerkLevelBonusMultiplier.Normal; break;
+		case 1 : Base = default.Dosh_ExtraDoshPerPerkLevelBonusMultiplier.Hard; break;
+		case 2 : Base = default.Dosh_ExtraDoshPerPerkLevelBonusMultiplier.Suicidal; break;
+		case 3 : Base = default.Dosh_ExtraDoshPerPerkLevelBonusMultiplier.HoE; break;
+		default: Base = default.Dosh_ExtraDoshPerPerkLevelBonusMultiplier.Custom; break;
 	}
 
-	return PlayerLevel * Multiplier;
+	return Base * PlayerLevel;
 }
 
 static function float GetLateJoinerDoshPct(int Difficulty)
 {
 	switch (Difficulty)
 	{
-		case 0 : return default.Dosh_LateJoinerTotalDoshFactor.Normal;
-		case 1 : return default.Dosh_LateJoinerTotalDoshFactor.Hard;
-		case 2 : return default.Dosh_LateJoinerTotalDoshFactor.Suicidal;
-		case 3 : return default.Dosh_LateJoinerTotalDoshFactor.HoE;
-		default: return default.Dosh_LateJoinerTotalDoshFactor.Custom;
+		case 0 : return default.Dosh_LateJoinerTotalDoshMultiplier.Normal;
+		case 1 : return default.Dosh_LateJoinerTotalDoshMultiplier.Hard;
+		case 2 : return default.Dosh_LateJoinerTotalDoshMultiplier.Suicidal;
+		case 3 : return default.Dosh_LateJoinerTotalDoshMultiplier.HoE;
+		default: return default.Dosh_LateJoinerTotalDoshMultiplier.Custom;
 	}
 }
 

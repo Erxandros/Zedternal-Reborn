@@ -47,13 +47,13 @@ var private float PassivePenetration;
 
 //Events
 var private array<S_Damage> ValidDamageGiven;
-var private array< class<DamageType> > LoadedDamageGivenObjects;
+var private array< class<DamageType> > DamageGivenObjects;
 
 var private array<S_Damage> ValidDamageTaken;
-var private array< class<DamageType> > LoadedDamageTakenObjects;
+var private array< class<DamageType> > DamageTakenObjects;
 
 var private array<S_Vampire> ValidVampireEffect;
-var private array< class<DamageType> > LoadedVampireEffectObjects;
+var private array< class<DamageType> > VampireEffectObjects;
 
 //Timers class to keep track of cached variables and flags
 var private WMPerk_Timers WMTimers;
@@ -61,13 +61,6 @@ var private WMPerk_Timers WMTimers;
 simulated event PreBeginPlay()
 {
 	super.PreBeginPlay();
-
-	if (Role == ROLE_Authority)
-	{
-		class'ZedternalReborn.Config_Player'.static.LoadConfigObjects_DamageGiven(ValidDamageGiven, LoadedDamageGivenObjects);
-		class'ZedternalReborn.Config_Player'.static.LoadConfigObjects_DamageTaken(ValidDamageTaken, LoadedDamageTakenObjects);
-		class'ZedternalReborn.Config_Player'.static.LoadConfigObjects_Vampire(ValidVampireEffect, LoadedVampireEffectObjects);
-	}
 
 	WMTimers = Spawn(class'WMPerk_Timers', self);
 
@@ -90,6 +83,13 @@ simulated event PostBeginPlay()
 
 	if (WMTimers == None)
 		WMTimers = Spawn(class'WMPerk_Timers', self); //Try again just in case
+
+	if (Role == ROLE_Authority)
+	{
+		class'ZedternalReborn.Config_Player'.static.LoadConfigObjects_DamageGiven(ValidDamageGiven, DamageGivenObjects);
+		class'ZedternalReborn.Config_Player'.static.LoadConfigObjects_DamageTaken(ValidDamageTaken, DamageTakenObjects);
+		class'ZedternalReborn.Config_Player'.static.LoadConfigObjects_Vampire(ValidVampireEffect, VampireEffectObjects);
+	}
 
 	CacheCurrentDifficulty();
 }
@@ -564,8 +564,8 @@ function ModifyDamageGiven(out int InDamage, optional Actor DamageCauser, option
 	{
 		for (i = 0; i < ValidDamageGiven.Length; ++i)
 		{
-			if (ClassIsChildOf(DamageType, LoadedDamageGivenObjects[i]))
-				InDamage += Round(float(DefaultDamage) * (ValidDamageGiven[i].Factor - 1.0f));
+			if (ClassIsChildOf(DamageType, DamageGivenObjects[i]))
+				InDamage += Round(float(DefaultDamage) * (ValidDamageGiven[i].Multiplier - 1.0f));
 		}
 	}
 	InDamage = Max(0, InDamage);
@@ -695,13 +695,13 @@ function ModifyDamageTaken(out int InDamage, optional class<DamageType> DamageTy
 	{
 		for (i = 0; i < ValidDamageTaken.Length; ++i)
 		{
-			if (ClassIsChildOf(DamageType, LoadedDamageTakenObjects[i]))
-				InDamage += Round(float(DefaultDamage) * (ValidDamageTaken[i].Factor - 1.0f));
+			if (ClassIsChildOf(DamageType, DamageTakenObjects[i]))
+				InDamage += Round(float(DefaultDamage) * (ValidDamageTaken[i].Multiplier - 1.0f));
 		}
 
 		if (MyKFW.IsMeleeWeapon())
 		{
-			InDamage += Round(float(DefaultDamage) * (class'ZedternalReborn.Config_Player'.static.GetDamageTakenFactorWhileHoldingMelee(Difficulty) - 1.0f));
+			InDamage += Round(float(DefaultDamage) * (class'ZedternalReborn.Config_Player'.static.GetDamageTakenMultiplierWhileHoldingMelee(Difficulty) - 1.0f));
 		}
 	}
 
@@ -912,7 +912,7 @@ function bool ModifyHealAmount(out float HealAmount)
 	DefaultHealAmount = HealAmount;
 
 	// Server Custom Balance
-	HealAmount *= class'ZedternalReborn.Config_Player'.static.GetHealAmountFactor(Difficulty);
+	HealAmount *= class'ZedternalReborn.Config_Player'.static.GetHealAmountMultiplier(Difficulty);
 
 	HealAmount *= PassiveHealAmount;
 	MyKFW = GetOwnerWeapon();
@@ -1824,7 +1824,7 @@ function AddVampireHealth(KFPlayerController KFPC, class<DamageType> DT)
 		{
 			for (i = 0; i < ValidVampireEffect.Length; ++i)
 			{
-				if (ClassIsChildOf(DT, LoadedVampireEffectObjects[i]))
+				if (ClassIsChildOf(DT, VampireEffectObjects[i]))
 					InHealth += ValidVampireEffect[i].HealAmount;
 			}
 		}

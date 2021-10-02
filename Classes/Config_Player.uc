@@ -8,16 +8,16 @@ var config S_Difficulty_Int Player_StartingWeaponAmount;
 var config S_Difficulty_Int Player_StartingMaxHealth;
 var config S_Difficulty_Int Player_StartingMaxArmor;
 var config S_Difficulty_Int Player_StartingCarryWeight;
-var config S_Difficulty_Float Player_HealAmountFactor;
-var config S_Difficulty_Float Player_DamageTakenFactorWhileHoldingMelee;
+var config S_Difficulty_Float Player_HealAmountMultiplier;
+var config S_Difficulty_Float Player_DamageTakenMultiplierWhileHoldingMelee;
 
 struct S_Damage
 {
 	var string DamageType;
-	var float Factor;
+	var float Multiplier;
 };
-var config array<S_Damage> Player_DamageGivenFactor;
-var config array<S_Damage> Player_DamageTakenFactor;
+var config array<S_Damage> Player_DamageGiven;
+var config array<S_Damage> Player_DamageTaken;
 
 struct S_Vampire
 {
@@ -60,45 +60,45 @@ static function UpdateConfig()
 		default.Player_StartingCarryWeight.HoE = 15;
 		default.Player_StartingCarryWeight.Custom = 15;
 
-		default.Player_HealAmountFactor.Normal = 1.0f;
-		default.Player_HealAmountFactor.Hard = 1.0f;
-		default.Player_HealAmountFactor.Suicidal = 1.0f;
-		default.Player_HealAmountFactor.HoE = 1.0f;
-		default.Player_HealAmountFactor.Custom = 1.0f;
+		default.Player_HealAmountMultiplier.Normal = 1.0f;
+		default.Player_HealAmountMultiplier.Hard = 1.0f;
+		default.Player_HealAmountMultiplier.Suicidal = 1.0f;
+		default.Player_HealAmountMultiplier.HoE = 1.0f;
+		default.Player_HealAmountMultiplier.Custom = 1.0f;
 
-		default.Player_DamageTakenFactorWhileHoldingMelee.Normal = 0.9f;
-		default.Player_DamageTakenFactorWhileHoldingMelee.Hard = 0.9f;
-		default.Player_DamageTakenFactorWhileHoldingMelee.Suicidal = 0.9f;
-		default.Player_DamageTakenFactorWhileHoldingMelee.HoE = 0.9f;
-		default.Player_DamageTakenFactorWhileHoldingMelee.Custom = 0.9f;
+		default.Player_DamageTakenMultiplierWhileHoldingMelee.Normal = 0.9f;
+		default.Player_DamageTakenMultiplierWhileHoldingMelee.Hard = 0.9f;
+		default.Player_DamageTakenMultiplierWhileHoldingMelee.Suicidal = 0.9f;
+		default.Player_DamageTakenMultiplierWhileHoldingMelee.HoE = 0.9f;
+		default.Player_DamageTakenMultiplierWhileHoldingMelee.Custom = 0.9f;
 
-		default.Player_DamageGivenFactor.Length = 6;
-		default.Player_DamageGivenFactor[0].DamageType = "KFGame.KFDT_Bludgeon";
-		default.Player_DamageGivenFactor[0].Factor = 1.15f;
-		default.Player_DamageGivenFactor[1].DamageType = "KFGame.KFDT_Piercing";
-		default.Player_DamageGivenFactor[1].Factor = 1.15f;
-		default.Player_DamageGivenFactor[2].DamageType = "KFGame.KFDT_Slashing";
-		default.Player_DamageGivenFactor[2].Factor = 1.15f;
-		default.Player_DamageGivenFactor[3].DamageType = "KFGame.KFDT_Fire";
-		default.Player_DamageGivenFactor[3].Factor = 1.1f;
-		default.Player_DamageGivenFactor[4].DamageType = "KFGameContent.KFDT_Freeze_FreezeThrower";
-		default.Player_DamageGivenFactor[4].Factor = 1.15f;
-		default.Player_DamageGivenFactor[5].DamageType = "KFGame.KFDT_Toxic_MedicGrenade";
-		default.Player_DamageGivenFactor[5].Factor = 0.8f;
+		default.Player_DamageGiven.Length = 6;
+		default.Player_DamageGiven[0].DamageType = "KFGame.KFDT_Bludgeon";
+		default.Player_DamageGiven[0].Multiplier = 1.15f;
+		default.Player_DamageGiven[1].DamageType = "KFGame.KFDT_Piercing";
+		default.Player_DamageGiven[1].Multiplier = 1.15f;
+		default.Player_DamageGiven[2].DamageType = "KFGame.KFDT_Slashing";
+		default.Player_DamageGiven[2].Multiplier = 1.15f;
+		default.Player_DamageGiven[3].DamageType = "KFGame.KFDT_Fire";
+		default.Player_DamageGiven[3].Multiplier = 1.1f;
+		default.Player_DamageGiven[4].DamageType = "KFGameContent.KFDT_Freeze_FreezeThrower";
+		default.Player_DamageGiven[4].Multiplier = 1.15f;
+		default.Player_DamageGiven[5].DamageType = "KFGame.KFDT_Toxic_MedicGrenade";
+		default.Player_DamageGiven[5].Multiplier = 0.8f;
 
-		default.Player_DamageTakenFactor.Length = 6;
-		default.Player_DamageTakenFactor[0].DamageType = "KFGame.KFDT_Fire";
-		default.Player_DamageTakenFactor[0].Factor = 0.9f;
-		default.Player_DamageTakenFactor[1].DamageType = "KFGameContent.KFDT_Explosive_HuskSuicide";
-		default.Player_DamageTakenFactor[1].Factor = 0.75f;
-		default.Player_DamageTakenFactor[2].DamageType = "KFGameContent.KFDT_FleshpoundKing_ChestBeam";
-		default.Player_DamageTakenFactor[2].Factor = 0.75f;
-		default.Player_DamageTakenFactor[3].DamageType = "KFGameContent.KFDT_Explosive_HansHEGrenade";
-		default.Player_DamageTakenFactor[3].Factor = 0.75f;
-		default.Player_DamageTakenFactor[4].DamageType = "KFGameContent.KFDT_Explosive_PatMissile";
-		default.Player_DamageTakenFactor[4].Factor = 0.75f;
-		default.Player_DamageTakenFactor[5].DamageType = "KFGameContent.KFDT_EMP_MatriarchPlasmaCannon";
-		default.Player_DamageTakenFactor[5].Factor = 0.75f;
+		default.Player_DamageTaken.Length = 6;
+		default.Player_DamageTaken[0].DamageType = "KFGame.KFDT_Fire";
+		default.Player_DamageTaken[0].Multiplier = 0.9f;
+		default.Player_DamageTaken[1].DamageType = "KFGameContent.KFDT_Explosive_HuskSuicide";
+		default.Player_DamageTaken[1].Multiplier = 0.75f;
+		default.Player_DamageTaken[2].DamageType = "KFGameContent.KFDT_FleshpoundKing_ChestBeam";
+		default.Player_DamageTaken[2].Multiplier = 0.75f;
+		default.Player_DamageTaken[3].DamageType = "KFGameContent.KFDT_Explosive_HansHEGrenade";
+		default.Player_DamageTaken[3].Multiplier = 0.75f;
+		default.Player_DamageTaken[4].DamageType = "KFGameContent.KFDT_Explosive_PatMissile";
+		default.Player_DamageTaken[4].Multiplier = 0.75f;
+		default.Player_DamageTaken[5].DamageType = "KFGameContent.KFDT_EMP_MatriarchPlasmaCannon";
+		default.Player_DamageTaken[5].Multiplier = 0.75f;
 
 		default.Player_VampireEffect.Length = 3;
 		default.Player_VampireEffect[0].DamageType = "KFGame.KFDT_Bludgeon";
@@ -154,42 +154,42 @@ static function CheckBasicConfigValues()
 			SetStructValueInt(default.Player_StartingCarryWeight, i, 1);
 		}
 
-		if (GetStructValueFloat(default.Player_HealAmountFactor, i) < 0.0f)
+		if (GetStructValueFloat(default.Player_HealAmountMultiplier, i) < 0.0f)
 		{
-			LogBadStructConfigMessage(i, "Player_HealAmountFactor",
-				string(GetStructValueFloat(default.Player_HealAmountFactor, i)),
+			LogBadStructConfigMessage(i, "Player_HealAmountMultiplier",
+				string(GetStructValueFloat(default.Player_HealAmountMultiplier, i)),
 				"0.0", "0%, no healing", "value >= 0.0");
-			SetStructValueFloat(default.Player_HealAmountFactor, i, 0.0f);
+			SetStructValueFloat(default.Player_HealAmountMultiplier, i, 0.0f);
 		}
 
-		if (GetStructValueFloat(default.Player_DamageTakenFactorWhileHoldingMelee, i) < 0.0f)
+		if (GetStructValueFloat(default.Player_DamageTakenMultiplierWhileHoldingMelee, i) < 0.0f)
 		{
-			LogBadStructConfigMessage(i, "Player_DamageTakenFactorWhileHoldingMelee",
-				string(GetStructValueFloat(default.Player_DamageTakenFactorWhileHoldingMelee, i)),
+			LogBadStructConfigMessage(i, "Player_DamageTakenMultiplierWhileHoldingMelee",
+				string(GetStructValueFloat(default.Player_DamageTakenMultiplierWhileHoldingMelee, i)),
 				"0.0", "0%, no damage taken", "value >= 0.0");
-			SetStructValueFloat(default.Player_DamageTakenFactorWhileHoldingMelee, i, 0.0f);
+			SetStructValueFloat(default.Player_DamageTakenMultiplierWhileHoldingMelee, i, 0.0f);
 		}
 	}
 
-	for (i = 0; i < default.Player_DamageGivenFactor.Length; ++i)
+	for (i = 0; i < default.Player_DamageGiven.Length; ++i)
 	{
-		if (default.Player_DamageGivenFactor[i].Factor < 0.0f)
+		if (default.Player_DamageGiven[i].Multiplier < 0.0f)
 		{
-			LogBadConfigMessage("Player_DamageGivenFactor - Line" @ string(i + 1) @ "- Factor",
-				string(default.Player_DamageGivenFactor[i].Factor),
+			LogBadConfigMessage("Player_DamageGiven - Line" @ string(i + 1) @ "- Multiplier",
+				string(default.Player_DamageGiven[i].Multiplier),
 				"0.0", "0%, no damage given", "value >= 0.0");
-			default.Player_DamageGivenFactor[i].Factor = 0.0f;
+			default.Player_DamageGiven[i].Multiplier = 0.0f;
 		}
 	}
 
-	for (i = 0; i < default.Player_DamageTakenFactor.Length; ++i)
+	for (i = 0; i < default.Player_DamageTaken.Length; ++i)
 	{
-		if (default.Player_DamageTakenFactor[i].Factor < 0.0f)
+		if (default.Player_DamageTaken[i].Multiplier < 0.0f)
 		{
-			LogBadConfigMessage("Player_DamageTakenFactor - Line" @ string(i + 1) @ "- Factor",
-				string(default.Player_DamageTakenFactor[i].Factor),
+			LogBadConfigMessage("Player_DamageTaken - Line" @ string(i + 1) @ "- Multiplier",
+				string(default.Player_DamageTaken[i].Multiplier),
 				"0.0", "0%, no damage taken", "value >= 0.0");
-			default.Player_DamageTakenFactor[i].Factor = 0.0f;
+			default.Player_DamageTaken[i].Multiplier = 0.0f;
 		}
 	}
 
@@ -213,16 +213,16 @@ static function LoadConfigObjects_DamageGiven(out array<S_Damage> ValidDT, out a
 	ValidDT.Length = 0;
 	DTObjects.Length = 0;
 
-	for (i = 0; i < default.Player_DamageGivenFactor.Length; ++i)
+	for (i = 0; i < default.Player_DamageGiven.Length; ++i)
 	{
-		Obj = class<DamageType>(DynamicLoadObject(default.Player_DamageGivenFactor[i].DamageType, class'Class', True));
+		Obj = class<DamageType>(DynamicLoadObject(default.Player_DamageGiven[i].DamageType, class'Class', True));
 		if (Obj == None)
 		{
-			LogBadLoadObjectConfigMessage("Player_DamageGivenFactor", i + 1, default.Player_DamageGivenFactor[i].DamageType);
+			LogBadLoadObjectConfigMessage("Player_DamageGiven", i + 1, default.Player_DamageGiven[i].DamageType);
 		}
 		else
 		{
-			ValidDT.AddItem(default.Player_DamageGivenFactor[i]);
+			ValidDT.AddItem(default.Player_DamageGiven[i]);
 			DTObjects.AddItem(Obj);
 		}
 	}
@@ -236,16 +236,16 @@ static function LoadConfigObjects_DamageTaken(out array<S_Damage> ValidDT, out a
 	ValidDT.Length = 0;
 	DTObjects.Length = 0;
 
-	for (i = 0; i < default.Player_DamageTakenFactor.Length; ++i)
+	for (i = 0; i < default.Player_DamageTaken.Length; ++i)
 	{
-		Obj = class<DamageType>(DynamicLoadObject(default.Player_DamageTakenFactor[i].DamageType, class'Class', True));
+		Obj = class<DamageType>(DynamicLoadObject(default.Player_DamageTaken[i].DamageType, class'Class', True));
 		if (Obj == None)
 		{
-			LogBadLoadObjectConfigMessage("Player_DamageTakenFactor", i + 1, default.Player_DamageTakenFactor[i].DamageType);
+			LogBadLoadObjectConfigMessage("Player_DamageTaken", i + 1, default.Player_DamageTaken[i].DamageType);
 		}
 		else
 		{
-			ValidDT.AddItem(default.Player_DamageTakenFactor[i]);
+			ValidDT.AddItem(default.Player_DamageTaken[i]);
 			DTObjects.AddItem(Obj);
 		}
 	}
@@ -334,27 +334,27 @@ static function int GetStartingCarryWeight(int Difficulty)
 	}
 }
 
-static function float GetHealAmountFactor(int Difficulty)
+static function float GetHealAmountMultiplier(int Difficulty)
 {
 	switch (Difficulty)
 	{
-		case 0 : return default.Player_HealAmountFactor.Normal;
-		case 1 : return default.Player_HealAmountFactor.Hard;
-		case 2 : return default.Player_HealAmountFactor.Suicidal;
-		case 3 : return default.Player_HealAmountFactor.HoE;
-		default: return default.Player_HealAmountFactor.Custom;
+		case 0 : return default.Player_HealAmountMultiplier.Normal;
+		case 1 : return default.Player_HealAmountMultiplier.Hard;
+		case 2 : return default.Player_HealAmountMultiplier.Suicidal;
+		case 3 : return default.Player_HealAmountMultiplier.HoE;
+		default: return default.Player_HealAmountMultiplier.Custom;
 	}
 }
 
-static function float GetDamageTakenFactorWhileHoldingMelee(int Difficulty)
+static function float GetDamageTakenMultiplierWhileHoldingMelee(int Difficulty)
 {
 	switch (Difficulty)
 	{
-		case 0 : return default.Player_DamageTakenFactorWhileHoldingMelee.Normal;
-		case 1 : return default.Player_DamageTakenFactorWhileHoldingMelee.Hard;
-		case 2 : return default.Player_DamageTakenFactorWhileHoldingMelee.Suicidal;
-		case 3 : return default.Player_DamageTakenFactorWhileHoldingMelee.HoE;
-		default: return default.Player_DamageTakenFactorWhileHoldingMelee.Custom;
+		case 0 : return default.Player_DamageTakenMultiplierWhileHoldingMelee.Normal;
+		case 1 : return default.Player_DamageTakenMultiplierWhileHoldingMelee.Hard;
+		case 2 : return default.Player_DamageTakenMultiplierWhileHoldingMelee.Suicidal;
+		case 3 : return default.Player_DamageTakenMultiplierWhileHoldingMelee.HoE;
+		default: return default.Player_DamageTakenMultiplierWhileHoldingMelee.Custom;
 	}
 }
 

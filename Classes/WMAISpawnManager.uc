@@ -303,13 +303,13 @@ function SetupNextWave(byte NextWaveIndex, int TimeToNextWaveBuffer = 0)
 		float(class'ZedternalReborn.Config_WaveValue'.static.GetValueIncPerwave(GameDifficultyZedternal)) * float(NextWaveIndex - 1);
 
 	// 2) wave points factor at current wave (so wave value vs wave number is not linear)
-	TempWaveValue *= 1.0f + class'ZedternalReborn.Config_WaveValue'.static.GetValueFactorPerWave(GameDifficultyZedternal) * float(NextWaveIndex - 1);
+	TempWaveValue *= 1.0f + class'ZedternalReborn.Config_WaveValue'.static.GetValueMultiplierPerWave(GameDifficultyZedternal) * float(NextWaveIndex - 1);
 
 	// 3) wave points power at current wave (greatly increase wave value at high waves)
 	TempWaveValue = TempWaveValue ** (1.0f + class'ZedternalReborn.Config_WaveValue'.static.GetValuePowerPerWave(GameDifficultyZedternal) * float(NextWaveIndex - 1));
 
 	// 4) increase wave points based on number of players
-	TempWaveValue *= class'ZedternalReborn.Config_WaveValue'.static.GetValueFactor(NbPlayer);
+	TempWaveValue *= class'ZedternalReborn.Config_WaveValue'.static.GetValueMultiplier(NbPlayer);
 
 	// 5) change wave points from current specialWaves
 	for (i = 0; i < 2; ++i)

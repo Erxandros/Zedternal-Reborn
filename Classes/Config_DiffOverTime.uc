@@ -236,135 +236,135 @@ static function CheckBasicConfigValues()
 
 static function float GetNormalZedHealthModifierOverTime(float mod, int Difficulty, int WaveNum)
 {
-	local float factor, power, wave;
+	local float multiplier, power, wave;
 
 	switch (Difficulty)
 	{
-		case 0 : factor = default.DiffOverTime_NormalZedHealthIncPerWave.Normal; power = default.DiffOverTime_NormalZedHealthPowerPerWave.Normal; break;
-		case 1 : factor = default.DiffOverTime_NormalZedHealthIncPerWave.Hard; power = default.DiffOverTime_NormalZedHealthPowerPerWave.Hard; break;
-		case 2 : factor = default.DiffOverTime_NormalZedHealthIncPerWave.Suicidal; power = default.DiffOverTime_NormalZedHealthPowerPerWave.Suicidal; break;
-		case 3 : factor = default.DiffOverTime_NormalZedHealthIncPerWave.HoE; power = default.DiffOverTime_NormalZedHealthPowerPerWave.HoE; break;
-		default: factor = default.DiffOverTime_NormalZedHealthIncPerWave.Custom; power = default.DiffOverTime_NormalZedHealthPowerPerWave.Custom; break;
+		case 0 : multiplier = default.DiffOverTime_NormalZedHealthIncPerWave.Normal; power = default.DiffOverTime_NormalZedHealthPowerPerWave.Normal; break;
+		case 1 : multiplier = default.DiffOverTime_NormalZedHealthIncPerWave.Hard; power = default.DiffOverTime_NormalZedHealthPowerPerWave.Hard; break;
+		case 2 : multiplier = default.DiffOverTime_NormalZedHealthIncPerWave.Suicidal; power = default.DiffOverTime_NormalZedHealthPowerPerWave.Suicidal; break;
+		case 3 : multiplier = default.DiffOverTime_NormalZedHealthIncPerWave.HoE; power = default.DiffOverTime_NormalZedHealthPowerPerWave.HoE; break;
+		default: multiplier = default.DiffOverTime_NormalZedHealthIncPerWave.Custom; power = default.DiffOverTime_NormalZedHealthPowerPerWave.Custom; break;
 	}
 
 	wave = float(WaveNum - 1);
-	return (mod + factor * wave) ** (1.0f + power * wave);
+	return (mod + multiplier * wave) ** (1.0f + power * wave);
 }
 
 static function float GetLargeZedHealthModifierOverTime(float mod, int Difficulty, int WaveNum)
 {
-	local float factor, power, wave;
+	local float multiplier, power, wave;
 
 	switch (Difficulty)
 	{
-		case 0 : factor = default.DiffOverTime_LargeZedHealthIncPerWave.Normal; power = default.DiffOverTime_LargeZedHealthPowerPerWave.Normal; break;
-		case 1 : factor = default.DiffOverTime_LargeZedHealthIncPerWave.Hard; power = default.DiffOverTime_LargeZedHealthPowerPerWave.Hard; break;
-		case 2 : factor = default.DiffOverTime_LargeZedHealthIncPerWave.Suicidal; power = default.DiffOverTime_LargeZedHealthPowerPerWave.Suicidal; break;
-		case 3 : factor = default.DiffOverTime_LargeZedHealthIncPerWave.HoE; power = default.DiffOverTime_LargeZedHealthPowerPerWave.HoE; break;
-		default: factor = default.DiffOverTime_LargeZedHealthIncPerWave.Custom;	power = default.DiffOverTime_LargeZedHealthPowerPerWave.Custom; break;
+		case 0 : multiplier = default.DiffOverTime_LargeZedHealthIncPerWave.Normal; power = default.DiffOverTime_LargeZedHealthPowerPerWave.Normal; break;
+		case 1 : multiplier = default.DiffOverTime_LargeZedHealthIncPerWave.Hard; power = default.DiffOverTime_LargeZedHealthPowerPerWave.Hard; break;
+		case 2 : multiplier = default.DiffOverTime_LargeZedHealthIncPerWave.Suicidal; power = default.DiffOverTime_LargeZedHealthPowerPerWave.Suicidal; break;
+		case 3 : multiplier = default.DiffOverTime_LargeZedHealthIncPerWave.HoE; power = default.DiffOverTime_LargeZedHealthPowerPerWave.HoE; break;
+		default: multiplier = default.DiffOverTime_LargeZedHealthIncPerWave.Custom;	power = default.DiffOverTime_LargeZedHealthPowerPerWave.Custom; break;
 	}
 
 	wave = float(WaveNum - 1);
-	return (mod + factor * wave) ** (1.0f + power * wave);
+	return (mod + multiplier * wave) ** (1.0f + power * wave);
 }
 
 static function float GetOmegaZedHealthModifierOverTime(float mod, int Difficulty, int WaveNum)
 {
-	local float factor, power, wave;
+	local float multiplier, power, wave;
 
 	switch (Difficulty)
 	{
-		case 0 : factor = default.DiffOverTime_OmegaZedHealthIncPerWave.Normal; power = default.DiffOverTime_OmegaZedHealthPowerPerWave.Normal; break;
-		case 1 : factor = default.DiffOverTime_OmegaZedHealthIncPerWave.Hard; power = default.DiffOverTime_OmegaZedHealthPowerPerWave.Hard; break;
-		case 2 : factor = default.DiffOverTime_OmegaZedHealthIncPerWave.Suicidal; power = default.DiffOverTime_OmegaZedHealthPowerPerWave.Suicidal; break;
-		case 3 : factor = default.DiffOverTime_OmegaZedHealthIncPerWave.HoE; power = default.DiffOverTime_OmegaZedHealthPowerPerWave.HoE; break;
-		default: factor = default.DiffOverTime_OmegaZedHealthIncPerWave.Custom;	power = default.DiffOverTime_OmegaZedHealthPowerPerWave.Custom; break;
+		case 0 : multiplier = default.DiffOverTime_OmegaZedHealthIncPerWave.Normal; power = default.DiffOverTime_OmegaZedHealthPowerPerWave.Normal; break;
+		case 1 : multiplier = default.DiffOverTime_OmegaZedHealthIncPerWave.Hard; power = default.DiffOverTime_OmegaZedHealthPowerPerWave.Hard; break;
+		case 2 : multiplier = default.DiffOverTime_OmegaZedHealthIncPerWave.Suicidal; power = default.DiffOverTime_OmegaZedHealthPowerPerWave.Suicidal; break;
+		case 3 : multiplier = default.DiffOverTime_OmegaZedHealthIncPerWave.HoE; power = default.DiffOverTime_OmegaZedHealthPowerPerWave.HoE; break;
+		default: multiplier = default.DiffOverTime_OmegaZedHealthIncPerWave.Custom;	power = default.DiffOverTime_OmegaZedHealthPowerPerWave.Custom; break;
 	}
 
 	wave = float(WaveNum - 1);
-	return (mod + factor * wave) ** (1.0f + power * wave);
+	return (mod + multiplier * wave) ** (1.0f + power * wave);
 }
 
 static function float GetZedDamageModifierOverTime(float mod, int Difficulty, int WaveNum)
 {
-	local float factor, power, wave;
+	local float multiplier, power, wave;
 
 	switch (Difficulty)
 	{
-		case 0 : factor = default.DiffOverTime_ZedDamageIncPerWave.Normal; power = default.DiffOverTime_ZedDamagePowerPerWave.Normal; break;
-		case 1 : factor = default.DiffOverTime_ZedDamageIncPerWave.Hard; power = default.DiffOverTime_ZedDamagePowerPerWave.Hard; break;
-		case 2 : factor = default.DiffOverTime_ZedDamageIncPerWave.Suicidal; power = default.DiffOverTime_ZedDamagePowerPerWave.Suicidal; break;
-		case 3 : factor = default.DiffOverTime_ZedDamageIncPerWave.HoE; power = default.DiffOverTime_ZedDamagePowerPerWave.HoE;	 break;
-		default: factor = default.DiffOverTime_ZedDamageIncPerWave.Custom; power = default.DiffOverTime_ZedDamagePowerPerWave.Custom; break;
+		case 0 : multiplier = default.DiffOverTime_ZedDamageIncPerWave.Normal; power = default.DiffOverTime_ZedDamagePowerPerWave.Normal; break;
+		case 1 : multiplier = default.DiffOverTime_ZedDamageIncPerWave.Hard; power = default.DiffOverTime_ZedDamagePowerPerWave.Hard; break;
+		case 2 : multiplier = default.DiffOverTime_ZedDamageIncPerWave.Suicidal; power = default.DiffOverTime_ZedDamagePowerPerWave.Suicidal; break;
+		case 3 : multiplier = default.DiffOverTime_ZedDamageIncPerWave.HoE; power = default.DiffOverTime_ZedDamagePowerPerWave.HoE;	 break;
+		default: multiplier = default.DiffOverTime_ZedDamageIncPerWave.Custom; power = default.DiffOverTime_ZedDamagePowerPerWave.Custom; break;
 	}
 
 	wave = float(WaveNum - 1);
-	return (mod + factor * wave) ** (1.0f + power * wave);
+	return (mod + multiplier * wave) ** (1.0f + power * wave);
 }
 
 static function float GetZedSpeedModifierOverTime(float mod, int Difficulty, int WaveNum)
 {
-	local float factor, power, wave;
+	local float multiplier, power, wave;
 
 	switch (Difficulty)
 	{
-		case 0 : factor = default.DiffOverTime_ZedSpeedIncPerWave.Normal; power = default.DiffOverTime_ZedSpeedPowerPerWave.Normal; break;
-		case 1 : factor = default.DiffOverTime_ZedSpeedIncPerWave.Hard; power = default.DiffOverTime_ZedSpeedPowerPerWave.Hard; break;
-		case 2 : factor = default.DiffOverTime_ZedSpeedIncPerWave.Suicidal; power = default.DiffOverTime_ZedSpeedPowerPerWave.Suicidal; break;
-		case 3 : factor = default.DiffOverTime_ZedSpeedIncPerWave.HoE; power = default.DiffOverTime_ZedSpeedPowerPerWave.HoE; break;
-		default: factor = default.DiffOverTime_ZedSpeedIncPerWave.Custom; power = default.DiffOverTime_ZedSpeedPowerPerWave.Custom; break;
+		case 0 : multiplier = default.DiffOverTime_ZedSpeedIncPerWave.Normal; power = default.DiffOverTime_ZedSpeedPowerPerWave.Normal; break;
+		case 1 : multiplier = default.DiffOverTime_ZedSpeedIncPerWave.Hard; power = default.DiffOverTime_ZedSpeedPowerPerWave.Hard; break;
+		case 2 : multiplier = default.DiffOverTime_ZedSpeedIncPerWave.Suicidal; power = default.DiffOverTime_ZedSpeedPowerPerWave.Suicidal; break;
+		case 3 : multiplier = default.DiffOverTime_ZedSpeedIncPerWave.HoE; power = default.DiffOverTime_ZedSpeedPowerPerWave.HoE; break;
+		default: multiplier = default.DiffOverTime_ZedSpeedIncPerWave.Custom; power = default.DiffOverTime_ZedSpeedPowerPerWave.Custom; break;
 	}
 
 	wave = float(WaveNum - 1);
-	return (mod + factor * wave) ** (1.0f + power * wave);
+	return (mod + multiplier * wave) ** (1.0f + power * wave);
 }
 
 static function float GetZedSprintChanceModifierOverTime(int Difficulty, int WaveNum)
 {
-	local float factor;
+	local float multiplier;
 
 	switch (Difficulty)
 	{
-		case 0 : factor = default.DiffOverTime_ZedSprintChanceIncPerWave.Normal; break;
-		case 1 : factor = default.DiffOverTime_ZedSprintChanceIncPerWave.Hard; break;
-		case 2 : factor = default.DiffOverTime_ZedSprintChanceIncPerWave.Suicidal; break;
-		case 3 : factor = default.DiffOverTime_ZedSprintChanceIncPerWave.HoE; break;
-		default: factor = default.DiffOverTime_ZedSprintChanceIncPerWave.Custom; break;
+		case 0 : multiplier = default.DiffOverTime_ZedSprintChanceIncPerWave.Normal; break;
+		case 1 : multiplier = default.DiffOverTime_ZedSprintChanceIncPerWave.Hard; break;
+		case 2 : multiplier = default.DiffOverTime_ZedSprintChanceIncPerWave.Suicidal; break;
+		case 3 : multiplier = default.DiffOverTime_ZedSprintChanceIncPerWave.HoE; break;
+		default: multiplier = default.DiffOverTime_ZedSprintChanceIncPerWave.Custom; break;
 	}
 
-	return factor * float(WaveNum - 1);
+	return multiplier * float(WaveNum - 1);
 }
 
 static function float GetZedHardAttackChanceModifierOverTime(int Difficulty, int WaveNum)
 {
-	local float factor;
+	local float multiplier;
 
 	switch (Difficulty)
 	{
-		case 0 : factor = default.DiffOverTime_ZedHardAttackChanceIncPerWave.Normal; break;
-		case 1 : factor = default.DiffOverTime_ZedHardAttackChanceIncPerWave.Hard; break;
-		case 2 : factor = default.DiffOverTime_ZedHardAttackChanceIncPerWave.Suicidal; break;
-		case 3 : factor = default.DiffOverTime_ZedHardAttackChanceIncPerWave.HoE; break;
-		default: factor = default.DiffOverTime_ZedHardAttackChanceIncPerWave.Custom; break;
+		case 0 : multiplier = default.DiffOverTime_ZedHardAttackChanceIncPerWave.Normal; break;
+		case 1 : multiplier = default.DiffOverTime_ZedHardAttackChanceIncPerWave.Hard; break;
+		case 2 : multiplier = default.DiffOverTime_ZedHardAttackChanceIncPerWave.Suicidal; break;
+		case 3 : multiplier = default.DiffOverTime_ZedHardAttackChanceIncPerWave.HoE; break;
+		default: multiplier = default.DiffOverTime_ZedHardAttackChanceIncPerWave.Custom; break;
 	}
 
-	return factor * float(WaveNum - 1);
+	return multiplier * float(WaveNum - 1);
 }
 
 static function float GetZedDoshPenaltyModifierOverTime(int Difficulty, int WaveNum)
 {
-	local float factor, limit;
+	local float multiplier, limit;
 
 	switch (Difficulty)
 	{
-		case 0 : factor = default.DiffOverTime_ZedDoshPenaltyPerWave.Normal; limit = default.DiffOverTime_ZedDoshPenaltyLimit.Normal; break;
-		case 1 : factor = default.DiffOverTime_ZedDoshPenaltyPerWave.Hard; limit = default.DiffOverTime_ZedDoshPenaltyLimit.Hard; break;
-		case 2 : factor = default.DiffOverTime_ZedDoshPenaltyPerWave.Suicidal; limit = default.DiffOverTime_ZedDoshPenaltyLimit.Suicidal; break;
-		case 3 : factor = default.DiffOverTime_ZedDoshPenaltyPerWave.HoE; limit = default.DiffOverTime_ZedDoshPenaltyLimit.HoE; break;
-		default: factor = default.DiffOverTime_ZedDoshPenaltyPerWave.Custom; limit = default.DiffOverTime_ZedDoshPenaltyLimit.Custom; break;
+		case 0 : multiplier = default.DiffOverTime_ZedDoshPenaltyPerWave.Normal; limit = default.DiffOverTime_ZedDoshPenaltyLimit.Normal; break;
+		case 1 : multiplier = default.DiffOverTime_ZedDoshPenaltyPerWave.Hard; limit = default.DiffOverTime_ZedDoshPenaltyLimit.Hard; break;
+		case 2 : multiplier = default.DiffOverTime_ZedDoshPenaltyPerWave.Suicidal; limit = default.DiffOverTime_ZedDoshPenaltyLimit.Suicidal; break;
+		case 3 : multiplier = default.DiffOverTime_ZedDoshPenaltyPerWave.HoE; limit = default.DiffOverTime_ZedDoshPenaltyLimit.HoE; break;
+		default: multiplier = default.DiffOverTime_ZedDoshPenaltyPerWave.Custom; limit = default.DiffOverTime_ZedDoshPenaltyLimit.Custom; break;
 	}
 
-	return FMin(limit, factor * float(WaveNum - 1));
+	return FMin(limit, multiplier * float(WaveNum - 1));
 }
 
 defaultproperties

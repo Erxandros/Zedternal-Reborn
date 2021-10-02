@@ -1515,9 +1515,9 @@ function int GetWeaponUpgradePrice(const out class<KFWeaponDefinition> KFWD)
 	unit = class'ZedternalReborn.Config_WeaponUpgradeOptions'.default.WeaponUpgrade_PriceUnit;
 
 	if (KFW.default.DualClass != None) // is a dual weapons
-		return Max(unit, Round(float(KFWD.default.BuyPrice) * 2 * class'ZedternalReborn.Config_WeaponUpgradeOptions'.default.WeaponUpgrade_PriceFactor / float(unit)) * unit);
+		return Max(unit, Round(float(KFWD.default.BuyPrice) * 2 * class'ZedternalReborn.Config_WeaponUpgradeOptions'.default.WeaponUpgrade_PriceMultiplier / float(unit)) * unit);
 	else
-		return Max(unit, Round(float(KFWD.default.BuyPrice) * class'ZedternalReborn.Config_WeaponUpgradeOptions'.default.WeaponUpgrade_PriceFactor / float(unit)) * unit);
+		return Max(unit, Round(float(KFWD.default.BuyPrice) * class'ZedternalReborn.Config_WeaponUpgradeOptions'.default.WeaponUpgrade_PriceMultiplier / float(unit)) * unit);
 }
 
 function SetTraderItemsAndPrintWeaponList()
@@ -1616,7 +1616,7 @@ function RepGameInfoNormalPriority()
 	local byte b;
 
 	//AmmoPriceFactor
-	MyKFGRI.GameAmmoCostScale = class'ZedternalReborn.Config_Trader'.static.GetAmmoPriceFactor(GameDifficultyZedternal);
+	MyKFGRI.GameAmmoCostScale = class'ZedternalReborn.Config_Trader'.static.GetAmmoPriceMultiplier(GameDifficultyZedternal);
 
 	WMGRI = WMGameReplicationInfo(MyKFGRI);
 	if (WMGRI == None)
@@ -1871,9 +1871,9 @@ function float GetAdjustedAIDoshValue(class<KFPawn_Monster> MonsterClass)
 	}
 
 	if (MonsterClass.default.bLargeZed)
-		TempValue *= class'ZedternalReborn.Config_Dosh'.static.GetLargeZedDoshFactor(GameDifficultyZedternal, PlayerCount);
+		TempValue *= class'ZedternalReborn.Config_Dosh'.static.GetLargeZedDoshMultiplier(GameDifficultyZedternal, PlayerCount);
 	else
-		TempValue *= class'ZedternalReborn.Config_Dosh'.static.GetNormalZedDoshFactor(GameDifficultyZedternal, PlayerCount);
+		TempValue *= class'ZedternalReborn.Config_Dosh'.static.GetNormalZedDoshMultiplier(GameDifficultyZedternal, PlayerCount);
 
 	return TempValue;
 }

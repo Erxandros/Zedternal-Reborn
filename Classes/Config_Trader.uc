@@ -7,7 +7,7 @@ var config S_Difficulty_Int Trader_MaxWeapon;
 var config S_Difficulty_Int Trader_StartingWeaponNumber;
 var config S_Difficulty_Int Trader_NewWeaponEachWave;
 
-var config S_Difficulty_Float Trader_AmmoPriceFactor;
+var config S_Difficulty_Float Trader_AmmoPriceMultiplier;
 var config S_Difficulty_Int Trader_ArmorPrice;
 var config S_Difficulty_Int Trader_GrenadePrice;
 
@@ -33,11 +33,11 @@ static function UpdateConfig()
 		default.Trader_NewWeaponEachWave.HoE = 2;
 		default.Trader_NewWeaponEachWave.Custom = 2;
 
-		default.Trader_AmmoPriceFactor.Normal = 0.7f;
-		default.Trader_AmmoPriceFactor.Hard = 0.7f;
-		default.Trader_AmmoPriceFactor.Suicidal = 0.75f;
-		default.Trader_AmmoPriceFactor.HoE = 0.8f;
-		default.Trader_AmmoPriceFactor.Custom = 0.8f;
+		default.Trader_AmmoPriceMultiplier.Normal = 0.7f;
+		default.Trader_AmmoPriceMultiplier.Hard = 0.7f;
+		default.Trader_AmmoPriceMultiplier.Suicidal = 0.75f;
+		default.Trader_AmmoPriceMultiplier.HoE = 0.8f;
+		default.Trader_AmmoPriceMultiplier.Custom = 0.8f;
 
 		default.Trader_ArmorPrice.Normal = 2;
 		default.Trader_ArmorPrice.Hard = 2;
@@ -89,12 +89,12 @@ static function CheckBasicConfigValues()
 			SetStructValueInt(default.Trader_NewWeaponEachWave, i, 0);
 		}
 
-		if (GetStructValueFloat(default.Trader_AmmoPriceFactor, i) < 0.0f)
+		if (GetStructValueFloat(default.Trader_AmmoPriceMultiplier, i) < 0.0f)
 		{
-			LogBadStructConfigMessage(i, "Trader_AmmoPriceFactor",
-				string(GetStructValueFloat(default.Trader_AmmoPriceFactor, i)),
+			LogBadStructConfigMessage(i, "Trader_AmmoPriceMultiplier",
+				string(GetStructValueFloat(default.Trader_AmmoPriceMultiplier, i)),
 				"0.0", "0%, free ammo", "value >= 0.0");
-			SetStructValueFloat(default.Trader_AmmoPriceFactor, i, 0.0f);
+			SetStructValueFloat(default.Trader_AmmoPriceMultiplier, i, 0.0f);
 		}
 
 		if (GetStructValueInt(default.Trader_ArmorPrice, i) < 0)
@@ -151,15 +151,15 @@ static function int GetNewWeaponEachWave(int Difficulty)
 	}
 }
 
-static function float GetAmmoPriceFactor(int Difficulty)
+static function float GetAmmoPriceMultiplier(int Difficulty)
 {
 	switch (Difficulty)
 	{
-		case 0 : return default.Trader_AmmoPriceFactor.Normal;
-		case 1 : return default.Trader_AmmoPriceFactor.Hard;
-		case 2 : return default.Trader_AmmoPriceFactor.Suicidal;
-		case 3 : return default.Trader_AmmoPriceFactor.HoE;
-		default: return default.Trader_AmmoPriceFactor.Custom;
+		case 0 : return default.Trader_AmmoPriceMultiplier.Normal;
+		case 1 : return default.Trader_AmmoPriceMultiplier.Hard;
+		case 2 : return default.Trader_AmmoPriceMultiplier.Suicidal;
+		case 3 : return default.Trader_AmmoPriceMultiplier.HoE;
+		default: return default.Trader_AmmoPriceMultiplier.Custom;
 	}
 }
 
