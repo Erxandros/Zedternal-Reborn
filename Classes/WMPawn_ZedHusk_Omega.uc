@@ -148,7 +148,7 @@ function TriggerExplosion(optional bool bIgnoreHumans)
 				ExploActor.InstigatorController = DamageInstigator;
 				ExploActor.Instigator = self;
 
-				// Force ourselves to get hit.  These settings are not replicated,
+				// Force ourselves to get hit. These settings are not replicated,
 				// but they only really make a difference on the server anyway.
 				ExploActor.Attachee = self;
 				if (bIgnoreHumans)

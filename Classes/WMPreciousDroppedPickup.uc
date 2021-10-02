@@ -19,9 +19,9 @@ simulated event SetPickupSkin(int ItemId, bool bFinishedLoading = false)
 	SetUpgradedMaterial();
 
 	if (bEmptyPickup)
-    {
-        SetEmptyMaterial();
-    }
+	{
+		SetEmptyMaterial();
+	}
 }
 
 defaultproperties

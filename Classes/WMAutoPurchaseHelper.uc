@@ -90,7 +90,7 @@ function int AddWeaponToOwnedItemList( STraderItem DefaultItem, optional bool bD
 	// Newly bought weapons need to have their default values modified by the current perk
 	WeaponInfo.MaxSpareAmmo = DefaultItem.MaxSpareAmmo;
 	CurrentPerk.ModifyMaxSpareAmmoAmount(none, WeaponInfo.MaxSpareAmmo, DefaultItem);
-	WeaponInfo.MaxSpareAmmo +=  WeaponInfo.MagazineCapacity;
+	WeaponInfo.MaxSpareAmmo += WeaponInfo.MagazineCapacity;
 
 	WeaponInfo.SpareAmmoCount = DefaultItem.InitialSpareMags * DefaultItem.MagazineCapacity;
 	CurrentPerk.ModifySpareAmmoAmount(none, WeaponInfo.SpareAmmoCount, DefaultItem);
@@ -107,7 +107,7 @@ function int AddWeaponToOwnedItemList( STraderItem DefaultItem, optional bool bD
 				SingleDualAmmoDiff = OwnedItemList[OwnedSingleIdx].SpareAmmoCount - WeaponInfo.SpareAmmoCount;
 				SingleDualAmmoDiff = Max(0, SingleDualAmmoDiff); //If buying a dual, always have it be minimum starting ammo capacity
 
-				//If the new weapon has more when adding a dual, we're boosting it to the new full amount.  Set UI info properly
+				//If the new weapon has more when adding a dual, we're boosting it to the new full amount. Set UI info properly
 				if (WeaponInfo.SpareAmmoCount > OwnedItemList[OwnedSingleIdx].SpareAmmoCount)
 				{
 					OwnedItemList[OwnedSingleIdx].SpareAmmoCount = WeaponInfo.SpareAmmoCount;
@@ -246,8 +246,8 @@ function RemoveWeaponFromOwnedItemList( optional int OwnedListIdx = INDEX_NONE, 
 			/*SingleOwnedIndex =*/ AddWeaponToOwnedItemList( TraderItems.SaleItems[ItemIndex], true, ItemInfo.ItemUpgradeLevel);
 
 			// modify default single ammo based on how much ammo dual had when sold
-			//      The now new single gun will spawn with default ammo.  We need to correct that down
-			//      to the correct amount.  Account for differences in max spare ammo caused by perks.
+			//      The now new single gun will spawn with default ammo. We need to correct that down
+			//      to the correct amount. Account for differences in max spare ammo caused by perks.
 			//AddTransactionAmmo( ItemIndex, ItemInfo.SpareAmmoCount - (ItemInfo.MaxSpareAmmo / 2.0) + ((ItemInfo.MaxSpareAmmo / 2.0) - OwnedItemList[SingleOwnedIndex].SpareAmmoCount), false );
 
 			// update the values in the trader UI

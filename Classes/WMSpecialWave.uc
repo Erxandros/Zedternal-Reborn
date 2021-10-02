@@ -66,7 +66,7 @@ static simulated function ModifyTightChoke(out float InTight, float DefaultTight
 static simulated function ModifyPenetration(out float InPenetration, float DefaultPenetration, class<KFDamageType> DamageType, KFPawn OwnerPawn, optional bool bForce);
 static function ModifyStunPower(out float InStunPower, float DefaultStunPower, optional class<DamageType> DamageType, optional byte HitZoneIdx);
 static function ModifyStumblePower(out float InStumblePower, float DefaultStumblePower, optional KFPawn KFP, optional class<KFDamageType> DamageType, optional out float CooldownModifier, optional byte BodyPart, optional KFPawn OwnerPawn);
-static function ModifyKnockdownPower(out float InKnockdownPower, float DefaultKnockdownPower,  KFPawn OwnerPawn, optional class<DamageType> DamageType, optional byte BodyPart, optional bool bIsSprinting=False);
+static function ModifyKnockdownPower(out float InKnockdownPower, float DefaultKnockdownPower, KFPawn OwnerPawn, optional class<DamageType> DamageType, optional byte BodyPart, optional bool bIsSprinting=False);
 static function ModifySnarePower(out float InSnarePower, float DefaultSnarePower, optional class<DamageType> DamageType, optional byte BodyPart);
 static simulated function ModifyWeaponSwitchTime(out float InSwitchTime, float DefaultSwitchTime, KFWeapon KFW);
 static function AddVampireHealth(out int InHealth, int DefaultHealth, KFPlayerController KFPC, class<DamageType> DT);

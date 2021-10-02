@@ -10,7 +10,7 @@ static function ModifyDamageGiven(out int InDamage, int DefaultDamage, optional 
 
 static simulated function ModifyMeleeAttackSpeed(out float InDuration, float DefaultDuration, KFWeapon KFW)
 {
-	InDuration -= DefaultDuration  * default.BonusINV * 0.5f;
+	InDuration -= DefaultDuration * default.BonusINV * 0.5f;
 }
 
 static simulated function GetReloadRateScale(out float InReloadRateScale, KFWeapon KFW, KFPawn OwnerPawn)

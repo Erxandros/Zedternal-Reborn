@@ -670,7 +670,7 @@ simulated function UpdateNextTrader()
 			if (MyTrader.bEnabled)
 			{
 				CurrentDistToTrader = IsZero(MyTrader.Location) ? -1.0f : VSize(MyTrader.Location - LocActor.Location) / 100.f;
-				if (CurrentDistToTrader <  SmallestDistToTrader || SmallestDistToTrader == 0)
+				if (CurrentDistToTrader < SmallestDistToTrader || SmallestDistToTrader == 0)
 				{
 					SmallestDistToTrader = CurrentDistToTrader;
 					ShortestDistanceTrader = MyTrader;

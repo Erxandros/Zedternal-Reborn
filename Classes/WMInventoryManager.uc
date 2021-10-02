@@ -329,7 +329,7 @@ reliable server function ServerSellWeaponZedternal( int ItemIndex )
 				ServerRemoveFromInventory(KFW);
 				KFW.Destroy();
 			}
-			else   // Otherwise it's a transaction item that needs to be removed
+			else // Otherwise it's a transaction item that needs to be removed
 			{
 				TransactionIndex = GetTransactionItemIndex(SoldItem.ClassName);
 				`log("ServerSellWeapon: SoldItem="$SoldItem.ClassName @ "TransactionIndex="$TransactionIndex, bLogInventory);

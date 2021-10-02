@@ -207,15 +207,15 @@ function float GetCharSprintChanceByDifficulty(KFPawn_Monster P, float GameDiffi
 
 	if (GameDifficultyZedternal >= 3.0f)
 	{
-		SprintChanceMod =  P.DifficultySettings.default.HellOnEarth.SprintChance;
+		SprintChanceMod = P.DifficultySettings.default.HellOnEarth.SprintChance;
 	}
 	else if (GameDifficultyZedternal >= 2.0f)
 	{
-		SprintChanceMod =  P.DifficultySettings.default.Suicidal.SprintChance;
+		SprintChanceMod = P.DifficultySettings.default.Suicidal.SprintChance;
 	}
 	else if (GameDifficultyZedternal >= 1.0f)
 	{
-		SprintChanceMod =  P.DifficultySettings.default.Hard.SprintChance;
+		SprintChanceMod = P.DifficultySettings.default.Hard.SprintChance;
 	}
 	else
 		SprintChanceMod = P.DifficultySettings.default.Normal.SprintChance;
@@ -249,11 +249,11 @@ function float GetCharSprintWhenDamagedChanceByDifficulty(KFPawn_Monster P, floa
 
 	if (GameDifficultyZedternal >= 3.0f)
 	{
-		SprintChanceMod =  P.DifficultySettings.default.HellOnEarth.DamagedSprintChance;
+		SprintChanceMod = P.DifficultySettings.default.HellOnEarth.DamagedSprintChance;
 	}
 	else if (GameDifficultyZedternal >= 2.0f)
 	{
-		SprintChanceMod =  P.DifficultySettings.default.Suicidal.DamagedSprintChance;
+		SprintChanceMod = P.DifficultySettings.default.Suicidal.DamagedSprintChance;
 	}
 	else if (GameDifficultyZedternal >= 1.0f)
 	{
