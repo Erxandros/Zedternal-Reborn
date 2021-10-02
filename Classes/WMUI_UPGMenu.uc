@@ -534,7 +534,7 @@ function string GetUpgradeDescription(int index, int lvl)
 
 	// write associated skills (and use different colors for locked, unlocked and bought skills)
 	bFirstSkill = True;
-	str = str $ "\n\n\n\n Buying this upgrade will unlocked one of these skills :\n";
+	str = str $ "\n\n\n\nBuying this upgrade will unlocked one of these skills :\n";
 	for (i = 0; i < WMGRI.skillUpgrades.length; ++i)
 	{
 		if (WMGRI.skillUpgrades[i].PerkPathName ~= PathName(WMGRI.perkUpgrades[index]))
@@ -558,15 +558,13 @@ function string GetUpgradeDescription(int index, int lvl)
 
 			if (bFirstSkill)
 			{
-				str = str $ "\n   <font color=\"#" $textColor$ "\">" $WMGRI.skillUpgrades[i].SkillUpgrade.default.upgradeName$ "</font>";
+				str = str $ "\n<font color=\"#" $textColor$ "\">" $WMGRI.skillUpgrades[i].SkillUpgrade.default.upgradeName$ "</font>";
 				bFirstSkill = False;
 			}
 			else
 				str = str $ ", <font color=\"#" $textColor$ "\">" $WMGRI.skillUpgrades[i].SkillUpgrade.default.upgradeName$ "</font>";
 		}
 	}
-	if (!bFirstSkill)
-		str = str $ ".";
 
 	return str;
 }
