@@ -57,13 +57,101 @@ static function UpdateConfig()
 	}
 }
 
+static function CheckBasicConfigValues()
+{
+	local int i;
+
+	for (i = 0; i < default.Map_Settings.Length; ++i)
+	{
+		if (default.Map_Settings[i].StartingDosh < 0)
+		{
+			LogBadConfigMessage("Map_Settings -" @ default.Map_Settings[i].MapName @ "- Line" @ string(i + 1) @ "- StartingDosh",
+				string(default.Map_Settings[i].StartingDosh),
+				"0", "0 dosh, no starting dosh", "value >= 0");
+			default.Map_Settings[i].StartingDosh = 0;
+		}
+
+		if (default.Map_Settings[i].StartingWave < 1)
+		{
+			LogBadConfigMessage("Map_Settings -" @ default.Map_Settings[i].MapName @ "- Line" @ string(i + 1) @ "- StartingWave",
+				string(default.Map_Settings[i].StartingWave),
+				"1", "wave 1, first wave", "255 >= value >= 1");
+			default.Map_Settings[i].StartingWave = 1;
+		}
+
+		if (default.Map_Settings[i].StartingWave > 255)
+		{
+			LogBadConfigMessage("Map_Settings -" @ default.Map_Settings[i].MapName @ "- Line" @ string(i + 1) @ "- StartingWave",
+				string(default.Map_Settings[i].StartingWave),
+				"255", "wave 255, last valid wave", "255 >= value >= 1");
+			default.Map_Settings[i].StartingWave = 255;
+		}
+
+		if (default.Map_Settings[i].FinalWave < 1)
+		{
+			LogBadConfigMessage("Map_Settings -" @ default.Map_Settings[i].MapName @ "- Line" @ string(i + 1) @ "- FinalWave",
+				string(default.Map_Settings[i].FinalWave),
+				"1", "end of wave 1, first wave", "255 >= value >= 1");
+			default.Map_Settings[i].FinalWave = 1;
+		}
+
+		if (default.Map_Settings[i].FinalWave > 255)
+		{
+			LogBadConfigMessage("Map_Settings -" @ default.Map_Settings[i].MapName @ "- Line" @ string(i + 1) @ "- FinalWave",
+				string(default.Map_Settings[i].FinalWave),
+				"255", "end of wave 255, last valid wave", "255 >= value >= 1");
+			default.Map_Settings[i].FinalWave = 255;
+		}
+
+		if (default.Map_Settings[i].StartingTraderTime < 0)
+		{
+			LogBadConfigMessage("Map_Settings -" @ default.Map_Settings[i].MapName @ "- Line" @ string(i + 1) @ "- StartingTraderTime",
+				string(default.Map_Settings[i].StartingTraderTime),
+				"0", "0 seconds, no starting trader time", "value >= 0");
+			default.Map_Settings[i].StartingTraderTime = 0;
+		}
+
+		if (default.Map_Settings[i].ZedNumberScale < 0.05f)
+		{
+			LogBadConfigMessage("Map_Settings -" @ default.Map_Settings[i].MapName @ "- Line" @ string(i + 1) @ "- ZedNumberScale",
+				string(default.Map_Settings[i].ZedNumberScale),
+				"0.05", "5%, minimum wave points multiplier", "value >= 0.05");
+			default.Map_Settings[i].ZedNumberScale = 0.05f;
+		}
+
+		if (default.Map_Settings[i].ZedSpawnRate < 0.05f)
+		{
+			LogBadConfigMessage("Map_Settings -" @ default.Map_Settings[i].MapName @ "- Line" @ string(i + 1) @ "- ZedSpawnRate",
+				string(default.Map_Settings[i].ZedSpawnRate),
+				"0.05", "5%, minimum spawn rate factor", "value >= 0.05");
+			default.Map_Settings[i].ZedSpawnRate = 0.05f;
+		}
+
+		if (default.Map_Settings[i].ZedStuckThreshold < 1)
+		{
+			LogBadConfigMessage("Map_Settings -" @ default.Map_Settings[i].MapName @ "- Line" @ string(i + 1) @ "- ZedStuckThreshold",
+				string(default.Map_Settings[i].ZedStuckThreshold),
+				"1", "1 zed stuck", "value >= 1");
+			default.Map_Settings[i].ZedStuckThreshold = 1;
+		}
+
+		if (default.Map_Settings[i].ZedStuckTimeout < 15)
+		{
+			LogBadConfigMessage("Map_Settings -" @ default.Map_Settings[i].MapName @ "- Line" @ string(i + 1) @ "- ZedStuckTimeout",
+				string(default.Map_Settings[i].ZedStuckTimeout),
+				"15", "15 seconds before stuck zeds are respawned", "value >= 15");
+			default.Map_Settings[i].ZedStuckTimeout = 15;
+		}
+	}
+}
+
 static function int GetStartingDosh(string MapName)
 {
 	local int index;
 
 	index = default.Map_Settings.Find('MapName', MapName);
 	if (index != INDEX_NONE)
-		return Max(default.Map_Settings[index].StartingDosh, 0);
+		return default.Map_Settings[index].StartingDosh;
 	else
 		return 400;
 }
@@ -74,7 +162,7 @@ static function int GetStartingWave(string MapName)
 
 	index = default.Map_Settings.Find('MapName', MapName);
 	if (index != INDEX_NONE)
-		return Clamp(default.Map_Settings[index].StartingWave - 1, 0, 254);
+		return default.Map_Settings[index].StartingWave - 1;
 	else
 		return 0;
 }
@@ -85,7 +173,7 @@ static function int GetFinalWave(string MapName)
 
 	index = default.Map_Settings.Find('MapName', MapName);
 	if (index != INDEX_NONE)
-		return Clamp(default.Map_Settings[index].FinalWave, 1, 255);
+		return default.Map_Settings[index].FinalWave;
 	else
 		return 255;
 }
@@ -96,7 +184,7 @@ static function int GetStartingTraderTime(string MapName)
 
 	index = default.Map_Settings.Find('MapName', MapName);
 	if (index != INDEX_NONE)
-		return Max(default.Map_Settings[index].StartingTraderTime, 0);
+		return default.Map_Settings[index].StartingTraderTime;
 	else
 		return 0;
 }
