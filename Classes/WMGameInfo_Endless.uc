@@ -155,8 +155,10 @@ event PostBeginPlay()
 
 	if (startingDosh >= 0)
 		doshNewPlayer = startingDosh;
-	else
+	else if (class'ZedternalReborn.Config_Map'.static.GetStartingDosh(WorldInfo.GetMapName(True)) >= 0)
 		doshNewPlayer = class'ZedternalReborn.Config_Map'.static.GetStartingDosh(WorldInfo.GetMapName(True));
+	else
+		doshNewPlayer = class'ZedternalReborn.Config_Dosh'.static.GetStartingDosh(GameDifficultyZedternal);
 
 	LastSpecialWaveID_First = INDEX_NONE;
 	LastSpecialWaveID_Second = INDEX_NONE;
@@ -312,8 +314,10 @@ function StartMatch()
 		KFPC.ClientMatchStarted();
 		if (startingDosh >= 0)
 			KFPlayerReplicationInfo(KFPC.PlayerReplicationInfo).Score = startingDosh;
-		else
+		else if (class'ZedternalReborn.Config_Map'.static.GetStartingDosh(WorldInfo.GetMapName(True)) >= 0)
 			KFPlayerReplicationInfo(KFPC.PlayerReplicationInfo).Score = class'ZedternalReborn.Config_Map'.static.GetStartingDosh(WorldInfo.GetMapName(True));
+		else
+			KFPlayerReplicationInfo(KFPC.PlayerReplicationInfo).Score = class'ZedternalReborn.Config_Dosh'.static.GetStartingDosh(GameDifficultyZedternal);
 	}
 }
 

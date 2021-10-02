@@ -63,12 +63,12 @@ static function CheckBasicConfigValues()
 
 	for (i = 0; i < default.Map_Settings.Length; ++i)
 	{
-		if (default.Map_Settings[i].StartingDosh < 0)
+		if (default.Map_Settings[i].StartingDosh < INDEX_NONE)
 		{
 			LogBadConfigMessage("Map_Settings -" @ default.Map_Settings[i].MapName @ "- Line" @ string(i + 1) @ "- StartingDosh",
 				string(default.Map_Settings[i].StartingDosh),
-				"0", "0 dosh, no starting dosh", "value >= 0");
-			default.Map_Settings[i].StartingDosh = 0;
+				"-1", "skip starting dosh, using Dosh_StartingDosh variable instead", "value >= -1");
+			default.Map_Settings[i].StartingDosh = INDEX_NONE;
 		}
 
 		if (default.Map_Settings[i].StartingWave < 1)
@@ -153,7 +153,7 @@ static function int GetStartingDosh(string MapName)
 	if (index != INDEX_NONE)
 		return default.Map_Settings[index].StartingDosh;
 	else
-		return 400;
+		return INDEX_NONE;
 }
 
 static function int GetStartingWave(string MapName)

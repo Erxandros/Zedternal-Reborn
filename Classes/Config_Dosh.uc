@@ -3,6 +3,8 @@ class Config_Dosh extends Config_Common
 
 var config int MODEVERSION;
 
+var config S_Difficulty_Int Dosh_StartingDosh;
+
 var config S_Difficulty_Float Dosh_NormalZedDoshMultiplier;
 var config S_Difficulty_Float Dosh_ExtraNormalZedDoshIncPerPlayer; //Extra amount of dosh won based on number of other players
 var config S_Difficulty_Float Dosh_LargeZedDoshMultiplier;
@@ -20,6 +22,12 @@ static function UpdateConfig()
 {
 	if (default.MODEVERSION < 1)
 	{
+		default.Dosh_StartingDosh.Normal = 400;
+		default.Dosh_StartingDosh.Hard = 400;
+		default.Dosh_StartingDosh.Suicidal = 400;
+		default.Dosh_StartingDosh.HoE = 400;
+		default.Dosh_StartingDosh.Custom = 400;
+
 		default.Dosh_NormalZedDoshMultiplier.Normal = 1.25f;
 		default.Dosh_NormalZedDoshMultiplier.Hard = 1.225f;
 		default.Dosh_NormalZedDoshMultiplier.Suicidal = 1.2f;
@@ -94,6 +102,14 @@ static function CheckBasicConfigValues()
 
 	for (i = 0; i < NumberOfDiffs; ++i)
 	{
+		if (GetStructValueInt(default.Dosh_StartingDosh, i) < 0)
+		{
+			LogBadStructConfigMessage(i, "Dosh_StartingDosh",
+				string(GetStructValueInt(default.Dosh_StartingDosh, i)),
+				"0", "0 dosh, no starting dosh", "value >= 0");
+			SetStructValueInt(default.Dosh_StartingDosh, i, 0);
+		}
+
 		if (GetStructValueFloat(default.Dosh_NormalZedDoshMultiplier, i) < 0.0f)
 		{
 			LogBadStructConfigMessage(i, "Dosh_NormalZedDoshMultiplier",
@@ -181,6 +197,18 @@ static function CheckBasicConfigValues()
 				"1.0", "100%, loose all wave dosh on death", "1.0 >= value >= 0.0");
 			SetStructValueFloat(default.Dosh_DeathPenaltyDoshPct, i, 1.0f);
 		}
+	}
+}
+
+static function int GetStartingDosh(int Difficulty)
+{
+	switch (Difficulty)
+	{
+		case 0 : return default.Dosh_StartingDosh.Normal;
+		case 1 : return default.Dosh_StartingDosh.Hard;
+		case 2 : return default.Dosh_StartingDosh.Suicidal;
+		case 3 : return default.Dosh_StartingDosh.HoE;
+		default: return default.Dosh_StartingDosh.Custom;
 	}
 }
 
