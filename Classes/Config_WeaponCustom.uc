@@ -30,27 +30,30 @@ static function LoadConfigObjects(out array< class<KFWeaponDefinition> > WeaponD
 	WeaponDefObjects.Length = 0;
 	WeaponObjects.Length = 0;
 
-	for (i = 0; i < default.Weapon_CustomWeaponDef.Length; ++i)
+	if (default.Weapon_bUseCustomWeaponList)
 	{
-		ObjDef = class<KFWeaponDefinition>(DynamicLoadObject(default.Weapon_CustomWeaponDef[i], class'Class', True));
-		if (ObjDef == None)
+		for (i = 0; i < default.Weapon_CustomWeaponDef.Length; ++i)
 		{
-			LogBadLoadObjectConfigMessage("Weapon_CustomWeaponDef", i + 1, default.Weapon_CustomWeaponDef[i]);
-			continue;
-		}
+			ObjDef = class<KFWeaponDefinition>(DynamicLoadObject(default.Weapon_CustomWeaponDef[i], class'Class', True));
+			if (ObjDef == None)
+			{
+				LogBadLoadObjectConfigMessage("Weapon_CustomWeaponDef", i + 1, default.Weapon_CustomWeaponDef[i]);
+				continue;
+			}
 
-		ObjWep = class<KFWeapon>(DynamicLoadObject(ObjDef.default.WeaponClassPath, class'Class', True));
-		if (ObjWep == None)
-		{
-			LogBadLoadWeaponConfigMessage("Weapon_CustomWeaponDef", i + 1, default.Weapon_CustomWeaponDef[i],
-				ObjDef.default.WeaponClassPath);
-			continue;
-		}
+			ObjWep = class<KFWeapon>(DynamicLoadObject(ObjDef.default.WeaponClassPath, class'Class', True));
+			if (ObjWep == None)
+			{
+				LogBadLoadWeaponConfigMessage("Weapon_CustomWeaponDef", i + 1, default.Weapon_CustomWeaponDef[i],
+					ObjDef.default.WeaponClassPath);
+				continue;
+			}
 
-		if (class'ZedternalReborn.WMBinaryOps'.static.BinarySearchUnique(WeaponDefObjects, PathName(ObjDef), Ins))
-		{
-			WeaponDefObjects.InsertItem(Ins, ObjDef);
-			WeaponObjects.InsertItem(Ins, ObjWep);
+			if (class'ZedternalReborn.WMBinaryOps'.static.BinarySearchUnique(WeaponDefObjects, PathName(ObjDef), Ins))
+			{
+				WeaponDefObjects.InsertItem(Ins, ObjDef);
+				WeaponObjects.InsertItem(Ins, ObjWep);
+			}
 		}
 	}
 }

@@ -236,22 +236,25 @@ static function CheckBasicConfigValues()
 {
 	local int i;
 
-	for (i = 0; i < default.Weapon_VariantWeaponDef.Length; ++i)
+	if (default.WeaponVariant_bAllowWeaponVariant)
 	{
-		if (default.Weapon_VariantWeaponDef[i].Probability < 0.0f)
+		for (i = 0; i < default.Weapon_VariantWeaponDef.Length; ++i)
 		{
-			LogBadConfigMessage("Weapon_VariantWeaponDef - Line" @ string(i + 1) @ "- Probability",
-				string(default.Weapon_VariantWeaponDef[i].Probability),
-				"0.0", "0%, never selected", "1.0 >= value >= 0.0");
-			default.Weapon_VariantWeaponDef[i].Probability = 0.0f;
-		}
+			if (default.Weapon_VariantWeaponDef[i].Probability < 0.0f)
+			{
+				LogBadConfigMessage("Weapon_VariantWeaponDef - Line" @ string(i + 1) @ "- Probability",
+					string(default.Weapon_VariantWeaponDef[i].Probability),
+					"0.0", "0%, never selected", "1.0 >= value >= 0.0");
+				default.Weapon_VariantWeaponDef[i].Probability = 0.0f;
+			}
 
-		if (default.Weapon_VariantWeaponDef[i].Probability > 1.0f)
-		{
-			LogBadConfigMessage("Weapon_VariantWeaponDef - Line" @ string(i + 1) @ "- Probability",
-				string(default.Weapon_VariantWeaponDef[i].Probability),
-				"1.0", "100%, always selected", "1.0 >= value >= 0.0");
-			default.Weapon_VariantWeaponDef[i].Probability = 1.0f;
+			if (default.Weapon_VariantWeaponDef[i].Probability > 1.0f)
+			{
+				LogBadConfigMessage("Weapon_VariantWeaponDef - Line" @ string(i + 1) @ "- Probability",
+					string(default.Weapon_VariantWeaponDef[i].Probability),
+					"1.0", "100%, always selected", "1.0 >= value >= 0.0");
+				default.Weapon_VariantWeaponDef[i].Probability = 1.0f;
+			}
 		}
 	}
 }
@@ -263,41 +266,47 @@ static function LoadConfigObjects(out array<float> VariantProbability, out array
 	local int i;
 	local class<KFWeaponDefinition> Obj, VarObj, DualObj;
 
+	VariantProbability.Length = 0;
 	WeaponDefObjects.Length = 0;
+	WeaponVarObjects.Length = 0;
+	WeaponDualObjects.Length = 0;
 
-	for (i = 0; i < default.Weapon_VariantWeaponDef.Length; ++i)
+	if (default.WeaponVariant_bAllowWeaponVariant)
 	{
-		Obj = class<KFWeaponDefinition>(DynamicLoadObject(default.Weapon_VariantWeaponDef[i].WeaponDef, class'Class', True));
-		if (Obj == None)
+		for (i = 0; i < default.Weapon_VariantWeaponDef.Length; ++i)
 		{
-			LogBadLoadObjectConfigMessage("Weapon_VariantWeaponDef", i + 1, default.Weapon_VariantWeaponDef[i].WeaponDef);
-			continue;
-		}
+			Obj = class<KFWeaponDefinition>(DynamicLoadObject(default.Weapon_VariantWeaponDef[i].WeaponDef, class'Class', True));
+			if (Obj == None)
+			{
+				LogBadLoadObjectConfigMessage("Weapon_VariantWeaponDef", i + 1, default.Weapon_VariantWeaponDef[i].WeaponDef);
+				continue;
+			}
 
-		VarObj = class<KFWeaponDefinition>(DynamicLoadObject(default.Weapon_VariantWeaponDef[i].WeaponDefVariant, class'Class', True));
-		if (VarObj == None)
-		{
-			LogBadLoadObjectConfigMessage("Weapon_VariantWeaponDef", i + 1, default.Weapon_VariantWeaponDef[i].WeaponDefVariant);
-			continue;
-		}
+			VarObj = class<KFWeaponDefinition>(DynamicLoadObject(default.Weapon_VariantWeaponDef[i].WeaponDefVariant, class'Class', True));
+			if (VarObj == None)
+			{
+				LogBadLoadObjectConfigMessage("Weapon_VariantWeaponDef", i + 1, default.Weapon_VariantWeaponDef[i].WeaponDefVariant);
+				continue;
+			}
 
-		Dual = False;
-		if (default.Weapon_VariantWeaponDef[i].DualWeaponDefVariant != "")
-		{
-			DualObj = class<KFWeaponDefinition>(DynamicLoadObject(default.Weapon_VariantWeaponDef[i].DualWeaponDefVariant, class'Class', True));
-			if (DualObj == None)
-				LogBadLoadObjectConfigMessage("Weapon_VariantWeaponDef", i + 1, default.Weapon_VariantWeaponDef[i].DualWeaponDefVariant);
+			Dual = False;
+			if (default.Weapon_VariantWeaponDef[i].DualWeaponDefVariant != "")
+			{
+				DualObj = class<KFWeaponDefinition>(DynamicLoadObject(default.Weapon_VariantWeaponDef[i].DualWeaponDefVariant, class'Class', True));
+				if (DualObj == None)
+					LogBadLoadObjectConfigMessage("Weapon_VariantWeaponDef", i + 1, default.Weapon_VariantWeaponDef[i].DualWeaponDefVariant);
+				else
+					Dual = True;
+			}
+
+			VariantProbability.AddItem(default.Weapon_VariantWeaponDef[i].Probability);
+			WeaponDefObjects.AddItem(Obj);
+			WeaponVarObjects.AddItem(VarObj);
+			if (Dual)
+				WeaponDualObjects.AddItem(DualObj);
 			else
-				Dual = True;
+				WeaponDualObjects.AddItem(None);
 		}
-
-		VariantProbability.AddItem(default.Weapon_VariantWeaponDef[i].Probability);
-		WeaponDefObjects.AddItem(Obj);
-		WeaponVarObjects.AddItem(VarObj);
-		if (Dual)
-			WeaponDualObjects.AddItem(DualObj);
-		else
-			WeaponDualObjects.AddItem(None);
 	}
 }
 
