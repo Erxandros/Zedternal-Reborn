@@ -5,8 +5,6 @@ var float GameDifficultyZedternal;
 
 function SetDifficultySettings(float GameDifficulty)
 {
-	`log("ZedternalReborn GameDifficulty:" @ GameDifficulty);
-
 	WMGRI = WMGameReplicationInfo(Class'WorldInfo'.static.GetWorldInfo().GRI);
 
 	if (GameDifficulty > `DIFFICULTY_HELLONEARTH)

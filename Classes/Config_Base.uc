@@ -9,8 +9,6 @@ static function LoadConfigs()
 {
 	local byte i;
 
-	PrintVersion();
-
 	for (i = 0; i < default.ConfigFiles.Length; ++i)
 	{
 		default.ConfigFiles[i].static.UpdateConfig();

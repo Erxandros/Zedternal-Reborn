@@ -108,6 +108,8 @@ static function PreloadGlobalContentClasses()
 
 event PreBeginPlay()
 {
+	class'ZedternalReborn.Config_Base'.static.PrintVersion();
+
 	super.PreBeginPlay();
 
 	// Update and check default values
@@ -222,6 +224,8 @@ function InitSpawnManager()
 {
 	SpawnManager = new(self) SpawnManagerClasses[GameLength];
 	SpawnManager.Initialize();
+
+	`log("ZedternalReborn GameDifficulty:" @ GameDifficulty);
 
 	if (GameDifficulty > `DIFFICULTY_HELLONEARTH)
 	{
