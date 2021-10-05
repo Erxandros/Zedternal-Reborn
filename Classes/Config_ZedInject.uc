@@ -28,15 +28,31 @@ static function UpdateConfig()
 	{
 		default.Zed_bEnableWaveGroupInjection = False;
 
-		default.Zed_WaveGroupInject.Length = 1;
+		default.Zed_WaveGroupInject.Length = 3;
 
 		default.Zed_WaveGroupInject[0].Wave = 10;
 		default.Zed_WaveGroupInject[0].ZedPath = "ZedternalReborn.WMPawn_ZedCrawler_Ultra";
-		default.Zed_WaveGroupInject[0].Position = "END";
-		default.Zed_WaveGroupInject[0].Count = 3;
+		default.Zed_WaveGroupInject[0].Position = "MID";
+		default.Zed_WaveGroupInject[0].Count = 6;
 		default.Zed_WaveGroupInject[0].Probability = 1.0f;
 		default.Zed_WaveGroupInject[0].MinDiff = 0;
 		default.Zed_WaveGroupInject[0].MaxDiff = 4;
+
+		default.Zed_WaveGroupInject[1].Wave = 15;
+		default.Zed_WaveGroupInject[1].ZedPath = "ZedternalReborn.WMPawn_ZedPatriarch";
+		default.Zed_WaveGroupInject[1].Position = "END";
+		default.Zed_WaveGroupInject[1].Count = 2;
+		default.Zed_WaveGroupInject[1].Probability = 1.0f;
+		default.Zed_WaveGroupInject[1].MinDiff = 2;
+		default.Zed_WaveGroupInject[1].MaxDiff = 4;
+
+		default.Zed_WaveGroupInject[2].Wave = 12;
+		default.Zed_WaveGroupInject[2].ZedPath = "ZedternalReborn.WMPawn_ZedScrake_Tiny";
+		default.Zed_WaveGroupInject[2].Position = "BEG";
+		default.Zed_WaveGroupInject[2].Count = 3;
+		default.Zed_WaveGroupInject[2].Probability = 0.5f;
+		default.Zed_WaveGroupInject[2].MinDiff = 1;
+		default.Zed_WaveGroupInject[2].MaxDiff = 4;
 	}
 
 	if (default.MODEVERSION < class'ZedternalReborn.Config_Base'.const.CurrentVersion)
