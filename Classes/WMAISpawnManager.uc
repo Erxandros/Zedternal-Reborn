@@ -409,7 +409,7 @@ function SetupNextWave(byte NextWaveIndex, int TimeToNextWaveBuffer = 0)
 				bNewSquad = True;
 			}
 
-			GroupList[GroupList.Length - 1].Delay += WaveSpawns[Choice].Value * CustomSpawnRate * GrSize / 10;
+			GroupList[GroupList.Length - 1].Delay += float(WaveSpawns[Choice].Value) * CustomSpawnRate * float(GrSize) / 10.0f;
 
 			// Check for zed variants
 			TempVarList.Length = 0;
