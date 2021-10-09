@@ -181,7 +181,7 @@ function InitializeZedArrays()
 			VariantList.Add(1);
 
 			VariantList[VariantList.Length - 1].ZedID = class'ZedternalReborn.WMBinaryOps'.static.BinarySearch(ZedList, ConfigData.ValidZedVariants[i].ZedPath);
-			VariantList[VariantList.Length - 1].ZedID = class'ZedternalReborn.WMBinaryOps'.static.BinarySearch(ZedList, ConfigData.ValidZedVariants[i].VariantPath);
+			VariantList[VariantList.Length - 1].VariantID = class'ZedternalReborn.WMBinaryOps'.static.BinarySearch(ZedList, ConfigData.ValidZedVariants[i].VariantPath);
 			VariantList[VariantList.Length - 1].Probability = ConfigData.ValidZedVariants[i].Probability;
 			VariantList[VariantList.Length - 1].MinDiff = ConfigData.ValidZedVariants[i].MinDiff;
 			VariantList[VariantList.Length - 1].MaxDiff = ConfigData.ValidZedVariants[i].MaxDiff;
@@ -395,7 +395,7 @@ function SetupNextWave(byte NextWaveIndex, int TimeToNextWaveBuffer = 0)
 			if (bNewSquad)
 			{
 				GroupList.Add(1);
-				if ((GrSize < 6 && FRand() < 0.5f) || (GrSize < 4 && FRand() < 0.75f))
+				if ((GrSize < 6 && FRand() <= 0.5f) || (GrSize < 4 && FRand() <= 0.75f))
 					bNewSquad = False;
 			}
 			else
@@ -421,7 +421,7 @@ function SetupNextWave(byte NextWaveIndex, int TimeToNextWaveBuffer = 0)
 				bVariantApplied = False;
 				for (k = 0; k < TempVarList.Length; ++k)
 				{
-					if (VariantList[TempVarList[k]].Probability >= FRand())
+					if (FRand() <= VariantList[TempVarList[k]].Probability)
 					{
 						GroupList[GroupList.Length - 1].ZedClasses.AddItem(ZedList[VariantList[TempVarList[k]].VariantID]);
 						bVariantApplied = True;
@@ -446,7 +446,7 @@ function SetupNextWave(byte NextWaveIndex, int TimeToNextWaveBuffer = 0)
 	{
 		for (i = 0; i < InjectList.Length; ++i)
 		{
-			if (InjectList[i].Wave == NextWaveIndex && InjectList[i].Probability >= FRand()
+			if (InjectList[i].Wave == NextWaveIndex && FRand() <= InjectList[i].Probability
 				&& InjectList[i].MinDiff <= GameDifficultyZedternal && InjectList[i].MaxDiff >= GameDifficultyZedternal)
 			{
 				switch (InjectList[i].Position)
