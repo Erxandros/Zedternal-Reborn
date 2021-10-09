@@ -1,4 +1,4 @@
-Class WMZedBuff_Speed extends WMZedBuff;
+class WMZedBuff_Speed extends WMZedBuff;
 
 var float Speed, SprintChance;
 
@@ -14,8 +14,11 @@ static function ModifyZedSprintChanceMod(out float SprintChanceMod, KFPawn_Monst
 
 defaultproperties
 {
-	buffDescription="ZEDS MOVE FASTER"
-	buffIcon=Texture2D'ZED_Clot_UI.ZED-VS_Icons_AlphaClot-Jump'
-	Speed = 0.125000;
-	SprintChance = 0.400000;
+	Speed=0.125f
+	SprintChance=0.4f
+
+	BuffDescription="ZEDS MOVE FASTER"
+	BuffIcon=Texture2D'ZED_Clot_UI.ZED-VS_Icons_AlphaClot-Jump'
+
+	Name="Default__WMZedBuff_Speed"
 }

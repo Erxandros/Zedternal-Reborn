@@ -1,13 +1,15 @@
-Class WMZedBuff_Scrake_Enraged extends WMZedBuff;
+class WMZedBuff_Scrake_Enraged extends WMZedBuff;
 
 static function ModifyZedSprintChanceMod(out float SprintChanceMod, KFPawn_Monster P, float GameDifficulty)
 {
-	if (KFPawn_ZedScrake(P) != none)
-		KFPawn_ZedScrake(P).SetEnraged(true);
+	if (KFPawn_ZedScrake(P) != None)
+		KFPawn_ZedScrake(P).SetEnraged(True);
 }
 
 defaultproperties
 {
-	buffDescription="SCRAKES ARE ENRAGED"
-	buffIcon=Texture2D'ZED_Scrake_UI.ZED-VS_Icons_Scrake-HeavyLunge'
+	BuffDescription="SCRAKES ARE ENRAGED"
+	BuffIcon=Texture2D'ZED_Scrake_UI.ZED-VS_Icons_Scrake-HeavyLunge'
+
+	Name="Default__WMZedBuff_Scrake_Enraged"
 }

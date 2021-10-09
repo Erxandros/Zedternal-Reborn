@@ -1,18 +1,22 @@
-Class WMZedBuff_Siren_ScreamRate extends WMZedBuff;
+class WMZedBuff_Siren_ScreamRate extends WMZedBuff;
 
-var float Damage;
+var float ScreamReduce;
 
 static function ModifyZedSpeedMod(out float SpeedMod, KFPawn_Monster P, float GameDifficulty)
 {
-	if (KFPawn_ZedSiren(P) != none)
+	if (KFPawn_ZedSiren(P) != None)
 	{
-		if (KFAIController_ZedSiren(P.MyKFAIC) != none)
-			KFAIController_ZedSiren(P.MyKFAIC).ScreamCooldown = 2.750000;
+		if (KFAIController_ZedSiren(P.MyKFAIC) != None)
+			KFAIController_ZedSiren(P.MyKFAIC).ScreamCooldown -= default.ScreamReduce;
 	}
 }
 
 defaultproperties
 {
-	buffDescription="SIRENS SCREAM MORE OFTEN"
-	buffIcon=Texture2D'ZedternalReborn_Resource.zedBuffs.UI_ZedBuff_SirenScreamRate'
+	ScreamReduce=1.25f
+
+	BuffDescription="SIRENS SCREAM MORE OFTEN"
+	BuffIcon=Texture2D'ZedternalReborn_Resource.zedBuffs.UI_ZedBuff_SirenScreamRate'
+
+	Name="Default__WMZedBuff_Siren_ScreamRate"
 }

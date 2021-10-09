@@ -1,4 +1,4 @@
-Class WMZedBuff_SpawnRate extends WMZedBuff;
+class WMZedBuff_SpawnRate extends WMZedBuff;
 
 var float SpawnRate;
 
@@ -9,7 +9,10 @@ static function ModifySpawnRateMod(out float SpawnRateMod)
 
 defaultproperties
 {
-	buffDescription="ZEDS SPAWN FASTER"
-	buffIcon=Texture2D'ZED_Patriarch_UI.ZED-VS_Icons_Generic-Cloak'
-	SpawnRate = 0.100000;
+	SpawnRate=0.1f
+
+	BuffDescription="ZEDS SPAWN FASTER"
+	BuffIcon=Texture2D'ZED_Patriarch_UI.ZED-VS_Icons_Generic-Cloak'
+
+	Name="Default__WMZedBuff_SpawnRate"
 }

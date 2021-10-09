@@ -1,4 +1,4 @@
-Class WMZedBuff_Damage extends WMZedBuff;
+class WMZedBuff_Damage extends WMZedBuff;
 
 var float Damage;
 
@@ -9,7 +9,10 @@ static function ModifyZedDamageMod(out float PerZedDamageMod, KFPawn_Monster P, 
 
 defaultproperties
 {
-	buffDescription="ZEDS DEAL MORE DAMAGE"
-	buffIcon=Texture2D'ZED_Clot_UI.ZED-VS_Icons_AlphaClot-Melee'
-	Damage = 0.150000;
+	Damage=0.15f
+
+	BuffDescription="ZEDS DEAL MORE DAMAGE"
+	BuffIcon=Texture2D'ZED_Clot_UI.ZED-VS_Icons_AlphaClot-Melee'
+
+	Name="Default__WMZedBuff_Damage"
 }

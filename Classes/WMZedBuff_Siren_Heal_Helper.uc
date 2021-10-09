@@ -1,11 +1,11 @@
-Class WMZedBuff_Siren_Heal_Helper extends Info
+class WMZedBuff_Siren_Heal_Helper extends Info
 	transient;
 
 var float HealRadius, HealZed, HealLargeZed;
 
 function PostBeginPlay()
 {
-	SetTimer(1.0f, true);
+	SetTimer(1.0f, True);
 }
 
 function Timer()
@@ -32,8 +32,9 @@ function Timer()
 
 defaultproperties
 {
-	HealRadius=600.000000
-	HealZed = 0.300000;
-	HealLargeZed = 0.150000;
+	HealRadius=600.0f
+	HealZed=0.3f
+	HealLargeZed=0.15f
+
 	Name="Default__WMZedBuff_Siren_Heal_Helper"
 }

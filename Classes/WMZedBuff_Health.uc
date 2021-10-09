@@ -1,4 +1,4 @@
-Class WMZedBuff_Health extends WMZedBuff;
+class WMZedBuff_Health extends WMZedBuff;
 
 var float Health, LargeZedHealth, HeadHealth;
 
@@ -17,9 +17,12 @@ static function ModifyZedHeadHealthMod(out float HeadHealthMod, KFPawn_Monster P
 
 defaultproperties
 {
-	buffDescription="ZEDS HAVE MORE HEALTH"
-	buffIcon=Texture2D'ZED_Patriarch_UI.ZED-VS_Icons_Patriarch-Heal'
-	Health = 0.125000;
-	LargeZedHealth = 0.090000;
-	HeadHealth = 0.100000;
+	Health=0.125f
+	LargeZedHealth=0.09f
+	HeadHealth=0.1f
+
+	BuffDescription="ZEDS HAVE MORE HEALTH"
+	BuffIcon=Texture2D'ZED_Patriarch_UI.ZED-VS_Icons_Patriarch-Heal'
+
+	Name="Default__WMZedBuff_Health"
 }

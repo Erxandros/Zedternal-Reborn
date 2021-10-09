@@ -1,7 +1,7 @@
-Class WMZedBuff extends Info;
+class WMZedBuff extends Info;
 
-var string buffDescription;
-var Texture2D buffIcon;
+var string BuffDescription;
+var Texture2D BuffIcon;
 
 static function ModifyZedHealthMod(out float HealthMod, KFPawn_Monster P, float GameDifficulty, byte NumLivingPlayers);
 static function ModifyZedHeadHealthMod(out float HeadHealthMod, KFPawn_Monster P, float GameDifficulty, byte NumLivingPlayers);
@@ -23,7 +23,8 @@ static function KilledPawn(Pawn entity);
 
 defaultproperties
 {
-	buffDescription="Zeds are mutating..."
-	buffIcon=Texture2D'UI_Award_ZEDs.UI_Award_ZED_Kills'
+	BuffDescription="Zeds are mutating..."
+	BuffIcon=Texture2D'UI_Award_ZEDs.UI_Award_ZED_Kills'
+
 	Name="Default__WMZedBuff"
 }

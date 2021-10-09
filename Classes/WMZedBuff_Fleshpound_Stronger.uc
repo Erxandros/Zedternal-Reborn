@@ -1,13 +1,15 @@
-Class WMZedBuff_Fleshpound_Stronger extends WMZedBuff;
+class WMZedBuff_Fleshpound_Stronger extends WMZedBuff;
 
 static function ModifyZedSprintChanceMod(out float SprintChanceMod, KFPawn_Monster P, float GameDifficulty)
 {
-	if (KFPawn_ZedFleshpound(P) != none)
-		KFPawn_ZedFleshpound(P).SetEnraged(true);
+	if (KFPawn_ZedFleshpound(P) != None)
+		KFPawn_ZedFleshpound(P).SetEnraged(True);
 }
 
 defaultproperties
 {
-	buffDescription="FLESHPOUNDS ARE ENRAGED"
-	buffIcon=Texture2D'ZED_Fleshpound_UI.ZED-VS_Icons_Fleshpound-HeavyAttack'
+	BuffDescription="FLESHPOUNDS ARE ENRAGED"
+	BuffIcon=Texture2D'ZED_Fleshpound_UI.ZED-VS_Icons_Fleshpound-HeavyAttack'
+
+	Name="Default__WMZedBuff_Fleshpound_Stronger"
 }

@@ -1,27 +1,28 @@
-Class WMZedBuff_Siren_Heal extends WMZedBuff;
-
-var float Damage;
+class WMZedBuff_Siren_Heal extends WMZedBuff;
 
 static function ModifyZedHealthMod(out float HealthMod, KFPawn_Monster P, float GameDifficulty, byte NumLivingPlayers)
 {
 	local WMZedBuff_Siren_Heal_Helper Helper;
 	local bool bFound;
 
-	if (KFPawn_ZedSiren(P) != none)
+	if (KFPawn_ZedSiren(P) != None)
 	{
-		bFound = false;
-		foreach Class'WorldInfo'.static.GetWorldInfo().DynamicActors(class'WMZedBuff_Siren_Heal_Helper', Helper)
+		bFound = False;
+		foreach class'WorldInfo'.static.GetWorldInfo().DynamicActors(class'WMZedBuff_Siren_Heal_Helper', Helper)
 		{
-			bFound = true;
+			bFound = True;
+			break;
 		}
 
 		if (!bFound)
-			Class'WorldInfo'.static.GetWorldInfo().Spawn(class'WMZedBuff_Siren_Heal_Helper');
+			class'WorldInfo'.static.GetWorldInfo().Spawn(class'WMZedBuff_Siren_Heal_Helper');
 	}
 }
 
 defaultproperties
 {
-	buffDescription="SIRENS SCREAMS CAN HEAL OTHER ZEDS"
-	buffIcon=Texture2D'ZED_Siren_UI.ZED-VS_Icons_Siren-Scream'
+	BuffDescription="SIRENS SCREAMS CAN HEAL OTHER ZEDS"
+	BuffIcon=Texture2D'ZED_Siren_UI.ZED-VS_Icons_Siren-Scream'
+
+	Name="Default__WMZedBuff_Siren_Heal"
 }
