@@ -344,17 +344,22 @@ function SetupNextWave(byte NextWaveIndex, int TimeToNextWaveBuffer = 0)
 
 	// 3) spawn rate factor based on number of players
 	CustomSpawnRate = CustomSpawnRate / class'ZedternalReborn.Config_WaveSpawnRate'.static.ZedSpawnRateFactor(NbPlayer);
+
+	// 4) special wave spawn rate modification
 	for (i = 0; i < 2; ++i)
 	{
 		if (SWID[i] != INDEX_NONE)
 			CustomSpawnRate = CustomSpawnRate / (WMGRI.specialWaves[SWID[i]].default.zedSpawnRateFactor);
 	}
 
-	// 4) reduce spawn rate by 35% only for wave 1
+	// 5) zed buff spawn rate modification
+	CustomSpawnRate = CustomSpawnRate / DifficultyInfo.GetSpawnRateModifier();
+
+	// 6) reduce spawn rate by 35% only for wave 1
 	if (NextWaveIndex == 1)
 		CustomSpawnRate *= 1.35f;
 
-	// 5) change spawn rate from custom map settings
+	// 7) change spawn rate from custom map settings
 	CustomSpawnRate *= 1.0f / class'ZedternalReborn.Config_Map'.static.GetZedSpawnRate(WorldInfo.GetMapName(True));
 
 	`log("SpawnRateFactor = "$CustomSpawnRate);

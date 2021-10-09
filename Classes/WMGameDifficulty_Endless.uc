@@ -454,7 +454,7 @@ function float GetSpawnRateModifier()
 	local float SpawnRateMod;
 	local byte i, x;
 
-	SpawnRateMod = CurrentSettings.SpawnRateModifier;
+	SpawnRateMod = 1.0f;
 
 	if (WMGRI == None)
 		WMGRI = WMGameReplicationInfo(Class'WorldInfo'.static.GetWorldInfo().GRI);
@@ -473,7 +473,7 @@ function float GetSpawnRateModifier()
 		}
 	}
 
-	return FMax(0.0005f, SpawnRateMod);
+	return FMax(0.05f, SpawnRateMod);
 }
 
 /** Return the damage resistance modifier */
