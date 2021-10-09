@@ -84,6 +84,9 @@ function InitializeZedSpawnData()
 
 	// Reset the total waves active time when starting a new match
 	TotalWavesActiveTime = 0;
+
+	// Free memory
+	ConfigData = None;
 }
 
 function InitializeZedArrays()
