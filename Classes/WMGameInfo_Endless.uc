@@ -1782,6 +1782,14 @@ function RepGameInfoLowPriority()
 
 	WMGRI.bZRUMenuCommand = class'ZedternalReborn.Config_GameOptions'.static.GetAllowUpgradeCommand(GameDifficultyZedternal);
 	WMGRI.bZRUMenuAllWave = class'ZedternalReborn.Config_GameOptions'.static.GetAllowUpgradeCommandAllWave(GameDifficultyZedternal);
+
+	SetTimer(3.0f, False, NameOf(FreeConfigDataMemory));
+}
+
+function FreeConfigDataMemory()
+{
+	// Free memory
+	ConfigData = None;
 }
 
 function InitializeStaticPerkList()
