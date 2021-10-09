@@ -13,6 +13,9 @@ var byte startingMaxPlayerCount, TraderVoiceIndex;
 
 var float GameDifficultyZedternal;
 
+//Perks
+var array<byte> StaticPerks;
+
 //Weapons
 var array<name> KFWeaponName;
 var array<string> KFWeaponDefPath, StartingWeaponPath;
@@ -130,6 +133,9 @@ event PostBeginPlay()
 
 	// Set all traders toggle
 	bUseAllTraders = class'ZedternalReborn.Config_Map'.static.GetAllTraders(WorldInfo.GetMapName(True));
+
+	// Store which perks are static (always selected first) for future use
+	InitializeStaticPerkList();
 
 	// Available weapon are random each wave. Need to build the list
 	BuildWeaponList();
@@ -1778,6 +1784,21 @@ function RepGameInfoLowPriority()
 	WMGRI.bZRUMenuAllWave = class'ZedternalReborn.Config_GameOptions'.static.GetAllowUpgradeCommandAllWave(GameDifficultyZedternal);
 }
 
+function InitializeStaticPerkList()
+{
+	local byte i;
+
+	StaticPerks.Length = 0;
+
+	for (i = 0; i < Min(255, ConfigData.ValidPerkUpgrades.Length); ++i)
+	{
+		if (ConfigData.ValidPerkUpgrades[i].bIsStatic)
+			StaticPerks.AddItem(1);
+		else
+			StaticPerks.AddItem(0);
+	}
+}
+
 function RepPlayerInfo(WMPlayerReplicationInfo WMPRI)
 {
 	local array<byte> PerkIndex;
@@ -1789,10 +1810,10 @@ function RepPlayerInfo(WMPlayerReplicationInfo WMPRI)
 	{
 		PerkIndex.Length = 0;
 		Count = 0;
-		for (i = 0; i < ConfigData.ValidPerkUpgrades.Length; ++i)
+		for (i = 0; i < StaticPerks.Length; ++i)
 		{
 			// check if the perk i should be in the trader (static perk)
-			if (ConfigData.ValidPerkUpgrades[i].bIsStatic)
+			if (StaticPerks[i] == 1)
 			{
 				WMPRI.bPerkUpgradeAvailable[i] = 1;
 				++Count;
