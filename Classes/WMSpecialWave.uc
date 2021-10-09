@@ -10,10 +10,34 @@ struct SMonster
 	var class<KFPawn_Monster> MClass;
 };
 var array<SMonster> MonsterToAdd;
-var float zedSpawnRateFactor;
 var bool bReplaceMonstertoAdd;
-var float waveValueFactor;
-var float doshFactor;
+var float ZedSpawnRateFactor;
+var float WaveValueFactor;
+var float DoshFactor;
+
+function AddNewZedGroupToSpawnList(int Index, const out array< class<KFPawn_Monster> > ZedsToAdd, optional float Delay = 0.0f)
+{
+	local WMAISpawnManager WMAISP;
+	local byte i;
+
+	//Only Server
+	if (Role < ROLE_Authority)
+		return;
+
+	WMAISP = WMAISpawnManager(WMGameInfo_Endless(class'WorldInfo'.static.GetWorldInfo().Game).SpawnManager);
+
+	if (WMAISP != None && ZedsToAdd.Length > 0)
+	{
+		Index = Clamp(Index, 0, WMAISP.GroupList.Length);
+		WMAISP.GroupList.Insert(Index, 1);
+		for (i = 0; i < Min(8, ZedsToAdd.Length); ++i)
+		{
+			WMAISP.GroupList[Index].ZedClasses.AddItem(ZedsToAdd[i]);
+		}
+		WMAISP.GroupList[Index].Delay = Delay;
+		WMAISP.WaveTotalAI += WMAISP.GroupList[Index].ZedClasses.Length;
+	}
+}
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -153,9 +177,9 @@ static simulated function ExtensionFuncFloat(out float InValue, float DefaultVal
 
 defaultproperties
 {
-	zedSpawnRateFactor=1.0f
-	waveValueFactor=1.0f
-	doshFactor=1.0f
+	ZedSpawnRateFactor=1.0f
+	WaveValueFactor=1.0f
+	DoshFactor=1.0f
 	bReplaceMonstertoAdd=False
 
 	Name="Default__WMSpecialWave"

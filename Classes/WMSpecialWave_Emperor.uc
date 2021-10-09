@@ -10,11 +10,11 @@ function PostBeginPlay()
 
 function SpawnEmperor()
 {
-	local WMAISpawnManager WMAISP;
+	local array< class<KFPawn_Monster> > Emperor;
 
-	WMAISP = WMAISpawnManager(WMGameInfo_Endless(class'WorldInfo'.static.GetWorldInfo().Game).SpawnManager);
-	if (WMAISP != None && WMAISP.GroupList.Length > 0)
-		WMAISP.GroupList[0].ZedClasses[0] = EmperorClass;
+	Emperor.AddItem(default.EmperorClass);
+
+	AddNewZedGroupToSpawnList(0, Emperor);
 }
 
 defaultproperties

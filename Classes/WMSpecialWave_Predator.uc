@@ -10,10 +10,11 @@ function PostBeginPlay()
 
 function SpawnPredator()
 {
-	local WMAISpawnManager WMAISP;
 	local KFPlayerController KFPC;
 	local byte i, NbPlayer, NbPredator;
-	local S_Spawn_Group PredGroup;
+	local array< class<KFPawn_Monster> > Predator;
+
+	Predator.AddItem(default.PredatorClass);
 
 	foreach DynamicActors(class'KFPlayerController', KFPC)
 	{
@@ -22,19 +23,10 @@ function SpawnPredator()
 	}
 
 	NbPredator = Clamp(NbPlayer, 3, 12); //Predators based on the number of players, with a max of 12.
-	PredGroup.Delay = 0;
-	WMAISP = WMAISpawnManager(WMGameInfo_Endless(class'WorldInfo'.static.GetWorldInfo().Game).SpawnManager);
-	while (WMAISP != None && WMAISP.groupList.Length > 0 && NbPredator > 0)
+
+	for (i = 0; i < NbPredator; ++i)
 	{
-		PredGroup.ZedClasses.Length = 0;
-		for (i = 0; i < (NbPredator - Max(0, NbPredator - 3)); ++i) //Group 3 of them at a time
-		{
-			PredGroup.ZedClasses.AddItem(PredatorClass);
-		}
-
-		NbPredator -= PredGroup.ZedClasses.Length;
-
-		WMAISP.groupList.InsertItem(0, PredGroup);
+		AddNewZedGroupToSpawnList(0, Predator);
 	}
 }
 

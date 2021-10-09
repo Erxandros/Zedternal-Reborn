@@ -10,17 +10,14 @@ function PostBeginPlay()
 
 function UpdateZed()
 {
-	local WMAISpawnManager WMAISP;
+	local array< class<KFPawn_Monster> > Zeds;
 
-	WMAISP = WMAISpawnManager(WMGameInfo_Endless(class'WorldInfo'.static.GetWorldInfo().Game).SpawnManager);
+	Zeds.AddItem(class'KFGameContent.KFPawn_ZedSiren');
+	Zeds.AddItem(class'KFGameContent.KFPawn_ZedSiren');
+	Zeds.AddItem(class'KFGameContent.KFPawn_ZedSiren');
+	Zeds.AddItem(class'KFGameContent.KFPawn_ZedSiren');
 
-	if (WMAISP != None && WMAISP.GroupList.Length > 0)
-	{
-		WMAISP.GroupList[WMAISP.GroupList.Length - 1].ZedClasses[3] = class'KFGameContent.KFPawn_ZedSiren';
-		WMAISP.GroupList[WMAISP.GroupList.Length - 1].ZedClasses[2] = class'KFGameContent.KFPawn_ZedSiren';
-		WMAISP.GroupList[WMAISP.GroupList.Length - 1].ZedClasses[1] = class'KFGameContent.KFPawn_ZedSiren';
-		WMAISP.GroupList[WMAISP.GroupList.Length - 1].ZedClasses[0] = class'KFGameContent.KFPawn_ZedSiren';
-	}
+	AddNewZedGroupToSpawnList(MaxInt, Zeds);
 }
 
 static function ModifyDamageTaken(out int InDamage, int DefaultDamage, KFPawn OwnerPawn, optional class<DamageType> DamageType, optional Controller InstigatedBy, optional KFWeapon MyKFW)
