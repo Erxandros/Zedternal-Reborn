@@ -265,21 +265,11 @@ function AddDefaultInventory(KFPawn P)
 					break;
 			}
 		}
-		else
-			P.DefaultInventory.AddItem(class<Weapon>(DynamicLoadObject(GetPrimaryWeaponClassPath(), class'Class')));
 
 		// Secondary weapon is spawned through the pawn unless we want an additional one not anymore
 		P.DefaultInventory.AddItem(class<Weapon>(DynamicLoadObject(GetSecondaryWeaponClassPath(), class'Class')));
 		P.DefaultInventory.AddItem(class<Weapon>(DynamicLoadObject(GetKnifeWeaponClassPath(), class'Class')));
 	}
-}
-
-/* Returns the primary weapon's class path for this perk */
-simulated function string GetPrimaryWeaponClassPath()
-{
-	StartingWeaponClassIndex = Rand(PrimaryWeaponPaths.length);
-	AutoBuyLoadOutPath.InsertItem(0,PrimaryWeaponPaths[StartingWeaponClassIndex]);
-	return PrimaryWeaponPaths[StartingWeaponClassIndex].default.WeaponClassPath;
 }
 
 reliable server function SetKnifeIndexFromClient(byte index)
