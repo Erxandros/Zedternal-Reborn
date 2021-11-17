@@ -1116,7 +1116,7 @@ function int InitializeTraderItems(out array<int> WeaponIndex)
 
 function int CombineAllWeapons(out array<S_Weapon_Data> CombinedWeaponList)
 {
-	local int i, StartNum;
+	local int i, x, StartNum;
 	local array< class<KFWeaponDefinition> > BaseWepDef;
 	local array< class<KFWeapon> > BaseWep;
 
@@ -1141,7 +1141,42 @@ function int CombineAllWeapons(out array<S_Weapon_Data> CombinedWeaponList)
 			BaseWep.AddItem(class<KFWeapon>(DynamicLoadObject(DefaultTraderItems.SaleItems[i].WeaponDef.default.WeaponClassPath, class'Class')));
 		}
 	}
-	CombineWeapons(CombinedWeaponList, BaseWepDef, BaseWep);
+
+	//If base weapons are disabled, just add the single weapons for dual weapons that are missing a single weapon
+	if (class'ZedternalReborn.Config_WeaponDisable'.default.Weapon_bDisableAllBaseWeapons)
+	{
+		for (i = 0; i < CombinedWeaponList.Length; ++i)
+		{
+			if (CombinedWeaponList[i].KFWeapDual != None && CombinedWeaponList[i].KFWeapSingle == None)
+			{
+				for (x = 0; x < BaseWepDef.Length; ++x)
+				{
+					if (CombinedWeaponList[i].KFWeapDual.default.SingleClass == BaseWep[x])
+					{
+						CombinedWeaponList[i].KFWeapDefSingle = BaseWepDef[x];
+						CombinedWeaponList[i].KFWeapSingle = BaseWep[x];
+						break;
+					}
+				}
+			}
+		}
+	}
+	else
+		CombineWeapons(CombinedWeaponList, BaseWepDef, BaseWep);
+
+	//Remove disabled weapons
+	if (class'ZedternalReborn.Config_WeaponDisable'.default.Weapon_bUseDisableWeaponList)
+	{
+		for (i = 0; i < CombinedWeaponList.Length; ++i)
+		{
+			if (CombinedWeaponList[i].KFWeapDefSingle != None
+				&& class'ZedternalReborn.WMBinaryOps'.static.BinarySearch(ConfigData.DisableWeaponDefObjects, PathName(CombinedWeaponList[i].KFWeapDefSingle)) != INDEX_NONE)
+			{
+				CombinedWeaponList.Remove(i, 1);
+				--i;
+			}
+		}
+	}
 
 	return ConfigData.StaticWeaponDefObjects.Length + StartNum;
 }

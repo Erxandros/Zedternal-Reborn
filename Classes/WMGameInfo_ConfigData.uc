@@ -40,6 +40,8 @@ var array< class<KFWeaponDefinition> > VarBaseWeaponDefObjects;
 var array< class<KFWeaponDefinition> > VarRepWeaponDefObjects;
 var array< class<KFWeaponDefinition> > VarDualWeaponDefObjects;
 
+var array< class<KFWeaponDefinition> > DisableWeaponDefObjects;
+
 function InitializeConfigData()
 {
 	class'ZedternalReborn.Config_SpecialWave'.static.LoadConfigObjects(ValidSpecialWaves, SpecialWaveObjects);
@@ -55,6 +57,7 @@ function InitializeConfigData()
 	class'ZedternalReborn.Config_WeaponStatic'.static.LoadConfigObjects(StaticWeaponDefObjects, StaticWeaponObjects);
 	class'ZedternalReborn.Config_WeaponVariant'.static.LoadConfigObjects(VariantProbs, VarBaseWeaponDefObjects,
 		VarRepWeaponDefObjects, VarDualWeaponDefObjects);
+	class'ZedternalReborn.Config_WeaponDisable'.static.LoadConfigObjects(DisableWeaponDefObjects);
 }
 
 defaultproperties
