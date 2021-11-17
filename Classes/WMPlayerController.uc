@@ -35,6 +35,11 @@ simulated event PostBeginPlay()
 		SetTimer(0.5f, False, NameOf(GetPlatform));
 }
 
+simulated function byte CheckCurrentPerkAllowed()
+{
+	return SavedPerkIndex;
+}
+
 reliable client event ReceiveLocalizedMessage(class<LocalMessage> Message, optional int Switch, optional PlayerReplicationInfo RelatedPRI_1, optional PlayerReplicationInfo RelatedPRI_2, optional Object OptionalObject)
 {
 	if (WMPerk(CurrentPerk) != None)
