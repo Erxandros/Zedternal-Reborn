@@ -1280,12 +1280,26 @@ function int CombineWeaponsStartingWeapon(out array<S_Weapon_Data> CombinedWeapo
 
 function CheckWeaponList(out array<S_Weapon_Data> CombinedWeaponList)
 {
+	local int i;
+
 	if (CombinedWeaponList.Length > 510)
 	{
 		CombinedWeaponList.Length = 510;
 		`log("ZR Warning: Weapon list exceed 510 elements which is not valid for replication."
 			@"Trimmed the list down to 510 elements, some weapons defined in the config will never"
 			@"be added to the trader because of this change.");
+	}
+
+	for (i = 0; i < CombinedWeaponList.Length; ++i)
+	{
+		if (CombinedWeaponList[i].KFWeapDual != None && CombinedWeaponList[i].KFWeapSingle == None)
+		{
+			`log("ZR Warning: Dual weapon" @ PathName(CombinedWeaponList[i].KFWeapDual) @ "has no single weapon class tied to it."
+				@"Removing the weapon to prevent any issues or any undesirable side effects caused"
+				@"by not having the single weapon variant available.");
+			CombinedWeaponList.Remove(i, 1);
+			--i;
+		}
 	}
 }
 
