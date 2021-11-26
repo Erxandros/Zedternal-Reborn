@@ -197,6 +197,7 @@ function float GetAIDamageModifier(KFPawn_Monster P, float GameDifficulty, bool 
 /** Gives the random range of AI speed modification */
 function float GetAISpeedMod(KFPawn_Monster P, float GameDifficulty)
 {
+	local int GID;
 	local float SpeedMod;
 	local byte i, x;
 
@@ -204,12 +205,19 @@ function float GetAISpeedMod(KFPawn_Monster P, float GameDifficulty)
 
 	if (P != None)
 	{
-		if (P.bVersusZed)
-			SpeedMod = class'ZedternalReborn.Config_DifficultyOmega'.static.GetZedSpeedModifier(GameDifficultyZedternal);
-		else if (P.bLargeZed)
-			SpeedMod = class'ZedternalReborn.Config_DifficultyLarge'.static.GetZedSpeedModifier(GameDifficultyZedternal);
-		else
-			SpeedMod = class'ZedternalReborn.Config_DifficultyNormal'.static.GetZedSpeedModifier(GameDifficultyZedternal);
+		GID = GetCustomDiffGroup(PathName(P.class));
+		if (GID != INDEX_NONE)
+			SpeedMod = class'ZedternalReborn.Config_DifficultyGroupSpeed'.static.GetZedGroupSpeedModifier(GameDifficultyZedternal, ZedDiffGroupNames[GID]);
+
+		if (GID == INDEX_NONE || SpeedMod == INDEX_NONE)
+		{
+			if (P.bVersusZed)
+				SpeedMod = class'ZedternalReborn.Config_DifficultyOmega'.static.GetZedSpeedModifier(GameDifficultyZedternal);
+			else if (P.bLargeZed)
+				SpeedMod = class'ZedternalReborn.Config_DifficultyLarge'.static.GetZedSpeedModifier(GameDifficultyZedternal);
+			else
+				SpeedMod = class'ZedternalReborn.Config_DifficultyNormal'.static.GetZedSpeedModifier(GameDifficultyZedternal);
+		}
 
 		// Randomize speed modifier by +/- 10%
 		SpeedMod *= RandRange(0.9f, 1.1f);
