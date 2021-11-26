@@ -40,24 +40,38 @@ function int GetCustomDiffGroup(string ZedPath)
 
 function GetAIHealthModifier(KFPawn_Monster P, float GameDifficulty, byte NumLivingPlayers, out float HealthMod, out float HeadHealthMod, optional bool bApplyDifficultyScaling=True)
 {
+	local int GID;
+	local float ExtraHealthMod;
 	local byte i, x;
 
 	if (P != None)
 	{
-		if (P.bVersusZed)
+		GID = GetCustomDiffGroup(PathName(P.class));
+		if (GID != INDEX_NONE)
 		{
-			HealthMod = class'ZedternalReborn.Config_DifficultyOmega'.static.GetZedHealthModifier(GameDifficultyZedternal);
-			HeadHealthMod = class'ZedternalReborn.Config_DifficultyOmega'.static.GetZedHeadHealthModifier(GameDifficultyZedternal);
+			HealthMod = class'ZedternalReborn.Config_DifficultyGroupHealth'.static.GetZedGroupHealthModifier(GameDifficultyZedternal, ZedDiffGroupNames[GID]);
+			HeadHealthMod = class'ZedternalReborn.Config_DifficultyGroupHeadHealth'.static.GetZedGroupHeadHealthModifier(GameDifficultyZedternal, ZedDiffGroupNames[GID]);
+			ExtraHealthMod = class'ZedternalReborn.Config_DifficultyGroupHealthExtra'.static.GetZedGroupExtraHealthModifierPerPlayer(GameDifficultyZedternal, ZedDiffGroupNames[GID]);
 		}
-		else if (P.bLargeZed)
+
+		if (GID == INDEX_NONE || HealthMod == INDEX_NONE)
 		{
-			HealthMod = class'ZedternalReborn.Config_DifficultyLarge'.static.GetZedHealthModifier(GameDifficultyZedternal);
-			HeadHealthMod = class'ZedternalReborn.Config_DifficultyLarge'.static.GetZedHeadHealthModifier(GameDifficultyZedternal);
+			if (P.bVersusZed)
+				HealthMod = class'ZedternalReborn.Config_DifficultyOmega'.static.GetZedHealthModifier(GameDifficultyZedternal);
+			else if (P.bLargeZed)
+				HealthMod = class'ZedternalReborn.Config_DifficultyLarge'.static.GetZedHealthModifier(GameDifficultyZedternal);
+			else
+				HealthMod = class'ZedternalReborn.Config_DifficultyNormal'.static.GetZedHealthModifier(GameDifficultyZedternal);
 		}
-		else
+
+		if (GID == INDEX_NONE || HeadHealthMod == INDEX_NONE)
 		{
-			HealthMod = class'ZedternalReborn.Config_DifficultyNormal'.static.GetZedHealthModifier(GameDifficultyZedternal);
-			HeadHealthMod = class'ZedternalReborn.Config_DifficultyNormal'.static.GetZedHeadHealthModifier(GameDifficultyZedternal);
+			if (P.bVersusZed)
+				HeadHealthMod = class'ZedternalReborn.Config_DifficultyOmega'.static.GetZedHeadHealthModifier(GameDifficultyZedternal);
+			else if (P.bLargeZed)
+				HeadHealthMod = class'ZedternalReborn.Config_DifficultyLarge'.static.GetZedHeadHealthModifier(GameDifficultyZedternal);
+			else
+				HeadHealthMod = class'ZedternalReborn.Config_DifficultyNormal'.static.GetZedHeadHealthModifier(GameDifficultyZedternal);
 		}
 
 		if (WMGRI == None)
@@ -94,21 +108,18 @@ function GetAIHealthModifier(KFPawn_Monster P, float GameDifficulty, byte NumLiv
 		}
 
 		// Add another extra multiplier based on the number of players
-		if (P.bVersusZed)
+		if (GID == INDEX_NONE || ExtraHealthMod == INDEX_NONE)
 		{
-			HealthMod += class'ZedternalReborn.Config_DifficultyOmega'.static.GetExtraHealthModifierPerPlayer(GameDifficultyZedternal) * (NumLivingPlayers - 1);
-			HeadHealthMod += class'ZedternalReborn.Config_DifficultyOmega'.static.GetExtraHealthModifierPerPlayer(GameDifficultyZedternal) * (NumLivingPlayers - 1);
+			if (P.bVersusZed)
+				ExtraHealthMod += class'ZedternalReborn.Config_DifficultyOmega'.static.GetExtraHealthModifierPerPlayer(GameDifficultyZedternal);
+			else if (P.bLargeZed)
+				ExtraHealthMod += class'ZedternalReborn.Config_DifficultyLarge'.static.GetExtraHealthModifierPerPlayer(GameDifficultyZedternal);
+			else
+				ExtraHealthMod += class'ZedternalReborn.Config_DifficultyNormal'.static.GetExtraHealthModifierPerPlayer(GameDifficultyZedternal);
 		}
-		else if (P.bLargeZed)
-		{
-			HealthMod += class'ZedternalReborn.Config_DifficultyLarge'.static.GetExtraHealthModifierPerPlayer(GameDifficultyZedternal) * (NumLivingPlayers - 1);
-			HeadHealthMod += class'ZedternalReborn.Config_DifficultyLarge'.static.GetExtraHealthModifierPerPlayer(GameDifficultyZedternal) * (NumLivingPlayers - 1);
-		}
-		else
-		{
-			HealthMod += class'ZedternalReborn.Config_DifficultyNormal'.static.GetExtraHealthModifierPerPlayer(GameDifficultyZedternal) * (NumLivingPlayers - 1);
-			HeadHealthMod += class'ZedternalReborn.Config_DifficultyNormal'.static.GetExtraHealthModifierPerPlayer(GameDifficultyZedternal) * (NumLivingPlayers - 1);
-		}
+
+		HealthMod += ExtraHealthMod * float(NumLivingPlayers - 1);
+		HeadHealthMod += ExtraHealthMod * float(NumLivingPlayers - 1);
 	}
 }
 
