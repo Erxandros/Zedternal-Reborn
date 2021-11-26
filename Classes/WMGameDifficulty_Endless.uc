@@ -132,6 +132,7 @@ function GetVersusHealthModifier(KFPawn_Monster P, byte NumLivingPlayers, out fl
 /**	Scales the damage this Zed deals by the difficulty level */
 function float GetAIDamageModifier(KFPawn_Monster P, float GameDifficulty, bool bSoloPlay)
 {
+	local int GID;
 	local float ZedDamageMod;
 	local byte i, x;
 
@@ -139,23 +140,36 @@ function float GetAIDamageModifier(KFPawn_Monster P, float GameDifficulty, bool 
 
 	if (P != None)
 	{
+		GID = GetCustomDiffGroup(PathName(P.class));
 		if (bSoloPlay)
 		{
-			if (P.bVersusZed)
-				ZedDamageMod = class'ZedternalReborn.Config_DifficultyOmega'.static.GetZedSoloDamageModifier(GameDifficultyZedternal);
-			else if (P.bLargeZed)
-				ZedDamageMod = class'ZedternalReborn.Config_DifficultyLarge'.static.GetZedSoloDamageModifier(GameDifficultyZedternal);
-			else
-				ZedDamageMod = class'ZedternalReborn.Config_DifficultyNormal'.static.GetZedSoloDamageModifier(GameDifficultyZedternal);
+			if (GID != INDEX_NONE)
+				ZedDamageMod = class'ZedternalReborn.Config_DifficultyGroupSoloDamage'.static.GetZedGroupSoloDamageModifier(GameDifficultyZedternal, ZedDiffGroupNames[GID]);
+
+			if (GID == INDEX_NONE || ZedDamageMod == INDEX_NONE)
+			{
+				if (P.bVersusZed)
+					ZedDamageMod = class'ZedternalReborn.Config_DifficultyOmega'.static.GetZedSoloDamageModifier(GameDifficultyZedternal);
+				else if (P.bLargeZed)
+					ZedDamageMod = class'ZedternalReborn.Config_DifficultyLarge'.static.GetZedSoloDamageModifier(GameDifficultyZedternal);
+				else
+					ZedDamageMod = class'ZedternalReborn.Config_DifficultyNormal'.static.GetZedSoloDamageModifier(GameDifficultyZedternal);
+			}
 		}
 		else
 		{
-			if (P.bVersusZed)
-				ZedDamageMod = class'ZedternalReborn.Config_DifficultyOmega'.static.GetZedDamageModifier(GameDifficultyZedternal);
-			else if (P.bLargeZed)
-				ZedDamageMod = class'ZedternalReborn.Config_DifficultyLarge'.static.GetZedDamageModifier(GameDifficultyZedternal);
-			else
-				ZedDamageMod = class'ZedternalReborn.Config_DifficultyNormal'.static.GetZedDamageModifier(GameDifficultyZedternal);
+			if (GID != INDEX_NONE)
+				ZedDamageMod = class'ZedternalReborn.Config_DifficultyGroupDamage'.static.GetZedGroupDamageModifier(GameDifficultyZedternal, ZedDiffGroupNames[GID]);
+
+			if (GID == INDEX_NONE || ZedDamageMod == INDEX_NONE)
+			{
+				if (P.bVersusZed)
+					ZedDamageMod = class'ZedternalReborn.Config_DifficultyOmega'.static.GetZedDamageModifier(GameDifficultyZedternal);
+				else if (P.bLargeZed)
+					ZedDamageMod = class'ZedternalReborn.Config_DifficultyLarge'.static.GetZedDamageModifier(GameDifficultyZedternal);
+				else
+					ZedDamageMod = class'ZedternalReborn.Config_DifficultyNormal'.static.GetZedDamageModifier(GameDifficultyZedternal);
+			}
 		}
 
 		if (WMGRI == None)
