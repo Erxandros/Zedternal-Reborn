@@ -151,6 +151,12 @@ static function LogBadStructConfigMessage(int Difficulty, string ConfigVariableN
 		@"(" $CorrectDataFormatted $") temporarily." @"Valid value range is:" @ValidRange);
 }
 
+static function LogEmptyArrayConfigMessage(string ConfigVariableName)
+{
+	`log("ZR Config:" @ConfigVariableName @"is empty (an empty array). Ignoring the config line temporarily."
+		@"Add data to the array or remove the line from the config if not in use.");
+}
+
 defaultproperties
 {
 	Name="Default__Config_Common"

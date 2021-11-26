@@ -3,6 +3,10 @@ class WMGameDifficulty_Endless extends KFGameDifficulty_Survival;
 var WMGameReplicationInfo WMGRI;
 var float GameDifficultyZedternal;
 
+var array<string> ZedDiffGroupNames;
+var array<int> ZedDiffGroupID;
+var array< class<KFPawn_Monster> > Zeds;
+
 function SetDifficultySettings(float GameDifficulty)
 {
 	WMGRI = WMGameReplicationInfo(Class'WorldInfo'.static.GetWorldInfo().GRI);
@@ -16,6 +20,22 @@ function SetDifficultySettings(float GameDifficulty)
 		GameDifficultyZedternal = GameDifficulty;
 
 	super.SetDifficultySettings(GameDifficulty);
+}
+
+function InitializeCustomDiffGroupData()
+{
+	class'ZedternalReborn.Config_DifficultyGroup'.static.LoadConfigObjects(ZedDiffGroupNames, ZedDiffGroupID, Zeds);
+}
+
+function int GetCustomDiffGroup(string ZedPath)
+{
+	local int i;
+
+	i = class'ZedternalReborn.WMBinaryOps'.static.BinarySearch(Zeds, ZedPath);
+	if (i != INDEX_NONE)
+		return ZedDiffGroupID[i];
+
+	return INDEX_NONE;
 }
 
 function GetAIHealthModifier(KFPawn_Monster P, float GameDifficulty, byte NumLivingPlayers, out float HealthMod, out float HeadHealthMod, optional bool bApplyDifficultyScaling=True)

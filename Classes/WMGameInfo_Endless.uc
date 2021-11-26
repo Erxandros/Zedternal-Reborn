@@ -125,6 +125,9 @@ event PreBeginPlay()
 	// Create and process config data for spawn manager
 	if (WMAISpawnManager(SpawnManager) != None)
 		WMAISpawnManager(SpawnManager).InitializeZedSpawnData();
+
+	if (WMGameDifficulty_Endless(DifficultyInfo) != None)
+		WMGameDifficulty_Endless(DifficultyInfo).InitializeCustomDiffGroupData();
 }
 
 event PostBeginPlay()
