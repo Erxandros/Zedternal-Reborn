@@ -3,8 +3,8 @@ class WMGameDifficulty_Endless extends KFGameDifficulty_Survival;
 var WMGameReplicationInfo WMGRI;
 var float GameDifficultyZedternal;
 
-var array<string> ZedDiffGroupNames;
-var array<int> ZedDiffGroupID;
+var array<string> ZedGroupNames;
+var array<int> ZedGroupIDs;
 var array< class<KFPawn_Monster> > Zeds;
 
 function SetDifficultySettings(float GameDifficulty)
@@ -24,7 +24,7 @@ function SetDifficultySettings(float GameDifficulty)
 
 function InitializeCustomDiffGroupData()
 {
-	class'ZedternalReborn.Config_DifficultyGroup'.static.LoadConfigObjects(ZedDiffGroupNames, ZedDiffGroupID, Zeds);
+	class'ZedternalReborn.Config_DifficultyGroup'.static.LoadConfigObjects(ZedGroupNames, ZedGroupIDs, Zeds);
 }
 
 function int GetCustomDiffGroup(string ZedPath)
@@ -33,7 +33,7 @@ function int GetCustomDiffGroup(string ZedPath)
 
 	i = class'ZedternalReborn.WMBinaryOps'.static.BinarySearch(Zeds, ZedPath);
 	if (i != INDEX_NONE)
-		return ZedDiffGroupID[i];
+		return ZedGroupIDs[i];
 
 	return INDEX_NONE;
 }
@@ -49,9 +49,9 @@ function GetAIHealthModifier(KFPawn_Monster P, float GameDifficulty, byte NumLiv
 		GID = GetCustomDiffGroup(PathName(P.class));
 		if (GID != INDEX_NONE)
 		{
-			HealthMod = class'ZedternalReborn.Config_DifficultyGroupHealth'.static.GetZedGroupHealthModifier(GameDifficultyZedternal, ZedDiffGroupNames[GID]);
-			HeadHealthMod = class'ZedternalReborn.Config_DifficultyGroupHeadHealth'.static.GetZedGroupHeadHealthModifier(GameDifficultyZedternal, ZedDiffGroupNames[GID]);
-			ExtraHealthMod = class'ZedternalReborn.Config_DifficultyGroupHealthExtra'.static.GetZedGroupExtraHealthModifierPerPlayer(GameDifficultyZedternal, ZedDiffGroupNames[GID]);
+			HealthMod = class'ZedternalReborn.Config_DifficultyGroupHealth'.static.GetZedGroupHealthModifier(GameDifficultyZedternal, ZedGroupNames[GID]);
+			HeadHealthMod = class'ZedternalReborn.Config_DifficultyGroupHeadHealth'.static.GetZedGroupHeadHealthModifier(GameDifficultyZedternal, ZedGroupNames[GID]);
+			ExtraHealthMod = class'ZedternalReborn.Config_DifficultyGroupHealthExtra'.static.GetZedGroupExtraHealthModifierPerPlayer(GameDifficultyZedternal, ZedGroupNames[GID]);
 		}
 
 		if (GID == INDEX_NONE || HealthMod == INDEX_NONE)
@@ -144,7 +144,7 @@ function float GetAIDamageModifier(KFPawn_Monster P, float GameDifficulty, bool 
 		if (bSoloPlay)
 		{
 			if (GID != INDEX_NONE)
-				ZedDamageMod = class'ZedternalReborn.Config_DifficultyGroupSoloDamage'.static.GetZedGroupSoloDamageModifier(GameDifficultyZedternal, ZedDiffGroupNames[GID]);
+				ZedDamageMod = class'ZedternalReborn.Config_DifficultyGroupSoloDamage'.static.GetZedGroupSoloDamageModifier(GameDifficultyZedternal, ZedGroupNames[GID]);
 
 			if (GID == INDEX_NONE || ZedDamageMod == INDEX_NONE)
 			{
@@ -159,7 +159,7 @@ function float GetAIDamageModifier(KFPawn_Monster P, float GameDifficulty, bool 
 		else
 		{
 			if (GID != INDEX_NONE)
-				ZedDamageMod = class'ZedternalReborn.Config_DifficultyGroupDamage'.static.GetZedGroupDamageModifier(GameDifficultyZedternal, ZedDiffGroupNames[GID]);
+				ZedDamageMod = class'ZedternalReborn.Config_DifficultyGroupDamage'.static.GetZedGroupDamageModifier(GameDifficultyZedternal, ZedGroupNames[GID]);
 
 			if (GID == INDEX_NONE || ZedDamageMod == INDEX_NONE)
 			{
@@ -207,7 +207,7 @@ function float GetAISpeedMod(KFPawn_Monster P, float GameDifficulty)
 	{
 		GID = GetCustomDiffGroup(PathName(P.class));
 		if (GID != INDEX_NONE)
-			SpeedMod = class'ZedternalReborn.Config_DifficultyGroupSpeed'.static.GetZedGroupSpeedModifier(GameDifficultyZedternal, ZedDiffGroupNames[GID]);
+			SpeedMod = class'ZedternalReborn.Config_DifficultyGroupSpeed'.static.GetZedGroupSpeedModifier(GameDifficultyZedternal, ZedGroupNames[GID]);
 
 		if (GID == INDEX_NONE || SpeedMod == INDEX_NONE)
 		{
