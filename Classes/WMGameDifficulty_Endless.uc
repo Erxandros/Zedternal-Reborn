@@ -31,6 +31,9 @@ function int GetCustomDiffGroup(string ZedPath)
 {
 	local int i;
 
+	if (!class'ZedternalReborn.Config_DifficultyGroup'.default.ZedGroup_bEnableGroupList)
+		return INDEX_NONE;
+
 	i = class'ZedternalReborn.WMBinaryOps'.static.BinarySearch(Zeds, ZedPath);
 	if (i != INDEX_NONE)
 		return ZedGroupIDs[i];
