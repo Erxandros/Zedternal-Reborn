@@ -4,13 +4,6 @@ simulated function ConsumeAmmo(byte FireModeNum)
 {
 	local KFPerk InstigatorPerk;
 
-`if(`notdefined(ShippingPC))
-	if (bInfiniteAmmo)
-	{
-		return;
-	}
-`endif
-
 	InstigatorPerk = GetPerk();
 	if (InstigatorPerk != none && InstigatorPerk.GetIsUberAmmoActive(self))
 	{
