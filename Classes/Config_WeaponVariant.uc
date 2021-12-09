@@ -22,6 +22,8 @@ var config array<S_Variant> Weapon_VariantWeaponDef; //List of weapon variants
 
 static function UpdateConfig()
 {
+	local S_Variant NewVariant;
+
 	if (default.MODEVERSION < 1)
 	{
 		default.WeaponVariant_bAllowWeaponVariant = True;
@@ -232,6 +234,13 @@ static function UpdateConfig()
 		default.Weapon_VariantWeaponDef[95].WeaponDefVariant = "ZedternalReborn.WMWeapDef_Winchester1894_Precious";
 		default.Weapon_VariantWeaponDef[96].WeaponDef = "KFGame.KFWeapDef_Zweihander";
 		default.Weapon_VariantWeaponDef[96].WeaponDefVariant = "ZedternalReborn.WMWeapDef_Zweihander_Precious";
+	}
+
+	if (default.MODEVERSION < 11)
+	{
+		NewVariant.WeaponDef = "KFGame.KFWeapDef_HRG_Stunner";
+		NewVariant.WeaponDefVariant = "ZedternalReborn.WMWeapDef_HRG_Stunner_Precious";
+		default.Weapon_VariantWeaponDef.AddItem(NewVariant);
 	}
 
 	if (default.MODEVERSION < class'ZedternalReborn.Config_Base'.const.CurrentVersion)
