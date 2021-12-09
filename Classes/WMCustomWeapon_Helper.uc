@@ -184,4 +184,5 @@ defaultproperties
 	WeaponDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_ParasiteImplanter_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_ParasiteImplanter"));
 	WeaponDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_BladedPistol_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_BladedPistol"));
 	WeaponDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_HRG_Stunner_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_HRG_Stunner"));
+	WeaponDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_Doshinegun_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_Doshinegun"));
 }

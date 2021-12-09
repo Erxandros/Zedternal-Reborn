@@ -241,6 +241,10 @@ static function UpdateConfig()
 		NewVariant.WeaponDef = "KFGame.KFWeapDef_HRG_Stunner";
 		NewVariant.WeaponDefVariant = "ZedternalReborn.WMWeapDef_HRG_Stunner_Precious";
 		default.Weapon_VariantWeaponDef.AddItem(NewVariant);
+
+		NewVariant.WeaponDef = "KFGame.KFWeapDef_Doshinegun";
+		NewVariant.WeaponDefVariant = "ZedternalReborn.WMWeapDef_Doshinegun_Precious";
+		default.Weapon_VariantWeaponDef.AddItem(NewVariant);
 	}
 
 	if (default.MODEVERSION < class'ZedternalReborn.Config_Base'.const.CurrentVersion)
