@@ -84,6 +84,7 @@ defaultproperties
 	WeaponDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_HRGTeslauncher",OriginalWeaponDefPath="KFGameContent.KFWeapDef_HRGTeslauncher"));
 	WeaponDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_MedicRifleGrenadeLauncher",OriginalWeaponDefPath="KFGame.KFWeapDef_MedicRifleGrenadeLauncher"));
 	WeaponDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_HRG_BlastBrawlers",OriginalWeaponDefPath="KFGame.KFWeapDef_HRG_BlastBrawlers"));
+	WeaponDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_Doshinegun",OriginalWeaponDefPath="KFGame.KFWeapDef_Doshinegun"));
 
 	//Precious Weapons
 	WeaponDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_Bullpup_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_Bullpup"));

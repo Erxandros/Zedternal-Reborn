@@ -1,4 +1,4 @@
-class WMWeap_AssaultRifle_Doshinegun_Precious extends KFWeap_AssaultRifle_Doshinegun;
+class WMWeap_AssaultRifle_Doshinegun_Precious extends WMWeap_AssaultRifle_Doshinegun;
 
 defaultproperties
 {
