@@ -27,36 +27,45 @@ static function UpdateConfig()
 
 static function CheckBasicConfigValues()
 {
-	if (default.SkillReroll_BasePrice < 0)
+	if (default.SkillReroll_bEnable)
 	{
-		LogBadConfigMessage("SkillReroll_BasePrice",
-			string(default.SkillReroll_BasePrice),
-			"0", "0 dosh, free", "value >= 0");
-		default.SkillReroll_BasePrice = 0;
-	}
+		if (default.SkillReroll_BasePrice < 0)
+		{
+			LogBadConfigMessage("SkillReroll_BasePrice",
+				string(default.SkillReroll_BasePrice),
+				"0", "0 dosh, free", "value >= 0");
+			default.SkillReroll_BasePrice = 0;
+		}
 
-	if (default.SkillReroll_NextRerollPriceMultiplier < 1.0f)
-	{
-		LogBadConfigMessage("SkillReroll_NextRerollPriceMultiplier",
-			string(default.SkillReroll_NextRerollPriceMultiplier),
-			"1.0", "1x, no increase", "value >= 1.0");
-		default.SkillReroll_NextRerollPriceMultiplier = 1.0f;
-	}
+		if (default.SkillReroll_NextRerollPriceMultiplier < 1.0f)
+		{
+			LogBadConfigMessage("SkillReroll_NextRerollPriceMultiplier",
+				string(default.SkillReroll_NextRerollPriceMultiplier),
+				"1.0", "1x, no increase", "value >= 1.0");
+			default.SkillReroll_NextRerollPriceMultiplier = 1.0f;
+		}
 
-	if (default.SkillReroll_SkillRerollSellPercentage < 0.0f)
-	{
-		LogBadConfigMessage("SkillReroll_SkillRerollSellPercentage",
-			string(default.SkillReroll_SkillRerollSellPercentage),
-			"0.0", "0%, no dosh returned when skills sold", "1.0 >= value >= 0.0");
-		default.SkillReroll_SkillRerollSellPercentage = 0.0f;
-	}
+		if (default.SkillReroll_SkillRerollSellPercentage < 0.0f)
+		{
+			LogBadConfigMessage("SkillReroll_SkillRerollSellPercentage",
+				string(default.SkillReroll_SkillRerollSellPercentage),
+				"0.0", "0%, no dosh returned when skills sold", "1.0 >= value >= 0.0");
+			default.SkillReroll_SkillRerollSellPercentage = 0.0f;
+		}
 
-	if (default.SkillReroll_SkillRerollSellPercentage > 1.0f)
+		if (default.SkillReroll_SkillRerollSellPercentage > 1.0f)
+		{
+			LogBadConfigMessage("SkillReroll_SkillRerollSellPercentage",
+				string(default.SkillReroll_SkillRerollSellPercentage),
+				"1.0", "100%, all dosh returned when skills sold", "1.0 >= value >= 0.0");
+			default.SkillReroll_SkillRerollSellPercentage = 1.0f;
+		}
+	}
+	else
 	{
-		LogBadConfigMessage("SkillReroll_SkillRerollSellPercentage",
-			string(default.SkillReroll_SkillRerollSellPercentage),
-			"1.0", "100%, all dosh returned when skills sold", "1.0 >= value >= 0.0");
-		default.SkillReroll_SkillRerollSellPercentage = 1.0f;
+		SkipCheckConfigMessage("SkillReroll_BasePrice", "SkillReroll_bEnable");
+		SkipCheckConfigMessage("SkillReroll_NextRerollPriceMultiplier", "SkillReroll_bEnable");
+		SkipCheckConfigMessage("SkillReroll_SkillRerollSellPercentage", "SkillReroll_bEnable");
 	}
 }
 
