@@ -279,6 +279,8 @@ static function CheckBasicConfigValues()
 			}
 		}
 	}
+	else
+		SkipCheckConfigMessage("Weapon_VariantWeaponDef", "WeaponVariant_bAllowWeaponVariant");
 }
 
 static function LoadConfigObjects(out array<float> VariantProbability, out array< class<KFWeaponDefinition> > WeaponDefObjects,
