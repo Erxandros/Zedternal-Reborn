@@ -157,6 +157,12 @@ static function LogEmptyArrayConfigMessage(string ConfigVariableName)
 		@"Add data to the array or remove the line from the config if not in use.");
 }
 
+static function SkipCheckConfigMessage(string ConfigVariableName, string DisableVariableName)
+{
+	`log("ZR Config:" @ConfigVariableName @"is not being checked because it has been disabled by config" @DisableVariableName
+		@"and therefore not in use.");
+}
+
 defaultproperties
 {
 	Name="Default__Config_Common"
