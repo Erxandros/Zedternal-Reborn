@@ -38,21 +38,26 @@ static function CheckBasicConfigValues()
 	local byte b;
 	local S_Difficulty_Float LocalStruct;
 
-	for (i = 0; i < default.ZedGroup_HealthExtra.Length; ++i)
+	if (class'ZedternalReborn.Config_DifficultyGroup'.default.ZedGroup_bEnableGroupList)
 	{
-		LocalStruct = default.ZedGroup_HealthExtra[i].ExtraHealthModifierPerPlayer;
-		for (b = 0; b < NumberOfDiffs; ++b)
+		for (i = 0; i < default.ZedGroup_HealthExtra.Length; ++i)
 		{
-			if (GetStructValueFloat(LocalStruct, b) < 0.0f)
+			LocalStruct = default.ZedGroup_HealthExtra[i].ExtraHealthModifierPerPlayer;
+			for (b = 0; b < NumberOfDiffs; ++b)
 			{
-				LogBadStructConfigMessage(b, "For group name" @default.ZedGroup_HealthExtra[i].GroupName $", ZedGroup_HealthExtra.ExtraHealthModifierPerPlayer",
-					string(GetStructValueFloat(LocalStruct, b)),
-					"0.0", "0%", "value >= 0.0");
-				SetStructValueFloat(LocalStruct, b, 0.0f);
+				if (GetStructValueFloat(LocalStruct, b) < 0.0f)
+				{
+					LogBadStructConfigMessage(b, "For group name" @default.ZedGroup_HealthExtra[i].GroupName $", ZedGroup_HealthExtra.ExtraHealthModifierPerPlayer",
+						string(GetStructValueFloat(LocalStruct, b)),
+						"0.0", "0%", "value >= 0.0");
+					SetStructValueFloat(LocalStruct, b, 0.0f);
+				}
 			}
+			default.ZedGroup_HealthExtra[i].ExtraHealthModifierPerPlayer = LocalStruct;
 		}
-		default.ZedGroup_HealthExtra[i].ExtraHealthModifierPerPlayer = LocalStruct;
 	}
+	else
+		SkipCheckConfigMessage("ZedGroup_HealthExtra", "ZedGroup_bEnableGroupList");
 }
 
 static function float GetZedGroupExtraHealthModifierPerPlayer(int Difficulty, string GroupName)

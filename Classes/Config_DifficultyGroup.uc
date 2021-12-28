@@ -39,15 +39,20 @@ static function CheckBasicConfigValues()
 {
 	local int i;
 
-	for (i = 0; i < default.ZedGroup_GroupList.Length; ++i)
+	if (default.ZedGroup_bEnableGroupList)
 	{
-		if (default.ZedGroup_GroupList[i].ZedPaths.Length == 0)
+		for (i = 0; i < default.ZedGroup_GroupList.Length; ++i)
 		{
-			LogEmptyArrayConfigMessage("For group name" @default.ZedGroup_GroupList[i].GroupName $", ZedGroup_GroupList.ZedPaths");
-			default.ZedGroup_GroupList.Remove(i, 1);
-			--i;
+			if (default.ZedGroup_GroupList[i].ZedPaths.Length == 0)
+			{
+				LogEmptyArrayConfigMessage("For group name" @default.ZedGroup_GroupList[i].GroupName $", ZedGroup_GroupList.ZedPaths");
+				default.ZedGroup_GroupList.Remove(i, 1);
+				--i;
+			}
 		}
 	}
+	else
+		SkipCheckConfigMessage("ZedGroup_GroupList", "ZedGroup_bEnableGroupList");
 }
 
 static function LoadConfigObjects(out array<string> ValidZedDiffGroupNames, out array<int> ValidZedDiffGroupID,

@@ -38,21 +38,26 @@ static function CheckBasicConfigValues()
 	local byte b;
 	local S_Difficulty_Float LocalStruct;
 
-	for (i = 0; i < default.ZedGroup_Damage.Length; ++i)
+	if (class'ZedternalReborn.Config_DifficultyGroup'.default.ZedGroup_bEnableGroupList)
 	{
-		LocalStruct = default.ZedGroup_Damage[i].DamageModifier;
-		for (b = 0; b < NumberOfDiffs; ++b)
+		for (i = 0; i < default.ZedGroup_Damage.Length; ++i)
 		{
-			if (GetStructValueFloat(LocalStruct, b) < 0.05f)
+			LocalStruct = default.ZedGroup_Damage[i].DamageModifier;
+			for (b = 0; b < NumberOfDiffs; ++b)
 			{
-				LogBadStructConfigMessage(b, "For group name" @default.ZedGroup_Damage[i].GroupName $", ZedGroup_Damage.DamageModifier",
-					string(GetStructValueFloat(LocalStruct, b)),
-					"0.05", "5%", "value >= 0.05");
-				SetStructValueFloat(LocalStruct, b, 0.05f);
+				if (GetStructValueFloat(LocalStruct, b) < 0.05f)
+				{
+					LogBadStructConfigMessage(b, "For group name" @default.ZedGroup_Damage[i].GroupName $", ZedGroup_Damage.DamageModifier",
+						string(GetStructValueFloat(LocalStruct, b)),
+						"0.05", "5%", "value >= 0.05");
+					SetStructValueFloat(LocalStruct, b, 0.05f);
+				}
 			}
+			default.ZedGroup_Damage[i].DamageModifier = LocalStruct;
 		}
-		default.ZedGroup_Damage[i].DamageModifier = LocalStruct;
 	}
+	else
+		SkipCheckConfigMessage("ZedGroup_Damage", "ZedGroup_bEnableGroupList");
 }
 
 static function float GetZedGroupDamageModifier(int Difficulty, string GroupName)
