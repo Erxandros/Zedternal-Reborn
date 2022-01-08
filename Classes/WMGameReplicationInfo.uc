@@ -1,11 +1,10 @@
 class WMGameReplicationInfo extends KFGameReplicationInfo;
 
 //Replication Data Structures
-struct WeaponUpgradeRepStruct
+struct SkillUpgradeRepStruct
 {
-	var string WeaponPathName;
-	var string UpgradePathName;
-	var int BasePrice;
+	var string SkillPathName;
+	var string PerkPathName;
 	var bool bValid;
 
 	structdefaultproperties
@@ -14,10 +13,11 @@ struct WeaponUpgradeRepStruct
 	}
 };
 
-struct SkillUpgradeRepStruct
+struct WeaponUpgradeRepStruct
 {
-	var string SkillPathName;
-	var string PerkPathName;
+	var string WeaponPathName;
+	var string UpgradePathName;
+	var int BasePrice;
 	var bool bValid;
 
 	structdefaultproperties
