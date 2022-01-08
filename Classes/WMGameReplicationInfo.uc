@@ -947,16 +947,18 @@ defaultproperties
 	bEndlessMode=True
 	bZRUMenuAllWave=False
 	bZRUMenuCommand=False
+
 	ArmorPrice=-1
 	GrenadePrice=-1
 	LobbyCurrentPage=1
 	LobbyMaxPage=1
 	ZedBuffNextMusicTrackIndex=0
-	NumberOfTraderWeapons=INDEX_NONE
+
+	NumberOfEquipmentUpgrades=INDEX_NONE
 	NumberOfStartingWeapons=INDEX_NONE
 	NumberOfSkillUpgrades=INDEX_NONE
+	NumberOfTraderWeapons=INDEX_NONE
 	NumberOfWeaponUpgrades=INDEX_NONE
-	NumberOfEquipmentUpgrades=INDEX_NONE
 
 	SpecialWaveID(0)=INDEX_NONE
 	SpecialWaveID(1)=INDEX_NONE
