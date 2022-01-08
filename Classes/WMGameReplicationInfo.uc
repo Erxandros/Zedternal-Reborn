@@ -1,6 +1,20 @@
 class WMGameReplicationInfo extends KFGameReplicationInfo;
 
 //Replication Data Structures
+struct EquipmentUpgradeRepStruct
+{
+	var string EquipmentPathName;
+	var int BasePrice;
+	var int MaxPrice;
+	var byte MaxLevel;
+	var bool bValid;
+
+	structdefaultproperties
+	{
+		bValid=False
+	}
+};
+
 struct SkillUpgradeRepStruct
 {
 	var string SkillPathName;
@@ -26,44 +40,30 @@ struct WeaponUpgradeRepStruct
 	}
 };
 
-struct EquipmentUpgradeRepStruct
-{
-	var string EquipmentPathName;
-	var int BasePrice;
-	var int MaxPrice;
-	var byte MaxLevel;
-	var bool bValid;
-
-	structdefaultproperties
-	{
-		bValid=False
-	}
-};
-
 //Optimization for replicated data (data array size)
-var repnotify int NumberOfTraderWeapons;
-var repnotify int NumberOfStartingWeapons;
-var repnotify int NumberOfSkillUpgrades;
-var repnotify int NumberOfWeaponUpgrades;
 var repnotify int NumberOfEquipmentUpgrades;
+var repnotify int NumberOfSkillUpgrades;
+var repnotify int NumberOfStartingWeapons;
+var repnotify int NumberOfTraderWeapons;
+var repnotify int NumberOfWeaponUpgrades;
 
 //Replicated Weapons
+var repnotify string KFStartingWeaponPath[255];
 var repnotify string KFWeaponDefPath_A[255];
 var repnotify string KFWeaponDefPath_B[255];
-var repnotify string KFStartingWeaponPath[255];
 var name KFWeaponName_A[255];
 var name KFWeaponName_B[255];
 
 //Replicated Perk Upgrades
-var repnotify string perkUpgradesStr[255];
-var int perkPrice[255];
-var int perkMaxLevel;
+var int PerkUpgMaxLevel;
+var int PerkUpgPrice[255];
+var repnotify string PerkUpgradesStr[255];
 
 //Replicated Skill Upgrades
-var repnotify SkillUpgradeRepStruct skillUpgradesRepArray[255];
 var byte bDeluxeSkillUnlock[255];
-var int skillPrice;
-var int skillDeluxePrice;
+var int SkillUpgDeluxePrice;
+var int SkillUpgPrice;
+var repnotify SkillUpgradeRepStruct SkillUpgradesRepArray[255];
 
 //Replicated Skill Reroll
 var bool bAllowSkillReroll;
@@ -72,58 +72,58 @@ var float RerollMultiplier;
 var float RerollSkillSellPercent;
 
 //Replicated Weapon Upgrades
-var repnotify WeaponUpgradeRepStruct weaponUpgradeRepArray_1[255];
-var repnotify WeaponUpgradeRepStruct weaponUpgradeRepArray_2[255];
-var repnotify WeaponUpgradeRepStruct weaponUpgradeRepArray_3[255];
-var repnotify WeaponUpgradeRepStruct weaponUpgradeRepArray_4[255];
-var repnotify WeaponUpgradeRepStruct weaponUpgradeRepArray_5[255];
-var repnotify WeaponUpgradeRepStruct weaponUpgradeRepArray_6[255];
-var repnotify WeaponUpgradeRepStruct weaponUpgradeRepArray_7[255];
-var repnotify WeaponUpgradeRepStruct weaponUpgradeRepArray_8[255];
-var repnotify WeaponUpgradeRepStruct weaponUpgradeRepArray_9[255];
-var repnotify WeaponUpgradeRepStruct weaponUpgradeRepArray_10[255];
-var repnotify WeaponUpgradeRepStruct weaponUpgradeRepArray_11[255];
-var repnotify WeaponUpgradeRepStruct weaponUpgradeRepArray_12[255];
-var repnotify WeaponUpgradeRepStruct weaponUpgradeRepArray_13[255];
-var repnotify WeaponUpgradeRepStruct weaponUpgradeRepArray_14[255];
-var repnotify WeaponUpgradeRepStruct weaponUpgradeRepArray_15[255];
-var repnotify WeaponUpgradeRepStruct weaponUpgradeRepArray_16[255];
-var int weaponMaxLevel;
+var int WeaponUpgMaxLevel;
+var repnotify WeaponUpgradeRepStruct WeaponUpgradeRepArray_1[255];
+var repnotify WeaponUpgradeRepStruct WeaponUpgradeRepArray_2[255];
+var repnotify WeaponUpgradeRepStruct WeaponUpgradeRepArray_3[255];
+var repnotify WeaponUpgradeRepStruct WeaponUpgradeRepArray_4[255];
+var repnotify WeaponUpgradeRepStruct WeaponUpgradeRepArray_5[255];
+var repnotify WeaponUpgradeRepStruct WeaponUpgradeRepArray_6[255];
+var repnotify WeaponUpgradeRepStruct WeaponUpgradeRepArray_7[255];
+var repnotify WeaponUpgradeRepStruct WeaponUpgradeRepArray_8[255];
+var repnotify WeaponUpgradeRepStruct WeaponUpgradeRepArray_9[255];
+var repnotify WeaponUpgradeRepStruct WeaponUpgradeRepArray_10[255];
+var repnotify WeaponUpgradeRepStruct WeaponUpgradeRepArray_11[255];
+var repnotify WeaponUpgradeRepStruct WeaponUpgradeRepArray_12[255];
+var repnotify WeaponUpgradeRepStruct WeaponUpgradeRepArray_13[255];
+var repnotify WeaponUpgradeRepStruct WeaponUpgradeRepArray_14[255];
+var repnotify WeaponUpgradeRepStruct WeaponUpgradeRepArray_15[255];
+var repnotify WeaponUpgradeRepStruct WeaponUpgradeRepArray_16[255];
 
 //Replicated Equipment Upgrades
-var repnotify EquipmentUpgradeRepStruct equipmentUpgradesRepArray[255];
+var repnotify EquipmentUpgradeRepStruct EquipmentUpgradesRepArray[255];
 
 //Replicated Grenades
-var repnotify string grenadesStr[255];
+var repnotify string GrenadesStr[255];
 
 //Replicated Special Waves
-var repnotify string specialWavesStr[255];
 var int SpecialWaveID[2];
+var repnotify string SpecialWavesStr[255];
 
 //Replicated Zed Buffs
-var repnotify string zedBuffStr[255];
-var repnotify bool bNewZedBuff;
 var byte ActiveZedBuffs[255];
+var repnotify bool bNewZedBuff;
+var repnotify string ZedBuffsStr[255];
 
 //Replicated Trader Values
-var repnotify byte TraderVoiceGroupIndex;
 var repnotify int ArmorPrice;
 var repnotify int GrenadePrice;
-var int newWeaponEachWave;
-var int maxWeapon;
-var int staticWeapon;
+var int TraderMaxWeaponCount;
+var int TraderNewWeaponEachWave;
+var int TraderStaticWeaponCount;
+var repnotify byte TraderVoiceGroupIndex;
 
 //Replicated Map Values
-var repnotify byte bArmorPickup;
 var repnotify byte bAllTraders;
-var repnotify bool bRepairDoor;
+var repnotify byte bArmorPickup;
+var repnotify bool bRepairDoorTrigger;
 
-//Skins
-var repnotify bool updateSkins;
+//Weapon Skins
+var repnotify bool UpdateSkins;
 
 //For Zedternal Reborn Upgrade Menu commands
-var bool bZRUMenuCommand;
 var bool bZRUMenuAllWave;
+var bool bZRUMenuCommand;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -196,15 +196,15 @@ replication
 	if (bNetDirty)
 		NumberOfTraderWeapons, NumberOfStartingWeapons, NumberOfSkillUpgrades, NumberOfWeaponUpgrades, NumberOfEquipmentUpgrades,
 		KFWeaponName_A, KFWeaponName_B, KFWeaponDefPath_A, KFWeaponDefPath_B, KFStartingWeaponPath,
-		perkUpgradesStr, skillUpgradesRepArray, equipmentUpgradesRepArray, specialWavesStr, grenadesStr, zedBuffStr,
-		SpecialWaveID, bNewZedBuff, newWeaponEachWave, maxWeapon, staticWeapon, ArmorPrice, GrenadePrice, TraderVoiceGroupIndex,
-		bArmorPickup, perkPrice, perkMaxLevel, skillPrice, skillDeluxePrice, bAllowSkillReroll, RerollCost, RerollMultiplier,
-		RerollSkillSellPercent, weaponMaxLevel, ActiveZedBuffs, bDeluxeSkillUnlock,
-		weaponUpgradeRepArray_1, weaponUpgradeRepArray_2, weaponUpgradeRepArray_3, weaponUpgradeRepArray_4,
-		weaponUpgradeRepArray_5, weaponUpgradeRepArray_6, weaponUpgradeRepArray_7, weaponUpgradeRepArray_8,
-		weaponUpgradeRepArray_9, weaponUpgradeRepArray_10, weaponUpgradeRepArray_11, weaponUpgradeRepArray_12,
-		weaponUpgradeRepArray_13, weaponUpgradeRepArray_14, weaponUpgradeRepArray_15, weaponUpgradeRepArray_16,
-		bAllTraders, updateSkins, bRepairDoor, bZRUMenuCommand, bZRUMenuAllWave;
+		PerkUpgradesStr, SkillUpgradesRepArray, EquipmentUpgradesRepArray, SpecialWavesStr, GrenadesStr, ZedBuffsStr,
+		SpecialWaveID, bNewZedBuff, TraderNewWeaponEachWave, TraderMaxWeaponCount, TraderStaticWeaponCount, ArmorPrice, GrenadePrice, TraderVoiceGroupIndex,
+		bArmorPickup, PerkUpgPrice, PerkUpgMaxLevel, SkillUpgPrice, SkillUpgDeluxePrice, bAllowSkillReroll, RerollCost, RerollMultiplier,
+		RerollSkillSellPercent, WeaponUpgMaxLevel, ActiveZedBuffs, bDeluxeSkillUnlock,
+		WeaponUpgradeRepArray_1, WeaponUpgradeRepArray_2, WeaponUpgradeRepArray_3, WeaponUpgradeRepArray_4,
+		WeaponUpgradeRepArray_5, WeaponUpgradeRepArray_6, WeaponUpgradeRepArray_7, WeaponUpgradeRepArray_8,
+		WeaponUpgradeRepArray_9, WeaponUpgradeRepArray_10, WeaponUpgradeRepArray_11, WeaponUpgradeRepArray_12,
+		WeaponUpgradeRepArray_13, WeaponUpgradeRepArray_14, WeaponUpgradeRepArray_15, WeaponUpgradeRepArray_16,
+		bAllTraders, UpdateSkins, bRepairDoorTrigger, bZRUMenuCommand, bZRUMenuAllWave;
 }
 
 simulated event ReplicatedEvent(name VarName)
@@ -288,119 +288,119 @@ simulated event ReplicatedEvent(name VarName)
 			SetWeaponPickupList();
 			break;
 
-		case 'perkUpgradesStr':
+		case 'PerkUpgradesStr':
 			for (i = 0; i < 255; ++i)
 			{
-				if (perkUpgradesStr[i] == "")
+				if (PerkUpgradesStr[i] == "")
 					break; //base case
 
-				if (i == perkUpgrades.Length || perkUpgrades[i] == None || PathName(perkUpgrades[i]) != perkUpgradesStr[i])
-					perkUpgrades[i] = class<WMUpgrade_Perk>(DynamicLoadObject(perkUpgradesStr[i], class'Class'));
+				if (i == perkUpgrades.Length || perkUpgrades[i] == None || PathName(perkUpgrades[i]) != PerkUpgradesStr[i])
+					perkUpgrades[i] = class<WMUpgrade_Perk>(DynamicLoadObject(PerkUpgradesStr[i], class'Class'));
 			}
 			break;
 
-		case 'weaponUpgradeRepArray_1':
-			SyncWeaponUpgrades(weaponUpgradeRepArray_1, 0);
+		case 'WeaponUpgradeRepArray_1':
+			SyncWeaponUpgrades(WeaponUpgradeRepArray_1, 0);
 			break;
 
-		case 'weaponUpgradeRepArray_2':
-			SyncWeaponUpgrades(weaponUpgradeRepArray_2, 1);
+		case 'WeaponUpgradeRepArray_2':
+			SyncWeaponUpgrades(WeaponUpgradeRepArray_2, 1);
 			break;
 
-		case 'weaponUpgradeRepArray_3':
-			SyncWeaponUpgrades(weaponUpgradeRepArray_3, 2);
+		case 'WeaponUpgradeRepArray_3':
+			SyncWeaponUpgrades(WeaponUpgradeRepArray_3, 2);
 			break;
 
-		case 'weaponUpgradeRepArray_4':
-			SyncWeaponUpgrades(weaponUpgradeRepArray_4, 3);
+		case 'WeaponUpgradeRepArray_4':
+			SyncWeaponUpgrades(WeaponUpgradeRepArray_4, 3);
 			break;
 
-		case 'weaponUpgradeRepArray_5':
-			SyncWeaponUpgrades(weaponUpgradeRepArray_5, 4);
+		case 'WeaponUpgradeRepArray_5':
+			SyncWeaponUpgrades(WeaponUpgradeRepArray_5, 4);
 			break;
 
-		case 'weaponUpgradeRepArray_6':
-			SyncWeaponUpgrades(weaponUpgradeRepArray_6, 5);
+		case 'WeaponUpgradeRepArray_6':
+			SyncWeaponUpgrades(WeaponUpgradeRepArray_6, 5);
 			break;
 
-		case 'weaponUpgradeRepArray_7':
-			SyncWeaponUpgrades(weaponUpgradeRepArray_7, 6);
+		case 'WeaponUpgradeRepArray_7':
+			SyncWeaponUpgrades(WeaponUpgradeRepArray_7, 6);
 			break;
 
-		case 'weaponUpgradeRepArray_8':
-			SyncWeaponUpgrades(weaponUpgradeRepArray_8, 7);
+		case 'WeaponUpgradeRepArray_8':
+			SyncWeaponUpgrades(WeaponUpgradeRepArray_8, 7);
 			break;
 
-		case 'weaponUpgradeRepArray_9':
-			SyncWeaponUpgrades(weaponUpgradeRepArray_9, 8);
+		case 'WeaponUpgradeRepArray_9':
+			SyncWeaponUpgrades(WeaponUpgradeRepArray_9, 8);
 			break;
 
-		case 'weaponUpgradeRepArray_10':
-			SyncWeaponUpgrades(weaponUpgradeRepArray_10, 9);
+		case 'WeaponUpgradeRepArray_10':
+			SyncWeaponUpgrades(WeaponUpgradeRepArray_10, 9);
 			break;
 
-		case 'weaponUpgradeRepArray_11':
-			SyncWeaponUpgrades(weaponUpgradeRepArray_11, 10);
+		case 'WeaponUpgradeRepArray_11':
+			SyncWeaponUpgrades(WeaponUpgradeRepArray_11, 10);
 			break;
 
-		case 'weaponUpgradeRepArray_12':
-			SyncWeaponUpgrades(weaponUpgradeRepArray_12, 11);
+		case 'WeaponUpgradeRepArray_12':
+			SyncWeaponUpgrades(WeaponUpgradeRepArray_12, 11);
 			break;
 
-		case 'weaponUpgradeRepArray_13':
-			SyncWeaponUpgrades(weaponUpgradeRepArray_13, 12);
+		case 'WeaponUpgradeRepArray_13':
+			SyncWeaponUpgrades(WeaponUpgradeRepArray_13, 12);
 			break;
 
-		case 'weaponUpgradeRepArray_14':
-			SyncWeaponUpgrades(weaponUpgradeRepArray_14, 13);
+		case 'WeaponUpgradeRepArray_14':
+			SyncWeaponUpgrades(WeaponUpgradeRepArray_14, 13);
 			break;
 
-		case 'weaponUpgradeRepArray_15':
-			SyncWeaponUpgrades(weaponUpgradeRepArray_15, 14);
+		case 'WeaponUpgradeRepArray_15':
+			SyncWeaponUpgrades(WeaponUpgradeRepArray_15, 14);
 			break;
 
-		case 'weaponUpgradeRepArray_16':
-			SyncWeaponUpgrades(weaponUpgradeRepArray_16, 15);
+		case 'WeaponUpgradeRepArray_16':
+			SyncWeaponUpgrades(WeaponUpgradeRepArray_16, 15);
 			break;
 
-		case 'skillUpgradesRepArray':
+		case 'SkillUpgradesRepArray':
 			SyncAllSkillUpgrades();
 			break;
 
-		case 'equipmentUpgradesRepArray':
+		case 'EquipmentUpgradesRepArray':
 			SyncAllEquipmentUpgrades();
 			break;
 
-		case 'specialWavesStr':
+		case 'SpecialWavesStr':
 			for (i = 0; i < 255; ++i)
 			{
-				if (specialWavesStr[i] == "")
+				if (SpecialWavesStr[i] == "")
 					break; //base case
 
-				if (i == specialWaves.Length || specialWaves[i] == None || PathName(specialWaves[i]) != specialWavesStr[i])
-					specialWaves[i] = class<WMSpecialWave>(DynamicLoadObject(specialWavesStr[i], class'Class'));
+				if (i == specialWaves.Length || specialWaves[i] == None || PathName(specialWaves[i]) != SpecialWavesStr[i])
+					specialWaves[i] = class<WMSpecialWave>(DynamicLoadObject(SpecialWavesStr[i], class'Class'));
 			}
 			break;
 
-		case 'grenadesStr':
+		case 'GrenadesStr':
 			for (i = 0; i < 255; ++i)
 			{
-				if (grenadesStr[i] == "")
+				if (GrenadesStr[i] == "")
 					break; //base case
 
-				if (i == Grenades.Length || Grenades[i] == None || PathName(Grenades[i]) != grenadesStr[i])
-					Grenades[i] = class<KFWeaponDefinition>(DynamicLoadObject(grenadesStr[i], class'Class'));
+				if (i == Grenades.Length || Grenades[i] == None || PathName(Grenades[i]) != GrenadesStr[i])
+					Grenades[i] = class<KFWeaponDefinition>(DynamicLoadObject(GrenadesStr[i], class'Class'));
 			}
 			break;
 
-		case 'zedBuffStr':
+		case 'ZedBuffsStr':
 			for (i = 0; i < 255; ++i)
 			{
-				if (zedBuffStr[i] == "")
+				if (ZedBuffsStr[i] == "")
 					break; //base case
 
-				if (i == zedBuffs.Length || zedBuffs[i] == None || PathName(zedBuffs[i]) != zedBuffStr[i])
-					zedBuffs[i] = class<WMZedBuff>(DynamicLoadObject(zedBuffStr[i], class'Class'));
+				if (i == zedBuffs.Length || zedBuffs[i] == None || PathName(zedBuffs[i]) != ZedBuffsStr[i])
+					zedBuffs[i] = class<WMZedBuff>(DynamicLoadObject(ZedBuffsStr[i], class'Class'));
 			}
 			break;
 
@@ -419,15 +419,15 @@ simulated event ReplicatedEvent(name VarName)
 				SetAllTradersTimer();
 			break;
 
-		case 'updateSkins':
-			if (updateSkins)
+		case 'UpdateSkins':
+			if (UpdateSkins)
 			{
 				class'ZedternalReborn.WMCustomWeapon_Helper'.static.UpdateSkinsClient(KFWeaponDefPath_A);
 				class'ZedternalReborn.WMCustomWeapon_Helper'.static.UpdateSkinsClient(KFWeaponDefPath_B);
 			}
 			break;
 
-		case 'bRepairDoor':
+		case 'bRepairDoorTrigger':
 			RepairDoor();
 			break;
 
@@ -462,22 +462,22 @@ function RepGameInfoWeaponUpgrades(out WeaponUpgradeRepStruct weaponUpgradeRepAr
 
 simulated function SyncAllWeaponUpgrades()
 {
-	SyncWeaponUpgrades(weaponUpgradeRepArray_1, 0);
-	SyncWeaponUpgrades(weaponUpgradeRepArray_2, 1);
-	SyncWeaponUpgrades(weaponUpgradeRepArray_3, 2);
-	SyncWeaponUpgrades(weaponUpgradeRepArray_4, 3);
-	SyncWeaponUpgrades(weaponUpgradeRepArray_5, 4);
-	SyncWeaponUpgrades(weaponUpgradeRepArray_6, 5);
-	SyncWeaponUpgrades(weaponUpgradeRepArray_7, 6);
-	SyncWeaponUpgrades(weaponUpgradeRepArray_8, 7);
-	SyncWeaponUpgrades(weaponUpgradeRepArray_9, 8);
-	SyncWeaponUpgrades(weaponUpgradeRepArray_10, 9);
-	SyncWeaponUpgrades(weaponUpgradeRepArray_11, 10);
-	SyncWeaponUpgrades(weaponUpgradeRepArray_12, 11);
-	SyncWeaponUpgrades(weaponUpgradeRepArray_13, 12);
-	SyncWeaponUpgrades(weaponUpgradeRepArray_14, 13);
-	SyncWeaponUpgrades(weaponUpgradeRepArray_15, 14);
-	SyncWeaponUpgrades(weaponUpgradeRepArray_16, 15);
+	SyncWeaponUpgrades(WeaponUpgradeRepArray_1, 0);
+	SyncWeaponUpgrades(WeaponUpgradeRepArray_2, 1);
+	SyncWeaponUpgrades(WeaponUpgradeRepArray_3, 2);
+	SyncWeaponUpgrades(WeaponUpgradeRepArray_4, 3);
+	SyncWeaponUpgrades(WeaponUpgradeRepArray_5, 4);
+	SyncWeaponUpgrades(WeaponUpgradeRepArray_6, 5);
+	SyncWeaponUpgrades(WeaponUpgradeRepArray_7, 6);
+	SyncWeaponUpgrades(WeaponUpgradeRepArray_8, 7);
+	SyncWeaponUpgrades(WeaponUpgradeRepArray_9, 8);
+	SyncWeaponUpgrades(WeaponUpgradeRepArray_10, 9);
+	SyncWeaponUpgrades(WeaponUpgradeRepArray_11, 10);
+	SyncWeaponUpgrades(WeaponUpgradeRepArray_12, 11);
+	SyncWeaponUpgrades(WeaponUpgradeRepArray_13, 12);
+	SyncWeaponUpgrades(WeaponUpgradeRepArray_14, 13);
+	SyncWeaponUpgrades(WeaponUpgradeRepArray_15, 14);
+	SyncWeaponUpgrades(WeaponUpgradeRepArray_16, 15);
 }
 
 simulated function SyncWeaponUpgrades(const out WeaponUpgradeRepStruct weaponUpgradeRepArray[255], int indexMultiplier)
@@ -513,13 +513,13 @@ simulated function SyncAllSkillUpgrades()
 
 	for (i = 0; i < 255; ++i)
 	{
-		if (!skillUpgradesRepArray[i].bValid)
+		if (!SkillUpgradesRepArray[i].bValid)
 			break; //base case
 
 		if (!skillUpgrades[i].bDone)
 		{
-			skillUpgrades[i].SkillUpgrade = class<WMUpgrade_Skill>(DynamicLoadObject(skillUpgradesRepArray[i].SkillPathName, class'Class'));
-			skillUpgrades[i].PerkPathName = skillUpgradesRepArray[i].PerkPathName;
+			skillUpgrades[i].SkillUpgrade = class<WMUpgrade_Skill>(DynamicLoadObject(SkillUpgradesRepArray[i].SkillPathName, class'Class'));
+			skillUpgrades[i].PerkPathName = SkillUpgradesRepArray[i].PerkPathName;
 			skillUpgrades[i].bDone = True;
 		}
 	}
@@ -534,15 +534,15 @@ simulated function SyncAllEquipmentUpgrades()
 
 	for (i = 0; i < 255; ++i)
 	{
-		if (!equipmentUpgradesRepArray[i].bValid)
+		if (!EquipmentUpgradesRepArray[i].bValid)
 			break; //base case
 
 		if (!equipmentUpgrades[i].bDone)
 		{
-			equipmentUpgrades[i].EquipmentUpgrade = class<WMUpgrade_Equipment>(DynamicLoadObject(equipmentUpgradesRepArray[i].EquipmentPathName, class'Class'));
-			equipmentUpgrades[i].BasePrice = equipmentUpgradesRepArray[i].BasePrice;
-			equipmentUpgrades[i].MaxPrice = equipmentUpgradesRepArray[i].MaxPrice;
-			equipmentUpgrades[i].MaxLevel = equipmentUpgradesRepArray[i].MaxLevel;
+			equipmentUpgrades[i].EquipmentUpgrade = class<WMUpgrade_Equipment>(DynamicLoadObject(EquipmentUpgradesRepArray[i].EquipmentPathName, class'Class'));
+			equipmentUpgrades[i].BasePrice = EquipmentUpgradesRepArray[i].BasePrice;
+			equipmentUpgrades[i].MaxPrice = EquipmentUpgradesRepArray[i].MaxPrice;
+			equipmentUpgrades[i].MaxLevel = EquipmentUpgradesRepArray[i].MaxLevel;
 			equipmentUpgrades[i].bDone = True;
 		}
 	}
@@ -845,7 +845,7 @@ simulated function bool IsItemAllowed(STraderItem Item)
 {
 	local int i;
 
-	for (i = 0; i < min(maxWeapon - staticWeapon, (NumberOfStartingWeapons + staticWeapon + (WaveNum + 1) * newWeaponEachWave)); ++i)
+	for (i = 0; i < min(TraderMaxWeaponCount - TraderStaticWeaponCount, (NumberOfStartingWeapons + TraderStaticWeaponCount + (WaveNum + 1) * TraderNewWeaponEachWave)); ++i)
 	{
 		if (i < 255)
 		{

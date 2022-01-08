@@ -313,7 +313,7 @@ function RecalculatePlayerLevel()
 		{
 			for (level = 0; level < bPerkUpgrade[index]; ++level)
 			{
-				UpdateCurrentIconToDisplay(index, WMGRI.perkPrice[level], 1);
+				UpdateCurrentIconToDisplay(index, WMGRI.PerkUpgPrice[level], 1);
 			}
 		}
 
@@ -326,9 +326,9 @@ function RecalculatePlayerLevel()
 			}
 
 			if (bSkillDeluxe[index] > 0)
-				UpdateCurrentIconToDisplay(level, WMGRI.skillDeluxePrice, 3);
+				UpdateCurrentIconToDisplay(level, WMGRI.SkillUpgDeluxePrice, 3);
 			else
-				UpdateCurrentIconToDisplay(level, WMGRI.skillPrice, 1);
+				UpdateCurrentIconToDisplay(level, WMGRI.SkillUpgPrice, 1);
 		}
 
 		foreach Purchase_EquipmentUpgrade(index)

@@ -284,7 +284,7 @@ function StartMatch()
 		WMGRI = WMGameReplicationInfo(MyKFGRI);
 		if (WMGRI != None)
 		{
-			WMGRI.updateSkins = True;
+			WMGRI.UpdateSkins = True;
 		}
 	}
 	else
@@ -788,7 +788,7 @@ function RepairDoorDelay()
 
 	WMGRI = WMGameReplicationInfo(MyKFGRI);
 	if (WMGRI != None);
-		WMGRI.bRepairDoor = !WMGRI.bRepairDoor;
+		WMGRI.bRepairDoorTrigger = !WMGRI.bRepairDoorTrigger;
 }
 
 function OpenTrader()
@@ -1693,7 +1693,7 @@ function RepGameInfoNormalPriority()
 	//Grenades
 	for (b = 0; b < Min(255, ConfigData.GrenadeWeaponDefObjects.Length); ++b)
 	{
-		WMGRI.grenadesStr[b] = PathName(ConfigData.GrenadeWeaponDefObjects[b]);
+		WMGRI.GrenadesStr[b] = PathName(ConfigData.GrenadeWeaponDefObjects[b]);
 		WMGRI.Grenades[b] = ConfigData.GrenadeWeaponDefObjects[b];
 	}
 
@@ -1709,14 +1709,14 @@ function RepGameInfoNormalPriority()
 	//ZedBuff
 	for (b = 0; b < Min(255, ConfigData.ZedBuffObjects.Length); ++b)
 	{
-		WMGRI.zedBuffStr[b] = PathName(ConfigData.ZedBuffObjects[b]);
+		WMGRI.ZedBuffsStr[b] = PathName(ConfigData.ZedBuffObjects[b]);
 		WMGRI.zedBuffs[b] = ConfigData.ZedBuffObjects[b];
 	}
 
 	//Special Waves
 	for (b = 0; b < Min(255, SpecialWaveList.Length); ++b)
 	{
-		WMGRI.specialWavesStr[b] = PathName(SpecialWaveList[b]);
+		WMGRI.SpecialWavesStr[b] = PathName(SpecialWaveList[b]);
 		WMGRI.specialWaves[b] = SpecialWaveList[b];
 	}
 
@@ -1754,7 +1754,7 @@ function RepGameInfoLowPriority()
 	//Perk Upgrades
 	for (b = 0; b < Min(255, ConfigData.ValidPerkUpgrades.Length); ++b)
 	{
-		WMGRI.perkUpgradesStr[b] = ConfigData.ValidPerkUpgrades[b].PerkPath;
+		WMGRI.PerkUpgradesStr[b] = ConfigData.ValidPerkUpgrades[b].PerkPath;
 		WMGRI.perkUpgrades[b] = ConfigData.PerkUpgObjects[b];
 	}
 
@@ -1768,29 +1768,29 @@ function RepGameInfoLowPriority()
 	}
 
 	//Weapon Upgrades
-	WMGRI.RepGameInfoWeaponUpgrades(WMGRI.weaponUpgradeRepArray_1, 0);
-	WMGRI.RepGameInfoWeaponUpgrades(WMGRI.weaponUpgradeRepArray_2, 1);
-	WMGRI.RepGameInfoWeaponUpgrades(WMGRI.weaponUpgradeRepArray_3, 2);
-	WMGRI.RepGameInfoWeaponUpgrades(WMGRI.weaponUpgradeRepArray_4, 3);
-	WMGRI.RepGameInfoWeaponUpgrades(WMGRI.weaponUpgradeRepArray_5, 4);
-	WMGRI.RepGameInfoWeaponUpgrades(WMGRI.weaponUpgradeRepArray_6, 5);
-	WMGRI.RepGameInfoWeaponUpgrades(WMGRI.weaponUpgradeRepArray_7, 6);
-	WMGRI.RepGameInfoWeaponUpgrades(WMGRI.weaponUpgradeRepArray_8, 7);
-	WMGRI.RepGameInfoWeaponUpgrades(WMGRI.weaponUpgradeRepArray_9, 8);
-	WMGRI.RepGameInfoWeaponUpgrades(WMGRI.weaponUpgradeRepArray_10, 9);
-	WMGRI.RepGameInfoWeaponUpgrades(WMGRI.weaponUpgradeRepArray_11, 10);
-	WMGRI.RepGameInfoWeaponUpgrades(WMGRI.weaponUpgradeRepArray_12, 11);
-	WMGRI.RepGameInfoWeaponUpgrades(WMGRI.weaponUpgradeRepArray_13, 12);
-	WMGRI.RepGameInfoWeaponUpgrades(WMGRI.weaponUpgradeRepArray_14, 13);
-	WMGRI.RepGameInfoWeaponUpgrades(WMGRI.weaponUpgradeRepArray_15, 14);
-	WMGRI.RepGameInfoWeaponUpgrades(WMGRI.weaponUpgradeRepArray_16, 15);
+	WMGRI.RepGameInfoWeaponUpgrades(WMGRI.WeaponUpgradeRepArray_1, 0);
+	WMGRI.RepGameInfoWeaponUpgrades(WMGRI.WeaponUpgradeRepArray_2, 1);
+	WMGRI.RepGameInfoWeaponUpgrades(WMGRI.WeaponUpgradeRepArray_3, 2);
+	WMGRI.RepGameInfoWeaponUpgrades(WMGRI.WeaponUpgradeRepArray_4, 3);
+	WMGRI.RepGameInfoWeaponUpgrades(WMGRI.WeaponUpgradeRepArray_5, 4);
+	WMGRI.RepGameInfoWeaponUpgrades(WMGRI.WeaponUpgradeRepArray_6, 5);
+	WMGRI.RepGameInfoWeaponUpgrades(WMGRI.WeaponUpgradeRepArray_7, 6);
+	WMGRI.RepGameInfoWeaponUpgrades(WMGRI.WeaponUpgradeRepArray_8, 7);
+	WMGRI.RepGameInfoWeaponUpgrades(WMGRI.WeaponUpgradeRepArray_9, 8);
+	WMGRI.RepGameInfoWeaponUpgrades(WMGRI.WeaponUpgradeRepArray_10, 9);
+	WMGRI.RepGameInfoWeaponUpgrades(WMGRI.WeaponUpgradeRepArray_11, 10);
+	WMGRI.RepGameInfoWeaponUpgrades(WMGRI.WeaponUpgradeRepArray_12, 11);
+	WMGRI.RepGameInfoWeaponUpgrades(WMGRI.WeaponUpgradeRepArray_13, 12);
+	WMGRI.RepGameInfoWeaponUpgrades(WMGRI.WeaponUpgradeRepArray_14, 13);
+	WMGRI.RepGameInfoWeaponUpgrades(WMGRI.WeaponUpgradeRepArray_15, 14);
+	WMGRI.RepGameInfoWeaponUpgrades(WMGRI.WeaponUpgradeRepArray_16, 15);
 
 	//Skill Upgrades
 	for (b = 0; b < Min(255, ConfigData.ValidSkillUpgrades.Length); ++b)
 	{
-		WMGRI.skillUpgradesRepArray[b].SkillPathName = ConfigData.ValidSkillUpgrades[b].SkillPath;
-		WMGRI.skillUpgradesRepArray[b].PerkPathName = ConfigData.ValidSkillUpgrades[b].PerkPath;
-		WMGRI.skillUpgradesRepArray[b].bValid = True;
+		WMGRI.SkillUpgradesRepArray[b].SkillPathName = ConfigData.ValidSkillUpgrades[b].SkillPath;
+		WMGRI.SkillUpgradesRepArray[b].PerkPathName = ConfigData.ValidSkillUpgrades[b].PerkPath;
+		WMGRI.SkillUpgradesRepArray[b].bValid = True;
 
 		WMGRI.skillUpgrades[b].SkillUpgrade = ConfigData.SkillUpgObjects[b];
 		WMGRI.skillUpgrades[b].PerkPathName = ConfigData.ValidSkillUpgrades[b].PerkPath;
@@ -1802,11 +1802,11 @@ function RepGameInfoLowPriority()
 	{
 		if (ConfigData.ValidEquipmentUpgrades[b].MaxLevel > 0)
 		{
-			WMGRI.equipmentUpgradesRepArray[b].EquipmentPathName = ConfigData.ValidEquipmentUpgrades[b].EquipmentPath;
-			WMGRI.equipmentUpgradesRepArray[b].BasePrice = ConfigData.ValidEquipmentUpgrades[b].BasePrice;
-			WMGRI.equipmentUpgradesRepArray[b].MaxPrice = ConfigData.ValidEquipmentUpgrades[b].MaxPrice;
-			WMGRI.equipmentUpgradesRepArray[b].MaxLevel = ConfigData.ValidEquipmentUpgrades[b].MaxLevel;
-			WMGRI.equipmentUpgradesRepArray[b].bValid = True;
+			WMGRI.EquipmentUpgradesRepArray[b].EquipmentPathName = ConfigData.ValidEquipmentUpgrades[b].EquipmentPath;
+			WMGRI.EquipmentUpgradesRepArray[b].BasePrice = ConfigData.ValidEquipmentUpgrades[b].BasePrice;
+			WMGRI.EquipmentUpgradesRepArray[b].MaxPrice = ConfigData.ValidEquipmentUpgrades[b].MaxPrice;
+			WMGRI.EquipmentUpgradesRepArray[b].MaxLevel = ConfigData.ValidEquipmentUpgrades[b].MaxLevel;
+			WMGRI.EquipmentUpgradesRepArray[b].bValid = True;
 
 			WMGRI.equipmentUpgrades[b].EquipmentUpgrade = ConfigData.EquipmentUpgObjects[b];
 			WMGRI.equipmentUpgrades[b].BasePrice = ConfigData.ValidEquipmentUpgrades[b].BasePrice;
@@ -1819,20 +1819,20 @@ function RepGameInfoLowPriority()
 	}
 
 	//Weapon unlocks
-	WMGRI.newWeaponEachWave = class'ZedternalReborn.Config_Trader'.static.GetNewWeaponEachWave(GameDifficultyZedternal);
-	WMGRI.maxWeapon = class'ZedternalReborn.Config_Trader'.static.GetMaxWeapon(GameDifficultyZedternal);
-	WMGRI.staticWeapon = ConfigData.StaticWeaponDefObjects.Length;
+	WMGRI.TraderNewWeaponEachWave = class'ZedternalReborn.Config_Trader'.static.GetNewWeaponEachWave(GameDifficultyZedternal);
+	WMGRI.TraderMaxWeaponCount = class'ZedternalReborn.Config_Trader'.static.GetMaxWeapon(GameDifficultyZedternal);
+	WMGRI.TraderStaticWeaponCount = ConfigData.StaticWeaponDefObjects.Length;
 
 	//Perks, Skills and Weapons upgrades custom prices
-	WMGRI.perkMaxLevel = class'ZedternalReborn.Config_PerkUpgradeOptions'.default.PerkUpgrade_Price.Length;
+	WMGRI.PerkUpgMaxLevel = class'ZedternalReborn.Config_PerkUpgradeOptions'.default.PerkUpgrade_Price.Length;
 	for (b = 0; b < Min(255, class'ZedternalReborn.Config_PerkUpgradeOptions'.default.PerkUpgrade_Price.Length); ++b)
 	{
-		WMGRI.perkPrice[b] = class'ZedternalReborn.Config_PerkUpgradeOptions'.default.PerkUpgrade_Price[b];
+		WMGRI.PerkUpgPrice[b] = class'ZedternalReborn.Config_PerkUpgradeOptions'.default.PerkUpgrade_Price[b];
 	}
 
-	WMGRI.skillPrice = class'ZedternalReborn.Config_SkillUpgradeOptions'.default.SkillUpgrade_Price;
-	WMGRI.skillDeluxePrice = class'ZedternalReborn.Config_SkillUpgradeOptions'.default.SkillUpgrade_DeluxePrice;
-	WMGRI.weaponMaxLevel = class'ZedternalReborn.Config_WeaponUpgradeOptions'.default.WeaponUpgrade_MaxLevel;
+	WMGRI.SkillUpgPrice = class'ZedternalReborn.Config_SkillUpgradeOptions'.default.SkillUpgrade_Price;
+	WMGRI.SkillUpgDeluxePrice = class'ZedternalReborn.Config_SkillUpgradeOptions'.default.SkillUpgrade_DeluxePrice;
+	WMGRI.WeaponUpgMaxLevel = class'ZedternalReborn.Config_WeaponUpgradeOptions'.default.WeaponUpgrade_MaxLevel;
 
 	WMGRI.bZRUMenuCommand = class'ZedternalReborn.Config_GameOptions'.static.GetAllowUpgradeCommand(GameDifficultyZedternal);
 	WMGRI.bZRUMenuAllWave = class'ZedternalReborn.Config_GameOptions'.static.GetAllowUpgradeCommandAllWave(GameDifficultyZedternal);

@@ -53,7 +53,7 @@ reliable server function BuyPerkUpgrade(int ItemDefinition, int Cost)
 
 	WMPRI = WMPlayerReplicationInfo(Pawn.PlayerReplicationInfo);
 
-	if (WMPRI != None && WMPRI.Score >= Cost && WMPRI.bPerkUpgrade[ItemDefinition] < WMGameReplicationInfo(WorldInfo.GRI).perkMaxLevel)
+	if (WMPRI != None && WMPRI.Score >= Cost && WMPRI.bPerkUpgrade[ItemDefinition] < WMGameReplicationInfo(WorldInfo.GRI).PerkUpgMaxLevel)
 	{
 		++WMPRI.bPerkUpgrade[ItemDefinition];
 		if (WMPRI.Purchase_PerkUpgrade.Find(ItemDefinition) == INDEX_NONE)
@@ -77,7 +77,7 @@ reliable server function BuyWeaponUpgrade(int ItemDefinition, int Cost)
 
 	WMPRI = WMPlayerReplicationInfo(Pawn.PlayerReplicationInfo);
 
-	if (WMPRI != None && WMPRI.Score >= Cost && WMPRI.GetWeaponUpgrade(ItemDefinition) < WMGameReplicationInfo(WorldInfo.GRI).weaponMaxLevel)
+	if (WMPRI != None && WMPRI.Score >= Cost && WMPRI.GetWeaponUpgrade(ItemDefinition) < WMGameReplicationInfo(WorldInfo.GRI).WeaponUpgMaxLevel)
 	{
 		WMPRI.IncermentWeaponUpgrade(ItemDefinition);
 		if (WMPRI.Purchase_WeaponUpgrade.Find(ItemDefinition) == INDEX_NONE)
@@ -291,10 +291,10 @@ simulated function CheckPreferredGrenade()
 		bFound = False;
 		for (i = 0; i < 255; ++i)
 		{
-			if (WMGRI.grenadesStr[i] ~= "")
+			if (WMGRI.GrenadesStr[i] ~= "")
 				break;
 
-			if (WMGRI.grenadesStr[i] ~= Preferences.GrenadePath)
+			if (WMGRI.GrenadesStr[i] ~= Preferences.GrenadePath)
 			{
 				bFound = True;
 				break;
@@ -318,7 +318,7 @@ simulated function ChangeGrenade(int Index)
 
 	bShouldUpdateGrenadeIcon = True;
 
-	Preferences.GrenadePath = WMGameReplicationInfo(WorldInfo.GRI).grenadesStr[Index];
+	Preferences.GrenadePath = WMGameReplicationInfo(WorldInfo.GRI).GrenadesStr[Index];
 	Preferences.SaveConfig();
 }
 

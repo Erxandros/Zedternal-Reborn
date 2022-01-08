@@ -191,7 +191,7 @@ function Callback_InventoryFilter(int FilterIndex)
 				lvl = WMPRI.bPerkUpgrade[i];
 
 				// Get Max Level of that upgrade
-				maxLevel = WMGRI.perkMaxLevel;
+				maxLevel = WMGRI.PerkUpgMaxLevel;
 
 				// Is it fully bought?
 				if (lvl >= maxLevel)
@@ -206,7 +206,7 @@ function Callback_InventoryFilter(int FilterIndex)
 						--lvl;
 					ItemObject = CreateObject("Object");
 
-					tempPrice = WMGRI.perkPrice[lvl];
+					tempPrice = WMGRI.PerkUpgPrice[lvl];
 					ItemObject.SetInt("count", tempPrice);
 
 					if (maxLevel > 1)
@@ -273,14 +273,14 @@ function Callback_InventoryFilter(int FilterIndex)
 						ItemObject.SetString("label", WMGRI.skillUpgrades[i].SkillUpgrade.default.upgradeName $ " [Deluxe]");
 						ItemObject.SetString("description", WMGRI.skillUpgrades[i].SkillUpgrade.default.upgradeDescription[1]);
 						S = "img://"$PathName(WMGRI.skillUpgrades[i].SkillUpgrade.static.GetupgradeIcon(1));
-						tempPrice = WMGRI.skillDeluxePrice;
+						tempPrice = WMGRI.SkillUpgDeluxePrice;
 					}
 					else
 					{
 						ItemObject.SetString("label", WMGRI.skillUpgrades[i].SkillUpgrade.default.upgradeName);
 						ItemObject.SetString("description", WMGRI.skillUpgrades[i].SkillUpgrade.default.upgradeDescription[0]);
 						S = "img://"$PathName(WMGRI.skillUpgrades[i].SkillUpgrade.static.GetupgradeIcon(0));
-						tempPrice = WMGRI.skillPrice;
+						tempPrice = WMGRI.SkillUpgPrice;
 					}
 					ItemObject.SetInt("count", tempPrice);
 
@@ -323,7 +323,7 @@ function Callback_InventoryFilter(int FilterIndex)
 			{
 				lvl = WMPRI.GetWeaponUpgrade(i);
 
-				maxLevel = WMGRI.weaponMaxLevel;
+				maxLevel = WMGRI.WeaponUpgMaxLevel;
 
 				// Is it fully bought?
 				if (lvl >= maxLevel)
@@ -670,9 +670,9 @@ function Callback_RecycleItem(int ItemDefinition)
 		if (WMGRI.skillUpgrades[b].PerkPathName ~= PathName(WMGRI.perkUpgrades[perkUPGIndex[ItemDefinition]]))
 		{
 			if (WMPRI.bSkillDeluxe[b] > 0)
-				SkillRefund += Round(float(WMGRI.skillDeluxePrice) * WMGRI.RerollSkillSellPercent);
+				SkillRefund += Round(float(WMGRI.SkillUpgDeluxePrice) * WMGRI.RerollSkillSellPercent);
 			else
-				SkillRefund += Round(float(WMGRI.skillPrice) * WMGRI.RerollSkillSellPercent);
+				SkillRefund += Round(float(WMGRI.SkillUpgPrice) * WMGRI.RerollSkillSellPercent);
 
 			++Count;
 		}
@@ -790,7 +790,7 @@ function CallBack_ItemDetailsClicked(int ItemDefinition)
 	{
 		Index = perkUPGIndex[Index];
 		lvl = WMPRI.bPerkUpgrade[Index];
-		price = WMGRI.perkPrice[lvl];
+		price = WMGRI.PerkUpgPrice[lvl];
 
 		EquipButton.SetString("label", ""$price$Chr(163));
 	}
@@ -800,9 +800,9 @@ function CallBack_ItemDetailsClicked(int ItemDefinition)
 		lvl = WMPRI.bSkillUpgrade[Index];
 
 		if (WMPRI.bSkillDeluxe[Index] == 1)
-			price = WMGRI.skillDeluxePrice;
+			price = WMGRI.SkillUpgDeluxePrice;
 		else
-			price = WMGRI.skillPrice;
+			price = WMGRI.SkillUpgPrice;
 		EquipButton.SetString("label", ""$price$Chr(163));
 	}
 	else if (CurrentFilterIndex == 2) //Weapon Upgrades
@@ -850,7 +850,7 @@ function Callback_Equip(int ItemDefinition)
 	{
 		Index = perkUPGIndex[Index];
 		lvl = WMPRI.bPerkUpgrade[Index];
-		UPGPrice = WMGRI.perkPrice[lvl];
+		UPGPrice = WMGRI.PerkUpgPrice[lvl];
 
 		if (WMPRI.Score >= UPGPrice)
 		{
@@ -873,9 +873,9 @@ function Callback_Equip(int ItemDefinition)
 		lvl = WMPRI.bSkillUpgrade[Index];
 
 		if (WMPRI.bSkillDeluxe[Index] == 1)
-			UPGPrice = WMGRI.skillDeluxePrice;
+			UPGPrice = WMGRI.SkillUpgDeluxePrice;
 		else
-			UPGPrice = WMGRI.skillPrice;
+			UPGPrice = WMGRI.SkillUpgPrice;
 
 		if (WMPRI.Score >= UPGPrice)
 		{
