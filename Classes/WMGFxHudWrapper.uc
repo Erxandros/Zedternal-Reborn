@@ -41,9 +41,9 @@ event DrawHUD()
 
 		//draw warning
 		if (WMGRI.SpecialWaveID[1] == INDEX_NONE)
-			spwTitle = WMGRI.specialWaves[WMGRI.SpecialWaveID[0]].default.Title;
+			spwTitle = WMGRI.SpecialWavesList[WMGRI.SpecialWaveID[0]].default.Title;
 		else
-			spwTitle = WMGRI.specialWaves[WMGRI.SpecialWaveID[0]].default.Title $ " + " $ WMGRI.specialWaves[WMGRI.SpecialWaveID[1]].default.Title;
+			spwTitle = WMGRI.SpecialWavesList[WMGRI.SpecialWaveID[0]].default.Title $ " + " $ WMGRI.SpecialWavesList[WMGRI.SpecialWaveID[1]].default.Title;
 
 		Canvas.StrLen(spwTitle, XL, YL);
 		XL *= size;
@@ -87,7 +87,7 @@ event DrawHUD()
 	nb = 0;
 	total = 0;
 
-	for (i = 0; i < WMGRI.zedBuffs.Length; ++i)
+	for (i = 0; i < WMGRI.ZedBuffsList.Length; ++i)
 	{
 		if (WMGRI.ActiveZedBuffs[i] > 0)
 			++total;
@@ -137,7 +137,7 @@ event DrawHUD()
 	{
 		size = 0.55f;
 
-		buffTitle = WMGRI.zedBuffs[zedBuffIndex - 1].default.buffDescription;
+		buffTitle = WMGRI.ZedBuffsList[zedBuffIndex - 1].default.buffDescription;
 		Canvas.StrLen(buffTitle, XL, YL);
 		XL *= size;
 		YL *= size;
@@ -169,11 +169,11 @@ event DrawHUD()
 		////////////////////////////////////////////////
 	}
 
-	for (i = 0; i < WMGRI.zedBuffs.Length; ++i)
+	for (i = 0; i < WMGRI.ZedBuffsList.Length; ++i)
 	{
 		if (WMGRI.ActiveZedBuffs[i] > 0)
 		{
-			buffIcon = WMGRI.zedBuffs[i].default.buffIcon;
+			buffIcon = WMGRI.ZedBuffsList[i].default.buffIcon;
 			iconFactor = 0.0474072f * Canvas.SizeX / buffIcon.SizeX;
 
 			//draw icon

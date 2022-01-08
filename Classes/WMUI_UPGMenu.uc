@@ -184,7 +184,7 @@ function Callback_InventoryFilter(int FilterIndex)
 
 	if (FilterIndex == 0) //Perk Upgrades
 	{
-		for (i = 0; i < WMGRI.perkUpgrades.length; ++i)
+		for (i = 0; i < WMGRI.PerkUpgradesList.length; ++i)
 		{
 			if (WMPRI.bPerkUpgradeAvailable[i] > 0)
 			{
@@ -212,12 +212,12 @@ function Callback_InventoryFilter(int FilterIndex)
 					if (maxLevel > 1)
 					{
 						if (bPurchased)
-							ItemObject.SetString("label", WMGRI.perkUpgrades[i].default.upgradeName $ " (" $ maxLevel $ "/" $ maxLevel $ ")");
+							ItemObject.SetString("label", WMGRI.PerkUpgradesList[i].default.upgradeName $ " (" $ maxLevel $ "/" $ maxLevel $ ")");
 						else
-							ItemObject.SetString("label", WMGRI.perkUpgrades[i].default.upgradeName $ " (" $ lvl $ "/" $ maxLevel $ ")");
+							ItemObject.SetString("label", WMGRI.PerkUpgradesList[i].default.upgradeName $ " (" $ lvl $ "/" $ maxLevel $ ")");
 					}
 					else
-						ItemObject.SetString("label", WMGRI.perkUpgrades[i].default.upgradeName);
+						ItemObject.SetString("label", WMGRI.PerkUpgradesList[i].default.upgradeName);
 
 					ItemObject.SetString("price", "");
 					ItemObject.Setstring("typeRarity", "");
@@ -238,7 +238,7 @@ function Callback_InventoryFilter(int FilterIndex)
 							ItemObject.SetInt("type", 0);
 						ItemObject.SetBool("active", False);
 					}
-					S = "img://"$PathName(WMGRI.perkUpgrades[i].static.GetupgradeIcon(lvl));
+					S = "img://"$PathName(WMGRI.PerkUpgradesList[i].static.GetupgradeIcon(lvl));
 					ItemObject.SetString("description", GetUpgradeDescription(i, lvl));
 					ItemObject.SetString("iconURLSmall", S);
 					ItemObject.SetString("iconURLLarge", S);
@@ -251,7 +251,7 @@ function Callback_InventoryFilter(int FilterIndex)
 	}
 	else if (FilterIndex == 1) //Skill Upgrades
 	{
-		for (i = 0; i < WMGRI.skillUpgrades.Length; ++i)
+		for (i = 0; i < WMGRI.SkillUpgradesList.Length; ++i)
 		{
 			if (WMPRI.bSkillUnlocked[i] == 1)
 			{
@@ -270,22 +270,22 @@ function Callback_InventoryFilter(int FilterIndex)
 
 					if (WMPRI.bSkillDeluxe[i] == 1)
 					{
-						ItemObject.SetString("label", WMGRI.skillUpgrades[i].SkillUpgrade.default.upgradeName $ " [Deluxe]");
-						ItemObject.SetString("description", WMGRI.skillUpgrades[i].SkillUpgrade.default.upgradeDescription[1]);
-						S = "img://"$PathName(WMGRI.skillUpgrades[i].SkillUpgrade.static.GetupgradeIcon(1));
+						ItemObject.SetString("label", WMGRI.SkillUpgradesList[i].SkillUpgrade.default.upgradeName $ " [Deluxe]");
+						ItemObject.SetString("description", WMGRI.SkillUpgradesList[i].SkillUpgrade.default.upgradeDescription[1]);
+						S = "img://"$PathName(WMGRI.SkillUpgradesList[i].SkillUpgrade.static.GetupgradeIcon(1));
 						tempPrice = WMGRI.SkillUpgDeluxePrice;
 					}
 					else
 					{
-						ItemObject.SetString("label", WMGRI.skillUpgrades[i].SkillUpgrade.default.upgradeName);
-						ItemObject.SetString("description", WMGRI.skillUpgrades[i].SkillUpgrade.default.upgradeDescription[0]);
-						S = "img://"$PathName(WMGRI.skillUpgrades[i].SkillUpgrade.static.GetupgradeIcon(0));
+						ItemObject.SetString("label", WMGRI.SkillUpgradesList[i].SkillUpgrade.default.upgradeName);
+						ItemObject.SetString("description", WMGRI.SkillUpgradesList[i].SkillUpgrade.default.upgradeDescription[0]);
+						S = "img://"$PathName(WMGRI.SkillUpgradesList[i].SkillUpgrade.static.GetupgradeIcon(0));
 						tempPrice = WMGRI.SkillUpgPrice;
 					}
 					ItemObject.SetInt("count", tempPrice);
 
 					ItemObject.SetString("iconURLSmall", S);
-					S = "img://"$PathName(WMGRI.perkUpgrades[GetPerkRelatedIndex(i)].static.GetupgradeIcon(0));
+					S = "img://"$PathName(WMGRI.PerkUpgradesList[GetPerkRelatedIndex(i)].static.GetupgradeIcon(0));
 					ItemObject.SetString("iconURLLarge", S);
 
 					ItemObject.SetString("price", "");
@@ -317,9 +317,9 @@ function Callback_InventoryFilter(int FilterIndex)
 	}
 	else if (FilterIndex == 2) //Weapon Upgrades
 	{
-		for (i = 0; i < WMGRI.weaponUpgradeList.Length; ++i)
+		for (i = 0; i < WMGRI.WeaponUpgradesList.Length; ++i)
 		{
-			if (isWeaponInInventory(WMGRI.weaponUpgradeList[i].KFWeapon))
+			if (isWeaponInInventory(WMGRI.WeaponUpgradesList[i].KFWeapon))
 			{
 				lvl = WMPRI.GetWeaponUpgrade(i);
 
@@ -337,14 +337,14 @@ function Callback_InventoryFilter(int FilterIndex)
 					if (bPurchased)
 						--lvl;
 					ItemObject = CreateObject("Object");
-					ItemObject.SetInt("count", WMGRI.weaponUpgradeList[i].BasePrice * (lvl + 1));
+					ItemObject.SetInt("count", WMGRI.WeaponUpgradesList[i].BasePrice * (lvl + 1));
 
 					if (maxLevel > 1)
 					{
 						if (bPurchased)
-							ItemObject.SetString("label", WMGRI.weaponUpgradeList[i].KFWeaponUpgrade.default.upgradeName $ " (" $ maxLevel $ "/" $ maxLevel $ ")");
+							ItemObject.SetString("label", WMGRI.WeaponUpgradesList[i].KFWeaponUpgrade.default.upgradeName $ " (" $ maxLevel $ "/" $ maxLevel $ ")");
 						else
-							ItemObject.SetString("label", WMGRI.weaponUpgradeList[i].KFWeaponUpgrade.default.upgradeName $ " (" $ lvl $ "/" $ maxLevel $ ")");
+							ItemObject.SetString("label", WMGRI.WeaponUpgradesList[i].KFWeaponUpgrade.default.upgradeName $ " (" $ lvl $ "/" $ maxLevel $ ")");
 					}
 
 					ItemObject.SetString("price", "");
@@ -360,14 +360,14 @@ function Callback_InventoryFilter(int FilterIndex)
 					}
 					else
 					{
-						if (WMPRI.Score < WMGRI.weaponUpgradeList[i].BasePrice * (lvl + 1))
+						if (WMPRI.Score < WMGRI.WeaponUpgradesList[i].BasePrice * (lvl + 1))
 							ItemObject.SetInt("type", 1);
 						else
 							ItemObject.SetInt("type", 0);
 						ItemObject.SetBool("active", False);
 					}
-					S = "img://"$PathName(WMGRI.weaponUpgradeList[i].KFWeapon.default.WeaponSelectTexture);
-					ItemObject.SetString("description", repl(WMGRI.weaponUpgradeList[i].KFWeaponUpgrade.default.upgradeDescription[0], "%x%", WMGRI.weaponUpgradeList[i].KFWeaponUpgrade.static.GetBonusValue(lvl + 1)));
+					S = "img://"$PathName(WMGRI.WeaponUpgradesList[i].KFWeapon.default.WeaponSelectTexture);
+					ItemObject.SetString("description", repl(WMGRI.WeaponUpgradesList[i].KFWeaponUpgrade.default.upgradeDescription[0], "%x%", WMGRI.WeaponUpgradesList[i].KFWeaponUpgrade.static.GetBonusValue(lvl + 1)));
 					ItemObject.SetString("iconURLSmall", S);
 					ItemObject.SetString("iconURLLarge", S);
 					ItemArray.SetElementObject(j, ItemObject);
@@ -379,12 +379,12 @@ function Callback_InventoryFilter(int FilterIndex)
 	}
 	else if (FilterIndex == 3) //Equipment Upgrades
 	{
-		for (i = 0; i < WMGRI.equipmentUpgrades.Length; ++i)
+		for (i = 0; i < WMGRI.EquipmentUpgradesList.Length; ++i)
 		{
 			lvl = WMPRI.bEquipmentUpgrade[i];
 
 			// Get Max Level of that upgrade
-			maxLevel = WMGRI.equipmentUpgrades[i].MaxLevel;
+			maxLevel = WMGRI.EquipmentUpgradesList[i].MaxLevel;
 
 			// Is it fully bought?
 			if (lvl >= maxLevel)
@@ -399,23 +399,23 @@ function Callback_InventoryFilter(int FilterIndex)
 					--lvl;
 				ItemObject = CreateObject("Object");
 
-				if (WMGRI.equipmentUpgrades[i].MaxLevel > 1)
-					tempPrice = WMGRI.equipmentUpgrades[i].BasePrice + Round(float(WMGRI.equipmentUpgrades[i].MaxPrice - WMGRI.equipmentUpgrades[i].BasePrice) /
-						float(WMGRI.equipmentUpgrades[i].MaxLevel - 1) * lvl);
+				if (WMGRI.EquipmentUpgradesList[i].MaxLevel > 1)
+					tempPrice = WMGRI.EquipmentUpgradesList[i].BasePrice + Round(float(WMGRI.EquipmentUpgradesList[i].MaxPrice - WMGRI.EquipmentUpgradesList[i].BasePrice) /
+						float(WMGRI.EquipmentUpgradesList[i].MaxLevel - 1) * lvl);
 				else
-					tempPrice = WMGRI.equipmentUpgrades[i].BasePrice;
+					tempPrice = WMGRI.EquipmentUpgradesList[i].BasePrice;
 
 				ItemObject.SetInt("count", tempPrice);
 
 				if (maxLevel > 1)
 				{
 					if (bPurchased)
-						ItemObject.SetString("label", WMGRI.equipmentUpgrades[i].EquipmentUpgrade.default.upgradeName $ " (" $ maxLevel $ "/" $ maxLevel $ ")");
+						ItemObject.SetString("label", WMGRI.EquipmentUpgradesList[i].EquipmentUpgrade.default.upgradeName $ " (" $ maxLevel $ "/" $ maxLevel $ ")");
 					else
-						ItemObject.SetString("label", WMGRI.equipmentUpgrades[i].EquipmentUpgrade.default.upgradeName $ " (" $ lvl $ "/" $ maxLevel $ ")");
+						ItemObject.SetString("label", WMGRI.EquipmentUpgradesList[i].EquipmentUpgrade.default.upgradeName $ " (" $ lvl $ "/" $ maxLevel $ ")");
 				}
 				else
-					ItemObject.SetString("label", WMGRI.equipmentUpgrades[i].EquipmentUpgrade.default.upgradeName);
+					ItemObject.SetString("label", WMGRI.EquipmentUpgradesList[i].EquipmentUpgrade.default.upgradeName);
 
 				ItemObject.SetString("price", "");
 				ItemObject.Setstring("typeRarity", "");
@@ -436,7 +436,7 @@ function Callback_InventoryFilter(int FilterIndex)
 						ItemObject.SetInt("type", 0);
 					ItemObject.SetBool("active", False);
 				}
-				S = "img://"$PathName(WMGRI.equipmentUpgrades[i].EquipmentUpgrade.static.GetupgradeIcon(lvl));
+				S = "img://"$PathName(WMGRI.EquipmentUpgradesList[i].EquipmentUpgrade.static.GetupgradeIcon(lvl));
 				ItemObject.SetString("description", GetEquipmentDescription(i, lvl));
 				ItemObject.SetString("iconURLSmall", S);
 				ItemObject.SetString("iconURLLarge", S);
@@ -448,23 +448,23 @@ function Callback_InventoryFilter(int FilterIndex)
 	}
 	else if (FilterIndex == 4) //Grenades
 	{
-		for (i = 0; i < WMGRI.Grenades.length; ++i)
+		for (i = 0; i < WMGRI.GrenadesList.length; ++i)
 		{
-			if (WMGRI.Grenades[i] != None)
+			if (WMGRI.GrenadesList[i] != None)
 			{
 				ItemObject = CreateObject("Object");
 				ItemObject.SetInt("count", 1);
-				ItemObject.SetString("label", WMGRI.Grenades[i].static.GetItemName());
+				ItemObject.SetString("label", WMGRI.GrenadesList[i].static.GetItemName());
 				ItemObject.SetString("description", "");
-				ItemObject.SetString("iconURLSmall", "img://" $ WMGRI.Grenades[i].static.GetImagePath());
-				ItemObject.SetString("iconURLLarge", "img://" $ WMGRI.Grenades[i].static.GetImagePath());
+				ItemObject.SetString("iconURLSmall", "img://" $ WMGRI.GrenadesList[i].static.GetImagePath());
+				ItemObject.SetString("iconURLLarge", "img://" $ WMGRI.GrenadesList[i].static.GetImagePath());
 				ItemObject.SetString("price", "");
 				ItemObject.Setstring("typeRarity", "");
 				ItemObject.SetBool("exchangeable", False);
 				ItemObject.SetBool("recyclable", False);
 				ItemObject.SetInt("definition", j);
 				ItemObject.SetInt("type" ,0);
-				if (WMPC.CurrentPerk.GrenadeWeaponDef == WMGRI.Grenades[i])
+				if (WMPC.CurrentPerk.GrenadeWeaponDef == WMGRI.GrenadesList[i])
 				{
 					ItemObject.SetBool("active", True);
 					ItemObject.SetInt("type", 1);
@@ -522,22 +522,22 @@ function string GetUpgradeDescription(int index, int lvl)
 	local int i;
 
 	// write list of passive bonuses
-	if (WMGRI.perkUpgrades[index].default.upgradeDescription.length == 0)
+	if (WMGRI.PerkUpgradesList[index].default.upgradeDescription.length == 0)
 		return "";
 	else
-		str = repl(WMGRI.perkUpgrades[index].default.upgradeDescription[0], "%x%", WMGRI.perkUpgrades[index].static.GetBonusValue(0, lvl + 1));
+		str = repl(WMGRI.PerkUpgradesList[index].default.upgradeDescription[0], "%x%", WMGRI.PerkUpgradesList[index].static.GetBonusValue(0, lvl + 1));
 
-	for (i = 1; i < WMGRI.perkUpgrades[index].default.upgradeDescription.length; ++i)
+	for (i = 1; i < WMGRI.PerkUpgradesList[index].default.upgradeDescription.length; ++i)
 	{
-		str = str $ "\n" $ repl(WMGRI.perkUpgrades[index].default.upgradeDescription[i], "%x%", WMGRI.perkUpgrades[index].static.GetBonusValue(i, lvl + 1));
+		str = str $ "\n" $ repl(WMGRI.PerkUpgradesList[index].default.upgradeDescription[i], "%x%", WMGRI.PerkUpgradesList[index].static.GetBonusValue(i, lvl + 1));
 	}
 
 	// write associated skills (and use different colors for locked, unlocked and bought skills)
 	bFirstSkill = True;
 	str = str $ "\n\n\n\nBuying this upgrade will unlocked one of these skills :\n";
-	for (i = 0; i < WMGRI.skillUpgrades.length; ++i)
+	for (i = 0; i < WMGRI.SkillUpgradesList.length; ++i)
 	{
-		if (WMGRI.skillUpgrades[i].PerkPathName ~= PathName(WMGRI.perkUpgrades[index]))
+		if (WMGRI.SkillUpgradesList[i].PerkPathName ~= PathName(WMGRI.PerkUpgradesList[index]))
 		{
 			if (WMPRI.bSkillUpgrade[i] != 0)
 			{
@@ -558,11 +558,11 @@ function string GetUpgradeDescription(int index, int lvl)
 
 			if (bFirstSkill)
 			{
-				str = str $ "\n<font color=\"#" $textColor$ "\">" $WMGRI.skillUpgrades[i].SkillUpgrade.default.upgradeName$ "</font>";
+				str = str $ "\n<font color=\"#" $textColor$ "\">" $WMGRI.SkillUpgradesList[i].SkillUpgrade.default.upgradeName$ "</font>";
 				bFirstSkill = False;
 			}
 			else
-				str = str $ ", <font color=\"#" $textColor$ "\">" $WMGRI.skillUpgrades[i].SkillUpgrade.default.upgradeName$ "</font>";
+				str = str $ ", <font color=\"#" $textColor$ "\">" $WMGRI.SkillUpgradesList[i].SkillUpgrade.default.upgradeName$ "</font>";
 		}
 	}
 
@@ -575,14 +575,14 @@ function string GetEquipmentDescription(int index, int lvl)
 	local int i;
 
 	// write list of equipment bonuses
-	if (WMGRI.equipmentUpgrades[index].EquipmentUpgrade.default.upgradeDescription.length == 0)
+	if (WMGRI.EquipmentUpgradesList[index].EquipmentUpgrade.default.upgradeDescription.length == 0)
 		return "";
 	else
-		str = repl(WMGRI.equipmentUpgrades[index].EquipmentUpgrade.default.upgradeDescription[0], "%x%", WMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.GetBonusValue(0, lvl + 1));
+		str = repl(WMGRI.EquipmentUpgradesList[index].EquipmentUpgrade.default.upgradeDescription[0], "%x%", WMGRI.EquipmentUpgradesList[index].EquipmentUpgrade.static.GetBonusValue(0, lvl + 1));
 
-	for (i = 1; i < WMGRI.equipmentUpgrades[index].EquipmentUpgrade.default.upgradeDescription.length; ++i)
+	for (i = 1; i < WMGRI.EquipmentUpgradesList[index].EquipmentUpgrade.default.upgradeDescription.length; ++i)
 	{
-		str = str $ "\n" $ repl(WMGRI.equipmentUpgrades[index].EquipmentUpgrade.default.upgradeDescription[i], "%x%", WMGRI.equipmentUpgrades[index].EquipmentUpgrade.static.GetBonusValue(i, lvl + 1));
+		str = str $ "\n" $ repl(WMGRI.EquipmentUpgradesList[index].EquipmentUpgrade.default.upgradeDescription[i], "%x%", WMGRI.EquipmentUpgradesList[index].EquipmentUpgrade.static.GetBonusValue(i, lvl + 1));
 	}
 
 	return str;
@@ -606,12 +606,12 @@ function ConfirmSkillReroll()
 		if (WMPC.WorldInfo.NetMode != NM_Standalone)
 				WMPRI.RerollSyncCompleted = False;
 
-		RerollPerkPathName = PathName(WMGRI.perkUpgrades[perkUPGIndex[RerollPerkItemDefinition]]);
+		RerollPerkPathName = PathName(WMGRI.PerkUpgradesList[perkUPGIndex[RerollPerkItemDefinition]]);
 		WMPC.RerollSkillsForPerk(RerollPerkPathName, RerollTotalCost);
 
-		for (i = 0; i < WMGRI.skillUpgrades.length; ++i)
+		for (i = 0; i < WMGRI.SkillUpgradesList.length; ++i)
 		{
-			if (RerollPerkPathName ~= WMGRI.skillUpgrades[i].PerkPathName)
+			if (RerollPerkPathName ~= WMGRI.SkillUpgradesList[i].PerkPathName)
 			{
 				WMPRI.bSkillUpgrade[i] = 0;
 				WMPRI.bSkillUnlocked[i] = 0;
@@ -620,8 +620,8 @@ function ConfirmSkillReroll()
 				if (WMPRI.Purchase_SkillUpgrade.Find(i) != INDEX_NONE)
 				{
 					WMPRI.Purchase_SkillUpgrade.RemoveItem(i);
-					WMGRI.skillUpgrades[i].SkillUpgrade.static.DeleteHelperClass(Owner);
-					WMGRI.skillUpgrades[i].SkillUpgrade.static.RevertUpgradeChanges(Owner);
+					WMGRI.SkillUpgradesList[i].SkillUpgrade.static.DeleteHelperClass(Owner);
+					WMGRI.SkillUpgradesList[i].SkillUpgrade.static.RevertUpgradeChanges(Owner);
 				}
 			}
 		}
@@ -642,7 +642,7 @@ function SkillRerollUnlock(int PerkIndex)
 
 	if (WMPRI.RerollSyncCompleted)
 	{
-		RerollPerkPathName = PathName(WMGRI.perkUpgrades[PerkIndex]);
+		RerollPerkPathName = PathName(WMGRI.PerkUpgradesList[PerkIndex]);
 
 		for (i = 0; i < WMPRI.bPerkUpgrade[PerkIndex]; ++i)
 		{
@@ -667,7 +667,7 @@ function Callback_RecycleItem(int ItemDefinition)
 	Count = 0;
 	foreach WMPRI.Purchase_SkillUpgrade(b)
 	{
-		if (WMGRI.skillUpgrades[b].PerkPathName ~= PathName(WMGRI.perkUpgrades[perkUPGIndex[ItemDefinition]]))
+		if (WMGRI.SkillUpgradesList[b].PerkPathName ~= PathName(WMGRI.PerkUpgradesList[perkUPGIndex[ItemDefinition]]))
 		{
 			if (WMPRI.bSkillDeluxe[b] > 0)
 				SkillRefund += Round(float(WMGRI.SkillUpgDeluxePrice) * WMGRI.RerollSkillSellPercent);
@@ -684,7 +684,7 @@ function Callback_RecycleItem(int ItemDefinition)
 		RerollPerkItemDefinition = ItemDefinition;
 		RerollTotalCost = TotalCost;
 
-		STitle = "Reroll skills for perk" @WMGRI.perkUpgrades[perkUPGIndex[ItemDefinition]].default.upgradeName $"?";
+		STitle = "Reroll skills for perk" @WMGRI.PerkUpgradesList[perkUPGIndex[ItemDefinition]].default.upgradeName $"?";
 		SDescription = "This will cost a reroll fee of" @RerollCost @"Dosh.";
 		if (Count > 0)
 		{
@@ -809,18 +809,18 @@ function CallBack_ItemDetailsClicked(int ItemDefinition)
 	{
 		Index = weaponUPGIndex[Index];
 		lvl = WMPRI.GetWeaponUpgrade(Index);
-		EquipButton.SetString("label", ""$WMGRI.weaponUpgradeList[Index].BasePrice * (lvl + 1)$Chr(163));
+		EquipButton.SetString("label", ""$WMGRI.WeaponUpgradesList[Index].BasePrice * (lvl + 1)$Chr(163));
 	}
 	else if (CurrentFilterIndex == 3) //Equipment Upgrades
 	{
 		Index = equipmentUPGIndex[Index];
 		lvl = WMPRI.bEquipmentUpgrade[Index];
-		if (WMGRI.equipmentUpgrades[Index].MaxLevel > 1)
-			EquipButton.SetString("label", ""$WMGRI.equipmentUpgrades[Index].BasePrice +
-				Round(float(WMGRI.equipmentUpgrades[Index].MaxPrice - WMGRI.equipmentUpgrades[Index].BasePrice) /
-				float(WMGRI.equipmentUpgrades[Index].MaxLevel - 1) * lvl)$Chr(163));
+		if (WMGRI.EquipmentUpgradesList[Index].MaxLevel > 1)
+			EquipButton.SetString("label", ""$WMGRI.EquipmentUpgradesList[Index].BasePrice +
+				Round(float(WMGRI.EquipmentUpgradesList[Index].MaxPrice - WMGRI.EquipmentUpgradesList[Index].BasePrice) /
+				float(WMGRI.EquipmentUpgradesList[Index].MaxLevel - 1) * lvl)$Chr(163));
 		else
-			EquipButton.SetString("label", ""$WMGRI.equipmentUpgrades[Index].BasePrice$Chr(163));
+			EquipButton.SetString("label", ""$WMGRI.EquipmentUpgradesList[Index].BasePrice$Chr(163));
 	}
 	else if (CurrentFilterIndex == 4 || CurrentFilterIndex == 5)//Knives and Grenades
 	{
@@ -863,7 +863,7 @@ function Callback_Equip(int ItemDefinition)
 			WMPRI.Score = OriginalDosh - UPGPrice;
 			if (WMPRI.Purchase_PerkUpgrade.Find(Index) == INDEX_NONE)
 				WMPRI.Purchase_PerkUpgrade.AddItem(Index);
-			UnlockRandomSkill(PathName(WMGRI.perkUpgrades[Index]), WMGRI.bDeluxeSkillUnlock[lvl] == 1);
+			UnlockRandomSkill(PathName(WMGRI.PerkUpgradesList[Index]), WMGRI.bDeluxeSkillUnlock[lvl] == 1);
 			Owner.PlaySoundBase(default.perkSound, True);
 		}
 	}
@@ -895,7 +895,7 @@ function Callback_Equip(int ItemDefinition)
 	{
 		Index = weaponUPGIndex[Index];
 		lvl = WMPRI.GetWeaponUpgrade(Index);
-		UPGPrice = WMGRI.weaponUpgradeList[Index].BasePrice * (lvl + 1);
+		UPGPrice = WMGRI.WeaponUpgradesList[Index].BasePrice * (lvl + 1);
 
 		if (WMPRI.Score >= UPGPrice)
 		{
@@ -916,11 +916,11 @@ function Callback_Equip(int ItemDefinition)
 	{
 		Index = equipmentUPGIndex[Index];
 		lvl = WMPRI.bEquipmentUpgrade[Index];
-		if (WMGRI.equipmentUpgrades[Index].MaxLevel > 1)
-			UPGPrice = WMGRI.equipmentUpgrades[Index].BasePrice +
-			Round(float(WMGRI.equipmentUpgrades[Index].MaxPrice - WMGRI.equipmentUpgrades[Index].BasePrice) / float(WMGRI.equipmentUpgrades[Index].MaxLevel - 1) * lvl);
+		if (WMGRI.EquipmentUpgradesList[Index].MaxLevel > 1)
+			UPGPrice = WMGRI.EquipmentUpgradesList[Index].BasePrice +
+			Round(float(WMGRI.EquipmentUpgradesList[Index].MaxPrice - WMGRI.EquipmentUpgradesList[Index].BasePrice) / float(WMGRI.EquipmentUpgradesList[Index].MaxLevel - 1) * lvl);
 		else
-			UPGPrice = WMGRI.equipmentUpgrades[Index].BasePrice;
+			UPGPrice = WMGRI.EquipmentUpgradesList[Index].BasePrice;
 
 		if (WMPRI.Score >= UPGPrice)
 		{
@@ -954,9 +954,9 @@ function int GetPerkRelatedIndex(int SkillIndex)
 	//return Skill perk related index
 	local byte b;
 
-	for (b = 0; b < WMGRI.perkUpgrades.length; ++b)
+	for (b = 0; b < WMGRI.PerkUpgradesList.length; ++b)
 	{
-		if (PathName(WMGRI.perkUpgrades[b]) ~= WMGRI.skillUpgrades[SkillIndex].PerkPathName)
+		if (PathName(WMGRI.PerkUpgradesList[b]) ~= WMGRI.SkillUpgradesList[SkillIndex].PerkPathName)
 			return b;
 	}
 
@@ -968,9 +968,9 @@ function UnlockRandomSkill(string perkPathName, bool bShouldBeDeluxe)
 	local array<int> availableIndex;
 	local int i, choice;
 
-	for (i = 0; i < WMGRI.skillUpgrades.length; ++i)
+	for (i = 0; i < WMGRI.SkillUpgradesList.length; ++i)
 	{
-		if (WMGRI.skillUpgrades[i].PerkPathName ~= perkPathName && WMPRI.bSkillUnlocked[i] == 0)
+		if (WMGRI.SkillUpgradesList[i].PerkPathName ~= perkPathName && WMPRI.bSkillUnlocked[i] == 0)
 			availableIndex.AddItem(i);
 	}
 

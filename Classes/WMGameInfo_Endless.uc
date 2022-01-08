@@ -720,7 +720,7 @@ function ApplyRandomZedBuff(int Wave, bool bRewardPlayer, int Count)
 				i = Rand(BuffIndex.Length);
 
 				// spawn zedbuff object in world
-				Spawn(WMGRI.zedBuffs[BuffIndex[i]]);
+				Spawn(WMGRI.ZedBuffsList[BuffIndex[i]]);
 
 				++WMGRI.ActiveZedBuffs[BuffIndex[i]];
 				ZedBuffSettings[ActivateIndex[i]].bActivated = True;
@@ -1008,9 +1008,9 @@ function SetSpecialWaveActor()
 	local WMPlayerController WMPC;
 
 	if (WMGameReplicationInfo(MyKFGRI).SpecialWaveID[0] != INDEX_NONE)
-		Spawn(WMGameReplicationInfo(MyKFGRI).specialWaves[WMGameReplicationInfo(MyKFGRI).SpecialWaveID[0]]);
+		Spawn(WMGameReplicationInfo(MyKFGRI).SpecialWavesList[WMGameReplicationInfo(MyKFGRI).SpecialWaveID[0]]);
 	if (WMGameReplicationInfo(MyKFGRI).SpecialWaveID[1] != INDEX_NONE)
-		Spawn(WMGameReplicationInfo(MyKFGRI).specialWaves[WMGameReplicationInfo(MyKFGRI).SpecialWaveID[1]]);
+		Spawn(WMGameReplicationInfo(MyKFGRI).SpecialWavesList[WMGameReplicationInfo(MyKFGRI).SpecialWaveID[1]]);
 
 	foreach DynamicActors(class'WMPlayerController', WMPC)
 	{
@@ -1659,9 +1659,9 @@ function RepGameInfoHighPriority()
 	WMGRI.NumberOfEquipmentUpgrades = Min(255, ConfigData.ValidEquipmentUpgrades.Length);
 
 	//Pre-initialize the array size for the sever/standalone
-	WMGRI.skillUpgrades.Length = WMGRI.NumberOfSkillUpgrades;
-	WMGRI.weaponUpgradeList.Length = WMGRI.NumberOfWeaponUpgrades;
-	WMGRI.equipmentUpgrades.Length = WMGRI.NumberOfEquipmentUpgrades;
+	WMGRI.SkillUpgradesList.Length = WMGRI.NumberOfSkillUpgrades;
+	WMGRI.WeaponUpgradesList.Length = WMGRI.NumberOfWeaponUpgrades;
+	WMGRI.EquipmentUpgradesList.Length = WMGRI.NumberOfEquipmentUpgrades;
 
 	//Get deluxe skill unlocks for perk level purchases
 	for (i = 0; i < class'ZedternalReborn.Config_SkillUpgradeOptions'.default.SkillUpgrade_DeluxeSkillUnlock.PerkLevels.Length; ++i)
@@ -1694,7 +1694,7 @@ function RepGameInfoNormalPriority()
 	for (b = 0; b < Min(255, ConfigData.GrenadeWeaponDefObjects.Length); ++b)
 	{
 		WMGRI.GrenadesStr[b] = PathName(ConfigData.GrenadeWeaponDefObjects[b]);
-		WMGRI.Grenades[b] = ConfigData.GrenadeWeaponDefObjects[b];
+		WMGRI.GrenadesList[b] = ConfigData.GrenadeWeaponDefObjects[b];
 	}
 
 	//Armor pickup enable
@@ -1710,14 +1710,14 @@ function RepGameInfoNormalPriority()
 	for (b = 0; b < Min(255, ConfigData.ZedBuffObjects.Length); ++b)
 	{
 		WMGRI.ZedBuffsStr[b] = PathName(ConfigData.ZedBuffObjects[b]);
-		WMGRI.zedBuffs[b] = ConfigData.ZedBuffObjects[b];
+		WMGRI.ZedBuffsList[b] = ConfigData.ZedBuffObjects[b];
 	}
 
 	//Special Waves
 	for (b = 0; b < Min(255, SpecialWaveList.Length); ++b)
 	{
 		WMGRI.SpecialWavesStr[b] = PathName(SpecialWaveList[b]);
-		WMGRI.specialWaves[b] = SpecialWaveList[b];
+		WMGRI.SpecialWavesList[b] = SpecialWaveList[b];
 	}
 
 	SetTimer(3.0f, False, NameOf(RepGameInfoLowPriority));
@@ -1755,16 +1755,16 @@ function RepGameInfoLowPriority()
 	for (b = 0; b < Min(255, ConfigData.ValidPerkUpgrades.Length); ++b)
 	{
 		WMGRI.PerkUpgradesStr[b] = ConfigData.ValidPerkUpgrades[b].PerkPath;
-		WMGRI.perkUpgrades[b] = ConfigData.PerkUpgObjects[b];
+		WMGRI.PerkUpgradesList[b] = ConfigData.PerkUpgObjects[b];
 	}
 
 	//Weapon Upgrades for the local standalone/server
 	for (i = 0; i < Min(`MAXWEAPONUPGRADES, WeaponUpgradeArch.Length); ++i)
 	{
-		WMGRI.weaponUpgradeList[i].KFWeapon = WeaponUpgradeArch[i].KFWeapon;
-		WMGRI.weaponUpgradeList[i].KFWeaponUpgrade = WeaponUpgradeArch[i].KFWeaponUpgrade;
-		WMGRI.weaponUpgradeList[i].BasePrice = WeaponUpgradeArch[i].Price;
-		WMGRI.weaponUpgradeList[i].bDone = True;
+		WMGRI.WeaponUpgradesList[i].KFWeapon = WeaponUpgradeArch[i].KFWeapon;
+		WMGRI.WeaponUpgradesList[i].KFWeaponUpgrade = WeaponUpgradeArch[i].KFWeaponUpgrade;
+		WMGRI.WeaponUpgradesList[i].BasePrice = WeaponUpgradeArch[i].Price;
+		WMGRI.WeaponUpgradesList[i].bDone = True;
 	}
 
 	//Weapon Upgrades
@@ -1792,9 +1792,9 @@ function RepGameInfoLowPriority()
 		WMGRI.SkillUpgradesRepArray[b].PerkPathName = ConfigData.ValidSkillUpgrades[b].PerkPath;
 		WMGRI.SkillUpgradesRepArray[b].bValid = True;
 
-		WMGRI.skillUpgrades[b].SkillUpgrade = ConfigData.SkillUpgObjects[b];
-		WMGRI.skillUpgrades[b].PerkPathName = ConfigData.ValidSkillUpgrades[b].PerkPath;
-		WMGRI.skillUpgrades[b].bDone = True;
+		WMGRI.SkillUpgradesList[b].SkillUpgrade = ConfigData.SkillUpgObjects[b];
+		WMGRI.SkillUpgradesList[b].PerkPathName = ConfigData.ValidSkillUpgrades[b].PerkPath;
+		WMGRI.SkillUpgradesList[b].bDone = True;
 	}
 
 	//Equipment Upgrades
@@ -1808,11 +1808,11 @@ function RepGameInfoLowPriority()
 			WMGRI.EquipmentUpgradesRepArray[b].MaxLevel = ConfigData.ValidEquipmentUpgrades[b].MaxLevel;
 			WMGRI.EquipmentUpgradesRepArray[b].bValid = True;
 
-			WMGRI.equipmentUpgrades[b].EquipmentUpgrade = ConfigData.EquipmentUpgObjects[b];
-			WMGRI.equipmentUpgrades[b].BasePrice = ConfigData.ValidEquipmentUpgrades[b].BasePrice;
-			WMGRI.equipmentUpgrades[b].MaxPrice = ConfigData.ValidEquipmentUpgrades[b].MaxPrice;
-			WMGRI.equipmentUpgrades[b].MaxLevel = ConfigData.ValidEquipmentUpgrades[b].MaxLevel;
-			WMGRI.equipmentUpgrades[b].bDone = True;
+			WMGRI.EquipmentUpgradesList[b].EquipmentUpgrade = ConfigData.EquipmentUpgObjects[b];
+			WMGRI.EquipmentUpgradesList[b].BasePrice = ConfigData.ValidEquipmentUpgrades[b].BasePrice;
+			WMGRI.EquipmentUpgradesList[b].MaxPrice = ConfigData.ValidEquipmentUpgrades[b].MaxPrice;
+			WMGRI.EquipmentUpgradesList[b].MaxLevel = ConfigData.ValidEquipmentUpgrades[b].MaxLevel;
+			WMGRI.EquipmentUpgradesList[b].bDone = True;
 		}
 		else
 			`log("ZR Info: Equipment upgrade disabled because max level is zero:"@ConfigData.ValidEquipmentUpgrades[b].EquipmentPath);
@@ -1958,7 +1958,7 @@ function float GetAdjustedAIDoshValue(class<KFPawn_Monster> MonsterClass)
 	for (i = 0; i <= 1; ++i)
 	{
 		if (WMGameReplicationInfo(MyKFGRI).SpecialWaveID[i] != INDEX_NONE)
-			TempValue *= WMGameReplicationInfo(MyKFGRI).specialWaves[WMGameReplicationInfo(MyKFGRI).SpecialWaveID[i]].default.doshFactor;
+			TempValue *= WMGameReplicationInfo(MyKFGRI).SpecialWavesList[WMGameReplicationInfo(MyKFGRI).SpecialWaveID[i]].default.doshFactor;
 	}
 
 	if (MonsterClass.default.bLargeZed)
@@ -2004,13 +2004,13 @@ function Killed(Controller Killer, Controller KilledPlayer, Pawn KilledPawn, cla
 		}
 	}
 
-	for (i = 0; i < WMGRI.zedBuffs.length; ++i)
+	for (i = 0; i < WMGRI.ZedBuffsList.length; ++i)
 	{
 		if (WMGRI.ActiveZedBuffs[i] > 0)
 		{
 			for (x = 0; x < WMGRI.ActiveZedBuffs[i]; ++x)
 			{
-				WMGRI.zedBuffs[i].static.KilledPawn(KilledPawn);
+				WMGRI.ZedBuffsList[i].static.KilledPawn(KilledPawn);
 			}
 		}
 	}

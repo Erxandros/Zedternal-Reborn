@@ -260,8 +260,8 @@ function SetupNextWave(byte NextWaveIndex, int TimeToNextWaveBuffer = 0)
 	//Check for bReplaceMonstertoAdd
 	for (i = 0; i < 2; ++i)
 	{
-		if (SWID[i] != INDEX_NONE && WMGRI.specialWaves[SWID[i]].default.MonsterToAdd.Length > 0
-			&& WMGRI.specialWaves[SWID[i]].default.bReplaceMonstertoAdd)
+		if (SWID[i] != INDEX_NONE && WMGRI.SpecialWavesList[SWID[i]].default.MonsterToAdd.Length > 0
+			&& WMGRI.SpecialWavesList[SWID[i]].default.bReplaceMonstertoAdd)
 			ZedWaveIDList.Length = 0;
 	}
 
@@ -279,18 +279,18 @@ function SetupNextWave(byte NextWaveIndex, int TimeToNextWaveBuffer = 0)
 	//Add special wave zeds if they exist
 	for (i = 0; i < 2; ++i)
 	{
-		if (SWID[i] == INDEX_NONE || WMGRI.specialWaves[SWID[i]].default.MonsterToAdd.Length == 0)
+		if (SWID[i] == INDEX_NONE || WMGRI.SpecialWavesList[SWID[i]].default.MonsterToAdd.Length == 0)
 			continue;
 
-		for (k = 0; k < WMGRI.specialWaves[SWID[i]].default.MonsterToAdd.Length; ++k)
+		for (k = 0; k < WMGRI.SpecialWavesList[SWID[i]].default.MonsterToAdd.Length; ++k)
 		{
-			if (NextWaveIndex >= WMGRI.specialWaves[SWID[i]].default.MonsterToAdd[k].MinWave
-				&& NextWaveIndex <= WMGRI.specialWaves[SWID[i]].default.MonsterToAdd[k].MaxWave)
+			if (NextWaveIndex >= WMGRI.SpecialWavesList[SWID[i]].default.MonsterToAdd[k].MinWave
+				&& NextWaveIndex <= WMGRI.SpecialWavesList[SWID[i]].default.MonsterToAdd[k].MaxWave)
 			{
 				WaveSpawns.Add(1);
-				WaveSpawns[WaveSpawns.Length - 1].ZedClass = WMGRI.specialWaves[SWID[i]].default.MonsterToAdd[k].MClass;
-				WaveSpawns[WaveSpawns.Length - 1].MinGr = WMGRI.specialWaves[SWID[i]].default.MonsterToAdd[k].MinGr;
-				WaveSpawns[WaveSpawns.Length - 1].MaxGr = WMGRI.specialWaves[SWID[i]].default.MonsterToAdd[k].MaxGr;
+				WaveSpawns[WaveSpawns.Length - 1].ZedClass = WMGRI.SpecialWavesList[SWID[i]].default.MonsterToAdd[k].MClass;
+				WaveSpawns[WaveSpawns.Length - 1].MinGr = WMGRI.SpecialWavesList[SWID[i]].default.MonsterToAdd[k].MinGr;
+				WaveSpawns[WaveSpawns.Length - 1].MaxGr = WMGRI.SpecialWavesList[SWID[i]].default.MonsterToAdd[k].MaxGr;
 				WaveSpawns[WaveSpawns.Length - 1].Value = GetZedValue(WaveSpawns[WaveSpawns.Length - 1].ZedClass, NbPlayer);
 			}
 		}
@@ -314,11 +314,11 @@ function SetupNextWave(byte NextWaveIndex, int TimeToNextWaveBuffer = 0)
 	// 4) increase wave points based on number of players
 	TempWaveValue *= class'ZedternalReborn.Config_WaveValue'.static.GetValueMultiplier(NbPlayer);
 
-	// 5) change wave points from current specialWaves
+	// 5) change wave points from current SpecialWavesList
 	for (i = 0; i < 2; ++i)
 	{
 		if (SWID[i] != INDEX_NONE)
-			TempWaveValue *= WMGRI.specialWaves[SWID[i]].default.waveValueFactor;
+			TempWaveValue *= WMGRI.SpecialWavesList[SWID[i]].default.waveValueFactor;
 	}
 
 	// 6) change wave points from custom map settings
@@ -352,7 +352,7 @@ function SetupNextWave(byte NextWaveIndex, int TimeToNextWaveBuffer = 0)
 	for (i = 0; i < 2; ++i)
 	{
 		if (SWID[i] != INDEX_NONE)
-			CustomSpawnRate = CustomSpawnRate / (WMGRI.specialWaves[SWID[i]].default.zedSpawnRateFactor);
+			CustomSpawnRate = CustomSpawnRate / (WMGRI.SpecialWavesList[SWID[i]].default.zedSpawnRateFactor);
 	}
 
 	// 5) zed buff spawn rate modification

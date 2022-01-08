@@ -210,8 +210,8 @@ simulated function ClientUpdateCurrentIconToDisplay()
 
 	WMGRI = WMGameReplicationInfo(WorldInfo.GRI);
 
-	if (WMGRI != None && PerkIconIndex < WMGRI.perkUpgrades.Length)
-		CurrentIconToDisplay = WMGRI.perkUpgrades[PerkIconIndex].static.GetUpgradeIcon(bPerkUpgrade[PerkIconIndex] - 1);
+	if (WMGRI != None && PerkIconIndex < WMGRI.PerkUpgradesList.Length)
+		CurrentIconToDisplay = WMGRI.PerkUpgradesList[PerkIconIndex].static.GetUpgradeIcon(bPerkUpgrade[PerkIconIndex] - 1);
 }
 
 function UpdateCurrentIconToDisplay(int lastBoughtIndex, int doshSpent, int lvl)
@@ -231,7 +231,7 @@ function UpdateCurrentIconToDisplay(int lastBoughtIndex, int doshSpent, int lvl)
 		if (PerkIconIndex == 254)
 		{
 			MaxDoshSpent = 0;
-			for (i = 0; i < WMGRI.perkUpgrades.length; ++i)
+			for (i = 0; i < WMGRI.PerkUpgradesList.length; ++i)
 			{
 				DoshSpentOnPerk[i] = 0;
 			}
@@ -243,7 +243,7 @@ function UpdateCurrentIconToDisplay(int lastBoughtIndex, int doshSpent, int lvl)
 		// check and update player's perk icon index
 		if (PerkIconIndex == 254 || DoshSpentOnPerk[lastBoughtIndex] >= MaxDoshSpent)
 		{
-			CurrentIconToDisplay = WMGRI.perkUpgrades[lastBoughtIndex].static.GetUpgradeIcon(bPerkUpgrade[lastBoughtIndex] - 1);
+			CurrentIconToDisplay = WMGRI.PerkUpgradesList[lastBoughtIndex].static.GetUpgradeIcon(bPerkUpgrade[lastBoughtIndex] - 1);
 			MaxDoshSpent = DoshSpentOnPerk[lastBoughtIndex];
 			PerkIconIndex = lastBoughtIndex;
 		}
@@ -319,9 +319,9 @@ function RecalculatePlayerLevel()
 
 		foreach Purchase_SkillUpgrade(index)
 		{
-			for (level = 0; level < WMGRI.perkUpgrades.length; ++level)
+			for (level = 0; level < WMGRI.PerkUpgradesList.length; ++level)
 			{
-				if (PathName(WMGRI.perkUpgrades[level]) ~= WMGRI.skillUpgrades[index].PerkPathName)
+				if (PathName(WMGRI.PerkUpgradesList[level]) ~= WMGRI.SkillUpgradesList[index].PerkPathName)
 					break;
 			}
 

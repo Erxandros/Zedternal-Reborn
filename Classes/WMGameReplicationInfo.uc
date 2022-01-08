@@ -127,12 +127,13 @@ var bool bZRUMenuCommand;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-//Non-replicated data
-struct WeaponUpgradeStruct
+//Non-replicated Data Structures
+struct EquipmentUpgradeStruct
 {
-	var class<KFWeapon> KFWeapon;
-	var class<WMUpgrade_Weapon> KFWeaponUpgrade;
+	var class<WMUpgrade_Equipment> EquipmentUpgrade;
 	var int BasePrice;
+	var int MaxPrice;
+	var byte MaxLevel;
 	var bool bDone;
 
 	structdefaultproperties
@@ -153,12 +154,11 @@ struct SkillUpgradeStruct
 	}
 };
 
-struct EquipmentUpgradeStruct
+struct WeaponUpgradeStruct
 {
-	var class<WMUpgrade_Equipment> EquipmentUpgrade;
+	var class<KFWeapon> KFWeapon;
+	var class<WMUpgrade_Weapon> KFWeaponUpgrade;
 	var int BasePrice;
-	var int MaxPrice;
-	var byte MaxLevel;
 	var bool bDone;
 
 	structdefaultproperties
@@ -167,21 +167,29 @@ struct EquipmentUpgradeStruct
 	}
 };
 
-var array< WeaponUpgradeStruct > weaponUpgradeList;
+//Starting Weapons
+var array< class<KFWeapon> > KFStartingWeaponList;
 
-var array< class<KFWeapon> > KFStartingWeapon;
-var array< class<WMUpgrade_Perk> > perkUpgrades;
-var array<SkillUpgradeStruct> skillUpgrades;
-var array<EquipmentUpgradeStruct> equipmentUpgrades;
-var array< class<WMSpecialWave> > specialWaves;
-var array< class<KFWeaponDefinition> > Grenades;
+//Upgrades
+var array<EquipmentUpgradeStruct> EquipmentUpgradesList;
+var array< class<WMUpgrade_Perk> > PerkUpgradesList;
+var array<SkillUpgradeStruct> SkillUpgradesList;
+var array<WeaponUpgradeStruct> WeaponUpgradesList;
 
-var array< class<WMZedBuff> > zedBuffs;
+//Grenades
+var array< class<KFWeaponDefinition> > GrenadesList;
+
+//Special Waves
 var bool bDrawSpecialWave;
-var byte specialWaveIndexToShow;
+var byte SpecialWaveIndexToShow;
+var array< class<WMSpecialWave> > SpecialWavesList;
 
-var byte ZedBuff_NextMusicTrackIndex;
+//Zed Buffs
 var array<KFMusicTrackInfo> ZedBuffMusic;
+var byte ZedBuffNextMusicTrackIndex;
+var array< class<WMZedBuff> > ZedBuffsList;
+
+//Trader
 var array< class<KFTraderVoiceGroupBase> > TraderVoiceGroupClasses;
 
 //For lobby pages
@@ -240,17 +248,17 @@ simulated event ReplicatedEvent(name VarName)
 			break;
 
 		case 'NumberOfSkillUpgrades':
-			skillUpgrades.Length = NumberOfSkillUpgrades;
+			SkillUpgradesList.Length = NumberOfSkillUpgrades;
 			SyncAllSkillUpgrades();
 			break;
 
 		case 'NumberOfWeaponUpgrades':
-			weaponUpgradeList.Length = NumberOfWeaponUpgrades;
+			WeaponUpgradesList.Length = NumberOfWeaponUpgrades;
 			SyncAllWeaponUpgrades();
 			break;
 
 		case 'NumberOfEquipmentUpgrades':
-			equipmentUpgrades.Length = NumberOfEquipmentUpgrades;
+			EquipmentUpgradesList.Length = NumberOfEquipmentUpgrades;
 			SyncAllEquipmentUpgrades();
 			break;
 
@@ -282,8 +290,8 @@ simulated event ReplicatedEvent(name VarName)
 				if (KFStartingWeaponPath[i] == "")
 					break; //base case
 
-				if (i == KFStartingWeapon.Length || KFStartingWeapon[i] == None || PathName(KFStartingWeapon[i]) != KFStartingWeaponPath[i])
-					KFStartingWeapon[i] = class<KFWeapon>(DynamicLoadObject(KFStartingWeaponPath[i], class'Class'));
+				if (i == KFStartingWeaponList.Length || KFStartingWeaponList[i] == None || PathName(KFStartingWeaponList[i]) != KFStartingWeaponPath[i])
+					KFStartingWeaponList[i] = class<KFWeapon>(DynamicLoadObject(KFStartingWeaponPath[i], class'Class'));
 			}
 			SetWeaponPickupList();
 			break;
@@ -294,8 +302,8 @@ simulated event ReplicatedEvent(name VarName)
 				if (PerkUpgradesStr[i] == "")
 					break; //base case
 
-				if (i == perkUpgrades.Length || perkUpgrades[i] == None || PathName(perkUpgrades[i]) != PerkUpgradesStr[i])
-					perkUpgrades[i] = class<WMUpgrade_Perk>(DynamicLoadObject(PerkUpgradesStr[i], class'Class'));
+				if (i == PerkUpgradesList.Length || PerkUpgradesList[i] == None || PathName(PerkUpgradesList[i]) != PerkUpgradesStr[i])
+					PerkUpgradesList[i] = class<WMUpgrade_Perk>(DynamicLoadObject(PerkUpgradesStr[i], class'Class'));
 			}
 			break;
 
@@ -377,8 +385,8 @@ simulated event ReplicatedEvent(name VarName)
 				if (SpecialWavesStr[i] == "")
 					break; //base case
 
-				if (i == specialWaves.Length || specialWaves[i] == None || PathName(specialWaves[i]) != SpecialWavesStr[i])
-					specialWaves[i] = class<WMSpecialWave>(DynamicLoadObject(SpecialWavesStr[i], class'Class'));
+				if (i == SpecialWavesList.Length || SpecialWavesList[i] == None || PathName(SpecialWavesList[i]) != SpecialWavesStr[i])
+					SpecialWavesList[i] = class<WMSpecialWave>(DynamicLoadObject(SpecialWavesStr[i], class'Class'));
 			}
 			break;
 
@@ -388,8 +396,8 @@ simulated event ReplicatedEvent(name VarName)
 				if (GrenadesStr[i] == "")
 					break; //base case
 
-				if (i == Grenades.Length || Grenades[i] == None || PathName(Grenades[i]) != GrenadesStr[i])
-					Grenades[i] = class<KFWeaponDefinition>(DynamicLoadObject(GrenadesStr[i], class'Class'));
+				if (i == GrenadesList.Length || GrenadesList[i] == None || PathName(GrenadesList[i]) != GrenadesStr[i])
+					GrenadesList[i] = class<KFWeaponDefinition>(DynamicLoadObject(GrenadesStr[i], class'Class'));
 			}
 			break;
 
@@ -399,8 +407,8 @@ simulated event ReplicatedEvent(name VarName)
 				if (ZedBuffsStr[i] == "")
 					break; //base case
 
-				if (i == zedBuffs.Length || zedBuffs[i] == None || PathName(zedBuffs[i]) != ZedBuffsStr[i])
-					zedBuffs[i] = class<WMZedBuff>(DynamicLoadObject(ZedBuffsStr[i], class'Class'));
+				if (i == ZedBuffsList.Length || ZedBuffsList[i] == None || PathName(ZedBuffsList[i]) != ZedBuffsStr[i])
+					ZedBuffsList[i] = class<WMZedBuff>(DynamicLoadObject(ZedBuffsStr[i], class'Class'));
 			}
 			break;
 
@@ -451,11 +459,11 @@ function RepGameInfoWeaponUpgrades(out WeaponUpgradeRepStruct weaponUpgradeRepAr
 
 	indexOffset = 255 * indexMultiplier;
 
-	for (i = 0; i < Min(255, weaponUpgradeList.length - indexOffset); ++i)
+	for (i = 0; i < Min(255, WeaponUpgradesList.length - indexOffset); ++i)
 	{
-		weaponUpgradeRepArray[i].WeaponPathName = PathName(weaponUpgradeList[i + indexOffset].KFWeapon);
-		weaponUpgradeRepArray[i].UpgradePathName = PathName(weaponUpgradeList[i + indexOffset].KFWeaponUpgrade);
-		weaponUpgradeRepArray[i].BasePrice = weaponUpgradeList[i + indexOffset].BasePrice;
+		weaponUpgradeRepArray[i].WeaponPathName = PathName(WeaponUpgradesList[i + indexOffset].KFWeapon);
+		weaponUpgradeRepArray[i].UpgradePathName = PathName(WeaponUpgradesList[i + indexOffset].KFWeaponUpgrade);
+		weaponUpgradeRepArray[i].BasePrice = WeaponUpgradesList[i + indexOffset].BasePrice;
 		weaponUpgradeRepArray[i].bValid = True;
 	}
 }
@@ -484,7 +492,7 @@ simulated function SyncWeaponUpgrades(const out WeaponUpgradeRepStruct weaponUpg
 {
 	local int i, indexOffset;
 
-	if (weaponUpgradeList.Length == 0)
+	if (WeaponUpgradesList.Length == 0)
 		return; //Not yet initialized
 
 	indexOffset = 255 * indexMultiplier;
@@ -494,12 +502,12 @@ simulated function SyncWeaponUpgrades(const out WeaponUpgradeRepStruct weaponUpg
 		if (!weaponUpgradeRepArray[i].bValid)
 			break; //base case
 
-		if (!weaponUpgradeList[i + indexOffset].bDone)
+		if (!WeaponUpgradesList[i + indexOffset].bDone)
 		{
-			weaponUpgradeList[i + indexOffset].KFWeapon = class<KFWeapon>(DynamicLoadObject(weaponUpgradeRepArray[i].WeaponPathName, class'Class'));
-			weaponUpgradeList[i + indexOffset].KFWeaponUpgrade = class<WMUpgrade_Weapon>(DynamicLoadObject(weaponUpgradeRepArray[i].UpgradePathName, class'Class'));
-			weaponUpgradeList[i + indexOffset].BasePrice = weaponUpgradeRepArray[i].BasePrice;
-			weaponUpgradeList[i + indexOffset].bDone = True;
+			WeaponUpgradesList[i + indexOffset].KFWeapon = class<KFWeapon>(DynamicLoadObject(weaponUpgradeRepArray[i].WeaponPathName, class'Class'));
+			WeaponUpgradesList[i + indexOffset].KFWeaponUpgrade = class<WMUpgrade_Weapon>(DynamicLoadObject(weaponUpgradeRepArray[i].UpgradePathName, class'Class'));
+			WeaponUpgradesList[i + indexOffset].BasePrice = weaponUpgradeRepArray[i].BasePrice;
+			WeaponUpgradesList[i + indexOffset].bDone = True;
 		}
 	}
 }
@@ -508,7 +516,7 @@ simulated function SyncAllSkillUpgrades()
 {
 	local int i;
 
-	if (skillUpgrades.Length == 0)
+	if (SkillUpgradesList.Length == 0)
 		return; //Not yet initialized
 
 	for (i = 0; i < 255; ++i)
@@ -516,11 +524,11 @@ simulated function SyncAllSkillUpgrades()
 		if (!SkillUpgradesRepArray[i].bValid)
 			break; //base case
 
-		if (!skillUpgrades[i].bDone)
+		if (!SkillUpgradesList[i].bDone)
 		{
-			skillUpgrades[i].SkillUpgrade = class<WMUpgrade_Skill>(DynamicLoadObject(SkillUpgradesRepArray[i].SkillPathName, class'Class'));
-			skillUpgrades[i].PerkPathName = SkillUpgradesRepArray[i].PerkPathName;
-			skillUpgrades[i].bDone = True;
+			SkillUpgradesList[i].SkillUpgrade = class<WMUpgrade_Skill>(DynamicLoadObject(SkillUpgradesRepArray[i].SkillPathName, class'Class'));
+			SkillUpgradesList[i].PerkPathName = SkillUpgradesRepArray[i].PerkPathName;
+			SkillUpgradesList[i].bDone = True;
 		}
 	}
 }
@@ -529,7 +537,7 @@ simulated function SyncAllEquipmentUpgrades()
 {
 	local int i;
 
-	if (equipmentUpgrades.Length == 0)
+	if (EquipmentUpgradesList.Length == 0)
 		return; //Not yet initialized
 
 	for (i = 0; i < 255; ++i)
@@ -537,13 +545,13 @@ simulated function SyncAllEquipmentUpgrades()
 		if (!EquipmentUpgradesRepArray[i].bValid)
 			break; //base case
 
-		if (!equipmentUpgrades[i].bDone)
+		if (!EquipmentUpgradesList[i].bDone)
 		{
-			equipmentUpgrades[i].EquipmentUpgrade = class<WMUpgrade_Equipment>(DynamicLoadObject(EquipmentUpgradesRepArray[i].EquipmentPathName, class'Class'));
-			equipmentUpgrades[i].BasePrice = EquipmentUpgradesRepArray[i].BasePrice;
-			equipmentUpgrades[i].MaxPrice = EquipmentUpgradesRepArray[i].MaxPrice;
-			equipmentUpgrades[i].MaxLevel = EquipmentUpgradesRepArray[i].MaxLevel;
-			equipmentUpgrades[i].bDone = True;
+			EquipmentUpgradesList[i].EquipmentUpgrade = class<WMUpgrade_Equipment>(DynamicLoadObject(EquipmentUpgradesRepArray[i].EquipmentPathName, class'Class'));
+			EquipmentUpgradesList[i].BasePrice = EquipmentUpgradesRepArray[i].BasePrice;
+			EquipmentUpgradesList[i].MaxPrice = EquipmentUpgradesRepArray[i].MaxPrice;
+			EquipmentUpgradesList[i].MaxLevel = EquipmentUpgradesRepArray[i].MaxLevel;
+			EquipmentUpgradesList[i].bDone = True;
 		}
 	}
 }
@@ -611,12 +619,12 @@ simulated function SetWeaponPickupList()
 	if (bArmorPickup == 0)
 		return; //Not yet replicated
 
-	if (KFStartingWeapon.Length != NumberOfStartingWeapons)
+	if (KFStartingWeaponList.Length != NumberOfStartingWeapons)
 		return; //Replication not done yet
 
 	for (i = 0; i < NumberOfStartingWeapons; ++i)
 	{
-		if (KFStartingWeapon[i] == None)
+		if (KFStartingWeaponList[i] == None)
 			return;
 	}
 
@@ -634,9 +642,9 @@ simulated function SetWeaponPickupList()
 	StartingItemPickups.AddItem(newPickup);
 
 	//Add starting weapons
-	for (i = 0; i < KFStartingWeapon.length; ++i)
+	for (i = 0; i < KFStartingWeaponList.length; ++i)
 	{
-		startingWeaponClass = KFStartingWeapon[i];
+		startingWeaponClass = KFStartingWeaponList[i];
 
 		//Test for dual weapon
 		startingWeaponClassDual = class<KFWeap_DualBase>(startingWeaponClass);
@@ -777,13 +785,13 @@ simulated function PlayZedBuffTraderDialog()
 simulated function ForceNewMusicZedBuff()
 {
 	// play a boss music during this wave
-	ForceNewMusicTrack(default.ZedBuffMusic[ZedBuff_NextMusicTrackIndex]);
+	ForceNewMusicTrack(default.ZedBuffMusic[ZedBuffNextMusicTrackIndex]);
 
-	++ZedBuff_NextMusicTrackIndex;
+	++ZedBuffNextMusicTrackIndex;
 
 	// cycle tracks
-	if (ZedBuff_NextMusicTrackIndex >= default.ZedBuffMusic.length)
-		ZedBuff_NextMusicTrackIndex = 0;
+	if (ZedBuffNextMusicTrackIndex >= default.ZedBuffMusic.length)
+		ZedBuffNextMusicTrackIndex = 0;
 }
 
 simulated function RepairDoor()
@@ -799,7 +807,7 @@ simulated function RepairDoor()
 simulated function TriggerSpecialWaveMessage()
 {
 	bDrawSpecialWave = False; // we will turn it on later
-	specialWaveIndexToShow = 0;
+	SpecialWaveIndexToShow = 0;
 	SetTimer(2.0f, False, NameOf(ShowSpecialWaveMessage));
 }
 
@@ -813,9 +821,9 @@ simulated function ShowSpecialWaveMessage()
 	if (KFP != None)
 	{
 		KFP.CheckAndEndActiveEMoteSpecialMove();
-		if (SpecialWaveID[specialWaveIndexToShow] != INDEX_NONE)
+		if (SpecialWaveID[SpecialWaveIndexToShow] != INDEX_NONE)
 		{
-			KFPC.MyGFxHUD.ShowBossNameplate(specialWaves[SpecialWaveID[specialWaveIndexToShow]].default.Title,specialWaves[SpecialWaveID[specialWaveIndexToShow]].default.Description);
+			KFPC.MyGFxHUD.ShowBossNameplate(SpecialWavesList[SpecialWaveID[SpecialWaveIndexToShow]].default.Title,SpecialWavesList[SpecialWaveID[SpecialWaveIndexToShow]].default.Description);
 			SetTimer(1.25f, False, NameOf(PlaySpecialWaveSound));
 		}
 	}
@@ -829,9 +837,9 @@ simulated function PlaySpecialWaveSound()
 
 simulated function HideSpecialWaveMessage()
 {
-	if (specialWaveIndexToShow == 0 && SpecialWaveID[1] != INDEX_NONE)
+	if (SpecialWaveIndexToShow == 0 && SpecialWaveID[1] != INDEX_NONE)
 	{
-		++specialWaveIndexToShow;
+		++SpecialWaveIndexToShow;
 		ShowSpecialWaveMessage();
 	}
 	else
@@ -943,7 +951,7 @@ defaultproperties
 	GrenadePrice=-1
 	LobbyCurrentPage=1
 	LobbyMaxPage=1
-	ZedBuff_NextMusicTrackIndex=0
+	ZedBuffNextMusicTrackIndex=0
 	NumberOfTraderWeapons=INDEX_NONE
 	NumberOfStartingWeapons=INDEX_NONE
 	NumberOfSkillUpgrades=INDEX_NONE

@@ -144,9 +144,9 @@ reliable server function RerollSkillsForPerk(string RerollPerkPathName, int Cost
 	WMPRI = WMPlayerReplicationInfo(Pawn.PlayerReplicationInfo);
 	if (WMPRI != None && WMGRI != None && WMPRI.Score >= Cost)
 	{
-		for (i = 0; i < WMGRI.skillUpgrades.length; ++i)
+		for (i = 0; i < WMGRI.SkillUpgradesList.length; ++i)
 		{
-			if (RerollPerkPathName ~= WMGRI.skillUpgrades[i].PerkPathName)
+			if (RerollPerkPathName ~= WMGRI.SkillUpgradesList[i].PerkPathName)
 			{
 				WMPRI.bSkillUpgrade[i] = 0;
 				WMPRI.bSkillUnlocked[i] = 0;
@@ -155,8 +155,8 @@ reliable server function RerollSkillsForPerk(string RerollPerkPathName, int Cost
 				if (WMPRI.Purchase_SkillUpgrade.Find(i) != INDEX_NONE)
 				{
 					WMPRI.Purchase_SkillUpgrade.RemoveItem(i);
-					WMGRI.skillUpgrades[i].SkillUpgrade.static.DeleteHelperClass(Pawn);
-					WMGRI.skillUpgrades[i].SkillUpgrade.static.RevertUpgradeChanges(Pawn);
+					WMGRI.SkillUpgradesList[i].SkillUpgrade.static.DeleteHelperClass(Pawn);
+					WMGRI.SkillUpgradesList[i].SkillUpgrade.static.RevertUpgradeChanges(Pawn);
 				}
 			}
 		}
@@ -180,7 +180,7 @@ reliable server function BuyEquipmentUpgrade(int ItemDefinition, int Cost)
 
 	WMPRI = WMPlayerReplicationInfo(Pawn.PlayerReplicationInfo);
 
-	if (WMPRI != None && WMPRI.Score >= Cost && WMPRI.bEquipmentUpgrade[ItemDefinition] < WMGameReplicationInfo(WorldInfo.GRI).equipmentUpgrades[ItemDefinition].MaxLevel)
+	if (WMPRI != None && WMPRI.Score >= Cost && WMPRI.bEquipmentUpgrade[ItemDefinition] < WMGameReplicationInfo(WorldInfo.GRI).EquipmentUpgradesList[ItemDefinition].MaxLevel)
 	{
 		++WMPRI.bEquipmentUpgrade[ItemDefinition];
 		if (WMPRI.Purchase_EquipmentUpgrade.Find(ItemDefinition) == INDEX_NONE)
@@ -284,7 +284,7 @@ simulated function CheckPreferredGrenade()
 	local bool bFound;
 
 	WMGRI = WMGameReplicationInfo(WorldInfo.GRI);
-	if (WMGRI != None && WMGRI.Grenades.length > 0)
+	if (WMGRI != None && WMGRI.GrenadesList.length > 0)
 	{
 		ClearTimer(NameOf(CheckPreferredGrenade));
 
@@ -308,7 +308,7 @@ simulated function CheckPreferredGrenade()
 
 simulated function ChangeGrenade(int Index)
 {
-	CurrentPerk.GrenadeWeaponDef = WMGameReplicationInfo(WorldInfo.GRI).Grenades[Index];
+	CurrentPerk.GrenadeWeaponDef = WMGameReplicationInfo(WorldInfo.GRI).GrenadesList[Index];
 	// Replace Tripwire medic grenade with ZedternalReborn version to fix bug with sonic resistant rounds
 	if (CurrentPerk.GrenadeWeaponDef.default.WeaponClassPath ~= "KFGameContent.KFProj_MedicGrenade")
 		CurrentPerk.GrenadeClass = class<KFProj_Grenade>(DynamicLoadObject("ZedternalReborn.WMProj_MedicGrenade", class'Class'));
@@ -324,7 +324,7 @@ simulated function ChangeGrenade(int Index)
 
 reliable server function ChangeGrenadeServer(int Index)
 {
-	CurrentPerk.GrenadeWeaponDef = WMGameReplicationInfo(WorldInfo.GRI).Grenades[Index];
+	CurrentPerk.GrenadeWeaponDef = WMGameReplicationInfo(WorldInfo.GRI).GrenadesList[Index];
 	// Replace Tripwire medic grenade with ZedternalReborn version to fix bug with sonic resistant rounds
 	if (CurrentPerk.GrenadeWeaponDef.default.WeaponClassPath ~= "KFGameContent.KFProj_MedicGrenade")
 		CurrentPerk.GrenadeClass = class<KFProj_Grenade>(DynamicLoadObject("ZedternalReborn.WMProj_MedicGrenade", class'Class'));
@@ -396,16 +396,16 @@ simulated function string GetPerkIconPath()
 
 	if (WMPRI != None && WMGRI != None && WMPRI.PlayerLevel > 0)
 	{
-		tries = WMGRI.perkUpgrades.length;
+		tries = WMGRI.PerkUpgradesList.length;
 		while (tries > 0)
 		{
 			++HUD_perkIndex;
 			--tries;
-			if (HUD_perkIndex >= WMGRI.perkUpgrades.length)
+			if (HUD_perkIndex >= WMGRI.PerkUpgradesList.length)
 				HUD_perkIndex = 0;
 
 			if (WMPRI.bPerkUpgrade[HUD_perkIndex] > 0)
-				return PathName(WMGRI.perkUpgrades[HUD_perkIndex].static.GetUpgradeIcon(WMPRI.bPerkUpgrade[HUD_perkIndex] - 1));
+				return PathName(WMGRI.PerkUpgradesList[HUD_perkIndex].static.GetUpgradeIcon(WMPRI.bPerkUpgrade[HUD_perkIndex] - 1));
 		}
 	}
 
