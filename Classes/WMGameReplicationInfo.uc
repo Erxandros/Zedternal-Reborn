@@ -15,6 +15,17 @@ struct EquipmentUpgradeRepStruct
 	}
 };
 
+struct PerkUpgradeRepStruct
+{
+	var string PerkPathName;
+	var bool bValid;
+
+	structdefaultproperties
+	{
+		bValid=False
+	}
+};
+
 struct SkillUpgradeRepStruct
 {
 	var string SkillPathName;
@@ -42,6 +53,7 @@ struct WeaponUpgradeRepStruct
 
 //Optimization for replicated data (data array size)
 var repnotify int NumberOfEquipmentUpgrades;
+var repnotify int NumberOfPerkUpgrades;
 var repnotify int NumberOfSkillUpgrades;
 var repnotify int NumberOfStartingWeapons;
 var repnotify int NumberOfTraderWeapons;
@@ -57,7 +69,7 @@ var name KFWeaponName_B[255];
 //Replicated Perk Upgrades
 var int PerkUpgMaxLevel;
 var int PerkUpgPrice[255];
-var repnotify string PerkUpgradesStr[255];
+var repnotify PerkUpgradeRepStruct PerkUpgradesRepArray[255];
 
 //Replicated Skill Upgrades
 var byte bDeluxeSkillUnlock[255];
@@ -142,6 +154,17 @@ struct EquipmentUpgradeStruct
 	}
 };
 
+struct PerkUpgradeStruct
+{
+	var class<WMUpgrade_Perk> PerkUpgrade;
+	var bool bDone;
+
+	structdefaultproperties
+	{
+		bDone=False
+	}
+};
+
 struct SkillUpgradeStruct
 {
 	var class<WMUpgrade_Skill> SkillUpgrade;
@@ -172,7 +195,7 @@ var array< class<KFWeapon> > KFStartingWeaponList;
 
 //Upgrades
 var array<EquipmentUpgradeStruct> EquipmentUpgradesList;
-var array< class<WMUpgrade_Perk> > PerkUpgradesList;
+var array<PerkUpgradeStruct> PerkUpgradesList;
 var array<SkillUpgradeStruct> SkillUpgradesList;
 var array<WeaponUpgradeStruct> WeaponUpgradesList;
 
@@ -202,9 +225,9 @@ var private Texture2D MenuLinker;
 replication
 {
 	if (bNetDirty)
-		NumberOfTraderWeapons, NumberOfStartingWeapons, NumberOfSkillUpgrades, NumberOfWeaponUpgrades, NumberOfEquipmentUpgrades,
+		NumberOfPerkUpgrades, NumberOfTraderWeapons, NumberOfStartingWeapons, NumberOfSkillUpgrades, NumberOfWeaponUpgrades, NumberOfEquipmentUpgrades,
 		KFWeaponName_A, KFWeaponName_B, KFWeaponDefPath_A, KFWeaponDefPath_B, KFStartingWeaponPath,
-		PerkUpgradesStr, SkillUpgradesRepArray, EquipmentUpgradesRepArray, SpecialWavesStr, GrenadesStr, ZedBuffsStr,
+		PerkUpgradesRepArray, SkillUpgradesRepArray, EquipmentUpgradesRepArray, SpecialWavesStr, GrenadesStr, ZedBuffsStr,
 		SpecialWaveID, bNewZedBuff, TraderNewWeaponEachWave, TraderMaxWeaponCount, TraderStaticWeaponCount, ArmorPrice, GrenadePrice, TraderVoiceGroupIndex,
 		bArmorPickup, PerkUpgPrice, PerkUpgMaxLevel, SkillUpgPrice, SkillUpgDeluxePrice, bAllowSkillReroll, RerollCost, RerollMultiplier,
 		RerollSkillSellPercent, WeaponUpgMaxLevel, ActiveZedBuffs, bDeluxeSkillUnlock,
@@ -245,6 +268,11 @@ simulated event ReplicatedEvent(name VarName)
 
 		case 'NumberOfStartingWeapons':
 			SetWeaponPickupList();
+			break;
+
+		case 'NumberOfPerkUpgrades':
+			PerkUpgradesList.Length = NumberOfPerkUpgrades;
+			SyncAllPerkUpgrades();
 			break;
 
 		case 'NumberOfSkillUpgrades':
@@ -296,15 +324,8 @@ simulated event ReplicatedEvent(name VarName)
 			SetWeaponPickupList();
 			break;
 
-		case 'PerkUpgradesStr':
-			for (i = 0; i < 255; ++i)
-			{
-				if (PerkUpgradesStr[i] == "")
-					break; //base case
-
-				if (i == PerkUpgradesList.Length || PerkUpgradesList[i] == None || PathName(PerkUpgradesList[i]) != PerkUpgradesStr[i])
-					PerkUpgradesList[i] = class<WMUpgrade_Perk>(DynamicLoadObject(PerkUpgradesStr[i], class'Class'));
-			}
+		case 'PerkUpgradesRepArray':
+			SyncAllPerkUpgrades();
 			break;
 
 		case 'WeaponUpgradeRepArray_1':
@@ -508,6 +529,26 @@ simulated function SyncWeaponUpgrades(const out WeaponUpgradeRepStruct weaponUpg
 			WeaponUpgradesList[i + indexOffset].KFWeaponUpgrade = class<WMUpgrade_Weapon>(DynamicLoadObject(weaponUpgradeRepArray[i].UpgradePathName, class'Class'));
 			WeaponUpgradesList[i + indexOffset].BasePrice = weaponUpgradeRepArray[i].BasePrice;
 			WeaponUpgradesList[i + indexOffset].bDone = True;
+		}
+	}
+}
+
+simulated function SyncAllPerkUpgrades()
+{
+	local int i;
+
+	if (PerkUpgradesList.Length == 0)
+		return; //Not yet initialized
+
+	for (i = 0; i < 255; ++i)
+	{
+		if (!PerkUpgradesRepArray[i].bValid)
+			break; //base case
+
+		if (!PerkUpgradesList[i].bDone)
+		{
+			PerkUpgradesList[i].PerkUpgrade = class<WMUpgrade_Perk>(DynamicLoadObject(PerkUpgradesRepArray[i].PerkPathName, class'Class'));
+			PerkUpgradesList[i].bDone = True;
 		}
 	}
 }
@@ -955,6 +996,7 @@ defaultproperties
 	ZedBuffNextMusicTrackIndex=0
 
 	NumberOfEquipmentUpgrades=INDEX_NONE
+	NumberOfPerkUpgrades=INDEX_NONE
 	NumberOfStartingWeapons=INDEX_NONE
 	NumberOfSkillUpgrades=INDEX_NONE
 	NumberOfTraderWeapons=INDEX_NONE

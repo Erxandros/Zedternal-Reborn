@@ -1653,12 +1653,14 @@ function RepGameInfoHighPriority()
 
 	//Optimization
 	WMGRI.NumberOfTraderWeapons = Min(510, TraderItems.SaleItems.Length);
+	WMGRI.NumberOfPerkUpgrades = Min(255, ConfigData.ValidPerkUpgrades.Length);
 	WMGRI.NumberOfStartingWeapons = Min(255, StartingWeaponPath.Length);
 	WMGRI.NumberOfSkillUpgrades = Min(255, ConfigData.ValidSkillUpgrades.Length);
 	WMGRI.NumberOfWeaponUpgrades = Min(`MAXWEAPONUPGRADES, WeaponUpgradeArch.Length);
 	WMGRI.NumberOfEquipmentUpgrades = Min(255, ConfigData.ValidEquipmentUpgrades.Length);
 
 	//Pre-initialize the array size for the sever/standalone
+	WMGRI.PerkUpgradesList.Length = WMGRI.NumberOfPerkUpgrades;
 	WMGRI.SkillUpgradesList.Length = WMGRI.NumberOfSkillUpgrades;
 	WMGRI.WeaponUpgradesList.Length = WMGRI.NumberOfWeaponUpgrades;
 	WMGRI.EquipmentUpgradesList.Length = WMGRI.NumberOfEquipmentUpgrades;
@@ -1754,8 +1756,11 @@ function RepGameInfoLowPriority()
 	//Perk Upgrades
 	for (b = 0; b < Min(255, ConfigData.ValidPerkUpgrades.Length); ++b)
 	{
-		WMGRI.PerkUpgradesStr[b] = ConfigData.ValidPerkUpgrades[b].PerkPath;
-		WMGRI.PerkUpgradesList[b] = ConfigData.PerkUpgObjects[b];
+		WMGRI.PerkUpgradesRepArray[b].PerkPathName = ConfigData.ValidPerkUpgrades[b].PerkPath;
+		WMGRI.PerkUpgradesRepArray[b].bValid = True;
+
+		WMGRI.PerkUpgradesList[b].PerkUpgrade = ConfigData.PerkUpgObjects[b];
+		WMGRI.PerkUpgradesList[b].bDone = True;
 	}
 
 	//Weapon Upgrades for the local standalone/server

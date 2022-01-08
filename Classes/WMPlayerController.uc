@@ -405,7 +405,7 @@ simulated function string GetPerkIconPath()
 				HUD_perkIndex = 0;
 
 			if (WMPRI.bPerkUpgrade[HUD_perkIndex] > 0)
-				return PathName(WMGRI.PerkUpgradesList[HUD_perkIndex].static.GetUpgradeIcon(WMPRI.bPerkUpgrade[HUD_perkIndex] - 1));
+				return PathName(WMGRI.PerkUpgradesList[HUD_perkIndex].PerkUpgrade.static.GetUpgradeIcon(WMPRI.bPerkUpgrade[HUD_perkIndex] - 1));
 		}
 	}
 

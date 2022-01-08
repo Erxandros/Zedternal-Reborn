@@ -212,12 +212,12 @@ function Callback_InventoryFilter(int FilterIndex)
 					if (maxLevel > 1)
 					{
 						if (bPurchased)
-							ItemObject.SetString("label", WMGRI.PerkUpgradesList[i].default.upgradeName $ " (" $ maxLevel $ "/" $ maxLevel $ ")");
+							ItemObject.SetString("label", WMGRI.PerkUpgradesList[i].PerkUpgrade.default.upgradeName $ " (" $ maxLevel $ "/" $ maxLevel $ ")");
 						else
-							ItemObject.SetString("label", WMGRI.PerkUpgradesList[i].default.upgradeName $ " (" $ lvl $ "/" $ maxLevel $ ")");
+							ItemObject.SetString("label", WMGRI.PerkUpgradesList[i].PerkUpgrade.default.upgradeName $ " (" $ lvl $ "/" $ maxLevel $ ")");
 					}
 					else
-						ItemObject.SetString("label", WMGRI.PerkUpgradesList[i].default.upgradeName);
+						ItemObject.SetString("label", WMGRI.PerkUpgradesList[i].PerkUpgrade.default.upgradeName);
 
 					ItemObject.SetString("price", "");
 					ItemObject.Setstring("typeRarity", "");
@@ -238,7 +238,7 @@ function Callback_InventoryFilter(int FilterIndex)
 							ItemObject.SetInt("type", 0);
 						ItemObject.SetBool("active", False);
 					}
-					S = "img://"$PathName(WMGRI.PerkUpgradesList[i].static.GetupgradeIcon(lvl));
+					S = "img://"$PathName(WMGRI.PerkUpgradesList[i].PerkUpgrade.static.GetupgradeIcon(lvl));
 					ItemObject.SetString("description", GetUpgradeDescription(i, lvl));
 					ItemObject.SetString("iconURLSmall", S);
 					ItemObject.SetString("iconURLLarge", S);
@@ -285,7 +285,7 @@ function Callback_InventoryFilter(int FilterIndex)
 					ItemObject.SetInt("count", tempPrice);
 
 					ItemObject.SetString("iconURLSmall", S);
-					S = "img://"$PathName(WMGRI.PerkUpgradesList[GetPerkRelatedIndex(i)].static.GetupgradeIcon(0));
+					S = "img://"$PathName(WMGRI.PerkUpgradesList[GetPerkRelatedIndex(i)].PerkUpgrade.static.GetupgradeIcon(0));
 					ItemObject.SetString("iconURLLarge", S);
 
 					ItemObject.SetString("price", "");
@@ -522,14 +522,14 @@ function string GetUpgradeDescription(int index, int lvl)
 	local int i;
 
 	// write list of passive bonuses
-	if (WMGRI.PerkUpgradesList[index].default.upgradeDescription.length == 0)
+	if (WMGRI.PerkUpgradesList[index].PerkUpgrade.default.upgradeDescription.length == 0)
 		return "";
 	else
-		str = repl(WMGRI.PerkUpgradesList[index].default.upgradeDescription[0], "%x%", WMGRI.PerkUpgradesList[index].static.GetBonusValue(0, lvl + 1));
+		str = repl(WMGRI.PerkUpgradesList[index].PerkUpgrade.default.upgradeDescription[0], "%x%", WMGRI.PerkUpgradesList[index].PerkUpgrade.static.GetBonusValue(0, lvl + 1));
 
-	for (i = 1; i < WMGRI.PerkUpgradesList[index].default.upgradeDescription.length; ++i)
+	for (i = 1; i < WMGRI.PerkUpgradesList[index].PerkUpgrade.default.upgradeDescription.length; ++i)
 	{
-		str = str $ "\n" $ repl(WMGRI.PerkUpgradesList[index].default.upgradeDescription[i], "%x%", WMGRI.PerkUpgradesList[index].static.GetBonusValue(i, lvl + 1));
+		str = str $ "\n" $ repl(WMGRI.PerkUpgradesList[index].PerkUpgrade.default.upgradeDescription[i], "%x%", WMGRI.PerkUpgradesList[index].PerkUpgrade.static.GetBonusValue(i, lvl + 1));
 	}
 
 	// write associated skills (and use different colors for locked, unlocked and bought skills)
@@ -537,7 +537,7 @@ function string GetUpgradeDescription(int index, int lvl)
 	str = str $ "\n\n\n\nBuying this upgrade will unlocked one of these skills :\n";
 	for (i = 0; i < WMGRI.SkillUpgradesList.length; ++i)
 	{
-		if (WMGRI.SkillUpgradesList[i].PerkPathName ~= PathName(WMGRI.PerkUpgradesList[index]))
+		if (WMGRI.SkillUpgradesList[i].PerkPathName ~= PathName(WMGRI.PerkUpgradesList[index].PerkUpgrade))
 		{
 			if (WMPRI.bSkillUpgrade[i] != 0)
 			{
@@ -606,7 +606,7 @@ function ConfirmSkillReroll()
 		if (WMPC.WorldInfo.NetMode != NM_Standalone)
 				WMPRI.RerollSyncCompleted = False;
 
-		RerollPerkPathName = PathName(WMGRI.PerkUpgradesList[perkUPGIndex[RerollPerkItemDefinition]]);
+		RerollPerkPathName = PathName(WMGRI.PerkUpgradesList[perkUPGIndex[RerollPerkItemDefinition]].PerkUpgrade);
 		WMPC.RerollSkillsForPerk(RerollPerkPathName, RerollTotalCost);
 
 		for (i = 0; i < WMGRI.SkillUpgradesList.length; ++i)
@@ -642,7 +642,7 @@ function SkillRerollUnlock(int PerkIndex)
 
 	if (WMPRI.RerollSyncCompleted)
 	{
-		RerollPerkPathName = PathName(WMGRI.PerkUpgradesList[PerkIndex]);
+		RerollPerkPathName = PathName(WMGRI.PerkUpgradesList[PerkIndex].PerkUpgrade);
 
 		for (i = 0; i < WMPRI.bPerkUpgrade[PerkIndex]; ++i)
 		{
@@ -667,7 +667,7 @@ function Callback_RecycleItem(int ItemDefinition)
 	Count = 0;
 	foreach WMPRI.Purchase_SkillUpgrade(b)
 	{
-		if (WMGRI.SkillUpgradesList[b].PerkPathName ~= PathName(WMGRI.PerkUpgradesList[perkUPGIndex[ItemDefinition]]))
+		if (WMGRI.SkillUpgradesList[b].PerkPathName ~= PathName(WMGRI.PerkUpgradesList[perkUPGIndex[ItemDefinition]].PerkUpgrade))
 		{
 			if (WMPRI.bSkillDeluxe[b] > 0)
 				SkillRefund += Round(float(WMGRI.SkillUpgDeluxePrice) * WMGRI.RerollSkillSellPercent);
@@ -684,7 +684,7 @@ function Callback_RecycleItem(int ItemDefinition)
 		RerollPerkItemDefinition = ItemDefinition;
 		RerollTotalCost = TotalCost;
 
-		STitle = "Reroll skills for perk" @WMGRI.PerkUpgradesList[perkUPGIndex[ItemDefinition]].default.upgradeName $"?";
+		STitle = "Reroll skills for perk" @WMGRI.PerkUpgradesList[perkUPGIndex[ItemDefinition]].PerkUpgrade.default.upgradeName $"?";
 		SDescription = "This will cost a reroll fee of" @RerollCost @"Dosh.";
 		if (Count > 0)
 		{
@@ -863,7 +863,7 @@ function Callback_Equip(int ItemDefinition)
 			WMPRI.Score = OriginalDosh - UPGPrice;
 			if (WMPRI.Purchase_PerkUpgrade.Find(Index) == INDEX_NONE)
 				WMPRI.Purchase_PerkUpgrade.AddItem(Index);
-			UnlockRandomSkill(PathName(WMGRI.PerkUpgradesList[Index]), WMGRI.bDeluxeSkillUnlock[lvl] == 1);
+			UnlockRandomSkill(PathName(WMGRI.PerkUpgradesList[Index].PerkUpgrade), WMGRI.bDeluxeSkillUnlock[lvl] == 1);
 			Owner.PlaySoundBase(default.perkSound, True);
 		}
 	}
@@ -956,7 +956,7 @@ function int GetPerkRelatedIndex(int SkillIndex)
 
 	for (b = 0; b < WMGRI.PerkUpgradesList.length; ++b)
 	{
-		if (PathName(WMGRI.PerkUpgradesList[b]) ~= WMGRI.SkillUpgradesList[SkillIndex].PerkPathName)
+		if (PathName(WMGRI.PerkUpgradesList[b].PerkUpgrade) ~= WMGRI.SkillUpgradesList[SkillIndex].PerkPathName)
 			return b;
 	}
 
