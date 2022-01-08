@@ -40,45 +40,38 @@ struct EquipmentUpgradeRepStruct
 	}
 };
 
-//Optimization for replicated data
+//Optimization for replicated data (data array size)
 var repnotify int NumberOfTraderWeapons;
 var repnotify int NumberOfStartingWeapons;
 var repnotify int NumberOfSkillUpgrades;
 var repnotify int NumberOfWeaponUpgrades;
 var repnotify int NumberOfEquipmentUpgrades;
 
-//Replicated data
-var name KFWeaponName_A[255];
-var name KFWeaponName_B[255];
+//Replicated Weapons
 var repnotify string KFWeaponDefPath_A[255];
 var repnotify string KFWeaponDefPath_B[255];
 var repnotify string KFStartingWeaponPath[255];
-var repnotify string perkUpgradesStr[255];
-var repnotify SkillUpgradeRepStruct skillUpgradesRepArray[255];
-var repnotify EquipmentUpgradeRepStruct equipmentUpgradesRepArray[255];
-var repnotify string specialWavesStr[255];
-var repnotify string grenadesStr[255];
-var repnotify string zedBuffStr[255];
-var int SpecialWaveID[2];
-var repnotify bool bNewZedBuff;
-var int newWeaponEachWave, maxWeapon, staticWeapon;
-var repnotify int ArmorPrice;
-var repnotify int GrenadePrice;
-var repnotify byte TraderVoiceGroupIndex;
-var repnotify byte bArmorPickup;
+var name KFWeaponName_A[255];
+var name KFWeaponName_B[255];
 
+//Replicated Perk Upgrades
+var repnotify string perkUpgradesStr[255];
 var int perkPrice[255];
 var int perkMaxLevel;
+
+//Replicated Skill Upgrades
+var repnotify SkillUpgradeRepStruct skillUpgradesRepArray[255];
+var byte bDeluxeSkillUnlock[255];
 var int skillPrice;
 var int skillDeluxePrice;
+
+//Replicated Skill Reroll
 var bool bAllowSkillReroll;
 var int RerollCost;
 var float RerollMultiplier;
 var float RerollSkillSellPercent;
-var int weaponMaxLevel;
-var byte ActiveZedBuffs[255];
-var byte bDeluxeSkillUnlock[255];
 
+//Replicated Weapon Upgrades
 var repnotify WeaponUpgradeRepStruct weaponUpgradeRepArray_1[255];
 var repnotify WeaponUpgradeRepStruct weaponUpgradeRepArray_2[255];
 var repnotify WeaponUpgradeRepStruct weaponUpgradeRepArray_3[255];
@@ -95,14 +88,44 @@ var repnotify WeaponUpgradeRepStruct weaponUpgradeRepArray_13[255];
 var repnotify WeaponUpgradeRepStruct weaponUpgradeRepArray_14[255];
 var repnotify WeaponUpgradeRepStruct weaponUpgradeRepArray_15[255];
 var repnotify WeaponUpgradeRepStruct weaponUpgradeRepArray_16[255];
+var int weaponMaxLevel;
 
+//Replicated Equipment Upgrades
+var repnotify EquipmentUpgradeRepStruct equipmentUpgradesRepArray[255];
+
+//Replicated Grenades
+var repnotify string grenadesStr[255];
+
+//Replicated Special Waves
+var repnotify string specialWavesStr[255];
+var int SpecialWaveID[2];
+
+//Replicated Zed Buffs
+var repnotify string zedBuffStr[255];
+var repnotify bool bNewZedBuff;
+var byte ActiveZedBuffs[255];
+
+//Replicated Trader Values
+var repnotify byte TraderVoiceGroupIndex;
+var repnotify int ArmorPrice;
+var repnotify int GrenadePrice;
+var int newWeaponEachWave;
+var int maxWeapon;
+var int staticWeapon;
+
+//Replicated Map Values
+var repnotify byte bArmorPickup;
 var repnotify byte bAllTraders;
-var repnotify bool updateSkins;
 var repnotify bool bRepairDoor;
+
+//Skins
+var repnotify bool updateSkins;
 
 //For Zedternal Reborn Upgrade Menu commands
 var bool bZRUMenuCommand;
 var bool bZRUMenuAllWave;
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //Non-replicated data
 struct WeaponUpgradeStruct
