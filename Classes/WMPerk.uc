@@ -599,7 +599,7 @@ function ModifyDamageGiven(out int InDamage, optional Actor DamageCauser, option
 		for (i = 0; i <= 1; ++i)
 		{
 			if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
-				MyWMGRI.SpecialWavesList[MyWMGRI.SpecialWaveID[i]].static.ModifyDamageGiven(InDamage, DefaultDamage, DamageCauser, MyKFPM, DamageInstigator, DamageType, HitZoneIdx, MyKFW);
+				MyWMGRI.SpecialWavesList[MyWMGRI.SpecialWaveID[i]].SpecialWave.static.ModifyDamageGiven(InDamage, DefaultDamage, DamageCauser, MyKFPM, DamageInstigator, DamageType, HitZoneIdx, MyKFW);
 		}
 	}
 
@@ -647,7 +647,7 @@ function ModifyHardAttackDamage(out int InDamage)
 		for (i = 0; i <= 1; ++i)
 		{
 			if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
-				MyWMGRI.SpecialWavesList[MyWMGRI.SpecialWaveID[i]].static.ModifyHardAttackDamage(InDamage, DefaultDamage, OwnerPawn);
+				MyWMGRI.SpecialWavesList[MyWMGRI.SpecialWaveID[i]].SpecialWave.static.ModifyHardAttackDamage(InDamage, DefaultDamage, OwnerPawn);
 		}
 	}
 
@@ -725,7 +725,7 @@ function ModifyDamageTaken(out int InDamage, optional class<DamageType> DamageTy
 		for (i = 0; i <= 1; ++i)
 		{
 			if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
-				MyWMGRI.SpecialWavesList[MyWMGRI.SpecialWaveID[i]].static.ModifyDamageTaken(InDamage, DefaultDamage, OwnerPawn, DamageType, InstigatedBy, MyKFW);
+				MyWMGRI.SpecialWavesList[MyWMGRI.SpecialWaveID[i]].SpecialWave.static.ModifyDamageTaken(InDamage, DefaultDamage, OwnerPawn, DamageType, InstigatedBy, MyKFW);
 		}
 	}
 
@@ -763,7 +763,7 @@ function ModifyHealth(out int InHealth)
 		for (i = 0; i <= 1; ++i)
 		{
 			if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
-				MyWMGRI.SpecialWavesList[MyWMGRI.SpecialWaveID[i]].static.ModifyHealth(InHealth, DefaultHealth);
+				MyWMGRI.SpecialWavesList[MyWMGRI.SpecialWaveID[i]].SpecialWave.static.ModifyHealth(InHealth, DefaultHealth);
 		}
 	}
 }
@@ -803,7 +803,7 @@ function ModifyArmorInt(out int MaxArmor)
 		for (i = 0; i <= 1; ++i)
 		{
 			if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
-				MyWMGRI.SpecialWavesList[MyWMGRI.SpecialWaveID[i]].static.ModifyArmor(MaxArmor, DefaultArmor);
+				MyWMGRI.SpecialWavesList[MyWMGRI.SpecialWaveID[i]].SpecialWave.static.ModifyArmor(MaxArmor, DefaultArmor);
 		}
 	}
 }
@@ -842,7 +842,7 @@ simulated function ModifyMeleeAttackSpeed(out float InDuration, KFWeapon KFW)
 		for (i = 0; i <= 1; ++i)
 		{
 			if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
-				MyWMGRI.SpecialWavesList[MyWMGRI.SpecialWaveID[i]].static.ModifyMeleeAttackSpeed(InDuration, DefaultDuration, KFW);
+				MyWMGRI.SpecialWavesList[MyWMGRI.SpecialWaveID[i]].SpecialWave.static.ModifyMeleeAttackSpeed(InDuration, DefaultDuration, KFW);
 		}
 	}
 
@@ -883,7 +883,7 @@ simulated function float GetReloadRateScale(KFWeapon KFW)
 		for (i = 0; i <= 1; ++i)
 		{
 			if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
-				MyWMGRI.SpecialWavesList[MyWMGRI.SpecialWaveID[i]].static.GetReloadRateScale(InReloadRateScale, KFW, OwnerPawn);
+				MyWMGRI.SpecialWavesList[MyWMGRI.SpecialWaveID[i]].SpecialWave.static.GetReloadRateScale(InReloadRateScale, KFW, OwnerPawn);
 		}
 	}
 
@@ -933,7 +933,7 @@ function bool ModifyHealAmount(out float HealAmount)
 		for (i = 0; i <= 1; ++i)
 		{
 			if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
-				MyWMGRI.SpecialWavesList[MyWMGRI.SpecialWaveID[i]].static.ModifyHealAmount(HealAmount, DefaultHealAmount);
+				MyWMGRI.SpecialWavesList[MyWMGRI.SpecialWaveID[i]].SpecialWave.static.ModifyHealAmount(HealAmount, DefaultHealAmount);
 		}
 	}
 
@@ -967,7 +967,7 @@ simulated function ModifyHealerRechargeTime(out float RechargeRate)
 		for (i = 0; i <= 1; ++i)
 		{
 			if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
-				MyWMGRI.SpecialWavesList[MyWMGRI.SpecialWaveID[i]].static.ModifyHealerRechargeTime(RechargeRate, DefaultRechargeRate);
+				MyWMGRI.SpecialWavesList[MyWMGRI.SpecialWaveID[i]].SpecialWave.static.ModifyHealerRechargeTime(RechargeRate, DefaultRechargeRate);
 		}
 	}
 }
@@ -1000,7 +1000,7 @@ simulated function ModifySpeed(out float Speed)
 		for (i = 0; i <= 1; ++i)
 		{
 			if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
-				MyWMGRI.SpecialWavesList[MyWMGRI.SpecialWaveID[i]].static.ModifySpeed(Speed, DefaultSpeed, OwnerPawn);
+				MyWMGRI.SpecialWavesList[MyWMGRI.SpecialWaveID[i]].SpecialWave.static.ModifySpeed(Speed, DefaultSpeed, OwnerPawn);
 		}
 	}
 }
@@ -1039,7 +1039,7 @@ simulated function ModifyRecoil(out float CurrentRecoilModifier, KFWeapon KFW)
 		for (i = 0; i <= 1; ++i)
 		{
 			if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
-				MyWMGRI.SpecialWavesList[MyWMGRI.SpecialWaveID[i]].static.ModifyRecoil(CurrentRecoilModifier, DefaultRecoilModifier, KFW);
+				MyWMGRI.SpecialWavesList[MyWMGRI.SpecialWaveID[i]].SpecialWave.static.ModifyRecoil(CurrentRecoilModifier, DefaultRecoilModifier, KFW);
 		}
 	}
 
@@ -1081,7 +1081,7 @@ simulated function ModifyWeaponBopDamping(out float BobDamping, KFWeapon PawnWea
 		for (i = 0; i <= 1; ++i)
 		{
 			if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
-				MyWMGRI.SpecialWavesList[MyWMGRI.SpecialWaveID[i]].static.ModifyWeaponBopDamping(InBobDamping, DefaultBobDamping, PawnWeapon);
+				MyWMGRI.SpecialWavesList[MyWMGRI.SpecialWaveID[i]].SpecialWave.static.ModifyWeaponBopDamping(InBobDamping, DefaultBobDamping, PawnWeapon);
 		}
 	}
 
@@ -1125,7 +1125,7 @@ simulated function ModifyMagSizeAndNumber(KFWeapon KFW, out int MagazineCapacity
 		for (i = 0; i <= 1; ++i)
 		{
 			if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
-				MyWMGRI.SpecialWavesList[MyWMGRI.SpecialWaveID[i]].static.ModifyMagSizeAndNumber(MagCapacity, DefaultMagazineCapacity, KFW, WeaponPerkClass, bSecondary, WeaponClassname);
+				MyWMGRI.SpecialWavesList[MyWMGRI.SpecialWaveID[i]].SpecialWave.static.ModifyMagSizeAndNumber(MagCapacity, DefaultMagazineCapacity, KFW, WeaponPerkClass, bSecondary, WeaponClassname);
 		}
 	}
 
@@ -1177,7 +1177,7 @@ simulated function ModifySpareAmmoAmount(KFWeapon KFW, out int PrimarySpareAmmo,
 			for (i = 0; i <= 1; ++i)
 			{
 				if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
-					MyWMGRI.SpecialWavesList[MyWMGRI.SpecialWaveID[i]].static.ModifySpareAmmoAmount(PrimarySpareAmmo, DefaultSpareAmmo, KFW, TraderItem, bSecondary);
+					MyWMGRI.SpecialWavesList[MyWMGRI.SpecialWaveID[i]].SpecialWave.static.ModifySpareAmmoAmount(PrimarySpareAmmo, DefaultSpareAmmo, KFW, TraderItem, bSecondary);
 			}
 		}
 
@@ -1222,7 +1222,7 @@ simulated function ModifyMaxSpareGrenadeAmount()
 		for (i = 0; i <= 1; ++i)
 		{
 			if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
-				MyWMGRI.SpecialWavesList[MyWMGRI.SpecialWaveID[i]].static.ModifySpareGrenadeAmount(SpareGrenade, DefaultSpareGrenade);
+				MyWMGRI.SpecialWavesList[MyWMGRI.SpecialWaveID[i]].SpecialWave.static.ModifySpareGrenadeAmount(SpareGrenade, DefaultSpareGrenade);
 		}
 
 		MaxGrenadeCount = SpareGrenade;
@@ -1257,7 +1257,7 @@ simulated function ModifyWeldingRate(out float FastenRate, out float UnfastenRat
 		for (i = 0; i <= 1; ++i)
 		{
 			if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
-				MyWMGRI.SpecialWavesList[MyWMGRI.SpecialWaveID[i]].static.ModifyWeldingRate(FastenRate, DefaultFastenRate, UnfastenRate, DefaultUnfastenRate);
+				MyWMGRI.SpecialWavesList[MyWMGRI.SpecialWaveID[i]].SpecialWave.static.ModifyWeldingRate(FastenRate, DefaultFastenRate, UnfastenRate, DefaultUnfastenRate);
 		}
 	}
 }
@@ -1291,7 +1291,7 @@ function float GetZedTimeExtensionMax(byte Level)
 		for (i = 0; i <= 1; ++i)
 		{
 			if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
-				MyWMGRI.SpecialWavesList[MyWMGRI.SpecialWaveID[i]].static.GetZedTimeExtension(Extension, DefaultExtension);
+				MyWMGRI.SpecialWavesList[MyWMGRI.SpecialWaveID[i]].SpecialWave.static.GetZedTimeExtension(Extension, DefaultExtension);
 		}
 	}
 
@@ -1336,7 +1336,7 @@ function ApplyWeightLimits()
 				for (i = 0; i <= 1; ++i)
 				{
 					if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
-						MyWMGRI.SpecialWavesList[MyWMGRI.SpecialWaveID[i]].static.ApplyWeightLimits(InWeightLimit, DefaultWeightLimit);
+						MyWMGRI.SpecialWavesList[MyWMGRI.SpecialWaveID[i]].SpecialWave.static.ApplyWeightLimits(InWeightLimit, DefaultWeightLimit);
 				}
 			}
 
@@ -1373,7 +1373,7 @@ function ModifyDoTScaler(out float DoTScaler, optional class<KFDamageType> KFDT,
 		for (i = 0; i <= 1; ++i)
 		{
 			if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
-				MyWMGRI.SpecialWavesList[MyWMGRI.SpecialWaveID[i]].static.ModifyDoTScaler(DotScaler, DefaultDoTScaler, KFDT, bNapalmInfected);
+				MyWMGRI.SpecialWavesList[MyWMGRI.SpecialWaveID[i]].SpecialWave.static.ModifyDoTScaler(DotScaler, DefaultDoTScaler, KFDT, bNapalmInfected);
 		}
 	}
 }
@@ -1413,7 +1413,7 @@ simulated function ModifyRateOfFire(out float InRate, KFWeapon KFW)
 		for (i = 0; i <= 1; ++i)
 		{
 			if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
-				MyWMGRI.SpecialWavesList[MyWMGRI.SpecialWaveID[i]].static.ModifyRateOfFire(InRate, DefaultRate, KFW);
+				MyWMGRI.SpecialWavesList[MyWMGRI.SpecialWaveID[i]].SpecialWave.static.ModifyRateOfFire(InRate, DefaultRate, KFW);
 		}
 	}
 
@@ -1470,7 +1470,7 @@ simulated function float GetTightChokeModifier()
 		for (i = 0; i <= 1; ++i)
 		{
 			if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
-				MyWMGRI.SpecialWavesList[MyWMGRI.SpecialWaveID[i]].static.ModifyTightChoke(InTight, DefaultTight, KFW, OwnerPawn);
+				MyWMGRI.SpecialWavesList[MyWMGRI.SpecialWaveID[i]].SpecialWave.static.ModifyTightChoke(InTight, DefaultTight, KFW, OwnerPawn);
 		}
 	}
 
@@ -1527,7 +1527,7 @@ simulated function float GetPenetrationModifier(byte Level, class<KFDamageType> 
 		for (i = 0; i <= 1; ++i)
 		{
 			if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
-				MyWMGRI.SpecialWavesList[MyWMGRI.SpecialWaveID[i]].static.ModifyPenetration(InPenetration, DefaultPenetration, DamageType, OwnerPawn, bForce);
+				MyWMGRI.SpecialWavesList[MyWMGRI.SpecialWaveID[i]].SpecialWave.static.ModifyPenetration(InPenetration, DefaultPenetration, DamageType, OwnerPawn, bForce);
 		}
 	}
 
@@ -1581,7 +1581,7 @@ function float GetStunPowerModifier(optional class<DamageType> DamageType, optio
 		for (i = 0; i <= 1; ++i)
 		{
 			if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
-				MyWMGRI.SpecialWavesList[MyWMGRI.SpecialWaveID[i]].static.ModifyStunPower(InStunPower, DefaultStunPower, DamageType, HitZoneIdx);
+				MyWMGRI.SpecialWavesList[MyWMGRI.SpecialWaveID[i]].SpecialWave.static.ModifyStunPower(InStunPower, DefaultStunPower, DamageType, HitZoneIdx);
 		}
 	}
 
@@ -1635,7 +1635,7 @@ function float GetStumblePowerModifier(optional KFPawn KFP, optional class<KFDam
 		for (i = 0; i <= 1; ++i)
 		{
 			if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
-				MyWMGRI.SpecialWavesList[MyWMGRI.SpecialWaveID[i]].static.ModifyStumblePower(InStumblePower, DefaultStumblePower, KFP, DamageType, CooldownModifier, BodyPart, OwnerPawn);
+				MyWMGRI.SpecialWavesList[MyWMGRI.SpecialWaveID[i]].SpecialWave.static.ModifyStumblePower(InStumblePower, DefaultStumblePower, KFP, DamageType, CooldownModifier, BodyPart, OwnerPawn);
 		}
 	}
 
@@ -1689,7 +1689,7 @@ function float GetKnockdownPowerModifier(optional class<DamageType> DamageType, 
 		for (i = 0; i <= 1; ++i)
 		{
 			if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
-				MyWMGRI.SpecialWavesList[MyWMGRI.SpecialWaveID[i]].static.ModifyKnockdownPower(InKnockdownPower, DefaultKnockdownPower, OwnerPawn, DamageType, BodyPart, bIsSprinting);
+				MyWMGRI.SpecialWavesList[MyWMGRI.SpecialWaveID[i]].SpecialWave.static.ModifyKnockdownPower(InKnockdownPower, DefaultKnockdownPower, OwnerPawn, DamageType, BodyPart, bIsSprinting);
 		}
 	}
 
@@ -1739,7 +1739,7 @@ simulated function float GetSnarePowerModifier(optional class<DamageType> Damage
 		for (i = 0; i <= 1; ++i)
 		{
 			if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
-				MyWMGRI.SpecialWavesList[MyWMGRI.SpecialWaveID[i]].static.ModifySnarePower(InSnarePower, DefaultSnarePower, DamageType, HitZoneIdx);
+				MyWMGRI.SpecialWavesList[MyWMGRI.SpecialWaveID[i]].SpecialWave.static.ModifySnarePower(InSnarePower, DefaultSnarePower, DamageType, HitZoneIdx);
 		}
 	}
 
@@ -1793,7 +1793,7 @@ simulated function ModifyWeaponSwitchTime(out float ModifiedSwitchTime)
 		for (i = 0; i <= 1; ++i)
 		{
 			if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
-				MyWMGRI.SpecialWavesList[MyWMGRI.SpecialWaveID[i]].static.ModifyWeaponSwitchTime(ModifiedSwitchTime, DefaultSwitchTime, KFW);
+				MyWMGRI.SpecialWavesList[MyWMGRI.SpecialWaveID[i]].SpecialWave.static.ModifyWeaponSwitchTime(ModifiedSwitchTime, DefaultSwitchTime, KFW);
 		}
 	}
 }
@@ -1841,7 +1841,7 @@ function AddVampireHealth(KFPlayerController KFPC, class<DamageType> DT)
 			for (i = 0; i <= 1; ++i)
 			{
 				if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
-					MyWMGRI.SpecialWavesList[MyWMGRI.SpecialWaveID[i]].static.AddVampireHealth(InHealth, DefaultHealth, KFPC, DT);
+					MyWMGRI.SpecialWavesList[MyWMGRI.SpecialWaveID[i]].SpecialWave.static.AddVampireHealth(InHealth, DefaultHealth, KFPC, DT);
 			}
 		}
 
@@ -1883,7 +1883,7 @@ function bool CanSpreadNapalm()
 		{
 			if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
 			{
-				bCanSpreadNapalm = MyWMGRI.SpecialWavesList[MyWMGRI.SpecialWaveID[i]].static.CanSpreadNapalm(OwnerPawn);
+				bCanSpreadNapalm = MyWMGRI.SpecialWavesList[MyWMGRI.SpecialWaveID[i]].SpecialWave.static.CanSpreadNapalm(OwnerPawn);
 				if (bCanSpreadNapalm)
 					return True;
 			}
@@ -1927,7 +1927,7 @@ simulated function bool CanKnockDownOnBump(KFPawn_Monster KFPM)
 		{
 			if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
 			{
-				bCanKnockDown = MyWMGRI.SpecialWavesList[MyWMGRI.SpecialWaveID[i]].static.ShouldKnockDownOnBump(KFPM, OwnerPawn);
+				bCanKnockDown = MyWMGRI.SpecialWavesList[MyWMGRI.SpecialWaveID[i]].SpecialWave.static.ShouldKnockDownOnBump(KFPM, OwnerPawn);
 				if (bCanKnockDown)
 					return True;
 			}
@@ -1979,7 +1979,7 @@ simulated function bool ShouldNeverDud()
 		{
 			if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
 			{
-				bCouldExplode = MyWMGRI.SpecialWavesList[MyWMGRI.SpecialWaveID[i]].static.ShouldNeverDud(KFW, OwnerPawn);
+				bCouldExplode = MyWMGRI.SpecialWavesList[MyWMGRI.SpecialWaveID[i]].SpecialWave.static.ShouldNeverDud(KFW, OwnerPawn);
 				if (bCouldExplode)
 					return True;
 			}
@@ -2021,7 +2021,7 @@ function bool CouldBeZedShrapnel(class<KFDamageType> KFDT)
 		{
 			if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
 			{
-				bCouldExplode = MyWMGRI.SpecialWavesList[MyWMGRI.SpecialWaveID[i]].static.CouldBeZedShrapnel(KFDT);
+				bCouldExplode = MyWMGRI.SpecialWavesList[MyWMGRI.SpecialWaveID[i]].SpecialWave.static.CouldBeZedShrapnel(KFDT);
 				if (bCouldExplode)
 					return True;
 			}
@@ -2068,7 +2068,7 @@ simulated function bool ShouldShrapnel()
 		{
 			if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
 			{
-				bShouldExplode = MyWMGRI.SpecialWavesList[MyWMGRI.SpecialWaveID[i]].static.ShouldShrapnel();
+				bShouldExplode = MyWMGRI.SpecialWavesList[MyWMGRI.SpecialWaveID[i]].SpecialWave.static.ShouldShrapnel();
 				if (bShouldExplode)
 					return True;
 			}
@@ -2225,7 +2225,7 @@ simulated function InitiateWeapon(KFWeapon KFW)
 		for (i = 0; i <= 1; ++i)
 		{
 			if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
-				MyWMGRI.SpecialWavesList[MyWMGRI.SpecialWaveID[i]].static.InitiateWeapon(KFW, OwnerPawn);
+				MyWMGRI.SpecialWavesList[MyWMGRI.SpecialWaveID[i]].SpecialWave.static.InitiateWeapon(KFW, OwnerPawn);
 		}
 	}
 
@@ -2259,7 +2259,7 @@ simulated function float GetSelfHealingSurgePct()
 		for (i = 0; i <= 1; ++i)
 		{
 			if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
-				MyWMGRI.SpecialWavesList[MyWMGRI.SpecialWaveID[i]].static.GetSelfHealingSurgePct(InHealingPct);
+				MyWMGRI.SpecialWavesList[MyWMGRI.SpecialWaveID[i]].SpecialWave.static.GetSelfHealingSurgePct(InHealingPct);
 		}
 	}
 
@@ -2305,7 +2305,7 @@ simulated event float GetIronSightSpeedModifier(KFWeapon KFW)
 		for (i = 0; i <= 1; ++i)
 		{
 			if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
-				MyWMGRI.SpecialWavesList[MyWMGRI.SpecialWaveID[i]].static.GetIronSightSpeedModifier(InSpeed, DefaultSpeed);
+				MyWMGRI.SpecialWavesList[MyWMGRI.SpecialWaveID[i]].SpecialWave.static.GetIronSightSpeedModifier(InSpeed, DefaultSpeed);
 		}
 	}
 
@@ -2346,7 +2346,7 @@ simulated event float GetCrouchSpeedModifier(KFWeapon KFW)
 		for (i = 0; i <= 1; ++i)
 		{
 			if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
-				MyWMGRI.SpecialWavesList[MyWMGRI.SpecialWaveID[i]].static.GetCrouchSpeedModifier(InSpeed, DefaultSpeed);
+				MyWMGRI.SpecialWavesList[MyWMGRI.SpecialWaveID[i]].SpecialWave.static.GetCrouchSpeedModifier(InSpeed, DefaultSpeed);
 		}
 	}
 
@@ -2377,7 +2377,7 @@ function simulated SetSuccessfullParry()
 		for (i = 0; i <= 1; ++i)
 		{
 			if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
-				MyWMGRI.SpecialWavesList[MyWMGRI.SpecialWaveID[i]].static.SuccessfullParry(OwnerPawn);
+				MyWMGRI.SpecialWavesList[MyWMGRI.SpecialWaveID[i]].SpecialWave.static.SuccessfullParry(OwnerPawn);
 		}
 	}
 }
@@ -2480,7 +2480,7 @@ simulated function bool GetIsUberAmmoActive(KFWeapon KFW)
 		{
 			if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
 			{
-				bUber = MyWMGRI.SpecialWavesList[MyWMGRI.SpecialWaveID[i]].static.GetIsUberAmmoActive(KFW, OwnerPawn);
+				bUber = MyWMGRI.SpecialWavesList[MyWMGRI.SpecialWaveID[i]].SpecialWave.static.GetIsUberAmmoActive(KFW, OwnerPawn);
 				if (bUber)
 					return True;
 			}
@@ -2514,7 +2514,7 @@ function HealingDamage(int HealAmount, KFPawn KFP, class<DamageType> DamageType)
 		for (i = 0; i <= 1; ++i)
 		{
 			if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
-				MyWMGRI.SpecialWavesList[MyWMGRI.SpecialWaveID[i]].static.HealingDamage(HealAmount, KFP, OwnerPawn, DamageType);
+				MyWMGRI.SpecialWavesList[MyWMGRI.SpecialWaveID[i]].SpecialWave.static.HealingDamage(HealAmount, KFP, OwnerPawn, DamageType);
 		}
 	}
 }
@@ -2546,7 +2546,7 @@ simulated function float GetZedTimeModifier(KFWeapon W)
 		for (i = 0; i <= 1; ++i)
 		{
 			if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
-				MyWMGRI.SpecialWavesList[MyWMGRI.SpecialWaveID[i]].static.GetZedTimeModifier(InModifier, W);
+				MyWMGRI.SpecialWavesList[MyWMGRI.SpecialWaveID[i]].SpecialWave.static.GetZedTimeModifier(InModifier, W);
 		}
 	}
 
@@ -2659,7 +2659,7 @@ simulated function float GetCloakDetectionRange()
 		for (i = 0; i <= 1; ++i)
 		{
 			if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
-				MyWMGRI.SpecialWavesList[MyWMGRI.SpecialWaveID[i]].static.ModifyCloakDetectionRange(InRange, DefaultRange);
+				MyWMGRI.SpecialWavesList[MyWMGRI.SpecialWaveID[i]].SpecialWave.static.ModifyCloakDetectionRange(InRange, DefaultRange);
 		}
 	}
 
@@ -2690,7 +2690,7 @@ simulated function ReceiveLocalizedMessage(class<LocalMessage> Message, optional
 		for (i = 0; i <= 1; ++i)
 		{
 			if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
-				MyWMGRI.SpecialWavesList[MyWMGRI.SpecialWaveID[i]].static.ReceiveLocalizedMessage(Message, OwnerPawn, Switch);
+				MyWMGRI.SpecialWavesList[MyWMGRI.SpecialWaveID[i]].SpecialWave.static.ReceiveLocalizedMessage(Message, OwnerPawn, Switch);
 		}
 	}
 }
@@ -3141,7 +3141,7 @@ simulated function DrawSpecialPerkHUD(Canvas C)
 		for (i = 0; i <= 1; ++i)
 		{
 			if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
-				MyWMGRI.SpecialWavesList[MyWMGRI.SpecialWaveID[i]].static.DrawOnHUD(C, OwnerPawn);
+				MyWMGRI.SpecialWavesList[MyWMGRI.SpecialWaveID[i]].SpecialWave.static.DrawOnHUD(C, OwnerPawn);
 		}
 	}
 }
@@ -3528,7 +3528,7 @@ simulated function bool ExtensionFuncBoolean(string Identifier, optional int Inp
 		{
 			if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
 			{
-				bActive = MyWMGRI.SpecialWavesList[MyWMGRI.SpecialWaveID[i]].static.ExtensionFuncBoolean(Identifier, MyKFW, OwnerPawn, InputInt, InputFloat, InputClassName, InputObject1, InputObject2, InputObject3);
+				bActive = MyWMGRI.SpecialWavesList[MyWMGRI.SpecialWaveID[i]].SpecialWave.static.ExtensionFuncBoolean(Identifier, MyKFW, OwnerPawn, InputInt, InputFloat, InputClassName, InputObject1, InputObject2, InputObject3);
 				if (bActive)
 					return True;
 			}
@@ -3575,7 +3575,7 @@ simulated function int ExtensionFuncInteger(int DefaultValueIn, string Identifie
 		for (i = 0; i <= 1; ++i)
 		{
 			if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
-				MyWMGRI.SpecialWavesList[MyWMGRI.SpecialWaveID[i]].static.ExtensionFuncInteger(InValue, DefaultValue, Identifier, MyKFW, OwnerPawn, InputInt, InputFloat, InputClassName, InputObject1, InputObject2, InputObject3);
+				MyWMGRI.SpecialWavesList[MyWMGRI.SpecialWaveID[i]].SpecialWave.static.ExtensionFuncInteger(InValue, DefaultValue, Identifier, MyKFW, OwnerPawn, InputInt, InputFloat, InputClassName, InputObject1, InputObject2, InputObject3);
 		}
 	}
 
@@ -3619,7 +3619,7 @@ simulated function float ExtensionFuncFloat(float DefaultValueIn, string Identif
 		for (i = 0; i <= 1; ++i)
 		{
 			if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
-				MyWMGRI.SpecialWavesList[MyWMGRI.SpecialWaveID[i]].static.ExtensionFuncFloat(InValue, DefaultValue, Identifier, MyKFW, OwnerPawn, InputInt, InputFloat, InputClassName, InputObject1, InputObject2, InputObject3);
+				MyWMGRI.SpecialWavesList[MyWMGRI.SpecialWaveID[i]].SpecialWave.static.ExtensionFuncFloat(InValue, DefaultValue, Identifier, MyKFW, OwnerPawn, InputInt, InputFloat, InputClassName, InputObject1, InputObject2, InputObject3);
 		}
 	}
 

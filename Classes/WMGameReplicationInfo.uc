@@ -49,6 +49,17 @@ struct SkillUpgradeRepStruct
 	}
 };
 
+struct SpecialWaveRepStruct
+{
+	var string SpecialWavePathName;
+	var bool bValid;
+
+	structdefaultproperties
+	{
+		bValid=False
+	}
+};
+
 struct WeaponUpgradeRepStruct
 {
 	var string WeaponPathName;
@@ -67,6 +78,7 @@ var repnotify int NumberOfEquipmentUpgrades;
 var repnotify int NumberOfGrenadeItems;
 var repnotify int NumberOfPerkUpgrades;
 var repnotify int NumberOfSkillUpgrades;
+var repnotify int NumberOfSpecialWaves;
 var repnotify int NumberOfStartingWeapons;
 var repnotify int NumberOfTraderWeapons;
 var repnotify int NumberOfWeaponUpgrades;
@@ -122,7 +134,7 @@ var repnotify GrenadeItemRepStruct GrenadesRepArray[255];
 
 //Replicated Special Waves
 var int SpecialWaveID[2];
-var repnotify string SpecialWavesStr[255];
+var repnotify SpecialWaveRepStruct SpecialWavesRepArray[255];
 
 //Replicated Zed Buffs
 var byte ActiveZedBuffs[255];
@@ -200,6 +212,17 @@ struct SkillUpgradeStruct
 	}
 };
 
+struct SpecialWaveStruct
+{
+	var class<WMSpecialWave> SpecialWave;
+	var bool bDone;
+
+	structdefaultproperties
+	{
+		bDone=False
+	}
+};
+
 struct WeaponUpgradeStruct
 {
 	var class<KFWeapon> KFWeapon;
@@ -228,7 +251,7 @@ var array<GrenadeItemStruct> GrenadesList;
 //Special Waves
 var bool bDrawSpecialWave;
 var byte SpecialWaveIndexToShow;
-var array< class<WMSpecialWave> > SpecialWavesList;
+var array<SpecialWaveStruct> SpecialWavesList;
 
 //Zed Buffs
 var array<KFMusicTrackInfo> ZedBuffMusic;
@@ -249,8 +272,8 @@ replication
 {
 	if (bNetDirty)
 		NumberOfPerkUpgrades, NumberOfTraderWeapons, NumberOfStartingWeapons, NumberOfSkillUpgrades, NumberOfWeaponUpgrades, NumberOfEquipmentUpgrades,
-		NumberOfGrenadeItems, KFWeaponName_A, KFWeaponName_B, KFWeaponDefPath_A, KFWeaponDefPath_B, KFStartingWeaponPath,
-		PerkUpgradesRepArray, SkillUpgradesRepArray, EquipmentUpgradesRepArray, SpecialWavesStr, GrenadesRepArray, ZedBuffsStr,
+		NumberOfGrenadeItems, NumberOfSpecialWaves, KFWeaponName_A, KFWeaponName_B, KFWeaponDefPath_A, KFWeaponDefPath_B, KFStartingWeaponPath,
+		PerkUpgradesRepArray, SkillUpgradesRepArray, EquipmentUpgradesRepArray, SpecialWavesRepArray, GrenadesRepArray, ZedBuffsStr,
 		SpecialWaveID, bNewZedBuff, TraderNewWeaponEachWave, TraderMaxWeaponCount, TraderStaticWeaponCount, ArmorPrice, GrenadePrice, TraderVoiceGroupIndex,
 		bArmorPickup, PerkUpgPrice, PerkUpgMaxLevel, SkillUpgPrice, SkillUpgDeluxePrice, bAllowSkillReroll, RerollCost, RerollMultiplier,
 		RerollSkillSellPercent, WeaponUpgMaxLevel, ActiveZedBuffs, bDeluxeSkillUnlock,
@@ -316,6 +339,11 @@ simulated event ReplicatedEvent(name VarName)
 		case 'NumberOfEquipmentUpgrades':
 			EquipmentUpgradesList.Length = NumberOfEquipmentUpgrades;
 			SyncAllEquipmentUpgrades();
+			break;
+
+		case 'NumberOfSpecialWaves':
+			SpecialWavesList.Length = NumberOfSpecialWaves;
+			SyncAllSpecialWaves();
 			break;
 
 		case 'bArmorPickup':
@@ -428,15 +456,8 @@ simulated event ReplicatedEvent(name VarName)
 			SyncAllEquipmentUpgrades();
 			break;
 
-		case 'SpecialWavesStr':
-			for (i = 0; i < 255; ++i)
-			{
-				if (SpecialWavesStr[i] == "")
-					break; //base case
-
-				if (i == SpecialWavesList.Length || SpecialWavesList[i] == None || PathName(SpecialWavesList[i]) != SpecialWavesStr[i])
-					SpecialWavesList[i] = class<WMSpecialWave>(DynamicLoadObject(SpecialWavesStr[i], class'Class'));
-			}
+		case 'SpecialWavesRepArray':
+			SyncAllSpecialWaves();
 			break;
 
 		case 'GrenadesRepArray':
@@ -656,6 +677,26 @@ simulated function SyncAllGrenadeItems()
 		{
 			GrenadesList[i].Grenade = class<KFWeaponDefinition>(DynamicLoadObject(GrenadesRepArray[i].GrenadePathName, class'Class'));
 			GrenadesList[i].bDone = True;
+		}
+	}
+}
+
+simulated function SyncAllSpecialWaves()
+{
+	local int i;
+
+	if (SpecialWavesList.Length == 0)
+		return; //Not yet initialized
+
+	for (i = 0; i < 255; ++i)
+	{
+		if (!SpecialWavesRepArray[i].bValid)
+			break; //base case
+
+		if (!SpecialWavesList[i].bDone)
+		{
+			SpecialWavesList[i].SpecialWave = class<WMSpecialWave>(DynamicLoadObject(SpecialWavesRepArray[i].SpecialWavePathName, class'Class'));
+			SpecialWavesList[i].bDone = True;
 		}
 	}
 }
@@ -905,7 +946,8 @@ simulated function ShowSpecialWaveMessage()
 		KFP.CheckAndEndActiveEMoteSpecialMove();
 		if (SpecialWaveID[SpecialWaveIndexToShow] != INDEX_NONE)
 		{
-			KFPC.MyGFxHUD.ShowBossNameplate(SpecialWavesList[SpecialWaveID[SpecialWaveIndexToShow]].default.Title,SpecialWavesList[SpecialWaveID[SpecialWaveIndexToShow]].default.Description);
+			KFPC.MyGFxHUD.ShowBossNameplate(SpecialWavesList[SpecialWaveID[SpecialWaveIndexToShow]].SpecialWave.default.Title,
+				SpecialWavesList[SpecialWaveID[SpecialWaveIndexToShow]].SpecialWave.default.Description);
 			SetTimer(1.25f, False, NameOf(PlaySpecialWaveSound));
 		}
 	}
@@ -1039,8 +1081,9 @@ defaultproperties
 	NumberOfEquipmentUpgrades=INDEX_NONE
 	NumberOfGrenadeItems=INDEX_NONE
 	NumberOfPerkUpgrades=INDEX_NONE
-	NumberOfStartingWeapons=INDEX_NONE
 	NumberOfSkillUpgrades=INDEX_NONE
+	NumberOfSpecialWaves=INDEX_NONE
+	NumberOfStartingWeapons=INDEX_NONE
 	NumberOfTraderWeapons=INDEX_NONE
 	NumberOfWeaponUpgrades=INDEX_NONE
 

@@ -41,9 +41,9 @@ event DrawHUD()
 
 		//draw warning
 		if (WMGRI.SpecialWaveID[1] == INDEX_NONE)
-			spwTitle = WMGRI.SpecialWavesList[WMGRI.SpecialWaveID[0]].default.Title;
+			spwTitle = WMGRI.SpecialWavesList[WMGRI.SpecialWaveID[0]].SpecialWave.default.Title;
 		else
-			spwTitle = WMGRI.SpecialWavesList[WMGRI.SpecialWaveID[0]].default.Title $ " + " $ WMGRI.SpecialWavesList[WMGRI.SpecialWaveID[1]].default.Title;
+			spwTitle = WMGRI.SpecialWavesList[WMGRI.SpecialWaveID[0]].SpecialWave.default.Title $ " + " $ WMGRI.SpecialWavesList[WMGRI.SpecialWaveID[1]].SpecialWave.default.Title;
 
 		Canvas.StrLen(spwTitle, XL, YL);
 		XL *= size;

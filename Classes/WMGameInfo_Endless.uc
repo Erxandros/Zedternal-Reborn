@@ -1008,9 +1008,9 @@ function SetSpecialWaveActor()
 	local WMPlayerController WMPC;
 
 	if (WMGameReplicationInfo(MyKFGRI).SpecialWaveID[0] != INDEX_NONE)
-		Spawn(WMGameReplicationInfo(MyKFGRI).SpecialWavesList[WMGameReplicationInfo(MyKFGRI).SpecialWaveID[0]]);
+		Spawn(WMGameReplicationInfo(MyKFGRI).SpecialWavesList[WMGameReplicationInfo(MyKFGRI).SpecialWaveID[0]].SpecialWave);
 	if (WMGameReplicationInfo(MyKFGRI).SpecialWaveID[1] != INDEX_NONE)
-		Spawn(WMGameReplicationInfo(MyKFGRI).SpecialWavesList[WMGameReplicationInfo(MyKFGRI).SpecialWaveID[1]]);
+		Spawn(WMGameReplicationInfo(MyKFGRI).SpecialWavesList[WMGameReplicationInfo(MyKFGRI).SpecialWaveID[1]].SpecialWave);
 
 	foreach DynamicActors(class'WMPlayerController', WMPC)
 	{
@@ -1659,6 +1659,7 @@ function RepGameInfoHighPriority()
 	WMGRI.NumberOfWeaponUpgrades = Min(`MAXWEAPONUPGRADES, WeaponUpgradeArch.Length);
 	WMGRI.NumberOfEquipmentUpgrades = Min(255, ConfigData.ValidEquipmentUpgrades.Length);
 	WMGRI.NumberOfGrenadeItems = Min(255, ConfigData.GrenadeWeaponDefObjects.Length);
+	WMGRI.NumberOfSpecialWaves = Min(255, SpecialWaveList.Length);
 
 	//Pre-initialize the array size for the sever/standalone
 	WMGRI.PerkUpgradesList.Length = WMGRI.NumberOfPerkUpgrades;
@@ -1666,6 +1667,7 @@ function RepGameInfoHighPriority()
 	WMGRI.WeaponUpgradesList.Length = WMGRI.NumberOfWeaponUpgrades;
 	WMGRI.EquipmentUpgradesList.Length = WMGRI.NumberOfEquipmentUpgrades;
 	WMGRI.GrenadesList.Length = WMGRI.NumberOfGrenadeItems;
+	WMGRI.SpecialWavesList.Length = WMGRI.NumberOfSpecialWaves;
 
 	//Get deluxe skill unlocks for perk level purchases
 	for (i = 0; i < class'ZedternalReborn.Config_SkillUpgradeOptions'.default.SkillUpgrade_DeluxeSkillUnlock.PerkLevels.Length; ++i)
@@ -1723,8 +1725,11 @@ function RepGameInfoNormalPriority()
 	//Special Waves
 	for (b = 0; b < Min(255, SpecialWaveList.Length); ++b)
 	{
-		WMGRI.SpecialWavesStr[b] = PathName(SpecialWaveList[b]);
-		WMGRI.SpecialWavesList[b] = SpecialWaveList[b];
+		WMGRI.SpecialWavesRepArray[b].SpecialWavePathName = PathName(SpecialWaveList[b]);
+		WMGRI.SpecialWavesRepArray[b].bValid = True;
+
+		WMGRI.SpecialWavesList[b].SpecialWave = SpecialWaveList[b];
+		WMGRI.SpecialWavesList[b].bDone = True;
 	}
 
 	SetTimer(3.0f, False, NameOf(RepGameInfoLowPriority));
@@ -1968,7 +1973,7 @@ function float GetAdjustedAIDoshValue(class<KFPawn_Monster> MonsterClass)
 	for (i = 0; i <= 1; ++i)
 	{
 		if (WMGameReplicationInfo(MyKFGRI).SpecialWaveID[i] != INDEX_NONE)
-			TempValue *= WMGameReplicationInfo(MyKFGRI).SpecialWavesList[WMGameReplicationInfo(MyKFGRI).SpecialWaveID[i]].default.doshFactor;
+			TempValue *= WMGameReplicationInfo(MyKFGRI).SpecialWavesList[WMGameReplicationInfo(MyKFGRI).SpecialWaveID[i]].SpecialWave.default.doshFactor;
 	}
 
 	if (MonsterClass.default.bLargeZed)
