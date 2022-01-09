@@ -137,7 +137,7 @@ event DrawHUD()
 	{
 		size = 0.55f;
 
-		buffTitle = WMGRI.ZedBuffsList[zedBuffIndex - 1].default.buffDescription;
+		buffTitle = WMGRI.ZedBuffsList[zedBuffIndex - 1].ZedBuff.default.buffDescription;
 		Canvas.StrLen(buffTitle, XL, YL);
 		XL *= size;
 		YL *= size;
@@ -173,7 +173,7 @@ event DrawHUD()
 	{
 		if (WMGRI.ActiveZedBuffs[i] > 0)
 		{
-			buffIcon = WMGRI.ZedBuffsList[i].default.buffIcon;
+			buffIcon = WMGRI.ZedBuffsList[i].ZedBuff.default.buffIcon;
 			iconFactor = 0.0474072f * Canvas.SizeX / buffIcon.SizeX;
 
 			//draw icon

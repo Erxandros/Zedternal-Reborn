@@ -73,6 +73,17 @@ struct WeaponUpgradeRepStruct
 	}
 };
 
+struct ZedBuffRepStruct
+{
+	var string ZedBuffPathName;
+	var bool bValid;
+
+	structdefaultproperties
+	{
+		bValid=False
+	}
+};
+
 //Optimization for replicated data (data array size)
 var repnotify int NumberOfEquipmentUpgrades;
 var repnotify int NumberOfGrenadeItems;
@@ -82,6 +93,7 @@ var repnotify int NumberOfSpecialWaves;
 var repnotify int NumberOfStartingWeapons;
 var repnotify int NumberOfTraderWeapons;
 var repnotify int NumberOfWeaponUpgrades;
+var repnotify int NumberOfZedBuffs;
 
 //Replicated Weapons
 var repnotify string KFStartingWeaponPath[255];
@@ -139,7 +151,7 @@ var repnotify SpecialWaveRepStruct SpecialWavesRepArray[255];
 //Replicated Zed Buffs
 var byte ActiveZedBuffs[255];
 var repnotify bool bNewZedBuff;
-var repnotify string ZedBuffsStr[255];
+var repnotify ZedBuffRepStruct ZedBuffsRepArray[255];
 
 //Replicated Trader Values
 var repnotify int ArmorPrice;
@@ -236,6 +248,17 @@ struct WeaponUpgradeStruct
 	}
 };
 
+struct ZedBuffStruct
+{
+	var class<WMZedBuff> ZedBuff;
+	var bool bDone;
+
+	structdefaultproperties
+	{
+		bDone=False
+	}
+};
+
 //Starting Weapons
 var array< class<KFWeapon> > KFStartingWeaponList;
 
@@ -256,7 +279,7 @@ var array<SpecialWaveStruct> SpecialWavesList;
 //Zed Buffs
 var array<KFMusicTrackInfo> ZedBuffMusic;
 var byte ZedBuffNextMusicTrackIndex;
-var array< class<WMZedBuff> > ZedBuffsList;
+var array<ZedBuffStruct> ZedBuffsList;
 
 //Trader
 var array< class<KFTraderVoiceGroupBase> > TraderVoiceGroupClasses;
@@ -272,8 +295,8 @@ replication
 {
 	if (bNetDirty)
 		NumberOfPerkUpgrades, NumberOfTraderWeapons, NumberOfStartingWeapons, NumberOfSkillUpgrades, NumberOfWeaponUpgrades, NumberOfEquipmentUpgrades,
-		NumberOfGrenadeItems, NumberOfSpecialWaves, KFWeaponName_A, KFWeaponName_B, KFWeaponDefPath_A, KFWeaponDefPath_B, KFStartingWeaponPath,
-		PerkUpgradesRepArray, SkillUpgradesRepArray, EquipmentUpgradesRepArray, SpecialWavesRepArray, GrenadesRepArray, ZedBuffsStr,
+		NumberOfGrenadeItems, NumberOfSpecialWaves, NumberOfZedBuffs, KFWeaponName_A, KFWeaponName_B, KFWeaponDefPath_A, KFWeaponDefPath_B, KFStartingWeaponPath,
+		PerkUpgradesRepArray, SkillUpgradesRepArray, EquipmentUpgradesRepArray, SpecialWavesRepArray, GrenadesRepArray, ZedBuffsRepArray,
 		SpecialWaveID, bNewZedBuff, TraderNewWeaponEachWave, TraderMaxWeaponCount, TraderStaticWeaponCount, ArmorPrice, GrenadePrice, TraderVoiceGroupIndex,
 		bArmorPickup, PerkUpgPrice, PerkUpgMaxLevel, SkillUpgPrice, SkillUpgDeluxePrice, bAllowSkillReroll, RerollCost, RerollMultiplier,
 		RerollSkillSellPercent, WeaponUpgMaxLevel, ActiveZedBuffs, bDeluxeSkillUnlock,
@@ -344,6 +367,11 @@ simulated event ReplicatedEvent(name VarName)
 		case 'NumberOfSpecialWaves':
 			SpecialWavesList.Length = NumberOfSpecialWaves;
 			SyncAllSpecialWaves();
+			break;
+
+		case 'NumberOfZedBuffs':
+			ZedBuffsList.Length = NumberOfZedBuffs;
+			SyncAllZedBuffs();
 			break;
 
 		case 'bArmorPickup':
@@ -464,15 +492,8 @@ simulated event ReplicatedEvent(name VarName)
 			SyncAllGrenadeItems();
 			break;
 
-		case 'ZedBuffsStr':
-			for (i = 0; i < 255; ++i)
-			{
-				if (ZedBuffsStr[i] == "")
-					break; //base case
-
-				if (i == ZedBuffsList.Length || ZedBuffsList[i] == None || PathName(ZedBuffsList[i]) != ZedBuffsStr[i])
-					ZedBuffsList[i] = class<WMZedBuff>(DynamicLoadObject(ZedBuffsStr[i], class'Class'));
-			}
+		case 'ZedBuffsRepArray':
+			SyncAllZedBuffs();
 			break;
 
 		case 'bNewZedBuff':
@@ -697,6 +718,26 @@ simulated function SyncAllSpecialWaves()
 		{
 			SpecialWavesList[i].SpecialWave = class<WMSpecialWave>(DynamicLoadObject(SpecialWavesRepArray[i].SpecialWavePathName, class'Class'));
 			SpecialWavesList[i].bDone = True;
+		}
+	}
+}
+
+simulated function SyncAllZedBuffs()
+{
+	local int i;
+
+	if (ZedBuffsList.Length == 0)
+		return; //Not yet initialized
+
+	for (i = 0; i < 255; ++i)
+	{
+		if (!ZedBuffsRepArray[i].bValid)
+			break; //base case
+
+		if (!ZedBuffsList[i].bDone)
+		{
+			ZedBuffsList[i].ZedBuff = class<WMZedBuff>(DynamicLoadObject(ZedBuffsRepArray[i].ZedBuffPathName, class'Class'));
+			ZedBuffsList[i].bDone = True;
 		}
 	}
 }
@@ -1086,6 +1127,7 @@ defaultproperties
 	NumberOfStartingWeapons=INDEX_NONE
 	NumberOfTraderWeapons=INDEX_NONE
 	NumberOfWeaponUpgrades=INDEX_NONE
+	NumberOfZedBuffs=INDEX_NONE
 
 	SpecialWaveID(0)=INDEX_NONE
 	SpecialWaveID(1)=INDEX_NONE

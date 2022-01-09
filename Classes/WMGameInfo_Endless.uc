@@ -720,7 +720,7 @@ function ApplyRandomZedBuff(int Wave, bool bRewardPlayer, int Count)
 				i = Rand(BuffIndex.Length);
 
 				// spawn zedbuff object in world
-				Spawn(WMGRI.ZedBuffsList[BuffIndex[i]]);
+				Spawn(WMGRI.ZedBuffsList[BuffIndex[i]].ZedBuff);
 
 				++WMGRI.ActiveZedBuffs[BuffIndex[i]];
 				ZedBuffSettings[ActivateIndex[i]].bActivated = True;
@@ -1660,6 +1660,7 @@ function RepGameInfoHighPriority()
 	WMGRI.NumberOfEquipmentUpgrades = Min(255, ConfigData.ValidEquipmentUpgrades.Length);
 	WMGRI.NumberOfGrenadeItems = Min(255, ConfigData.GrenadeWeaponDefObjects.Length);
 	WMGRI.NumberOfSpecialWaves = Min(255, SpecialWaveList.Length);
+	WMGRI.NumberOfZedBuffs = Min(255, ConfigData.ZedBuffObjects.Length);
 
 	//Pre-initialize the array size for the sever/standalone
 	WMGRI.PerkUpgradesList.Length = WMGRI.NumberOfPerkUpgrades;
@@ -1668,6 +1669,7 @@ function RepGameInfoHighPriority()
 	WMGRI.EquipmentUpgradesList.Length = WMGRI.NumberOfEquipmentUpgrades;
 	WMGRI.GrenadesList.Length = WMGRI.NumberOfGrenadeItems;
 	WMGRI.SpecialWavesList.Length = WMGRI.NumberOfSpecialWaves;
+	WMGRI.ZedBuffsList.Length = WMGRI.NumberOfZedBuffs;
 
 	//Get deluxe skill unlocks for perk level purchases
 	for (i = 0; i < class'ZedternalReborn.Config_SkillUpgradeOptions'.default.SkillUpgrade_DeluxeSkillUnlock.PerkLevels.Length; ++i)
@@ -1718,8 +1720,11 @@ function RepGameInfoNormalPriority()
 	//ZedBuff
 	for (b = 0; b < Min(255, ConfigData.ZedBuffObjects.Length); ++b)
 	{
-		WMGRI.ZedBuffsStr[b] = PathName(ConfigData.ZedBuffObjects[b]);
-		WMGRI.ZedBuffsList[b] = ConfigData.ZedBuffObjects[b];
+		WMGRI.ZedBuffsRepArray[b].ZedBuffPathName = PathName(ConfigData.ZedBuffObjects[b]);
+		WMGRI.ZedBuffsRepArray[b].bValid = True;
+
+		WMGRI.ZedBuffsList[b].ZedBuff = ConfigData.ZedBuffObjects[b];
+		WMGRI.ZedBuffsList[b].bDone = True;
 	}
 
 	//Special Waves
@@ -2025,7 +2030,7 @@ function Killed(Controller Killer, Controller KilledPlayer, Pawn KilledPawn, cla
 		{
 			for (x = 0; x < WMGRI.ActiveZedBuffs[i]; ++x)
 			{
-				WMGRI.ZedBuffsList[i].static.KilledPawn(KilledPawn);
+				WMGRI.ZedBuffsList[i].ZedBuff.static.KilledPawn(KilledPawn);
 			}
 		}
 	}
