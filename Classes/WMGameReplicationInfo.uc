@@ -15,6 +15,17 @@ struct EquipmentUpgradeRepStruct
 	}
 };
 
+struct GrenadeItemRepStruct
+{
+	var string GrenadePathName;
+	var bool bValid;
+
+	structdefaultproperties
+	{
+		bValid=False
+	}
+};
+
 struct PerkUpgradeRepStruct
 {
 	var string PerkPathName;
@@ -53,6 +64,7 @@ struct WeaponUpgradeRepStruct
 
 //Optimization for replicated data (data array size)
 var repnotify int NumberOfEquipmentUpgrades;
+var repnotify int NumberOfGrenadeItems;
 var repnotify int NumberOfPerkUpgrades;
 var repnotify int NumberOfSkillUpgrades;
 var repnotify int NumberOfStartingWeapons;
@@ -106,7 +118,7 @@ var repnotify WeaponUpgradeRepStruct WeaponUpgradeRepArray_16[255];
 var repnotify EquipmentUpgradeRepStruct EquipmentUpgradesRepArray[255];
 
 //Replicated Grenades
-var repnotify string GrenadesStr[255];
+var repnotify GrenadeItemRepStruct GrenadesRepArray[255];
 
 //Replicated Special Waves
 var int SpecialWaveID[2];
@@ -146,6 +158,17 @@ struct EquipmentUpgradeStruct
 	var int BasePrice;
 	var int MaxPrice;
 	var byte MaxLevel;
+	var bool bDone;
+
+	structdefaultproperties
+	{
+		bDone=False
+	}
+};
+
+struct GrenadeItemStruct
+{
+	var class<KFWeaponDefinition> Grenade;
 	var bool bDone;
 
 	structdefaultproperties
@@ -200,7 +223,7 @@ var array<SkillUpgradeStruct> SkillUpgradesList;
 var array<WeaponUpgradeStruct> WeaponUpgradesList;
 
 //Grenades
-var array< class<KFWeaponDefinition> > GrenadesList;
+var array<GrenadeItemStruct> GrenadesList;
 
 //Special Waves
 var bool bDrawSpecialWave;
@@ -226,8 +249,8 @@ replication
 {
 	if (bNetDirty)
 		NumberOfPerkUpgrades, NumberOfTraderWeapons, NumberOfStartingWeapons, NumberOfSkillUpgrades, NumberOfWeaponUpgrades, NumberOfEquipmentUpgrades,
-		KFWeaponName_A, KFWeaponName_B, KFWeaponDefPath_A, KFWeaponDefPath_B, KFStartingWeaponPath,
-		PerkUpgradesRepArray, SkillUpgradesRepArray, EquipmentUpgradesRepArray, SpecialWavesStr, GrenadesStr, ZedBuffsStr,
+		NumberOfGrenadeItems, KFWeaponName_A, KFWeaponName_B, KFWeaponDefPath_A, KFWeaponDefPath_B, KFStartingWeaponPath,
+		PerkUpgradesRepArray, SkillUpgradesRepArray, EquipmentUpgradesRepArray, SpecialWavesStr, GrenadesRepArray, ZedBuffsStr,
 		SpecialWaveID, bNewZedBuff, TraderNewWeaponEachWave, TraderMaxWeaponCount, TraderStaticWeaponCount, ArmorPrice, GrenadePrice, TraderVoiceGroupIndex,
 		bArmorPickup, PerkUpgPrice, PerkUpgMaxLevel, SkillUpgPrice, SkillUpgDeluxePrice, bAllowSkillReroll, RerollCost, RerollMultiplier,
 		RerollSkillSellPercent, WeaponUpgMaxLevel, ActiveZedBuffs, bDeluxeSkillUnlock,
@@ -268,6 +291,11 @@ simulated event ReplicatedEvent(name VarName)
 
 		case 'NumberOfStartingWeapons':
 			SetWeaponPickupList();
+			break;
+
+		case 'NumberOfGrenadeItems':
+			GrenadesList.Length = NumberOfGrenadeItems;
+			SyncAllGrenadeItems();
 			break;
 
 		case 'NumberOfPerkUpgrades':
@@ -411,15 +439,8 @@ simulated event ReplicatedEvent(name VarName)
 			}
 			break;
 
-		case 'GrenadesStr':
-			for (i = 0; i < 255; ++i)
-			{
-				if (GrenadesStr[i] == "")
-					break; //base case
-
-				if (i == GrenadesList.Length || GrenadesList[i] == None || PathName(GrenadesList[i]) != GrenadesStr[i])
-					GrenadesList[i] = class<KFWeaponDefinition>(DynamicLoadObject(GrenadesStr[i], class'Class'));
-			}
+		case 'GrenadesRepArray':
+			SyncAllGrenadeItems();
 			break;
 
 		case 'ZedBuffsStr':
@@ -615,6 +636,26 @@ simulated function SyncWeaponTraderItems(const out string KFWeaponDefPath[255], 
 		{
 			TraderItems.SaleItems[i + indexOffset].WeaponDef = class<KFWeaponDefinition>(DynamicLoadObject(KFWeaponDefPath[i], class'Class'));
 			TraderItems.SaleItems[i + indexOffset].ItemID = i + indexOffset;
+		}
+	}
+}
+
+simulated function SyncAllGrenadeItems()
+{
+	local int i;
+
+	if (GrenadesList.Length == 0)
+		return; //Not yet initialized
+
+	for (i = 0; i < 255; ++i)
+	{
+		if (!GrenadesRepArray[i].bValid)
+			break; //base case
+
+		if (!GrenadesList[i].bDone)
+		{
+			GrenadesList[i].Grenade = class<KFWeaponDefinition>(DynamicLoadObject(GrenadesRepArray[i].GrenadePathName, class'Class'));
+			GrenadesList[i].bDone = True;
 		}
 	}
 }
@@ -996,6 +1037,7 @@ defaultproperties
 	ZedBuffNextMusicTrackIndex=0
 
 	NumberOfEquipmentUpgrades=INDEX_NONE
+	NumberOfGrenadeItems=INDEX_NONE
 	NumberOfPerkUpgrades=INDEX_NONE
 	NumberOfStartingWeapons=INDEX_NONE
 	NumberOfSkillUpgrades=INDEX_NONE

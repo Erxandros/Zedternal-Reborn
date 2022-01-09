@@ -1658,12 +1658,14 @@ function RepGameInfoHighPriority()
 	WMGRI.NumberOfSkillUpgrades = Min(255, ConfigData.ValidSkillUpgrades.Length);
 	WMGRI.NumberOfWeaponUpgrades = Min(`MAXWEAPONUPGRADES, WeaponUpgradeArch.Length);
 	WMGRI.NumberOfEquipmentUpgrades = Min(255, ConfigData.ValidEquipmentUpgrades.Length);
+	WMGRI.NumberOfGrenadeItems = Min(255, ConfigData.GrenadeWeaponDefObjects.Length);
 
 	//Pre-initialize the array size for the sever/standalone
 	WMGRI.PerkUpgradesList.Length = WMGRI.NumberOfPerkUpgrades;
 	WMGRI.SkillUpgradesList.Length = WMGRI.NumberOfSkillUpgrades;
 	WMGRI.WeaponUpgradesList.Length = WMGRI.NumberOfWeaponUpgrades;
 	WMGRI.EquipmentUpgradesList.Length = WMGRI.NumberOfEquipmentUpgrades;
+	WMGRI.GrenadesList.Length = WMGRI.NumberOfGrenadeItems;
 
 	//Get deluxe skill unlocks for perk level purchases
 	for (i = 0; i < class'ZedternalReborn.Config_SkillUpgradeOptions'.default.SkillUpgrade_DeluxeSkillUnlock.PerkLevels.Length; ++i)
@@ -1695,8 +1697,11 @@ function RepGameInfoNormalPriority()
 	//Grenades
 	for (b = 0; b < Min(255, ConfigData.GrenadeWeaponDefObjects.Length); ++b)
 	{
-		WMGRI.GrenadesStr[b] = PathName(ConfigData.GrenadeWeaponDefObjects[b]);
-		WMGRI.GrenadesList[b] = ConfigData.GrenadeWeaponDefObjects[b];
+		WMGRI.GrenadesRepArray[b].GrenadePathName = PathName(ConfigData.GrenadeWeaponDefObjects[b]);
+		WMGRI.GrenadesRepArray[b].bValid = True;
+
+		WMGRI.GrenadesList[b].Grenade = ConfigData.GrenadeWeaponDefObjects[b];
+		WMGRI.GrenadesList[b].bDone = True;
 	}
 
 	//Armor pickup enable

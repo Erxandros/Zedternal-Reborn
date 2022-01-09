@@ -450,21 +450,21 @@ function Callback_InventoryFilter(int FilterIndex)
 	{
 		for (i = 0; i < WMGRI.GrenadesList.length; ++i)
 		{
-			if (WMGRI.GrenadesList[i] != None)
+			if (WMGRI.GrenadesList[i].Grenade != None)
 			{
 				ItemObject = CreateObject("Object");
 				ItemObject.SetInt("count", 1);
-				ItemObject.SetString("label", WMGRI.GrenadesList[i].static.GetItemName());
+				ItemObject.SetString("label", WMGRI.GrenadesList[i].Grenade.static.GetItemName());
 				ItemObject.SetString("description", "");
-				ItemObject.SetString("iconURLSmall", "img://" $ WMGRI.GrenadesList[i].static.GetImagePath());
-				ItemObject.SetString("iconURLLarge", "img://" $ WMGRI.GrenadesList[i].static.GetImagePath());
+				ItemObject.SetString("iconURLSmall", "img://" $ WMGRI.GrenadesList[i].Grenade.static.GetImagePath());
+				ItemObject.SetString("iconURLLarge", "img://" $ WMGRI.GrenadesList[i].Grenade.static.GetImagePath());
 				ItemObject.SetString("price", "");
 				ItemObject.Setstring("typeRarity", "");
 				ItemObject.SetBool("exchangeable", False);
 				ItemObject.SetBool("recyclable", False);
 				ItemObject.SetInt("definition", j);
 				ItemObject.SetInt("type" ,0);
-				if (WMPC.CurrentPerk.GrenadeWeaponDef == WMGRI.GrenadesList[i])
+				if (WMPC.CurrentPerk.GrenadeWeaponDef == WMGRI.GrenadesList[i].Grenade)
 				{
 					ItemObject.SetBool("active", True);
 					ItemObject.SetInt("type", 1);
