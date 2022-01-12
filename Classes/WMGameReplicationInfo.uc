@@ -60,6 +60,17 @@ struct SpecialWaveRepStruct
 	}
 };
 
+struct WeaponRepStruct
+{
+	var string WeaponPathName;
+	var bool bValid;
+
+	structdefaultproperties
+	{
+		bValid=False
+	}
+};
+
 struct WeaponUpgradeRepStruct
 {
 	var string WeaponPathName;
@@ -96,7 +107,7 @@ var repnotify int NumberOfWeaponUpgrades;
 var repnotify int NumberOfZedBuffs;
 
 //Replicated Weapons
-var repnotify string KFStartingWeaponPath[255];
+var repnotify WeaponRepStruct KFStartingWeaponRepArray[255];
 var repnotify string KFWeaponDefPath_A[255];
 var repnotify string KFWeaponDefPath_B[255];
 var name KFWeaponName_A[255];
@@ -235,6 +246,17 @@ struct SpecialWaveStruct
 	}
 };
 
+struct WeaponStruct
+{
+	var class<KFWeapon> KFWeapon;
+	var bool bDone;
+
+	structdefaultproperties
+	{
+		bDone=False
+	}
+};
+
 struct WeaponUpgradeStruct
 {
 	var class<KFWeapon> KFWeapon;
@@ -260,7 +282,7 @@ struct ZedBuffStruct
 };
 
 //Starting Weapons
-var array< class<KFWeapon> > KFStartingWeaponList;
+var array<WeaponStruct> KFStartingWeaponList;
 
 //Upgrades
 var array<EquipmentUpgradeStruct> EquipmentUpgradesList;
@@ -295,7 +317,7 @@ replication
 {
 	if (bNetDirty)
 		NumberOfPerkUpgrades, NumberOfTraderWeapons, NumberOfStartingWeapons, NumberOfSkillUpgrades, NumberOfWeaponUpgrades, NumberOfEquipmentUpgrades,
-		NumberOfGrenadeItems, NumberOfSpecialWaves, NumberOfZedBuffs, KFWeaponName_A, KFWeaponName_B, KFWeaponDefPath_A, KFWeaponDefPath_B, KFStartingWeaponPath,
+		NumberOfGrenadeItems, NumberOfSpecialWaves, NumberOfZedBuffs, KFWeaponName_A, KFWeaponName_B, KFWeaponDefPath_A, KFWeaponDefPath_B, KFStartingWeaponRepArray,
 		PerkUpgradesRepArray, SkillUpgradesRepArray, EquipmentUpgradesRepArray, SpecialWavesRepArray, GrenadesRepArray, ZedBuffsRepArray,
 		SpecialWaveID, bNewZedBuff, TraderNewWeaponEachWave, TraderMaxWeaponCount, TraderStaticWeaponCount, ArmorPrice, GrenadePrice, TraderVoiceGroupIndex,
 		bArmorPickup, PerkUpgPrice, PerkUpgMaxLevel, SkillUpgPrice, SkillUpgDeluxePrice, bAllowSkillReroll, RerollCost, RerollMultiplier,
@@ -309,8 +331,6 @@ replication
 
 simulated event ReplicatedEvent(name VarName)
 {
-	local int i;
-
 	switch (VarName)
 	{
 		case 'WaveNum':
@@ -336,6 +356,8 @@ simulated event ReplicatedEvent(name VarName)
 			break;
 
 		case 'NumberOfStartingWeapons':
+			KFStartingWeaponList.Length = NumberOfStartingWeapons;
+			SyncAllStartingWeapons();
 			SetWeaponPickupList();
 			break;
 
@@ -396,15 +418,8 @@ simulated event ReplicatedEvent(name VarName)
 			CheckAndSetTraderItems();
 			break;
 
-		case 'KFStartingWeaponPath':
-			for (i = 0; i < 255; ++i)
-			{
-				if (KFStartingWeaponPath[i] == "")
-					break; //base case
-
-				if (i == KFStartingWeaponList.Length || KFStartingWeaponList[i] == None || PathName(KFStartingWeaponList[i]) != KFStartingWeaponPath[i])
-					KFStartingWeaponList[i] = class<KFWeapon>(DynamicLoadObject(KFStartingWeaponPath[i], class'Class'));
-			}
+		case 'KFStartingWeaponRepArray':
+			SyncAllStartingWeapons();
 			SetWeaponPickupList();
 			break;
 
@@ -570,6 +585,26 @@ simulated function SyncAllWeaponUpgrades()
 	SyncWeaponUpgrades(WeaponUpgradeRepArray_14, 13);
 	SyncWeaponUpgrades(WeaponUpgradeRepArray_15, 14);
 	SyncWeaponUpgrades(WeaponUpgradeRepArray_16, 15);
+}
+
+simulated function SyncAllStartingWeapons()
+{
+	local int i;
+
+	if (KFStartingWeaponList.Length == 0)
+		return; //Not yet initialized
+
+	for (i = 0; i < 255; ++i)
+	{
+		if (!KFStartingWeaponRepArray[i].bValid)
+			break; //base case
+
+		if (!KFStartingWeaponList[i].bDone)
+		{
+			KFStartingWeaponList[i].KFWeapon = class<KFWeapon>(DynamicLoadObject(KFStartingWeaponRepArray[i].WeaponPathName, class'Class'));
+			KFStartingWeaponList[i].bDone = True;
+		}
+	}
 }
 
 simulated function SyncWeaponUpgrades(const out WeaponUpgradeRepStruct weaponUpgradeRepArray[255], int indexMultiplier)
@@ -783,12 +818,9 @@ simulated function SetWeaponPickupList()
 	if (bArmorPickup == 0)
 		return; //Not yet replicated
 
-	if (KFStartingWeaponList.Length != NumberOfStartingWeapons)
-		return; //Replication not done yet
-
 	for (i = 0; i < NumberOfStartingWeapons; ++i)
 	{
-		if (KFStartingWeaponList[i] == None)
+		if (KFStartingWeaponList[i].bDone == False)
 			return;
 	}
 
@@ -808,7 +840,7 @@ simulated function SetWeaponPickupList()
 	//Add starting weapons
 	for (i = 0; i < KFStartingWeaponList.length; ++i)
 	{
-		startingWeaponClass = KFStartingWeaponList[i];
+		startingWeaponClass = KFStartingWeaponList[i].KFWeapon;
 
 		//Test for dual weapon
 		startingWeaponClassDual = class<KFWeap_DualBase>(startingWeaponClass);

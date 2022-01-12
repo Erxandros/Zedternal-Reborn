@@ -1714,7 +1714,8 @@ function RepGameInfoNormalPriority()
 	//Starting/itempickup Weapon
 	for (b = 0; b < Min(255, StartingWeaponPath.Length); ++b)
 	{
-		WMGRI.KFStartingWeaponPath[b] = StartingWeaponPath[b];
+		WMGRI.KFStartingWeaponRepArray[b].WeaponPathName = StartingWeaponPath[b];
+		WMGRI.KFStartingWeaponRepArray[b].bValid = True;
 	}
 
 	//ZedBuff
