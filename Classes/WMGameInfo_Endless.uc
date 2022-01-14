@@ -208,6 +208,9 @@ event PreLogin(string Options, string Address, const UniqueNetId UniqueId, bool 
 	{
 		AccessControl.PreLogin(Options, Address, UniqueId, bSupportsAuth, ErrorMessage, bSpectator);
 	}
+
+	if (WMGameReplicationInfo(MyKFGRI) != None)
+		WMGameReplicationInfo(MyKFGRI).SetSyncTrigger();
 }
 
 event PostLogin(PlayerController NewPlayer)
