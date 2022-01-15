@@ -350,13 +350,24 @@ var private Texture2D MenuLinker;
 replication
 {
 	if (bNetDirty)
-		SyncTrigger, NumberOfPerkUpgrades, NumberOfTraderWeapons, NumberOfStartingWeapons, NumberOfSkillUpgrades, NumberOfWeaponUpgrades, NumberOfEquipmentUpgrades,
-		NumberOfWeaponUpgradeSlots, NumberOfGrenadeItems, NumberOfSpecialWaves, NumberOfZedBuffs, KFWeaponName_A, KFWeaponName_B, KFWeaponDefPath_A, KFWeaponDefPath_B, KFStartingWeaponRepArray,
-		PerkUpgradesRepArray, SkillUpgradesRepArray, EquipmentUpgradesRepArray, SpecialWavesRepArray, GrenadesRepArray, ZedBuffsRepArray,
-		SpecialWaveID, bNewZedBuff, TraderNewWeaponEachWave, TraderMaxWeaponCount, TraderStaticWeaponCount, ArmorPrice, GrenadePrice, TraderVoiceGroupIndex,
-		bArmorPickup, PerkUpgPrice, PerkUpgMaxLevel, SkillUpgPrice, SkillUpgDeluxePrice, bAllowSkillReroll, RerollCost, RerollMultiplier,
-		RerollSkillSellPercent, WeaponUpgMaxLevel, ActiveZedBuffs, bDeluxeSkillUnlock, WeaponUpgRandSeed, WeaponUpgNumberUpgradePerWeapon,
-		WeaponUpgPriceMultiplier, WeaponUpgPriceUnit, bAllTraders, UpdateSkinsTrigger, bRepairDoorTrigger, bZRUMenuCommand, bZRUMenuAllWave, WeaponUpgradesRepArray;
+		SyncTrigger,
+		NumberOfEquipmentUpgrades, NumberOfGrenadeItems, NumberOfPerkUpgrades,
+		NumberOfSkillUpgrades, NumberOfSpecialWaves, NumberOfStartingWeapons,
+		NumberOfTraderWeapons, NumberOfWeaponUpgrades, NumberOfWeaponUpgradeSlots,
+		NumberOfZedBuffs, KFStartingWeaponRepArray, KFWeaponDefPath_A,
+		KFWeaponDefPath_B, KFWeaponName_A, KFWeaponName_B,
+		PerkUpgMaxLevel, PerkUpgPrice, PerkUpgradesRepArray,
+		bDeluxeSkillUnlock, SkillUpgDeluxePrice, SkillUpgPrice,
+		SkillUpgradesRepArray, bAllowSkillReroll, RerollCost,
+		RerollMultiplier, RerollSkillSellPercent, WeaponUpgMaxLevel,
+		WeaponUpgNumberUpgradePerWeapon, WeaponUpgPriceMultiplier, WeaponUpgPriceUnit,
+		WeaponUpgradesRepArray, WeaponUpgRandSeed, EquipmentUpgradesRepArray,
+		GrenadesRepArray, SpecialWaveID, SpecialWavesRepArray,
+		ActiveZedBuffs, bNewZedBuff, ZedBuffsRepArray,
+		ArmorPrice, GrenadePrice, TraderMaxWeaponCount,
+		TraderNewWeaponEachWave, TraderStaticWeaponCount, TraderVoiceGroupIndex,
+		bAllTraders, bArmorPickup, bRepairDoorTrigger,
+		UpdateSkinsTrigger, bZRUMenuAllWave, bZRUMenuCommand;
 }
 
 simulated event ReplicatedEvent(name VarName)
