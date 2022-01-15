@@ -169,7 +169,7 @@ var byte bArmorPickup;
 var repnotify bool bRepairDoorTrigger;
 
 //Weapon Skins
-var repnotify bool UpdateSkins;
+var repnotify bool UpdateSkinsTrigger;
 
 //For Zedternal Reborn Upgrade Menu commands
 var bool bZRUMenuAllWave;
@@ -356,7 +356,7 @@ replication
 		SpecialWaveID, bNewZedBuff, TraderNewWeaponEachWave, TraderMaxWeaponCount, TraderStaticWeaponCount, ArmorPrice, GrenadePrice, TraderVoiceGroupIndex,
 		bArmorPickup, PerkUpgPrice, PerkUpgMaxLevel, SkillUpgPrice, SkillUpgDeluxePrice, bAllowSkillReroll, RerollCost, RerollMultiplier,
 		RerollSkillSellPercent, WeaponUpgMaxLevel, ActiveZedBuffs, bDeluxeSkillUnlock, WeaponUpgRandSeed, WeaponUpgNumberUpgradePerWeapon,
-		WeaponUpgPriceMultiplier, WeaponUpgPriceUnit, bAllTraders, UpdateSkins, bRepairDoorTrigger, bZRUMenuCommand, bZRUMenuAllWave, WeaponUpgradesRepArray;
+		WeaponUpgPriceMultiplier, WeaponUpgPriceUnit, bAllTraders, UpdateSkinsTrigger, bRepairDoorTrigger, bZRUMenuCommand, bZRUMenuAllWave, WeaponUpgradesRepArray;
 }
 
 simulated event ReplicatedEvent(name VarName)
@@ -395,12 +395,9 @@ simulated event ReplicatedEvent(name VarName)
 				SetAllTradersTimer();
 			break;
 
-		case 'UpdateSkins':
-			if (UpdateSkins)
-			{
-				class'ZedternalReborn.WMCustomWeapon_Helper'.static.UpdateSkinsClient(KFWeaponDefPath_A);
-				class'ZedternalReborn.WMCustomWeapon_Helper'.static.UpdateSkinsClient(KFWeaponDefPath_B);
-			}
+		case 'UpdateSkinsTrigger':
+			class'ZedternalReborn.WMCustomWeapon_Helper'.static.UpdateSkinsClient(KFWeaponDefPath_A);
+			class'ZedternalReborn.WMCustomWeapon_Helper'.static.UpdateSkinsClient(KFWeaponDefPath_B);
 			break;
 
 		case 'bRepairDoorTrigger':

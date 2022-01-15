@@ -282,7 +282,7 @@ function StartMatch()
 		WMGRI = WMGameReplicationInfo(MyKFGRI);
 		if (WMGRI != None)
 		{
-			WMGRI.UpdateSkins = True;
+			WMGRI.UpdateSkinsTrigger = !WMGRI.UpdateSkinsTrigger;
 		}
 	}
 	else
