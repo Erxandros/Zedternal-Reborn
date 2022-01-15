@@ -531,6 +531,43 @@ simulated function GenerateDataFromSyncData()
 	}
 }
 
+simulated function SyncWeaponTraderItems(const out string KFWeaponDefPath[255], int indexMultiplier)
+{
+	local int i, indexOffset;
+
+	if (NumberOfTraderWeapons == INDEX_NONE)
+		return;
+
+	if (TraderItems == None || TraderItems.SaleItems.Length == 0)
+	{
+		TraderItems = new class'WMGFxObject_TraderItems';
+		TraderItems.SaleItems.Length = NumberOfTraderWeapons;
+	}
+
+	if (NumberOfTraderWeapons > 0)
+	{
+		indexOffset = 255 * indexMultiplier;
+
+		for (i = 0; i < 255; ++i)
+		{
+			if (KFWeaponDefPath[i] == "")
+				break; //base case
+
+			if (TraderItems.SaleItems[i + indexOffset].ItemID == INDEX_NONE)
+			{
+				TraderItems.SaleItems[i + indexOffset].WeaponDef = class<KFWeaponDefinition>(DynamicLoadObject(KFWeaponDefPath[i], class'Class'));
+				TraderItems.SaleItems[i + indexOffset].ItemID = i + indexOffset;
+			}
+		}
+	}
+
+	if (indexMultiplier == 0 && (i == NumberOfTraderWeapons || i == 255))
+		bTraderWeaponsSynced_A = True;
+
+	if (indexMultiplier == 1 && ((i + indexOffset) == NumberOfTraderWeapons || 255 >= NumberOfTraderWeapons))
+		bTraderWeaponsSynced_B = True;
+}
+
 simulated function SyncAllStartingWeapons()
 {
 	local int i;
@@ -679,43 +716,6 @@ simulated function SyncAllEquipmentUpgrades()
 
 	if (i == NumberOfEquipmentUpgrades)
 		bEquipmentUpgradesSynced = True;
-}
-
-simulated function SyncWeaponTraderItems(const out string KFWeaponDefPath[255], int indexMultiplier)
-{
-	local int i, indexOffset;
-
-	if (NumberOfTraderWeapons == INDEX_NONE)
-		return;
-
-	if (TraderItems == None || TraderItems.SaleItems.Length == 0)
-	{
-		TraderItems = new class'WMGFxObject_TraderItems';
-		TraderItems.SaleItems.Length = NumberOfTraderWeapons;
-	}
-
-	if (NumberOfTraderWeapons > 0)
-	{
-		indexOffset = 255 * indexMultiplier;
-
-		for (i = 0; i < 255; ++i)
-		{
-			if (KFWeaponDefPath[i] == "")
-				break; //base case
-
-			if (TraderItems.SaleItems[i + indexOffset].ItemID == INDEX_NONE)
-			{
-				TraderItems.SaleItems[i + indexOffset].WeaponDef = class<KFWeaponDefinition>(DynamicLoadObject(KFWeaponDefPath[i], class'Class'));
-				TraderItems.SaleItems[i + indexOffset].ItemID = i + indexOffset;
-			}
-		}
-	}
-
-	if (indexMultiplier == 0 && (i == NumberOfTraderWeapons || i == 255))
-		bTraderWeaponsSynced_A = True;
-
-	if (indexMultiplier == 1 && ((i + indexOffset) == NumberOfTraderWeapons || 255 >= NumberOfTraderWeapons))
-		bTraderWeaponsSynced_B = True;
 }
 
 simulated function SyncAllGrenadeItems()
@@ -887,13 +887,13 @@ simulated function GenerateWeaponUpgrades()
 	local array< class<WMUpgrade_Weapon> > AllowedUpgrades, StaticUpgrades;
 
 	if (NumberOfWeaponUpgradeSlots == INDEX_NONE)
-		return;
+		return; //Not yet replicated
 
 	if (WeaponUpgNumberUpgradePerWeapon == -1 || WeaponUpgPriceMultiplier == -1.0f || WeaponUpgPriceUnit == -1)
-		return;
+		return; //Not yet replicated
 
 	if (Len(WeaponUpgRandSeed) == 0)
-		return;
+		return; //Not yet replicated
 
 	UpgCounter = 0;
 	WeaponUpgRandPosition = 0;
