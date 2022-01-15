@@ -184,7 +184,9 @@ var repnotify bool SyncTrigger;
 var byte SyncCounter;
 
 //Sync Flags
+var bool bAllDataGenerated;
 var bool bAllDataSynced;
+var bool bCompletedSync;
 
 var bool bEquipmentUpgradesSynced;
 var bool bGrenadeItemsSynced;
@@ -375,8 +377,15 @@ simulated event ReplicatedEvent(name VarName)
 	switch (VarName)
 	{
 		case 'SyncTrigger':
-			if (!bAllDataSynced)
-				ProcessAllSyncData();
+			if (!bCompletedSync)
+			{
+				if (!bAllDataSynced)
+					ProcessAllSyncData();
+				else if (!bAllDataGenerated)
+					GenerateDataFromSyncData();
+				else
+					bCompletedSync = True;
+			}
 			break;
 
 		case 'WaveNum':
@@ -491,17 +500,35 @@ simulated function ProcessAllSyncData()
 	if (!bZedBuffsSynced)
 		SyncAllZedBuffs();
 
+	if (bTraderWeaponsSynced_A && bTraderWeaponsSynced_B && bStartingWeaponsSynced
+		&& bPerkUpgradesSynced && bSkillUpgradesSynced && bWeaponUpgradesSynced
+		&& bEquipmentUpgradesSynced && bGrenadeItemsSynced && bSpecialWavesSynced
+		&& bZedBuffsSynced)
+	{
+		bAllDataSynced = True;
+		`log("ZR Info: All base data received from server for game replication");
+	}
+}
+
+simulated function GenerateDataFromSyncData()
+{
 	//Set Trader Items
-	if (bTraderWeaponsSynced_A && bTraderWeaponsSynced_B && !bSetTraderWeaponList)
+	if (!bSetTraderWeaponList)
 		CheckAndSetTraderItems();
 
 	//Set Map Pickups
-	if (bStartingWeaponsSynced && !bSetWeaponPickupList)
+	if (!bSetWeaponPickupList)
 		SetWeaponPickupList();
 
 	//Generate Weapon Upgrade Slots
-	if (!bSetWeaponUpgradeSlotsList && bSetTraderWeaponList && bWeaponUpgradesSynced)
+	if (!bSetWeaponUpgradeSlotsList && bSetTraderWeaponList)
 		GenerateWeaponUpgrades();
+
+	if (bSetTraderWeaponList && bSetWeaponPickupList && bSetWeaponUpgradeSlotsList)
+	{
+		bAllDataGenerated = True;
+		`log("ZR Info: All needed data generated from replicated data");
+	}
 }
 
 simulated function SyncAllStartingWeapons()
