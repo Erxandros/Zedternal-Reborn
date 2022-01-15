@@ -416,8 +416,7 @@ simulated event ReplicatedEvent(name VarName)
 			break;
 
 		case 'UpdateSkinsTrigger':
-			class'ZedternalReborn.WMCustomWeapon_Helper'.static.UpdateSkinsClient(KFWeaponDefPath_A);
-			class'ZedternalReborn.WMCustomWeapon_Helper'.static.UpdateSkinsClient(KFWeaponDefPath_B);
+			UpdateSkins();
 			break;
 
 		case 'bRepairDoorTrigger':
@@ -1085,6 +1084,17 @@ simulated function ForceNewMusicZedBuff()
 	// cycle tracks
 	if (ZedBuffNextMusicTrackIndex >= default.ZedBuffMusic.length)
 		ZedBuffNextMusicTrackIndex = 0;
+}
+
+simulated function UpdateSkins()
+{
+	if (bTraderWeaponsSynced_A && bTraderWeaponsSynced_B)
+	{
+		class'ZedternalReborn.WMCustomWeapon_Helper'.static.UpdateSkinsClient(KFWeaponDefPath_A);
+		class'ZedternalReborn.WMCustomWeapon_Helper'.static.UpdateSkinsClient(KFWeaponDefPath_B);
+	}
+	else
+		SetTimer(0.5f, False, NameOf(UpdateSkins));
 }
 
 simulated function RepairDoor()
