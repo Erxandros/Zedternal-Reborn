@@ -1246,6 +1246,7 @@ defaultproperties
 	GrenadePrice=-1
 	LobbyCurrentPage=1
 	LobbyMaxPage=1
+	TraderVoiceGroupIndex=255
 	WeaponUpgNumberUpgradePerWeapon=-1
 	WeaponUpgPriceMultiplier=-1.0f
 	WeaponUpgPriceUnit=-1
