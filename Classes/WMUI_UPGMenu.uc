@@ -317,9 +317,9 @@ function Callback_InventoryFilter(int FilterIndex)
 	}
 	else if (FilterIndex == 2) //Weapon Upgrades
 	{
-		for (i = 0; i < WMGRI.WeaponUpgradesList.Length; ++i)
+		for (i = 0; i < WMGRI.WeaponUpgradeSlotsList.Length; ++i)
 		{
-			if (isWeaponInInventory(WMGRI.WeaponUpgradesList[i].KFWeapon))
+			if (isWeaponInInventory(WMGRI.WeaponUpgradeSlotsList[i].KFWeapon))
 			{
 				lvl = WMPRI.GetWeaponUpgrade(i);
 
@@ -337,14 +337,14 @@ function Callback_InventoryFilter(int FilterIndex)
 					if (bPurchased)
 						--lvl;
 					ItemObject = CreateObject("Object");
-					ItemObject.SetInt("count", WMGRI.WeaponUpgradesList[i].BasePrice * (lvl + 1));
+					ItemObject.SetInt("count", WMGRI.WeaponUpgradeSlotsList[i].BasePrice * (lvl + 1));
 
 					if (maxLevel > 1)
 					{
 						if (bPurchased)
-							ItemObject.SetString("label", WMGRI.WeaponUpgradesList[i].KFWeaponUpgrade.default.upgradeName $ " (" $ maxLevel $ "/" $ maxLevel $ ")");
+							ItemObject.SetString("label", WMGRI.WeaponUpgradeSlotsList[i].WeaponUpgrade.default.upgradeName $ " (" $ maxLevel $ "/" $ maxLevel $ ")");
 						else
-							ItemObject.SetString("label", WMGRI.WeaponUpgradesList[i].KFWeaponUpgrade.default.upgradeName $ " (" $ lvl $ "/" $ maxLevel $ ")");
+							ItemObject.SetString("label", WMGRI.WeaponUpgradeSlotsList[i].WeaponUpgrade.default.upgradeName $ " (" $ lvl $ "/" $ maxLevel $ ")");
 					}
 
 					ItemObject.SetString("price", "");
@@ -360,14 +360,14 @@ function Callback_InventoryFilter(int FilterIndex)
 					}
 					else
 					{
-						if (WMPRI.Score < WMGRI.WeaponUpgradesList[i].BasePrice * (lvl + 1))
+						if (WMPRI.Score < WMGRI.WeaponUpgradeSlotsList[i].BasePrice * (lvl + 1))
 							ItemObject.SetInt("type", 1);
 						else
 							ItemObject.SetInt("type", 0);
 						ItemObject.SetBool("active", False);
 					}
-					S = "img://"$PathName(WMGRI.WeaponUpgradesList[i].KFWeapon.default.WeaponSelectTexture);
-					ItemObject.SetString("description", repl(WMGRI.WeaponUpgradesList[i].KFWeaponUpgrade.default.upgradeDescription[0], "%x%", WMGRI.WeaponUpgradesList[i].KFWeaponUpgrade.static.GetBonusValue(lvl + 1)));
+					S = "img://"$PathName(WMGRI.WeaponUpgradeSlotsList[i].KFWeapon.default.WeaponSelectTexture);
+					ItemObject.SetString("description", repl(WMGRI.WeaponUpgradeSlotsList[i].WeaponUpgrade.default.upgradeDescription[0], "%x%", WMGRI.WeaponUpgradeSlotsList[i].WeaponUpgrade.static.GetBonusValue(lvl + 1)));
 					ItemObject.SetString("iconURLSmall", S);
 					ItemObject.SetString("iconURLLarge", S);
 					ItemArray.SetElementObject(j, ItemObject);
@@ -809,7 +809,7 @@ function CallBack_ItemDetailsClicked(int ItemDefinition)
 	{
 		Index = weaponUPGIndex[Index];
 		lvl = WMPRI.GetWeaponUpgrade(Index);
-		EquipButton.SetString("label", ""$WMGRI.WeaponUpgradesList[Index].BasePrice * (lvl + 1)$Chr(163));
+		EquipButton.SetString("label", ""$WMGRI.WeaponUpgradeSlotsList[Index].BasePrice * (lvl + 1)$Chr(163));
 	}
 	else if (CurrentFilterIndex == 3) //Equipment Upgrades
 	{
@@ -895,7 +895,7 @@ function Callback_Equip(int ItemDefinition)
 	{
 		Index = weaponUPGIndex[Index];
 		lvl = WMPRI.GetWeaponUpgrade(Index);
-		UPGPrice = WMGRI.WeaponUpgradesList[Index].BasePrice * (lvl + 1);
+		UPGPrice = WMGRI.WeaponUpgradeSlotsList[Index].BasePrice * (lvl + 1);
 
 		if (WMPRI.Score >= UPGPrice)
 		{

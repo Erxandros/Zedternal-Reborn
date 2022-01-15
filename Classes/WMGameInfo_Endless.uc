@@ -36,14 +36,6 @@ struct S_Weapon_Data
 	var bool bOverride;
 };
 
-struct S_Weapon_Upgrade
-{
-	var class<KFWeapon> KFWeapon;
-	var class<WMUpgrade_Weapon> KFWeaponUpgrade;
-	var int Price;
-};
-var array<S_Weapon_Upgrade> WeaponUpgradeArch;
-
 //Special Waves
 var int LastSpecialWaveID_First, LastSpecialWaveID_Second;
 var array< class<WMSpecialWave> > SpecialWaveList;
@@ -72,6 +64,9 @@ struct S_Zed_Buff
 };
 var array<S_Zed_Buff> ZedBuffSettings;
 
+//Weapon Upgrade Random Seed
+var string WeaponUpgRandSeed;
+var int WeaponUpgRandPosition;
 
 event InitGame(string Options, out string ErrorMessage)
 {
@@ -1056,7 +1051,8 @@ function BuildWeaponList()
 	// Create weapon list //
 	////////////////////////
 
-	WeaponUpgradeArch.Length = 0;
+	WeaponUpgRandSeed = class'ZedternalReborn.WMRandom'.static.GenerateSeed();
+	WeaponUpgRandPosition = 0;
 
 	//Add static and starting weapons
 	for (i = 0; i < Begin; ++i)
@@ -1520,33 +1516,27 @@ function RegisterWeapons(const out array<S_Weapon_Data> CombinedWeaponList, out 
 
 function AddWeaponInTrader(const class<KFWeaponDefinition> KFWD)
 {
-	local string str;
-	local int i, choice;
-	local class<WMUpgrade_Weapon> WMUW;
+	local int i, Choice;
 	local class<KFWeapon> KFW;
 	local array< class<WMUpgrade_Weapon> > AllowedUpgrades, StaticUpgrades;
 	local WMGameReplicationInfo WMGRI;
-	local S_Weapon_Upgrade WepUpg;
 
 	// Add this weapon in KFWeaponName (will be replicated)
-	str = KFWD.default.WeaponClassPath;
-	KFWeaponName.AddItem(name(Right(str, Len(str) - InStr(str, ".") - 1)));
+	KFWeaponName.AddItem(name(GetItemName(KFWD.default.WeaponClassPath)));
 
-	// select weapon upgrades
+	// Select weapon upgrades
 	WMGRI = WMGameReplicationInfo(MyKFGRI);
 	KFW = class<KFWeapon>(DynamicLoadObject(KFWD.default.WeaponClassPath, class'Class'));
 	if (WMGRI != None && KFW != None)
 	{
-		AllowedUpgrades.Length = 0;
-		for (i = 0; i < ConfigData.ValidWeaponUpgrades.Length; ++i)
+		for (i = 0; i < Min(255, ConfigData.ValidWeaponUpgrades.Length); ++i)
 		{
-			WMUW = ConfigData.WeaponUpgObjects[i];
-			if (WMUW != None && WMUW.static.IsUpgradeCompatible(KFW))
+			if (ConfigData.WeaponUpgObjects[i].static.IsUpgradeCompatible(KFW))
 			{
 				if (ConfigData.ValidWeaponUpgrades[i].bIsStatic)
-					StaticUpgrades.AddItem(WMUW);
+					StaticUpgrades.AddItem(ConfigData.WeaponUpgObjects[i]);
 				else
-					AllowedUpgrades.AddItem(WMUW);
+					AllowedUpgrades.AddItem(ConfigData.WeaponUpgObjects[i]);
 			}
 		}
 
@@ -1554,41 +1544,30 @@ function AddWeaponInTrader(const class<KFWeaponDefinition> KFWD)
 		{
 			if (StaticUpgrades.Length > 0)
 			{
-				WepUpg.KFWeapon = KFW;
-				WepUpg.KFWeaponUpgrade = StaticUpgrades[0];
-				WepUpg.Price = GetWeaponUpgradePrice(KFWD);
-
-				WeaponUpgradeArch.AddItem(WepUpg);
+				WMGRI.AddWeaponUpgrade(KFW, StaticUpgrades[0], GetWeaponUpgradePrice(KFW, KFWD.default.BuyPrice));
 				StaticUpgrades.Remove(0, 1);
 			}
 			else if (AllowedUpgrades.Length > 0)
 			{
-				choice = Rand(AllowedUpgrades.Length);
-
-				WepUpg.KFWeapon = KFW;
-				WepUpg.KFWeaponUpgrade = AllowedUpgrades[Choice];
-				WepUpg.Price = GetWeaponUpgradePrice(KFWD);
-
-				// add upgrade info into the list
-				WeaponUpgradeArch.AddItem(WepUpg);
-				AllowedUpgrades.Remove(choice, 1);
+				Choice = class'ZedternalReborn.WMRandom'.static.SeedRandom(WeaponUpgRandSeed, WeaponUpgRandPosition, AllowedUpgrades.Length);
+				WMGRI.AddWeaponUpgrade(KFW, AllowedUpgrades[Choice], GetWeaponUpgradePrice(KFW, KFWD.default.BuyPrice));
+				AllowedUpgrades.Remove(Choice, 1);
+				++WeaponUpgRandPosition;
 			}
 		}
 	}
 }
 
-function int GetWeaponUpgradePrice(const out class<KFWeaponDefinition> KFWD)
+function int GetWeaponUpgradePrice(const out class<KFWeapon> KFW, int BuyPrice)
 {
-	local class<KFWeapon> KFW;
-	local int unit;
+	local int Unit;
 
-	KFW = class<KFWeapon>(DynamicLoadObject(KFWD.default.WeaponClassPath, class'Class'));
-	unit = class'ZedternalReborn.Config_WeaponUpgradeOptions'.default.WeaponUpgrade_PriceUnit;
+	Unit = class'ZedternalReborn.Config_WeaponUpgradeOptions'.default.WeaponUpgrade_PriceUnit;
 
 	if (KFW.default.DualClass != None) // is a dual weapons
-		return Max(unit, Round(float(KFWD.default.BuyPrice) * 2 * class'ZedternalReborn.Config_WeaponUpgradeOptions'.default.WeaponUpgrade_PriceMultiplier / float(unit)) * unit);
+		return Max(Unit, Round(float(BuyPrice) * 2 * class'ZedternalReborn.Config_WeaponUpgradeOptions'.default.WeaponUpgrade_PriceMultiplier / float(Unit)) * Unit);
 	else
-		return Max(unit, Round(float(KFWD.default.BuyPrice) * class'ZedternalReborn.Config_WeaponUpgradeOptions'.default.WeaponUpgrade_PriceMultiplier / float(unit)) * unit);
+		return Max(Unit, Round(float(BuyPrice) * class'ZedternalReborn.Config_WeaponUpgradeOptions'.default.WeaponUpgrade_PriceMultiplier / float(Unit)) * Unit);
 }
 
 function SetTraderItemsAndPrintWeaponList()
@@ -1659,7 +1638,8 @@ function RepGameInfoHighPriority()
 	WMGRI.NumberOfPerkUpgrades = Min(255, ConfigData.ValidPerkUpgrades.Length);
 	WMGRI.NumberOfStartingWeapons = Min(255, StartingWeaponPath.Length);
 	WMGRI.NumberOfSkillUpgrades = Min(255, ConfigData.ValidSkillUpgrades.Length);
-	WMGRI.NumberOfWeaponUpgrades = Min(`MAXWEAPONUPGRADES, WeaponUpgradeArch.Length);
+	WMGRI.NumberOfWeaponUpgrades = Min(255, ConfigData.ValidWeaponUpgrades.Length);
+	WMGRI.NumberOfWeaponUpgradeSlots = Min(`MAXWEAPONUPGRADES, WMGRI.WeaponUpgradeSlotsList.Length);
 	WMGRI.NumberOfEquipmentUpgrades = Min(255, ConfigData.ValidEquipmentUpgrades.Length);
 	WMGRI.NumberOfGrenadeItems = Min(255, ConfigData.GrenadeWeaponDefObjects.Length);
 	WMGRI.NumberOfSpecialWaves = Min(255, SpecialWaveList.Length);
@@ -1669,6 +1649,7 @@ function RepGameInfoHighPriority()
 	WMGRI.PerkUpgradesList.Length = WMGRI.NumberOfPerkUpgrades;
 	WMGRI.SkillUpgradesList.Length = WMGRI.NumberOfSkillUpgrades;
 	WMGRI.WeaponUpgradesList.Length = WMGRI.NumberOfWeaponUpgrades;
+	WMGRI.WeaponUpgradeSlotsList.Length = WMGRI.NumberOfWeaponUpgradeSlots;
 	WMGRI.EquipmentUpgradesList.Length = WMGRI.NumberOfEquipmentUpgrades;
 	WMGRI.GrenadesList.Length = WMGRI.NumberOfGrenadeItems;
 	WMGRI.SpecialWavesList.Length = WMGRI.NumberOfSpecialWaves;
@@ -1782,32 +1763,17 @@ function RepGameInfoLowPriority()
 		WMGRI.PerkUpgradesList[b].bDone = True;
 	}
 
-	//Weapon Upgrades for the local standalone/server
-	for (i = 0; i < Min(`MAXWEAPONUPGRADES, WeaponUpgradeArch.Length); ++i)
-	{
-		WMGRI.WeaponUpgradesList[i].KFWeapon = WeaponUpgradeArch[i].KFWeapon;
-		WMGRI.WeaponUpgradesList[i].KFWeaponUpgrade = WeaponUpgradeArch[i].KFWeaponUpgrade;
-		WMGRI.WeaponUpgradesList[i].BasePrice = WeaponUpgradeArch[i].Price;
-		WMGRI.WeaponUpgradesList[i].bDone = True;
-	}
-
 	//Weapon Upgrades
-	WMGRI.RepGameInfoWeaponUpgrades(WMGRI.WeaponUpgradeRepArray_1, 0);
-	WMGRI.RepGameInfoWeaponUpgrades(WMGRI.WeaponUpgradeRepArray_2, 1);
-	WMGRI.RepGameInfoWeaponUpgrades(WMGRI.WeaponUpgradeRepArray_3, 2);
-	WMGRI.RepGameInfoWeaponUpgrades(WMGRI.WeaponUpgradeRepArray_4, 3);
-	WMGRI.RepGameInfoWeaponUpgrades(WMGRI.WeaponUpgradeRepArray_5, 4);
-	WMGRI.RepGameInfoWeaponUpgrades(WMGRI.WeaponUpgradeRepArray_6, 5);
-	WMGRI.RepGameInfoWeaponUpgrades(WMGRI.WeaponUpgradeRepArray_7, 6);
-	WMGRI.RepGameInfoWeaponUpgrades(WMGRI.WeaponUpgradeRepArray_8, 7);
-	WMGRI.RepGameInfoWeaponUpgrades(WMGRI.WeaponUpgradeRepArray_9, 8);
-	WMGRI.RepGameInfoWeaponUpgrades(WMGRI.WeaponUpgradeRepArray_10, 9);
-	WMGRI.RepGameInfoWeaponUpgrades(WMGRI.WeaponUpgradeRepArray_11, 10);
-	WMGRI.RepGameInfoWeaponUpgrades(WMGRI.WeaponUpgradeRepArray_12, 11);
-	WMGRI.RepGameInfoWeaponUpgrades(WMGRI.WeaponUpgradeRepArray_13, 12);
-	WMGRI.RepGameInfoWeaponUpgrades(WMGRI.WeaponUpgradeRepArray_14, 13);
-	WMGRI.RepGameInfoWeaponUpgrades(WMGRI.WeaponUpgradeRepArray_15, 14);
-	WMGRI.RepGameInfoWeaponUpgrades(WMGRI.WeaponUpgradeRepArray_16, 15);
+	for (b = 0; b < Min(255, ConfigData.ValidWeaponUpgrades.Length); ++b)
+	{
+		WMGRI.WeaponUpgradesRepArray[b].WeaponUpgPathName = ConfigData.ValidWeaponUpgrades[b].WeaponPath;
+		WMGRI.WeaponUpgradesRepArray[b].bIsStatic = ConfigData.ValidWeaponUpgrades[b].bIsStatic;
+		WMGRI.WeaponUpgradesRepArray[b].bValid = True;
+
+		WMGRI.WeaponUpgradesList[b].WeaponUpgrade = ConfigData.WeaponUpgObjects[b];
+		WMGRI.WeaponUpgradesList[b].bIsStatic = ConfigData.ValidWeaponUpgrades[b].bIsStatic;
+		WMGRI.WeaponUpgradesList[b].bDone = True;
+	}
 
 	//Skill Upgrades
 	for (b = 0; b < Min(255, ConfigData.ValidSkillUpgrades.Length); ++b)
@@ -1854,12 +1820,17 @@ function RepGameInfoLowPriority()
 		WMGRI.PerkUpgPrice[b] = class'ZedternalReborn.Config_PerkUpgradeOptions'.default.PerkUpgrade_Price[b];
 	}
 
-	WMGRI.SkillUpgPrice = class'ZedternalReborn.Config_SkillUpgradeOptions'.default.SkillUpgrade_Price;
 	WMGRI.SkillUpgDeluxePrice = class'ZedternalReborn.Config_SkillUpgradeOptions'.default.SkillUpgrade_DeluxePrice;
-	WMGRI.WeaponUpgMaxLevel = class'ZedternalReborn.Config_WeaponUpgradeOptions'.default.WeaponUpgrade_MaxLevel;
+	WMGRI.SkillUpgPrice = class'ZedternalReborn.Config_SkillUpgradeOptions'.default.SkillUpgrade_Price;
 
-	WMGRI.bZRUMenuCommand = class'ZedternalReborn.Config_GameOptions'.static.GetAllowUpgradeCommand(GameDifficultyZedternal);
+	WMGRI.WeaponUpgMaxLevel = class'ZedternalReborn.Config_WeaponUpgradeOptions'.default.WeaponUpgrade_MaxLevel;
+	WMGRI.WeaponUpgNumberUpgradePerWeapon = class'ZedternalReborn.Config_WeaponUpgradeOptions'.default.WeaponUpgrade_NumberUpgradePerWeapon;
+	WMGRI.WeaponUpgPriceMultiplier = class'ZedternalReborn.Config_WeaponUpgradeOptions'.default.WeaponUpgrade_PriceMultiplier;
+	WMGRI.WeaponUpgPriceUnit = class'ZedternalReborn.Config_WeaponUpgradeOptions'.default.WeaponUpgrade_PriceUnit;
+	WMGRI.WeaponUpgRandSeed = WeaponUpgRandSeed;
+
 	WMGRI.bZRUMenuAllWave = class'ZedternalReborn.Config_GameOptions'.static.GetAllowUpgradeCommandAllWave(GameDifficultyZedternal);
+	WMGRI.bZRUMenuCommand = class'ZedternalReborn.Config_GameOptions'.static.GetAllowUpgradeCommand(GameDifficultyZedternal);
 
 	SetTimer(3.0f, False, NameOf(FreeConfigDataMemory));
 }

@@ -583,8 +583,8 @@ function ModifyDamageGiven(out int InDamage, optional Actor DamageCauser, option
 		for (i = 0; i < MyWMPRI.Purchase_WeaponUpgrade.length; ++i)
 		{
 			index = MyWMPRI.Purchase_WeaponUpgrade[i];
-			if (isValidWeapon(MyWMGRI.WeaponUpgradesList[index].KFWeapon, MyKFW))
-				MyWMGRI.WeaponUpgradesList[index].KFWeaponUpgrade.static.ModifyDamageGiven(InDamage, DefaultDamage, MyWMPRI.GetWeaponUpgrade(index), DamageCauser, MyKFPM, DamageInstigator, DamageType, HitZoneIdx, MyKFW);
+			if (isValidWeapon(MyWMGRI.WeaponUpgradeSlotsList[index].KFWeapon, MyKFW))
+				MyWMGRI.WeaponUpgradeSlotsList[index].WeaponUpgrade.static.ModifyDamageGiven(InDamage, DefaultDamage, MyWMPRI.GetWeaponUpgrade(index), DamageCauser, MyKFPM, DamageInstigator, DamageType, HitZoneIdx, MyKFW);
 		}
 		for (i = 0; i < MyWMPRI.Purchase_SkillUpgrade.length; ++i)
 		{
@@ -631,8 +631,8 @@ function ModifyHardAttackDamage(out int InDamage)
 		for (i = 0; i < MyWMPRI.Purchase_WeaponUpgrade.length; ++i)
 		{
 			index = MyWMPRI.Purchase_WeaponUpgrade[i];
-			if (isValidWeapon(MyWMGRI.WeaponUpgradesList[index].KFWeapon, MyKFW))
-				MyWMGRI.WeaponUpgradesList[index].KFWeaponUpgrade.static.ModifyHardAttackDamage(InDamage, DefaultDamage, MyWMPRI.GetWeaponUpgrade(index), OwnerPawn);
+			if (isValidWeapon(MyWMGRI.WeaponUpgradeSlotsList[index].KFWeapon, MyKFW))
+				MyWMGRI.WeaponUpgradeSlotsList[index].WeaponUpgrade.static.ModifyHardAttackDamage(InDamage, DefaultDamage, MyWMPRI.GetWeaponUpgrade(index), OwnerPawn);
 		}
 		for (i = 0; i < MyWMPRI.Purchase_SkillUpgrade.length; ++i)
 		{
@@ -709,8 +709,8 @@ function ModifyDamageTaken(out int InDamage, optional class<DamageType> DamageTy
 		for (i = 0; i < MyWMPRI.Purchase_WeaponUpgrade.length; ++i)
 		{
 			index = MyWMPRI.Purchase_WeaponUpgrade[i];
-			if (isValidWeapon(MyWMGRI.WeaponUpgradesList[index].KFWeapon, MyKFW))
-				MyWMGRI.WeaponUpgradesList[index].KFWeaponUpgrade.static.ModifyDamageTaken(InDamage, DefaultDamage, MyWMPRI.GetWeaponUpgrade(index), OwnerPawn, DamageType, InstigatedBy, MyKFW);
+			if (isValidWeapon(MyWMGRI.WeaponUpgradeSlotsList[index].KFWeapon, MyKFW))
+				MyWMGRI.WeaponUpgradeSlotsList[index].WeaponUpgrade.static.ModifyDamageTaken(InDamage, DefaultDamage, MyWMPRI.GetWeaponUpgrade(index), OwnerPawn, DamageType, InstigatedBy, MyKFW);
 		}
 		for (i = 0; i < MyWMPRI.Purchase_SkillUpgrade.length; ++i)
 		{
@@ -826,8 +826,8 @@ simulated function ModifyMeleeAttackSpeed(out float InDuration, KFWeapon KFW)
 		for (i = 0; i < MyWMPRI.Purchase_WeaponUpgrade.length; ++i)
 		{
 			index = MyWMPRI.Purchase_WeaponUpgrade[i];
-			if (isValidWeapon(MyWMGRI.WeaponUpgradesList[index].KFWeapon, KFW))
-				MyWMGRI.WeaponUpgradesList[index].KFWeaponUpgrade.static.ModifyMeleeAttackSpeed(InDuration, DefaultDuration, MyWMPRI.GetWeaponUpgrade(index), KFW);
+			if (isValidWeapon(MyWMGRI.WeaponUpgradeSlotsList[index].KFWeapon, KFW))
+				MyWMGRI.WeaponUpgradeSlotsList[index].WeaponUpgrade.static.ModifyMeleeAttackSpeed(InDuration, DefaultDuration, MyWMPRI.GetWeaponUpgrade(index), KFW);
 		}
 		for (i = 0; i < MyWMPRI.Purchase_SkillUpgrade.length; ++i)
 		{
@@ -867,8 +867,8 @@ simulated function float GetReloadRateScale(KFWeapon KFW)
 		for (i = 0; i < MyWMPRI.Purchase_WeaponUpgrade.length; ++i)
 		{
 			index = MyWMPRI.Purchase_WeaponUpgrade[i];
-			if (isValidWeapon(MyWMGRI.WeaponUpgradesList[index].KFWeapon, KFW))
-				MyWMGRI.WeaponUpgradesList[index].KFWeaponUpgrade.static.GetReloadRateScale(InReloadRateScale, MyWMPRI.GetWeaponUpgrade(index), KFW, OwnerPawn);
+			if (isValidWeapon(MyWMGRI.WeaponUpgradeSlotsList[index].KFWeapon, KFW))
+				MyWMGRI.WeaponUpgradeSlotsList[index].WeaponUpgrade.static.GetReloadRateScale(InReloadRateScale, MyWMPRI.GetWeaponUpgrade(index), KFW, OwnerPawn);
 		}
 		for (i = 0; i < MyWMPRI.Purchase_SkillUpgrade.length; ++i)
 		{
@@ -917,8 +917,8 @@ function bool ModifyHealAmount(out float HealAmount)
 		for (i = 0; i < MyWMPRI.Purchase_WeaponUpgrade.length; ++i)
 		{
 			index = MyWMPRI.Purchase_WeaponUpgrade[i];
-			if (isValidWeapon(MyWMGRI.WeaponUpgradesList[index].KFWeapon, MyKFW))
-				MyWMGRI.WeaponUpgradesList[index].KFWeaponUpgrade.static.ModifyHealAmount(HealAmount, DefaultHealAmount, MyWMPRI.GetWeaponUpgrade(index));
+			if (isValidWeapon(MyWMGRI.WeaponUpgradeSlotsList[index].KFWeapon, MyKFW))
+				MyWMGRI.WeaponUpgradeSlotsList[index].WeaponUpgrade.static.ModifyHealAmount(HealAmount, DefaultHealAmount, MyWMPRI.GetWeaponUpgrade(index));
 		}
 		for (i = 0; i < MyWMPRI.Purchase_SkillUpgrade.length; ++i)
 		{
@@ -1023,8 +1023,8 @@ simulated function ModifyRecoil(out float CurrentRecoilModifier, KFWeapon KFW)
 		for (i = 0; i < MyWMPRI.Purchase_WeaponUpgrade.length; ++i)
 		{
 			index = MyWMPRI.Purchase_WeaponUpgrade[i];
-			if (isValidWeapon(MyWMGRI.WeaponUpgradesList[index].KFWeapon, KFW))
-				MyWMGRI.WeaponUpgradesList[index].KFWeaponUpgrade.static.ModifyRecoil(CurrentRecoilModifier, DefaultRecoilModifier, MyWMPRI.GetWeaponUpgrade(index), KFW);
+			if (isValidWeapon(MyWMGRI.WeaponUpgradeSlotsList[index].KFWeapon, KFW))
+				MyWMGRI.WeaponUpgradeSlotsList[index].WeaponUpgrade.static.ModifyRecoil(CurrentRecoilModifier, DefaultRecoilModifier, MyWMPRI.GetWeaponUpgrade(index), KFW);
 		}
 		for (i = 0; i < MyWMPRI.Purchase_SkillUpgrade.length; ++i)
 		{
@@ -1065,8 +1065,8 @@ simulated function ModifyWeaponBopDamping(out float BobDamping, KFWeapon PawnWea
 		for (i = 0; i < MyWMPRI.Purchase_WeaponUpgrade.length; ++i)
 		{
 			index = MyWMPRI.Purchase_WeaponUpgrade[i];
-			if (isValidWeapon(MyWMGRI.WeaponUpgradesList[index].KFWeapon, PawnWeapon))
-				MyWMGRI.WeaponUpgradesList[index].KFWeaponUpgrade.static.ModifyWeaponBopDamping(InBobDamping, DefaultBobDamping, MyWMPRI.GetWeaponUpgrade(index), PawnWeapon);
+			if (isValidWeapon(MyWMGRI.WeaponUpgradeSlotsList[index].KFWeapon, PawnWeapon))
+				MyWMGRI.WeaponUpgradeSlotsList[index].WeaponUpgrade.static.ModifyWeaponBopDamping(InBobDamping, DefaultBobDamping, MyWMPRI.GetWeaponUpgrade(index), PawnWeapon);
 		}
 		for (i = 0; i < MyWMPRI.Purchase_SkillUpgrade.length; ++i)
 		{
@@ -1109,8 +1109,8 @@ simulated function ModifyMagSizeAndNumber(KFWeapon KFW, out int MagazineCapacity
 		for (i = 0; i < MyWMPRI.Purchase_WeaponUpgrade.length; ++i)
 		{
 			index = MyWMPRI.Purchase_WeaponUpgrade[i];
-			if (isValidWeapon(MyWMGRI.WeaponUpgradesList[index].KFWeapon, KFW))
-				MyWMGRI.WeaponUpgradesList[index].KFWeaponUpgrade.static.ModifyMagSizeAndNumber(MagCapacity, DefaultMagazineCapacity, MyWMPRI.GetWeaponUpgrade(index), KFW, WeaponPerkClass, bSecondary, WeaponClassname);
+			if (isValidWeapon(MyWMGRI.WeaponUpgradeSlotsList[index].KFWeapon, KFW))
+				MyWMGRI.WeaponUpgradeSlotsList[index].WeaponUpgrade.static.ModifyMagSizeAndNumber(MagCapacity, DefaultMagazineCapacity, MyWMPRI.GetWeaponUpgrade(index), KFW, WeaponPerkClass, bSecondary, WeaponClassname);
 		}
 		for (i = 0; i < MyWMPRI.Purchase_SkillUpgrade.length; ++i)
 		{
@@ -1161,8 +1161,8 @@ simulated function ModifySpareAmmoAmount(KFWeapon KFW, out int PrimarySpareAmmo,
 			for (i = 0; i < MyWMPRI.Purchase_WeaponUpgrade.length; ++i)
 			{
 				index = MyWMPRI.Purchase_WeaponUpgrade[i];
-				if (isValidWeapon(MyWMGRI.WeaponUpgradesList[index].KFWeapon, KFW))
-					MyWMGRI.WeaponUpgradesList[index].KFWeaponUpgrade.static.ModifySpareAmmoAmount(PrimarySpareAmmo, DefaultSpareAmmo, MyWMPRI.GetWeaponUpgrade(index), KFW, TraderItem, bSecondary);
+				if (isValidWeapon(MyWMGRI.WeaponUpgradeSlotsList[index].KFWeapon, KFW))
+					MyWMGRI.WeaponUpgradeSlotsList[index].WeaponUpgrade.static.ModifySpareAmmoAmount(PrimarySpareAmmo, DefaultSpareAmmo, MyWMPRI.GetWeaponUpgrade(index), KFW, TraderItem, bSecondary);
 			}
 			for (i = 0; i < MyWMPRI.Purchase_SkillUpgrade.length; ++i)
 			{
@@ -1397,8 +1397,8 @@ simulated function ModifyRateOfFire(out float InRate, KFWeapon KFW)
 		for (i = 0; i < MyWMPRI.Purchase_WeaponUpgrade.length; ++i)
 		{
 			index = MyWMPRI.Purchase_WeaponUpgrade[i];
-			if (isValidWeapon(MyWMGRI.WeaponUpgradesList[index].KFWeapon, KFW))
-				MyWMGRI.WeaponUpgradesList[index].KFWeaponUpgrade.static.ModifyRateOfFire(InRate, DefaultRate, MyWMPRI.GetWeaponUpgrade(index), KFW);
+			if (isValidWeapon(MyWMGRI.WeaponUpgradeSlotsList[index].KFWeapon, KFW))
+				MyWMGRI.WeaponUpgradeSlotsList[index].WeaponUpgrade.static.ModifyRateOfFire(InRate, DefaultRate, MyWMPRI.GetWeaponUpgrade(index), KFW);
 		}
 		for (i = 0; i < MyWMPRI.Purchase_SkillUpgrade.length; ++i)
 		{
@@ -1454,8 +1454,8 @@ simulated function float GetTightChokeModifier()
 		for (i = 0; i < MyWMPRI.Purchase_WeaponUpgrade.length; ++i)
 		{
 			index = MyWMPRI.Purchase_WeaponUpgrade[i];
-			if (isValidWeapon(MyWMGRI.WeaponUpgradesList[index].KFWeapon, KFW))
-				MyWMGRI.WeaponUpgradesList[index].KFWeaponUpgrade.static.ModifyTightChoke(InTight, DefaultTight, MyWMPRI.GetWeaponUpgrade(index), KFW, OwnerPawn);
+			if (isValidWeapon(MyWMGRI.WeaponUpgradeSlotsList[index].KFWeapon, KFW))
+				MyWMGRI.WeaponUpgradeSlotsList[index].WeaponUpgrade.static.ModifyTightChoke(InTight, DefaultTight, MyWMPRI.GetWeaponUpgrade(index), KFW, OwnerPawn);
 		}
 		for (i = 0; i < MyWMPRI.Purchase_SkillUpgrade.length; ++i)
 		{
@@ -1511,8 +1511,8 @@ simulated function float GetPenetrationModifier(byte Level, class<KFDamageType> 
 		for (i = 0; i < MyWMPRI.Purchase_WeaponUpgrade.length; ++i)
 		{
 			index = MyWMPRI.Purchase_WeaponUpgrade[i];
-			if (isValidWeapon(MyWMGRI.WeaponUpgradesList[index].KFWeapon, MyKFW))
-				MyWMGRI.WeaponUpgradesList[index].KFWeaponUpgrade.static.ModifyPenetration(InPenetration, DefaultPenetration, MyWMPRI.GetWeaponUpgrade(index), DamageType, OwnerPawn, bForce);
+			if (isValidWeapon(MyWMGRI.WeaponUpgradeSlotsList[index].KFWeapon, MyKFW))
+				MyWMGRI.WeaponUpgradeSlotsList[index].WeaponUpgrade.static.ModifyPenetration(InPenetration, DefaultPenetration, MyWMPRI.GetWeaponUpgrade(index), DamageType, OwnerPawn, bForce);
 		}
 		for (i = 0; i < MyWMPRI.Purchase_SkillUpgrade.length; ++i)
 		{
@@ -1565,8 +1565,8 @@ function float GetStunPowerModifier(optional class<DamageType> DamageType, optio
 		for (i = 0; i < MyWMPRI.Purchase_WeaponUpgrade.length; ++i)
 		{
 			index = MyWMPRI.Purchase_WeaponUpgrade[i];
-			if (isValidWeapon(MyWMGRI.WeaponUpgradesList[index].KFWeapon, MyKFW))
-				MyWMGRI.WeaponUpgradesList[index].KFWeaponUpgrade.static.ModifyStunPower(InStunPower, DefaultStunPower, MyWMPRI.GetWeaponUpgrade(index), DamageType, HitZoneIdx);
+			if (isValidWeapon(MyWMGRI.WeaponUpgradeSlotsList[index].KFWeapon, MyKFW))
+				MyWMGRI.WeaponUpgradeSlotsList[index].WeaponUpgrade.static.ModifyStunPower(InStunPower, DefaultStunPower, MyWMPRI.GetWeaponUpgrade(index), DamageType, HitZoneIdx);
 		}
 		for (i = 0; i < MyWMPRI.Purchase_SkillUpgrade.length; ++i)
 		{
@@ -1619,8 +1619,8 @@ function float GetStumblePowerModifier(optional KFPawn KFP, optional class<KFDam
 		for (i = 0; i < MyWMPRI.Purchase_WeaponUpgrade.length; ++i)
 		{
 			index = MyWMPRI.Purchase_WeaponUpgrade[i];
-			if (isValidWeapon(MyWMGRI.WeaponUpgradesList[index].KFWeapon, MyKFW))
-				MyWMGRI.WeaponUpgradesList[index].KFWeaponUpgrade.static.ModifyStumblePower(InStumblePower, DefaultStumblePower, MyWMPRI.GetWeaponUpgrade(index), KFP, DamageType, CooldownModifier, BodyPart, OwnerPawn);
+			if (isValidWeapon(MyWMGRI.WeaponUpgradeSlotsList[index].KFWeapon, MyKFW))
+				MyWMGRI.WeaponUpgradeSlotsList[index].WeaponUpgrade.static.ModifyStumblePower(InStumblePower, DefaultStumblePower, MyWMPRI.GetWeaponUpgrade(index), KFP, DamageType, CooldownModifier, BodyPart, OwnerPawn);
 		}
 		for (i = 0; i < MyWMPRI.Purchase_SkillUpgrade.length; ++i)
 		{
@@ -1673,8 +1673,8 @@ function float GetKnockdownPowerModifier(optional class<DamageType> DamageType, 
 		for (i = 0; i < MyWMPRI.Purchase_WeaponUpgrade.length; ++i)
 		{
 			index = MyWMPRI.Purchase_WeaponUpgrade[i];
-			if (isValidWeapon(MyWMGRI.WeaponUpgradesList[index].KFWeapon, MyKFW))
-				MyWMGRI.WeaponUpgradesList[index].KFWeaponUpgrade.static.ModifyKnockdownPower(InKnockdownPower, DefaultKnockdownPower, MyWMPRI.GetWeaponUpgrade(index), OwnerPawn, DamageType, BodyPart, bIsSprinting);
+			if (isValidWeapon(MyWMGRI.WeaponUpgradeSlotsList[index].KFWeapon, MyKFW))
+				MyWMGRI.WeaponUpgradeSlotsList[index].WeaponUpgrade.static.ModifyKnockdownPower(InKnockdownPower, DefaultKnockdownPower, MyWMPRI.GetWeaponUpgrade(index), OwnerPawn, DamageType, BodyPart, bIsSprinting);
 		}
 		for (i = 0; i < MyWMPRI.Purchase_SkillUpgrade.length; ++i)
 		{
@@ -1777,8 +1777,8 @@ simulated function ModifyWeaponSwitchTime(out float ModifiedSwitchTime)
 		for (i = 0; i < MyWMPRI.Purchase_WeaponUpgrade.length; ++i)
 		{
 			index = MyWMPRI.Purchase_WeaponUpgrade[i];
-			if (isValidWeapon(MyWMGRI.WeaponUpgradesList[index].KFWeapon, KFW))
-				MyWMGRI.WeaponUpgradesList[index].KFWeaponUpgrade.static.ModifyWeaponSwitchTime(ModifiedSwitchTime, DefaultSwitchTime, MyWMPRI.GetWeaponUpgrade(index), KFW);
+			if (isValidWeapon(MyWMGRI.WeaponUpgradeSlotsList[index].KFWeapon, KFW))
+				MyWMGRI.WeaponUpgradeSlotsList[index].WeaponUpgrade.static.ModifyWeaponSwitchTime(ModifiedSwitchTime, DefaultSwitchTime, MyWMPRI.GetWeaponUpgrade(index), KFW);
 		}
 		for (i = 0; i < MyWMPRI.Purchase_SkillUpgrade.length; ++i)
 		{
@@ -2209,8 +2209,8 @@ simulated function InitiateWeapon(KFWeapon KFW)
 		for (i = 0; i < MyWMPRI.Purchase_WeaponUpgrade.length; ++i)
 		{
 			index = MyWMPRI.Purchase_WeaponUpgrade[i];
-			if (isValidWeapon(MyWMGRI.WeaponUpgradesList[index].KFWeapon, KFW))
-				MyWMGRI.WeaponUpgradesList[index].KFWeaponUpgrade.static.InitiateWeapon(MyWMPRI.GetWeaponUpgrade(index), KFW, OwnerPawn);
+			if (isValidWeapon(MyWMGRI.WeaponUpgradeSlotsList[index].KFWeapon, KFW))
+				MyWMGRI.WeaponUpgradeSlotsList[index].WeaponUpgrade.static.InitiateWeapon(MyWMPRI.GetWeaponUpgrade(index), KFW, OwnerPawn);
 		}
 		for (i = 0; i < MyWMPRI.Purchase_SkillUpgrade.length; ++i)
 		{
@@ -2289,8 +2289,8 @@ simulated event float GetIronSightSpeedModifier(KFWeapon KFW)
 		for (i = 0; i < MyWMPRI.Purchase_WeaponUpgrade.length; ++i)
 		{
 			index = MyWMPRI.Purchase_WeaponUpgrade[i];
-			if (isValidWeapon(MyWMGRI.WeaponUpgradesList[index].KFWeapon, KFW))
-				MyWMGRI.WeaponUpgradesList[index].KFWeaponUpgrade.static.GetIronSightSpeedModifier(InSpeed, DefaultSpeed, MyWMPRI.GetWeaponUpgrade(index));
+			if (isValidWeapon(MyWMGRI.WeaponUpgradeSlotsList[index].KFWeapon, KFW))
+				MyWMGRI.WeaponUpgradeSlotsList[index].WeaponUpgrade.static.GetIronSightSpeedModifier(InSpeed, DefaultSpeed, MyWMPRI.GetWeaponUpgrade(index));
 		}
 		for (i = 0; i < MyWMPRI.Purchase_SkillUpgrade.length; ++i)
 		{
@@ -2330,8 +2330,8 @@ simulated event float GetCrouchSpeedModifier(KFWeapon KFW)
 		for (i = 0; i < MyWMPRI.Purchase_WeaponUpgrade.length; ++i)
 		{
 			index = MyWMPRI.Purchase_WeaponUpgrade[i];
-			if (isValidWeapon(MyWMGRI.WeaponUpgradesList[index].KFWeapon, KFW))
-				MyWMGRI.WeaponUpgradesList[index].KFWeaponUpgrade.static.GetCrouchSpeedModifier(InSpeed, DefaultSpeed, MyWMPRI.GetWeaponUpgrade(index));
+			if (isValidWeapon(MyWMGRI.WeaponUpgradeSlotsList[index].KFWeapon, KFW))
+				MyWMGRI.WeaponUpgradeSlotsList[index].WeaponUpgrade.static.GetCrouchSpeedModifier(InSpeed, DefaultSpeed, MyWMPRI.GetWeaponUpgrade(index));
 		}
 		for (i = 0; i < MyWMPRI.Purchase_SkillUpgrade.length; ++i)
 		{
@@ -3503,9 +3503,9 @@ simulated function bool ExtensionFuncBoolean(string Identifier, optional int Inp
 		for (i = 0; i < MyWMPRI.Purchase_WeaponUpgrade.length; ++i)
 		{
 			index = MyWMPRI.Purchase_WeaponUpgrade[i];
-			if (isValidWeapon(MyWMGRI.WeaponUpgradesList[index].KFWeapon, MyKFW))
+			if (isValidWeapon(MyWMGRI.WeaponUpgradeSlotsList[index].KFWeapon, MyKFW))
 			{
-				bActive = MyWMGRI.WeaponUpgradesList[index].KFWeaponUpgrade.static.ExtensionFuncBoolean(MyWMPRI.GetWeaponUpgrade(index), Identifier, MyKFW, OwnerPawn, InputInt, InputFloat, InputClassName, InputObject1, InputObject2, InputObject3);
+				bActive = MyWMGRI.WeaponUpgradeSlotsList[index].WeaponUpgrade.static.ExtensionFuncBoolean(MyWMPRI.GetWeaponUpgrade(index), Identifier, MyKFW, OwnerPawn, InputInt, InputFloat, InputClassName, InputObject1, InputObject2, InputObject3);
 				if (bActive)
 					return True;
 			}
@@ -3559,8 +3559,8 @@ simulated function int ExtensionFuncInteger(int DefaultValueIn, string Identifie
 		for (i = 0; i < MyWMPRI.Purchase_WeaponUpgrade.length; ++i)
 		{
 			index = MyWMPRI.Purchase_WeaponUpgrade[i];
-			if (isValidWeapon(MyWMGRI.WeaponUpgradesList[index].KFWeapon, MyKFW))
-				MyWMGRI.WeaponUpgradesList[index].KFWeaponUpgrade.static.ExtensionFuncInteger(InValue, DefaultValue, MyWMPRI.GetWeaponUpgrade(index), Identifier, MyKFW, OwnerPawn, InputInt, InputFloat, InputClassName, InputObject1, InputObject2, InputObject3);
+			if (isValidWeapon(MyWMGRI.WeaponUpgradeSlotsList[index].KFWeapon, MyKFW))
+				MyWMGRI.WeaponUpgradeSlotsList[index].WeaponUpgrade.static.ExtensionFuncInteger(InValue, DefaultValue, MyWMPRI.GetWeaponUpgrade(index), Identifier, MyKFW, OwnerPawn, InputInt, InputFloat, InputClassName, InputObject1, InputObject2, InputObject3);
 		}
 		for (i = 0; i < MyWMPRI.Purchase_SkillUpgrade.length; ++i)
 		{
@@ -3603,8 +3603,8 @@ simulated function float ExtensionFuncFloat(float DefaultValueIn, string Identif
 		for (i = 0; i < MyWMPRI.Purchase_WeaponUpgrade.length; ++i)
 		{
 			index = MyWMPRI.Purchase_WeaponUpgrade[i];
-			if (isValidWeapon(MyWMGRI.WeaponUpgradesList[index].KFWeapon, MyKFW))
-				MyWMGRI.WeaponUpgradesList[index].KFWeaponUpgrade.static.ExtensionFuncFloat(InValue, DefaultValue, MyWMPRI.GetWeaponUpgrade(index), Identifier, MyKFW, OwnerPawn, InputInt, InputFloat, InputClassName, InputObject1, InputObject2, InputObject3);
+			if (isValidWeapon(MyWMGRI.WeaponUpgradeSlotsList[index].KFWeapon, MyKFW))
+				MyWMGRI.WeaponUpgradeSlotsList[index].WeaponUpgrade.static.ExtensionFuncFloat(InValue, DefaultValue, MyWMPRI.GetWeaponUpgrade(index), Identifier, MyKFW, OwnerPawn, InputInt, InputFloat, InputClassName, InputObject1, InputObject2, InputObject3);
 		}
 		for (i = 0; i < MyWMPRI.Purchase_SkillUpgrade.length; ++i)
 		{
