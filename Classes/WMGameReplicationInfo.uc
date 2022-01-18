@@ -454,7 +454,7 @@ function SyncTimer()
 
 	++SyncCounter;
 
-	if (SyncCounter > 20)
+	if (SyncCounter > 40)
 		ClearTimer(NameOf(SyncTimer));
 }
 
