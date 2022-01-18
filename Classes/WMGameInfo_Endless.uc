@@ -1542,6 +1542,9 @@ function AddWeaponInTrader(const class<KFWeaponDefinition> KFWD)
 
 		for (i = 0; i < class'ZedternalReborn.Config_WeaponUpgradeOptions'.default.WeaponUpgrade_NumberUpgradePerWeapon; ++i)
 		{
+			if (WMGRI.WeaponUpgradeSlotsList.Length == `MAXWEAPONUPGRADES)
+				break;
+
 			if (StaticUpgrades.Length > 0)
 			{
 				WMGRI.AddWeaponUpgrade(KFW, StaticUpgrades[0], GetWeaponUpgradePrice(KFW, KFWD.default.BuyPrice));
