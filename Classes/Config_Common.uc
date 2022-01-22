@@ -119,26 +119,26 @@ static function string GetDiffString(int Difficulty)
 static function LogBadConfigMessage(string ConfigVariableName, string OriginalData, string CorrectData,
 	string CorrectDataFormatted, string ValidRange)
 {
-	`log("ZR Config:" @ConfigVariableName @"is currently set to" @OriginalData @"which is not supported."
+	`log("ZR Config Error:" @ConfigVariableName @"is currently set to" @OriginalData @"which is not supported."
 		@"Setting the value to" @CorrectData @"(" $CorrectDataFormatted $") temporarily."
 		@"Valid value range is:" @ValidRange);
 }
 
 static function LogBadFlipConfigMessage(string ConfigVariableName, string Var1, string Var2)
 {
-	`log("ZR Config:" @ConfigVariableName @"-" @Var1 @"is greater than" @Var2
+	`log("ZR Config Error:" @ConfigVariableName @"-" @Var1 @"is greater than" @Var2
 		@"which is invalid. Flipping the values temporarily.");
 }
 
 static function LogBadLoadObjectConfigMessage(string ConfigVariableName, int Line, string ObjectName)
 {
-	`log("ZR Config:" @ConfigVariableName @"- Line" @string(Line) @"-" @ObjectName @"has failed to load."
+	`log("ZR Config Error:" @ConfigVariableName @"- Line" @string(Line) @"-" @ObjectName @"has failed to load."
 		@"Check if the spelling in the config is correct and make sure the correct mod resources are installed.");
 }
 
 static function LogBadLoadWeaponConfigMessage(string ConfigVariableName, int Line, string ObjectName, string WeaponName)
 {
-	`log("ZR Config:" @ConfigVariableName @"- Line" @string(Line) @"-" @ObjectName @"has failed to load its KFWeapon class"
+	`log("ZR Config Error:" @ConfigVariableName @"- Line" @string(Line) @"-" @ObjectName @"has failed to load its KFWeapon class"
 		@WeaponName @", this is a sign of a broken weapon. Removing the weapon temporarily."
 		@"Check if the external mod resources are not corrupted, otherwise an update will be needed to fix the broken weapon.");
 }
@@ -146,20 +146,20 @@ static function LogBadLoadWeaponConfigMessage(string ConfigVariableName, int Lin
 static function LogBadStructConfigMessage(int Difficulty, string ConfigVariableName, string OriginalData, string CorrectData,
 	string CorrectDataFormatted, string ValidRange)
 {
-	`log("ZR Config:" @ConfigVariableName @"at difficulty" @GetDiffString(Difficulty) @"is currently set to"
+	`log("ZR Config Error:" @ConfigVariableName @"at difficulty" @GetDiffString(Difficulty) @"is currently set to"
 		@OriginalData @"which is not supported." @"Setting the value to" @CorrectData
 		@"(" $CorrectDataFormatted $") temporarily." @"Valid value range is:" @ValidRange);
 }
 
 static function LogEmptyArrayConfigMessage(string ConfigVariableName)
 {
-	`log("ZR Config:" @ConfigVariableName @"is empty (an empty array). Ignoring the config line temporarily."
+	`log("ZR Config Warning:" @ConfigVariableName @"is empty (an empty array). Ignoring the config line temporarily."
 		@"Add data to the array or remove the line from the config if not in use.");
 }
 
 static function SkipCheckConfigMessage(string ConfigVariableName, string DisableVariableName)
 {
-	`log("ZR Config:" @ConfigVariableName @"is not being checked because it has been disabled by config" @DisableVariableName
+	`log("ZR Config Info:" @ConfigVariableName @"is not being checked because it has been disabled by config" @DisableVariableName
 		@"and therefore not in use.");
 }
 
