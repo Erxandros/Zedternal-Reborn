@@ -1526,6 +1526,9 @@ function AddWeaponInTrader(const class<KFWeaponDefinition> KFWD)
 	KFW = class<KFWeapon>(DynamicLoadObject(KFWD.default.WeaponClassPath, class'Class'));
 	if (WMGRI != None && KFW != None)
 	{
+		if (WMGRI.WeaponUpgradeSlotsList.Length == `MAXWEAPONUPGRADES)
+			return;
+
 		for (i = 0; i < Min(255, ConfigData.ValidWeaponUpgrades.Length); ++i)
 		{
 			if (ConfigData.WeaponUpgObjects[i].static.IsUpgradeCompatible(KFW))
@@ -1540,7 +1543,7 @@ function AddWeaponInTrader(const class<KFWeaponDefinition> KFWD)
 		for (i = 0; i < class'ZedternalReborn.Config_WeaponUpgradeOptions'.default.WeaponUpgrade_NumberUpgradePerWeapon; ++i)
 		{
 			if (WMGRI.WeaponUpgradeSlotsList.Length == `MAXWEAPONUPGRADES)
-				break;
+				return;
 
 			if (StaticUpgrades.Length > 0)
 			{
