@@ -179,14 +179,12 @@ var bool bZRUMenuCommand;
 
 ////// Sync Flags //////
 
-//Sync ReplicatedEvent Flag and Counter
-var repnotify bool SyncTrigger;
+//Sync Loop Counter
 var byte SyncCounter;
 
 //Sync Flags
 var bool bAllDataGenerated;
 var bool bAllDataSynced;
-var bool bCompletedSync;
 
 var bool bEquipmentUpgradesSynced;
 var bool bGrenadeItemsSynced;
@@ -352,7 +350,6 @@ var private Texture2D MenuLinker;
 replication
 {
 	if (bNetDirty)
-		SyncTrigger,
 		NumberOfEquipmentUpgrades, NumberOfGrenadeItems, NumberOfPerkUpgrades,
 		NumberOfSkillUpgrades, NumberOfSpecialWaves, NumberOfStartingWeapons,
 		NumberOfTraderWeapons, NumberOfWeaponUpgrades, NumberOfWeaponUpgradeSlots,
@@ -376,18 +373,6 @@ simulated event ReplicatedEvent(name VarName)
 {
 	switch (VarName)
 	{
-		case 'SyncTrigger':
-			if (!bCompletedSync)
-			{
-				if (!bAllDataSynced)
-					ProcessAllSyncData();
-				else if (!bAllDataGenerated)
-					GenerateDataFromSyncData();
-				else
-					bCompletedSync = True;
-			}
-			break;
-
 		case 'WaveNum':
 			if (SpecialWaveID[0] != INDEX_NONE && WaveNum > 0)
 				TriggerSpecialWaveMessage();
@@ -434,28 +419,38 @@ simulated event PostBeginPlay()
 	super.PostBeginPlay();
 
 	if (WorldInfo.NetMode == NM_Client)
-		class'ZedternalReborn.Config_Base'.static.PrintVersion();
-}
-
-function SetSyncTrigger()
-{
-	if (WorldInfo.NetMode == NM_DedicatedServer)
 	{
-		ClearTimer(NameOf(SyncTimer));
-
-		SyncCounter = 0;
-		SetTimer(3.0f, True, NameOf(SyncTimer));
+		class'ZedternalReborn.Config_Base'.static.PrintVersion();
+		SetSyncLoop();
 	}
 }
 
-function SyncTimer()
+simulated function SetSyncLoop()
 {
-	SyncTrigger = !SyncTrigger;
+	ClearTimer(NameOf(SyncTimer));
 
+	SyncCounter = 0;
+	SetTimer(3.0f, True, NameOf(SyncTimer));
+}
+
+simulated function SyncTimer()
+{
 	++SyncCounter;
 
-	if (SyncCounter > 40)
+	if (!bAllDataSynced)
+		ProcessAllSyncData();
+	else if (!bAllDataGenerated)
+		GenerateDataFromSyncData();
+	else
 		ClearTimer(NameOf(SyncTimer));
+
+	if (SyncCounter > 40)
+	{
+		if (!bAllDataSynced || !bAllDataGenerated)
+			`log("ZR Error: Failed to sync and process all data from server for game replication");
+
+		ClearTimer(NameOf(SyncTimer));
+	}
 }
 
 simulated function ProcessAllSyncData()
