@@ -10,7 +10,7 @@ static function string GetItemLocalization(string KeyName)
 	return Localize(Strings[1], KeyName, Strings[0]);
 }
 
-DefaultProperties
+defaultproperties
 {
 	WeaponClassPath="ZedternalReborn.WMWeap_AssaultRifle_Doshinegun"
 	Name="Default__WMWeapDef_Doshinegun"
