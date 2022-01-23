@@ -124,9 +124,9 @@ var int NumberOfZedBuffs;
 //Replicated Weapons
 var AllowedWeaponRepStruct AllowedWeaponsRepArray_A[255];
 var AllowedWeaponRepStruct AllowedWeaponsRepArray_B[255];
-var WeaponRepStruct KFStartingWeaponRepArray[255];
 var string KFWeaponDefPath_A[255];
 var string KFWeaponDefPath_B[255];
+var WeaponRepStruct StartingWeaponsRepArray[255];
 
 //Replicated Perk Upgrades
 var int PerkUpgMaxLevel;
@@ -344,7 +344,7 @@ struct ZedBuffStruct
 var array<AllowedWeaponStruct> AllowedWeaponsList;
 
 //Starting Weapons
-var array<WeaponStruct> KFStartingWeaponList;
+var array<WeaponStruct> StartingWeaponsList;
 
 //Upgrades
 var array<EquipmentUpgradeStruct> EquipmentUpgradesList;
@@ -384,7 +384,7 @@ replication
 		NumberOfAllowedWeapons, NumberOfEquipmentUpgrades, NumberOfGrenadeItems,
 		NumberOfPerkUpgrades, NumberOfSkillUpgrades, NumberOfSpecialWaves,
 		NumberOfStartingWeapons, NumberOfTraderWeapons, NumberOfWeaponUpgrades,
-		NumberOfWeaponUpgradeSlots, NumberOfZedBuffs, KFStartingWeaponRepArray,
+		NumberOfWeaponUpgradeSlots, NumberOfZedBuffs, StartingWeaponsRepArray,
 		KFWeaponDefPath_A, KFWeaponDefPath_B, AllowedWeaponsRepArray_A,
 		AllowedWeaponsRepArray_B, PerkUpgMaxLevel, PerkUpgPrice,
 		PerkUpgradesRepArray, bDeluxeSkillUnlock, SkillUpgDeluxePrice,
@@ -644,20 +644,20 @@ simulated function SyncAllStartingWeapons()
 	if (NumberOfStartingWeapons == INDEX_NONE)
 		return;
 
-	if (KFStartingWeaponList.Length == 0)
-		KFStartingWeaponList.Length = NumberOfStartingWeapons;
+	if (StartingWeaponsList.Length == 0)
+		StartingWeaponsList.Length = NumberOfStartingWeapons;
 
 	if (NumberOfStartingWeapons > 0)
 	{
 		for (i = 0; i < 255; ++i)
 		{
-			if (!KFStartingWeaponRepArray[i].bValid)
+			if (!StartingWeaponsRepArray[i].bValid)
 				break; //base case
 
-			if (!KFStartingWeaponList[i].bDone)
+			if (!StartingWeaponsList[i].bDone)
 			{
-				KFStartingWeaponList[i].KFWeapon = class<KFWeapon>(DynamicLoadObject(KFStartingWeaponRepArray[i].WeaponPathName, class'Class'));
-				KFStartingWeaponList[i].bDone = True;
+				StartingWeaponsList[i].KFWeapon = class<KFWeapon>(DynamicLoadObject(StartingWeaponsRepArray[i].WeaponPathName, class'Class'));
+				StartingWeaponsList[i].bDone = True;
 			}
 		}
 	}
@@ -917,9 +917,9 @@ simulated function SetWeaponPickupList()
 	StartingItemPickups.AddItem(newPickup);
 
 	//Add starting weapons
-	for (i = 0; i < KFStartingWeaponList.length; ++i)
+	for (i = 0; i < StartingWeaponsList.length; ++i)
 	{
-		startingWeaponClass = KFStartingWeaponList[i].KFWeapon;
+		startingWeaponClass = StartingWeaponsList[i].KFWeapon;
 
 		//Test for dual weapon
 		startingWeaponClassDual = class<KFWeap_DualBase>(startingWeaponClass);
