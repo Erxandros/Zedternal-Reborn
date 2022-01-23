@@ -17,9 +17,8 @@ var float GameDifficultyZedternal;
 var array<byte> StaticPerks;
 
 //Weapons
-var array<name> KFWeaponName;
 var array<string> KFWeaponDefPath, StartingWeaponPath;
-var array< class<KFWeaponDefinition> > StartingWeapons;
+var array< class<KFWeaponDefinition> > AllowedWeapons, StartingWeapons;
 
 struct S_Weapon_Data
 {
@@ -1518,8 +1517,8 @@ function AddWeaponInTrader(const class<KFWeaponDefinition> KFWD)
 	local array< class<WMUpgrade_Weapon> > AllowedUpgrades, StaticUpgrades;
 	local WMGameReplicationInfo WMGRI;
 
-	// Add this weapon in KFWeaponName (will be replicated)
-	KFWeaponName.AddItem(name(GetItemName(KFWD.default.WeaponClassPath)));
+	// Add this weapon in AllowedWeapons (will be replicated)
+	AllowedWeapons.AddItem(KFWD);
 
 	// Select weapon upgrades
 	WMGRI = WMGameReplicationInfo(MyKFGRI);
@@ -1582,9 +1581,9 @@ function SetTraderItemsAndPrintWeaponList()
 	MyKFGRI.TraderItems = TraderItems;
 
 	`log("ZR Weapon List:");
-	for (i = 0; i < KFWeaponName.Length; ++i)
+	for (i = 0; i < AllowedWeapons.Length; ++i)
 	{
-		`log(KFWeaponName[i] $ "(" $ i $ ")");
+		`log(GetItemName(AllowedWeapons[i].default.WeaponClassPath) $ "(" $ i $ ")");
 	}
 }
 
@@ -1637,6 +1636,7 @@ function RepGameInfoHighPriority()
 		WMGRI.SetAllTradersTimer();
 
 	//Optimization
+	WMGRI.NumberOfAllowedWeapons = Min(510, AllowedWeapons.Length);
 	WMGRI.NumberOfTraderWeapons = Min(510, TraderItems.SaleItems.Length);
 	WMGRI.NumberOfPerkUpgrades = Min(255, ConfigData.ValidPerkUpgrades.Length);
 	WMGRI.NumberOfStartingWeapons = Min(255, StartingWeaponPath.Length);
@@ -1649,6 +1649,7 @@ function RepGameInfoHighPriority()
 	WMGRI.NumberOfZedBuffs = Min(255, ConfigData.ZedBuffObjects.Length);
 
 	//Pre-initialize the array size for the sever/standalone
+	WMGRI.AllowedWeaponsList.Length = WMGRI.NumberOfAllowedWeapons;
 	WMGRI.PerkUpgradesList.Length = WMGRI.NumberOfPerkUpgrades;
 	WMGRI.SkillUpgradesList.Length = WMGRI.NumberOfSkillUpgrades;
 	WMGRI.WeaponUpgradesList.Length = WMGRI.NumberOfWeaponUpgrades;
@@ -1738,15 +1739,28 @@ function RepGameInfoLowPriority()
 	if (WMGRI == None)
 		return;
 
-	//Weapons
-	for (i = 0; i < Min(255, KFWeaponName.Length); ++i)
+	//Allowed Weapons
+	for (i = 0; i < Min(510, AllowedWeapons.Length); ++i)
 	{
-		WMGRI.KFWeaponName_A[i] = KFWeaponName[i];
+		WMGRI.AllowedWeaponsList[i].KFWeaponPath = AllowedWeapons[i].default.WeaponClassPath;
+		WMGRI.AllowedWeaponsList[i].WeaponName = name(GetItemName(AllowedWeapons[i].default.WeaponClassPath));
+		WMGRI.AllowedWeaponsList[i].BuyPrice = AllowedWeapons[i].default.BuyPrice;
+		WMGRI.AllowedWeaponsList[i].bDone = True;
 	}
-	for (i = 0; i < Min(255, KFWeaponName.Length - 255); ++i)
+	for (i = 0; i < Min(255, AllowedWeapons.Length); ++i)
 	{
-		WMGRI.KFWeaponName_B[i] = KFWeaponName[i + 255];
+		WMGRI.AllowedWeaponsRepArray_A[i].WeaponPathName = AllowedWeapons[i].default.WeaponClassPath;
+		WMGRI.AllowedWeaponsRepArray_A[i].BuyPrice = AllowedWeapons[i].default.BuyPrice;
+		WMGRI.AllowedWeaponsRepArray_A[i].bValid = True;
 	}
+	for (i = 0; i < Min(255, AllowedWeapons.Length - 255); ++i)
+	{
+		WMGRI.AllowedWeaponsRepArray_B[i].WeaponPathName = AllowedWeapons[i + 255].default.WeaponClassPath;
+		WMGRI.AllowedWeaponsRepArray_B[i].BuyPrice = AllowedWeapons[i + 255].default.BuyPrice;
+		WMGRI.AllowedWeaponsRepArray_B[i].bValid = True;
+	}
+
+	//TraderItems Weapons
 	for (i = 0; i < Min(255, KFWeaponDefPath.Length); ++i)
 	{
 		WMGRI.KFWeaponDefPath_A[i] = KFWeaponDefPath[i];

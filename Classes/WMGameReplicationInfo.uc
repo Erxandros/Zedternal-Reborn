@@ -3,6 +3,18 @@ class WMGameReplicationInfo extends KFGameReplicationInfo;
 ////// Replication Data //////
 
 //Replication Data Structures
+struct AllowedWeaponRepStruct
+{
+	var string WeaponPathName;
+	var int BuyPrice;
+	var bool bValid;
+
+	structdefaultproperties
+	{
+		bValid=False
+	}
+};
+
 struct EquipmentUpgradeRepStruct
 {
 	var string EquipmentPathName;
@@ -97,6 +109,7 @@ struct ZedBuffRepStruct
 };
 
 //Optimization for replicated data (data array size)
+var int NumberOfAllowedWeapons;
 var int NumberOfEquipmentUpgrades;
 var int NumberOfGrenadeItems;
 var int NumberOfPerkUpgrades;
@@ -109,11 +122,11 @@ var int NumberOfWeaponUpgradeSlots;
 var int NumberOfZedBuffs;
 
 //Replicated Weapons
+var AllowedWeaponRepStruct AllowedWeaponsRepArray_A[255];
+var AllowedWeaponRepStruct AllowedWeaponsRepArray_B[255];
 var WeaponRepStruct KFStartingWeaponRepArray[255];
 var string KFWeaponDefPath_A[255];
 var string KFWeaponDefPath_B[255];
-var name KFWeaponName_A[255];
-var name KFWeaponName_B[255];
 
 //Replicated Perk Upgrades
 var int PerkUpgMaxLevel;
@@ -186,6 +199,8 @@ var byte SyncCounter;
 var bool bAllDataGenerated;
 var bool bAllDataSynced;
 
+var bool bAllowedWeaponsSynced_A;
+var bool bAllowedWeaponsSynced_B;
 var bool bEquipmentUpgradesSynced;
 var bool bGrenadeItemsSynced;
 var bool bPerkUpgradesSynced;
@@ -206,6 +221,19 @@ var bool bSetWeaponUpgradeSlotsList;
 ////// Non-Replication Data //////
 
 //Non-replicated Data Structures
+struct AllowedWeaponStruct
+{
+	var string KFWeaponPath;
+	var name WeaponName;
+	var int BuyPrice;
+	var bool bDone;
+
+	structdefaultproperties
+	{
+		bDone=False
+	}
+};
+
 struct EquipmentUpgradeStruct
 {
 	var class<WMUpgrade_Equipment> EquipmentUpgrade;
@@ -312,6 +340,9 @@ struct ZedBuffStruct
 	}
 };
 
+//Allowed Weapons
+var array<AllowedWeaponStruct> AllowedWeaponsList;
+
 //Starting Weapons
 var array<WeaponStruct> KFStartingWeaponList;
 
@@ -350,23 +381,24 @@ var private Texture2D MenuLinker;
 replication
 {
 	if (bNetDirty)
-		NumberOfEquipmentUpgrades, NumberOfGrenadeItems, NumberOfPerkUpgrades,
-		NumberOfSkillUpgrades, NumberOfSpecialWaves, NumberOfStartingWeapons,
-		NumberOfTraderWeapons, NumberOfWeaponUpgrades, NumberOfWeaponUpgradeSlots,
-		NumberOfZedBuffs, KFStartingWeaponRepArray, KFWeaponDefPath_A,
-		KFWeaponDefPath_B, KFWeaponName_A, KFWeaponName_B,
-		PerkUpgMaxLevel, PerkUpgPrice, PerkUpgradesRepArray,
-		bDeluxeSkillUnlock, SkillUpgDeluxePrice, SkillUpgPrice,
-		SkillUpgradesRepArray, bAllowSkillReroll, RerollCost,
-		RerollMultiplier, RerollSkillSellPercent, WeaponUpgMaxLevel,
-		WeaponUpgNumberUpgradePerWeapon, WeaponUpgPriceMultiplier, WeaponUpgPriceUnit,
-		WeaponUpgradesRepArray, WeaponUpgRandSeed, EquipmentUpgradesRepArray,
-		GrenadesRepArray, SpecialWaveID, SpecialWavesRepArray,
-		ActiveZedBuffs, bNewZedBuff, ZedBuffsRepArray,
-		ArmorPrice, GrenadePrice, TraderMaxWeaponCount,
-		TraderNewWeaponEachWave, TraderStaticWeaponCount, TraderVoiceGroupIndex,
-		bAllTraders, bArmorPickup, bRepairDoorTrigger,
-		UpdateSkinsTrigger, bZRUMenuAllWave, bZRUMenuCommand;
+		NumberOfAllowedWeapons, NumberOfEquipmentUpgrades, NumberOfGrenadeItems,
+		NumberOfPerkUpgrades, NumberOfSkillUpgrades, NumberOfSpecialWaves,
+		NumberOfStartingWeapons, NumberOfTraderWeapons, NumberOfWeaponUpgrades,
+		NumberOfWeaponUpgradeSlots, NumberOfZedBuffs, KFStartingWeaponRepArray,
+		KFWeaponDefPath_A, KFWeaponDefPath_B, AllowedWeaponsRepArray_A,
+		AllowedWeaponsRepArray_B, PerkUpgMaxLevel, PerkUpgPrice,
+		PerkUpgradesRepArray, bDeluxeSkillUnlock, SkillUpgDeluxePrice,
+		SkillUpgPrice, SkillUpgradesRepArray, bAllowSkillReroll,
+		RerollCost, RerollMultiplier, RerollSkillSellPercent,
+		WeaponUpgMaxLevel, WeaponUpgNumberUpgradePerWeapon, WeaponUpgPriceMultiplier,
+		WeaponUpgPriceUnit, WeaponUpgradesRepArray, WeaponUpgRandSeed,
+		EquipmentUpgradesRepArray, GrenadesRepArray, SpecialWaveID,
+		SpecialWavesRepArray, ActiveZedBuffs, bNewZedBuff,
+		ZedBuffsRepArray, ArmorPrice, GrenadePrice,
+		TraderMaxWeaponCount, TraderNewWeaponEachWave, TraderStaticWeaponCount,
+		TraderVoiceGroupIndex, bAllTraders, bArmorPickup,
+		bRepairDoorTrigger, UpdateSkinsTrigger, bZRUMenuAllWave,
+		bZRUMenuCommand;
 }
 
 simulated event ReplicatedEvent(name VarName)
@@ -455,6 +487,13 @@ simulated function SyncTimer()
 
 simulated function ProcessAllSyncData()
 {
+	//Sync Allowed Weapons
+	if (!bAllowedWeaponsSynced_A)
+		SyncAllowedWeapons(AllowedWeaponsRepArray_A, 0);
+
+	if (!bAllowedWeaponsSynced_B)
+		SyncAllowedWeapons(AllowedWeaponsRepArray_B, 1);
+
 	//Sync Trader Weapons
 	if (!bTraderWeaponsSynced_A)
 		SyncWeaponTraderItems(KFWeaponDefPath_A, 0);
@@ -494,10 +533,10 @@ simulated function ProcessAllSyncData()
 	if (!bZedBuffsSynced)
 		SyncAllZedBuffs();
 
-	if (bTraderWeaponsSynced_A && bTraderWeaponsSynced_B && bStartingWeaponsSynced
-		&& bPerkUpgradesSynced && bSkillUpgradesSynced && bWeaponUpgradesSynced
-		&& bEquipmentUpgradesSynced && bGrenadeItemsSynced && bSpecialWavesSynced
-		&& bZedBuffsSynced)
+	if (bAllowedWeaponsSynced_A && bAllowedWeaponsSynced_B && bTraderWeaponsSynced_A
+		&& bTraderWeaponsSynced_B && bStartingWeaponsSynced && bPerkUpgradesSynced
+		&& bSkillUpgradesSynced && bWeaponUpgradesSynced && bEquipmentUpgradesSynced
+		&& bGrenadeItemsSynced && bSpecialWavesSynced && bZedBuffsSynced)
 	{
 		bAllDataSynced = True;
 		`log("ZR Info: All base data received from server for game replication");
@@ -515,7 +554,7 @@ simulated function GenerateDataFromSyncData()
 		SetWeaponPickupList();
 
 	//Generate Weapon Upgrade Slots
-	if (!bSetWeaponUpgradeSlotsList && bSetTraderWeaponList)
+	if (!bSetWeaponUpgradeSlotsList)
 		GenerateWeaponUpgrades();
 
 	if (bSetTraderWeaponList && bSetWeaponPickupList && bSetWeaponUpgradeSlotsList)
@@ -523,6 +562,42 @@ simulated function GenerateDataFromSyncData()
 		bAllDataGenerated = True;
 		`log("ZR Info: All needed data generated from replicated data");
 	}
+}
+
+simulated function SyncAllowedWeapons(const out AllowedWeaponRepStruct AllowedWeaponsRepArray[255], int indexMultiplier)
+{
+	local int i, indexOffset;
+
+	if (NumberOfAllowedWeapons == INDEX_NONE)
+		return;
+
+	if (AllowedWeaponsList.Length == 0)
+		AllowedWeaponsList.Length = NumberOfAllowedWeapons;
+
+	if (NumberOfAllowedWeapons > 0)
+	{
+		indexOffset = 255 * indexMultiplier;
+
+		for (i = 0; i < 255; ++i)
+		{
+			if (!AllowedWeaponsRepArray[i].bValid)
+				break; //base case
+
+			if (!AllowedWeaponsList[i + indexOffset].bDone)
+			{
+				AllowedWeaponsList[i + indexOffset].KFWeaponPath = AllowedWeaponsRepArray[i].WeaponPathName;
+				AllowedWeaponsList[i + indexOffset].WeaponName = name(GetItemName(AllowedWeaponsRepArray[i].WeaponPathName));
+				AllowedWeaponsList[i + indexOffset].BuyPrice = AllowedWeaponsRepArray[i].BuyPrice;
+				AllowedWeaponsList[i + indexOffset].bDone = True;
+			}
+		}
+	}
+
+	if (indexMultiplier == 0 && (i == NumberOfAllowedWeapons || i == 255))
+		bAllowedWeaponsSynced_A = True;
+
+	if (indexMultiplier == 1 && ((i + indexOffset) == NumberOfAllowedWeapons || 255 >= NumberOfAllowedWeapons))
+		bAllowedWeaponsSynced_B = True;
 }
 
 simulated function SyncWeaponTraderItems(const out string KFWeaponDefPath[255], int indexMultiplier)
@@ -891,9 +966,9 @@ simulated function GenerateWeaponUpgrades()
 
 	UpgCounter = 0;
 	WeaponUpgRandPosition = 0;
-	for (i = 0; i < TraderItems.SaleItems.Length; ++i)
+	for (i = 0; i < AllowedWeaponsList.Length; ++i)
 	{
-		KFW = class<KFWeapon>(DynamicLoadObject(TraderItems.SaleItems[i].WeaponDef.default.WeaponClassPath, class'Class'));
+		KFW = class<KFWeapon>(DynamicLoadObject(AllowedWeaponsList[i].KFWeaponPath, class'Class'));
 		if (KFW != None)
 		{
 			AllowedUpgrades.Length = 0;
@@ -916,14 +991,14 @@ simulated function GenerateWeaponUpgrades()
 
 				if (StaticUpgrades.Length > 0)
 				{
-					AddWeaponUpgrade(KFW, StaticUpgrades[0], GenerateWeaponUpgradePrice(KFW, TraderItems.SaleItems[i].WeaponDef.default.BuyPrice));
+					AddWeaponUpgrade(KFW, StaticUpgrades[0], GenerateWeaponUpgradePrice(KFW, AllowedWeaponsList[i].BuyPrice));
 					StaticUpgrades.Remove(0, 1);
 					++UpgCounter;
 				}
 				else if (AllowedUpgrades.Length > 0)
 				{
 					Choice = class'ZedternalReborn.WMRandom'.static.SeedRandom(WeaponUpgRandSeed, WeaponUpgRandPosition, AllowedUpgrades.Length);
-					AddWeaponUpgrade(KFW, AllowedUpgrades[Choice], GenerateWeaponUpgradePrice(KFW, TraderItems.SaleItems[i].WeaponDef.default.BuyPrice));
+					AddWeaponUpgrade(KFW, AllowedUpgrades[Choice], GenerateWeaponUpgradePrice(KFW, AllowedWeaponsList[i].BuyPrice));
 					AllowedUpgrades.Remove(Choice, 1);
 					++WeaponUpgRandPosition;
 					++UpgCounter;
@@ -1152,23 +1227,14 @@ simulated function bool IsItemAllowed(STraderItem Item)
 {
 	local int i;
 
-	for (i = 0; i < min(TraderMaxWeaponCount - TraderStaticWeaponCount, (NumberOfStartingWeapons + TraderStaticWeaponCount + (WaveNum + 1) * TraderNewWeaponEachWave)); ++i)
+	for (i = 0; i < Min(TraderMaxWeaponCount - TraderStaticWeaponCount, (NumberOfStartingWeapons + TraderStaticWeaponCount + (WaveNum + 1) * TraderNewWeaponEachWave)); ++i)
 	{
-		if (i < 255)
-		{
-			if (Item.ClassName == KFWeaponName_A[i])
-				return True;
-			else if (Item.SingleClassName == KFWeaponName_A[i])
-				return True;
-		}
-		else
-		{
-			if (Item.ClassName == KFWeaponName_B[i - 255])
-				return True;
-			else if (Item.SingleClassName == KFWeaponName_B[i - 255])
-				return True;
-		}
+		if (Item.ClassName == AllowedWeaponsList[i].WeaponName)
+			return True;
+		else if (Item.SingleClassName == AllowedWeaponsList[i].WeaponName)
+			return True;
 	}
+
 	return False;
 }
 
@@ -1257,6 +1323,7 @@ defaultproperties
 	WeaponUpgPriceUnit=-1
 	ZedBuffNextMusicTrackIndex=0
 
+	NumberOfAllowedWeapons=INDEX_NONE
 	NumberOfEquipmentUpgrades=INDEX_NONE
 	NumberOfGrenadeItems=INDEX_NONE
 	NumberOfPerkUpgrades=INDEX_NONE
