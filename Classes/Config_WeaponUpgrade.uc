@@ -6,10 +6,16 @@ var config int MODEVERSION;
 struct S_WeaponUpgrade
 {
 	var string WeaponPath;
+	var int PriceUnit;
+	var float PriceMultiplier;
+	var int MaxLevel;
 	var bool bIsStatic;
 
 	structdefaultproperties
 	{
+		PriceUnit=50
+		PriceMultiplier=0.15f
+		MaxLevel=3
 		bIsStatic=False
 	}
 };
@@ -18,6 +24,8 @@ var config array<S_WeaponUpgrade> WeaponUpgrade_Upgrade;
 
 static function UpdateConfig()
 {
+	local int i;
+
 	if (default.MODEVERSION < 1)
 	{
 		default.WeaponUpgrade_Upgrade.Length = 23;
@@ -47,10 +55,60 @@ static function UpdateConfig()
 		default.WeaponUpgrade_Upgrade[22].WeaponPath = "ZedternalReborn.WMUpgrade_Weapon_Damage_Fleshpound";
 	}
 
+	if (default.MODEVERSION < 12)
+	{
+		for (i = 0; i < default.WeaponUpgrade_Upgrade.Length; ++i)
+		{
+			default.WeaponUpgrade_Upgrade[i].PriceUnit = 50;
+			default.WeaponUpgrade_Upgrade[i].PriceMultiplier = 0.15f;
+			default.WeaponUpgrade_Upgrade[i].MaxLevel = 3;
+		}
+	}
+
 	if (default.MODEVERSION < class'ZedternalReborn.Config_Base'.const.CurrentVersion)
 	{
 		default.MODEVERSION = class'ZedternalReborn.Config_Base'.const.CurrentVersion;
 		static.StaticSaveConfig();
+	}
+}
+
+static function CheckBasicConfigValues()
+{
+	local int i;
+
+	for (i = 0; i < default.WeaponUpgrade_Upgrade.Length; ++i)
+	{
+		if (default.WeaponUpgrade_Upgrade[i].PriceUnit < 0)
+		{
+			LogBadConfigMessage("WeaponUpgrade_Upgrade - Line" @ string(i + 1) @ "- PriceUnit",
+				string(default.WeaponUpgrade_Upgrade[i].PriceUnit),
+				"0", "0 dosh, free", "value >= 0");
+			default.WeaponUpgrade_Upgrade[i].PriceUnit = 0;
+		}
+
+		if (default.WeaponUpgrade_Upgrade[i].PriceMultiplier < 0)
+		{
+			LogBadConfigMessage("WeaponUpgrade_Upgrade - Line" @ string(i + 1) @ "- PriceMultiplier",
+				string(default.WeaponUpgrade_Upgrade[i].PriceMultiplier),
+				"0.0", "0% increase, no scaling", "value >= 0.0");
+			default.WeaponUpgrade_Upgrade[i].PriceMultiplier = 0;
+		}
+
+		if (default.WeaponUpgrade_Upgrade[i].MaxLevel < 0)
+		{
+			LogBadConfigMessage("WeaponUpgrade_Upgrade - Line" @ string(i + 1) @ "- MaxLevel",
+				string(default.WeaponUpgrade_Upgrade[i].MaxLevel),
+				"0", "0 levels, disable upgrade", "value >= 0");
+			default.WeaponUpgrade_Upgrade[i].MaxLevel = 0;
+		}
+
+		if (default.WeaponUpgrade_Upgrade[i].MaxLevel > 255)
+		{
+			LogBadConfigMessage("WeaponUpgrade_Upgrade - Line" @ string(i + 1) @ "- MaxLevel",
+				string(default.WeaponUpgrade_Upgrade[i].MaxLevel),
+				"255", "255 levels, max upgrade", "value >= 0");
+			default.WeaponUpgrade_Upgrade[i].MaxLevel = 255;
+		}
 	}
 }
 

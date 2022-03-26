@@ -77,7 +77,7 @@ reliable server function BuyWeaponUpgrade(int ItemDefinition, int Cost)
 
 	WMPRI = WMPlayerReplicationInfo(Pawn.PlayerReplicationInfo);
 
-	if (WMPRI != None && WMPRI.Score >= Cost && WMPRI.GetWeaponUpgrade(ItemDefinition) < WMGameReplicationInfo(WorldInfo.GRI).WeaponUpgMaxLevel)
+	if (WMPRI != None && WMPRI.Score >= Cost && WMPRI.GetWeaponUpgrade(ItemDefinition) < WMGameReplicationInfo(WorldInfo.GRI).WeaponUpgradeSlotsList[ItemDefinition].MaxLevel)
 	{
 		WMPRI.IncermentWeaponUpgrade(ItemDefinition);
 		if (WMPRI.Purchase_WeaponUpgrade.Find(ItemDefinition) == INDEX_NONE)

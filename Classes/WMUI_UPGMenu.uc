@@ -323,7 +323,7 @@ function Callback_InventoryFilter(int FilterIndex)
 			{
 				lvl = WMPRI.GetWeaponUpgrade(i);
 
-				maxLevel = WMGRI.WeaponUpgMaxLevel;
+				maxLevel = WMGRI.WeaponUpgradeSlotsList[i].MaxLevel;
 
 				// Is it fully bought?
 				if (lvl >= maxLevel)

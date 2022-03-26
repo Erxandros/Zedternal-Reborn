@@ -88,6 +88,9 @@ struct WeaponRepStruct
 struct WeaponUpgradeRepStruct
 {
 	var string WeaponUpgPathName;
+	var int PriceUnit;
+	var float PriceMultiplier;
+	var int MaxLevel;
 	var bool bIsStatic;
 	var bool bValid;
 
@@ -146,10 +149,7 @@ var float RerollMultiplier;
 var float RerollSkillSellPercent;
 
 //Replicated Weapon Upgrades
-var int WeaponUpgMaxLevel;
 var int WeaponUpgNumberUpgradePerWeapon;
-var float WeaponUpgPriceMultiplier;
-var int WeaponUpgPriceUnit;
 var WeaponUpgradeRepStruct WeaponUpgradesRepArray[255];
 var string WeaponUpgRandSeed;
 
@@ -309,6 +309,7 @@ struct WeaponUpgradeSlotStruct
 	var class<KFWeapon> KFWeapon;
 	var class<WMUpgrade_Weapon> WeaponUpgrade;
 	var int BasePrice;
+	var int MaxLevel;
 	var bool bDone;
 
 	structdefaultproperties
@@ -320,6 +321,9 @@ struct WeaponUpgradeSlotStruct
 struct WeaponUpgradeStruct
 {
 	var class<WMUpgrade_Weapon> WeaponUpgrade;
+	var int PriceUnit;
+	var float PriceMultiplier;
+	var int MaxLevel;
 	var bool bIsStatic;
 	var bool bDone;
 
@@ -390,8 +394,7 @@ replication
 		PerkUpgradesRepArray, bDeluxeSkillUnlock, SkillUpgDeluxePrice,
 		SkillUpgPrice, SkillUpgradesRepArray, bAllowSkillReroll,
 		RerollCost, RerollMultiplier, RerollSkillSellPercent,
-		WeaponUpgMaxLevel, WeaponUpgNumberUpgradePerWeapon, WeaponUpgPriceMultiplier,
-		WeaponUpgPriceUnit, WeaponUpgradesRepArray, WeaponUpgRandSeed,
+		WeaponUpgNumberUpgradePerWeapon, WeaponUpgradesRepArray, WeaponUpgRandSeed,
 		EquipmentUpgradesRepArray, GrenadesRepArray, SpecialWaveID,
 		SpecialWavesRepArray, ActiveZedBuffs, bNewZedBuff,
 		ZedBuffsRepArray, ArmorPrice, GrenadePrice,
@@ -745,6 +748,9 @@ simulated function SyncAllWeaponUpgrades()
 			if (!WeaponUpgradesList[i].bDone)
 			{
 				WeaponUpgradesList[i].WeaponUpgrade = class<WMUpgrade_Weapon>(DynamicLoadObject(WeaponUpgradesRepArray[i].WeaponUpgPathName, class'Class'));
+				WeaponUpgradesList[i].PriceUnit = WeaponUpgradesRepArray[i].PriceUnit;
+				WeaponUpgradesList[i].PriceMultiplier = WeaponUpgradesRepArray[i].PriceMultiplier;
+				WeaponUpgradesList[i].MaxLevel = WeaponUpgradesRepArray[i].MaxLevel;
 				WeaponUpgradesList[i].bIsStatic = WeaponUpgradesRepArray[i].bIsStatic;
 				WeaponUpgradesList[i].bDone = True;
 			}
@@ -954,11 +960,14 @@ simulated function GenerateWeaponUpgrades()
 	local int i, x, Choice, UpgCounter, WeaponUpgRandPosition;
 	local class<KFWeapon> KFW;
 	local array< class<WMUpgrade_Weapon> > AllowedUpgrades, StaticUpgrades;
+	local array<int> AllowedUpgrades_PU, StaticUpgrades_PU;
+	local array<float> AllowedUpgrades_PM, StaticUpgrades_PM;
+	local array<int> AllowedUpgrades_ML, StaticUpgrades_ML;
 
 	if (NumberOfWeaponUpgradeSlots == INDEX_NONE)
 		return; //Not yet replicated
 
-	if (WeaponUpgNumberUpgradePerWeapon == -1 || WeaponUpgPriceMultiplier == -1.0f || WeaponUpgPriceUnit == -1)
+	if (WeaponUpgNumberUpgradePerWeapon == -1)
 		return; //Not yet replicated
 
 	if (Len(WeaponUpgRandSeed) == 0)
@@ -978,9 +987,19 @@ simulated function GenerateWeaponUpgrades()
 				if (WeaponUpgradesList[x].WeaponUpgrade.static.IsUpgradeCompatible(KFW))
 				{
 					if (WeaponUpgradesList[x].bIsStatic)
+					{
 						StaticUpgrades.AddItem(WeaponUpgradesList[x].WeaponUpgrade);
+						StaticUpgrades_PU.AddItem(WeaponUpgradesList[x].PriceUnit);
+						StaticUpgrades_PM.AddItem(WeaponUpgradesList[x].PriceMultiplier);
+						StaticUpgrades_ML.AddItem(WeaponUpgradesList[x].MaxLevel);
+					}
 					else
+					{
 						AllowedUpgrades.AddItem(WeaponUpgradesList[x].WeaponUpgrade);
+						AllowedUpgrades_PU.AddItem(WeaponUpgradesList[x].PriceUnit);
+						AllowedUpgrades_PM.AddItem(WeaponUpgradesList[x].PriceMultiplier);
+						AllowedUpgrades_ML.AddItem(WeaponUpgradesList[x].MaxLevel);
+					}
 				}
 			}
 
@@ -991,15 +1010,21 @@ simulated function GenerateWeaponUpgrades()
 
 				if (StaticUpgrades.Length > 0)
 				{
-					AddWeaponUpgrade(KFW, StaticUpgrades[0], GenerateWeaponUpgradePrice(KFW, AllowedWeaponsList[i].BuyPrice));
+					AddWeaponUpgrade(KFW, StaticUpgrades[0], GenerateWeaponUpgradePrice(KFW, StaticUpgrades_PU[0], StaticUpgrades_PM[0], AllowedWeaponsList[i].BuyPrice), StaticUpgrades_ML[0]);
 					StaticUpgrades.Remove(0, 1);
+					StaticUpgrades_PU.Remove(0, 1);
+					StaticUpgrades_PM.Remove(0, 1);
+					StaticUpgrades_ML.Remove(0, 1);
 					++UpgCounter;
 				}
 				else if (AllowedUpgrades.Length > 0)
 				{
 					Choice = class'ZedternalReborn.WMRandom'.static.SeedRandom(WeaponUpgRandSeed, WeaponUpgRandPosition, AllowedUpgrades.Length);
-					AddWeaponUpgrade(KFW, AllowedUpgrades[Choice], GenerateWeaponUpgradePrice(KFW, AllowedWeaponsList[i].BuyPrice));
+					AddWeaponUpgrade(KFW, AllowedUpgrades[Choice], GenerateWeaponUpgradePrice(KFW, AllowedUpgrades_PU[Choice], AllowedUpgrades_PM[Choice], AllowedWeaponsList[i].BuyPrice), AllowedUpgrades_ML[Choice]);
 					AllowedUpgrades.Remove(Choice, 1);
+					AllowedUpgrades_PU.Remove(Choice, 1);
+					AllowedUpgrades_PM.Remove(Choice, 1);
+					AllowedUpgrades_ML.Remove(Choice, 1);
 					++WeaponUpgRandPosition;
 					++UpgCounter;
 				}
@@ -1014,21 +1039,22 @@ simulated function GenerateWeaponUpgrades()
 	}
 }
 
-simulated function int GenerateWeaponUpgradePrice(const out class<KFWeapon> KFW, int BuyPrice)
+function int GenerateWeaponUpgradePrice(const out class<KFWeapon> KFW, int PriceUnit, float PriceMultiplier, int BuyPrice)
 {
 	if (KFW.default.DualClass != None) // is a dual weapons
-		return Max(WeaponUpgPriceUnit, Round(float(BuyPrice) * 2 * WeaponUpgPriceMultiplier / float(WeaponUpgPriceUnit)) * WeaponUpgPriceUnit);
+		return Max(PriceUnit, Round(float(BuyPrice) * 2 * PriceMultiplier / float(PriceUnit)) * PriceUnit);
 	else
-		return Max(WeaponUpgPriceUnit, Round(float(BuyPrice) * WeaponUpgPriceMultiplier / float(WeaponUpgPriceUnit)) * WeaponUpgPriceUnit);
+		return Max(PriceUnit, Round(float(BuyPrice) * PriceMultiplier / float(PriceUnit)) * PriceUnit);
 }
 
-simulated function AddWeaponUpgrade(const out class<KFWeapon> KFW, const out class<WMUpgrade_Weapon> WMUW, int BasePrice)
+simulated function AddWeaponUpgrade(const out class<KFWeapon> KFW, const out class<WMUpgrade_Weapon> WMUW, int BasePrice, int MaxLevel)
 {
 	local WeaponUpgradeSlotStruct WepUpg;
 
 	WepUpg.KFWeapon = KFW;
 	WepUpg.WeaponUpgrade = WMUW;
 	WepUpg.BasePrice = BasePrice;
+	WepUpg.MaxLevel = MaxLevel;
 	WepUpg.bDone = True;
 
 	WeaponUpgradeSlotsList.AddItem(WepUpg);
@@ -1319,8 +1345,6 @@ defaultproperties
 	LobbyMaxPage=1
 	TraderVoiceGroupIndex=255
 	WeaponUpgNumberUpgradePerWeapon=-1
-	WeaponUpgPriceMultiplier=-1.0f
-	WeaponUpgPriceUnit=-1
 	ZedBuffNextMusicTrackIndex=0
 
 	NumberOfAllowedWeapons=INDEX_NONE
