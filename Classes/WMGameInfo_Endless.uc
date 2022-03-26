@@ -84,7 +84,10 @@ event InitGame(string Options, out string ErrorMessage)
 	// starting player count can be set through the console while launching the mod (by adding : ?players=XXX)
 	startingMaxPlayerCount = class'GameInfo'.static.GetIntOption(Options, "players", 6);
 
-	Super.InitGame(Options, ErrorMessage);
+	// all traders can be set through the console while launching the mod (by adding : ?alltraders)
+	bUseAllTraders = class'GameInfo'.static.HasOption(Options, "alltraders");
+
+	super.InitGame(Options, ErrorMessage);
 
 	GameLength = 2;
 	MaxPlayers = Clamp(startingMaxPlayerCount, 1, MaxPlayersAllowed);
@@ -129,7 +132,8 @@ event PostBeginPlay()
 	super.PostBeginPlay();
 
 	// Set all traders toggle
-	bUseAllTraders = class'ZedternalReborn.Config_Map'.static.GetAllTraders(WorldInfo.GetMapName(True));
+	if (!bUseAllTraders)
+		bUseAllTraders = class'ZedternalReborn.Config_Map'.static.GetAllTraders(WorldInfo.GetMapName(True));
 
 	// Store which perks are static (always selected first) for future use
 	InitializeStaticPerkList();
