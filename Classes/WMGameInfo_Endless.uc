@@ -1832,22 +1832,17 @@ function RepGameInfoLowPriority()
 	//Equipment Upgrades
 	for (b = 0; b < Min(255, ConfigData.ValidEquipmentUpgrades.Length); ++b)
 	{
-		if (ConfigData.ValidEquipmentUpgrades[b].MaxLevel > 0)
-		{
-			WMGRI.EquipmentUpgradesRepArray[b].EquipmentPathName = ConfigData.ValidEquipmentUpgrades[b].EquipmentPath;
-			WMGRI.EquipmentUpgradesRepArray[b].BasePrice = ConfigData.ValidEquipmentUpgrades[b].BasePrice;
-			WMGRI.EquipmentUpgradesRepArray[b].MaxPrice = ConfigData.ValidEquipmentUpgrades[b].MaxPrice;
-			WMGRI.EquipmentUpgradesRepArray[b].MaxLevel = ConfigData.ValidEquipmentUpgrades[b].MaxLevel;
-			WMGRI.EquipmentUpgradesRepArray[b].bValid = True;
+		WMGRI.EquipmentUpgradesRepArray[b].EquipmentPathName = ConfigData.ValidEquipmentUpgrades[b].EquipmentPath;
+		WMGRI.EquipmentUpgradesRepArray[b].BasePrice = ConfigData.ValidEquipmentUpgrades[b].BasePrice;
+		WMGRI.EquipmentUpgradesRepArray[b].MaxPrice = ConfigData.ValidEquipmentUpgrades[b].MaxPrice;
+		WMGRI.EquipmentUpgradesRepArray[b].MaxLevel = ConfigData.ValidEquipmentUpgrades[b].MaxLevel;
+		WMGRI.EquipmentUpgradesRepArray[b].bValid = True;
 
-			WMGRI.EquipmentUpgradesList[b].EquipmentUpgrade = ConfigData.EquipmentUpgObjects[b];
-			WMGRI.EquipmentUpgradesList[b].BasePrice = ConfigData.ValidEquipmentUpgrades[b].BasePrice;
-			WMGRI.EquipmentUpgradesList[b].MaxPrice = ConfigData.ValidEquipmentUpgrades[b].MaxPrice;
-			WMGRI.EquipmentUpgradesList[b].MaxLevel = ConfigData.ValidEquipmentUpgrades[b].MaxLevel;
-			WMGRI.EquipmentUpgradesList[b].bDone = True;
-		}
-		else
-			`log("ZR Info: Equipment upgrade disabled because max level is zero:"@ConfigData.ValidEquipmentUpgrades[b].EquipmentPath);
+		WMGRI.EquipmentUpgradesList[b].EquipmentUpgrade = ConfigData.EquipmentUpgObjects[b];
+		WMGRI.EquipmentUpgradesList[b].BasePrice = ConfigData.ValidEquipmentUpgrades[b].BasePrice;
+		WMGRI.EquipmentUpgradesList[b].MaxPrice = ConfigData.ValidEquipmentUpgrades[b].MaxPrice;
+		WMGRI.EquipmentUpgradesList[b].MaxLevel = ConfigData.ValidEquipmentUpgrades[b].MaxLevel;
+		WMGRI.EquipmentUpgradesList[b].bDone = True;
 	}
 
 	//Weapon unlocks

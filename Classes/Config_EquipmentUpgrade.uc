@@ -112,16 +112,21 @@ static function LoadConfigObjects(out array<S_EquipmentUpgrade> ValidUpgrades, o
 
 	for (i = 0; i < default.EquipmentUpgrade_Upgrade.Length; ++i)
 	{
-		Obj = class<WMUpgrade_Equipment>(DynamicLoadObject(default.EquipmentUpgrade_Upgrade[i].EquipmentPath, class'Class', True));
-		if (Obj == None)
+		if (default.EquipmentUpgrade_Upgrade[i].MaxLevel > 0)
 		{
-			LogBadLoadObjectConfigMessage("EquipmentUpgrade_Upgrade", i, default.EquipmentUpgrade_Upgrade[i].EquipmentPath);
+			Obj = class<WMUpgrade_Equipment>(DynamicLoadObject(default.EquipmentUpgrade_Upgrade[i].EquipmentPath, class'Class', True));
+			if (Obj == None)
+			{
+				LogBadLoadObjectConfigMessage("EquipmentUpgrade_Upgrade", i, default.EquipmentUpgrade_Upgrade[i].EquipmentPath);
+			}
+			else
+			{
+				ValidUpgrades.AddItem(default.EquipmentUpgrade_Upgrade[i]);
+				UpgradeObjects.AddItem(Obj);
+			}
 		}
 		else
-		{
-			ValidUpgrades.AddItem(default.EquipmentUpgrade_Upgrade[i]);
-			UpgradeObjects.AddItem(Obj);
-		}
+			`log("ZR Config Info: Equipment upgrade disabled because max level is zero:" @default.EquipmentUpgrade_Upgrade[i].EquipmentPath);
 	}
 }
 
