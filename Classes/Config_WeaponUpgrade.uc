@@ -122,16 +122,21 @@ static function LoadConfigObjects(out array<S_WeaponUpgrade> ValidUpgrades, out 
 
 	for (i = 0; i < default.WeaponUpgrade_Upgrade.Length; ++i)
 	{
-		Obj = class<WMUpgrade_Weapon>(DynamicLoadObject(default.WeaponUpgrade_Upgrade[i].WeaponPath, class'Class', True));
-		if (Obj == None)
+		if (default.WeaponUpgrade_Upgrade[i].MaxLevel > 0)
 		{
-			LogBadLoadObjectConfigMessage("WeaponUpgrade_Upgrade", i, default.WeaponUpgrade_Upgrade[i].WeaponPath);
+			Obj = class<WMUpgrade_Weapon>(DynamicLoadObject(default.WeaponUpgrade_Upgrade[i].WeaponPath, class'Class', True));
+			if (Obj == None)
+			{
+				LogBadLoadObjectConfigMessage("WeaponUpgrade_Upgrade", i, default.WeaponUpgrade_Upgrade[i].WeaponPath);
+			}
+			else
+			{
+				ValidUpgrades.AddItem(default.WeaponUpgrade_Upgrade[i]);
+				UpgradeObjects.AddItem(Obj);
+			}
 		}
 		else
-		{
-			ValidUpgrades.AddItem(default.WeaponUpgrade_Upgrade[i]);
-			UpgradeObjects.AddItem(Obj);
-		}
+			`log("ZR Config Info: Weapon upgrade disabled because max level is zero:" @default.WeaponUpgrade_Upgrade[i].WeaponPath);
 	}
 }
 
