@@ -1046,10 +1046,15 @@ simulated function AddWeaponUpgrade(const out class<KFWeapon> KFW, const out cla
 	WepUpg.KFWeapon = KFW;
 	WepUpg.WeaponUpgrade = WMUW;
 
-	if (KFW.default.DualClass != None) // is a dual weapons
-		WepUpg.BasePrice = Max(PriceUnit, Round(float(BuyPrice) * 2 * PriceMultiplier / float(PriceUnit)) * PriceUnit);
+	if (PriceUnit == 0)
+		WepUpg.BasePrice = 0;
 	else
-		WepUpg.BasePrice = Max(PriceUnit, Round(float(BuyPrice) * PriceMultiplier / float(PriceUnit)) * PriceUnit);
+	{
+		if (KFW.default.DualClass != None) // is a dual weapons
+			WepUpg.BasePrice = Max(PriceUnit, Round(float(BuyPrice) * 2 * PriceMultiplier / float(PriceUnit)) * PriceUnit);
+		else
+			WepUpg.BasePrice = Max(PriceUnit, Round(float(BuyPrice) * PriceMultiplier / float(PriceUnit)) * PriceUnit);
+	}
 
 	WepUpg.MaxLevel = MaxLevel;
 	WepUpg.bDone = True;
