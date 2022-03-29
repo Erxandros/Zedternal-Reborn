@@ -1010,7 +1010,7 @@ simulated function GenerateWeaponUpgrades()
 
 				if (StaticUpgrades.Length > 0)
 				{
-					AddWeaponUpgrade(KFW, StaticUpgrades[0], GenerateWeaponUpgradePrice(KFW, StaticUpgrades_PU[0], StaticUpgrades_PM[0], AllowedWeaponsList[i].BuyPrice), StaticUpgrades_ML[0]);
+					AddWeaponUpgrade(KFW, StaticUpgrades[0], StaticUpgrades_PU[0], StaticUpgrades_PM[0], AllowedWeaponsList[i].BuyPrice, StaticUpgrades_ML[0]);
 					StaticUpgrades.Remove(0, 1);
 					StaticUpgrades_PU.Remove(0, 1);
 					StaticUpgrades_PM.Remove(0, 1);
@@ -1020,7 +1020,7 @@ simulated function GenerateWeaponUpgrades()
 				else if (AllowedUpgrades.Length > 0)
 				{
 					Choice = class'ZedternalReborn.WMRandom'.static.SeedRandom(WeaponUpgRandSeed, WeaponUpgRandPosition, AllowedUpgrades.Length);
-					AddWeaponUpgrade(KFW, AllowedUpgrades[Choice], GenerateWeaponUpgradePrice(KFW, AllowedUpgrades_PU[Choice], AllowedUpgrades_PM[Choice], AllowedWeaponsList[i].BuyPrice), AllowedUpgrades_ML[Choice]);
+					AddWeaponUpgrade(KFW, AllowedUpgrades[Choice], AllowedUpgrades_PU[Choice], AllowedUpgrades_PM[Choice], AllowedWeaponsList[i].BuyPrice, AllowedUpgrades_ML[Choice]);
 					AllowedUpgrades.Remove(Choice, 1);
 					AllowedUpgrades_PU.Remove(Choice, 1);
 					AllowedUpgrades_PM.Remove(Choice, 1);
@@ -1039,21 +1039,18 @@ simulated function GenerateWeaponUpgrades()
 	}
 }
 
-function int GenerateWeaponUpgradePrice(const out class<KFWeapon> KFW, int PriceUnit, float PriceMultiplier, int BuyPrice)
-{
-	if (KFW.default.DualClass != None) // is a dual weapons
-		return Max(PriceUnit, Round(float(BuyPrice) * 2 * PriceMultiplier / float(PriceUnit)) * PriceUnit);
-	else
-		return Max(PriceUnit, Round(float(BuyPrice) * PriceMultiplier / float(PriceUnit)) * PriceUnit);
-}
-
-simulated function AddWeaponUpgrade(const out class<KFWeapon> KFW, const out class<WMUpgrade_Weapon> WMUW, int BasePrice, int MaxLevel)
+simulated function AddWeaponUpgrade(const out class<KFWeapon> KFW, const out class<WMUpgrade_Weapon> WMUW, int PriceUnit, float PriceMultiplier, int BuyPrice, int MaxLevel)
 {
 	local WeaponUpgradeSlotStruct WepUpg;
 
 	WepUpg.KFWeapon = KFW;
 	WepUpg.WeaponUpgrade = WMUW;
-	WepUpg.BasePrice = BasePrice;
+
+	if (KFW.default.DualClass != None) // is a dual weapons
+		WepUpg.BasePrice = Max(PriceUnit, Round(float(BuyPrice) * 2 * PriceMultiplier / float(PriceUnit)) * PriceUnit);
+	else
+		WepUpg.BasePrice = Max(PriceUnit, Round(float(BuyPrice) * PriceMultiplier / float(PriceUnit)) * PriceUnit);
+
 	WepUpg.MaxLevel = MaxLevel;
 	WepUpg.bDone = True;
 

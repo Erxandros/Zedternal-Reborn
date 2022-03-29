@@ -1563,7 +1563,7 @@ function AddWeaponInTrader(const class<KFWeaponDefinition> KFWD)
 
 			if (StaticUpgrades.Length > 0)
 			{
-				WMGRI.AddWeaponUpgrade(KFW, StaticUpgrades[0], GetWeaponUpgradePrice(KFW, StaticUpgrades_PU[0], StaticUpgrades_PM[0], KFWD.default.BuyPrice), StaticUpgrades_ML[0]);
+				WMGRI.AddWeaponUpgrade(KFW, StaticUpgrades[0], StaticUpgrades_PU[0], StaticUpgrades_PM[0], KFWD.default.BuyPrice, StaticUpgrades_ML[0]);
 				StaticUpgrades.Remove(0, 1);
 				StaticUpgrades_PU.Remove(0, 1);
 				StaticUpgrades_PM.Remove(0, 1);
@@ -1572,7 +1572,7 @@ function AddWeaponInTrader(const class<KFWeaponDefinition> KFWD)
 			else if (AllowedUpgrades.Length > 0)
 			{
 				Choice = class'ZedternalReborn.WMRandom'.static.SeedRandom(WeaponUpgRandSeed, WeaponUpgRandPosition, AllowedUpgrades.Length);
-				WMGRI.AddWeaponUpgrade(KFW, AllowedUpgrades[Choice], GetWeaponUpgradePrice(KFW, AllowedUpgrades_PU[Choice], AllowedUpgrades_PM[Choice], KFWD.default.BuyPrice), AllowedUpgrades_ML[Choice]);
+				WMGRI.AddWeaponUpgrade(KFW, AllowedUpgrades[Choice], AllowedUpgrades_PU[Choice], AllowedUpgrades_PM[Choice], KFWD.default.BuyPrice, AllowedUpgrades_ML[Choice]);
 				AllowedUpgrades.Remove(Choice, 1);
 				AllowedUpgrades_PU.Remove(Choice, 1);
 				AllowedUpgrades_PM.Remove(Choice, 1);
@@ -1581,14 +1581,6 @@ function AddWeaponInTrader(const class<KFWeaponDefinition> KFWD)
 			}
 		}
 	}
-}
-
-function int GetWeaponUpgradePrice(const out class<KFWeapon> KFW, int PriceUnit, float PriceMultiplier, int BuyPrice)
-{
-	if (KFW.default.DualClass != None) // is a dual weapons
-		return Max(PriceUnit, Round(float(BuyPrice) * 2 * PriceMultiplier / float(PriceUnit)) * PriceUnit);
-	else
-		return Max(PriceUnit, Round(float(BuyPrice) * PriceMultiplier / float(PriceUnit)) * PriceUnit);
 }
 
 function SetTraderItemsAndPrintWeaponList()
