@@ -33,21 +33,37 @@ function SpawnDosh(Actor BouncedOff)
 {
 	local KFDroppedPickup_Cash P;
 	local int i;
+	local Vector Pos;
+	local rotator Rot;
 
 	if (WorldInfo.NetMode == NM_Client)
 		return;
 
 	if (Pawn(BouncedOff) == None)
 	{
-		P = Spawn(class'KFDroppedPickup_Cash', , , Location, Rotation, , False);
+		Pos = Location;
+		Rot = Rotation;
+		P = Spawn(class'KFDroppedPickup_Cash', , , Pos, Rot, , False);
 
 		if (P == None)
 		{
 			for (i = 0; i < 20; ++i)
 			{
-				P = Spawn(class'KFDroppedPickup_Cash', , , PreviousLocations[i], PreviousRotations[i], , False);
+				Pos = PreviousLocations[i];
+				Rot = PreviousRotations[i];
+				P = Spawn(class'KFDroppedPickup_Cash', , , Pos, Rot, , False);
 				if (P != None)
 					break;
+			}
+		}
+
+		if (P != None && RelocateFromCeiling(Pos))
+		{
+			P.Destroy();
+			if (Ceiling.Z > -10000)
+			{
+				P = Spawn(class'KFDroppedPickup_Cash', , , Ceiling, Rot, , False);
+				Velocity = vect(0,0,0);
 			}
 		}
 	}
