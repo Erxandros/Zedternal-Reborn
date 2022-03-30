@@ -13,6 +13,7 @@ struct S_ZedSpawnGroup
 	var int Count;
 	var float Probability;
 	var int MinDiff, MaxDiff;
+	var bool bExclusive;
 
 	structdefaultproperties
 	{
@@ -24,6 +25,8 @@ var config array<S_ZedSpawnGroup> Zed_WaveGroupInject;
 
 static function UpdateConfig()
 {
+	local int i;
+
 	if (default.MODEVERSION < 1)
 	{
 		default.Zed_bEnableWaveGroupInjection = False;
@@ -53,6 +56,14 @@ static function UpdateConfig()
 		default.Zed_WaveGroupInject[2].Probability = 0.5f;
 		default.Zed_WaveGroupInject[2].MinDiff = 1;
 		default.Zed_WaveGroupInject[2].MaxDiff = 4;
+	}
+
+	if (default.MODEVERSION < 12)
+	{
+		for (i = 0; i < default.Zed_WaveGroupInject.Length; ++i)
+		{
+			default.Zed_WaveGroupInject[i].bExclusive = False;
+		}
 	}
 
 	if (default.MODEVERSION < class'ZedternalReborn.Config_Base'.const.CurrentVersion)

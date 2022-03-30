@@ -27,6 +27,7 @@ struct S_Zed_Inject
 	var byte Count;
 	var float Probability;
 	var byte MinDiff, MaxDiff;
+	var bool bExclusive;
 };
 var array<S_Zed_Inject> InjectList;
 
@@ -155,6 +156,7 @@ function InitializeZedArrays()
 			InjectList[InjectList.Length - 1].Probability = ConfigData.ValidZedInjects[i].Probability;
 			InjectList[InjectList.Length - 1].MinDiff = ConfigData.ValidZedInjects[i].MinDiff;
 			InjectList[InjectList.Length - 1].MaxDiff = ConfigData.ValidZedInjects[i].MaxDiff;
+			InjectList[InjectList.Length - 1].bExclusive = ConfigData.ValidZedInjects[i].bExclusive;
 		}
 	}
 
@@ -479,6 +481,9 @@ function SetupNextWave(byte NextWaveIndex, int TimeToNextWaveBuffer = 0)
 				}
 				GroupList[k].Delay = InjectList[i].Count * CustomSpawnRate;
 				WaveTotalAI += InjectList[i].Count;
+
+				if (InjectList[i].bExclusive)
+					break;
 			}
 		}
 	}
