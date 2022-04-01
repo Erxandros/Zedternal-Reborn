@@ -981,7 +981,15 @@ simulated function GenerateWeaponUpgrades()
 		if (KFW != None)
 		{
 			AllowedUpgrades.Length = 0;
+			AllowedUpgrades_PU.Length = 0;
+			AllowedUpgrades_PM.Length = 0;
+			AllowedUpgrades_ML.Length = 0;
+
 			StaticUpgrades.Length = 0;
+			StaticUpgrades_PU.Length = 0;
+			StaticUpgrades_PM.Length = 0;
+			StaticUpgrades_ML.Length = 0;
+
 			for (x = 0; x < WeaponUpgradesList.Length; ++x)
 			{
 				if (WeaponUpgradesList[x].WeaponUpgrade.static.IsUpgradeCompatible(KFW))
