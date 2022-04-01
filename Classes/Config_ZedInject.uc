@@ -14,6 +14,7 @@ struct S_ZedSpawnGroup
 	var float Probability;
 	var int MinDiff, MaxDiff;
 	var bool bExclusive;
+	var bool bRepeat;
 
 	structdefaultproperties
 	{
@@ -63,6 +64,7 @@ static function UpdateConfig()
 		for (i = 0; i < default.Zed_WaveGroupInject.Length; ++i)
 		{
 			default.Zed_WaveGroupInject[i].bExclusive = False;
+			default.Zed_WaveGroupInject[i].bRepeat = False;
 		}
 	}
 
