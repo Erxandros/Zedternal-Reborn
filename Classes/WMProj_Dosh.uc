@@ -1,5 +1,4 @@
-class WMProj_Dosh extends KFProj_Dosh
-	hidedropdown;
+class WMProj_Dosh extends KFProj_Dosh;
 
 var bool IsUberAmmo;
 

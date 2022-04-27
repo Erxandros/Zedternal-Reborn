@@ -1,12 +1,10 @@
-class WMProj_Cannonball_Blunderbuss_Precious extends KFProj_Cannonball_Blunderbuss
-	hidedropdown;
+class WMProj_Cannonball_Blunderbuss_Precious extends KFProj_Cannonball_Blunderbuss;
 
 defaultproperties
 {
 	Begin Object Name=ExploTemplate0
-		Damage=313.0f //25% increase (round up)
-		DamageRadius=900.0f //20% increase
+		Damage=313
+		DamageRadius=900
 	End Object
-
 	Name="Default__WMProj_Cannonball_Blunderbuss_Precious"
 }

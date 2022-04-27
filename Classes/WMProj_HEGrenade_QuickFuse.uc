@@ -1,9 +1,7 @@
-class WMProj_HEGrenade_QuickFuse extends KFProj_HEGrenade
-	hidedropdown;
+class WMProj_HEGrenade_QuickFuse extends KFProj_HEGrenade;
 
 defaultproperties
 {
-	FuseTime=0.5f
-
+	FuseTime=0.5
 	Name="Default__WMProj_HEGrenade_QuickFuse"
 }

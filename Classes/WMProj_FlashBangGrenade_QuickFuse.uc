@@ -1,9 +1,7 @@
-class WMProj_FlashBangGrenade_QuickFuse extends KFProj_FlashBangGrenade
-	hidedropdown;
+class WMProj_FlashBangGrenade_QuickFuse extends KFProj_FlashBangGrenade;
 
 defaultproperties
 {
-	FuseTime=0.125f
-
+	FuseTime=0.125
 	Name="Default__WMProj_FlashBangGrenade_QuickFuse"
 }

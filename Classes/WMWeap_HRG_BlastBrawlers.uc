@@ -5,8 +5,10 @@ simulated function DecrementAmmo()
 	local KFPerk InstigatorPerk;
 
 	InstigatorPerk = GetPerk();
-	if (InstigatorPerk == None || !InstigatorPerk.GetIsUberAmmoActive(self))
-		AmmoCount[DEFAULT_FIREMODE] = Max(AmmoCount[DEFAULT_FIREMODE] - 1, 0);
+	if (InstigatorPerk != None && InstigatorPerk.GetIsUberAmmoActive(self))
+		return;
+
+	super.DecrementAmmo();
 }
 
 defaultproperties

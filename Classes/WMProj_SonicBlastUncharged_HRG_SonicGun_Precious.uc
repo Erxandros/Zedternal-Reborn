@@ -1,0 +1,7 @@
+class WMProj_SonicBlastUncharged_HRG_SonicGun_Precious extends KFProj_SonicBlastUncharged_HRG_SonicGun;
+
+defaultproperties
+{
+	Damage=13
+	Name="Default__WMProj_SonicBlastUncharged_HRG_SonicGun_Precious"
+}

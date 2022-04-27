@@ -2,9 +2,9 @@ class WMWeap_Thrown_C4_Precious extends KFWeap_Thrown_C4;
 
 defaultproperties
 {
-	WeaponProjectiles(THROW_FIREMODE)=Class'ZedternalReborn.WMProj_Thrown_C4_Precious'
-	SpareAmmoCapacity(0)=4 //double spare ammo
-	InstantHitDamage(BASH_FIREMODE)=29.0 //25% increase (round up)
+	SpareAmmoCapacity(0)=4
+	InstantHitDamage(BASH_FIREMODE)=29
+	WeaponProjectiles(THROW_FIREMODE)=class'ZedternalReborn.WMProj_Thrown_C4_Precious'
 	DroppedPickupClass=class'ZedternalReborn.WMPreciousDroppedPickup'
 	Name="Default__WMWeap_Thrown_C4_Precious"
 }

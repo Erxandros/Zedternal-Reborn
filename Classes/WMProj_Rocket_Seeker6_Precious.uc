@@ -1,12 +1,10 @@
-class WMProj_Rocket_Seeker6_Precious extends KFProj_Rocket_Seeker6
-	hidedropdown;
+class WMProj_Rocket_Seeker6_Precious extends KFProj_Rocket_Seeker6;
 
 defaultproperties
 {
 	Begin Object Name=ExploTemplate0
-		Damage=200.0f //25% increase
-		DamageRadius=420.0f //20% increase
+		Damage=200
+		DamageRadius=420
 	End Object
-
 	Name="Default__WMProj_Rocket_Seeker6_Precious"
 }

@@ -2,16 +2,17 @@ class WMWeap_AssaultRifle_MedicRifleGrenadeLauncher_Precious extends WMWeap_Assa
 
 defaultproperties
 {
-	MagazineCapacity(0)=45 //50% increase
-	AmmoPickupScale(0)=0.5 //50% decrease
-	SpareAmmoCapacity(0)=252 //20% increase
-	MagazineCapacity(1)=2 //50% increase (round up)
-	AmmoPickupScale(1)=1.0 //50% decrease
-	SpareAmmoCapacity(1)=11 //20% increase (round up)
-	InstantHitDamage(DEFAULT_FIREMODE)=59.0 //25% increase (round up)
-	InstantHitDamage(ALTFIRE_FIREMODE)=63.0 //25% increase (round up)
-	WeaponProjectiles(ALTFIRE_FIREMODE)=Class'ZedternalReborn.WMProj_MedicGrenade_Mini_Precious'
-	InstantHitDamage(BASH_FIREMODE)=33.0 //25% increase (round up)
+	MagazineCapacity(0)=45
+	AmmoPickupScale(0)=0.5
+	SpareAmmoCapacity(0)=252
+	MagazineCapacity(1)=2
+	AmmoPickupScale(1)=1
+	SpareAmmoCapacity(1)=11
+	InstantHitDamage(ALTFIRE_FIREMODE)=63
+	WeaponProjectiles(ALTFIRE_FIREMODE)=class'ZedternalReborn.WMProj_MedicGrenade_Mini_Precious'
+	InstantHitDamage(BASH_FIREMODE)=33
+	InstantHitDamage(DEFAULT_FIREMODE)=59
+	WeaponProjectiles(DEFAULT_FIREMODE)=class'ZedternalReborn.WMProj_Bullet_AssaultRifle_Precious'
 	DroppedPickupClass=class'ZedternalReborn.WMPreciousDroppedPickup'
 	Name="Default__WMWeap_AssaultRifle_MedicRifleGrenadeLauncher_Precious"
 }

@@ -1,5 +1,4 @@
-class WMProj_Dosh_Precious extends WMProj_Dosh
-	hidedropdown;
+class WMProj_Dosh_Precious extends WMProj_Dosh;
 
 function int GetCashAmount()
 {
@@ -8,5 +7,6 @@ function int GetCashAmount()
 
 defaultproperties
 {
+	Damage=13
 	Name="Default__WMProj_Dosh_Precious"
 }

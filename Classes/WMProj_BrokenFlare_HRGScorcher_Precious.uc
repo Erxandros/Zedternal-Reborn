@@ -1,12 +1,10 @@
-class WMProj_BrokenFlare_HRGScorcher_Precious extends KFProj_BrokenFlare_HRGScorcher
-	hidedropdown;
+class WMProj_BrokenFlare_HRGScorcher_Precious extends KFProj_BrokenFlare_HRGScorcher;
 
 defaultproperties
 {
+	ResidualFlameProjClass=class'ZedternalReborn.WMProj_BrokenFlare_HRGScorcherSplash_Precious'
 	Begin Object Name=ExploTemplate0
-		Damage=0.0f //25% increase
-		DamageRadius=600.0f //20% increase
+		DamageRadius=600
 	End Object
-
 	Name="Default__WMProj_BrokenFlare_HRGScorcher_Precious"
 }

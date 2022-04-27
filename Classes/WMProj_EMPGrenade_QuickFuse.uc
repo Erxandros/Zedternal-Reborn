@@ -1,9 +1,7 @@
-class WMProj_EMPGrenade_QuickFuse extends KFProj_EMPGrenade
-	hidedropdown;
+class WMProj_EMPGrenade_QuickFuse extends KFProj_EMPGrenade;
 
 defaultproperties
 {
-	FuseTime=0.125f
-
+	FuseTime=0.125
 	Name="Default__WMProj_EMPGrenade_QuickFuse"
 }

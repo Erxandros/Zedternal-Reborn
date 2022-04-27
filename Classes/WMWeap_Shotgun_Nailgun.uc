@@ -5,24 +5,19 @@ simulated function ConsumeAmmo(byte FireModeNum)
 	local KFPerk InstigatorPerk;
 
 	InstigatorPerk = GetPerk();
-	if (InstigatorPerk != none && InstigatorPerk.GetIsUberAmmoActive(self))
-	{
+	if (InstigatorPerk != None && InstigatorPerk.GetIsUberAmmoActive(self))
 		return;
-	}
 
 	super.ConsumeAmmo(FireModeNum);
 }
 
-/** Returns number of projectiles to fire from SpawnProjectile */
 simulated function byte GetNumProjectilesToFire(byte FireModeNum)
 {
 	local KFPerk InstigatorPerk;
 
 	InstigatorPerk = GetPerk();
-	if(InstigatorPerk != none && InstigatorPerk.GetIsUberAmmoActive(self))
-	{
+	if (InstigatorPerk != None && InstigatorPerk.GetIsUberAmmoActive(self))
 		return NumPellets[CurrentFireMode];
-	}
 
 	return super.GetNumProjectilesToFire(FireModeNum);
 }

@@ -29,9 +29,7 @@ reliable server function ServerSendToAltReloadAmount(int Amount)
 simulated function bool CanAltAutoReload()
 {
 	if (Instigator.IsLocallyControlled() && !bManualAltReload && AmmoCount[1] != 0)
-	{
 		return false;
-	}
 
 	return super.CanAltAutoReload();
 }

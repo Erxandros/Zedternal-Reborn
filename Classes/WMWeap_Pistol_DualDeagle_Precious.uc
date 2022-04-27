@@ -2,13 +2,15 @@ class WMWeap_Pistol_DualDeagle_Precious extends KFWeap_Pistol_DualDeagle;
 
 defaultproperties
 {
-	SingleClass=Class'ZedternalReborn.WMWeap_Pistol_Deagle_Precious'
-	MagazineCapacity(0)=22 //50% increase (round up)
-	AmmoPickupScale(0)=0.5 //50% decrease
-	SpareAmmoCapacity(0)=118 //20% increase (round up)
-	InstantHitDamage(DEFAULT_FIREMODE)=114.0 //25% increase (round up)
-	InstantHitDamage(ALTFIRE_FIREMODE)=114.0 //25% increase (round up)
-	InstantHitDamage(BASH_FIREMODE)=30 //25% increase
+	SingleClass=class'ZedternalReborn.WMWeap_Pistol_Deagle_Precious'
+	MagazineCapacity(0)=21
+	AmmoPickupScale(0)=0.5
+	SpareAmmoCapacity(0)=118
+	InstantHitDamage(ALTFIRE_FIREMODE)=114
+	WeaponProjectiles(ALTFIRE_FIREMODE)=class'ZedternalReborn.WMProj_Bullet_PistolDeagle_Precious'
+	InstantHitDamage(BASH_FIREMODE)=30
+	InstantHitDamage(DEFAULT_FIREMODE)=114
+	WeaponProjectiles(DEFAULT_FIREMODE)=class'ZedternalReborn.WMProj_Bullet_PistolDeagle_Precious'
 	DroppedPickupClass=class'ZedternalReborn.WMPreciousDroppedPickup'
 	Name="Default__WMWeap_Pistol_DualDeagle_Precious"
 }
