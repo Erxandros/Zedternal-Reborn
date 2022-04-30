@@ -1,4 +1,5 @@
-class WMProj_Explosive_HRGWinterbite_Precious extends KFProj_Explosive_HRGWinterbite;
+class WMProj_Explosive_HRGWinterbite_Precious extends KFProj_Explosive_HRGWinterbite
+	hidedropdown;
 
 defaultproperties
 {

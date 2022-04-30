@@ -1,4 +1,5 @@
-class WMProj_FreezeGrenade_QuickFuse extends KFProj_FreezeGrenade;
+class WMProj_FreezeGrenade_QuickFuse extends KFProj_FreezeGrenade
+	hidedropdown;
 
 defaultproperties
 {

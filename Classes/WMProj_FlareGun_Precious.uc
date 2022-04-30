@@ -1,4 +1,5 @@
-class WMProj_FlareGun_Precious extends KFProj_FlareGun;
+class WMProj_FlareGun_Precious extends KFProj_FlareGun
+	hidedropdown;
 
 defaultproperties
 {

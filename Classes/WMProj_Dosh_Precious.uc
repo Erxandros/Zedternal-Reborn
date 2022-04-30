@@ -1,4 +1,5 @@
-class WMProj_Dosh_Precious extends WMProj_Dosh;
+class WMProj_Dosh_Precious extends WMProj_Dosh
+	hidedropdown;
 
 function int GetCashAmount()
 {

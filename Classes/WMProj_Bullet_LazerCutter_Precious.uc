@@ -1,4 +1,5 @@
-class WMProj_Bullet_LazerCutter_Precious extends KFProj_Bullet_LazerCutter;
+class WMProj_Bullet_LazerCutter_Precious extends KFProj_Bullet_LazerCutter
+	hidedropdown;
 
 defaultproperties
 {

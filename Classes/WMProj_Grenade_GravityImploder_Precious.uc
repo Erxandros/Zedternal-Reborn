@@ -1,4 +1,5 @@
-class WMProj_Grenade_GravityImploder_Precious extends KFProj_Grenade_GravityImploder;
+class WMProj_Grenade_GravityImploder_Precious extends KFProj_Grenade_GravityImploder
+	hidedropdown;
 
 defaultproperties
 {

@@ -1,4 +1,5 @@
-class WMProj_Explosive_HRG_Kaboomstick_Precious extends KFProj_Explosive_HRG_Kaboomstick;
+class WMProj_Explosive_HRG_Kaboomstick_Precious extends KFProj_Explosive_HRG_Kaboomstick
+	hidedropdown;
 
 defaultproperties
 {

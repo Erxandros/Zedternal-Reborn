@@ -1,4 +1,5 @@
-class WMProj_Bullet_MosinNagant_Precious extends KFProj_Bullet_MosinNagant;
+class WMProj_Bullet_MosinNagant_Precious extends KFProj_Bullet_MosinNagant
+	hidedropdown;
 
 defaultproperties
 {

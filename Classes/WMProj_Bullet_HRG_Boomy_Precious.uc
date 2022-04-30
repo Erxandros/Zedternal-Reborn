@@ -1,4 +1,5 @@
-class WMProj_Bullet_HRG_Boomy_Precious extends KFProj_Bullet_HRG_Boomy;
+class WMProj_Bullet_HRG_Boomy_Precious extends KFProj_Bullet_HRG_Boomy
+	hidedropdown;
 
 defaultproperties
 {

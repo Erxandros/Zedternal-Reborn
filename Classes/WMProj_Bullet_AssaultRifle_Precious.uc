@@ -1,4 +1,5 @@
-class WMProj_Bullet_AssaultRifle_Precious extends KFProj_Bullet_AssaultRifle;
+class WMProj_Bullet_AssaultRifle_Precious extends KFProj_Bullet_AssaultRifle
+	hidedropdown;
 
 defaultproperties
 {

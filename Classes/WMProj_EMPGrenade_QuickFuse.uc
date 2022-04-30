@@ -1,4 +1,5 @@
-class WMProj_EMPGrenade_QuickFuse extends KFProj_EMPGrenade;
+class WMProj_EMPGrenade_QuickFuse extends KFProj_EMPGrenade
+	hidedropdown;
 
 defaultproperties
 {

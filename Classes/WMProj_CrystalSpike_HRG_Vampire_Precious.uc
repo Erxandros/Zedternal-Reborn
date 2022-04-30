@@ -1,4 +1,5 @@
-class WMProj_CrystalSpike_HRG_Vampire_Precious extends KFProj_CrystalSpike_HRG_Vampire;
+class WMProj_CrystalSpike_HRG_Vampire_Precious extends KFProj_CrystalSpike_HRG_Vampire
+	hidedropdown;
 
 defaultproperties
 {

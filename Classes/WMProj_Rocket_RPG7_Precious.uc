@@ -1,4 +1,5 @@
-class WMProj_Rocket_RPG7_Precious extends KFProj_Rocket_RPG7;
+class WMProj_Rocket_RPG7_Precious extends KFProj_Rocket_RPG7
+	hidedropdown;
 
 defaultproperties
 {

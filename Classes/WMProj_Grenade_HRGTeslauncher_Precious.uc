@@ -1,4 +1,5 @@
-class WMProj_Grenade_HRGTeslauncher_Precious extends KFProj_Grenade_HRGTeslauncher;
+class WMProj_Grenade_HRGTeslauncher_Precious extends KFProj_Grenade_HRGTeslauncher
+	hidedropdown;
 
 defaultproperties
 {

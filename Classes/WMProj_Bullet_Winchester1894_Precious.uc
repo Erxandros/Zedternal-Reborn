@@ -1,4 +1,5 @@
-class WMProj_Bullet_Winchester1894_Precious extends KFProj_Bullet_Winchester1894;
+class WMProj_Bullet_Winchester1894_Precious extends KFProj_Bullet_Winchester1894
+	hidedropdown;
 
 defaultproperties
 {

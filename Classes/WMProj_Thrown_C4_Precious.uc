@@ -1,4 +1,5 @@
-class WMProj_Thrown_C4_Precious extends KFProj_Thrown_C4;
+class WMProj_Thrown_C4_Precious extends KFProj_Thrown_C4
+	hidedropdown;
 
 defaultproperties
 {

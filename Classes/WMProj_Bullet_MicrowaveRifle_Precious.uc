@@ -1,4 +1,5 @@
-class WMProj_Bullet_MicrowaveRifle_Precious extends KFProj_Bullet_MicrowaveRifle;
+class WMProj_Bullet_MicrowaveRifle_Precious extends KFProj_Bullet_MicrowaveRifle
+	hidedropdown;
 
 defaultproperties
 {

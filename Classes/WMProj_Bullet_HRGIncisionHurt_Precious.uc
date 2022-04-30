@@ -1,4 +1,5 @@
-class WMProj_Bullet_HRGIncisionHurt_Precious extends KFProj_Bullet_HRGIncisionHurt;
+class WMProj_Bullet_HRGIncisionHurt_Precious extends KFProj_Bullet_HRGIncisionHurt
+	hidedropdown;
 
 defaultproperties
 {

@@ -1,4 +1,5 @@
-class WMProj_BrokenFlare_HRGScorcherSplash_Precious extends KFProj_BrokenFlare_HRGScorcherSplash;
+class WMProj_BrokenFlare_HRGScorcherSplash_Precious extends KFProj_BrokenFlare_HRGScorcherSplash
+	hidedropdown;
 
 defaultproperties
 {

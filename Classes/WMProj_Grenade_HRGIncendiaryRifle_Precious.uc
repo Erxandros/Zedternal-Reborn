@@ -1,4 +1,5 @@
-class WMProj_Grenade_HRGIncendiaryRifle_Precious extends KFProj_Grenade_HRGIncendiaryRifle;
+class WMProj_Grenade_HRGIncendiaryRifle_Precious extends KFProj_Grenade_HRGIncendiaryRifle
+	hidedropdown;
 
 defaultproperties
 {

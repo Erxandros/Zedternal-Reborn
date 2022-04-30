@@ -1,4 +1,5 @@
-class WMProj_Bullet_Pellet_Precious extends KFProj_Bullet_Pellet;
+class WMProj_Bullet_Pellet_Precious extends KFProj_Bullet_Pellet
+	hidedropdown;
 
 defaultproperties
 {

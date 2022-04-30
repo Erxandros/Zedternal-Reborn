@@ -1,4 +1,5 @@
-class WMProj_Bullet_HRG_Stunner_Precious extends KFProj_Bullet_HRG_Stunner;
+class WMProj_Bullet_HRG_Stunner_Precious extends KFProj_Bullet_HRG_Stunner
+	hidedropdown;
 
 defaultproperties
 {

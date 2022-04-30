@@ -1,4 +1,5 @@
-class WMProj_DynamiteGrenade_QuickFuse extends KFProj_DynamiteGrenade;
+class WMProj_DynamiteGrenade_QuickFuse extends KFProj_DynamiteGrenade
+	hidedropdown;
 
 defaultproperties
 {

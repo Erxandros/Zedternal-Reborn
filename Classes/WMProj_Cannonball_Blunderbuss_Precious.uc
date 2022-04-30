@@ -1,4 +1,5 @@
-class WMProj_Cannonball_Blunderbuss_Precious extends KFProj_Cannonball_Blunderbuss;
+class WMProj_Cannonball_Blunderbuss_Precious extends KFProj_Cannonball_Blunderbuss
+	hidedropdown;
 
 defaultproperties
 {

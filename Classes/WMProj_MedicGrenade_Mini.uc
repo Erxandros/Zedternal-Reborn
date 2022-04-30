@@ -1,4 +1,5 @@
-class WMProj_MedicGrenade_Mini extends KFProj_MedicGrenade_Mini;
+class WMProj_MedicGrenade_Mini extends KFProj_MedicGrenade_Mini
+	hidedropdown;
 
 simulated function PostBeginPlay()
 {

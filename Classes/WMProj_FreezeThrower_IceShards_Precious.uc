@@ -1,4 +1,5 @@
-class WMProj_FreezeThrower_IceShards_Precious extends KFProj_FreezeThrower_IceShards;
+class WMProj_FreezeThrower_IceShards_Precious extends KFProj_FreezeThrower_IceShards
+	hidedropdown;
 
 defaultproperties
 {

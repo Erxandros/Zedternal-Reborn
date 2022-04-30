@@ -1,4 +1,5 @@
-class WMProj_Bolt_CompoundBowSharp_Precious extends KFProj_Bolt_CompoundBowSharp;
+class WMProj_Bolt_CompoundBowSharp_Precious extends KFProj_Bolt_CompoundBowSharp
+	hidedropdown;
 
 defaultproperties
 {

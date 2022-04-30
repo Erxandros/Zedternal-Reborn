@@ -1,4 +1,5 @@
-class WMProj_Nail_Blunderbuss_Precious extends KFProj_Nail_Blunderbuss;
+class WMProj_Nail_Blunderbuss_Precious extends KFProj_Nail_Blunderbuss
+	hidedropdown;
 
 defaultproperties
 {

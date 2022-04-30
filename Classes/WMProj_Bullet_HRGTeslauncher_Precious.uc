@@ -1,4 +1,5 @@
-class WMProj_Bullet_HRGTeslauncher_Precious extends KFProj_Bullet_HRGTeslauncher;
+class WMProj_Bullet_HRGTeslauncher_Precious extends KFProj_Bullet_HRGTeslauncher
+	hidedropdown;
 
 defaultproperties
 {

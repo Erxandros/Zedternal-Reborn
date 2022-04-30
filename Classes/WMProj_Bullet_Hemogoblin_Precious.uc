@@ -1,4 +1,5 @@
-class WMProj_Bullet_Hemogoblin_Precious extends KFProj_Bullet_Hemogoblin;
+class WMProj_Bullet_Hemogoblin_Precious extends KFProj_Bullet_Hemogoblin
+	hidedropdown;
 
 defaultproperties
 {

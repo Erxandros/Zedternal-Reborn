@@ -1,4 +1,5 @@
-class WMProj_MedicGrenade_Mini_Precious extends WMProj_MedicGrenade_Mini;
+class WMProj_MedicGrenade_Mini_Precious extends WMProj_MedicGrenade_Mini
+	hidedropdown;
 
 defaultproperties
 {

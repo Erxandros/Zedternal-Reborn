@@ -1,4 +1,5 @@
-class WMProj_Blade_Eviscerator_Precious extends KFProj_Blade_Eviscerator;
+class WMProj_Blade_Eviscerator_Precious extends KFProj_Blade_Eviscerator
+	hidedropdown;
 
 defaultproperties
 {

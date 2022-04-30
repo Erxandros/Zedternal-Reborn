@@ -1,4 +1,5 @@
-class WMProj_Rocket_SealSqueal_Precious extends KFProj_Rocket_SealSqueal;
+class WMProj_Rocket_SealSqueal_Precious extends KFProj_Rocket_SealSqueal
+	hidedropdown;
 
 defaultproperties
 {

@@ -1,4 +1,5 @@
-class WMProj_Bullet_HRG_Energy_Precious extends KFProj_Bullet_HRG_Energy;
+class WMProj_Bullet_HRG_Energy_Precious extends KFProj_Bullet_HRG_Energy
+	hidedropdown;
 
 defaultproperties
 {

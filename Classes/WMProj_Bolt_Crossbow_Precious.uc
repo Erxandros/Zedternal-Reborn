@@ -1,4 +1,5 @@
-class WMProj_Bolt_Crossbow_Precious extends KFProj_Bolt_Crossbow;
+class WMProj_Bolt_Crossbow_Precious extends KFProj_Bolt_Crossbow
+	hidedropdown;
 
 defaultproperties
 {

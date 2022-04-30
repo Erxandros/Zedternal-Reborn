@@ -1,4 +1,5 @@
-class WMProj_Bullet_Pistol9mm_Precious extends KFProj_Bullet_Pistol9mm;
+class WMProj_Bullet_Pistol9mm_Precious extends KFProj_Bullet_Pistol9mm
+	hidedropdown;
 
 defaultproperties
 {

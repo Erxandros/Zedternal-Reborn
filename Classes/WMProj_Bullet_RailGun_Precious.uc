@@ -1,4 +1,5 @@
-class WMProj_Bullet_RailGun_Precious extends KFProj_Bullet_RailGun;
+class WMProj_Bullet_RailGun_Precious extends KFProj_Bullet_RailGun
+	hidedropdown;
 
 defaultproperties
 {

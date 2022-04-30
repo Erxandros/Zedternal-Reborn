@@ -1,4 +1,5 @@
-class WMProj_Bullet_Pistol_ChiappaRhino_Precious extends KFProj_Bullet_Pistol_ChiappaRhino;
+class WMProj_Bullet_Pistol_ChiappaRhino_Precious extends KFProj_Bullet_Pistol_ChiappaRhino
+	hidedropdown;
 
 defaultproperties
 {

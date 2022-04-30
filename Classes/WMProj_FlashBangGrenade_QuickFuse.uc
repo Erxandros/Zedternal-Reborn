@@ -1,4 +1,5 @@
-class WMProj_FlashBangGrenade_QuickFuse extends KFProj_FlashBangGrenade;
+class WMProj_FlashBangGrenade_QuickFuse extends KFProj_FlashBangGrenade
+	hidedropdown;
 
 defaultproperties
 {

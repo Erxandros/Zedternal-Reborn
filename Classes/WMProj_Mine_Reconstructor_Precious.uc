@@ -1,4 +1,5 @@
-class WMProj_Mine_Reconstructor_Precious extends KFProj_Mine_Reconstructor;
+class WMProj_Mine_Reconstructor_Precious extends KFProj_Mine_Reconstructor
+	hidedropdown;
 
 defaultproperties
 {

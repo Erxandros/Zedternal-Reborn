@@ -1,4 +1,5 @@
-class WMProj_Blade_BladedPistol_Precious extends KFProj_Blade_BladedPistol;
+class WMProj_Blade_BladedPistol_Precious extends KFProj_Blade_BladedPistol
+	hidedropdown;
 
 defaultproperties
 {

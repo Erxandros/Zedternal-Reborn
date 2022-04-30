@@ -1,4 +1,5 @@
-class WMProj_Bullet_Minigun_Precious extends KFProj_Bullet_Minigun;
+class WMProj_Bullet_Minigun_Precious extends KFProj_Bullet_Minigun
+	hidedropdown;
 
 defaultproperties
 {

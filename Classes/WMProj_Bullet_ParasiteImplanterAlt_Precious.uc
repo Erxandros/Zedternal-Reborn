@@ -1,4 +1,5 @@
-class WMProj_Bullet_ParasiteImplanterAlt_Precious extends KFProj_Bullet_ParasiteImplanterAlt;
+class WMProj_Bullet_ParasiteImplanterAlt_Precious extends KFProj_Bullet_ParasiteImplanterAlt
+	hidedropdown;
 
 defaultproperties
 {

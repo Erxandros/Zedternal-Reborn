@@ -1,4 +1,5 @@
-class WMProj_Nail_HRGNailgun_Precious extends KFProj_Nail_HRGNailgun;
+class WMProj_Nail_HRGNailgun_Precious extends KFProj_Nail_HRGNailgun
+	hidedropdown;
 
 defaultproperties
 {

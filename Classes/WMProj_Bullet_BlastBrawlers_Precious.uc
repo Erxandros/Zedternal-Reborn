@@ -1,4 +1,5 @@
-class WMProj_Bullet_BlastBrawlers_Precious extends KFProj_Bullet_BlastBrawlers;
+class WMProj_Bullet_BlastBrawlers_Precious extends KFProj_Bullet_BlastBrawlers
+	hidedropdown;
 
 defaultproperties
 {

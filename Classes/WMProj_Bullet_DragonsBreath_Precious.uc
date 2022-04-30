@@ -1,4 +1,5 @@
-class WMProj_Bullet_DragonsBreath_Precious extends KFProj_Bullet_DragonsBreath;
+class WMProj_Bullet_DragonsBreath_Precious extends KFProj_Bullet_DragonsBreath
+	hidedropdown;
 
 defaultproperties
 {

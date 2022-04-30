@@ -1,4 +1,5 @@
-class WMProj_Bullet_M99_Precious extends KFProj_Bullet_M99;
+class WMProj_Bullet_M99_Precious extends KFProj_Bullet_M99
+	hidedropdown;
 
 defaultproperties
 {

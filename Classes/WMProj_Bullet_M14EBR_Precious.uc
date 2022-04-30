@@ -1,4 +1,5 @@
-class WMProj_Bullet_M14EBR_Precious extends KFProj_Bullet_M14EBR;
+class WMProj_Bullet_M14EBR_Precious extends KFProj_Bullet_M14EBR
+	hidedropdown;
 
 defaultproperties
 {

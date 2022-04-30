@@ -1,4 +1,5 @@
-class WMProj_HighExplosive_M16M203_Precious extends KFProj_HighExplosive_M16M203;
+class WMProj_HighExplosive_M16M203_Precious extends KFProj_HighExplosive_M16M203
+	hidedropdown;
 
 defaultproperties
 {

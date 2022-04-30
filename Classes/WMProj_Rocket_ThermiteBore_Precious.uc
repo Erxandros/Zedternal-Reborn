@@ -1,4 +1,5 @@
-class WMProj_Rocket_ThermiteBore_Precious extends KFProj_Rocket_ThermiteBore;
+class WMProj_Rocket_ThermiteBore_Precious extends KFProj_Rocket_ThermiteBore
+	hidedropdown;
 
 defaultproperties
 {

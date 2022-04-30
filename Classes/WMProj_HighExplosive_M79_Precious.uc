@@ -1,4 +1,5 @@
-class WMProj_HighExplosive_M79_Precious extends KFProj_HighExplosive_M79;
+class WMProj_HighExplosive_M79_Precious extends KFProj_HighExplosive_M79
+	hidedropdown;
 
 defaultproperties
 {

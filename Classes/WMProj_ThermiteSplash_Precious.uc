@@ -1,4 +1,5 @@
-class WMProj_ThermiteSplash_Precious extends KFProj_ThermiteSplash;
+class WMProj_ThermiteSplash_Precious extends KFProj_ThermiteSplash
+	hidedropdown;
 
 defaultproperties
 {

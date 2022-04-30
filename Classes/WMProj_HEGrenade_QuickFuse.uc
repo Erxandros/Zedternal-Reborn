@@ -1,4 +1,5 @@
-class WMProj_HEGrenade_QuickFuse extends KFProj_HEGrenade;
+class WMProj_HEGrenade_QuickFuse extends KFProj_HEGrenade
+	hidedropdown;
 
 defaultproperties
 {

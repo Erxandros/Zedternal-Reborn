@@ -1,4 +1,5 @@
-class WMProj_ExplosiveSubmunition_HX25_Precious extends KFProj_ExplosiveSubmunition_HX25;
+class WMProj_ExplosiveSubmunition_HX25_Precious extends KFProj_ExplosiveSubmunition_HX25
+	hidedropdown;
 
 defaultproperties
 {

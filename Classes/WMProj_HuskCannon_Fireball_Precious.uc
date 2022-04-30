@@ -1,4 +1,5 @@
-class WMProj_HuskCannon_Fireball_Precious extends KFProj_HuskCannon_Fireball;
+class WMProj_HuskCannon_Fireball_Precious extends KFProj_HuskCannon_Fireball
+	hidedropdown;
 
 defaultproperties
 {

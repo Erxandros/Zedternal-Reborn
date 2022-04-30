@@ -1,4 +1,5 @@
-class WMProj_HealingDart_MedicBase_Precious extends KFProj_HealingDart_MedicBase;
+class WMProj_HealingDart_MedicBase_Precious extends KFProj_HealingDart_MedicBase
+	hidedropdown;
 
 defaultproperties
 {

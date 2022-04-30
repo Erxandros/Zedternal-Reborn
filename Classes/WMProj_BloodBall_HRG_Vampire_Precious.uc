@@ -1,4 +1,5 @@
-class WMProj_BloodBall_HRG_Vampire_Precious extends KFProj_BloodBall_HRG_Vampire;
+class WMProj_BloodBall_HRG_Vampire_Precious extends KFProj_BloodBall_HRG_Vampire
+	hidedropdown;
 
 defaultproperties
 {

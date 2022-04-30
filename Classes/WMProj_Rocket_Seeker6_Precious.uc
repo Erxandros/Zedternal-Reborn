@@ -1,4 +1,5 @@
-class WMProj_Rocket_Seeker6_Precious extends KFProj_Rocket_Seeker6;
+class WMProj_Rocket_Seeker6_Precious extends KFProj_Rocket_Seeker6
+	hidedropdown;
 
 defaultproperties
 {
