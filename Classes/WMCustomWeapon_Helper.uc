@@ -1,7 +1,5 @@
 Class WMCustomWeapon_Helper extends Info;
 
-const NAME_MAX_LENGTH = 24;
-
 struct WeaponDefPath
 {
 	var string	ZedternalWeaponDefPath;
@@ -9,18 +7,6 @@ struct WeaponDefPath
 };
 
 var const array<WeaponDefPath> WeaponDefinitions;
-
-// Localization
-static function string GetItemNamePreciousVariant(string defaultName, string customShortName)
-{
-	local string str;
-
-	str = defaultName $ " [Precious]";
-	if (Len(str) > NAME_MAX_LENGTH)
-		return customShortName $ " [Precious]";
-
-	return str;
-}
 
 //For single player
 static function UpdateSkinsStandalone(const out array<string> WeaponDefs)
