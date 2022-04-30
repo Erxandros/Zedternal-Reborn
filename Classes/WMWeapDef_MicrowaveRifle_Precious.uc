@@ -1,7 +1,6 @@
 class WMWeapDef_MicrowaveRifle_Precious extends KFWeapDef_MicrowaveRifle
 	abstract;
 
-const SHORT_ITEM_NAME = "Helios";
 const DEFAULT_WEAPON_PATH = "KFGameContent.KFWeap_AssaultRifle_Microwave";
 
 static function string GetItemLocalization(string KeyName)
@@ -9,10 +8,10 @@ static function string GetItemLocalization(string KeyName)
 	local array<string> Strings;
 	local string Localization;
 
-	ParseStringIntoArray(DEFAULT_WEAPON_PATH, Strings, ".", true);
+	ParseStringIntoArray(DEFAULT_WEAPON_PATH, Strings, ".", True);
 	Localization = Localize(Strings[1], KeyName, Strings[0]);
-	if (KeyName == "ItemName")
-		return class'ZedternalReborn.WMCustomWeapon_Helper'.static.GetItemNamePreciousVariant(Localization, SHORT_ITEM_NAME);
+	if(KeyName ~= "ItemName")
+		return "[P]" @ Localization;
 	else
 		return Localization;
 }
@@ -20,7 +19,7 @@ static function string GetItemLocalization(string KeyName)
 defaultproperties
 {
 	WeaponClassPath="ZedternalReborn.WMWeap_AssaultRifle_Microwave_Precious"
-	BuyPrice=4000 //2x
-	AmmoPricePerMag=139 //40% more per bullet (round up)
+	BuyPrice=4000
+	AmmoPricePerMag=139
 	Name="Default__WMWeapDef_MicrowaveRifle_Precious"
 }

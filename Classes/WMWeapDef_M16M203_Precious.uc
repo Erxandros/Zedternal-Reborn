@@ -1,7 +1,6 @@
 class WMWeapDef_M16M203_Precious extends KFWeapDef_M16M203
 	abstract;
 
-const SHORT_ITEM_NAME = "M16-M203";
 const DEFAULT_WEAPON_PATH = "KFGameContent.KFWeap_AssaultRifle_M16M203";
 
 static function string GetItemLocalization(string KeyName)
@@ -9,10 +8,10 @@ static function string GetItemLocalization(string KeyName)
 	local array<string> Strings;
 	local string Localization;
 
-	ParseStringIntoArray(DEFAULT_WEAPON_PATH, Strings, ".", true);
+	ParseStringIntoArray(DEFAULT_WEAPON_PATH, Strings, ".", True);
 	Localization = Localize(Strings[1], KeyName, Strings[0]);
-	if (KeyName == "ItemName")
-		return class'ZedternalReborn.WMCustomWeapon_Helper'.static.GetItemNamePreciousVariant(Localization, SHORT_ITEM_NAME);
+	if(KeyName ~= "ItemName")
+		return "[P]" @ Localization;
 	else
 		return Localization;
 }
@@ -20,9 +19,9 @@ static function string GetItemLocalization(string KeyName)
 defaultproperties
 {
 	WeaponClassPath="ZedternalReborn.WMWeap_AssaultRifle_M16M203_Precious"
-	BuyPrice=2400 //2x
-	AmmoPricePerMag=63 //40% more per bullet
-	SecondaryAmmoMagSize=2 //2x
-	SecondaryAmmoMagPrice=42 //40% more per grenade
+	BuyPrice=2400
+	AmmoPricePerMag=63
+	SecondaryAmmoMagSize=2
+	SecondaryAmmoMagPrice=42
 	Name="Default__WMWeapDef_M16M203_Precious"
 }

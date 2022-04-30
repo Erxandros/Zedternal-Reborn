@@ -1,7 +1,6 @@
 class WMWeapDef_HRGScorcher_Precious extends KFWeapDef_HRGScorcher
 	abstract;
 
-const SHORT_ITEM_NAME = "Scorcher";
 const DEFAULT_WEAPON_PATH = "KFGameContent.KFWeap_Pistol_HRGScorcher";
 
 static function string GetItemLocalization(string KeyName)
@@ -9,10 +8,10 @@ static function string GetItemLocalization(string KeyName)
 	local array<string> Strings;
 	local string Localization;
 
-	ParseStringIntoArray(DEFAULT_WEAPON_PATH, Strings, ".", true);
+	ParseStringIntoArray(DEFAULT_WEAPON_PATH, Strings, ".", True);
 	Localization = Localize(Strings[1], KeyName, Strings[0]);
-	if (KeyName == "ItemName")
-		return class'ZedternalReborn.WMCustomWeapon_Helper'.static.GetItemNamePreciousVariant(Localization, SHORT_ITEM_NAME);
+	if(KeyName ~= "ItemName")
+		return "[P]" @ Localization;
 	else
 		return Localization;
 }
@@ -20,7 +19,7 @@ static function string GetItemLocalization(string KeyName)
 defaultproperties
 {
 	WeaponClassPath="ZedternalReborn.WMWeap_Pistol_HRGScorcher_Precious"
-	BuyPrice=2000 //2x
-	AmmoPricePerMag=34 //40% more per flare (round up)
+	BuyPrice=2000
+	AmmoPricePerMag=34
 	Name="Default__WMWeapDef_HRGScorcher_Precious"
 }

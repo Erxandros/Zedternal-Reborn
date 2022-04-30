@@ -1,7 +1,6 @@
 class WMWeapDef_HX25_Precious extends KFWeapDef_HX25
 	abstract;
 
-const SHORT_ITEM_NAME = "HX25";
 const DEFAULT_WEAPON_PATH = "KFGameContent.KFWeap_GrenadeLauncher_HX25";
 
 static function string GetItemLocalization(string KeyName)
@@ -9,10 +8,10 @@ static function string GetItemLocalization(string KeyName)
 	local array<string> Strings;
 	local string Localization;
 
-	ParseStringIntoArray(DEFAULT_WEAPON_PATH, Strings, ".", true);
+	ParseStringIntoArray(DEFAULT_WEAPON_PATH, Strings, ".", True);
 	Localization = Localize(Strings[1], KeyName, Strings[0]);
-	if (KeyName == "ItemName")
-		return class'ZedternalReborn.WMCustomWeapon_Helper'.static.GetItemNamePreciousVariant(Localization, SHORT_ITEM_NAME);
+	if(KeyName ~= "ItemName")
+		return "[P]" @ Localization;
 	else
 		return Localization;
 }
@@ -20,7 +19,7 @@ static function string GetItemLocalization(string KeyName)
 defaultproperties
 {
 	WeaponClassPath="ZedternalReborn.WMWeap_GrenadeLauncher_HX25_Precious"
-	BuyPrice=600 //2x
-	AmmoPricePerMag=26 //40% more per grenade (round up)
+	BuyPrice=600
+	AmmoPricePerMag=26
 	Name="Default__WMWeapDef_HX25_Precious"
 }
