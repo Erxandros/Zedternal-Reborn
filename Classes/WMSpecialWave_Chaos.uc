@@ -94,9 +94,9 @@ defaultproperties
 {
 	Bonus=0.3f
 	BonusINV=0.230769f
-	zedSpawnRateFactor=3.0f
-	waveValueFactor=0.8f
-	doshFactor=1.25f
+	ZedSpawnRateFactor=3.0f
+	WaveValueFactor=0.8f
+	DoshFactor=1.25f
 
 	Title="Chaos"
 	Description="???"

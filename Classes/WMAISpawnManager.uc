@@ -323,7 +323,7 @@ function SetupNextWave(byte NextWaveIndex, int TimeToNextWaveBuffer = 0)
 	for (i = 0; i < 2; ++i)
 	{
 		if (SWID[i] != INDEX_NONE)
-			TempWaveValue *= WMGRI.SpecialWavesList[SWID[i]].SpecialWave.default.waveValueFactor;
+			TempWaveValue *= WMGRI.SpecialWavesList[SWID[i]].SpecialWave.default.WaveValueFactor;
 	}
 
 	// 6) change wave points from custom map settings
@@ -357,7 +357,7 @@ function SetupNextWave(byte NextWaveIndex, int TimeToNextWaveBuffer = 0)
 	for (i = 0; i < 2; ++i)
 	{
 		if (SWID[i] != INDEX_NONE)
-			CustomSpawnRate = CustomSpawnRate / (WMGRI.SpecialWavesList[SWID[i]].SpecialWave.default.zedSpawnRateFactor);
+			CustomSpawnRate = CustomSpawnRate / (WMGRI.SpecialWavesList[SWID[i]].SpecialWave.default.ZedSpawnRateFactor);
 	}
 
 	// 5) zed buff spawn rate modification

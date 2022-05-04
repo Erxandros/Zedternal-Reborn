@@ -2,9 +2,9 @@ class WMSpecialWave_MechanicalProblem extends WMSpecialWave;
 
 defaultproperties
 {
-	zedSpawnRateFactor=0.875f
-	waveValueFactor=0.7f
-	doshFactor=1.6f
+	ZedSpawnRateFactor=0.875f
+	WaveValueFactor=0.7f
+	DoshFactor=1.6f
 
 	Title="Mechanical Problem"
 	Description="Launching Annihilation.exe"

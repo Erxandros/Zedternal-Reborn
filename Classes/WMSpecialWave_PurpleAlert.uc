@@ -2,9 +2,9 @@ class WMSpecialWave_PurpleAlert extends WMSpecialWave;
 
 defaultproperties
 {
-	zedSpawnRateFactor=0.85f
-	waveValueFactor=0.8f
-	doshFactor=1.25f
+	ZedSpawnRateFactor=0.85f
+	WaveValueFactor=0.8f
+	DoshFactor=1.25f
 
 	Title="Purple Alert"
 	Description="Elite ZEDs incoming!"

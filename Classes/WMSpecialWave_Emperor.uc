@@ -20,9 +20,9 @@ function SpawnEmperor()
 defaultproperties
 {
 	EmperorClass=class'ZedternalReborn.WMPawn_ZedScrake_Emperor'
-	zedSpawnRateFactor=0.95f
-	waveValueFactor=0.75f
-	doshFactor=1.4f
+	ZedSpawnRateFactor=0.95f
+	WaveValueFactor=0.75f
+	DoshFactor=1.4f
 
 	Title="Emperor"
 	Description="He is scary..."

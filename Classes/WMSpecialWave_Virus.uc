@@ -31,8 +31,8 @@ function TriggerExplosion(KFPawn ZedOwner, Controller Killer)
 defaultproperties
 {
 	Prob=0.25f
-	zedSpawnRateFactor=0.95f
-	waveValueFactor=1.05f
+	ZedSpawnRateFactor=0.95f
+	WaveValueFactor=1.05f
 
 	Title="Virus"
 	Description="Level 4 containment!"

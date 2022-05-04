@@ -22,8 +22,8 @@ function UpdateZed()
 defaultproperties
 {
 	ZedSpeedScale=1.0f
-	zedSpawnRateFactor=0.925f
-	waveValueFactor=0.95f
+	ZedSpawnRateFactor=0.925f
+	WaveValueFactor=0.95f
 
 	Title="Lethargic"
 	Description="They are faster during ZED times!"

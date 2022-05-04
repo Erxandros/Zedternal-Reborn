@@ -28,9 +28,9 @@ static function ModifyDamageTaken(out int InDamage, int DefaultDamage, KFPawn Ow
 defaultproperties
 {
 	Defense=0.3f
-	zedSpawnRateFactor=1.35f
-	waveValueFactor=0.5f
-	doshFactor=2.0f
+	ZedSpawnRateFactor=1.35f
+	WaveValueFactor=0.5f
+	DoshFactor=2.0f
 
 	Title="Five Alarm Siren"
 	Description="Plug your ears!"

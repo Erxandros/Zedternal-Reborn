@@ -11,9 +11,9 @@ static function ModifyDamageTaken(out int InDamage, int DefaultDamage, KFPawn Ow
 defaultproperties
 {
 	Defense=0.25f
-	zedSpawnRateFactor=0.925f
-	waveValueFactor=0.6f
-	doshFactor=1.65f
+	ZedSpawnRateFactor=0.925f
+	WaveValueFactor=0.6f
+	DoshFactor=1.65f
 
 	Title="HellFire"
 	Description="Say welcome to Hell!"

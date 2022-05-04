@@ -51,9 +51,9 @@ defaultproperties
 	DamageTakenFactor=1.2f
 	ZedHeadScale=1.02f
 	ZedScale=1.35f
-	zedSpawnRateFactor=0.4f
-	waveValueFactor=0.22f
-	doshFactor=4.1f
+	ZedSpawnRateFactor=0.4f
+	WaveValueFactor=0.22f
+	DoshFactor=4.1f
 
 	Title="Titans"
 	Description="Slowly but surely!"

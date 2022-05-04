@@ -31,7 +31,7 @@ defaultproperties
 	InflationDeathGravity=-0.003f
 	InflationExplosionTimer=100.0f
 	ZeroHealthInflation=1.0f
-	zedSpawnRateFactor=0.9f
+	ZedSpawnRateFactor=0.9f
 
 	Title="Featherweight"
 	Description="Dead bodies are floating!"

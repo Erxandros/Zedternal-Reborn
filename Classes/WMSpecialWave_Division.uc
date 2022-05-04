@@ -66,9 +66,9 @@ defaultproperties
 	SmallZedDamageGiven=0.8f
 	SmallZedDamageTaken=0.5f
 	SmallZedSize=0.55f
-	zedSpawnRateFactor=0.5f
-	waveValueFactor=0.4f
-	doshFactor=0.65f
+	ZedSpawnRateFactor=0.5f
+	WaveValueFactor=0.4f
+	DoshFactor=0.65f
 
 	Title="Division"
 	Description="Double the Troubles!"

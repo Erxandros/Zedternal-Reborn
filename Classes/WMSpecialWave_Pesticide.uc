@@ -2,9 +2,9 @@ class WMSpecialWave_Pesticide extends WMSpecialWave;
 
 defaultproperties
 {
-	zedSpawnRateFactor=2.5f
-	waveValueFactor=0.7f
-	doshFactor=1.4f
+	ZedSpawnRateFactor=2.5f
+	WaveValueFactor=0.7f
+	DoshFactor=1.4f
 
 	Title="Arachnids"
 	Description="Hordes of crawlers are coming!"

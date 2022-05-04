@@ -51,8 +51,8 @@ function KillAllPredators()
 defaultproperties
 {
 	PredatorClass=class'ZedternalReborn.WMPawn_ZedFleshpound_Predator'
-	zedSpawnRateFactor=1.2f
-	waveValueFactor=1.2f
+	ZedSpawnRateFactor=1.2f
+	WaveValueFactor=1.2f
 
 	Title="Predator"
 	Description="The enemy of my enemy is my friend!"

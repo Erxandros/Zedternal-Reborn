@@ -2,7 +2,7 @@ class WMSpecialWave_Fireworks extends WMSpecialWave;
 
 defaultproperties
 {
-	zedSpawnRateFactor=0.95f
+	ZedSpawnRateFactor=0.95f
 
 	Title="Fireworks"
 	Description="Horzine's festive gift!"

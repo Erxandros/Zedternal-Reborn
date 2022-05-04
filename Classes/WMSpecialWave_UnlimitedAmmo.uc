@@ -7,9 +7,9 @@ static simulated function bool GetIsUberAmmoActive(KFWeapon KFW, KFPawn OwnerPaw
 
 defaultproperties
 {
-	zedSpawnRateFactor=4.0f
-	waveValueFactor=1.75f
-	doshFactor=0.55f
+	ZedSpawnRateFactor=4.0f
+	WaveValueFactor=1.75f
+	DoshFactor=0.55f
 
 	Title="Unlimited Ammo"
 	Description="Spread some love!"

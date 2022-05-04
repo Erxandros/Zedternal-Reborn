@@ -10,9 +10,9 @@ static function ModifyDamageGiven(out int InDamage, int DefaultDamage, optional 
 defaultproperties
 {
 	Damage=0.4f
-	zedSpawnRateFactor=0.7f
-	waveValueFactor=0.8f
-	doshFactor=1.25f
+	ZedSpawnRateFactor=0.7f
+	WaveValueFactor=0.8f
+	DoshFactor=1.25f
 
 	Title="Poundamonium"
 	Description="The Fleshpound Convention is in town!"

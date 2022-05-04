@@ -55,9 +55,9 @@ defaultproperties
 	PlayerSpeed=0.10f
 	ZedSpeed=0.6875f
 	Damage=9999999
-	zedSpawnRateFactor=1.2f
-	waveValueFactor=0.5f
-	doshFactor=3.0f
+	ZedSpawnRateFactor=1.2f
+	WaveValueFactor=0.5f
+	DoshFactor=3.0f
 
 	Title="InstaKill"
 	Description="But also for them!"

@@ -28,7 +28,7 @@ defaultproperties
 {
 	HealRecharge=0.3f
 	RegenTimer=0.3f
-	zedSpawnRateFactor=1.1f
+	ZedSpawnRateFactor=1.1f
 
 	Title="Regeneration"
 	Description="You feel better!"

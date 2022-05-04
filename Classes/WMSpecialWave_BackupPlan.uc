@@ -77,8 +77,8 @@ function UpdatePickup()
 defaultproperties
 {
 	MeleeDamage=3.0f
-	zedSpawnRateFactor=0.9f
-	doshFactor=0.9f // because we refill all weapons after the wave
+	ZedSpawnRateFactor=0.9f
+	DoshFactor=0.9f // because we refill all weapons after the wave
 
 	Title="Backup Plan"
 	Description="No more ammo..."

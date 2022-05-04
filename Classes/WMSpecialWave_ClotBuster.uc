@@ -2,8 +2,8 @@ class WMSpecialWave_ClotBuster extends WMSpecialWave;
 
 defaultproperties
 {
-	zedSpawnRateFactor=4.0f
-	waveValueFactor=0.6f
+	ZedSpawnRateFactor=4.0f
+	WaveValueFactor=0.6f
 
 	Title="Clot Buster"
 	Description="Hordes of clots are coming!"

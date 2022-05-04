@@ -65,9 +65,9 @@ defaultproperties
 	BonusSpeed=0.2f
 	BonusStun=3.0f
 	Vampire=4
-	zedSpawnRateFactor=2.25f
-	waveValueFactor=1.5f
-	doshFactor=0.67f
+	ZedSpawnRateFactor=2.25f
+	WaveValueFactor=1.5f
+	DoshFactor=0.67f
 
 	Title="Super Soldier"
 	Description="Release your True power"

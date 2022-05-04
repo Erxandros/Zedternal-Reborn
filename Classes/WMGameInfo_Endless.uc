@@ -1979,7 +1979,7 @@ function float GetAdjustedAIDoshValue(class<KFPawn_Monster> MonsterClass)
 	for (i = 0; i <= 1; ++i)
 	{
 		if (WMGameReplicationInfo(MyKFGRI).SpecialWaveID[i] != INDEX_NONE)
-			TempValue *= WMGameReplicationInfo(MyKFGRI).SpecialWavesList[WMGameReplicationInfo(MyKFGRI).SpecialWaveID[i]].SpecialWave.default.doshFactor;
+			TempValue *= WMGameReplicationInfo(MyKFGRI).SpecialWavesList[WMGameReplicationInfo(MyKFGRI).SpecialWaveID[i]].SpecialWave.default.DoshFactor;
 	}
 
 	if (MonsterClass.default.bLargeZed)

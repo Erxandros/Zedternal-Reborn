@@ -49,9 +49,9 @@ defaultproperties
 	Damage=0.7f
 	DamageTakenFactor=0.7f
 	ZedScale=0.65f
-	zedSpawnRateFactor=1.5f
-	waveValueFactor=1.3f
-	doshFactor=0.75f
+	ZedSpawnRateFactor=1.5f
+	WaveValueFactor=1.3f
+	DoshFactor=0.75f
 
 	Title="Tiny Terror"
 	Description="Look at them, they are so cute!"

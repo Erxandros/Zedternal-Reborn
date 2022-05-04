@@ -58,9 +58,9 @@ defaultproperties
 	DamageFactor=0.8f
 	DamageHeadFactor=0.55f
 	ZedSpawnHeadScale=2.7f
-	zedSpawnRateFactor=0.75f
-	waveValueFactor=0.7f
-	doshFactor=1.4f
+	ZedSpawnRateFactor=0.75f
+	WaveValueFactor=0.7f
+	DoshFactor=1.4f
 
 	Title="Bobble Zed"
 	Description="That must hurt their necks!"

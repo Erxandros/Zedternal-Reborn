@@ -32,7 +32,7 @@ static simulated function ModifySpeed(out float InSpeed, float DefaultSpeed, KFP
 defaultproperties
 {
 	Speed=0.5f
-	zedSpawnRateFactor=1.15f
+	ZedSpawnRateFactor=1.15f
 
 	Title="Catch me if you can"
 	Description="Run for your life!"

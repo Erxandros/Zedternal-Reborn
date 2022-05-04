@@ -10,9 +10,9 @@ static function ModifyDamageGiven(out int InDamage, int DefaultDamage, optional 
 defaultproperties
 {
 	Damage=1.0f
-	zedSpawnRateFactor=1.3f
-	waveValueFactor=1.3f
-	doshFactor=0.75f
+	ZedSpawnRateFactor=1.3f
+	WaveValueFactor=1.3f
+	DoshFactor=0.75f
 
 	Title="Double Damage"
 	Description="Double your damage!"

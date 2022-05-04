@@ -39,7 +39,7 @@ defaultproperties
 {
 	HealRecharge=0.5f
 	HealAmount=5
-	zedSpawnRateFactor=1.1f
+	ZedSpawnRateFactor=1.1f
 
 	Title="Vampire"
 	Description="Everyone is a vampire!"

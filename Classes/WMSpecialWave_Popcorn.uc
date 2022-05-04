@@ -18,7 +18,7 @@ static function bool ShouldShrapnel()
 defaultproperties
 {
 	Chance=0.6f
-	zedSpawnRateFactor=1.3f
+	ZedSpawnRateFactor=1.3f
 
 	Title="Popcorn"
 	Description="Make them explode!"

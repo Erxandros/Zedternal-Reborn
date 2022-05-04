@@ -99,9 +99,9 @@ static simulated function ModifyWeldingRate(out float InFastenRate, float Defaul
 defaultproperties
 {
 	Rate=0.7f
-	zedSpawnRateFactor=0.9f
-	waveValueFactor=0.7f
-	doshFactor=1.4f
+	ZedSpawnRateFactor=0.9f
+	WaveValueFactor=0.7f
+	DoshFactor=1.4f
 
 	Title="Locked"
 	Description="It's a trap!"

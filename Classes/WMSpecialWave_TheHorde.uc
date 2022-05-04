@@ -27,9 +27,9 @@ static function ModifyDamageTaken(out int InDamage, int DefaultDamage, KFPawn Ow
 defaultproperties
 {
 	DamageTakenFactor=0.9f
-	zedSpawnRateFactor=1.9f
-	waveValueFactor=0.8f
-	doshFactor=1.1f
+	ZedSpawnRateFactor=1.9f
+	WaveValueFactor=0.8f
+	DoshFactor=1.1f
 
 	Title="The Horde"
 	Description="Rush Hour!"

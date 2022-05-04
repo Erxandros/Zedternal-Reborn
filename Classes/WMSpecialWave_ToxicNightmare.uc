@@ -54,9 +54,9 @@ defaultproperties
 	Probability=0.0f
 	DesiredMines=65
 	nbPoint=-1
-	zedSpawnRateFactor=0.85f
-	waveValueFactor=0.9f
-	doshFactor=1.1f
+	ZedSpawnRateFactor=0.85f
+	WaveValueFactor=0.9f
+	DoshFactor=1.1f
 
 	Title="Toxic Nightmare"
 	Description="Watch for the mines!"

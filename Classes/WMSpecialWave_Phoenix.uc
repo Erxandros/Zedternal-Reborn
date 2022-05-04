@@ -48,9 +48,9 @@ defaultproperties
 {
 	Delay=2.0f
 	Prob=0.2f
-	zedSpawnRateFactor=0.95f
-	waveValueFactor=0.875f
-	doshFactor=0.875f
+	ZedSpawnRateFactor=0.95f
+	WaveValueFactor=0.875f
+	DoshFactor=0.875f
 
 	Title="Phoenix"
 	Description="They revive from their ashes!"

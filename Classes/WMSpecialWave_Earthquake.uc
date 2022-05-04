@@ -57,7 +57,7 @@ static simulated function InitiateWeapon(KFWeapon KFW, KFPawn OwnerPawn)
 
 defaultproperties
 {
-	waveValueFactor=1.05f
+	WaveValueFactor=1.05f
 
 	Title="Earthquake"
 	Description="The world is now shaking"

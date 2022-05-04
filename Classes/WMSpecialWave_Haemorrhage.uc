@@ -88,7 +88,7 @@ defaultproperties
 {
 	HealRecharge=0.3f
 	BleedTime=20
-	zedSpawnRateFactor=0.9f
+	ZedSpawnRateFactor=0.9f
 
 	Title="Haemorrhage"
 	Description="Watch out for paper cuts!"
