@@ -25,8 +25,8 @@ defaultproperties
 {
 	Spread=0.2f
 
-	upgradeName="Tight Choke"
-	upgradeDescription(0)="Decrease shot spread of this weapon by %x%%"
+	UpgradeName="Tight Choke"
+	UpgradeDescription(0)="Decrease shot spread of this weapon by %x%%"
 	WeaponBonus=(baseValue=0, incValue=20, maxValue=-1)
 
 	Name="Default__WMUpgrade_Weapon_TightChoke"

@@ -19,11 +19,11 @@ defaultproperties
 	Bonus(0)=0.1f
 	Bonus(1)=0.25f
 
-	upgradeName="Dead Eye"
-	upgradeDescription(0)="When using iron sights headshot damage increases by 10% and recoil decreases by 10% with <font color=\"#eaeff7\">all weapons</font>"
-	upgradeDescription(1)="When using iron sights headshot damage increases by <font color=\"#b346ea\">25%</font> and recoil decreases by <font color=\"#b346ea\">25%</font> with <font color=\"#eaeff7\">all weapons</font>"
-	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_DeadEye'
-	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_DeadEye_Deluxe'
+	UpgradeName="Dead Eye"
+	UpgradeDescription(0)="When using iron sights headshot damage increases by 10% and recoil decreases by 10% with <font color=\"#eaeff7\">all weapons</font>"
+	UpgradeDescription(1)="When using iron sights headshot damage increases by <font color=\"#b346ea\">25%</font> and recoil decreases by <font color=\"#b346ea\">25%</font> with <font color=\"#eaeff7\">all weapons</font>"
+	UpgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_DeadEye'
+	UpgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_DeadEye_Deluxe'
 
 	Name="Default__WMUpgrade_Skill_DeadEye"
 }

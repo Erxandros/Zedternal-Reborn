@@ -12,10 +12,10 @@ defaultproperties
 {
 	Recharge=0.5f
 
-	upgradeName="Spare Batteries"
-	upgradeDescription(0)="Increase battery capacity by %x%%"
+	UpgradeName="Spare Batteries"
+	UpgradeDescription(0)="Increase battery capacity by %x%%"
 	EquipmentBonus(0)=(baseValue=0, incValue=50, maxValue=-1)
-	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Equipment.UI_Equipment_Batteries'
+	UpgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Equipment.UI_Equipment_Batteries'
 
 	Name="Default__WMUpgrade_Equipment_SpareBatteries"
 }

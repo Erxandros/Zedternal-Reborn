@@ -22,8 +22,8 @@ defaultproperties
 {
 	SpareAmmo=0.15f
 
-	upgradeName="Spare Ammo"
-	upgradeDescription(0)="Carry up to %x%% more ammo for this weapon"
+	UpgradeName="Spare Ammo"
+	UpgradeDescription(0)="Carry up to %x%% more ammo for this weapon"
 	WeaponBonus=(baseValue=0, incValue=15, maxValue=-1)
 
 	Name="Default__WMUpgrade_Weapon_SpareAmmo"

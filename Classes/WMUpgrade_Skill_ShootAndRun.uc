@@ -91,11 +91,11 @@ defaultproperties
 	MaxMoveSpeedBonus(0)=0.2f
 	MaxMoveSpeedBonus(1)=0.5f
 
-	upgradeName="Shoot And Run"
-	upgradeDescription(0)="Over time increase reload speed up to 50% and movement speed up to 20% while actively killing ZEDs"
-	upgradeDescription(1)="Over time increase reload speed up to <font color=\"#b346ea\">125%</font> and movement speed up to <font color=\"#b346ea\">50%</font> while actively killing ZEDs"
-	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_ShootAndRun'
-	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_ShootAndRun_Deluxe'
+	UpgradeName="Shoot And Run"
+	UpgradeDescription(0)="Over time increase reload speed up to 50% and movement speed up to 20% while actively killing ZEDs"
+	UpgradeDescription(1)="Over time increase reload speed up to <font color=\"#b346ea\">125%</font> and movement speed up to <font color=\"#b346ea\">50%</font> while actively killing ZEDs"
+	UpgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_ShootAndRun'
+	UpgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_ShootAndRun_Deluxe'
 
 	Name="Default__WMUpgrade_Skill_ShootAndRun"
 }

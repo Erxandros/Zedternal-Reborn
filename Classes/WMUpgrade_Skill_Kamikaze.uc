@@ -17,11 +17,11 @@ defaultproperties
 {
 	DamageDeluxe=0.25f
 
-	upgradeName="Kamikaze"
-	upgradeDescription(0)="Once per wave explode and survive when your health reaches critical level"
-	upgradeDescription(1)="Increase damage with <font color=\"#eaeff7\">all weapons</font> by <font color=\"#b346ea\">25%</font> and once per wave explode and survive when your health reaches critical level"
-	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Kamikaze'
-	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Kamikaze_Deluxe'
+	UpgradeName="Kamikaze"
+	UpgradeDescription(0)="Once per wave explode and survive when your health reaches critical level"
+	UpgradeDescription(1)="Increase damage with <font color=\"#eaeff7\">all weapons</font> by <font color=\"#b346ea\">25%</font> and once per wave explode and survive when your health reaches critical level"
+	UpgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Kamikaze'
+	UpgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Kamikaze_Deluxe'
 
 	Name="Default__WMUpgrade_Skill_Kamikaze"
 }

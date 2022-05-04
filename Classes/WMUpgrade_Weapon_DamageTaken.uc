@@ -25,8 +25,8 @@ defaultproperties
 {
 	Damage=0.04f
 
-	upgradeName="Damage Taken"
-	upgradeDescription(0)="Increase damage resistance by %x%% while holding this weapon"
+	UpgradeName="Damage Taken"
+	UpgradeDescription(0)="Increase damage resistance by %x%% while holding this weapon"
 	WeaponBonus=(baseValue=0, incValue=4, maxValue=-1)
 
 	Name="Default__WMUpgrade_Weapon_DamageTaken"

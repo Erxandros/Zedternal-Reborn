@@ -26,11 +26,11 @@ defaultproperties
 	Bonus(0)=0.25f
 	Bonus(1)=0.6f
 
-	upgradeName="ZED-atif"
-	upgradeDescription(0)="Poison effects slow ZEDs and <font color=\"#caab05\">poison</font> damage and healing potency increases by 25%"
-	upgradeDescription(1)="Poison effects slow ZEDs and <font color=\"#caab05\">poison</font> damage and healing potency increases by <font color=\"#b346ea\">60%</font>"
-	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Zedatif'
-	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Zedatif_Deluxe'
+	UpgradeName="ZED-atif"
+	UpgradeDescription(0)="Poison effects slow ZEDs and <font color=\"#caab05\">poison</font> damage and healing potency increases by 25%"
+	UpgradeDescription(1)="Poison effects slow ZEDs and <font color=\"#caab05\">poison</font> damage and healing potency increases by <font color=\"#b346ea\">60%</font>"
+	UpgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Zedatif'
+	UpgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Zedatif_Deluxe'
 
 	Name="Default__WMUpgrade_Skill_Zedatif"
 }

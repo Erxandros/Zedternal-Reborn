@@ -24,8 +24,8 @@ static function string GetBonusValue(int Index, int Level)
 
 defaultproperties
 {
-	upgradeName="default"
-	upgradeDescription(0)="default description"
+	UpgradeName="default"
+	UpgradeDescription(0)="default description"
 
 	Name="Default__WMUpgrade_Equipment"
 }

@@ -23,8 +23,8 @@ defaultproperties
 {
 	Damage=0.15f
 
-	upgradeName="Hard Melee Attack Damage"
-	upgradeDescription(0)="Increase hard melee attack damage dealt with this weapon by %x%%"
+	UpgradeName="Hard Melee Attack Damage"
+	UpgradeDescription(0)="Increase hard melee attack damage dealt with this weapon by %x%%"
 	WeaponBonus=(baseValue=0, incValue=15, maxValue=-1)
 
 	Name="Default__WMUpgrade_Weapon_HardMeleeAttack"

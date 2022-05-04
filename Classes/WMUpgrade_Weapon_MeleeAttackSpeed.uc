@@ -23,8 +23,8 @@ defaultproperties
 {
 	MeleeAttackSpeed=0.15f
 
-	upgradeName="Melee Attack Speed"
-	upgradeDescription(0)="Attack %x%% faster with this weapon"
+	UpgradeName="Melee Attack Speed"
+	UpgradeDescription(0)="Attack %x%% faster with this weapon"
 	WeaponBonus=(baseValue=0, incValue=15, maxValue=-1)
 
 	Name="Default__WMUpgrade_Weapon_MeleeAttackSpeed"

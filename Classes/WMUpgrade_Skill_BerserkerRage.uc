@@ -20,11 +20,11 @@ defaultproperties
 	Damage(0)=0.1f
 	Damage(1)=0.25f
 
-	upgradeName="Berserker Rage"
-	upgradeDescription(0)="While you don't have armor increase <font color=\"#caab05\">melee damage</font> by 30% and <font color=\"#eaeff7\">any other damage</font> by 10%"
-	upgradeDescription(1)="While you don't have armor increase <font color=\"#caab05\">melee damage</font> by <font color=\"#b346ea\">75%</font> and <font color=\"#eaeff7\">any other damage</font> by <font color=\"#b346ea\">25%</font>"
-	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_BerserkerRage'
-	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_BerserkerRage_Deluxe'
+	UpgradeName="Berserker Rage"
+	UpgradeDescription(0)="While you don't have armor increase <font color=\"#caab05\">melee damage</font> by 30% and <font color=\"#eaeff7\">any other damage</font> by 10%"
+	UpgradeDescription(1)="While you don't have armor increase <font color=\"#caab05\">melee damage</font> by <font color=\"#b346ea\">75%</font> and <font color=\"#eaeff7\">any other damage</font> by <font color=\"#b346ea\">25%</font>"
+	UpgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_BerserkerRage'
+	UpgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_BerserkerRage_Deluxe'
 
 	Name="Default__WMUpgrade_Skill_BerserkerRage"
 }

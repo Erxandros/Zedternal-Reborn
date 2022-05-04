@@ -17,11 +17,11 @@ defaultproperties
 	WeapVampire(0)=2
 	WeapVampire(1)=5
 
-	upgradeName="Vampire"
-	upgradeDescription(0)="Whenever you kill a ZED heal 2 points of health for any <font color=\"#caab05\">projectile weapon</font> or heal 3 points of health for any <font color=\"#caab05\">melee weapon</font>"
-	upgradeDescription(1)="Whenever you kill a ZED heal <font color=\"#b346ea\">5</font> points of health for any <font color=\"#caab05\">projectile weapon</font> or heal <font color=\"#b346ea\">8</font> points of health for any <font color=\"#caab05\">melee weapon</font>"
-	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Vampire'
-	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Vampire_Deluxe'
+	UpgradeName="Vampire"
+	UpgradeDescription(0)="Whenever you kill a ZED heal 2 points of health for any <font color=\"#caab05\">projectile weapon</font> or heal 3 points of health for any <font color=\"#caab05\">melee weapon</font>"
+	UpgradeDescription(1)="Whenever you kill a ZED heal <font color=\"#b346ea\">5</font> points of health for any <font color=\"#caab05\">projectile weapon</font> or heal <font color=\"#b346ea\">8</font> points of health for any <font color=\"#caab05\">melee weapon</font>"
+	UpgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Vampire'
+	UpgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Vampire_Deluxe'
 
 	Name="Default__WMUpgrade_Skill_Vampire"
 }

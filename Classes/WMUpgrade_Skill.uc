@@ -5,9 +5,9 @@ class WMUpgrade_Skill extends WMUpgrade
 
 defaultproperties
 {
-	upgradeName="default"
-	upgradeDescription(0)="default description"
-	upgradeDescription(1)="default Deluxe description"
+	UpgradeName="default"
+	UpgradeDescription(0)="default description"
+	UpgradeDescription(1)="default Deluxe description"
 
 	Name="Default__WMUpgrade_Skill"
 }

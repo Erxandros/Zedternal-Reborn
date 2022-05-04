@@ -18,11 +18,11 @@ defaultproperties
 	Resistance(0)=0.3f
 	Resistance(1)=0.7f
 
-	upgradeName="Mad Bomber"
-	upgradeDescription(0)="<font color=\"#caab05\">Explosive rounds</font> can explode at any range and resistance to your <font color=\"#eaeff7\">own explosives</font> increases by 30%"
-	upgradeDescription(1)="<font color=\"#caab05\">Explosive rounds</font> can explode at any range and resistance to your <font color=\"#eaeff7\">own explosives</font> increases by <font color=\"#b346ea\">75%</font>"
-	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_MadBomber'
-	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_MadBomber_Deluxe'
+	UpgradeName="Mad Bomber"
+	UpgradeDescription(0)="<font color=\"#caab05\">Explosive rounds</font> can explode at any range and resistance to your <font color=\"#eaeff7\">own explosives</font> increases by 30%"
+	UpgradeDescription(1)="<font color=\"#caab05\">Explosive rounds</font> can explode at any range and resistance to your <font color=\"#eaeff7\">own explosives</font> increases by <font color=\"#b346ea\">75%</font>"
+	UpgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_MadBomber'
+	UpgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_MadBomber_Deluxe'
 
 	Name="Default__WMUpgrade_Skill_MadBomber"
 }

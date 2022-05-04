@@ -24,8 +24,8 @@ defaultproperties
 {
 	Damage=0.5f
 
-	upgradeName="Damage Against Clots"
-	upgradeDescription(0)="Increase damage dealt against Clots with this weapon by %x%%"
+	UpgradeName="Damage Against Clots"
+	UpgradeDescription(0)="Increase damage dealt against Clots with this weapon by %x%%"
 	WeaponBonus=(baseValue=0, incValue=50, maxValue=-1)
 
 	Name="Default__WMUpgrade_Weapon_Damage_Clot"

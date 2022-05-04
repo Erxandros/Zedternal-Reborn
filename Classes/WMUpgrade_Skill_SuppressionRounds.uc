@@ -21,11 +21,11 @@ defaultproperties
 	KnockDown(1)=0.75f
 	Snare=20.0f
 
-	upgradeName="Suppression Rounds"
-	upgradeDescription(0)="Landing several body shots slows ZEDs by 30% and when a ZED is sprinting increase knockdown power by 30% with <font color=\"#eaeff7\">all weapons</font>"
-	upgradeDescription(1)="Landing several body shots slows ZEDs by 30% and when a ZED is sprinting increase knockdown power by <font color=\"#b346ea\">75%</font> with <font color=\"#eaeff7\">all weapons</font>"
-	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_SuppressionRounds'
-	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_SuppressionRounds_Deluxe'
+	UpgradeName="Suppression Rounds"
+	UpgradeDescription(0)="Landing several body shots slows ZEDs by 30% and when a ZED is sprinting increase knockdown power by 30% with <font color=\"#eaeff7\">all weapons</font>"
+	UpgradeDescription(1)="Landing several body shots slows ZEDs by 30% and when a ZED is sprinting increase knockdown power by <font color=\"#b346ea\">75%</font> with <font color=\"#eaeff7\">all weapons</font>"
+	UpgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_SuppressionRounds'
+	UpgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_SuppressionRounds_Deluxe'
 
 	Name="Default__WMUpgrade_Skill_SuppressionRounds"
 }

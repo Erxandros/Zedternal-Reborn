@@ -27,8 +27,8 @@ defaultproperties
 {
 	Heal=0.2f
 
-	upgradeName="Heal Potency"
-	upgradeDescription(0)="Increase healing potency of this weapon by %x%%"
+	UpgradeName="Heal Potency"
+	UpgradeDescription(0)="Increase healing potency of this weapon by %x%%"
 	WeaponBonus=(baseValue=0, incValue=20, maxValue=-1)
 
 	Name="Default__WMUpgrade_Weapon_Heal"

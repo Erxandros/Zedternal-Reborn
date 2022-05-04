@@ -18,11 +18,11 @@ defaultproperties
 	Damage(0)=0.4f
 	Damage(1)=1.0f
 
-	upgradeName="Sonic Resistant Rounds"
-	upgradeDescription(0)="<font color=\"#eaeff7\">Your explosives</font> are completely immune to Siren screams and resistance to sonic damage increases by 40%"
-	upgradeDescription(1)="<font color=\"#eaeff7\">Your explosives</font> are completely immune to Siren screams and resistance to sonic damage increases by <font color=\"#b346ea\">100%</font>"
-	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_SonicResistantRounds'
-	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_SonicResistantRounds_Deluxe'
+	UpgradeName="Sonic Resistant Rounds"
+	UpgradeDescription(0)="<font color=\"#eaeff7\">Your explosives</font> are completely immune to Siren screams and resistance to sonic damage increases by 40%"
+	UpgradeDescription(1)="<font color=\"#eaeff7\">Your explosives</font> are completely immune to Siren screams and resistance to sonic damage increases by <font color=\"#b346ea\">100%</font>"
+	UpgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_SonicResistantRounds'
+	UpgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_SonicResistantRounds_Deluxe'
 
 	Name="Default__WMUpgrade_Skill_SonicResistantRounds"
 }

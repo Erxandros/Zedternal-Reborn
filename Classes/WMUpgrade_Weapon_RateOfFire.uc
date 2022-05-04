@@ -33,8 +33,8 @@ defaultproperties
 {
 	RateOfFire=0.15f
 
-	upgradeName="Rate Of Fire"
-	upgradeDescription(0)="Increase rate of fire of this weapon by %x%%"
+	UpgradeName="Rate Of Fire"
+	UpgradeDescription(0)="Increase rate of fire of this weapon by %x%%"
 	WeaponBonus=(baseValue=0, incValue=15, maxValue=-1)
 
 	Name="Default__WMUpgrade_Weapon_RateOfFire"

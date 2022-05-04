@@ -11,10 +11,10 @@ defaultproperties
 {
 	Health=10
 
-	upgradeName="Health Up"
-	upgradeDescription(0)="Increase health by %x% points"
+	UpgradeName="Health Up"
+	UpgradeDescription(0)="Increase health by %x% points"
 	EquipmentBonus(0)=(baseValue=0, incValue=10, maxValue=-1)
-	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Equipment.UI_Equipment_HealthUp'
+	UpgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Equipment.UI_Equipment_HealthUp'
 
 	Name="Default__WMUpgrade_Equipment_HealthUp"
 }

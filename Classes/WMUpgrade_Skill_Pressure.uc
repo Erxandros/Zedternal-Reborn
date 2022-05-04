@@ -15,11 +15,11 @@ defaultproperties
 	maxReloadSpeed(0)=0.6f
 	maxReloadSpeed(1)=1.5f
 
-	upgradeName="Pressure"
-	upgradeDescription(0)="Increase reload speed with <font color=\"#eaeff7\">all weapons</font> by up to 60% when your health is low with lower health equaling faster reloading"
-	upgradeDescription(1)="Increase reload speed with <font color=\"#eaeff7\">all weapons</font> by up to <font color=\"#b346ea\">150%</font> when your health is low with lower health equalling faster reloading"
-	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Pressure'
-	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Pressure_Deluxe'
+	UpgradeName="Pressure"
+	UpgradeDescription(0)="Increase reload speed with <font color=\"#eaeff7\">all weapons</font> by up to 60% when your health is low with lower health equaling faster reloading"
+	UpgradeDescription(1)="Increase reload speed with <font color=\"#eaeff7\">all weapons</font> by up to <font color=\"#b346ea\">150%</font> when your health is low with lower health equalling faster reloading"
+	UpgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Pressure'
+	UpgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Pressure_Deluxe'
 
 	Name="Default__WMUpgrade_Skill_Pressure"
 }

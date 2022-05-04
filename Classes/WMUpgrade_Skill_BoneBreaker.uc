@@ -31,11 +31,11 @@ defaultproperties
 	BoneBreakerBodyParts(2)=4
 	BoneBreakerBodyParts(3)=5
 
-	upgradeName="Bone Breaker"
-	upgradeDescription(0)="Shooting ZEDs in the arms, legs, and head with <font color=\"#eaeff7\">all weapons</font> increases stumble power by 30% and knockdown power by 30% for limb shots and 20% for headshots"
-	upgradeDescription(1)="Shooting ZEDs in the arms, legs, and head with <font color=\"#eaeff7\">all weapons</font> increases stumble power by <font color=\"#b346ea\">75%</font> and knockdown power by <font color=\"#b346ea\">60%</font> for limb shots and <font color=\"#b346ea\">50%</font> for headshots"
-	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_BoneBreaker'
-	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_BoneBreaker_Deluxe'
+	UpgradeName="Bone Breaker"
+	UpgradeDescription(0)="Shooting ZEDs in the arms, legs, and head with <font color=\"#eaeff7\">all weapons</font> increases stumble power by 30% and knockdown power by 30% for limb shots and 20% for headshots"
+	UpgradeDescription(1)="Shooting ZEDs in the arms, legs, and head with <font color=\"#eaeff7\">all weapons</font> increases stumble power by <font color=\"#b346ea\">75%</font> and knockdown power by <font color=\"#b346ea\">60%</font> for limb shots and <font color=\"#b346ea\">50%</font> for headshots"
+	UpgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_BoneBreaker'
+	UpgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_BoneBreaker_Deluxe'
 
 	Name="Default__WMUpgrade_Skill_BoneBreaker"
 }

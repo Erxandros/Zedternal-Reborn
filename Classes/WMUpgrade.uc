@@ -1,8 +1,8 @@
 Class WMUpgrade extends Info;
 
-var string upgradeName;
-var array<string> upgradeDescription;
-var array<Texture2D> upgradeIcon;
+var string UpgradeName;
+var array<string> UpgradeDescription;
+var array<Texture2D> UpgradeIcon;
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // These functions are called by ZedternalReborn.WMPerk (server or client) to get perk stats.
@@ -227,11 +227,11 @@ static simulated function ExtensionFuncFloat(out float InValue, float DefaultVal
 static simulated function Texture2D GetupgradeIcon(int index)
 {
 	if (index < 0)
-		return default.upgradeIcon[0];
-	else if (index < default.upgradeIcon.length)
-		return default.upgradeIcon[index];
+		return default.UpgradeIcon[0];
+	else if (index < default.UpgradeIcon.length)
+		return default.UpgradeIcon[index];
 	else
-		return default.upgradeIcon[default.upgradeIcon.length - 1];
+		return default.UpgradeIcon[default.UpgradeIcon.length - 1];
 }
 
 static simulated function bool IsWeaponOnSpecificPerk(KFWeapon W, class<KFPerk> Perk)
@@ -285,7 +285,7 @@ static simulated function RevertUpgradeChanges(Pawn OwnerPawn);
 
 defaultproperties
 {
-	upgradeIcon(0)=Texture2D'CHR_Cosmetics_Item_TEX.3DGlasses.3DGlasses_Color02'
+	UpgradeIcon(0)=Texture2D'CHR_Cosmetics_Item_TEX.3DGlasses.3DGlasses_Color02'
 
 	Name="Default__WMUpgrade"
 }

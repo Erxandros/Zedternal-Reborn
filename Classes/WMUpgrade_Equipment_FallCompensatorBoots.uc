@@ -12,10 +12,10 @@ defaultproperties
 {
 	DamageResistance=0.4f
 
-	upgradeName="Fall Compensator Boots"
-	upgradeDescription(0)="Decrease fall damage by %x%%"
+	UpgradeName="Fall Compensator Boots"
+	UpgradeDescription(0)="Decrease fall damage by %x%%"
 	EquipmentBonus(0)=(baseValue=0, incValue=40, maxValue=80)
-	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Equipment.UI_Equipment_FallCompensatorBoots'
+	UpgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Equipment.UI_Equipment_FallCompensatorBoots'
 
 	Name="Default__WMUpgrade_Equipment_FallCompensatorBoots"
 }

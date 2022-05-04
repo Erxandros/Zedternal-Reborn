@@ -13,11 +13,11 @@ defaultproperties
 	Damage(0)=0.2f
 	Damage(1)=0.5f
 
-	upgradeName="Destroyer Of Worlds"
-	upgradeDescription(0)="Increase damage with <font color=\"#eaeff7\">all explosives</font> and <font color=\"#eaeff7\">all grenades</font> by 20%"
-	upgradeDescription(1)="Increase damage with <font color=\"#eaeff7\">all explosives</font> and <font color=\"#eaeff7\">all grenades</font> by <font color=\"#b346ea\">50%</font>"
-	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_DestroyerOfWorlds'
-	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_DestroyerOfWorlds_Deluxe'
+	UpgradeName="Destroyer Of Worlds"
+	UpgradeDescription(0)="Increase damage with <font color=\"#eaeff7\">all explosives</font> and <font color=\"#eaeff7\">all grenades</font> by 20%"
+	UpgradeDescription(1)="Increase damage with <font color=\"#eaeff7\">all explosives</font> and <font color=\"#eaeff7\">all grenades</font> by <font color=\"#b346ea\">50%</font>"
+	UpgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_DestroyerOfWorlds'
+	UpgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_DestroyerOfWorlds_Deluxe'
 
 	Name="Default__WMUpgrade_Skill_DestroyerOfWorlds"
 }

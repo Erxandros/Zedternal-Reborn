@@ -56,11 +56,11 @@ defaultproperties
 	Damage(0)=0.25f
 	Damage(1)=0.6f
 
-	upgradeName="Machine Gunner"
-	upgradeDescription(0)="Killing a ZED increases damage with <font color=\"#eaeff7\">all weapons</font> by 25% for 5 seconds"
-	upgradeDescription(1)="Killing a ZED increases damage with <font color=\"#eaeff7\">all weapons</font> by <font color=\"#b346ea\">60%</font> for 5 seconds"
-	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_GunMachine'
-	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_GunMachine_Deluxe'
+	UpgradeName="Machine Gunner"
+	UpgradeDescription(0)="Killing a ZED increases damage with <font color=\"#eaeff7\">all weapons</font> by 25% for 5 seconds"
+	UpgradeDescription(1)="Killing a ZED increases damage with <font color=\"#eaeff7\">all weapons</font> by <font color=\"#b346ea\">60%</font> for 5 seconds"
+	UpgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_GunMachine'
+	UpgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_GunMachine_Deluxe'
 
 	Name="Default__WMUpgrade_Skill_GunMachine"
 }

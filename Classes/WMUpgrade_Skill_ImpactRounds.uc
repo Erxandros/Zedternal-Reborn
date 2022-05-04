@@ -20,11 +20,11 @@ defaultproperties
 	Stumble(0)=0.2f
 	Stumble(1)=0.5f
 
-	upgradeName="Impact Rounds"
-	upgradeDescription(0)="Increase stumble power of <font color=\"#eaeff7\">all weapons</font> by 20% and increase <font color=\"#caab05\">ballistic</font> damage by 10%"
-	upgradeDescription(1)="Increase stumble power of <font color=\"#eaeff7\">all weapons</font> by <font color=\"#b346ea\">50%</font> and increase <font color=\"#caab05\">ballistic</font> damage by <font color=\"#b346ea\">25%</font>"
-	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_ImpactRounds'
-	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_ImpactRounds_Deluxe'
+	UpgradeName="Impact Rounds"
+	UpgradeDescription(0)="Increase stumble power of <font color=\"#eaeff7\">all weapons</font> by 20% and increase <font color=\"#caab05\">ballistic</font> damage by 10%"
+	UpgradeDescription(1)="Increase stumble power of <font color=\"#eaeff7\">all weapons</font> by <font color=\"#b346ea\">50%</font> and increase <font color=\"#caab05\">ballistic</font> damage by <font color=\"#b346ea\">25%</font>"
+	UpgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_ImpactRounds'
+	UpgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_ImpactRounds_Deluxe'
 
 	Name="Default__WMUpgrade_Skill_ImpactRounds"
 }

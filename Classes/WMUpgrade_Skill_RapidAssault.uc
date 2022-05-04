@@ -17,11 +17,11 @@ defaultproperties
 	RateOfFire(0)=0.2f
 	RateOfFire(1)=0.5f
 
-	upgradeName="Rapid Assault"
-	upgradeDescription(0)="Attack and shoot 20% faster with <font color=\"#eaeff7\">all weapons</font>"
-	upgradeDescription(1)="Attack and shoot <font color=\"#b346ea\">50%</font> faster with <font color=\"#eaeff7\">all weapons</font>"
-	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_RapidAssault'
-	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_RapidAssault_Deluxe'
+	UpgradeName="Rapid Assault"
+	UpgradeDescription(0)="Attack and shoot 20% faster with <font color=\"#eaeff7\">all weapons</font>"
+	UpgradeDescription(1)="Attack and shoot <font color=\"#b346ea\">50%</font> faster with <font color=\"#eaeff7\">all weapons</font>"
+	UpgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_RapidAssault'
+	UpgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_RapidAssault_Deluxe'
 
 	Name="Default__WMUpgrade_Skill_RapidAssault"
 }

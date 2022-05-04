@@ -17,11 +17,11 @@ defaultproperties
 	OtherDamage(0)=0.05f
 	OtherDamage(1)=0.1f
 
-	upgradeName="Riot Shield"
-	upgradeDescription(0)="Increase resistance to <font color=\"#caab05\">projectile</font> damage by 50% and increase other damage resistances by 5%"
-	upgradeDescription(1)="Increase resistance to <font color=\"#caab05\">projectile</font> damage by <font color=\"#b346ea\">90%</font> and increase other damage resistances by <font color=\"#b346ea\">10%</font>"
-	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_RiotShield'
-	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_RiotShield_Deluxe'
+	UpgradeName="Riot Shield"
+	UpgradeDescription(0)="Increase resistance to <font color=\"#caab05\">projectile</font> damage by 50% and increase other damage resistances by 5%"
+	UpgradeDescription(1)="Increase resistance to <font color=\"#caab05\">projectile</font> damage by <font color=\"#b346ea\">90%</font> and increase other damage resistances by <font color=\"#b346ea\">10%</font>"
+	UpgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_RiotShield'
+	UpgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_RiotShield_Deluxe'
 
 	Name="Default__WMUpgrade_Skill_RiotShield"
 }

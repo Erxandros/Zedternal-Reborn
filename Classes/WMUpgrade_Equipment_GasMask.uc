@@ -8,9 +8,9 @@ static simulated function GetPerkLensEffect(out class<EmitterCameraLensEffectBas
 
 defaultproperties
 {
-	upgradeName="Gas Mask"
-	upgradeDescription(0)="Prevents toxic effects from blocking your vision"
-	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Equipment.UI_Equipment_GasMask'
+	UpgradeName="Gas Mask"
+	UpgradeDescription(0)="Prevents toxic effects from blocking your vision"
+	UpgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Equipment.UI_Equipment_GasMask'
 
 	Name="Default__WMUpgrade_Equipment_GasMask"
 }

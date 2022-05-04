@@ -26,9 +26,9 @@ static function string GetBonusValue(int Level)
 
 defaultproperties
 {
-	upgradeName="default"
-	upgradeDescription(0)="default"
-	upgradeIcon(0)=Texture2D'CHR_Cosmetics_Item_TEX.3DGlasses.3DGlasses_Color02'
+	UpgradeName="default"
+	UpgradeDescription(0)="default"
+	UpgradeIcon(0)=Texture2D'CHR_Cosmetics_Item_TEX.3DGlasses.3DGlasses_Color02'
 
 	Name="Default__WMUpgrade_Weapon"
 }

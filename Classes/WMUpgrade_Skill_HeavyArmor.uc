@@ -12,11 +12,11 @@ defaultproperties
 	Armor(0)=0.3f
 	Armor(1)=0.75f
 
-	upgradeName="Heavy Armor"
-	upgradeDescription(0)="Increase max armor by 30%"
-	upgradeDescription(1)="Increase max armor by <font color=\"#b346ea\">75%</font>"
-	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_HeavyArmor'
-	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_HeavyArmor_Deluxe'
+	UpgradeName="Heavy Armor"
+	UpgradeDescription(0)="Increase max armor by 30%"
+	UpgradeDescription(1)="Increase max armor by <font color=\"#b346ea\">75%</font>"
+	UpgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_HeavyArmor'
+	UpgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_HeavyArmor_Deluxe'
 
 	Name="Default__WMUpgrade_Skill_HeavyArmor"
 }

@@ -24,8 +24,8 @@ defaultproperties
 {
 	StunPower=0.25f
 
-	upgradeName="Stun Effect"
-	upgradeDescription(0)="Increase stun power of this weapon by %x%%"
+	UpgradeName="Stun Effect"
+	UpgradeDescription(0)="Increase stun power of this weapon by %x%%"
 	WeaponBonus=(baseValue=0, incValue=25, maxValue=-1)
 
 	Name="Default__WMUpgrade_Weapon_StunPower"

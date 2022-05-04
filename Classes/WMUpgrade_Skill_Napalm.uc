@@ -28,11 +28,11 @@ defaultproperties
 	DamageFactor(0)=0.2f
 	DamageFactor(1)=0.5f
 
-	upgradeName="Napalm"
-	upgradeDescription(0)="<font color=\"#eaeff7\">All weapons</font> can set fire to ZEDs and burning ZEDs will light other ZEDs on fire upon contact"
-	upgradeDescription(1)="<font color=\"#eaeff7\">All weapons</font> can set <font color=\"#b346ea\">lethal</font> fire to ZEDs and burning ZEDs will light other ZEDs on fire upon contact"
-	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Napalm'
-	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Napalm_Deluxe'
+	UpgradeName="Napalm"
+	UpgradeDescription(0)="<font color=\"#eaeff7\">All weapons</font> can set fire to ZEDs and burning ZEDs will light other ZEDs on fire upon contact"
+	UpgradeDescription(1)="<font color=\"#eaeff7\">All weapons</font> can set <font color=\"#b346ea\">lethal</font> fire to ZEDs and burning ZEDs will light other ZEDs on fire upon contact"
+	UpgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Napalm'
+	UpgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Napalm_Deluxe'
 
 	Name="Default__WMUpgrade_Skill_Napalm"
 }

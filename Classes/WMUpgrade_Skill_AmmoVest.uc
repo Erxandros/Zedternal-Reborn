@@ -20,11 +20,11 @@ defaultproperties
 	Weight(0)=2
 	Weight(1)=5
 
-	upgradeName="Ammo Vest"
-	upgradeDescription(0)="Increase weight capacity by 2 and you can carry up to 30% more ammo for <font color=\"#eaeff7\">all weapons</font>"
-	upgradeDescription(1)="Increase weight capacity by <font color=\"#b346ea\">5</font> and you can carry up to <font color=\"#b346ea\">75%</font> more ammo for <font color=\"#eaeff7\">all weapons</font>"
-	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_AmmoVest'
-	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_AmmoVest_Deluxe'
+	UpgradeName="Ammo Vest"
+	UpgradeDescription(0)="Increase weight capacity by 2 and you can carry up to 30% more ammo for <font color=\"#eaeff7\">all weapons</font>"
+	UpgradeDescription(1)="Increase weight capacity by <font color=\"#b346ea\">5</font> and you can carry up to <font color=\"#b346ea\">75%</font> more ammo for <font color=\"#eaeff7\">all weapons</font>"
+	UpgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_AmmoVest'
+	UpgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_AmmoVest_Deluxe'
 
 	Name="Default__WMUpgrade_Skill_AmmoVest"
 }

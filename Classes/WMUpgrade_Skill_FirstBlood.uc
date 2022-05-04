@@ -86,11 +86,11 @@ defaultproperties
 	DamageMax(0)=2.0f
 	DamageMax(1)=5.0f
 
-	upgradeName="First Blood"
-	upgradeDescription(0)="The first round of <font color=\"#eaeff7\">any magazine</font> to hit a ZED deals extra damage proportional to the magazine's capacity at 5% per round up to a max of 200% for magazines with 40+ rounds"
-	upgradeDescription(1)="The first round of <font color=\"#eaeff7\">any magazine</font> to hit a ZED deals extra damage proportional to the magazine's capacity at <font color=\"#b346ea\">10%</font> per round up to a max of <font color=\"#b346ea\">500%</font> for magazines with 50+ rounds"
-	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_FirstBlood'
-	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_FirstBlood_Deluxe'
+	UpgradeName="First Blood"
+	UpgradeDescription(0)="The first round of <font color=\"#eaeff7\">any magazine</font> to hit a ZED deals extra damage proportional to the magazine's capacity at 5% per round up to a max of 200% for magazines with 40+ rounds"
+	UpgradeDescription(1)="The first round of <font color=\"#eaeff7\">any magazine</font> to hit a ZED deals extra damage proportional to the magazine's capacity at <font color=\"#b346ea\">10%</font> per round up to a max of <font color=\"#b346ea\">500%</font> for magazines with 50+ rounds"
+	UpgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_FirstBlood'
+	UpgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_FirstBlood_Deluxe'
 
 	Name="Default__WMUpgrade_Skill_FirstBlood"
 }

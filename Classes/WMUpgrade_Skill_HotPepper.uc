@@ -37,11 +37,11 @@ static simulated function DeleteHelperClass(Pawn OwnerPawn)
 
 defaultproperties
 {
-	upgradeName="Hot Pepper"
-	upgradeDescription(0)="ZEDs within 1.5 meters of you catch on fire in seconds"
-	upgradeDescription(1)="ZEDs within 1.5 meters of you catch on <font color=\"#b346ea\">lethal</font> fire in seconds"
-	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_HotPepper'
-	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_HotPepper_Deluxe'
+	UpgradeName="Hot Pepper"
+	UpgradeDescription(0)="ZEDs within 1.5 meters of you catch on fire in seconds"
+	UpgradeDescription(1)="ZEDs within 1.5 meters of you catch on <font color=\"#b346ea\">lethal</font> fire in seconds"
+	UpgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_HotPepper'
+	UpgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_HotPepper_Deluxe'
 
 	Name="Default__WMUpgrade_Skill_HotPepper"
 }

@@ -56,11 +56,11 @@ defaultproperties
 	Damage(1)=0.6f;
 	RadiusSQ=50000;
 
-	upgradeName="Barrage"
-	upgradeDescription(0)="Increase damage at point blank range with <font color=\"#eaeff7\">all weapons</font> by 25%"
-	upgradeDescription(1)="Increase damage at point blank range with <font color=\"#eaeff7\">all weapons</font> by <font color=\"#b346ea\">60%</font>"
-	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Barrage'
-	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Barrage_Deluxe'
+	UpgradeName="Barrage"
+	UpgradeDescription(0)="Increase damage at point blank range with <font color=\"#eaeff7\">all weapons</font> by 25%"
+	UpgradeDescription(1)="Increase damage at point blank range with <font color=\"#eaeff7\">all weapons</font> by <font color=\"#b346ea\">60%</font>"
+	UpgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Barrage'
+	UpgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Barrage_Deluxe'
 
 	Name="Default__WMUpgrade_Skill_Barrage"
 }

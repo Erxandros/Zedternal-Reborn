@@ -35,11 +35,11 @@ defaultproperties
 	RadiusSQ(0)=90000
 	RadiusSQ(1)=360000
 
-	upgradeName="Heat Waves"
-	upgradeDescription(0)="Increase stumble effect by 150% with <font color=\"#eaeff7\">all weapons</font> when firing at ZEDs within 3 meters of you and set ground fires that do 80% extra damage with <font color=\"#caab05\">Firebug flame weapons</font>"
-	upgradeDescription(1)="Increase stumble effect by 150% with <font color=\"#eaeff7\">all weapons</font> when firing at ZEDs within <font color=\"#b346ea\">6</font> meters of you and set ground fires that do <font color=\"#b346ea\">200%</font> extra damage with <font color=\"#caab05\">Firebug flame weapons</font>"
-	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_HeatWaves'
-	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_HeatWaves_Deluxe'
+	UpgradeName="Heat Waves"
+	UpgradeDescription(0)="Increase stumble effect by 150% with <font color=\"#eaeff7\">all weapons</font> when firing at ZEDs within 3 meters of you and set ground fires that do 80% extra damage with <font color=\"#caab05\">Firebug flame weapons</font>"
+	UpgradeDescription(1)="Increase stumble effect by 150% with <font color=\"#eaeff7\">all weapons</font> when firing at ZEDs within <font color=\"#b346ea\">6</font> meters of you and set ground fires that do <font color=\"#b346ea\">200%</font> extra damage with <font color=\"#caab05\">Firebug flame weapons</font>"
+	UpgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_HeatWaves'
+	UpgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_HeatWaves_Deluxe'
 
 	Name="Default__WMUpgrade_Skill_HeatWaves"
 }

@@ -43,11 +43,11 @@ defaultproperties
 	Probability(0)=0.125f
 	Probability(1)=0.25f
 
-	upgradeName="Scrapper"
-	upgradeDescription(0)="12.5% chance to generate a chunk of ammo for your unequipped weapons after killing a ZED"
-	upgradeDescription(1)="<font color=\"#b346ea\">25%</font> chance to generate a chunk of ammo for your unequipped weapons after killing a ZED"
-	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Scrapper'
-	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Scrapper_Deluxe'
+	UpgradeName="Scrapper"
+	UpgradeDescription(0)="12.5% chance to generate a chunk of ammo for your unequipped weapons after killing a ZED"
+	UpgradeDescription(1)="<font color=\"#b346ea\">25%</font> chance to generate a chunk of ammo for your unequipped weapons after killing a ZED"
+	UpgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Scrapper'
+	UpgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Scrapper_Deluxe'
 
 	Name="Default__WMUpgrade_Skill_Scrapper"
 }

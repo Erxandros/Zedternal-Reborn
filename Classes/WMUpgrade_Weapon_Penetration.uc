@@ -21,8 +21,8 @@ defaultproperties
 {
 	Penetration=0.5f
 
-	upgradeName="Penetration"
-	upgradeDescription(0)="Increase penetration power of this weapon by %x%%"
+	UpgradeName="Penetration"
+	UpgradeDescription(0)="Increase penetration power of this weapon by %x%%"
 	WeaponBonus=(baseValue=0, incValue=50, maxValue=-1)
 
 	Name="Default__WMUpgrade_Weapon_Penetration"

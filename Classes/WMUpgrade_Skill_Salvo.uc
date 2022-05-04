@@ -17,11 +17,11 @@ defaultproperties
 	Bonus(0)=0.1f
 	Bonus(1)=0.25f
 
-	upgradeName="Salvo"
-	upgradeDescription(0)="Increase damage and rate of fire for <font color=\"#eaeff7\">all weapons</font> by 10%"
-	upgradeDescription(1)="Increase damage and rate of fire for <font color=\"#eaeff7\">all weapons</font> by <font color=\"#b346ea\">25%</font>"
-	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Salvo'
-	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Salvo_Deluxe'
+	UpgradeName="Salvo"
+	UpgradeDescription(0)="Increase damage and rate of fire for <font color=\"#eaeff7\">all weapons</font> by 10%"
+	UpgradeDescription(1)="Increase damage and rate of fire for <font color=\"#eaeff7\">all weapons</font> by <font color=\"#b346ea\">25%</font>"
+	UpgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Salvo'
+	UpgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Salvo_Deluxe'
 
 	Name="Default__WMUpgrade_Skill_Salvo"
 }

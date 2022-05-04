@@ -22,11 +22,11 @@ defaultproperties
 	Effect(0)=0.25f
 	Effect(1)=0.60f
 
-	upgradeName="Concussion Rounds"
-	upgradeDescription(0)="Increase stumble, stun, and knockdown power for <font color=\"#eaeff7\">all weapons</font> by 25%"
-	upgradeDescription(1)="Increase stumble, stun, and knockdown power for <font color=\"#eaeff7\">all weapons</font> by <font color=\"#b346ea\">60%</font>"
-	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_ConcussionRounds'
-	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_ConcussionRounds_Deluxe'
+	UpgradeName="Concussion Rounds"
+	UpgradeDescription(0)="Increase stumble, stun, and knockdown power for <font color=\"#eaeff7\">all weapons</font> by 25%"
+	UpgradeDescription(1)="Increase stumble, stun, and knockdown power for <font color=\"#eaeff7\">all weapons</font> by <font color=\"#b346ea\">60%</font>"
+	UpgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_ConcussionRounds'
+	UpgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_ConcussionRounds_Deluxe'
 
 	Name="Default__WMUpgrade_Skill_ConcussionRounds"
 }

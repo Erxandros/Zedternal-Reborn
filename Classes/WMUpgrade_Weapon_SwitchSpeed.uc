@@ -37,8 +37,8 @@ defaultproperties
 {
 	Speed=0.5f
 
-	upgradeName="Switch Speed"
-	upgradeDescription(0)="Increase switch speed of this weapon by %x%%"
+	UpgradeName="Switch Speed"
+	UpgradeDescription(0)="Increase switch speed of this weapon by %x%%"
 	WeaponBonus=(baseValue=0, incValue=50, maxValue=-1)
 
 	Name="Default__WMUpgrade_Weapon_SwitchSpeed"

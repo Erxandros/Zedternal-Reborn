@@ -18,8 +18,8 @@ defaultproperties
 {
 	Damage=0.1f
 
-	upgradeName="Damage"
-	upgradeDescription(0)="Increase damage dealt with this weapon by %x%%"
+	UpgradeName="Damage"
+	UpgradeDescription(0)="Increase damage dealt with this weapon by %x%%"
 	WeaponBonus=(baseValue=0, incValue=10, maxValue=-1)
 
 	Name="Default__WMUpgrade_Weapon_Damage"

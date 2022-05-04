@@ -23,8 +23,8 @@ defaultproperties
 {
 	RateOfFire=0.1f
 
-	upgradeName="Ammo Consumption"
-	upgradeDescription(0)="Decrease ammo consumption rate of this weapon by %x%%"
+	UpgradeName="Ammo Consumption"
+	UpgradeDescription(0)="Decrease ammo consumption rate of this weapon by %x%%"
 	WeaponBonus=(baseValue=0, incValue=10, maxValue=-1)
 
 	Name="Default__WMUpgrade_Weapon_AmmunitionConsumption"

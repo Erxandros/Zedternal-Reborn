@@ -48,19 +48,19 @@ defaultproperties
 	Damage=0.05f
 	Defense=0.04f
 
-	upgradeName="FireBug"
-	upgradeDescription(0)="+%x%% Fire, Explosive, Bloat Bile, and Siren Sonic Damage Resistance"
-	upgradeDescription(1)="+%x%% Ammo Refill after completing a wave with <font color=\"#eaeff7\">any weapon</font>"
-	upgradeDescription(2)="+%x%% Damage with <font color=\"#caab05\">Firebug weapons</font>"
+	UpgradeName="FireBug"
+	UpgradeDescription(0)="+%x%% Fire, Explosive, Bloat Bile, and Siren Sonic Damage Resistance"
+	UpgradeDescription(1)="+%x%% Ammo Refill after completing a wave with <font color=\"#eaeff7\">any weapon</font>"
+	UpgradeDescription(2)="+%x%% Damage with <font color=\"#caab05\">Firebug weapons</font>"
 	PerkBonus(0)=(baseValue=0, incValue=4, maxValue=40)
 	PerkBonus(1)=(baseValue=0, incValue=5, maxValue=50)
 	PerkBonus(2)=(baseValue=0, incValue=5, maxValue=-1)
-	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Perks.UI_Perk_Firebug_Rank_0'
-	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Perks.UI_Perk_Firebug_Rank_1'
-	upgradeIcon(2)=Texture2D'ZedternalReborn_Resource.Perks.UI_Perk_Firebug_Rank_2'
-	upgradeIcon(3)=Texture2D'ZedternalReborn_Resource.Perks.UI_Perk_Firebug_Rank_3'
-	upgradeIcon(4)=Texture2D'ZedternalReborn_Resource.Perks.UI_Perk_Firebug_Rank_4'
-	upgradeIcon(5)=Texture2D'ZedternalReborn_Resource.Perks.UI_Perk_Firebug_Rank_5'
+	UpgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Perks.UI_Perk_Firebug_Rank_0'
+	UpgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Perks.UI_Perk_Firebug_Rank_1'
+	UpgradeIcon(2)=Texture2D'ZedternalReborn_Resource.Perks.UI_Perk_Firebug_Rank_2'
+	UpgradeIcon(3)=Texture2D'ZedternalReborn_Resource.Perks.UI_Perk_Firebug_Rank_3'
+	UpgradeIcon(4)=Texture2D'ZedternalReborn_Resource.Perks.UI_Perk_Firebug_Rank_4'
+	UpgradeIcon(5)=Texture2D'ZedternalReborn_Resource.Perks.UI_Perk_Firebug_Rank_5'
 
 	Name="Default__WMUpgrade_Perk_Firebug"
 }

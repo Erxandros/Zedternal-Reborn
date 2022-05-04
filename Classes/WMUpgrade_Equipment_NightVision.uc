@@ -7,9 +7,9 @@ static simulated function bool HasNightVision(int upgLevel)
 
 defaultproperties
 {
-	upgradeName="Night Vision"
-	upgradeDescription(0)="Grants night vision ability"
-	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Equipment.UI_Equipment_NightVision'
+	UpgradeName="Night Vision"
+	UpgradeDescription(0)="Grants night vision ability"
+	UpgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Equipment.UI_Equipment_NightVision'
 
 	Name="Default__WMUpgrade_Equipment_NightVision"
 }

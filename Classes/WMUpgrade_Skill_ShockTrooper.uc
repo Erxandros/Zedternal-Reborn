@@ -13,11 +13,11 @@ defaultproperties
 	ReloadSpeed(0)=0.4f
 	ReloadSpeed(1)=1.0f
 
-	upgradeName="Shock Trooper"
-	upgradeDescription(0)="Increase reload speed of empty magazines by 40% for <font color=\"#eaeff7\">all weapons</font>"
-	upgradeDescription(1)="Increase reload speed of empty magazines by <font color=\"#b346ea\">100%</font> for <font color=\"#eaeff7\">all weapons</font>"
-	upgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_ShockTrooper'
-	upgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_ShockTrooper_Deluxe'
+	UpgradeName="Shock Trooper"
+	UpgradeDescription(0)="Increase reload speed of empty magazines by 40% for <font color=\"#eaeff7\">all weapons</font>"
+	UpgradeDescription(1)="Increase reload speed of empty magazines by <font color=\"#b346ea\">100%</font> for <font color=\"#eaeff7\">all weapons</font>"
+	UpgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_ShockTrooper'
+	UpgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_ShockTrooper_Deluxe'
 
 	Name="Default__WMUpgrade_Skill_ShockTrooper"
 }
