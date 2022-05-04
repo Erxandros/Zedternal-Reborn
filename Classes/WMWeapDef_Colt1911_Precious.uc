@@ -20,6 +20,6 @@ defaultproperties
 {
 	WeaponClassPath="ZedternalReborn.WMWeap_Pistol_Colt1911_Precious"
 	BuyPrice=650
-	AmmoPricePerMag=28
+	AmmoPricePerMag=37
 	Name="Default__WMWeapDef_Colt1911_Precious"
 }

@@ -20,6 +20,6 @@ defaultproperties
 {
 	WeaponClassPath="ZedternalReborn.WMWeap_HRG_Healthrower_Precious"
 	BuyPrice=2000
-	AmmoPricePerMag=147
+	AmmoPricePerMag=196
 	Name="Default__WMWeapDef_Healthrower_HRG_Precious"
 }

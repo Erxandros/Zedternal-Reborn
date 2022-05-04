@@ -20,6 +20,6 @@ defaultproperties
 {
 	WeaponClassPath="ZedternalReborn.WMWeap_AssaultRifle_SCAR_Precious"
 	BuyPrice=3000
-	AmmoPricePerMag=59
+	AmmoPricePerMag=79
 	Name="Default__WMWeapDef_SCAR_Precious"
 }

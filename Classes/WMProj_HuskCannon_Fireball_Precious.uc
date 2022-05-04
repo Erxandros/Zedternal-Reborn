@@ -4,12 +4,12 @@ class WMProj_HuskCannon_Fireball_Precious extends KFProj_HuskCannon_Fireball
 defaultproperties
 {
 	Begin Object Name=ExploTemplate1
-		Damage=4
-		DamageRadius=180
+		Damage=5
+		DamageRadius=195
 	End Object
 	Begin Object Name=ExploTemplate2
-		Damage=75
-		DamageRadius=120
+		Damage=81
+		DamageRadius=130
 	End Object
 	Name="Default__WMProj_HuskCannon_Fireball_Precious"
 }

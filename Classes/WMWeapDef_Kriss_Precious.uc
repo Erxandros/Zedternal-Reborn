@@ -20,6 +20,6 @@ defaultproperties
 {
 	WeaponClassPath="ZedternalReborn.WMWeap_SMG_Kriss_Precious"
 	BuyPrice=3000
-	AmmoPricePerMag=75
+	AmmoPricePerMag=98
 	Name="Default__WMWeapDef_Kriss_Precious"
 }

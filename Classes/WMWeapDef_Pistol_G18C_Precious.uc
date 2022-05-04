@@ -20,6 +20,6 @@ defaultproperties
 {
 	WeaponClassPath="ZedternalReborn.WMWeap_Pistol_G18C_Precious"
 	BuyPrice=1500
-	AmmoPricePerMag=81
+	AmmoPricePerMag=107
 	Name="Default__WMWeapDef_Pistol_G18C_Precious"
 }

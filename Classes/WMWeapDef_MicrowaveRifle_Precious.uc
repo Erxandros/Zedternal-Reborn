@@ -20,6 +20,6 @@ defaultproperties
 {
 	WeaponClassPath="ZedternalReborn.WMWeap_AssaultRifle_Microwave_Precious"
 	BuyPrice=4000
-	AmmoPricePerMag=139
+	AmmoPricePerMag=185
 	Name="Default__WMWeapDef_MicrowaveRifle_Precious"
 }

@@ -20,6 +20,6 @@ defaultproperties
 {
 	WeaponClassPath="ZedternalReborn.WMWeap_HuskCannon_Precious"
 	BuyPrice=3000
-	AmmoPricePerMag=263
+	AmmoPricePerMag=350
 	Name="Default__WMWeapDef_HuskCannon_Precious"
 }

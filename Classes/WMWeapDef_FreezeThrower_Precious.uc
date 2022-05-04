@@ -20,6 +20,6 @@ defaultproperties
 {
 	WeaponClassPath="ZedternalReborn.WMWeap_Ice_FreezeThrower_Precious"
 	BuyPrice=2200
-	AmmoPricePerMag=95
+	AmmoPricePerMag=126
 	Name="Default__WMWeapDef_FreezeThrower_Precious"
 }

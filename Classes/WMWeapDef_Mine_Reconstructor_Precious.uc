@@ -20,6 +20,6 @@ defaultproperties
 {
 	WeaponClassPath="ZedternalReborn.WMWeap_Mine_Reconstructor_Precious"
 	BuyPrice=2400
-	AmmoPricePerMag=76
+	AmmoPricePerMag=101
 	Name="Default__WMWeapDef_Mine_Reconstructor_Precious"
 }

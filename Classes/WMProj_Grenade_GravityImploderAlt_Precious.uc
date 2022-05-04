@@ -5,7 +5,7 @@ defaultproperties
 {
 	Begin Object Name=ExploTemplate0
 		Damage=2
-		DamageRadius=540
+		DamageRadius=585
 	End Object
 	Name="Default__WMProj_Grenade_GravityImploderAlt_Precious"
 }

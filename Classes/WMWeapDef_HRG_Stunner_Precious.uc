@@ -20,6 +20,6 @@ defaultproperties
 {
 	WeaponClassPath="ZedternalReborn.WMWeap_HRG_Stunner_Precious"
 	BuyPrice=3000
-	AmmoPricePerMag=77
+	AmmoPricePerMag=101
 	Name="Default__WMWeapDef_HRG_Stunner_Precious"
 }

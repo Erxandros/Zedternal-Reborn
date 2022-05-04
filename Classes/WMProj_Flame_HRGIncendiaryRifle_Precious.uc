@@ -4,8 +4,8 @@ class WMProj_Flame_HRGIncendiaryRifle_Precious extends KFProj_Flame_HRGIncendiar
 defaultproperties
 {
 	Begin Object Name=ExploTemplate0
-		Damage=5
-		DamageRadius=180
+		Damage=6
+		DamageRadius=195
 	End Object
 	Name="Default__WMProj_Flame_HRGIncendiaryRifle_Precious"
 }

@@ -20,6 +20,6 @@ defaultproperties
 {
 	WeaponClassPath="ZedternalReborn.WMWeap_AssaultRifle_Bullpup_Precious"
 	BuyPrice=1300
-	AmmoPricePerMag=68
+	AmmoPricePerMag=90
 	Name="Default__WMWeapDef_Bullpup_Precious"
 }

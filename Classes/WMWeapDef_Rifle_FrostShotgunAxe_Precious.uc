@@ -20,6 +20,6 @@ defaultproperties
 {
 	WeaponClassPath="ZedternalReborn.WMWeap_Rifle_FrostShotgunAxe_Precious"
 	BuyPrice=2600
-	AmmoPricePerMag=82
+	AmmoPricePerMag=110
 	Name="Default__WMWeapDef_Rifle_FrostShotgunAxe_Precious"
 }

@@ -20,6 +20,6 @@ defaultproperties
 {
 	WeaponClassPath="ZedternalReborn.WMWeap_AssaultRifle_AK12_Precious"
 	BuyPrice=2200
-	AmmoPricePerMag=84
+	AmmoPricePerMag=112
 	Name="Default__WMWeapDef_AK12_Precious"
 }

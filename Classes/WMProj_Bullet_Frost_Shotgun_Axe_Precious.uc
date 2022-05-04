@@ -3,6 +3,6 @@ class WMProj_Bullet_Frost_Shotgun_Axe_Precious extends KFProj_Bullet_Frost_Shotg
 
 defaultproperties
 {
-	Damage=13
+	Damage=14
 	Name="Default__WMProj_Bullet_Frost_Shotgun_Axe_Precious"
 }

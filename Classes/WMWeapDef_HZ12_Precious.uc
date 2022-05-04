@@ -20,6 +20,6 @@ defaultproperties
 {
 	WeaponClassPath="ZedternalReborn.WMWeap_Shotgun_HZ12_Precious"
 	BuyPrice=1500
-	AmmoPricePerMag=135
+	AmmoPricePerMag=180
 	Name="Default__WMWeapDef_HZ12_Precious"
 }

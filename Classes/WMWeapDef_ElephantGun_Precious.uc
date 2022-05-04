@@ -20,6 +20,6 @@ defaultproperties
 {
 	WeaponClassPath="ZedternalReborn.WMWeap_Shotgun_ElephantGun_Precious"
 	BuyPrice=3000
-	AmmoPricePerMag=53
+	AmmoPricePerMag=70
 	Name="Default__WMWeapDef_ElephantGun_Precious"
 }

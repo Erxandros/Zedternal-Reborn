@@ -20,6 +20,6 @@ defaultproperties
 {
 	WeaponClassPath="ZedternalReborn.WMWeap_Pistol_AF2011_Precious"
 	BuyPrice=1500
-	AmmoPricePerMag=57
+	AmmoPricePerMag=76
 	Name="Default__WMWeapDef_AF2011_Precious"
 }

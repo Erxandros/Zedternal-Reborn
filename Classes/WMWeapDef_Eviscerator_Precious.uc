@@ -20,8 +20,7 @@ defaultproperties
 {
 	WeaponClassPath="ZedternalReborn.WMWeap_Eviscerator_Precious"
 	BuyPrice=3200
-	AmmoPricePerMag=168
-	SecondaryAmmoMagSize=15
-	SecondaryAmmoMagPrice=21
+	AmmoPricePerMag=210
+	SecondaryAmmoMagPrice=14
 	Name="Default__WMWeapDef_Eviscerator_Precious"
 }

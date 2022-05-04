@@ -20,6 +20,6 @@ defaultproperties
 {
 	WeaponClassPath="ZedternalReborn.WMWeap_AssaultRifle_AR15_Precious"
 	BuyPrice=400
-	AmmoPricePerMag=42
+	AmmoPricePerMag=56
 	Name="Default__WMWeapDef_AR15_Precious"
 }

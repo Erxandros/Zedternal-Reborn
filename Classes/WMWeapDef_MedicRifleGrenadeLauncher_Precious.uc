@@ -20,7 +20,7 @@ defaultproperties
 {
 	WeaponClassPath="ZedternalReborn.WMWeap_AssaultRifle_MedicRifleGrenadeLauncher_Precious"
 	BuyPrice=4000
-	AmmoPricePerMag=99
+	AmmoPricePerMag=132
 	SecondaryAmmoMagSize=2
 	SecondaryAmmoMagPrice=76
 	Name="Default__WMWeapDef_MedicRifleGrenadeLauncher_Precious"

@@ -3,6 +3,6 @@ class WMProj_Bullet_RevolverRem1858_Precious extends KFProj_Bullet_RevolverRem18
 
 defaultproperties
 {
-	Damage=13
+	Damage=14
 	Name="Default__WMProj_Bullet_RevolverRem1858_Precious"
 }

@@ -20,6 +20,6 @@ defaultproperties
 {
 	WeaponClassPath="ZedternalReborn.WMWeap_Rifle_ParasiteImplanter_Precious"
 	BuyPrice=3000
-	AmmoPricePerMag=89
+	AmmoPricePerMag=118
 	Name="Default__WMWeapDef_ParasiteImplanter_Precious"
 }

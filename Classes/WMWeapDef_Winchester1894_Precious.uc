@@ -20,6 +20,6 @@ defaultproperties
 {
 	WeaponClassPath="ZedternalReborn.WMWeap_Rifle_Winchester1894_Precious"
 	BuyPrice=400
-	AmmoPricePerMag=68
+	AmmoPricePerMag=90
 	Name="Default__WMWeapDef_Winchester1894_Precious"
 }

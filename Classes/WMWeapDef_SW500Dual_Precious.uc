@@ -20,6 +20,6 @@ defaultproperties
 {
 	WeaponClassPath="ZedternalReborn.WMWeap_Revolver_DualSW500_Precious"
 	BuyPrice=3000
-	AmmoPricePerMag=105
+	AmmoPricePerMag=140
 	Name="Default__WMWeapDef_SW500Dual_Precious"
 }

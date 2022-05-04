@@ -20,6 +20,6 @@ defaultproperties
 {
 	WeaponClassPath="ZedternalReborn.WMWeap_Minigun_Precious"
 	BuyPrice=4000
-	AmmoPricePerMag=189
+	AmmoPricePerMag=252
 	Name="Default__WMWeapDef_Minigun_Precious"
 }

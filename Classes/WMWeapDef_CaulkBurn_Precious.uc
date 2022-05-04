@@ -20,6 +20,6 @@ defaultproperties
 {
 	WeaponClassPath="ZedternalReborn.WMWeap_Flame_CaulkBurn_Precious"
 	BuyPrice=400
-	AmmoPricePerMag=42
+	AmmoPricePerMag=56
 	Name="Default__WMWeapDef_CaulkBurn_Precious"
 }

@@ -3,6 +3,6 @@ class WMProj_CrystalSpike_HRG_Vampire_Precious extends KFProj_CrystalSpike_HRG_V
 
 defaultproperties
 {
-	Damage=13
+	Damage=14
 	Name="Default__WMProj_CrystalSpike_HRG_Vampire_Precious"
 }

@@ -3,6 +3,6 @@ class WMProj_Bullet_Winchester1894_Precious extends KFProj_Bullet_Winchester1894
 
 defaultproperties
 {
-	Damage=13
+	Damage=14
 	Name="Default__WMProj_Bullet_Winchester1894_Precious"
 }

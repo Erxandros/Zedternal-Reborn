@@ -8,8 +8,8 @@ simulated event PreBeginPlay()
 
 	if (ExplosionTemplate != None)
 	{
-		ExplosionTemplate.Damage = 479;
-		ExplosionTemplate.DamageRadius = 480;
+		ExplosionTemplate.Damage = 518;
+		ExplosionTemplate.DamageRadius = 520;
 
 		StartingDamage = ExplosionTemplate.Damage;
 		StartingDamageRadius = ExplosionTemplate.DamageRadius;
@@ -26,12 +26,12 @@ simulated protected function PrepareExplosionTemplate()
 
 defaultproperties
 {
-	MagazineCapacity(0)=8
+	MagazineCapacity(0)=10
 	AmmoPickupScale(0)=0.5
-	SpareAmmoCapacity(0)=18
-	InstantHitDamage(BASH_FIREMODE)=25
-	InstantHitDamage(DEFAULT_FIREMODE)=100
-	InstantHitDamage(HEAVY_ATK_FIREMODE)=182
+	SpareAmmoCapacity(0)=21
+	InstantHitDamage(BASH_FIREMODE)=27
+	InstantHitDamage(DEFAULT_FIREMODE)=108
+	InstantHitDamage(HEAVY_ATK_FIREMODE)=196
 	DroppedPickupClass=class'ZedternalReborn.WMPreciousDroppedPickup'
 	Name="Default__WMWeap_Blunt_Pulverizer_Precious"
 }

@@ -20,6 +20,6 @@ defaultproperties
 {
 	WeaponClassPath="ZedternalReborn.WMWeap_HRG_EMP_ArcGenerator_Precious"
 	BuyPrice=3000
-	AmmoPricePerMag=231
+	AmmoPricePerMag=308
 	Name="Default__WMWeapDef_HRG_EMP_ArcGenerator_Precious"
 }

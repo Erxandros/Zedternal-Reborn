@@ -20,6 +20,6 @@ defaultproperties
 {
 	WeaponClassPath="ZedternalReborn.WMWeap_HRG_Vampire_Precious"
 	BuyPrice=3000
-	AmmoPricePerMag=126
+	AmmoPricePerMag=168
 	Name="Default__WMWeapDef_HRG_Vampire_Precious"
 }

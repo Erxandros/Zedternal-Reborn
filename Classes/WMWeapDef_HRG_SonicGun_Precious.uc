@@ -20,6 +20,6 @@ defaultproperties
 {
 	WeaponClassPath="ZedternalReborn.WMWeap_HRG_SonicGun_Precious"
 	BuyPrice=2200
-	AmmoPricePerMag=137
+	AmmoPricePerMag=182
 	Name="Default__WMWeapDef_HRG_SonicGun_Precious"
 }

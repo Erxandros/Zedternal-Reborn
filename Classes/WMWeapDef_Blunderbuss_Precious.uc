@@ -20,6 +20,6 @@ defaultproperties
 {
 	WeaponClassPath="ZedternalReborn.WMWeap_Pistol_Blunderbuss_Precious"
 	BuyPrice=3000
-	AmmoPricePerMag=91
+	AmmoPricePerMag=110
 	Name="Default__WMWeapDef_Blunderbuss_Precious"
 }

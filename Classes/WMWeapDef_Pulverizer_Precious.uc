@@ -20,6 +20,6 @@ defaultproperties
 {
 	WeaponClassPath="ZedternalReborn.WMWeap_Blunt_Pulverizer_Precious"
 	BuyPrice=2600
-	AmmoPricePerMag=191
+	AmmoPricePerMag=238
 	Name="Default__WMWeapDef_Pulverizer_Precious"
 }

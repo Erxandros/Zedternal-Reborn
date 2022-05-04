@@ -20,6 +20,6 @@ defaultproperties
 {
 	WeaponClassPath="ZedternalReborn.WMWeap_Shotgun_HRG_Kaboomstick_Precious"
 	BuyPrice=2200
-	AmmoPricePerMag=32
+	AmmoPricePerMag=42
 	Name="Default__WMWeapDef_HRG_Kaboomstick_Precious"
 }

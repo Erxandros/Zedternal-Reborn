@@ -20,6 +20,6 @@ defaultproperties
 {
 	WeaponClassPath="ZedternalReborn.WMWeap_Rifle_M14EBR_Precious"
 	BuyPrice=2200
-	AmmoPricePerMag=112
+	AmmoPricePerMag=149
 	Name="Default__WMWeapDef_M14EBR_Precious"
 }

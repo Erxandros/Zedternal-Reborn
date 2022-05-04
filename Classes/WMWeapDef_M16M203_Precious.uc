@@ -20,7 +20,7 @@ defaultproperties
 {
 	WeaponClassPath="ZedternalReborn.WMWeap_AssaultRifle_M16M203_Precious"
 	BuyPrice=2400
-	AmmoPricePerMag=63
+	AmmoPricePerMag=84
 	SecondaryAmmoMagSize=2
 	SecondaryAmmoMagPrice=42
 	Name="Default__WMWeapDef_M16M203_Precious"

@@ -20,6 +20,6 @@ defaultproperties
 {
 	WeaponClassPath="ZedternalReborn.WMWeap_HRG_Nailgun_Precious"
 	BuyPrice=2200
-	AmmoPricePerMag=95
+	AmmoPricePerMag=126
 	Name="Default__WMWeapDef_Nailgun_HRG_Precious"
 }

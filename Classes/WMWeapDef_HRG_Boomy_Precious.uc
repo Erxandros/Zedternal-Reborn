@@ -20,6 +20,6 @@ defaultproperties
 {
 	WeaponClassPath="ZedternalReborn.WMWeap_HRG_Boomy_Precious"
 	BuyPrice=1300
-	AmmoPricePerMag=63
+	AmmoPricePerMag=84
 	Name="Default__WMWeapDef_HRG_Boomy_Precious"
 }

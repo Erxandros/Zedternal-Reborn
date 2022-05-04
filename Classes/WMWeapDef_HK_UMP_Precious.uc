@@ -20,6 +20,6 @@ defaultproperties
 {
 	WeaponClassPath="ZedternalReborn.WMWeap_SMG_HK_UMP_Precious"
 	BuyPrice=2400
-	AmmoPricePerMag=76
+	AmmoPricePerMag=101
 	Name="Default__WMWeapDef_HK_UMP_Precious"
 }

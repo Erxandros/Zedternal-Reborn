@@ -20,6 +20,6 @@ defaultproperties
 {
 	WeaponClassPath="ZedternalReborn.WMWeap_Revolver_DualRem1858_Precious"
 	BuyPrice=400
-	AmmoPricePerMag=42
+	AmmoPricePerMag=56
 	Name="Default__WMWeapDef_Remington1858Dual_Precious"
 }

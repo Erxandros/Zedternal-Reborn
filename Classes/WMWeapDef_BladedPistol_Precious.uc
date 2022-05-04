@@ -20,6 +20,6 @@ defaultproperties
 {
 	WeaponClassPath="ZedternalReborn.WMWeap_Pistol_Bladed_Precious"
 	BuyPrice=1200
-	AmmoPricePerMag=80
+	AmmoPricePerMag=107
 	Name="Default__WMWeapDef_BladedPistol_Precious"
 }

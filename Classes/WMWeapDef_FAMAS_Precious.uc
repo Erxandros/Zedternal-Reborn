@@ -20,8 +20,8 @@ defaultproperties
 {
 	WeaponClassPath="ZedternalReborn.WMWeap_AssaultRifle_FAMAS_Precious"
 	BuyPrice=2400
-	AmmoPricePerMag=53
-	SecondaryAmmoMagSize=9
-	SecondaryAmmoMagPrice=32
+	AmmoPricePerMag=70
+	SecondaryAmmoMagSize=12
+	SecondaryAmmoMagPrice=42
 	Name="Default__WMWeapDef_FAMAS_Precious"
 }

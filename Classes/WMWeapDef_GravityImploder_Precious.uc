@@ -20,6 +20,6 @@ defaultproperties
 {
 	WeaponClassPath="ZedternalReborn.WMWeap_GravityImploder_Precious"
 	BuyPrice=4000
-	AmmoPricePerMag=147
+	AmmoPricePerMag=196
 	Name="Default__WMWeapDef_GravityImploder_Precious"
 }

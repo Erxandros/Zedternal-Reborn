@@ -4,8 +4,8 @@ class WMProj_ExplosiveSubmunition_HX25_Precious extends KFProj_ExplosiveSubmunit
 defaultproperties
 {
 	Begin Object Name=ExploTemplate0
-		Damage=38
-		DamageRadius=180
+		Damage=41
+		DamageRadius=195
 	End Object
 	Name="Default__WMProj_ExplosiveSubmunition_HX25_Precious"
 }

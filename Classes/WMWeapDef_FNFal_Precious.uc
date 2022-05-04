@@ -20,6 +20,6 @@ defaultproperties
 {
 	WeaponClassPath="ZedternalReborn.WMWeap_AssaultRifle_FNFal_Precious"
 	BuyPrice=3000
-	AmmoPricePerMag=99
+	AmmoPricePerMag=132
 	Name="Default__WMWeapDef_FNFal_Precious"
 }

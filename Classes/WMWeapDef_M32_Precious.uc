@@ -20,6 +20,6 @@ defaultproperties
 {
 	WeaponClassPath="ZedternalReborn.WMWeap_GrenadeLauncher_M32_Precious"
 	BuyPrice=4000
-	AmmoPricePerMag=141
+	AmmoPricePerMag=188
 	Name="Default__WMWeapDef_M32_Precious"
 }

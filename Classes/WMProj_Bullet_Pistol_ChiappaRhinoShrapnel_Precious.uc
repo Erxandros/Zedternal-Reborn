@@ -3,6 +3,6 @@ class WMProj_Bullet_Pistol_ChiappaRhinoShrapnel_Precious extends KFProj_Bullet_P
 
 defaultproperties
 {
-	Damage=100
+	Damage=108
 	Name="Default__WMProj_Bullet_Pistol_ChiappaRhinoShrapnel_Precious"
 }

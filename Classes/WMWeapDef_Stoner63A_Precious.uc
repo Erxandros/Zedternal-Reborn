@@ -20,6 +20,6 @@ defaultproperties
 {
 	WeaponClassPath="ZedternalReborn.WMWeap_LMG_Stoner63A_Precious"
 	BuyPrice=3000
-	AmmoPricePerMag=148
+	AmmoPricePerMag=196
 	Name="Default__WMWeapDef_Stoner63A_Precious"
 }

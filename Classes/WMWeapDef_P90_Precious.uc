@@ -20,6 +20,6 @@ defaultproperties
 {
 	WeaponClassPath="ZedternalReborn.WMWeap_SMG_P90_Precious"
 	BuyPrice=2200
-	AmmoPricePerMag=84
+	AmmoPricePerMag=112
 	Name="Default__WMWeapDef_P90_Precious"
 }

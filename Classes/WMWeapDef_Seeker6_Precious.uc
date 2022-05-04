@@ -20,6 +20,6 @@ defaultproperties
 {
 	WeaponClassPath="ZedternalReborn.WMWeap_RocketLauncher_Seeker6_Precious"
 	BuyPrice=3000
-	AmmoPricePerMag=116
+	AmmoPricePerMag=154
 	Name="Default__WMWeapDef_Seeker6_Precious"
 }

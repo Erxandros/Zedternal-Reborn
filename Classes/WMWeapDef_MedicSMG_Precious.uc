@@ -20,6 +20,6 @@ defaultproperties
 {
 	WeaponClassPath="ZedternalReborn.WMWeap_SMG_Medic_Precious"
 	BuyPrice=1300
-	AmmoPricePerMag=45
+	AmmoPricePerMag=59
 	Name="Default__WMWeapDef_MedicSMG_Precious"
 }

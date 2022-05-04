@@ -20,6 +20,6 @@ defaultproperties
 {
 	WeaponClassPath="ZedternalReborn.WMWeap_Rifle_CenterfireMB464_Precious"
 	BuyPrice=1300
-	AmmoPricePerMag=116
+	AmmoPricePerMag=154
 	Name="Default__WMWeapDef_CenterfireMB464_Precious"
 }

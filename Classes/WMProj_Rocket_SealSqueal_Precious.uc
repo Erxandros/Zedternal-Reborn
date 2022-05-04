@@ -4,8 +4,8 @@ class WMProj_Rocket_SealSqueal_Precious extends KFProj_Rocket_SealSqueal
 defaultproperties
 {
 	Begin Object Name=ExploTemplate0
-		Damage=313
-		DamageRadius=720
+		Damage=338
+		DamageRadius=780
 	End Object
 	Name="Default__WMProj_Rocket_SealSqueal_Precious"
 }

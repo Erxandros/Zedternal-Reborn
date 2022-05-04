@@ -20,6 +20,6 @@ defaultproperties
 {
 	WeaponClassPath="ZedternalReborn.WMWeap_Beam_Microwave_Precious"
 	BuyPrice=3000
-	AmmoPricePerMag=210
+	AmmoPricePerMag=280
 	Name="Default__WMWeapDef_MicrowaveGun_Precious"
 }

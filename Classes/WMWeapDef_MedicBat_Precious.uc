@@ -20,6 +20,6 @@ defaultproperties
 {
 	WeaponClassPath="ZedternalReborn.WMWeap_Blunt_MedicBat_Precious"
 	BuyPrice=2400
-	AmmoPricePerMag=158
+	AmmoPricePerMag=210
 	Name="Default__WMWeapDef_MedicBat_Precious"
 }

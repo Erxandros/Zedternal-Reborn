@@ -2,9 +2,9 @@ class WMWeap_Edged_FireAxe_Precious extends KFWeap_Edged_FireAxe;
 
 defaultproperties
 {
-	InstantHitDamage(BASH_FIREMODE)=25
-	InstantHitDamage(DEFAULT_FIREMODE)=113
-	InstantHitDamage(HEAVY_ATK_FIREMODE)=169
+	InstantHitDamage(BASH_FIREMODE)=27
+	InstantHitDamage(DEFAULT_FIREMODE)=122
+	InstantHitDamage(HEAVY_ATK_FIREMODE)=183
 	DroppedPickupClass=class'ZedternalReborn.WMPreciousDroppedPickup'
 	Name="Default__WMWeap_Edged_FireAxe_Precious"
 }

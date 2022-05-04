@@ -20,6 +20,6 @@ defaultproperties
 {
 	WeaponClassPath="ZedternalReborn.WMWeap_RocketLauncher_ThermiteBore_Precious"
 	BuyPrice=3000
-	AmmoPricePerMag=164
+	AmmoPricePerMag=219
 	Name="Default__WMWeapDef_ThermiteBore_Precious"
 }

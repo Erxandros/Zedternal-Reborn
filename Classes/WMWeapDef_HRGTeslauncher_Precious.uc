@@ -20,7 +20,7 @@ defaultproperties
 {
 	WeaponClassPath="ZedternalReborn.WMWeap_AssaultRifle_HRGTeslauncher_Precious"
 	BuyPrice=3000
-	AmmoPricePerMag=131
+	AmmoPricePerMag=174
 	SecondaryAmmoMagSize=2
 	SecondaryAmmoMagPrice=42
 	Name="Default__WMWeapDef_HRGTeslauncher_Precious"

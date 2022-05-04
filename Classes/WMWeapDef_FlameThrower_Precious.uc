@@ -20,6 +20,6 @@ defaultproperties
 {
 	WeaponClassPath="ZedternalReborn.WMWeap_Flame_Flamethrower_Precious"
 	BuyPrice=2400
-	AmmoPricePerMag=175
+	AmmoPricePerMag=233
 	Name="Default__WMWeapDef_FlameThrower_Precious"
 }

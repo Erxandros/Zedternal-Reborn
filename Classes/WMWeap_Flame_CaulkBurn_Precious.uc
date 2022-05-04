@@ -2,11 +2,12 @@ class WMWeap_Flame_CaulkBurn_Precious extends KFWeap_Flame_CaulkBurn;
 
 defaultproperties
 {
-	MagazineCapacity(0)=75
+	MagazineCapacity(0)=100
 	AmmoPickupScale(0)=0.25
-	SpareAmmoCapacity(0)=600
-	InstantHitDamage(BASH_FIREMODE)=32
-	FireInterval(DEFAULT_FIREMODE)=0.056
+	SpareAmmoCapacity(0)=700
+	InstantHitDamage(BASH_FIREMODE)=34
+	FireInterval(DEFAULT_FIREMODE)=0.053
+	MinAmmoConsumed=2
 	DroppedPickupClass=class'ZedternalReborn.WMPreciousDroppedPickup'
 	Name="Default__WMWeap_Flame_CaulkBurn_Precious"
 }

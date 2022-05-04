@@ -20,6 +20,6 @@ defaultproperties
 {
 	WeaponClassPath="ZedternalReborn.WMWeap_Pistol_ChiappaRhino_Precious"
 	BuyPrice=1100
-	AmmoPricePerMag=36
+	AmmoPricePerMag=48
 	Name="Default__WMWeapDef_ChiappaRhino_Precious"
 }

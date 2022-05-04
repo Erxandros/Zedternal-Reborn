@@ -3,6 +3,6 @@ class WMProj_FreezeThrower_IceShards_Precious extends KFProj_FreezeThrower_IceSh
 
 defaultproperties
 {
-	Damage=13
+	Damage=14
 	Name="Default__WMProj_FreezeThrower_IceShards_Precious"
 }

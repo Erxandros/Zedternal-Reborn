@@ -20,6 +20,6 @@ defaultproperties
 {
 	WeaponClassPath="ZedternalReborn.WMWeap_HRG_Revolver_Buckshot_Precious"
 	BuyPrice=1100
-	AmmoPricePerMag=48
+	AmmoPricePerMag=59
 	Name="Default__WMWeapDef_SW500_HRG_Precious"
 }

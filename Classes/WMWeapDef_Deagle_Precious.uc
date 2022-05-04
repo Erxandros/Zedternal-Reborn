@@ -20,6 +20,6 @@ defaultproperties
 {
 	WeaponClassPath="ZedternalReborn.WMWeap_Pistol_Deagle_Precious"
 	BuyPrice=1100
-	AmmoPricePerMag=47
+	AmmoPricePerMag=59
 	Name="Default__WMWeapDef_Deagle_Precious"
 }

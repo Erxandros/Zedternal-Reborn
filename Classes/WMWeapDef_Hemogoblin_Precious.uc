@@ -20,6 +20,6 @@ defaultproperties
 {
 	WeaponClassPath="ZedternalReborn.WMWeap_Rifle_Hemogoblin_Precious"
 	BuyPrice=2200
-	AmmoPricePerMag=66
+	AmmoPricePerMag=84
 	Name="Default__WMWeapDef_Hemogoblin_Precious"
 }

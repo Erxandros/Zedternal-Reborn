@@ -20,6 +20,6 @@ defaultproperties
 {
 	WeaponClassPath="ZedternalReborn.WMWeap_HRG_BlastBrawlers_Precious"
 	BuyPrice=3200
-	AmmoPricePerMag=63
+	AmmoPricePerMag=84
 	Name="Default__WMWeapDef_HRG_BlastBrawlers_Precious"
 }
