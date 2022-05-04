@@ -1,4 +1,4 @@
-Class WMCustomWeapon_Helper extends Info;
+Class WMCustomWeapon_Helper extends Object;
 
 struct WeaponDefPath
 {
