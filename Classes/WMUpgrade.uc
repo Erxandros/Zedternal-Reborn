@@ -1,4 +1,4 @@
-Class WMUpgrade extends Info;
+Class WMUpgrade extends Object;
 
 var string UpgradeName;
 var array<string> UpgradeDescription;
