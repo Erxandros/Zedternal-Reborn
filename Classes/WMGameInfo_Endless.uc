@@ -821,7 +821,7 @@ function OpenTrader()
 				if (!ZedBuffSettings[i].bActivated && ZedBuffSettings[i].ID != INDEX_NONE && ZedBuffSettings[i].ID < 255
 					&& ZedBuffSettings[i].MinWave <= WaveNum && ZedBuffSettings[i].MaxWave >= WaveNum
 					&& WMGRI.ActiveZedBuffs[ZedBuffSettings[i].ID] < 50)
-					++TimeMultiplier;
+						++TimeMultiplier;
 			}
 		}
 		else

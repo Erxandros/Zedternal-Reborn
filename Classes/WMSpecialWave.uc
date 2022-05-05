@@ -1,4 +1,4 @@
-class WMSpecialWave extends info;
+class WMSpecialWave extends Info;
 
 var string Title;
 var string Description;
