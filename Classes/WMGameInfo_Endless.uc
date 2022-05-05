@@ -716,10 +716,6 @@ function ApplyRandomZedBuff(int Wave, bool bRewardPlayer, int Count)
 			do
 			{
 				i = Rand(BuffIndex.Length);
-
-				// spawn zedbuff object in world
-				Spawn(WMGRI.ZedBuffsList[BuffIndex[i]].ZedBuff);
-
 				++WMGRI.ActiveZedBuffs[BuffIndex[i]];
 				ZedBuffSettings[ActivateIndex[i]].bActivated = True;
 				BuffIndex.Remove(i, 1);

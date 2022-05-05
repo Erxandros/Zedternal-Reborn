@@ -1,4 +1,4 @@
-class WMZedBuff extends Info;
+class WMZedBuff extends Object;
 
 var string BuffDescription;
 var Texture2D BuffIcon;
