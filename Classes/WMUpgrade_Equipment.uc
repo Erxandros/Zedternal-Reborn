@@ -1,6 +1,9 @@
 class WMUpgrade_Equipment extends WMUpgrade
 	abstract;
 
+//Set LocalizeDescriptionLines to the number of upgrade description lines that need to be localized if bShouldLocalize is set to True.
+var byte LocalizeDescriptionLineCount;
+
 struct SEquipmentBonus
 {
 	var int baseValue;
@@ -22,10 +25,15 @@ static function string GetBonusValue(int Index, int Level)
 	}
 }
 
+static function string GetUpgradeDescription(byte Line)
+{
+	return GetUpgradeLocalization("EquipmentUpgradeDescription" $ (Line + 1));
+}
+
 defaultproperties
 {
-	UpgradeName="default"
-	UpgradeDescription(0)="default description"
+	UpgradeName="Default Equipment Upgrade Name"
+	UpgradeDescription(0)="Default Equipment Description"
 
 	Name="Default__WMUpgrade_Equipment"
 }

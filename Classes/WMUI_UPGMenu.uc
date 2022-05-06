@@ -524,7 +524,11 @@ function BuildPerkUpgradeList(out GFxObject ItemArray)
 				TempPrice = WMGRI.PerkUpgPrice[lvl];
 				ItemObject.SetInt("count", TempPrice);
 
-				S = WMGRI.PerkUpgradesList[i].PerkUpgrade.default.UpgradeName;
+				if (WMGRI.PerkUpgradesList[i].PerkUpgrade.default.bShouldLocalize)
+					S = WMGRI.PerkUpgradesList[i].PerkUpgrade.static.GetUpgradeName();
+				else
+					S = WMGRI.PerkUpgradesList[i].PerkUpgrade.default.UpgradeName;
+
 				if (MaxLevel > 1)
 				{
 					if (bPurchased)
@@ -568,24 +572,39 @@ function BuildPerkUpgradeList(out GFxObject ItemArray)
 
 function string GetPerkDescription(int index, int lvl)
 {
-	local string str, textColor;
+	local string S, TextColor;
 	local bool bFirstSkill;
 	local int i;
 
 	// write list of passive bonuses
-	if (WMGRI.PerkUpgradesList[index].PerkUpgrade.default.UpgradeDescription.Length == 0)
-		return "";
-	else
-		str = repl(WMGRI.PerkUpgradesList[index].PerkUpgrade.default.UpgradeDescription[0], "%x%", WMGRI.PerkUpgradesList[index].PerkUpgrade.static.GetBonusValue(0, lvl + 1));
-
-	for (i = 1; i < WMGRI.PerkUpgradesList[index].PerkUpgrade.default.UpgradeDescription.Length; ++i)
+	if (WMGRI.PerkUpgradesList[index].PerkUpgrade.default.bShouldLocalize)
 	{
-		str = str $ "\n" $ repl(WMGRI.PerkUpgradesList[index].PerkUpgrade.default.UpgradeDescription[i], "%x%", WMGRI.PerkUpgradesList[index].PerkUpgrade.static.GetBonusValue(i, lvl + 1));
+		if (WMGRI.PerkUpgradesList[index].PerkUpgrade.default.LocalizeDescriptionLineCount == 0)
+			return "";
+		else
+			S = repl(WMGRI.PerkUpgradesList[index].PerkUpgrade.static.GetUpgradeDescription(0), "%x%", WMGRI.PerkUpgradesList[index].PerkUpgrade.static.GetBonusValue(0, lvl + 1));
+
+		for (i = 1; i < WMGRI.PerkUpgradesList[index].PerkUpgrade.default.LocalizeDescriptionLineCount; ++i)
+		{
+			S $= "\n" $ repl(WMGRI.PerkUpgradesList[index].PerkUpgrade.static.GetUpgradeDescription(i), "%x%", WMGRI.PerkUpgradesList[index].PerkUpgrade.static.GetBonusValue(i, lvl + 1));
+		}
+	}
+	else
+	{
+		if (WMGRI.PerkUpgradesList[index].PerkUpgrade.default.UpgradeDescription.Length == 0)
+			return "";
+		else
+			S = repl(WMGRI.PerkUpgradesList[index].PerkUpgrade.default.UpgradeDescription[0], "%x%", WMGRI.PerkUpgradesList[index].PerkUpgrade.static.GetBonusValue(0, lvl + 1));
+
+		for (i = 1; i < WMGRI.PerkUpgradesList[index].PerkUpgrade.default.UpgradeDescription.Length; ++i)
+		{
+			S $= "\n" $ repl(WMGRI.PerkUpgradesList[index].PerkUpgrade.default.UpgradeDescription[i], "%x%", WMGRI.PerkUpgradesList[index].PerkUpgrade.static.GetBonusValue(i, lvl + 1));
+		}
 	}
 
 	// write associated skills (and use different colors for locked, unlocked and bought skills)
 	bFirstSkill = True;
-	str = str $ "\n\n\n\nBuying this upgrade will unlocked one of these skills :\n";
+	S $= "\n\n\n\nBuying this upgrade will unlocked one of these skills :\n";
 	for (i = 0; i < WMGRI.SkillUpgradesList.Length; ++i)
 	{
 		if (WMGRI.SkillUpgradesList[i].PerkPathName ~= PathName(WMGRI.PerkUpgradesList[index].PerkUpgrade))
@@ -593,31 +612,36 @@ function string GetPerkDescription(int index, int lvl)
 			if (WMPRI.bSkillUpgrade[i] != 0)
 			{
 				if (WMPRI.bSkillDeluxe[i] != 0)
-					textColor = "b346ea";
+					TextColor = "b346ea";
 				else
-					textColor = "05b6ca";
+					TextColor = "05b6ca";
 			}
 			else if (WMPRI.bSkillUnlocked[i] != 0)
 			{
 				if (WMPRI.bSkillDeluxe[i] != 0)
-					textColor = "f0cff7";
+					TextColor = "f0cff7";
 				else
-					textColor = "eaeff7";
+					TextColor = "eaeff7";
 			}
 			else
-				textColor = "919191";
+				TextColor = "919191";
 
 			if (bFirstSkill)
 			{
-				str = str $ "\n<font color=\"#" $textColor$ "\">" $WMGRI.SkillUpgradesList[i].SkillUpgrade.default.UpgradeName$ "</font>";
+				S $= "\n";
 				bFirstSkill = False;
 			}
 			else
-				str = str $ ", <font color=\"#" $textColor$ "\">" $WMGRI.SkillUpgradesList[i].SkillUpgrade.default.UpgradeName$ "</font>";
+				S $= ", ";
+
+			if (WMGRI.SkillUpgradesList[i].SkillUpgrade.default.bShouldLocalize)
+				S $= "<font color=\"#" $TextColor$ "\">" $WMGRI.SkillUpgradesList[i].SkillUpgrade.static.GetUpgradeName()$ "</font>";
+			else
+				S $= "<font color=\"#" $TextColor$ "\">" $WMGRI.SkillUpgradesList[i].SkillUpgrade.default.UpgradeName$ "</font>";
 		}
 	}
 
-	return str;
+	return S;
 }
 
 function UnlockRandomSkill(string PerkPathName, bool bShouldBeDeluxe)
@@ -672,18 +696,28 @@ function BuildSkillUpgradeList(out GFxObject ItemArray)
 			{
 				ItemObject = CreateObject("Object");
 
-				S = WMGRI.SkillUpgradesList[i].SkillUpgrade.default.UpgradeName;
+				if (WMGRI.SkillUpgradesList[i].SkillUpgrade.default.bShouldLocalize)
+					S = WMGRI.SkillUpgradesList[i].SkillUpgrade.static.GetUpgradeName();
+				else
+					S = WMGRI.SkillUpgradesList[i].SkillUpgrade.default.UpgradeName;
+
 				if (WMPRI.bSkillDeluxe[i] == 1)
 				{
 					ItemObject.SetString("label", S @ "[Deluxe]");
-					ItemObject.SetString("description", WMGRI.SkillUpgradesList[i].SkillUpgrade.default.UpgradeDescription[1]);
+					if (WMGRI.SkillUpgradesList[i].SkillUpgrade.default.bShouldLocalize)
+						ItemObject.SetString("description", WMGRI.SkillUpgradesList[i].SkillUpgrade.static.GetUpgradeDescription(True));
+					else
+						ItemObject.SetString("description", WMGRI.SkillUpgradesList[i].SkillUpgrade.default.UpgradeDescription[1]);
 					S = "img://"$PathName(WMGRI.SkillUpgradesList[i].SkillUpgrade.static.GetUpgradeIcon(1));
 					TempPrice = WMGRI.SkillUpgDeluxePrice;
 				}
 				else
 				{
 					ItemObject.SetString("label", S);
-					ItemObject.SetString("description", WMGRI.SkillUpgradesList[i].SkillUpgrade.default.UpgradeDescription[0]);
+					if (WMGRI.SkillUpgradesList[i].SkillUpgrade.default.bShouldLocalize)
+						ItemObject.SetString("description", WMGRI.SkillUpgradesList[i].SkillUpgrade.static.GetUpgradeDescription(False));
+					else
+						ItemObject.SetString("description", WMGRI.SkillUpgradesList[i].SkillUpgrade.default.UpgradeDescription[0]);
 					S = "img://"$PathName(WMGRI.SkillUpgradesList[i].SkillUpgrade.static.GetUpgradeIcon(0));
 					TempPrice = WMGRI.SkillUpgPrice;
 				}
@@ -772,7 +806,11 @@ function BuildWeaponUpgradeList(out GFxObject ItemArray)
 				TempPrice = WMGRI.WeaponUpgradeSlotsList[i].BasePrice * (lvl + 1);
 				ItemObject.SetInt("count", TempPrice);
 
-				S = WMGRI.WeaponUpgradeSlotsList[i].WeaponUpgrade.default.UpgradeName;
+				if (WMGRI.WeaponUpgradeSlotsList[i].WeaponUpgrade.default.bShouldLocalize)
+					S = WMGRI.WeaponUpgradeSlotsList[i].WeaponUpgrade.static.GetUpgradeName();
+				else
+					S = WMGRI.WeaponUpgradeSlotsList[i].WeaponUpgrade.default.UpgradeName;
+
 				if (MaxLevel > 1)
 				{
 					if (bPurchased)
@@ -802,8 +840,13 @@ function BuildWeaponUpgradeList(out GFxObject ItemArray)
 
 					ItemObject.SetBool("active", False);
 				}
+
+				if (WMGRI.WeaponUpgradeSlotsList[i].WeaponUpgrade.default.bShouldLocalize)
+					S = repl(WMGRI.WeaponUpgradeSlotsList[i].WeaponUpgrade.static.GetUpgradeDescription(), "%x%", WMGRI.WeaponUpgradeSlotsList[i].WeaponUpgrade.static.GetBonusValue(lvl + 1));
+				else
+					S = repl(WMGRI.WeaponUpgradeSlotsList[i].WeaponUpgrade.default.UpgradeDescription[0], "%x%", WMGRI.WeaponUpgradeSlotsList[i].WeaponUpgrade.static.GetBonusValue(lvl + 1));
+				ItemObject.SetString("description", S);
 				S = "img://"$PathName(WMGRI.WeaponUpgradeSlotsList[i].KFWeapon.default.WeaponSelectTexture);
-				ItemObject.SetString("description", repl(WMGRI.WeaponUpgradeSlotsList[i].WeaponUpgrade.default.UpgradeDescription[0], "%x%", WMGRI.WeaponUpgradeSlotsList[i].WeaponUpgrade.static.GetBonusValue(lvl + 1)));
 				ItemObject.SetString("iconURLSmall", S);
 				ItemObject.SetString("iconURLLarge", S);
 				ItemArray.SetElementObject(x, ItemObject);
@@ -873,7 +916,11 @@ function BuildEquipmentUpgradeList(out GFxObject ItemArray)
 
 			ItemObject.SetInt("count", TempPrice);
 
-			S = WMGRI.EquipmentUpgradesList[i].EquipmentUpgrade.default.UpgradeName;
+			if (WMGRI.EquipmentUpgradesList[i].EquipmentUpgrade.default.bShouldLocalize)
+				S = WMGRI.EquipmentUpgradesList[i].EquipmentUpgrade.static.GetUpgradeName();
+			else
+				S = WMGRI.EquipmentUpgradesList[i].EquipmentUpgrade.default.UpgradeName;
+
 			if (MaxLevel > 1)
 			{
 				if (bPurchased)
@@ -916,21 +963,36 @@ function BuildEquipmentUpgradeList(out GFxObject ItemArray)
 
 function string GetEquipmentDescription(int index, int lvl)
 {
-	local string str;
+	local string S;
 	local int i;
 
 	// write list of equipment bonuses
-	if (WMGRI.EquipmentUpgradesList[index].EquipmentUpgrade.default.UpgradeDescription.Length == 0)
-		return "";
-	else
-		str = repl(WMGRI.EquipmentUpgradesList[index].EquipmentUpgrade.default.UpgradeDescription[0], "%x%", WMGRI.EquipmentUpgradesList[index].EquipmentUpgrade.static.GetBonusValue(0, lvl + 1));
-
-	for (i = 1; i < WMGRI.EquipmentUpgradesList[index].EquipmentUpgrade.default.UpgradeDescription.Length; ++i)
+	if (WMGRI.EquipmentUpgradesList[index].EquipmentUpgrade.default.bShouldLocalize)
 	{
-		str = str $ "\n" $ repl(WMGRI.EquipmentUpgradesList[index].EquipmentUpgrade.default.UpgradeDescription[i], "%x%", WMGRI.EquipmentUpgradesList[index].EquipmentUpgrade.static.GetBonusValue(i, lvl + 1));
+		if (WMGRI.EquipmentUpgradesList[index].EquipmentUpgrade.default.LocalizeDescriptionLineCount == 0)
+			return "";
+		else
+			S = repl(WMGRI.EquipmentUpgradesList[index].EquipmentUpgrade.static.GetUpgradeDescription(0), "%x%", WMGRI.EquipmentUpgradesList[index].EquipmentUpgrade.static.GetBonusValue(0, lvl + 1));
+
+		for (i = 1; i < WMGRI.EquipmentUpgradesList[index].EquipmentUpgrade.default.LocalizeDescriptionLineCount; ++i)
+		{
+			S $= "\n" $ repl(WMGRI.EquipmentUpgradesList[index].EquipmentUpgrade.static.GetUpgradeDescription(i), "%x%", WMGRI.EquipmentUpgradesList[index].EquipmentUpgrade.static.GetBonusValue(i, lvl + 1));
+		}
+	}
+	else
+	{
+		if (WMGRI.EquipmentUpgradesList[index].EquipmentUpgrade.default.UpgradeDescription.Length == 0)
+			return "";
+		else
+			S = repl(WMGRI.EquipmentUpgradesList[index].EquipmentUpgrade.default.UpgradeDescription[0], "%x%", WMGRI.EquipmentUpgradesList[index].EquipmentUpgrade.static.GetBonusValue(0, lvl + 1));
+
+		for (i = 1; i < WMGRI.EquipmentUpgradesList[index].EquipmentUpgrade.default.UpgradeDescription.Length; ++i)
+		{
+			S $= "\n" $ repl(WMGRI.EquipmentUpgradesList[index].EquipmentUpgrade.default.UpgradeDescription[i], "%x%", WMGRI.EquipmentUpgradesList[index].EquipmentUpgrade.static.GetBonusValue(i, lvl + 1));
+		}
 	}
 
-	return str;
+	return S;
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 

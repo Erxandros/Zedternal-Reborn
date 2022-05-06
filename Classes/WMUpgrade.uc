@@ -4,6 +4,9 @@ var string UpgradeName;
 var array<string> UpgradeDescription;
 var array<Texture2D> UpgradeIcon;
 
+//Set this variable to True in the default properties of your upgrade to read the UpgradeName as the localization key and not as raw text.
+var bool bShouldLocalize;
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // These functions are called by ZedternalReborn.WMPerk (server or client) to get perk stats.
 // So all function from upgrades bought by the player will be called
@@ -224,7 +227,7 @@ static simulated function ExtensionFuncFloat(out float InValue, float DefaultVal
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // Other stuff like tools
-static simulated function Texture2D GetupgradeIcon(int index)
+static simulated function Texture2D GetUpgradeIcon(int index)
 {
 	if (index < 0)
 		return default.UpgradeIcon[0];
@@ -283,8 +286,24 @@ static simulated function DeleteHelperClass(Pawn OwnerPawn);
 //Used to revert hard changes from a upgrade
 static simulated function RevertUpgradeChanges(Pawn OwnerPawn);
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Localization functions
+static function string GetUpgradeName()
+{
+	return GetUpgradeLocalization("UpgradeName");
+}
+
+static function string GetUpgradeLocalization(string KeyName)
+{
+	local array<string> Strings;
+	ParseStringIntoArray(default.UpgradeName, Strings, ".", True);
+	return Localize(Strings[1], KeyName, Strings[0]);
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 defaultproperties
 {
+	bShouldLocalize=False
 	UpgradeIcon(0)=Texture2D'CHR_Cosmetics_Item_TEX.3DGlasses.3DGlasses_Color02'
 
 	Name="Default__WMUpgrade"

@@ -24,11 +24,15 @@ static function string GetBonusValue(int Level)
 		return string(Min(default.WeaponBonus.baseValue + default.WeaponBonus.incValue * Level, default.WeaponBonus.maxValue));
 }
 
+static function string GetUpgradeDescription()
+{
+	return GetUpgradeLocalization("WeaponUpgradeDescription");
+}
+
 defaultproperties
 {
-	UpgradeName="default"
-	UpgradeDescription(0)="default"
-	UpgradeIcon(0)=Texture2D'CHR_Cosmetics_Item_TEX.3DGlasses.3DGlasses_Color02'
+	UpgradeName="Default Weapon Upgrade Name"
+	UpgradeDescription(0)="Default Weapon Description"
 
 	Name="Default__WMUpgrade_Weapon"
 }
