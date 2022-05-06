@@ -6,11 +6,11 @@ var WMPlayerController WMPC;
 var WMPlayerReplicationInfo WMPRI;
 var WMGameReplicationInfo WMGRI;
 
-var GFxObject ItemDetailsContainer,EquipButton;
+var GFxObject ItemDetailsContainer, EquipButton;
 var int CurrentFilterIndex;
-var array<int> perkUPGIndex, weaponUPGIndex, skillUPGIndex, equipmentUPGIndex, GrenadeIndex;
+var array<int> PerkUPGIndex, WeaponUPGIndex, SkillUPGIndex, EquipmentUPGIndex, GrenadeIndex;
 
-var AkBaseSoundObject selectSound, perkSound, skillSound, weaponSound, equipmentSound;
+var AkBaseSoundObject SelectSound, PerkSound, SkillSound, WeaponSound, EquipmentSound;
 
 //For reroll
 var int RerollPerkItemDefinition, RerollTotalCost;
@@ -135,7 +135,7 @@ function Callback_Equip(int ItemDefinition)
 	//Upgrades
 	if (CurrentFilterIndex == 0) //Perk Upgrades
 	{
-		Index = perkUPGIndex[Index];
+		Index = PerkUPGIndex[Index];
 		lvl = WMPRI.bPerkUpgrade[Index];
 		UPGPrice = WMGRI.PerkUpgPrice[lvl];
 
@@ -151,12 +151,12 @@ function Callback_Equip(int ItemDefinition)
 			if (WMPRI.Purchase_PerkUpgrade.Find(Index) == INDEX_NONE)
 				WMPRI.Purchase_PerkUpgrade.AddItem(Index);
 			UnlockRandomSkill(PathName(WMGRI.PerkUpgradesList[Index].PerkUpgrade), WMGRI.bDeluxeSkillUnlock[lvl] == 1);
-			Owner.PlaySoundBase(default.perkSound, True);
+			Owner.PlaySoundBase(default.PerkSound, True);
 		}
 	}
 	else if (CurrentFilterIndex == 1) //Skill Upgrades
 	{
-		Index = skillUPGIndex[Index];
+		Index = SkillUPGIndex[Index];
 		lvl = WMPRI.bSkillUpgrade[Index];
 
 		if (WMPRI.bSkillDeluxe[Index] == 1)
@@ -175,12 +175,12 @@ function Callback_Equip(int ItemDefinition)
 			WMPRI.Score = OriginalDosh - UPGPrice;
 			if (WMPRI.Purchase_SkillUpgrade.Find(Index) == INDEX_NONE)
 				WMPRI.Purchase_SkillUpgrade.AddItem(Index);
-			Owner.PlaySoundBase(default.skillSound, True);
+			Owner.PlaySoundBase(default.SkillSound, True);
 		}
 	}
 	else if (CurrentFilterIndex == 2) //Weapon Upgrades
 	{
-		Index = weaponUPGIndex[Index];
+		Index = WeaponUPGIndex[Index];
 		lvl = WMPRI.GetWeaponUpgrade(Index);
 		UPGPrice = WMGRI.WeaponUpgradeSlotsList[Index].BasePrice * (lvl + 1);
 
@@ -196,12 +196,12 @@ function Callback_Equip(int ItemDefinition)
 			WMPC.UpdateWeaponMagAndCap();
 			if (WMPRI.Purchase_WeaponUpgrade.Find(Index) == INDEX_NONE)
 				WMPRI.Purchase_WeaponUpgrade.AddItem(Index);
-			Owner.PlaySoundBase(default.weaponSound, True);
+			Owner.PlaySoundBase(default.WeaponSound, True);
 		}
 	}
 	else if (CurrentFilterIndex == 3) //Equipment Upgrades
 	{
-		Index = equipmentUPGIndex[Index];
+		Index = EquipmentUPGIndex[Index];
 		lvl = WMPRI.bEquipmentUpgrade[Index];
 		if (WMGRI.EquipmentUpgradesList[Index].MaxLevel > 1)
 			UPGPrice = WMGRI.EquipmentUpgradesList[Index].BasePrice +
@@ -221,7 +221,7 @@ function Callback_Equip(int ItemDefinition)
 			WMPC.UpdateWeaponMagAndCap();
 			if (WMPRI.Purchase_EquipmentUpgrade.Find(Index) == INDEX_NONE)
 				WMPRI.Purchase_EquipmentUpgrade.AddItem(Index);
-			Owner.PlaySoundBase(default.equipmentSound, True);
+			Owner.PlaySoundBase(default.EquipmentSound, True);
 		}
 	}
 	else if (CurrentFilterIndex == 4) //Grenades
@@ -301,16 +301,16 @@ function Callback_InventoryFilter(int FilterIndex)
 	CurrentFilterIndex = FilterIndex;
 	ItemArray = CreateArray();
 	j = 0;
-	perkUPGIndex.length = 0;
-	weaponUPGIndex.length = 0;
-	skillUPGIndex.length = 0;
-	equipmentUPGIndex.length = 0;
+	PerkUPGIndex.Length = 0;
+	WeaponUPGIndex.Length = 0;
+	SkillUPGIndex.Length = 0;
+	EquipmentUPGIndex.Length = 0;
 
-	GrenadeIndex.length = 0;
+	GrenadeIndex.Length = 0;
 
 	if (FilterIndex == 0) //Perk Upgrades
 	{
-		for (i = 0; i < WMGRI.PerkUpgradesList.length; ++i)
+		for (i = 0; i < WMGRI.PerkUpgradesList.Length; ++i)
 		{
 			if (WMPRI.bPerkUpgradeAvailable[i] > 0)
 			{
@@ -369,7 +369,7 @@ function Callback_InventoryFilter(int FilterIndex)
 					ItemObject.SetString("iconURLSmall", S);
 					ItemObject.SetString("iconURLLarge", S);
 					ItemArray.SetElementObject(j, ItemObject);
-					perkUPGIndex.AddItem(i);
+					PerkUPGIndex.AddItem(i);
 					++j;
 				}
 			}
@@ -435,7 +435,7 @@ function Callback_InventoryFilter(int FilterIndex)
 					}
 
 					ItemArray.SetElementObject(j, ItemObject);
-					skillUPGIndex.AddItem(i);
+					SkillUPGIndex.AddItem(i);
 					++j;
 				}
 			}
@@ -445,7 +445,7 @@ function Callback_InventoryFilter(int FilterIndex)
 	{
 		for (i = 0; i < WMGRI.WeaponUpgradeSlotsList.Length; ++i)
 		{
-			if (isWeaponInInventory(WMGRI.WeaponUpgradeSlotsList[i].KFWeapon))
+			if (IsWeaponInInventory(WMGRI.WeaponUpgradeSlotsList[i].KFWeapon))
 			{
 				lvl = WMPRI.GetWeaponUpgrade(i);
 
@@ -497,7 +497,7 @@ function Callback_InventoryFilter(int FilterIndex)
 					ItemObject.SetString("iconURLSmall", S);
 					ItemObject.SetString("iconURLLarge", S);
 					ItemArray.SetElementObject(j, ItemObject);
-					weaponUPGIndex.AddItem(i);
+					WeaponUPGIndex.AddItem(i);
 					++j;
 				}
 			}
@@ -567,14 +567,14 @@ function Callback_InventoryFilter(int FilterIndex)
 				ItemObject.SetString("iconURLSmall", S);
 				ItemObject.SetString("iconURLLarge", S);
 				ItemArray.SetElementObject(j, ItemObject);
-				equipmentUPGIndex.AddItem(i);
+				EquipmentUPGIndex.AddItem(i);
 				++j;
 			}
 		}
 	}
 	else if (FilterIndex == 4) //Grenades
 	{
-		for (i = 0; i < WMGRI.GrenadesList.length; ++i)
+		for (i = 0; i < WMGRI.GrenadesList.Length; ++i)
 		{
 			if (WMGRI.GrenadesList[i].Grenade != None)
 			{
@@ -609,7 +609,7 @@ function Callback_InventoryFilter(int FilterIndex)
 	else if (FilterIndex == 5 && WMPerk(WMPC.CurrentPerk) != None) //Knives
 	{
 		WMP = WMPerk(WMPC.CurrentPerk);
-		for (i = 0; i < WMP.KnivesWeaponDef.length; ++i)
+		for (i = 0; i < WMP.KnivesWeaponDef.Length; ++i)
 		{
 			ItemObject = CreateObject("Object");
 			ItemObject.SetInt("count", 1);
@@ -652,12 +652,12 @@ function CallBack_ItemDetailsClicked(int ItemDefinition)
 	}
 
 	Index = ItemDefinition;
-	Owner.PlaySoundBase(default.selectSound, True);
+	Owner.PlaySoundBase(default.SelectSound, True);
 
 	//Upgrades
 	if (CurrentFilterIndex == 0) //Perk Upgrades
 	{
-		Index = perkUPGIndex[Index];
+		Index = PerkUPGIndex[Index];
 		lvl = WMPRI.bPerkUpgrade[Index];
 		price = WMGRI.PerkUpgPrice[lvl];
 
@@ -665,7 +665,7 @@ function CallBack_ItemDetailsClicked(int ItemDefinition)
 	}
 	else if (CurrentFilterIndex == 1) //Skill Upgrades
 	{
-		Index = skillUPGIndex[Index];
+		Index = SkillUPGIndex[Index];
 		lvl = WMPRI.bSkillUpgrade[Index];
 
 		if (WMPRI.bSkillDeluxe[Index] == 1)
@@ -676,13 +676,13 @@ function CallBack_ItemDetailsClicked(int ItemDefinition)
 	}
 	else if (CurrentFilterIndex == 2) //Weapon Upgrades
 	{
-		Index = weaponUPGIndex[Index];
+		Index = WeaponUPGIndex[Index];
 		lvl = WMPRI.GetWeaponUpgrade(Index);
 		EquipButton.SetString("label", ""$WMGRI.WeaponUpgradeSlotsList[Index].BasePrice * (lvl + 1)$Chr(163));
 	}
 	else if (CurrentFilterIndex == 3) //Equipment Upgrades
 	{
-		Index = equipmentUPGIndex[Index];
+		Index = EquipmentUPGIndex[Index];
 		lvl = WMPRI.bEquipmentUpgrade[Index];
 		if (WMGRI.EquipmentUpgradesList[Index].MaxLevel > 1)
 			EquipButton.SetString("label", ""$WMGRI.EquipmentUpgradesList[Index].BasePrice +
@@ -716,7 +716,7 @@ function Callback_RecycleItem(int ItemDefinition)
 	Count = 0;
 	foreach WMPRI.Purchase_SkillUpgrade(b)
 	{
-		if (WMGRI.SkillUpgradesList[b].PerkPathName ~= PathName(WMGRI.PerkUpgradesList[perkUPGIndex[ItemDefinition]].PerkUpgrade))
+		if (WMGRI.SkillUpgradesList[b].PerkPathName ~= PathName(WMGRI.PerkUpgradesList[PerkUPGIndex[ItemDefinition]].PerkUpgrade))
 		{
 			if (WMPRI.bSkillDeluxe[b] > 0)
 				SkillRefund += Round(float(WMGRI.SkillUpgDeluxePrice) * WMGRI.RerollSkillSellPercent);
@@ -733,7 +733,7 @@ function Callback_RecycleItem(int ItemDefinition)
 		RerollPerkItemDefinition = ItemDefinition;
 		RerollTotalCost = TotalCost;
 
-		STitle = "Reroll skills for perk" @WMGRI.PerkUpgradesList[perkUPGIndex[ItemDefinition]].PerkUpgrade.default.UpgradeName $"?";
+		STitle = "Reroll skills for perk" @WMGRI.PerkUpgradesList[PerkUPGIndex[ItemDefinition]].PerkUpgrade.default.UpgradeName $"?";
 		SDescription = "This will cost a reroll fee of" @RerollCost @"Dosh.";
 		if (Count > 0)
 		{
@@ -811,12 +811,12 @@ function string GetPerkDescription(int index, int lvl)
 	local int i;
 
 	// write list of passive bonuses
-	if (WMGRI.PerkUpgradesList[index].PerkUpgrade.default.UpgradeDescription.length == 0)
+	if (WMGRI.PerkUpgradesList[index].PerkUpgrade.default.UpgradeDescription.Length == 0)
 		return "";
 	else
 		str = repl(WMGRI.PerkUpgradesList[index].PerkUpgrade.default.UpgradeDescription[0], "%x%", WMGRI.PerkUpgradesList[index].PerkUpgrade.static.GetBonusValue(0, lvl + 1));
 
-	for (i = 1; i < WMGRI.PerkUpgradesList[index].PerkUpgrade.default.UpgradeDescription.length; ++i)
+	for (i = 1; i < WMGRI.PerkUpgradesList[index].PerkUpgrade.default.UpgradeDescription.Length; ++i)
 	{
 		str = str $ "\n" $ repl(WMGRI.PerkUpgradesList[index].PerkUpgrade.default.UpgradeDescription[i], "%x%", WMGRI.PerkUpgradesList[index].PerkUpgrade.static.GetBonusValue(i, lvl + 1));
 	}
@@ -824,7 +824,7 @@ function string GetPerkDescription(int index, int lvl)
 	// write associated skills (and use different colors for locked, unlocked and bought skills)
 	bFirstSkill = True;
 	str = str $ "\n\n\n\nBuying this upgrade will unlocked one of these skills :\n";
-	for (i = 0; i < WMGRI.SkillUpgradesList.length; ++i)
+	for (i = 0; i < WMGRI.SkillUpgradesList.Length; ++i)
 	{
 		if (WMGRI.SkillUpgradesList[i].PerkPathName ~= PathName(WMGRI.PerkUpgradesList[index].PerkUpgrade))
 		{
@@ -858,25 +858,25 @@ function string GetPerkDescription(int index, int lvl)
 	return str;
 }
 
-function UnlockRandomSkill(string perkPathName, bool bShouldBeDeluxe)
+function UnlockRandomSkill(string PerkPathName, bool bShouldBeDeluxe)
 {
-	local array<int> availableIndex;
+	local array<int> AvailableIndex;
 	local int i, choice;
 
-	for (i = 0; i < WMGRI.SkillUpgradesList.length; ++i)
+	for (i = 0; i < WMGRI.SkillUpgradesList.Length; ++i)
 	{
-		if (WMGRI.SkillUpgradesList[i].PerkPathName ~= perkPathName && WMPRI.bSkillUnlocked[i] == 0)
-			availableIndex.AddItem(i);
+		if (WMGRI.SkillUpgradesList[i].PerkPathName ~= PerkPathName && WMPRI.bSkillUnlocked[i] == 0)
+			AvailableIndex.AddItem(i);
 	}
 
-	if (availableIndex.length > 0)
+	if (AvailableIndex.Length > 0)
 	{
-		choice = Rand(availableIndex.length);
-		WMPC.UnlockSkill(availableIndex[choice], bShouldBeDeluxe);
+		choice = Rand(AvailableIndex.Length);
+		WMPC.UnlockSkill(AvailableIndex[choice], bShouldBeDeluxe);
 
-		WMPRI.bSkillUnlocked[availableIndex[choice]] = 1;
+		WMPRI.bSkillUnlocked[AvailableIndex[choice]] = 1;
 		if (bShouldBeDeluxe)
-			WMPRI.bSkillDeluxe[availableIndex[choice]] = 1;
+			WMPRI.bSkillDeluxe[AvailableIndex[choice]] = 1;
 	}
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -888,7 +888,7 @@ function int GetPerkRelatedIndex(int SkillIndex)
 	//return Skill perk related index
 	local byte b;
 
-	for (b = 0; b < WMGRI.PerkUpgradesList.length; ++b)
+	for (b = 0; b < WMGRI.PerkUpgradesList.Length; ++b)
 	{
 		if (PathName(WMGRI.PerkUpgradesList[b].PerkUpgrade) ~= WMGRI.SkillUpgradesList[SkillIndex].PerkPathName)
 			return b;
@@ -900,17 +900,17 @@ function int GetPerkRelatedIndex(int SkillIndex)
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 // Weapon Upgrade Functions
-function bool isWeaponInInventory(class<KFWeapon> weaponClass)
+function bool IsWeaponInInventory(class<KFWeapon> WeaponClass)
 {
 	local KFWeapon Weapon;
 
 	foreach Owner.InvManager.InventoryActors(class'KFWeapon', Weapon)
 	{
-		if (ClassIsChildOf(Weapon.Class, weaponClass) && ClassIsChildOf(weaponClass, Weapon.Class))
+		if (ClassIsChildOf(Weapon.Class, WeaponClass) && ClassIsChildOf(WeaponClass, Weapon.Class))
 			return True;
-		else if (Weapon.DualClass != None && ClassIsChildOf(Weapon.DualClass, weaponClass) && ClassIsChildOf(weaponClass, Weapon.DualClass))
+		else if (Weapon.DualClass != None && ClassIsChildOf(Weapon.DualClass, WeaponClass) && ClassIsChildOf(WeaponClass, Weapon.DualClass))
 			return True;
-		else if (KFWeap_DualBase(Weapon) != None && ClassIsChildOf(KFWeap_DualBase(Weapon).default.SingleClass, weaponClass) && ClassIsChildOf(weaponClass, KFWeap_DualBase(Weapon).default.SingleClass))
+		else if (KFWeap_DualBase(Weapon) != None && ClassIsChildOf(KFWeap_DualBase(Weapon).default.SingleClass, WeaponClass) && ClassIsChildOf(WeaponClass, KFWeap_DualBase(Weapon).default.SingleClass))
 			return True;
 	}
 
@@ -926,12 +926,12 @@ function string GetEquipmentDescription(int index, int lvl)
 	local int i;
 
 	// write list of equipment bonuses
-	if (WMGRI.EquipmentUpgradesList[index].EquipmentUpgrade.default.UpgradeDescription.length == 0)
+	if (WMGRI.EquipmentUpgradesList[index].EquipmentUpgrade.default.UpgradeDescription.Length == 0)
 		return "";
 	else
 		str = repl(WMGRI.EquipmentUpgradesList[index].EquipmentUpgrade.default.UpgradeDescription[0], "%x%", WMGRI.EquipmentUpgradesList[index].EquipmentUpgrade.static.GetBonusValue(0, lvl + 1));
 
-	for (i = 1; i < WMGRI.EquipmentUpgradesList[index].EquipmentUpgrade.default.UpgradeDescription.length; ++i)
+	for (i = 1; i < WMGRI.EquipmentUpgradesList[index].EquipmentUpgrade.default.UpgradeDescription.Length; ++i)
 	{
 		str = str $ "\n" $ repl(WMGRI.EquipmentUpgradesList[index].EquipmentUpgrade.default.UpgradeDescription[i], "%x%", WMGRI.EquipmentUpgradesList[index].EquipmentUpgrade.static.GetBonusValue(i, lvl + 1));
 	}
@@ -954,10 +954,10 @@ function ConfirmSkillReroll()
 		if (WMPC.WorldInfo.NetMode != NM_Standalone)
 				WMPRI.RerollSyncCompleted = False;
 
-		RerollPerkPathName = PathName(WMGRI.PerkUpgradesList[perkUPGIndex[RerollPerkItemDefinition]].PerkUpgrade);
+		RerollPerkPathName = PathName(WMGRI.PerkUpgradesList[PerkUPGIndex[RerollPerkItemDefinition]].PerkUpgrade);
 		WMPC.RerollSkillsForPerk(RerollPerkPathName, RerollTotalCost);
 
-		for (i = 0; i < WMGRI.SkillUpgradesList.length; ++i)
+		for (i = 0; i < WMGRI.SkillUpgradesList.Length; ++i)
 		{
 			if (RerollPerkPathName ~= WMGRI.SkillUpgradesList[i].PerkPathName)
 			{
@@ -975,9 +975,9 @@ function ConfirmSkillReroll()
 		}
 
 		WMPRI.Score = OriginalDosh - RerollTotalCost;
-		Owner.PlaySoundBase(default.skillSound, True);
+		Owner.PlaySoundBase(default.SkillSound, True);
 
-		SkillRerollUnlock(perkUPGIndex[RerollPerkItemDefinition]);
+		SkillRerollUnlock(PerkUPGIndex[RerollPerkItemDefinition]);
 	}
 	else
 		ResetRerollVars();
@@ -1013,11 +1013,11 @@ function SkillRerollUnlock(int PerkIndex)
 
 defaultproperties
 {
-	selectSound=AkEvent'WW_UI_Menu.Play_TRADER_INVENTORY_ITEM_CLICK'
-	weaponSound=AkEvent'WW_UI_Menu.Play_UI_Weapon_Upgrade'
-	perkSound=AkEvent'WW_UI_Menu.Play_UI_Trader_Item_Sell'
-	skillSound=AkEvent'WW_UI_Menu.Play_UI_Trader_Item_Buy'
-	equipmentSound=AkEvent'WW_UI_PlayerCharacter.Play_UI_Pickup_Armor'
+	SelectSound=AkEvent'WW_UI_Menu.Play_TRADER_INVENTORY_ITEM_CLICK'
+	WeaponSound=AkEvent'WW_UI_Menu.Play_UI_Weapon_Upgrade'
+	PerkSound=AkEvent'WW_UI_Menu.Play_UI_Trader_Item_Sell'
+	SkillSound=AkEvent'WW_UI_Menu.Play_UI_Trader_Item_Buy'
+	EquipmentSound=AkEvent'WW_UI_PlayerCharacter.Play_UI_Pickup_Armor'
 
 	RerollPerkItemDefinition=-1
 
