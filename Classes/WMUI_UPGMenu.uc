@@ -292,350 +292,34 @@ function GFxObject Callback_FilterThreeEnable(int FilterIndex)
 
 function Callback_InventoryFilter(int FilterIndex)
 {
-	local GFxObject ItemArray, ItemObject;
-	local int i, j, tempPrice, maxLevel, lvl;
-	local string S;
-	local bool bPurchased;
-	local WMPerk WMP;
+	local GFxObject ItemArray;
 
 	CurrentFilterIndex = FilterIndex;
 	ItemArray = CreateArray();
-	j = 0;
-	PerkUPGIndex.Length = 0;
-	WeaponUPGIndex.Length = 0;
-	SkillUPGIndex.Length = 0;
-	EquipmentUPGIndex.Length = 0;
-
-	GrenadeIndex.Length = 0;
 
 	if (FilterIndex == 0) //Perk Upgrades
 	{
-		for (i = 0; i < WMGRI.PerkUpgradesList.Length; ++i)
-		{
-			if (WMPRI.bPerkUpgradeAvailable[i] > 0)
-			{
-				lvl = WMPRI.bPerkUpgrade[i];
-
-				// Get Max Level of that upgrade
-				maxLevel = WMGRI.PerkUpgMaxLevel;
-
-				// Is it fully bought?
-				if (lvl >= maxLevel)
-					bPurchased = True;
-				else
-					bPurchased = False;
-
-				// Create info arch
-				if ((CurrentUpgradeFilter == EWMInv_All) || (CurrentUpgradeFilter == EWMInv_Available && !bPurchased) || (CurrentUpgradeFilter == EWMInv_Purchased && bPurchased))
-				{
-					if (bPurchased)
-						--lvl;
-					ItemObject = CreateObject("Object");
-
-					tempPrice = WMGRI.PerkUpgPrice[lvl];
-					ItemObject.SetInt("count", tempPrice);
-
-					if (maxLevel > 1)
-					{
-						if (bPurchased)
-							ItemObject.SetString("label", WMGRI.PerkUpgradesList[i].PerkUpgrade.default.UpgradeName $ " (" $ maxLevel $ "/" $ maxLevel $ ")");
-						else
-							ItemObject.SetString("label", WMGRI.PerkUpgradesList[i].PerkUpgrade.default.UpgradeName $ " (" $ lvl $ "/" $ maxLevel $ ")");
-					}
-					else
-						ItemObject.SetString("label", WMGRI.PerkUpgradesList[i].PerkUpgrade.default.UpgradeName);
-
-					ItemObject.SetString("price", "");
-					ItemObject.Setstring("typeRarity", "");
-					ItemObject.SetBool("exchangeable", False);
-					ItemObject.SetBool("recyclable", WMGRI.bAllowSkillReroll ? lvl > 0 : False);
-					ItemObject.SetInt("definition", j);
-					if (bPurchased)
-					{
-						ItemObject.SetInt("type", 1);
-						ItemObject.SetBool("active", True);
-						ItemObject.SetInt("rarity", 0);
-					}
-					else
-					{
-						if (WMPRI.Score < tempPrice)
-							ItemObject.SetInt("type", 1);
-						else
-							ItemObject.SetInt("type", 0);
-						ItemObject.SetBool("active", False);
-					}
-					S = "img://"$PathName(WMGRI.PerkUpgradesList[i].PerkUpgrade.static.GetupgradeIcon(lvl));
-					ItemObject.SetString("description", GetPerkDescription(i, lvl));
-					ItemObject.SetString("iconURLSmall", S);
-					ItemObject.SetString("iconURLLarge", S);
-					ItemArray.SetElementObject(j, ItemObject);
-					PerkUPGIndex.AddItem(i);
-					++j;
-				}
-			}
-		}
+		BuildPerkUpgradeList(ItemArray);
 	}
 	else if (FilterIndex == 1) //Skill Upgrades
 	{
-		for (i = 0; i < WMGRI.SkillUpgradesList.Length; ++i)
-		{
-			if (WMPRI.bSkillUnlocked[i] == 1)
-			{
-				lvl = WMPRI.bSkillUpgrade[i];
-
-				// Is it fully bought?
-				if (lvl == 0)
-					bPurchased = False;
-				else
-					bPurchased = True;
-
-				// Create info arch
-				if ((CurrentUpgradeFilter == EWMInv_All) || (CurrentUpgradeFilter == EWMInv_Available && !bPurchased) || (CurrentUpgradeFilter == EWMInv_Purchased && bPurchased))
-				{
-					ItemObject = CreateObject("Object");
-
-					if (WMPRI.bSkillDeluxe[i] == 1)
-					{
-						ItemObject.SetString("label", WMGRI.SkillUpgradesList[i].SkillUpgrade.default.UpgradeName $ " [Deluxe]");
-						ItemObject.SetString("description", WMGRI.SkillUpgradesList[i].SkillUpgrade.default.UpgradeDescription[1]);
-						S = "img://"$PathName(WMGRI.SkillUpgradesList[i].SkillUpgrade.static.GetupgradeIcon(1));
-						tempPrice = WMGRI.SkillUpgDeluxePrice;
-					}
-					else
-					{
-						ItemObject.SetString("label", WMGRI.SkillUpgradesList[i].SkillUpgrade.default.UpgradeName);
-						ItemObject.SetString("description", WMGRI.SkillUpgradesList[i].SkillUpgrade.default.UpgradeDescription[0]);
-						S = "img://"$PathName(WMGRI.SkillUpgradesList[i].SkillUpgrade.static.GetupgradeIcon(0));
-						tempPrice = WMGRI.SkillUpgPrice;
-					}
-					ItemObject.SetInt("count", tempPrice);
-
-					ItemObject.SetString("iconURLSmall", S);
-					S = "img://"$PathName(WMGRI.PerkUpgradesList[GetPerkRelatedIndex(i)].PerkUpgrade.static.GetupgradeIcon(0));
-					ItemObject.SetString("iconURLLarge", S);
-
-					ItemObject.SetString("price", "");
-					ItemObject.Setstring("typeRarity", "");
-					ItemObject.SetBool("exchangeable", False);
-					ItemObject.SetBool("recyclable", False);
-					ItemObject.SetInt("definition", j);
-					if (bPurchased)
-					{
-						ItemObject.SetInt("type", 1);
-						ItemObject.SetBool("active", True);
-						ItemObject.SetInt("rarity", 0);
-					}
-					else
-					{
-						if (WMPRI.Score < tempPrice)
-							ItemObject.SetInt("type", 1);
-						else
-							ItemObject.SetInt("type", 0);
-						ItemObject.SetBool("active", False);
-					}
-
-					ItemArray.SetElementObject(j, ItemObject);
-					SkillUPGIndex.AddItem(i);
-					++j;
-				}
-			}
-		}
+		BuildSkillUpgradeList(ItemArray);
 	}
 	else if (FilterIndex == 2) //Weapon Upgrades
 	{
-		for (i = 0; i < WMGRI.WeaponUpgradeSlotsList.Length; ++i)
-		{
-			if (IsWeaponInInventory(WMGRI.WeaponUpgradeSlotsList[i].KFWeapon))
-			{
-				lvl = WMPRI.GetWeaponUpgrade(i);
-
-				maxLevel = WMGRI.WeaponUpgradeSlotsList[i].MaxLevel;
-
-				// Is it fully bought?
-				if (lvl >= maxLevel)
-					bPurchased = True;
-				else
-					bPurchased = False;
-
-				// Create info arch
-				if ((CurrentUpgradeFilter == EWMInv_All) || (CurrentUpgradeFilter == EWMInv_Available && !bPurchased) || (CurrentUpgradeFilter == EWMInv_Purchased && bPurchased))
-				{
-					if (bPurchased)
-						--lvl;
-					ItemObject = CreateObject("Object");
-					ItemObject.SetInt("count", WMGRI.WeaponUpgradeSlotsList[i].BasePrice * (lvl + 1));
-
-					if (maxLevel > 1)
-					{
-						if (bPurchased)
-							ItemObject.SetString("label", WMGRI.WeaponUpgradeSlotsList[i].WeaponUpgrade.default.UpgradeName $ " (" $ maxLevel $ "/" $ maxLevel $ ")");
-						else
-							ItemObject.SetString("label", WMGRI.WeaponUpgradeSlotsList[i].WeaponUpgrade.default.UpgradeName $ " (" $ lvl $ "/" $ maxLevel $ ")");
-					}
-
-					ItemObject.SetString("price", "");
-					ItemObject.Setstring("typeRarity", "");
-					ItemObject.SetBool("exchangeable", False);
-					ItemObject.SetBool("recyclable", False);
-					ItemObject.SetInt("definition", j);
-					if (bPurchased)
-					{
-						ItemObject.SetInt("type", 1);
-						ItemObject.SetBool("active", True);
-						ItemObject.SetInt("rarity", 0);
-					}
-					else
-					{
-						if (WMPRI.Score < WMGRI.WeaponUpgradeSlotsList[i].BasePrice * (lvl + 1))
-							ItemObject.SetInt("type", 1);
-						else
-							ItemObject.SetInt("type", 0);
-						ItemObject.SetBool("active", False);
-					}
-					S = "img://"$PathName(WMGRI.WeaponUpgradeSlotsList[i].KFWeapon.default.WeaponSelectTexture);
-					ItemObject.SetString("description", repl(WMGRI.WeaponUpgradeSlotsList[i].WeaponUpgrade.default.UpgradeDescription[0], "%x%", WMGRI.WeaponUpgradeSlotsList[i].WeaponUpgrade.static.GetBonusValue(lvl + 1)));
-					ItemObject.SetString("iconURLSmall", S);
-					ItemObject.SetString("iconURLLarge", S);
-					ItemArray.SetElementObject(j, ItemObject);
-					WeaponUPGIndex.AddItem(i);
-					++j;
-				}
-			}
-		}
+		BuildWeaponUpgradeList(ItemArray);
 	}
 	else if (FilterIndex == 3) //Equipment Upgrades
 	{
-		for (i = 0; i < WMGRI.EquipmentUpgradesList.Length; ++i)
-		{
-			lvl = WMPRI.bEquipmentUpgrade[i];
-
-			// Get Max Level of that upgrade
-			maxLevel = WMGRI.EquipmentUpgradesList[i].MaxLevel;
-
-			// Is it fully bought?
-			if (lvl >= maxLevel)
-				bPurchased = True;
-			else
-				bPurchased = False;
-
-			// Create info arch
-			if ((CurrentUpgradeFilter == EWMInv_All) || (CurrentUpgradeFilter == EWMInv_Available && !bPurchased) || (CurrentUpgradeFilter == EWMInv_Purchased && bPurchased))
-			{
-				if (bPurchased)
-					--lvl;
-				ItemObject = CreateObject("Object");
-
-				if (WMGRI.EquipmentUpgradesList[i].MaxLevel > 1)
-					tempPrice = WMGRI.EquipmentUpgradesList[i].BasePrice + Round(float(WMGRI.EquipmentUpgradesList[i].MaxPrice - WMGRI.EquipmentUpgradesList[i].BasePrice) /
-						float(WMGRI.EquipmentUpgradesList[i].MaxLevel - 1) * lvl);
-				else
-					tempPrice = WMGRI.EquipmentUpgradesList[i].BasePrice;
-
-				ItemObject.SetInt("count", tempPrice);
-
-				if (maxLevel > 1)
-				{
-					if (bPurchased)
-						ItemObject.SetString("label", WMGRI.EquipmentUpgradesList[i].EquipmentUpgrade.default.UpgradeName $ " (" $ maxLevel $ "/" $ maxLevel $ ")");
-					else
-						ItemObject.SetString("label", WMGRI.EquipmentUpgradesList[i].EquipmentUpgrade.default.UpgradeName $ " (" $ lvl $ "/" $ maxLevel $ ")");
-				}
-				else
-					ItemObject.SetString("label", WMGRI.EquipmentUpgradesList[i].EquipmentUpgrade.default.UpgradeName);
-
-				ItemObject.SetString("price", "");
-				ItemObject.Setstring("typeRarity", "");
-				ItemObject.SetBool("exchangeable", False);
-				ItemObject.SetBool("recyclable", False);
-				ItemObject.SetInt("definition", j);
-				if (bPurchased)
-				{
-					ItemObject.SetInt("type", 1);
-					ItemObject.SetBool("active", True);
-					ItemObject.SetInt("rarity", 0);
-				}
-				else
-				{
-					if (WMPRI.Score < tempPrice)
-						ItemObject.SetInt("type", 1);
-					else
-						ItemObject.SetInt("type", 0);
-					ItemObject.SetBool("active", False);
-				}
-				S = "img://"$PathName(WMGRI.EquipmentUpgradesList[i].EquipmentUpgrade.static.GetupgradeIcon(lvl));
-				ItemObject.SetString("description", GetEquipmentDescription(i, lvl));
-				ItemObject.SetString("iconURLSmall", S);
-				ItemObject.SetString("iconURLLarge", S);
-				ItemArray.SetElementObject(j, ItemObject);
-				EquipmentUPGIndex.AddItem(i);
-				++j;
-			}
-		}
+		BuildEquipmentUpgradeList(ItemArray);
 	}
 	else if (FilterIndex == 4) //Grenades
 	{
-		for (i = 0; i < WMGRI.GrenadesList.Length; ++i)
-		{
-			if (WMGRI.GrenadesList[i].Grenade != None)
-			{
-				ItemObject = CreateObject("Object");
-				ItemObject.SetInt("count", 1);
-				ItemObject.SetString("label", WMGRI.GrenadesList[i].Grenade.static.GetItemName());
-				ItemObject.SetString("description", "");
-				ItemObject.SetString("iconURLSmall", "img://" $ WMGRI.GrenadesList[i].Grenade.static.GetImagePath());
-				ItemObject.SetString("iconURLLarge", "img://" $ WMGRI.GrenadesList[i].Grenade.static.GetImagePath());
-				ItemObject.SetString("price", "");
-				ItemObject.Setstring("typeRarity", "");
-				ItemObject.SetBool("exchangeable", False);
-				ItemObject.SetBool("recyclable", False);
-				ItemObject.SetInt("definition", j);
-				ItemObject.SetInt("type" ,0);
-				if (WMPC.CurrentPerk.GrenadeWeaponDef == WMGRI.GrenadesList[i].Grenade)
-				{
-					ItemObject.SetBool("active", True);
-					ItemObject.SetInt("type", 1);
-				}
-				else
-				{
-					ItemObject.SetBool("active", False);
-					ItemObject.SetInt("type", 0);
-				}
-				ItemArray.SetElementObject(j, ItemObject);
-				GrenadeIndex.AddItem(i);
-				++j;
-			}
-		}
+		BuildGrenadeList(ItemArray);
 	}
 	else if (FilterIndex == 5 && WMPerk(WMPC.CurrentPerk) != None) //Knives
 	{
-		WMP = WMPerk(WMPC.CurrentPerk);
-		for (i = 0; i < WMP.KnivesWeaponDef.Length; ++i)
-		{
-			ItemObject = CreateObject("Object");
-			ItemObject.SetInt("count", 1);
-			ItemObject.SetString("label", WMP.KnivesWeaponDef[i].static.GetItemName());
-			ItemObject.SetString("description", "");
-			ItemObject.SetString("iconURLSmall", "img://" $ WMP.KnivesWeaponDef[i].static.GetImagePath());
-			ItemObject.SetString("iconURLLarge", "img://" $ WMP.KnivesWeaponDef[i].static.GetImagePath());
-			ItemObject.SetString("price", "");
-			ItemObject.Setstring("typeRarity", "");
-			ItemObject.SetBool("exchangeable", False);
-			ItemObject.SetBool("recyclable", False);
-			ItemObject.SetInt("definition", j);
-			ItemObject.SetInt("type", 0);
-			if (WMPC.Preferences != None && i == WMPC.Preferences.KnifeIndex)
-			{
-				ItemObject.SetBool("active", True);
-				ItemObject.SetInt("type", 1);
-			}
-			else
-			{
-				ItemObject.SetBool("active", False);
-				ItemObject.SetInt("type", 0);
-			}
-			ItemArray.SetElementObject(j, ItemObject);
-			++j;
-		}
+		BuildKnifeList(ItemArray);
 	}
 
 	SetObject("inventoryList", ItemArray);
@@ -804,6 +488,84 @@ function UpdateCraftButtons()
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 // Perk Upgrade Functions
+function BuildPerkUpgradeList(out GFxObject ItemArray)
+{
+	local bool bPurchased;
+	local GFxObject ItemObject;
+	local int i, x, lvl, MaxLevel, TempPrice;
+	local string S;
+
+	PerkUPGIndex.Length = 0;
+	x = 0;
+
+	for (i = 0; i < WMGRI.PerkUpgradesList.Length; ++i)
+	{
+		if (WMPRI.bPerkUpgradeAvailable[i] > 0)
+		{
+			lvl = WMPRI.bPerkUpgrade[i];
+
+			// Get Max Level of that upgrade
+			MaxLevel = WMGRI.PerkUpgMaxLevel;
+
+			// Is it fully bought?
+			if (lvl >= MaxLevel)
+				bPurchased = True;
+			else
+				bPurchased = False;
+
+			// Create info arch
+			if ((CurrentUpgradeFilter == EWMInv_All) || (CurrentUpgradeFilter == EWMInv_Available && !bPurchased) || (CurrentUpgradeFilter == EWMInv_Purchased && bPurchased))
+			{
+				if (bPurchased)
+					--lvl;
+
+				ItemObject = CreateObject("Object");
+
+				TempPrice = WMGRI.PerkUpgPrice[lvl];
+				ItemObject.SetInt("count", TempPrice);
+
+				S = WMGRI.PerkUpgradesList[i].PerkUpgrade.default.UpgradeName;
+				if (MaxLevel > 1)
+				{
+					if (bPurchased)
+						S @= "(" $ MaxLevel $ "/" $ MaxLevel $ ")";
+					else
+						S @= "(" $ lvl $ "/" $ MaxLevel $ ")";
+				}
+
+				ItemObject.SetString("label", S);
+				ItemObject.SetString("price", "");
+				ItemObject.Setstring("typeRarity", "");
+				ItemObject.SetBool("exchangeable", False);
+				ItemObject.SetBool("recyclable", WMGRI.bAllowSkillReroll ? lvl > 0 : False);
+				ItemObject.SetInt("definition", x);
+				if (bPurchased)
+				{
+					ItemObject.SetInt("type", 1);
+					ItemObject.SetBool("active", True);
+					ItemObject.SetInt("rarity", 0);
+				}
+				else
+				{
+					if (WMPRI.Score < TempPrice)
+						ItemObject.SetInt("type", 1);
+					else
+						ItemObject.SetInt("type", 0);
+
+					ItemObject.SetBool("active", False);
+				}
+				S = "img://"$PathName(WMGRI.PerkUpgradesList[i].PerkUpgrade.static.GetUpgradeIcon(lvl));
+				ItemObject.SetString("description", GetPerkDescription(i, lvl));
+				ItemObject.SetString("iconURLSmall", S);
+				ItemObject.SetString("iconURLLarge", S);
+				ItemArray.SetElementObject(x, ItemObject);
+				PerkUPGIndex.AddItem(i);
+				++x;
+			}
+		}
+	}
+}
+
 function string GetPerkDescription(int index, int lvl)
 {
 	local string str, textColor;
@@ -883,6 +645,82 @@ function UnlockRandomSkill(string PerkPathName, bool bShouldBeDeluxe)
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 // Skill Upgrade Functions
+function BuildSkillUpgradeList(out GFxObject ItemArray)
+{
+	local bool bPurchased;
+	local GFxObject ItemObject;
+	local int i, x, lvl, TempPrice;
+	local string S;
+
+	SkillUPGIndex.Length = 0;
+	x = 0;
+
+	for (i = 0; i < WMGRI.SkillUpgradesList.Length; ++i)
+	{
+		if (WMPRI.bSkillUnlocked[i] == 1)
+		{
+			lvl = WMPRI.bSkillUpgrade[i];
+
+			// Is it fully bought?
+			if (lvl == 0)
+				bPurchased = False;
+			else
+				bPurchased = True;
+
+			// Create info arch
+			if ((CurrentUpgradeFilter == EWMInv_All) || (CurrentUpgradeFilter == EWMInv_Available && !bPurchased) || (CurrentUpgradeFilter == EWMInv_Purchased && bPurchased))
+			{
+				ItemObject = CreateObject("Object");
+
+				S = WMGRI.SkillUpgradesList[i].SkillUpgrade.default.UpgradeName;
+				if (WMPRI.bSkillDeluxe[i] == 1)
+				{
+					ItemObject.SetString("label", S @ "[Deluxe]");
+					ItemObject.SetString("description", WMGRI.SkillUpgradesList[i].SkillUpgrade.default.UpgradeDescription[1]);
+					S = "img://"$PathName(WMGRI.SkillUpgradesList[i].SkillUpgrade.static.GetUpgradeIcon(1));
+					TempPrice = WMGRI.SkillUpgDeluxePrice;
+				}
+				else
+				{
+					ItemObject.SetString("label", S);
+					ItemObject.SetString("description", WMGRI.SkillUpgradesList[i].SkillUpgrade.default.UpgradeDescription[0]);
+					S = "img://"$PathName(WMGRI.SkillUpgradesList[i].SkillUpgrade.static.GetUpgradeIcon(0));
+					TempPrice = WMGRI.SkillUpgPrice;
+				}
+				ItemObject.SetInt("count", TempPrice);
+
+				ItemObject.SetString("iconURLSmall", S);
+				S = "img://"$PathName(WMGRI.PerkUpgradesList[GetPerkRelatedIndex(i)].PerkUpgrade.static.GetUpgradeIcon(0));
+				ItemObject.SetString("iconURLLarge", S);
+
+				ItemObject.SetString("price", "");
+				ItemObject.Setstring("typeRarity", "");
+				ItemObject.SetBool("exchangeable", False);
+				ItemObject.SetBool("recyclable", False);
+				ItemObject.SetInt("definition", x);
+				if (bPurchased)
+				{
+					ItemObject.SetInt("type", 1);
+					ItemObject.SetBool("active", True);
+					ItemObject.SetInt("rarity", 0);
+				}
+				else
+				{
+					if (WMPRI.Score < TempPrice)
+						ItemObject.SetInt("type", 1);
+					else
+						ItemObject.SetInt("type", 0);
+
+					ItemObject.SetBool("active", False);
+				}
+				ItemArray.SetElementObject(x, ItemObject);
+				SkillUPGIndex.AddItem(i);
+				++x;
+			}
+		}
+	}
+}
+
 function int GetPerkRelatedIndex(int SkillIndex)
 {
 	//return Skill perk related index
@@ -900,6 +738,82 @@ function int GetPerkRelatedIndex(int SkillIndex)
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 // Weapon Upgrade Functions
+function BuildWeaponUpgradeList(out GFxObject ItemArray)
+{
+	local bool bPurchased;
+	local GFxObject ItemObject;
+	local int i, x, lvl, MaxLevel, TempPrice;
+	local string S;
+
+	WeaponUPGIndex.Length = 0;
+	x = 0;
+
+	for (i = 0; i < WMGRI.WeaponUpgradeSlotsList.Length; ++i)
+	{
+		if (IsWeaponInInventory(WMGRI.WeaponUpgradeSlotsList[i].KFWeapon))
+		{
+			lvl = WMPRI.GetWeaponUpgrade(i);
+
+			MaxLevel = WMGRI.WeaponUpgradeSlotsList[i].MaxLevel;
+
+			// Is it fully bought?
+			if (lvl >= MaxLevel)
+				bPurchased = True;
+			else
+				bPurchased = False;
+
+			// Create info arch
+			if ((CurrentUpgradeFilter == EWMInv_All) || (CurrentUpgradeFilter == EWMInv_Available && !bPurchased) || (CurrentUpgradeFilter == EWMInv_Purchased && bPurchased))
+			{
+				if (bPurchased)
+					--lvl;
+
+				ItemObject = CreateObject("Object");
+				TempPrice = WMGRI.WeaponUpgradeSlotsList[i].BasePrice * (lvl + 1);
+				ItemObject.SetInt("count", TempPrice);
+
+				S = WMGRI.WeaponUpgradeSlotsList[i].WeaponUpgrade.default.UpgradeName;
+				if (MaxLevel > 1)
+				{
+					if (bPurchased)
+						S @= "(" $ MaxLevel $ "/" $ MaxLevel $ ")";
+					else
+						S @= "(" $ lvl $ "/" $ MaxLevel $ ")";
+				}
+
+				ItemObject.SetString("label", S);
+				ItemObject.SetString("price", "");
+				ItemObject.Setstring("typeRarity", "");
+				ItemObject.SetBool("exchangeable", False);
+				ItemObject.SetBool("recyclable", False);
+				ItemObject.SetInt("definition", x);
+				if (bPurchased)
+				{
+					ItemObject.SetInt("type", 1);
+					ItemObject.SetBool("active", True);
+					ItemObject.SetInt("rarity", 0);
+				}
+				else
+				{
+					if (WMPRI.Score < TempPrice)
+						ItemObject.SetInt("type", 1);
+					else
+						ItemObject.SetInt("type", 0);
+
+					ItemObject.SetBool("active", False);
+				}
+				S = "img://"$PathName(WMGRI.WeaponUpgradeSlotsList[i].KFWeapon.default.WeaponSelectTexture);
+				ItemObject.SetString("description", repl(WMGRI.WeaponUpgradeSlotsList[i].WeaponUpgrade.default.UpgradeDescription[0], "%x%", WMGRI.WeaponUpgradeSlotsList[i].WeaponUpgrade.static.GetBonusValue(lvl + 1)));
+				ItemObject.SetString("iconURLSmall", S);
+				ItemObject.SetString("iconURLLarge", S);
+				ItemArray.SetElementObject(x, ItemObject);
+				WeaponUPGIndex.AddItem(i);
+				++x;
+			}
+		}
+	}
+}
+
 function bool IsWeaponInInventory(class<KFWeapon> WeaponClass)
 {
 	local KFWeapon Weapon;
@@ -920,6 +834,86 @@ function bool IsWeaponInInventory(class<KFWeapon> WeaponClass)
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 // Equipment Upgrade Functions
+function BuildEquipmentUpgradeList(out GFxObject ItemArray)
+{
+	local bool bPurchased;
+	local GFxObject ItemObject;
+	local int i, x, lvl, MaxLevel, TempPrice;
+	local string S;
+
+	EquipmentUPGIndex.Length = 0;
+	x = 0;
+
+	for (i = 0; i < WMGRI.EquipmentUpgradesList.Length; ++i)
+	{
+		lvl = WMPRI.bEquipmentUpgrade[i];
+
+		// Get Max Level of that upgrade
+		MaxLevel = WMGRI.EquipmentUpgradesList[i].MaxLevel;
+
+		// Is it fully bought?
+		if (lvl >= MaxLevel)
+			bPurchased = True;
+		else
+			bPurchased = False;
+
+		// Create info arch
+		if ((CurrentUpgradeFilter == EWMInv_All) || (CurrentUpgradeFilter == EWMInv_Available && !bPurchased) || (CurrentUpgradeFilter == EWMInv_Purchased && bPurchased))
+		{
+			if (bPurchased)
+				--lvl;
+
+			ItemObject = CreateObject("Object");
+
+			if (WMGRI.EquipmentUpgradesList[i].MaxLevel > 1)
+				TempPrice = WMGRI.EquipmentUpgradesList[i].BasePrice + Round(float(WMGRI.EquipmentUpgradesList[i].MaxPrice - WMGRI.EquipmentUpgradesList[i].BasePrice) /
+					float(WMGRI.EquipmentUpgradesList[i].MaxLevel - 1) * lvl);
+			else
+				TempPrice = WMGRI.EquipmentUpgradesList[i].BasePrice;
+
+			ItemObject.SetInt("count", TempPrice);
+
+			S = WMGRI.EquipmentUpgradesList[i].EquipmentUpgrade.default.UpgradeName;
+			if (MaxLevel > 1)
+			{
+				if (bPurchased)
+					S @= "(" $ MaxLevel $ "/" $ MaxLevel $ ")";
+				else
+					S @= "(" $ lvl $ "/" $ MaxLevel $ ")";
+			}
+
+			ItemObject.SetString("label", S);
+			ItemObject.SetString("price", "");
+			ItemObject.Setstring("typeRarity", "");
+			ItemObject.SetBool("exchangeable", False);
+			ItemObject.SetBool("recyclable", False);
+			ItemObject.SetInt("definition", x);
+			if (bPurchased)
+			{
+				ItemObject.SetInt("type", 1);
+				ItemObject.SetBool("active", True);
+				ItemObject.SetInt("rarity", 0);
+			}
+			else
+			{
+				if (WMPRI.Score < TempPrice)
+					ItemObject.SetInt("type", 1);
+				else
+					ItemObject.SetInt("type", 0);
+
+				ItemObject.SetBool("active", False);
+			}
+			S = "img://"$PathName(WMGRI.EquipmentUpgradesList[i].EquipmentUpgrade.static.GetUpgradeIcon(lvl));
+			ItemObject.SetString("description", GetEquipmentDescription(i, lvl));
+			ItemObject.SetString("iconURLSmall", S);
+			ItemObject.SetString("iconURLLarge", S);
+			ItemArray.SetElementObject(x, ItemObject);
+			EquipmentUPGIndex.AddItem(i);
+			++x;
+		}
+	}
+}
+
 function string GetEquipmentDescription(int index, int lvl)
 {
 	local string str;
@@ -937,6 +931,88 @@ function string GetEquipmentDescription(int index, int lvl)
 	}
 
 	return str;
+}
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// Grenade And Knife Functions
+function BuildGrenadeList(out GFxObject ItemArray)
+{
+	local GFxObject ItemObject;
+	local int i, x;
+
+	GrenadeIndex.Length = 0;
+	x = 0;
+
+	for (i = 0; i < WMGRI.GrenadesList.Length; ++i)
+	{
+		if (WMGRI.GrenadesList[i].Grenade != None)
+		{
+			ItemObject = CreateObject("Object");
+			ItemObject.SetInt("count", 1);
+			ItemObject.SetString("label", WMGRI.GrenadesList[i].Grenade.static.GetItemName());
+			ItemObject.SetString("description", "");
+			ItemObject.SetString("iconURLSmall", "img://" $ WMGRI.GrenadesList[i].Grenade.static.GetImagePath());
+			ItemObject.SetString("iconURLLarge", "img://" $ WMGRI.GrenadesList[i].Grenade.static.GetImagePath());
+			ItemObject.SetString("price", "");
+			ItemObject.Setstring("typeRarity", "");
+			ItemObject.SetBool("exchangeable", False);
+			ItemObject.SetBool("recyclable", False);
+			ItemObject.SetInt("definition", x);
+			ItemObject.SetInt("type" ,0);
+			if (WMPC.CurrentPerk.GrenadeWeaponDef == WMGRI.GrenadesList[i].Grenade)
+			{
+				ItemObject.SetBool("active", True);
+				ItemObject.SetInt("type", 1);
+			}
+			else
+			{
+				ItemObject.SetBool("active", False);
+				ItemObject.SetInt("type", 0);
+			}
+			ItemArray.SetElementObject(x, ItemObject);
+			GrenadeIndex.AddItem(i);
+			++x;
+		}
+	}
+}
+
+function BuildKnifeList(out GFxObject ItemArray)
+{
+	local GFxObject ItemObject;
+	local int i, x;
+	local WMPerk WMP;
+
+	WMP = WMPerk(WMPC.CurrentPerk);
+	x = 0;
+
+	for (i = 0; i < WMP.KnivesWeaponDef.Length; ++i)
+	{
+		ItemObject = CreateObject("Object");
+		ItemObject.SetInt("count", 1);
+		ItemObject.SetString("label", WMP.KnivesWeaponDef[i].static.GetItemName());
+		ItemObject.SetString("description", "");
+		ItemObject.SetString("iconURLSmall", "img://" $ WMP.KnivesWeaponDef[i].static.GetImagePath());
+		ItemObject.SetString("iconURLLarge", "img://" $ WMP.KnivesWeaponDef[i].static.GetImagePath());
+		ItemObject.SetString("price", "");
+		ItemObject.Setstring("typeRarity", "");
+		ItemObject.SetBool("exchangeable", False);
+		ItemObject.SetBool("recyclable", False);
+		ItemObject.SetInt("definition", x);
+		ItemObject.SetInt("type", 0);
+		if (WMPC.Preferences != None && i == WMPC.Preferences.KnifeIndex)
+		{
+			ItemObject.SetBool("active", True);
+			ItemObject.SetInt("type", 1);
+		}
+		else
+		{
+			ItemObject.SetBool("active", False);
+			ItemObject.SetInt("type", 0);
+		}
+		ItemArray.SetElementObject(x, ItemObject);
+		++x;
+	}
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
