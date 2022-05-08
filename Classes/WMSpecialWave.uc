@@ -3,6 +3,9 @@ class WMSpecialWave extends Info;
 var string Title;
 var string Description;
 
+//Set this variable to True in the default properties of your special wave to read the Title as the localization key and not as raw text.
+var bool bShouldLocalize;
+
 struct SMonster
 {
 	var int MinWave, MaxWave;
@@ -175,8 +178,29 @@ static simulated function ExtensionFuncFloat(out float InValue, float DefaultVal
 	optional Object InputObject1, optional Object InputObject2, optional Object InputObject3);
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Localization functions
+static function string GetSpecialWaveTitle()
+{
+	return GetSpecialWaveLocalization("SpecialWaveTitle");
+}
+
+static function string GetSpecialWaveDescription()
+{
+	return GetSpecialWaveLocalization("SpecialWaveDescription");
+}
+
+static function string GetSpecialWaveLocalization(string KeyName)
+{
+	local array<string> Strings;
+	ParseStringIntoArray(default.Title, Strings, ".", True);
+	return Localize(Strings[1], KeyName, Strings[0]);
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 defaultproperties
 {
+	bShouldLocalize=False
 	ZedSpawnRateFactor=1.0f
 	WaveValueFactor=1.0f
 	DoshFactor=1.0f

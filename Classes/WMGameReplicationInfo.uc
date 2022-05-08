@@ -1232,8 +1232,17 @@ simulated function ShowSpecialWaveMessage()
 		KFP.CheckAndEndActiveEMoteSpecialMove();
 		if (SpecialWaveID[SpecialWaveIndexToShow] != INDEX_NONE)
 		{
-			KFPC.MyGFxHUD.ShowBossNameplate(SpecialWavesList[SpecialWaveID[SpecialWaveIndexToShow]].SpecialWave.default.Title,
-				SpecialWavesList[SpecialWaveID[SpecialWaveIndexToShow]].SpecialWave.default.Description);
+			if (SpecialWavesList[SpecialWaveID[SpecialWaveIndexToShow]].SpecialWave.default.bShouldLocalize)
+			{
+				KFPC.MyGFxHUD.ShowBossNameplate(SpecialWavesList[SpecialWaveID[SpecialWaveIndexToShow]].SpecialWave.static.GetSpecialWaveTitle(),
+					SpecialWavesList[SpecialWaveID[SpecialWaveIndexToShow]].SpecialWave.static.GetSpecialWaveDescription());
+			}
+			else
+			{
+				KFPC.MyGFxHUD.ShowBossNameplate(SpecialWavesList[SpecialWaveID[SpecialWaveIndexToShow]].SpecialWave.default.Title,
+					SpecialWavesList[SpecialWaveID[SpecialWaveIndexToShow]].SpecialWave.default.Description);
+			}
+
 			SetTimer(1.25f, False, NameOf(PlaySpecialWaveSound));
 		}
 	}

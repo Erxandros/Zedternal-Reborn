@@ -40,10 +40,18 @@ event DrawHUD()
 		size = 0.5f;
 
 		//draw warning
-		if (WMGRI.SpecialWaveID[1] == INDEX_NONE)
-			spwTitle = WMGRI.SpecialWavesList[WMGRI.SpecialWaveID[0]].SpecialWave.default.Title;
+		if (WMGRI.SpecialWavesList[WMGRI.SpecialWaveID[0]].SpecialWave.default.bShouldLocalize)
+			spwTitle = WMGRI.SpecialWavesList[WMGRI.SpecialWaveID[0]].SpecialWave.static.GetSpecialWaveTitle();
 		else
-			spwTitle = WMGRI.SpecialWavesList[WMGRI.SpecialWaveID[0]].SpecialWave.default.Title $ " + " $ WMGRI.SpecialWavesList[WMGRI.SpecialWaveID[1]].SpecialWave.default.Title;
+			spwTitle = WMGRI.SpecialWavesList[WMGRI.SpecialWaveID[0]].SpecialWave.default.Title;
+
+		if (WMGRI.SpecialWaveID[1] != INDEX_NONE)
+		{
+			if (WMGRI.SpecialWavesList[WMGRI.SpecialWaveID[1]].SpecialWave.default.bShouldLocalize)
+				spwTitle @= "+" @ WMGRI.SpecialWavesList[WMGRI.SpecialWaveID[1]].SpecialWave.static.GetSpecialWaveTitle();
+			else
+				spwTitle @= "+" @ WMGRI.SpecialWavesList[WMGRI.SpecialWaveID[1]].SpecialWave.default.Title;
+		}
 
 		Canvas.StrLen(spwTitle, XL, YL);
 		XL *= size;
