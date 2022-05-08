@@ -137,7 +137,11 @@ event DrawHUD()
 	{
 		size = 0.55f;
 
-		buffTitle = WMGRI.ZedBuffsList[zedBuffIndex - 1].ZedBuff.default.buffDescription;
+		if (WMGRI.ZedBuffsList[zedBuffIndex - 1].ZedBuff.default.bShouldLocalize)
+			buffTitle = WMGRI.ZedBuffsList[zedBuffIndex - 1].ZedBuff.static.GetBuffDescription();
+		else
+			buffTitle = WMGRI.ZedBuffsList[zedBuffIndex - 1].ZedBuff.default.BuffDescription;
+
 		Canvas.StrLen(buffTitle, XL, YL);
 		XL *= size;
 		YL *= size;
