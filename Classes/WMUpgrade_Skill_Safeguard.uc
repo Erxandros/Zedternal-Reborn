@@ -9,7 +9,7 @@ static function ModifyHealAmountPassive(out float healAmountFactor, int upgLevel
 
 static simulated function ModifyHealerRechargeTime(out float InRechargeTime, float DefaultRechargeTime, int upgLevel)
 {
-	InRechargeTime += DefaultRechargeTime * default.Bonus[upgLevel - 1];
+	InRechargeTime = DefaultRechargeTime / (DefaultRechargeTime / InRechargeTime + default.Bonus[upgLevel - 1]);
 }
 
 defaultproperties

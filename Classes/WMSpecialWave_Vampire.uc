@@ -27,7 +27,7 @@ function UpdateHuman()
 
 static simulated function ModifyHealerRechargeTime(out float InRechargeTime, float DefaultRechargeTime)
 {
-	InRechargeTime += DefaultRechargeTime * default.HealRecharge;
+	InRechargeTime = DefaultRechargeTime / (DefaultRechargeTime / InRechargeTime - default.HealRecharge);
 }
 
 static function AddVampireHealth(out int InHealth, int DefaultHealth, KFPlayerController KFPC, class<DamageType> DT)

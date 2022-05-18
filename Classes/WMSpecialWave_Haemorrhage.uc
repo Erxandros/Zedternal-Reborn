@@ -71,7 +71,7 @@ function AddBleedTime(KFPawn_Human KFP)
 
 static simulated function ModifyHealerRechargeTime(out float InRechargeTime, float DefaultRechargeTime)
 {
-	InRechargeTime -= DefaultRechargeTime * default.HealRecharge;
+	InRechargeTime = DefaultRechargeTime / (DefaultRechargeTime / InRechargeTime + default.HealRecharge);
 }
 
 static function WMSpecialWave_Haemorrhage GetSpecialWaveObject(WorldInfo WI)
