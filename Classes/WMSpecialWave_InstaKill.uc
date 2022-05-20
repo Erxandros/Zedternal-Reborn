@@ -59,8 +59,8 @@ defaultproperties
 	WaveValueFactor=0.5f
 	DoshFactor=3.0f
 
-	Title="InstaKill"
-	Description="But also for them!"
+	bShouldLocalize=True
+	Title="ZedternalReborn.WMSpecialWave_InstaKill"
 
 	bReplaceMonstertoAdd=True
 	MonsterToAdd(0)=(MinWave=0,MaxWave=7,MinGr=1,MaxGr=5,MClass=class'KFGameContent.KFPawn_ZedClot_Cyst')

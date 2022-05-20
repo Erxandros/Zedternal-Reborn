@@ -24,8 +24,8 @@ defaultproperties
 {
 	Damage=0.5f
 
-	UpgradeName="Damage Against Clots"
-	UpgradeDescription(0)="Increase damage dealt against Clots with this weapon by %x%%"
+	bShouldLocalize=True
+	UpgradeName="ZedternalReborn.WMUpgrade_Weapon_Damage_Clot"
 	WeaponBonus=(baseValue=0, incValue=50, maxValue=-1)
 
 	Name="Default__WMUpgrade_Weapon_Damage_Clot"

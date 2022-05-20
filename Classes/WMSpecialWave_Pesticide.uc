@@ -6,8 +6,8 @@ defaultproperties
 	WaveValueFactor=0.7f
 	DoshFactor=1.4f
 
-	Title="Arachnids"
-	Description="Hordes of crawlers are coming!"
+	bShouldLocalize=True
+	Title="ZedternalReborn.WMSpecialWave_Pesticide"
 
 	bReplaceMonstertoAdd=True
 	MonsterToAdd(0)=(MinWave=0,MaxWave=999,MinGr=6,MaxGr=10,MClass=class'ZedternalReborn.WMPawn_ZedCrawler_Mini')

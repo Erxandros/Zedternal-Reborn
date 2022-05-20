@@ -21,7 +21,8 @@ defaultproperties
 	LargeZedHealth=0.09f
 	HeadHealth=0.1f
 
-	BuffDescription="ZEDS HAVE MORE HEALTH"
+	bShouldLocalize=True
+	BuffDescription="ZedternalReborn.WMZedBuff_Health"
 	BuffIcon=Texture2D'ZED_Patriarch_UI.ZED-VS_Icons_Patriarch-Heal'
 
 	Name="Default__WMZedBuff_Health"

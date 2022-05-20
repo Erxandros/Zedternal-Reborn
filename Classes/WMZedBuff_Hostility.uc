@@ -29,7 +29,8 @@ defaultproperties
 	HardAttack=0.6f
 	SprintChance=0.3f
 
-	BuffDescription="ZEDS ARE MORE AGGRESSIVE"
+	bShouldLocalize=True
+	BuffDescription="ZedternalReborn.WMZedBuff_Hostility"
 	BuffIcon=Texture2D'ZED_Husk_UI.ZED-VS_Icons_Husk-Explode'
 
 	Name="Default__WMZedBuff_Hostility"

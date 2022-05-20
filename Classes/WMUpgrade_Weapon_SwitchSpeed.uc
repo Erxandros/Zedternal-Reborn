@@ -37,8 +37,8 @@ defaultproperties
 {
 	Speed=0.5f
 
-	UpgradeName="Switch Speed"
-	UpgradeDescription(0)="Increase switch speed of this weapon by %x%%"
+	bShouldLocalize=True
+	UpgradeName="ZedternalReborn.WMUpgrade_Weapon_SwitchSpeed"
 	WeaponBonus=(baseValue=0, incValue=50, maxValue=-1)
 
 	Name="Default__WMUpgrade_Weapon_SwitchSpeed"

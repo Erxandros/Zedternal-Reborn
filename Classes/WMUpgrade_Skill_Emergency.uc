@@ -49,9 +49,8 @@ defaultproperties
 	MaxSpeed(0)=0.3f
 	MaxSpeed(1)=0.75f
 
-	UpgradeName="Emergency"
-	UpgradeDescription(0)="Increase movement speed up to 30% when your health is low with lower health equaling faster movement"
-	UpgradeDescription(1)="Increase movement speed up to <font color=\"#b346ea\">75%</font> when your health is low with lower health equaling faster movement"
+	bShouldLocalize=True
+	UpgradeName="ZedternalReborn.WMUpgrade_Skill_Emergency"
 	UpgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Emergency'
 	UpgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Emergency_Deluxe'
 

@@ -4,8 +4,8 @@ defaultproperties
 {
 	ZedSpawnRateFactor=0.95f
 
-	Title="Fireworks"
-	Description="Horzine's festive gift!"
+	bShouldLocalize=True
+	Title="ZedternalReborn.WMSpecialWave_Fireworks"
 
 	MonsterToAdd(0)=(MinWave=0,MaxWave=999,MinGr=1,MaxGr=1,MClass=class'ZedternalReborn.WMPawn_ZedHusk_Tiny_Blue')
 	MonsterToAdd(1)=(MinWave=0,MaxWave=999,MinGr=1,MaxGr=1,MClass=class'ZedternalReborn.WMPawn_ZedHusk_Tiny_Green')

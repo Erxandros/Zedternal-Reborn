@@ -36,8 +36,8 @@ defaultproperties
 {
 	Damage=0.15f
 
-	UpgradeName="Headshot Damage"
-	UpgradeDescription(0)="Increase headshot damage with this weapon by %x%%"
+	bShouldLocalize=True
+	UpgradeName="ZedternalReborn.WMUpgrade_Weapon_Damage_Headshot"
 	WeaponBonus=(baseValue=0, incValue=15, maxValue=-1)
 
 	Name="Default__WMUpgrade_Weapon_Damage_Headshot"

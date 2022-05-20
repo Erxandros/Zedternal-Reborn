@@ -47,8 +47,8 @@ defaultproperties
 	DamageOther=0.2f
 	ZedHeadScale=0.8f
 
-	Title="Hard Skin"
-	Description="Headshots are the key!"
+	bShouldLocalize=True
+	Title="ZedternalReborn.WMSpecialWave_Pop"
 
 	Name="Default__WMSpecialWave_Pop"
 }

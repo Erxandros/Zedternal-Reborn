@@ -26,8 +26,8 @@ defaultproperties
 {
 	Damage=0.15f
 
-	UpgradeName="Ground Fire Damage"
-	UpgradeDescription(0)="Increase ground fire damage dealt with this weapon by %x%%"
+	bShouldLocalize=True
+	UpgradeName="ZedternalReborn.WMUpgrade_Weapon_Damage_GroundFire"
 	WeaponBonus=(baseValue=0, incValue=15, maxValue=-1)
 
 	Name="Default__WMUpgrade_Weapon_Damage_GroundFire"

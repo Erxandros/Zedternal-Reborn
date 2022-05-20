@@ -25,8 +25,8 @@ defaultproperties
 {
 	ReloadRate=0.15f
 
-	UpgradeName="Reload Speed"
-	UpgradeDescription(0)="Increase reload speed of this weapon by %x%%"
+	bShouldLocalize=True
+	UpgradeName="ZedternalReborn.WMUpgrade_Weapon_ReloadSpeed"
 	WeaponBonus=(baseValue=0, incValue=15, maxValue=-1)
 
 	Name="Default__WMUpgrade_Weapon_ReloadSpeed"

@@ -12,9 +12,8 @@ defaultproperties
 	Bonus(0)=3
 	Bonus(1)=8
 
-	UpgradeName="Strength"
-	UpgradeDescription(0)="Increase weight capacity by 3"
-	UpgradeDescription(1)="Increase weight capacity by <font color=\"#b346ea\">8</font>"
+	bShouldLocalize=True
+	UpgradeName="ZedternalReborn.WMUpgrade_Skill_Strength"
 	UpgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Strength'
 	UpgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Strength_Deluxe'
 

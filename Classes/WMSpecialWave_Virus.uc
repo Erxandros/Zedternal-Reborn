@@ -34,8 +34,8 @@ defaultproperties
 	ZedSpawnRateFactor=0.95f
 	WaveValueFactor=1.05f
 
-	Title="Virus"
-	Description="Level 4 containment!"
+	bShouldLocalize=True
+	Title="ZedternalReborn.WMSpecialWave_Virus"
 
 	Name="Default__WMSpecialWave_Virus"
 }

@@ -14,7 +14,8 @@ defaultproperties
 	DeathPukeMineRotations(1)=(Pitch=7000,Yaw=32767,Roll=0)
 	DeathPukeMineRotations(2)=(Pitch=7000,Yaw=-10480,Roll=0)
 
-	BuffDescription="BLOATS ALWAYS PUKE MINE ON DEATH"
+	bShouldLocalize=True
+	BuffDescription="ZedternalReborn.WMZedBuff_PukeMine"
 	BuffIcon=Texture2D'ZED_Bloat_UI.ZED-VS_Icons_Bloat-PukeMine'
 
 	Name="Default__WMZedBuff_PukeMine"

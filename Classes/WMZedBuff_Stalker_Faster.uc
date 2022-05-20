@@ -12,7 +12,8 @@ defaultproperties
 {
 	Speed=0.3f
 
-	BuffDescription="STALKERS ARE FASTER"
+	bShouldLocalize=True
+	BuffDescription="ZedternalReborn.WMZedBuff_Stalker_Faster"
 	BuffIcon=Texture2D'ZED_Stalker_UI.ZED-VS_Icons_Stalker-Evade'
 
 	Name="Default__WMZedBuff_Stalker_Faster"

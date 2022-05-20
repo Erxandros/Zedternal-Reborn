@@ -12,7 +12,8 @@ defaultproperties
 {
 	Damage=0.35f
 
-	BuffDescription="GOREFASTS DEAL MORE DAMAGE"
+	bShouldLocalize=True
+	BuffDescription="ZedternalReborn.WMZedBuff_Gorefast_Damage"
 	BuffIcon=Texture2D'ZED_Gorefast_UI.ZED-VS_Icons_Gorefast-HeavyMelee'
 
 	Name="Default__WMZedBuff_Gorefast_Damage"

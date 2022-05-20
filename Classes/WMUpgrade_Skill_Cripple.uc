@@ -19,9 +19,8 @@ defaultproperties
 	Damage(0)=0.1f
 	Damage(1)=0.25f
 
-	UpgradeName="Cripple"
-	UpgradeDescription(0)="Multiple hits with <font color=\"#eaeff7\">all weapons</font> slow ZEDs down by 30% and damage you deal with <font color=\"#eaeff7\">all weapons</font> increases by 10%"
-	UpgradeDescription(1)="Multiple hits with <font color=\"#eaeff7\">all weapons</font> slow ZEDs down by 30% and damage you deal with <font color=\"#eaeff7\">all weapons</font> increases by <font color=\"#b346ea\">25%</font>"
+	bShouldLocalize=True
+	UpgradeName="ZedternalReborn.WMUpgrade_Skill_Cripple"
 	UpgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Destruction'
 	UpgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Destruction_Deluxe'
 

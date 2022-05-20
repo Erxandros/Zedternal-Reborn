@@ -34,8 +34,8 @@ defaultproperties
 	Speed=0.5f
 	ZedSpawnRateFactor=1.15f
 
-	Title="Catch me if you can"
-	Description="Run for your life!"
+	bShouldLocalize=True
+	Title="ZedternalReborn.WMSpecialWave_CatchMe"
 
 	bReplaceMonstertoAdd=True
 	MonsterToAdd(0)=(MinWave=0,MaxWave=16,MinGr=1,MaxGr=5,MClass=class'KFGameContent.KFPawn_ZedClot_Slasher')

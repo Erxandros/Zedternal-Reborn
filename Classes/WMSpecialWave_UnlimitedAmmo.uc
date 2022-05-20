@@ -11,8 +11,8 @@ defaultproperties
 	WaveValueFactor=1.75f
 	DoshFactor=0.55f
 
-	Title="Unlimited Ammo"
-	Description="Spread some love!"
+	bShouldLocalize=True
+	Title="ZedternalReborn.WMSpecialWave_UnlimitedAmmo"
 
 	Name="Default__WMSpecialWave_UnlimitedAmmo"
 }

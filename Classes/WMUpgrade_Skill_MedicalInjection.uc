@@ -37,9 +37,8 @@ static simulated function DeleteHelperClass(Pawn OwnerPawn)
 
 defaultproperties
 {
-	UpgradeName="Medical Injection"
-	UpgradeDescription(0)="Regenerate up to 3 points of health every second when your health is low with lower health equaling faster regeneration"
-	UpgradeDescription(1)="Regenerate up to <font color=\"#b346ea\">8</font> points of health every second when your health is low with lower health equaling faster regeneration"
+	bShouldLocalize=True
+	UpgradeName="ZedternalReborn.WMUpgrade_Skill_MedicalInjection"
 	UpgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_MedicalInjection'
 	UpgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_MedicalInjection_Deluxe'
 

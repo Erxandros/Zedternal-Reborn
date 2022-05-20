@@ -31,8 +31,8 @@ defaultproperties
 	WaveValueFactor=0.8f
 	DoshFactor=1.1f
 
-	Title="The Horde"
-	Description="Rush Hour!"
+	bShouldLocalize=True
+	Title="ZedternalReborn.WMSpecialWave_TheHorde"
 
 	bReplaceMonstertoAdd=True
 	MonsterToAdd(0)=(MinWave=0,MaxWave=12,MinGr=2,MaxGr=5,MClass=class'KFGameContent.KFPawn_ZedClot_Slasher')

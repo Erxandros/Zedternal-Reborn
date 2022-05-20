@@ -39,7 +39,8 @@ defaultproperties
 	Damage=0.1f
 	Prob=0.1f
 
-	BuffDescription="SOME ZEDS ARE STRONGER THAN USUAL"
+	bShouldLocalize=True
+	BuffDescription="ZedternalReborn.WMZedBuff_Beefcake"
 	BuffIcon=Texture2D'ZedternalReborn_Resource.zedBuffs.UI_ZedBuff_Beefcake'
 
 	Name="Default__WMZedBuff_Beefcake"

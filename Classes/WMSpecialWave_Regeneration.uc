@@ -30,8 +30,8 @@ defaultproperties
 	RegenTimer=0.3f
 	ZedSpawnRateFactor=1.1f
 
-	Title="Regeneration"
-	Description="You feel better!"
+	bShouldLocalize=True
+	Title="ZedternalReborn.WMSpecialWave_Regeneration"
 
 	Name="Default__WMSpecialWave_Regeneration"
 }

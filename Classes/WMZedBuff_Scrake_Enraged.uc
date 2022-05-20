@@ -8,7 +8,8 @@ static function ModifyZedSprintChanceMod(out float SprintChanceMod, KFPawn_Monst
 
 defaultproperties
 {
-	BuffDescription="SCRAKES ARE ENRAGED"
+	bShouldLocalize=True
+	BuffDescription="ZedternalReborn.WMZedBuff_Scrake_Enraged"
 	BuffIcon=Texture2D'ZED_Scrake_UI.ZED-VS_Icons_Scrake-HeavyLunge'
 
 	Name="Default__WMZedBuff_Scrake_Enraged"

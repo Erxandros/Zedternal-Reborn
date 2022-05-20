@@ -32,9 +32,8 @@ defaultproperties
 	ExtraGrenades(0)=1
 	ExtraGrenades(1)=2
 
-	UpgradeName="Door Traps"
-	UpgradeDescription(0)="Increase welding speed by 75%, grenade capacity by 1, and become able to set explosive door traps"
-	UpgradeDescription(1)="Increase welding speed by <font color=\"#b346ea\">200%</font>, grenade capacity by <font color=\"#b346ea\">2</font>, and become able to set <font color=\"#b346ea\">nuclear</font> door traps"
+	bShouldLocalize=True
+	UpgradeName="ZedternalReborn.WMUpgrade_Skill_DoorTraps"
 	UpgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_DoorTraps'
 	UpgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_DoorTraps_Deluxe'
 

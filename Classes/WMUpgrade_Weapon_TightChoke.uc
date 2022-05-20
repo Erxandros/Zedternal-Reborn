@@ -25,8 +25,8 @@ defaultproperties
 {
 	Spread=0.2f
 
-	UpgradeName="Tight Choke"
-	UpgradeDescription(0)="Decrease shot spread of this weapon by %x%%"
+	bShouldLocalize=True
+	UpgradeName="ZedternalReborn.WMUpgrade_Weapon_TightChoke"
 	WeaponBonus=(baseValue=0, incValue=20, maxValue=-1)
 
 	Name="Default__WMUpgrade_Weapon_TightChoke"

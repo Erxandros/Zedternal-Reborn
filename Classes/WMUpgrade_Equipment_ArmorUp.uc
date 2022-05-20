@@ -11,8 +11,9 @@ defaultproperties
 {
 	Armor=10
 
-	UpgradeName="Armor Up"
-	UpgradeDescription(0)="Increase armor by %x% points"
+	bShouldLocalize=True
+	UpgradeName="ZedternalReborn.WMUpgrade_Equipment_ArmorUp"
+	LocalizeDescriptionLineCount=1
 	EquipmentBonus(0)=(baseValue=0, incValue=10, maxValue=-1)
 	UpgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Equipment.UI_Equipment_ArmorUp'
 

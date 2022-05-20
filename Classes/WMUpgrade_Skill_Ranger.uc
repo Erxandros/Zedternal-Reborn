@@ -21,9 +21,8 @@ defaultproperties
 	Stun(0)=0.5f
 	Stun(1)=1.25f
 
-	UpgradeName="Ranger"
-	UpgradeDescription(0)="Increase headshot damage with <font color=\"#eaeff7\">all weapons</font> by 15% and increase headshot stun power with <font color=\"#eaeff7\">all weapons</font> by 50%"
-	UpgradeDescription(1)="Increase headshot damage with <font color=\"#eaeff7\">all weapons</font> by <font color=\"#b346ea\">40%</font> and increase headshot stun power with <font color=\"#eaeff7\">all weapons</font> by <font color=\"#b346ea\">125%</font>"
+	bShouldLocalize=True
+	UpgradeName="ZedternalReborn.WMUpgrade_Skill_Ranger"
 	UpgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Ranger'
 	UpgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Ranger_Deluxe'
 

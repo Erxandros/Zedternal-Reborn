@@ -55,8 +55,8 @@ defaultproperties
 	WaveValueFactor=0.22f
 	DoshFactor=4.1f
 
-	Title="Titans"
-	Description="Slowly but surely!"
+	bShouldLocalize=True
+	Title="ZedternalReborn.WMSpecialWave_Titans"
 
 	Name="Default__WMSpecialWave_Titans"
 }

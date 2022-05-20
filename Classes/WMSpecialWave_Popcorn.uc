@@ -20,8 +20,8 @@ defaultproperties
 	Chance=0.6f
 	ZedSpawnRateFactor=1.3f
 
-	Title="Popcorn"
-	Description="Make them explode!"
+	bShouldLocalize=True
+	Title="ZedternalReborn.WMSpecialWave_Popcorn"
 
 	MonsterToAdd(0)=(MinWave=0,MaxWave=999,MinGr=4,MaxGr=8,MClass=class'ZedternalReborn.WMPawn_ZedCrawler_NoElite')
 	MonsterToAdd(1)=(MinWave=0,MaxWave=999,MinGr=4,MaxGr=8,MClass=class'ZedternalReborn.WMPawn_ZedCrawler_NoElite')

@@ -18,8 +18,8 @@ defaultproperties
 {
 	Damage=0.1f
 
-	UpgradeName="Damage"
-	UpgradeDescription(0)="Increase damage dealt with this weapon by %x%%"
+	bShouldLocalize=True
+	UpgradeName="ZedternalReborn.WMUpgrade_Weapon_Damage"
 	WeaponBonus=(baseValue=0, incValue=10, maxValue=-1)
 
 	Name="Default__WMUpgrade_Weapon_Damage"

@@ -22,10 +22,9 @@ defaultproperties
 	Damage=0.03f
 	SpareAmmo=0.2f
 
-	UpgradeName="Survivalist"
-	UpgradeDescription(0)="+%x% Weight Capacity"
-	UpgradeDescription(1)="+%x%% Spare Ammo with <font color=\"#eaeff7\">any weapon</font>"
-	UpgradeDescription(2)="+%x%% Damage with <font color=\"#eaeff7\">any weapon</font>"
+	bShouldLocalize=True
+	UpgradeName="ZedternalReborn.WMUpgrade_Perk_Survivalist"
+	LocalizeDescriptionLineCount=3
 	PerkBonus(0)=(baseValue=0, incValue=1, maxValue=-1)
 	PerkBonus(1)=(baseValue=0, incValue=20, maxValue=-1)
 	PerkBonus(2)=(baseValue=0, incValue=3, maxValue=-1)

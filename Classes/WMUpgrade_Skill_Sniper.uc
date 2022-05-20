@@ -13,9 +13,8 @@ defaultproperties
 	Damage(0)=0.2f
 	Damage(1)=0.5f
 
-	UpgradeName="Sniper"
-	UpgradeDescription(0)="While stationary increase damage by 20% with <font color=\"#eaeff7\">all weapons</font>"
-	UpgradeDescription(1)="While stationary increase damage by <font color=\"#b346ea\">50%</font> with <font color=\"#eaeff7\">all weapons</font>"
+	bShouldLocalize=True
+	UpgradeName="ZedternalReborn.WMUpgrade_Skill_Sniper"
 	UpgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Sniper'
 	UpgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Sniper_Deluxe'
 

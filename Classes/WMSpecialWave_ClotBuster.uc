@@ -5,8 +5,8 @@ defaultproperties
 	ZedSpawnRateFactor=4.0f
 	WaveValueFactor=0.6f
 
-	Title="Clot Buster"
-	Description="Hordes of clots are coming!"
+	bShouldLocalize=True
+	Title="ZedternalReborn.WMSpecialWave_ClotBuster"
 
 	bReplaceMonstertoAdd=True
 	MonsterToAdd(0)=(MinWave=0,MaxWave=999,MinGr=6,MaxGr=10,MClass=class'KFGameContent.KFPawn_ZedClot_Cyst')

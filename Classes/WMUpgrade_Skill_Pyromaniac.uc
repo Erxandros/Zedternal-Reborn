@@ -79,9 +79,8 @@ defaultproperties
 	RateOfFire(0)=0.2f
 	RateOfFire(1)=0.4f
 
-	UpgradeName="Pyromaniac"
-	UpgradeDescription(0)="When you are near 4 or more ZEDs your weapon shoots 20% faster and has unlimited ammo"
-	UpgradeDescription(1)="When you are near <font color=\"#b346ea\">3</font> or more ZEDs your weapon shoots <font color=\"#b346ea\">40%</font> faster and has unlimited ammo"
+	bShouldLocalize=True
+	UpgradeName="ZedternalReborn.WMUpgrade_Skill_Pyromaniac"
 	UpgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Pyromaniac'
 	UpgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Pyromaniac_Deluxe'
 

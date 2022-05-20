@@ -19,9 +19,8 @@ defaultproperties
 {
 	ReloadRateDeluxe=0.3f
 
-	UpgradeName="Tactical Reload"
-	UpgradeDescription(0)="Increase reload speed with <font color=\"#caab05\">Commando, Demolitionist, Gunslinger, Sharpshooter, Support, and SWAT weapons</font>"
-	UpgradeDescription(1)="Increase reload speed with <font color=\"#eaeff7\">all weapons</font> by <font color=\"#b346ea\">30%</font>"
+	bShouldLocalize=True
+	UpgradeName="ZedternalReborn.WMUpgrade_Skill_TacticalReload"
 	UpgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_TacticalReload'
 	UpgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_TacticalReload_Deluxe'
 

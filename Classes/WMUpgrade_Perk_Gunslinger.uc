@@ -24,10 +24,9 @@ defaultproperties
 	MoveSpeed=0.04f
 	SwitchSpeed=0.2f
 
-	UpgradeName="Gunslinger"
-	UpgradeDescription(0)="+%x%% Movement Speed"
-	UpgradeDescription(1)="+%x%% Weapon Switch Speed with <font color=\"#eaeff7\">any weapon</font>"
-	UpgradeDescription(2)="+%x%% Damage with <font color=\"#caab05\">Gunslinger weapons</font>"
+	bShouldLocalize=True
+	UpgradeName="ZedternalReborn.WMUpgrade_Perk_Gunslinger"
+	LocalizeDescriptionLineCount=3
 	PerkBonus(0)=(baseValue=0, incValue=4, maxValue=-1)
 	PerkBonus(1)=(baseValue=0, incValue=20, maxValue=-1)
 	PerkBonus(2)=(baseValue=0, incValue=5, maxValue=-1)

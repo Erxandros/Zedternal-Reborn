@@ -12,8 +12,9 @@ defaultproperties
 {
 	DamageResistance=0.4f
 
-	UpgradeName="Fall Compensator Boots"
-	UpgradeDescription(0)="Decrease fall damage by %x%%"
+	bShouldLocalize=True
+	UpgradeName="ZedternalReborn.WMUpgrade_Equipment_FallCompensatorBoots"
+	LocalizeDescriptionLineCount=1
 	EquipmentBonus(0)=(baseValue=0, incValue=40, maxValue=80)
 	UpgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Equipment.UI_Equipment_FallCompensatorBoots'
 

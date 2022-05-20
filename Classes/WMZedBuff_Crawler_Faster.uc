@@ -19,7 +19,8 @@ defaultproperties
 	Speed=0.5f
 	Sprint=0.35f
 
-	BuffDescription="CRAWLERS ARE FASTER"
+	bShouldLocalize=True
+	BuffDescription="ZedternalReborn.WMZedBuff_Crawler_Faster"
 	BuffIcon=Texture2D'ZED_Crawler_UI.ZED-VS_Icons_Crawler-HeavyLeap'
 
 	Name="Default__WMZedBuff_Crawler_Faster"

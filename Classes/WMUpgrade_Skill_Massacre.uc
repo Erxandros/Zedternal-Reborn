@@ -17,9 +17,8 @@ defaultproperties
 	MeleeDamage(0)=0.2f
 	MeleeDamage(1)=0.5f
 
-	UpgradeName="Massacre"
-	UpgradeDescription(0)="Increase damage with <font color=\"#caab05\">melee weapons</font> by 20% and increase damage with <font color=\"#eaeff7\">other weapons</font> by 5%"
-	UpgradeDescription(1)="Increase damage with <font color=\"#caab05\">melee weapons</font> by <font color=\"#b346ea\">50%</font> and increase damage with <font color=\"#eaeff7\">other weapons</font> by <font color=\"#b346ea\">15%</font>"
+	bShouldLocalize=True
+	UpgradeName="ZedternalReborn.WMUpgrade_Skill_Massacre"
 	UpgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Massacre'
 	UpgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Massacre_Deluxe'
 

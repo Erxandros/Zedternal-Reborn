@@ -31,8 +31,8 @@ defaultproperties
 {
 	StumblePower=0.25f
 
-	UpgradeName="Stumble Effect"
-	UpgradeDescription(0)="Increase stumble effect of this weapon by %x%%"
+	bShouldLocalize=True
+	UpgradeName="ZedternalReborn.WMUpgrade_Weapon_StumblePower"
 	WeaponBonus=(baseValue=0, incValue=25, maxValue=-1)
 
 	Name="Default__WMUpgrade_Weapon_StumblePower"

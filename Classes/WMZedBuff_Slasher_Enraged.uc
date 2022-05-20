@@ -26,7 +26,8 @@ defaultproperties
 	Speed=0.2f
 	Sprint=1.0f
 
-	BuffDescription="SLASHERS ARE ENRAGED"
+	bShouldLocalize=True
+	BuffDescription="ZedternalReborn.WMZedBuff_Slasher_Enraged"
 	BuffIcon=Texture2D'ZED_Clot_UI.ZED-VS_Icons_AlphaClot-Enrage'
 
 	Name="Default__WMZedBuff_Slasher_Enraged"

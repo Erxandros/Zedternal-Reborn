@@ -14,8 +14,8 @@ defaultproperties
 	WaveValueFactor=1.3f
 	DoshFactor=0.75f
 
-	Title="Double Damage"
-	Description="Double your damage!"
+	bShouldLocalize=True
+	Title="ZedternalReborn.WMSpecialWave_DoubleDamage"
 
 	Name="Default__WMSpecialWave_DoubleDamage"
 }

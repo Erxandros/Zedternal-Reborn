@@ -49,8 +49,8 @@ defaultproperties
 	DeadDamageSizeScale=0.5f
 	StartingDamageSizeScale=1.0f
 
-	Title="Shrink"
-	Description="A small threat is still a threat!"
+	bShouldLocalize=True
+	Title="ZedternalReborn.WMSpecialWave_Shrink"
 
 	Name="Default__WMSpecialWave_Shrink"
 }

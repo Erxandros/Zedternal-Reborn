@@ -52,8 +52,8 @@ defaultproperties
 	WaveValueFactor=0.875f
 	DoshFactor=0.875f
 
-	Title="Phoenix"
-	Description="They revive from their ashes!"
+	bShouldLocalize=True
+	Title="ZedternalReborn.WMSpecialWave_Phoenix"
 
 	Name="Default__WMSpecialWave_Phoenix"
 }

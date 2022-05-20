@@ -73,9 +73,8 @@ defaultproperties
 	Critical(0)=0.9f
 	Critical(1)=0.7f
 
-	UpgradeName="Tank"
-	UpgradeDescription(0)="Increase damage resistance by 20% while your health is higher than 90%"
-	UpgradeDescription(1)="Increase damage resistance by <font color=\"#b346ea\">30%</font> while your health is higher than <font color=\"#b346ea\">70%</font>"
+	bShouldLocalize=True
+	UpgradeName="ZedternalReborn.WMUpgrade_Skill_Tank"
 	UpgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Tank'
 	UpgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Tank_Deluxe'
 

@@ -15,8 +15,8 @@ defaultproperties
 	WaveValueFactor=0.6f
 	DoshFactor=1.65f
 
-	Title="HellFire"
-	Description="Say welcome to Hell!"
+	bShouldLocalize=True
+	Title="ZedternalReborn.WMSpecialWave_HellFire"
 
 	bReplaceMonstertoAdd=True
 	MonsterToAdd(0)=(MinWave=0,MaxWave=999,MinGr=1,MaxGr=4,MClass=class'ZedternalReborn.WMPawn_ZedHusk_NoDAR')

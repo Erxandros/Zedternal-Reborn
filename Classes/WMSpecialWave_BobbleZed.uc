@@ -62,8 +62,8 @@ defaultproperties
 	WaveValueFactor=0.7f
 	DoshFactor=1.4f
 
-	Title="Bobble Zed"
-	Description="That must hurt their necks!"
+	bShouldLocalize=True
+	Title="ZedternalReborn.WMSpecialWave_BobbleZed"
 
 	Name="Default__WMSpecialWave_BobbleZed"
 }

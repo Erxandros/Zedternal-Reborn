@@ -25,7 +25,8 @@ defaultproperties
 	Health=0.24f
 	Damage=0.15f
 
-	BuffDescription="CLOTS ARE STRONGER"
+	bShouldLocalize=True
+	BuffDescription="ZedternalReborn.WMZedBuff_Clot_Stronger"
 	BuffIcon=Texture2D'ZedternalReborn_Resource.zedBuffs.UI_ZedBuff_ClotHealth'
 
 	Name="Default__WMZedBuff_Clot_Stronger"

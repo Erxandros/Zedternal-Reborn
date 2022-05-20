@@ -23,9 +23,8 @@ defaultproperties
 	damageFactor(0)=0.2f
 	damageFactor(1)=0.5f
 
-	UpgradeName="Acidic Rounds"
-	UpgradeDescription(0)="<font color=\"#eaeff7\">All weapons</font> can poison ZEDs inflicting poison damage over time"
-	UpgradeDescription(1)="<font color=\"#eaeff7\">All weapons</font> can poison ZEDs inflicting <font color=\"#b346ea\">high</font> poison damage over time"
+	bShouldLocalize=True
+	UpgradeName="ZedternalReborn.WMUpgrade_Skill_AcidicRounds"
 	UpgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_AcidicRounds'
 	UpgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_AcidicRounds_Deluxe'
 

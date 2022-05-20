@@ -12,9 +12,8 @@ defaultproperties
 	Damage(0)=0.15f
 	Damage(1)=0.4f
 
-	UpgradeName="Ruthless"
-	UpgradeDescription(0)="Increase damage with <font color=\"#eaeff7\">all weapons</font> by 15%"
-	UpgradeDescription(1)="Increase damage with <font color=\"#eaeff7\">all weapons</font> by <font color=\"#b346ea\">40%</font>"
+	bShouldLocalize=True
+	UpgradeName="ZedternalReborn.WMUpgrade_Skill_Ruthless"
 	UpgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Ruthless'
 	UpgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Ruthless_Deluxe'
 

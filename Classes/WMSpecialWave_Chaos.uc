@@ -98,8 +98,8 @@ defaultproperties
 	WaveValueFactor=0.8f
 	DoshFactor=1.25f
 
-	Title="Chaos"
-	Description="???"
+	bShouldLocalize=True
+	Title="ZedternalReborn.WMSpecialWave_Chaos"
 
 	Name="Default__WMSpecialWave_Chaos"
 }

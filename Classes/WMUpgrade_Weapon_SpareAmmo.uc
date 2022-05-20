@@ -22,8 +22,8 @@ defaultproperties
 {
 	SpareAmmo=0.15f
 
-	UpgradeName="Spare Ammo"
-	UpgradeDescription(0)="Carry up to %x%% more ammo for this weapon"
+	bShouldLocalize=True
+	UpgradeName="ZedternalReborn.WMUpgrade_Weapon_SpareAmmo"
 	WeaponBonus=(baseValue=0, incValue=15, maxValue=-1)
 
 	Name="Default__WMUpgrade_Weapon_SpareAmmo"

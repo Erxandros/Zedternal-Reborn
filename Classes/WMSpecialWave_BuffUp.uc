@@ -36,8 +36,8 @@ defaultproperties
 	ScaleDelta=0.04f
 	ScaleMax=1.6f
 
-	Title="Buff Up"
-	Description="They grow fast!"
+	bShouldLocalize=True
+	Title="ZedternalReborn.WMSpecialWave_BuffUp"
 
 	Name="Default__WMSpecialWave_BuffUp"
 }

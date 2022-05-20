@@ -18,9 +18,8 @@ defaultproperties
 	Damage(0)=0.05f
 	Damage(1)=0.1f
 
-	UpgradeName="Brawler"
-	UpgradeDescription(0)="Clots can't grab you and melee damage resistance increases by 5%"
-	UpgradeDescription(1)="Clots can't grab you and melee damage resistance increases by <font color=\"#b346ea\">10%</font>"
+	bShouldLocalize=True
+	UpgradeName="ZedternalReborn.WMUpgrade_Skill_Brawler"
 	UpgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Brawler'
 	UpgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Brawler_Deluxe'
 

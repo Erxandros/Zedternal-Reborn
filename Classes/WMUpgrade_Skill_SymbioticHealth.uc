@@ -17,9 +17,8 @@ defaultproperties
 	Bonus(0)=0.1f
 	Bonus(1)=0.25f
 
-	UpgradeName="Symbiotic Health"
-	UpgradeDescription(0)="Increase total health by 10% and heal 10% of your health while healing teammates"
-	UpgradeDescription(1)="Increase total health by <font color=\"#b346ea\">25%</font> and heal <font color=\"#b346ea\">25%</font> of your health while healing teammates"
+	bShouldLocalize=True
+	UpgradeName="ZedternalReborn.WMUpgrade_Skill_SymbioticHealth"
 	UpgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_SymbioticHealth'
 	UpgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_SymbioticHealth_Deluxe'
 

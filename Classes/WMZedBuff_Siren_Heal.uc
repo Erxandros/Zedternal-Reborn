@@ -21,7 +21,8 @@ static function ModifyZedHealthMod(out float HealthMod, KFPawn_Monster P, float 
 
 defaultproperties
 {
-	BuffDescription="SIRENS SCREAMS CAN HEAL OTHER ZEDS"
+	bShouldLocalize=True
+	BuffDescription="ZedternalReborn.WMZedBuff_Siren_Heal"
 	BuffIcon=Texture2D'ZED_Siren_UI.ZED-VS_Icons_Siren-Scream'
 
 	Name="Default__WMZedBuff_Siren_Heal"

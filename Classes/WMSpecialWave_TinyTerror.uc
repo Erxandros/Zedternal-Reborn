@@ -53,8 +53,8 @@ defaultproperties
 	WaveValueFactor=1.3f
 	DoshFactor=0.75f
 
-	Title="Tiny Terror"
-	Description="Look at them, they are so cute!"
+	bShouldLocalize=True
+	Title="ZedternalReborn.WMSpecialWave_TinyTerror"
 
 	Name="Default__WMSpecialWave_TinyTerror"
 }

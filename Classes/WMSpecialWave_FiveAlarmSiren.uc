@@ -32,8 +32,8 @@ defaultproperties
 	WaveValueFactor=0.5f
 	DoshFactor=2.0f
 
-	Title="Five Alarm Siren"
-	Description="Plug your ears!"
+	bShouldLocalize=True
+	Title="ZedternalReborn.WMSpecialWave_FiveAlarmSiren"
 
 	bReplaceMonstertoAdd=True
 	MonsterToAdd(0)=(MinWave=0,MaxWave=999,MinGr=4,MaxGr=8,MClass=class'KFGameContent.KFPawn_ZedSiren')

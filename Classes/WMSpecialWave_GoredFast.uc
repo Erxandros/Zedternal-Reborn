@@ -2,8 +2,8 @@ class WMSpecialWave_GoredFast extends WMSpecialWave;
 
 defaultproperties
 {
-	Title="Gored Fast"
-	Description="Watch their right arm!"
+	bShouldLocalize=True
+	Title="ZedternalReborn.WMSpecialWave_GoredFast"
 
 	MonsterToAdd(0)=(MinWave=0,MaxWave=999,MinGr=4,MaxGr=6,MClass=class'ZedternalReborn.WMPawn_ZedGorefast_NoDualBlade')
 	MonsterToAdd(1)=(MinWave=0,MaxWave=999,MinGr=4,MaxGr=6,MClass=class'ZedternalReborn.WMPawn_ZedGorefast_NoDualBlade')

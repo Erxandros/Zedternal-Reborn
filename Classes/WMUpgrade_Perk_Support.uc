@@ -29,10 +29,9 @@ defaultproperties
 	Penetration=0.35f
 	StoppingPower=0.1f
 
-	UpgradeName="Support"
-	UpgradeDescription(0)="+%x%% Stopping Power with <font color=\"#eaeff7\">any weapon</font>"
-	UpgradeDescription(1)="+%x%% Penetration with <font color=\"#eaeff7\">any weapon</font>"
-	UpgradeDescription(2)="+%x%% Damage with <font color=\"#caab05\">Support weapons</font>"
+	bShouldLocalize=True
+	UpgradeName="ZedternalReborn.WMUpgrade_Perk_Support"
+	LocalizeDescriptionLineCount=3
 	PerkBonus(0)=(baseValue=0, incValue=10, maxValue=-1)
 	PerkBonus(1)=(baseValue=0, incValue=35, maxValue=-1)
 	PerkBonus(2)=(baseValue=0, incValue=5, maxValue=-1)

@@ -103,8 +103,8 @@ defaultproperties
 	WaveValueFactor=0.7f
 	DoshFactor=1.4f
 
-	Title="Locked"
-	Description="It's a trap!"
+	bShouldLocalize=True
+	Title="ZedternalReborn.WMSpecialWave_Locked"
 
 	Name="Default__WMSpecialWave_Locked"
 }

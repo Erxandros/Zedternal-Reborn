@@ -15,7 +15,8 @@ defaultproperties
 {
 	ScreamReduce=1.25f
 
-	BuffDescription="SIRENS SCREAM MORE OFTEN"
+	bShouldLocalize=True
+	BuffDescription="ZedternalReborn.WMZedBuff_Siren_ScreamRate"
 	BuffIcon=Texture2D'ZedternalReborn_Resource.zedBuffs.UI_ZedBuff_SirenScreamRate'
 
 	Name="Default__WMZedBuff_Siren_ScreamRate"

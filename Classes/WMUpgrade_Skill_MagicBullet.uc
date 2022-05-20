@@ -52,9 +52,8 @@ defaultproperties
 	Ammo(0)=1
 	Ammo(1)=2
 
-	UpgradeName="Magic Bullet"
-	UpgradeDescription(0)="Killing a ZED adds 1 round into your current magazine from your spare ammo pool"
-	UpgradeDescription(1)="Killing a ZED adds <font color=\"#b346ea\">2</font> rounds into your current magazine from your spare ammo pool"
+	bShouldLocalize=True
+	UpgradeName="ZedternalReborn.WMUpgrade_Skill_MagicBullet"
 	UpgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_MagicBullet'
 	UpgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_MagicBullet_Deluxe'
 

@@ -23,8 +23,8 @@ defaultproperties
 {
 	MeleeAttackSpeed=0.15f
 
-	UpgradeName="Melee Attack Speed"
-	UpgradeDescription(0)="Attack %x%% faster with this weapon"
+	bShouldLocalize=True
+	UpgradeName="ZedternalReborn.WMUpgrade_Weapon_MeleeAttackSpeed"
 	WeaponBonus=(baseValue=0, incValue=15, maxValue=-1)
 
 	Name="Default__WMUpgrade_Weapon_MeleeAttackSpeed"

@@ -16,9 +16,8 @@ defaultproperties
 	Mod(0)=1.0f
 	Mod(1)=1.75f
 
-	UpgradeName="Tactician"
-	UpgradeDescription(0)="During ZED Time you reload and switch <font color=\"#eaeff7\">all weapons</font> at full speed"
-	UpgradeDescription(1)="During ZED Time you reload and switch <font color=\"#eaeff7\">all weapons</font> <font color=\"#b346ea\">75%</font> faster than full speed"
+	bShouldLocalize=True
+	UpgradeName="ZedternalReborn.WMUpgrade_Skill_Tactician"
 	UpgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Tactician'
 	UpgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Tactician_Deluxe'
 

@@ -7,8 +7,9 @@ static simulated function bool ImmuneToCameraShake(int upgLevel, KFPawn OwnerPaw
 
 defaultproperties
 {
-	UpgradeName="HUD Stabilizer"
-	UpgradeDescription(0)="Stabilizes your HUD against external shocks and shakes"
+	bShouldLocalize=True
+	UpgradeName="ZedternalReborn.WMUpgrade_Equipment_HUDStabilizer"
+	LocalizeDescriptionLineCount=1
 	UpgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Equipment.UI_Equipment_HUDStabilizer'
 
 	Name="Default__WMUpgrade_Equipment_HUDStabilizer"

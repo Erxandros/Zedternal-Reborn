@@ -41,8 +41,8 @@ defaultproperties
 	HealAmount=5
 	ZedSpawnRateFactor=1.1f
 
-	Title="Vampire"
-	Description="Everyone is a vampire!"
+	bShouldLocalize=True
+	Title="ZedternalReborn.WMSpecialWave_Vampire"
 
 	Name="Default__WMSpecialWave_Vampire"
 }

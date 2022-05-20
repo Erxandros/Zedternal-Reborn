@@ -47,9 +47,8 @@ defaultproperties
 	Health(0)=0.1f
 	Health(1)=0.25f
 
-	UpgradeName="Fortitude"
-	UpgradeDescription(0)="Increase total health by 10% and regenerate 1 health point every 2 seconds"
-	UpgradeDescription(1)="Increase total health by <font color=\"#b346ea\">25%</font> and regenerate 1 health point <font color=\"#b346ea\">every second</font>"
+	bShouldLocalize=True
+	UpgradeName="ZedternalReborn.WMUpgrade_Skill_Fortitude"
 	UpgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Fortitude'
 	UpgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Fortitude_Deluxe'
 

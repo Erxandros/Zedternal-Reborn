@@ -6,8 +6,8 @@ defaultproperties
 	WaveValueFactor=0.7f
 	DoshFactor=1.6f
 
-	Title="Mechanical Problem"
-	Description="Launching Annihilation.exe"
+	bShouldLocalize=True
+	Title="ZedternalReborn.WMSpecialWave_MechanicalProblem"
 
 	bReplaceMonstertoAdd=True
 	MonsterToAdd(0)=(MinWave=0,MaxWave=999,MinGr=1,MaxGr=1,MClass=class'KFGameContent.KFPawn_ZedDAR_Rocket')

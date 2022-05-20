@@ -11,7 +11,8 @@ defaultproperties
 {
 	Damage=0.225f
 
-	BuffDescription="ZEDS DEAL MORE DAMAGE II"
+	bShouldLocalize=True
+	BuffDescription="ZedternalReborn.WMZedBuff_Damage_II"
 	BuffIcon=Texture2D'ZED_Clot_UI.ZED-VS_Icons_AlphaClot-Melee'
 
 	Name="Default__WMZedBuff_Damage_II"

@@ -24,8 +24,8 @@ defaultproperties
 {
 	KnockdownPower=0.15f
 
-	UpgradeName="Knockdown Effect"
-	UpgradeDescription(0)="Increase knockdown power of this weapon by %x%%"
+	bShouldLocalize=True
+	UpgradeName="ZedternalReborn.WMUpgrade_Weapon_KnockdownPower"
 	WeaponBonus=(baseValue=0, incValue=15, maxValue=-1)
 
 	Name="Default__WMUpgrade_Weapon_KnockdownPower"

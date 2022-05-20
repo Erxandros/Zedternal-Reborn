@@ -30,10 +30,9 @@ defaultproperties
 	Damage=0.05f
 	Defense=0.03f
 
-	UpgradeName="Berserker"
-	UpgradeDescription(0)="+%x%% Melee Damage Resistance"
-	UpgradeDescription(1)="+%x%% Melee Attack Speed and Rate Of Fire with <font color=\"#eaeff7\">any weapon</font>"
-	UpgradeDescription(2)="+%x%% Damage with <font color=\"#caab05\">Berserker weapons</font>"
+	bShouldLocalize=True
+	UpgradeName="ZedternalReborn.WMUpgrade_Perk_Berserker"
+	LocalizeDescriptionLineCount=3
 	PerkBonus(0)=(baseValue=0, incValue=3, maxValue=30)
 	PerkBonus(1)=(baseValue=0, incValue=5, maxValue=-1)
 	PerkBonus(2)=(baseValue=0, incValue=5, maxValue=-1)

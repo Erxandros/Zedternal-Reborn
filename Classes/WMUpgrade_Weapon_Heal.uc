@@ -27,8 +27,8 @@ defaultproperties
 {
 	Heal=0.2f
 
-	UpgradeName="Heal Potency"
-	UpgradeDescription(0)="Increase healing potency of this weapon by %x%%"
+	bShouldLocalize=True
+	UpgradeName="ZedternalReborn.WMUpgrade_Weapon_Heal"
 	WeaponBonus=(baseValue=0, incValue=20, maxValue=-1)
 
 	Name="Default__WMUpgrade_Weapon_Heal"

@@ -33,8 +33,8 @@ defaultproperties
 {
 	RateOfFire=0.15f
 
-	UpgradeName="Rate Of Fire"
-	UpgradeDescription(0)="Increase rate of fire of this weapon by %x%%"
+	bShouldLocalize=True
+	UpgradeName="ZedternalReborn.WMUpgrade_Weapon_RateOfFire"
 	WeaponBonus=(baseValue=0, incValue=15, maxValue=-1)
 
 	Name="Default__WMUpgrade_Weapon_RateOfFire"

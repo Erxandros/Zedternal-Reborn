@@ -12,9 +12,8 @@ defaultproperties
 	SwitchSpeed(0)=1.0f
 	SwitchSpeed(1)=2.5f
 
-	UpgradeName="Quick Draw"
-	UpgradeDescription(0)="Switch between <font color=\"#eaeff7\">any weapons</font> 100% faster"
-	UpgradeDescription(1)="Switch between <font color=\"#eaeff7\">any weapons</font> <font color=\"#b346ea\">250%</font> faster"
+	bShouldLocalize=True
+	UpgradeName="ZedternalReborn.WMUpgrade_Skill_QuickDraw"
 	UpgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_QuickDraw'
 	UpgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_QuickDraw_Deluxe'
 

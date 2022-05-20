@@ -25,8 +25,8 @@ defaultproperties
 	ZedSpawnRateFactor=0.925f
 	WaveValueFactor=0.95f
 
-	Title="Lethargic"
-	Description="They are faster during ZED times!"
+	bShouldLocalize=True
+	Title="ZedternalReborn.WMSpecialWave_Lethargic"
 
 	Name="Default__WMSpecialWave_Lethargic"
 }

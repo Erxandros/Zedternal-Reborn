@@ -22,10 +22,9 @@ defaultproperties
 	DamageHead=0.05f
 	Recoil=0.1f
 
-	UpgradeName="Sharpshooter"
-	UpgradeDescription(0)="-%x%% Recoil with <font color=\"#eaeff7\">any weapon</font>"
-	UpgradeDescription(1)="+%x%% Headshot Damage with <font color=\"#eaeff7\">any weapon</font>"
-	UpgradeDescription(2)="+%x%% Damage with <font color=\"#caab05\">Sharpshooter weapons</font>"
+	bShouldLocalize=True
+	UpgradeName="ZedternalReborn.WMUpgrade_Perk_Sharpshooter"
+	LocalizeDescriptionLineCount=3
 	PerkBonus(0)=(baseValue=0, incValue=8, maxValue=80)
 	PerkBonus(1)=(baseValue=0, incValue=5, maxValue=-1)
 	PerkBonus(2)=(baseValue=0, incValue=5, maxValue=-1)

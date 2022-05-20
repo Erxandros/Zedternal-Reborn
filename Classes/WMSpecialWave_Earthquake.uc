@@ -59,8 +59,8 @@ defaultproperties
 {
 	WaveValueFactor=1.05f
 
-	Title="Earthquake"
-	Description="The world is now shaking"
+	bShouldLocalize=True
+	Title="ZedternalReborn.WMSpecialWave_Earthquake"
 
 	Name="Default__WMSpecialWave_Earthquake"
 }

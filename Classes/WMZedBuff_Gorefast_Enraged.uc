@@ -26,7 +26,8 @@ defaultproperties
 	Speed=0.15f
 	SprintChance=1.0f
 
-	BuffDescription="GOREFASTS ARE ENRAGED"
+	bShouldLocalize=True
+	BuffDescription="ZedternalReborn.WMZedBuff_Gorefast_Enraged"
 	BuffIcon=Texture2D'ZED_Gorefast_UI.ZED-VS_Icons_Gorefast-BladeSwing'
 
 	Name="Default__WMZedBuff_Gorefast_Enraged"

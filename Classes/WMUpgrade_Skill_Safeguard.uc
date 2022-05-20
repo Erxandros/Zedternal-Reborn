@@ -17,9 +17,8 @@ defaultproperties
 	Bonus(0)=0.2f
 	Bonus(1)=0.5f
 
-	UpgradeName="Safe Guard"
-	UpgradeDescription(0)="Increase syringe and healing dart potency and recharge rate by 20%"
-	UpgradeDescription(1)="Increase syringe and healing dart potency and recharge rate by <font color=\"#b346ea\">50%</font>"
+	bShouldLocalize=True
+	UpgradeName="ZedternalReborn.WMUpgrade_Skill_Safeguard"
 	UpgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Safeguard'
 	UpgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Safeguard_Deluxe'
 

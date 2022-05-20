@@ -50,9 +50,8 @@ defaultproperties
 	Armor(0)=0.5f
 	Armor(1)=1.0f
 
-	UpgradeName="Assault Armor"
-	UpgradeDescription(0)="Repair 50% of your armor after completing a wave"
-	UpgradeDescription(1)="Repair <font color=\"#b346ea\">100%</font> of your armor after completing a wave"
+	bShouldLocalize=True
+	UpgradeName="ZedternalReborn.WMUpgrade_Skill_AssaultArmor"
 	UpgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_AssaultArmor'
 	UpgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_AssaultArmor_Deluxe'
 

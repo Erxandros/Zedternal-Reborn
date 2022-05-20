@@ -24,10 +24,9 @@ defaultproperties
 	Damage=0.05f
 	MagSize=0.1f
 
-	UpgradeName="SWAT"
-	UpgradeDescription(0)="+%x%% Max Armor"
-	UpgradeDescription(1)="+%x%% Mag Size with <font color=\"#eaeff7\">any weapon</font>"
-	UpgradeDescription(2)="+%x%% Damage with <font color=\"#caab05\">SWAT weapons</font>"
+	bShouldLocalize=True
+	UpgradeName="ZedternalReborn.WMUpgrade_Perk_SWAT"
+	LocalizeDescriptionLineCount=3
 	PerkBonus(0)=(baseValue=0, incValue=10, maxValue=100)
 	PerkBonus(1)=(baseValue=0, incValue=10, maxValue=-1)
 	PerkBonus(2)=(baseValue=0, incValue=5, maxValue=-1)

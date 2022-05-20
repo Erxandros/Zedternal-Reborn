@@ -54,8 +54,8 @@ defaultproperties
 	ZedSpawnRateFactor=1.2f
 	WaveValueFactor=1.2f
 
-	Title="Predator"
-	Description="The enemy of my enemy is my friend!"
+	bShouldLocalize=True
+	Title="ZedternalReborn.WMSpecialWave_Predator"
 
 	Name="Default__WMSpecialWave_Predator"
 }

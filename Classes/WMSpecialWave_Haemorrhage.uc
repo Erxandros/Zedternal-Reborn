@@ -90,8 +90,8 @@ defaultproperties
 	BleedTime=20
 	ZedSpawnRateFactor=0.9f
 
-	Title="Haemorrhage"
-	Description="Watch out for paper cuts!"
+	bShouldLocalize=True
+	Title="ZedternalReborn.WMSpecialWave_Haemorrhage"
 
 	Name="Default__WMSpecialWave_Haemorrhage"
 }

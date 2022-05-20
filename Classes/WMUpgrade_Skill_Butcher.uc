@@ -19,9 +19,8 @@ defaultproperties
 	RateOfFire(0)=0.15f
 	RateOfFire(1)=0.4f
 
-	UpgradeName="Butcher"
-	UpgradeDescription(0)="Attack and shoot 15% faster with <font color=\"#eaeff7\">all weapons</font>"
-	UpgradeDescription(1)="Attack and shoot <font color=\"#b346ea\">40%</font> faster with <font color=\"#eaeff7\">all weapons</font>"
+	bShouldLocalize=True
+	UpgradeName="ZedternalReborn.WMUpgrade_Skill_Butcher"
 	UpgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Butcher'
 	UpgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Butcher_Deluxe'
 

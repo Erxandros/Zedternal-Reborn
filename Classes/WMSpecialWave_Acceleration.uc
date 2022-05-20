@@ -28,8 +28,8 @@ defaultproperties
 	MaxTimeDilation=2.0f
 	Delta=0.04f
 
-	Title="Acceleration"
-	Description="Time is collapsing!"
+	bShouldLocalize=True
+	Title="ZedternalReborn.WMSpecialWave_Acceleration"
 
 	Name="Default__WMSpecialWave_Acceleration"
 }

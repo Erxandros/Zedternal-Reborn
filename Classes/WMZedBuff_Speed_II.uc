@@ -17,7 +17,8 @@ defaultproperties
 	Speed=0.1875f
 	SprintChance=0.6f
 
-	BuffDescription="ZEDS MOVE FASTER II"
+	bShouldLocalize=True
+	BuffDescription="ZedternalReborn.WMZedBuff_Speed_II"
 	BuffIcon=Texture2D'ZED_Clot_UI.ZED-VS_Icons_AlphaClot-Jump'
 
 	Name="Default__WMZedBuff_Speed_II"

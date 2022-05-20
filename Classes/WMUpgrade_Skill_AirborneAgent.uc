@@ -37,9 +37,8 @@ static simulated function DeleteHelperClass(Pawn OwnerPawn)
 
 defaultproperties
 {
-	UpgradeName="Airborne Agent"
-	UpgradeDescription(0)="Release healing gas when you or nearby teammates are in danger"
-	UpgradeDescription(1)="Release <font color=\"#b346ea\">potent</font> healing gas when you or nearby teammates are in danger"
+	bShouldLocalize=True
+	UpgradeName="ZedternalReborn.WMUpgrade_Skill_AirborneAgent"
 	UpgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_AirborneAgent'
 	UpgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_AirborneAgent_Deluxe'
 

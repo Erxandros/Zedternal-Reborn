@@ -19,9 +19,8 @@ defaultproperties
 	SelfHealing(0)=0.1f
 	SelfHealing(1)=0.25f
 
-	UpgradeName="Empathy"
-	UpgradeDescription(0)="Healing effectiveness increases by 25% and healing teammates will heal 10% of your total health"
-	UpgradeDescription(1)="Healing effectiveness increases by <font color=\"#b346ea\">50%</font> and healing teammates will heal <font color=\"#b346ea\">25%</font> of your total health"
+	bShouldLocalize=True
+	UpgradeName="ZedternalReborn.WMUpgrade_Skill_Empathy"
 	UpgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Empathy'
 	UpgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Empathy_Deluxe'
 

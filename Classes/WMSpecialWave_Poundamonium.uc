@@ -14,8 +14,8 @@ defaultproperties
 	WaveValueFactor=0.8f
 	DoshFactor=1.25f
 
-	Title="Poundamonium"
-	Description="The Fleshpound Convention is in town!"
+	bShouldLocalize=True
+	Title="ZedternalReborn.WMSpecialWave_Poundamonium"
 
 	bReplaceMonstertoAdd=True
 	MonsterToAdd(0)=(MinWave=0,MaxWave=999,MinGr=1,MaxGr=2,MClass=class'KFGameContent.KFPawn_ZedFleshpound')

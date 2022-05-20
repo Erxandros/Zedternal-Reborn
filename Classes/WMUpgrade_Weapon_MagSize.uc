@@ -21,8 +21,8 @@ defaultproperties
 {
 	MagSize=0.15f
 
-	UpgradeName="Magazine Size"
-	UpgradeDescription(0)="Increase magazine capacity of this weapon by %x%%"
+	bShouldLocalize=True
+	UpgradeName="ZedternalReborn.WMUpgrade_Weapon_MagSize"
 	WeaponBonus=(baseValue=0, incValue=15, maxValue=-1)
 
 	Name="Default__WMUpgrade_Weapon_MagSize"

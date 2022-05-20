@@ -70,8 +70,8 @@ defaultproperties
 	WaveValueFactor=0.4f
 	DoshFactor=0.65f
 
-	Title="Division"
-	Description="Double the Troubles!"
+	bShouldLocalize=True
+	Title="ZedternalReborn.WMSpecialWave_Division"
 
 	Name="Default__WMSpecialWave_Division"
 }

@@ -24,10 +24,9 @@ defaultproperties
 	Health=0.05f
 	HealRate=0.2f
 
-	UpgradeName="Medic"
-	UpgradeDescription(0)="+%x%% Max Health"
-	UpgradeDescription(1)="+%x%% Syringe and Healing Dart Recharge Rate"
-	UpgradeDescription(2)="+%x%% Damage with <font color=\"#caab05\">Medic weapons</font>"
+	bShouldLocalize=True
+	UpgradeName="ZedternalReborn.WMUpgrade_Perk_FieldMedic"
+	LocalizeDescriptionLineCount=3
 	PerkBonus(0)=(baseValue=0, incValue=5, maxValue=50)
 	PerkBonus(1)=(baseValue=0, incValue=20, maxValue=-1)
 	PerkBonus(2)=(baseValue=0, incValue=5, maxValue=-1)

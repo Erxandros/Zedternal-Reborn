@@ -37,8 +37,8 @@ defaultproperties
 {
 	Recoil=0.2f
 
-	UpgradeName="Recoil"
-	UpgradeDescription(0)="Decrease recoil of this weapon by %x%%"
+	bShouldLocalize=True
+	UpgradeName="ZedternalReborn.WMUpgrade_Weapon_Recoil"
 	WeaponBonus=(baseValue=0, incValue=20, maxValue=95)
 
 	Name="Default__WMUpgrade_Weapon_Recoil"

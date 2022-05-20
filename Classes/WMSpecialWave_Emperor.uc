@@ -24,8 +24,8 @@ defaultproperties
 	WaveValueFactor=0.75f
 	DoshFactor=1.4f
 
-	Title="Emperor"
-	Description="He is scary..."
+	bShouldLocalize=True
+	Title="ZedternalReborn.WMSpecialWave_Emperor"
 
 	Name="Default__WMSpecialWave_Emperor"
 }

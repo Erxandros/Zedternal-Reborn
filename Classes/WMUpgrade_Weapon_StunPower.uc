@@ -24,8 +24,8 @@ defaultproperties
 {
 	StunPower=0.25f
 
-	UpgradeName="Stun Effect"
-	UpgradeDescription(0)="Increase stun power of this weapon by %x%%"
+	bShouldLocalize=True
+	UpgradeName="ZedternalReborn.WMUpgrade_Weapon_StunPower"
 	WeaponBonus=(baseValue=0, incValue=25, maxValue=-1)
 
 	Name="Default__WMUpgrade_Weapon_StunPower"

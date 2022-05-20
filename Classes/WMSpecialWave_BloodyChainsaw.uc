@@ -14,8 +14,8 @@ defaultproperties
 	WaveValueFactor=0.8f
 	DoshFactor=1.25f
 
-	Title="Bloody Chainsaws"
-	Description="Scrakes are everywhere!"
+	bShouldLocalize=True
+	Title="ZedternalReborn.WMSpecialWave_BloodyChainsaw"
 
 	bReplaceMonstertoAdd=True
 	MonsterToAdd(0)=(MinWave=0,MaxWave=999,MinGr=1,MaxGr=1,MClass=class'KFGameContent.KFPawn_ZedScrake')

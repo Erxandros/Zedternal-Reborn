@@ -11,7 +11,8 @@ defaultproperties
 {
 	SpawnRate=0.1f
 
-	BuffDescription="ZEDS SPAWN FASTER"
+	bShouldLocalize=True
+	BuffDescription="ZedternalReborn.WMZedBuff_SpawnRate"
 	BuffIcon=Texture2D'ZED_Patriarch_UI.ZED-VS_Icons_Generic-Cloak'
 
 	Name="Default__WMZedBuff_SpawnRate"

@@ -43,8 +43,8 @@ defaultproperties
 	InflationExplosionTimer=1.7f
 	ZeroHealthInflation=3.0f
 
-	Title="Up, Up and Decay"
-	Description="Try to make ninety-nine Zed balloons!"
+	bShouldLocalize=True
+	Title="ZedternalReborn.WMSpecialWave_UpUpDecay"
 
 	Name="Default__WMSpecialWave_UpUpDecay"
 }

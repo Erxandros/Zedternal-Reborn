@@ -21,9 +21,8 @@ defaultproperties
 	Speed(0)=0.1f
 	Speed(1)=0.2f
 
-	UpgradeName="Special Unit"
-	UpgradeDescription(0)="While you have body armor increase damage with <font color=\"#eaeff7\">all weapons</font> by 15% otherwise increase movement speed by 10%"
-	UpgradeDescription(1)="While you have body armor increase damage with <font color=\"#eaeff7\">all weapons</font> by <font color=\"#b346ea\">40%</font> otherwise increase movement speed by <font color=\"#b346ea\">20%</font>"
+	bShouldLocalize=True
+	UpgradeName="ZedternalReborn.WMUpgrade_Skill_SpecialUnit"
 	UpgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_SpecialUnit'
 	UpgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_SpecialUnit_Deluxe'
 

@@ -13,9 +13,8 @@ defaultproperties
 	Damage(0)=0.2f
 	Damage(1)=0.5f
 
-	UpgradeName="Assassin"
-	UpgradeDescription(0)="Increase headshot damage with <font color=\"#eaeff7\">all weapons</font> by 20%"
-	UpgradeDescription(1)="Increase headshot damage with <font color=\"#eaeff7\">all weapons</font> by <font color=\"#b346ea\">50%</font>"
+	bShouldLocalize=True
+	UpgradeName="ZedternalReborn.WMUpgrade_Skill_Assassin"
 	UpgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Assassin'
 	UpgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Assassin_Deluxe'
 

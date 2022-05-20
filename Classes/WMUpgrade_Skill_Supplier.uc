@@ -25,9 +25,8 @@ defaultproperties
 	MaxAmmo(1)=0.75f
 	SupplierAmmo=0.3f;
 
-	UpgradeName="Supplier"
-	UpgradeDescription(0)="You can carry up to 30% more ammo for <font color=\"#eaeff7\">all weapons</font> and once per wave your teammates can restock 30% of their ammo by interacting with you"
-	UpgradeDescription(1)="You can carry up to <font color=\"#b346ea\">75%</font> more ammo for <font color=\"#eaeff7\">all weapons</font> and once per wave your teammates can restock 30% of their ammo by interacting with you"
+	bShouldLocalize=True
+	UpgradeName="ZedternalReborn.WMUpgrade_Skill_Supplier"
 	UpgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Supplier'
 	UpgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Supplier_Deluxe'
 

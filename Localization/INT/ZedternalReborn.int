@@ -1,0 +1,919 @@
+//Version 1.0
+
+//Upgrades
+[WMUpgrade_Equipment_ArmorUp]
+UpgradeName="Armor Up"
+EquipmentUpgradeDescription1="Increase armor by %x% points"
+
+[WMUpgrade_Equipment_FallCompensatorBoots]
+UpgradeName="Fall Compensator Boots"
+EquipmentUpgradeDescription1="Decrease fall damage by %x%%"
+
+[WMUpgrade_Equipment_GasMask]
+UpgradeName="Gas Mask"
+EquipmentUpgradeDescription1="Prevents toxic effects from blocking your vision"
+
+[WMUpgrade_Equipment_HealthUp]
+UpgradeName="Health Up"
+EquipmentUpgradeDescription1="Increase health by %x% points"
+
+[WMUpgrade_Equipment_HUDStabilizer]
+UpgradeName="HUD Stabilizer"
+EquipmentUpgradeDescription1="Stabilizes your HUD against external shocks and shakes"
+
+[WMUpgrade_Equipment_NightVision]
+UpgradeName="Night Vision"
+EquipmentUpgradeDescription1="Grants night vision ability"
+
+[WMUpgrade_Equipment_SpareBatteries]
+UpgradeName="Spare Batteries"
+EquipmentUpgradeDescription1="Increase battery capacity by %x%%"
+
+[WMUpgrade_Perk_Berserker]
+UpgradeName="Berserker"
+PerkUpgradeDescription1="+%x%% Melee Damage Resistance"
+PerkUpgradeDescription2="+%x%% Melee Attack Speed and Rate Of Fire with <font color=\"#eaeff7\">any weapon</font>"
+PerkUpgradeDescription3="+%x%% Damage with <font color=\"#caab05\">Berserker weapons</font>"
+
+[WMUpgrade_Perk_Commando]
+UpgradeName="Commando"
+PerkUpgradeDescription1="+%x%s. ZED Time Extension with <font color=\"#eaeff7\">any weapon</font>"
+PerkUpgradeDescription2="+%x%% Reload Speed with <font color=\"#eaeff7\">any weapon</font>"
+PerkUpgradeDescription3="+%x%% Damage with <font color=\"#caab05\">Commando weapons</font>"
+
+[WMUpgrade_Perk_Demolitionist]
+UpgradeName="Demolitionist"
+PerkUpgradeDescription1="+%x%% Grenade Damage with <font color=\"#eaeff7\">any grenade</font>"
+PerkUpgradeDescription2="+%x%% Damage Against Large ZEDs with <font color=\"#eaeff7\">any weapon</font>"
+PerkUpgradeDescription3="+%x%% Damage with <font color=\"#caab05\">Demolitionist weapons</font>"
+
+[WMUpgrade_Perk_FieldMedic]
+UpgradeName="Medic"
+PerkUpgradeDescription1="+%x%% Max Health"
+PerkUpgradeDescription2="+%x%% Syringe and Healing Dart Recharge Rate"
+PerkUpgradeDescription3="+%x%% Damage with <font color=\"#caab05\">Medic weapons</font>"
+
+[WMUpgrade_Perk_Firebug]
+UpgradeName="FireBug"
+PerkUpgradeDescription1="+%x%% Fire, Explosive, Bloat Bile, and Siren Sonic Damage Resistance"
+PerkUpgradeDescription2="+%x%% Ammo Refill after completing a wave with <font color=\"#eaeff7\">any weapon</font>"
+PerkUpgradeDescription3="+%x%% Damage with <font color=\"#caab05\">Firebug weapons</font>"
+
+[WMUpgrade_Perk_Gunslinger]
+UpgradeName="Gunslinger"
+PerkUpgradeDescription1="+%x%% Movement Speed"
+PerkUpgradeDescription2="+%x%% Weapon Switch Speed with <font color=\"#eaeff7\">any weapon</font>"
+PerkUpgradeDescription3="+%x%% Damage with <font color=\"#caab05\">Gunslinger weapons</font>"
+
+[WMUpgrade_Perk_Sharpshooter]
+UpgradeName="Sharpshooter"
+PerkUpgradeDescription1="-%x%% Recoil with <font color=\"#eaeff7\">any weapon</font>"
+PerkUpgradeDescription2="+%x%% Headshot Damage with <font color=\"#eaeff7\">any weapon</font>"
+PerkUpgradeDescription3="+%x%% Damage with <font color=\"#caab05\">Sharpshooter weapons</font>"
+
+[WMUpgrade_Perk_Support]
+UpgradeName="Support"
+PerkUpgradeDescription1="+%x%% Stopping Power with <font color=\"#eaeff7\">any weapon</font>"
+PerkUpgradeDescription2="+%x%% Penetration with <font color=\"#eaeff7\">any weapon</font>"
+PerkUpgradeDescription3="+%x%% Damage with <font color=\"#caab05\">Support weapons</font>"
+
+[WMUpgrade_Perk_Survivalist]
+UpgradeName="Survivalist"
+PerkUpgradeDescription1="+%x% Weight Capacity"
+PerkUpgradeDescription2="+%x%% Spare Ammo with <font color=\"#eaeff7\">any weapon</font>"
+PerkUpgradeDescription3="+%x%% Damage with <font color=\"#eaeff7\">any weapon</font>"
+
+[WMUpgrade_Perk_SWAT]
+UpgradeName="SWAT"
+PerkUpgradeDescription1="+%x%% Max Armor"
+PerkUpgradeDescription2="+%x%% Mag Size with <font color=\"#eaeff7\">any weapon</font>"
+PerkUpgradeDescription3="+%x%% Damage with <font color=\"#caab05\">SWAT weapons</font>"
+
+[WMUpgrade_Skill_AcidicRounds]
+UpgradeName="Acidic Rounds"
+StandardSkillUpgradeDescription="<font color=\"#eaeff7\">All weapons</font> can poison ZEDs inflicting poison damage over time"
+DeluxeSkillUpgradeDescription="<font color=\"#eaeff7\">All weapons</font> can poison ZEDs inflicting <font color=\"#b346ea\">high</font> poison damage over time"
+
+[WMUpgrade_Skill_AirborneAgent]
+UpgradeName="Airborne Agent"
+StandardSkillUpgradeDescription="Release healing gas when you or nearby teammates are in danger"
+DeluxeSkillUpgradeDescription="Release <font color=\"#b346ea\">potent</font> healing gas when you or nearby teammates are in danger"
+
+[WMUpgrade_Skill_AmmoPickup]
+UpgradeName="Extra Ammo Pickup"
+StandardSkillUpgradeDescription="Increase total ammo received from ammo boxes by 50%"
+DeluxeSkillUpgradeDescription="Increase total ammo received from ammo boxes by <font color=\"#b346ea\">125%</font>"
+
+[WMUpgrade_Skill_AmmoVest]
+UpgradeName="Ammo Vest"
+StandardSkillUpgradeDescription="Increase weight capacity by 2 and you can carry up to 30% more ammo for <font color=\"#eaeff7\">all weapons</font>"
+DeluxeSkillUpgradeDescription="Increase weight capacity by <font color=\"#b346ea\">5</font> and you can carry up to <font color=\"#b346ea\">75%</font> more ammo for <font color=\"#eaeff7\">all weapons</font>"
+
+[WMUpgrade_Skill_Assassin]
+UpgradeName="Assassin"
+StandardSkillUpgradeDescription="Increase headshot damage with <font color=\"#eaeff7\">all weapons</font> by 20%"
+DeluxeSkillUpgradeDescription="Increase headshot damage with <font color=\"#eaeff7\">all weapons</font> by <font color=\"#b346ea\">50%</font>"
+
+[WMUpgrade_Skill_AssaultArmor]
+UpgradeName="Assault Armor"
+StandardSkillUpgradeDescription="Repair 50% of your armor after completing a wave"
+DeluxeSkillUpgradeDescription="Repair <font color=\"#b346ea\">100%</font> of your armor after completing a wave"
+
+[WMUpgrade_Skill_Barbecue]
+UpgradeName="Barbecue"
+StandardSkillUpgradeDescription="Bleed, burn, freeze, and poison effects last 200% longer and do 10% more damage over time"
+DeluxeSkillUpgradeDescription="Bleed, burn, freeze, and poison effects last <font color=\"#b346ea\">500%</font> longer and do <font color=\"#b346ea\">25%</font> more damage over time"
+
+[WMUpgrade_Skill_Barrage]
+UpgradeName="Barrage"
+StandardSkillUpgradeDescription="Increase damage at point blank range with <font color=\"#eaeff7\">all weapons</font> by 25%"
+DeluxeSkillUpgradeDescription="Increase damage at point blank range with <font color=\"#eaeff7\">all weapons</font> by <font color=\"#b346ea\">60%</font>"
+
+[WMUpgrade_Skill_BattleSurgeon]
+UpgradeName="Battle Surgeon"
+StandardSkillUpgradeDescription="Increase damage with <font color=\"#caab05\">Field Medic weapons</font> by 20% and with <font color=\"#eaeff7\">other weapons</font> by 10%"
+DeluxeSkillUpgradeDescription="Increase damage with <font color=\"#caab05\">Field Medic weapons</font> by <font color=\"#b346ea\">50%</font> and with <font color=\"#eaeff7\">other weapons</font> by <font color=\"#b346ea\">25%</font>"
+
+[WMUpgrade_Skill_BerserkerRage]
+UpgradeName="Berserker Rage"
+StandardSkillUpgradeDescription="While you don't have armor increase <font color=\"#caab05\">melee damage</font> by 30% and <font color=\"#eaeff7\">any other damage</font> by 10%"
+DeluxeSkillUpgradeDescription="While you don't have armor increase <font color=\"#caab05\">melee damage</font> by <font color=\"#b346ea\">75%</font> and <font color=\"#eaeff7\">any other damage</font> by <font color=\"#b346ea\">25%</font>"
+
+[WMUpgrade_Skill_Bombardier]
+UpgradeName="Bombardier"
+StandardSkillUpgradeDescription="You gain a grenade every 45 seconds and damage with <font color=\"#eaeff7\">all grenades</font> increases by 20%"
+DeluxeSkillUpgradeDescription="You gain a grenade every <font color=\"#b346ea\">20</font> seconds and damage with <font color=\"#eaeff7\">all grenades</font> increases by <font color=\"#b346ea\">50%</font>"
+
+[WMUpgrade_Skill_BoneBreaker]
+UpgradeName="Bone Breaker"
+StandardSkillUpgradeDescription="Shooting ZEDs in the arms, legs, and head with <font color=\"#eaeff7\">all weapons</font> increases stumble power by 30% and knockdown power by 30% for limb shots and 20% for headshots"
+DeluxeSkillUpgradeDescription="Shooting ZEDs in the arms, legs, and head with <font color=\"#eaeff7\">all weapons</font> increases stumble power by <font color=\"#b346ea\">75%</font> and knockdown power by <font color=\"#b346ea\">60%</font> for limb shots and <font color=\"#b346ea\">50%</font> for headshots"
+
+[WMUpgrade_Skill_Brawler]
+UpgradeName="Brawler"
+StandardSkillUpgradeDescription="Clots can't grab you and melee damage resistance increases by 5%"
+DeluxeSkillUpgradeDescription="Clots can't grab you and melee damage resistance increases by <font color=\"#b346ea\">10%</font>"
+
+[WMUpgrade_Skill_BringTheHeat]
+UpgradeName="Bring The Heat"
+StandardSkillUpgradeDescription="Release waves of fire while damaging ZEDs with <font color=\"#eaeff7\">any weapon</font>"
+DeluxeSkillUpgradeDescription="Release <font color=\"#b346ea\">powerful</font> waves of fire while damaging ZEDs with <font color=\"#eaeff7\">any weapon</font>"
+
+[WMUpgrade_Skill_Butcher]
+UpgradeName="Butcher"
+StandardSkillUpgradeDescription="Attack and shoot 15% faster with <font color=\"#eaeff7\">all weapons</font>"
+DeluxeSkillUpgradeDescription="Attack and shoot <font color=\"#b346ea\">40%</font> faster with <font color=\"#eaeff7\">all weapons</font>"
+
+[WMUpgrade_Skill_CallOut]
+UpgradeName="Call Out"
+StandardSkillUpgradeDescription="Allows you to see cloaked ZEDs and increases damage you deal with <font color=\"#eaeff7\">all weapons</font> by 10%"
+DeluxeSkillUpgradeDescription="Allows you to see cloaked ZEDs and increases damage you deal with <font color=\"#eaeff7\">all weapons</font> by <font color=\"#b346ea\">25%</font>"
+
+[WMUpgrade_Skill_CoagulantBooster]
+UpgradeName="Coagulant Booster"
+StandardSkillUpgradeDescription="Increase damage resistance by 0.10% per health point lost up to a max of 10%"
+DeluxeSkillUpgradeDescription="Increase damage resistance by <font color=\"#b346ea\">0.25%</font> per health point lost up to a max of <font color=\"#b346ea\">25%</font>"
+
+[WMUpgrade_Skill_ColdRiposte]
+UpgradeName="Cold Riposte"
+StandardSkillUpgradeDescription="Release an ice explosion when you take damage"
+DeluxeSkillUpgradeDescription="Release a <font color=\"#b346ea\">huge</font> ice explosion when you take damage"
+
+[WMUpgrade_Skill_CombatantDoctor]
+UpgradeName="Combatant Doctor"
+StandardSkillUpgradeDescription="Generate a chunk of ammo for all of your weapons after healing 50 health points"
+DeluxeSkillUpgradeDescription="Generate a chunk of ammo for all of your weapons after healing <font color=\"#b346ea\">25</font> health points"
+
+[WMUpgrade_Skill_Combustion]
+UpgradeName="Combustion"
+StandardSkillUpgradeDescription="Increase burn, freeze, and poison damages by 25%"
+DeluxeSkillUpgradeDescription="Increase burn, freeze, and poison damages by <font color=\"#b346ea\">60%</font>"
+
+[WMUpgrade_Skill_Concentration]
+UpgradeName="Concentration"
+StandardSkillUpgradeDescription="During ZED Time you do 30% more damage with <font color=\"#eaeff7\">all weapons</font>"
+DeluxeSkillUpgradeDescription="During ZED Time you do <font color=\"#b346ea\">75%</font> more damage with <font color=\"#eaeff7\">all weapons</font>"
+
+[WMUpgrade_Skill_ConcussionRounds]
+UpgradeName="Concussion Rounds"
+StandardSkillUpgradeDescription="Increase stumble, stun, and knockdown power for <font color=\"#eaeff7\">all weapons</font> by 25%"
+DeluxeSkillUpgradeDescription="Increase stumble, stun, and knockdown power for <font color=\"#eaeff7\">all weapons</font> by <font color=\"#b346ea\">60%</font>"
+
+[WMUpgrade_Skill_Cripple]
+UpgradeName="Cripple"
+StandardSkillUpgradeDescription="Multiple hits with <font color=\"#eaeff7\">all weapons</font> slow ZEDs down by 30% and damage you deal with <font color=\"#eaeff7\">all weapons</font> increases by 10%"
+DeluxeSkillUpgradeDescription="Multiple hits with <font color=\"#eaeff7\">all weapons</font> slow ZEDs down by 30% and damage you deal with <font color=\"#eaeff7\">all weapons</font> increases by <font color=\"#b346ea\">25%</font>"
+
+[WMUpgrade_Skill_DeadEye]
+UpgradeName="Dead Eye"
+StandardSkillUpgradeDescription="When using iron sights headshot damage increases by 10% and recoil decreases by 10% with <font color=\"#eaeff7\">all weapons</font>"
+DeluxeSkillUpgradeDescription="When using iron sights headshot damage increases by <font color=\"#b346ea\">25%</font> and recoil decreases by <font color=\"#b346ea\">25%</font> with <font color=\"#eaeff7\">all weapons</font>"
+
+[WMUpgrade_Skill_DestroyerOfWorlds]
+UpgradeName="Destroyer Of Worlds"
+StandardSkillUpgradeDescription="Increase damage with <font color=\"#eaeff7\">all explosives</font> and <font color=\"#eaeff7\">all grenades</font> by 20%"
+DeluxeSkillUpgradeDescription="Increase damage with <font color=\"#eaeff7\">all explosives</font> and <font color=\"#eaeff7\">all grenades</font> by <font color=\"#b346ea\">50%</font>"
+
+[WMUpgrade_Skill_Destruction]
+UpgradeName="Destruction"
+StandardSkillUpgradeDescription="ZEDs within 5 meters of you fall down whenever ZED Time starts"
+DeluxeSkillUpgradeDescription="ZEDs within <font color=\"#b346ea\">10</font> meters of you fall down whenever ZED Time starts"
+
+[WMUpgrade_Skill_DoorTraps]
+UpgradeName="Door Traps"
+StandardSkillUpgradeDescription="Increase welding speed by 75%, grenade capacity by 1, and become able to set explosive door traps"
+DeluxeSkillUpgradeDescription="Increase welding speed by <font color=\"#b346ea\">200%</font>, grenade capacity by <font color=\"#b346ea\">2</font>, and become able to set <font color=\"#b346ea\">nuclear</font> door traps"
+
+[WMUpgrade_Skill_Dreadnaught]
+UpgradeName="Dreadnaught"
+StandardSkillUpgradeDescription="Increase total health by 25%"
+DeluxeSkillUpgradeDescription="Increase total health by <font color=\"#b346ea\">60%</font>"
+
+[WMUpgrade_Skill_Emergency]
+UpgradeName="Emergency"
+StandardSkillUpgradeDescription="Increase movement speed up to 30% when your health is low with lower health equaling faster movement"
+DeluxeSkillUpgradeDescription="Increase movement speed up to <font color=\"#b346ea\">75%</font> when your health is low with lower health equaling faster movement"
+
+[WMUpgrade_Skill_Empathy]
+UpgradeName="Empathy"
+StandardSkillUpgradeDescription="Healing effectiveness increases by 25% and healing teammates will heal 10% of your total health"
+DeluxeSkillUpgradeDescription="Healing effectiveness increases by <font color=\"#b346ea\">50%</font> and healing teammates will heal <font color=\"#b346ea\">25%</font> of your total health"
+
+[WMUpgrade_Skill_ExtraRounds]
+UpgradeName="Extra Rounds"
+StandardSkillUpgradeDescription="Increase max ammo for <font color=\"#eaeff7\">all weapons</font> by 15% and increase max ammo by a further 5 rounds for <font color=\"#caab05\">Demolitionist weapons</font>"
+DeluxeSkillUpgradeDescription="Increase max ammo for <font color=\"#eaeff7\">all weapons</font> by <font color=\"#b346ea\">40%</font> and increase max ammo by a further <font color=\"#b346ea\">10</font> rounds for <font color=\"#caab05\">Demolitionist weapons</font>"
+
+[WMUpgrade_Skill_Fallback]
+UpgradeName="Fallback"
+StandardSkillUpgradeDescription="Increase grenade capacity by 1 and increase damage with your 9mm pistol and your knife by 100%"
+DeluxeSkillUpgradeDescription="Increase grenade capacity by <font color=\"#b346ea\">2</font> and increase damage with your 9mm pistol and your knife by <font color=\"#b346ea\">200%</font>"
+
+[WMUpgrade_Skill_FireStorm]
+UpgradeName="Firestorm"
+StandardSkillUpgradeDescription="Attack and shoot 15% faster with <font color=\"#eaeff7\">all weapons</font> and increase firing range with <font color=\"#caab05\">Firebug flame weapons</font>"
+DeluxeSkillUpgradeDescription="Attack and shoot <font color=\"#b346ea\">40%</font> faster with <font color=\"#eaeff7\">all weapons</font> and increase firing range with <font color=\"#caab05\">Firebug flame weapons</font>"
+
+[WMUpgrade_Skill_FirstBlood]
+UpgradeName="First Blood"
+StandardSkillUpgradeDescription="The first round of <font color=\"#eaeff7\">any magazine</font> to hit a ZED deals extra damage proportional to the magazine's capacity at 5% per round up to a max of 200% for magazines with 40+ rounds"
+DeluxeSkillUpgradeDescription="The first round of <font color=\"#eaeff7\">any magazine</font> to hit a ZED deals extra damage proportional to the magazine's capacity at <font color=\"#b346ea\">10%</font> per round up to a max of <font color=\"#b346ea\">500%</font> for magazines with 50+ rounds"
+
+[WMUpgrade_Skill_FocusInjection]
+UpgradeName="Focus Injection"
+StandardSkillUpgradeDescription="Healing teammates increases the damage they inflict and their damage resistance by 5% for 5 seconds up to a max of 20%"
+DeluxeSkillUpgradeDescription="Healing teammates increases the damage they inflict and their damage resistance by <font color=\"#b346ea\">10%</font> for 5 seconds up to a max of <font color=\"#b346ea\">50%</font>"
+
+[WMUpgrade_Skill_Fortitude]
+UpgradeName="Fortitude"
+StandardSkillUpgradeDescription="Increase total health by 10% and regenerate 1 health point every 2 seconds"
+DeluxeSkillUpgradeDescription="Increase total health by <font color=\"#b346ea\">25%</font> and regenerate 1 health point <font color=\"#b346ea\">every second</font>"
+
+[WMUpgrade_Skill_FrontLine]
+UpgradeName="Front Line"
+StandardSkillUpgradeDescription="Increase resistance to your <font color=\"#eaeff7\">own explosives</font> by 35% and increase other damage resistances by 5%"
+DeluxeSkillUpgradeDescription="Increase resistance to your <font color=\"#eaeff7\">own explosives</font> by <font color=\"#b346ea\">75%</font> and increase other damage resistances by <font color=\"#b346ea\">10%</font>"
+
+[WMUpgrade_Skill_FrozenHeadPopper]
+UpgradeName="Frozen Head Popper"
+StandardSkillUpgradeDescription="Headshots with <font color=\"#eaeff7\">all weapons</font> may cause an ice explosion with higher damage headshots equaling a greater chance to explode"
+DeluxeSkillUpgradeDescription="Headshots with <font color=\"#eaeff7\">all weapons</font> may cause a <font color=\"#b346ea\">massive</font> ice explosion with higher damage headshots equaling a greater chance to explode"
+
+[WMUpgrade_Skill_Guerrilla]
+UpgradeName="Guerrilla"
+StandardSkillUpgradeDescription="Increase maximum health and damage with <font color=\"#eaeff7\">all weapons</font> by 10%"
+DeluxeSkillUpgradeDescription="Increase maximum health and damage with <font color=\"#eaeff7\">all weapons</font> by <font color=\"#b346ea\">25%</font>"
+
+[WMUpgrade_Skill_GunMachine]
+UpgradeName="Machine Gunner"
+StandardSkillUpgradeDescription="Killing a ZED increases damage with <font color=\"#eaeff7\">all weapons</font> by 25% for 5 seconds"
+DeluxeSkillUpgradeDescription="Killing a ZED increases damage with <font color=\"#eaeff7\">all weapons</font> by <font color=\"#b346ea\">60%</font> for 5 seconds"
+
+[WMUpgrade_Skill_HeatWaves]
+UpgradeName="Heat Waves"
+StandardSkillUpgradeDescription="Increase stumble effect by 150% with <font color=\"#eaeff7\">all weapons</font> when firing at ZEDs within 3 meters of you and set ground fires that do 80% extra damage with <font color=\"#caab05\">Firebug flame weapons</font>"
+DeluxeSkillUpgradeDescription="Increase stumble effect by 150% with <font color=\"#eaeff7\">all weapons</font> when firing at ZEDs within <font color=\"#b346ea\">6</font> meters of you and set ground fires that do <font color=\"#b346ea\">200%</font> extra damage with <font color=\"#caab05\">Firebug flame weapons</font>"
+
+[WMUpgrade_Skill_HeavyArmor]
+UpgradeName="Heavy Armor"
+StandardSkillUpgradeDescription="Increase max armor by 30%"
+DeluxeSkillUpgradeDescription="Increase max armor by <font color=\"#b346ea\">75%</font>"
+
+[WMUpgrade_Skill_Hemoglobin]
+UpgradeName="Hemoglobine"
+StandardSkillUpgradeDescription="<font color=\"#caab05\">Poison</font> damage inflicts ZEDs with multisystem failure"
+DeluxeSkillUpgradeDescription="<font color=\"#caab05\">Poison</font> damage inflicts ZEDs with <font color=\"#b346ea\">severe</font> multisystem failure"
+
+[WMUpgrade_Skill_HighCapacityMags]
+UpgradeName="High Capacity Mags"
+StandardSkillUpgradeDescription="Increase magazine capacity by 30% for <font color=\"#eaeff7\">all weapons</font>"
+DeluxeSkillUpgradeDescription="Increase magazine capacity by <font color=\"#b346ea\">75%</font> for <font color=\"#eaeff7\">all weapons</font>"
+
+[WMUpgrade_Skill_HighCapacityMagsB]
+UpgradeName="High Capacity Mags"
+StandardSkillUpgradeDescription="Increase magazine capacity by 30% for <font color=\"#eaeff7\">all weapons</font>"
+DeluxeSkillUpgradeDescription="Increase magazine capacity by <font color=\"#b346ea\">75%</font> for <font color=\"#eaeff7\">all weapons</font>"
+
+[WMUpgrade_Skill_HighImpactRound]
+UpgradeName="High Impact Rounds"
+StandardSkillUpgradeDescription="Increase knockdown power of <font color=\"#eaeff7\">all explosives</font> by 40%"
+DeluxeSkillUpgradeDescription="Increase knockdown power of <font color=\"#eaeff7\">all explosives</font> by <font color=\"#b346ea\">100%</font>"
+
+[WMUpgrade_Skill_HotPepper]
+UpgradeName="Hot Pepper"
+StandardSkillUpgradeDescription="ZEDs within 1.5 meters of you catch on fire in seconds"
+DeluxeSkillUpgradeDescription="ZEDs within 1.5 meters of you catch on <font color=\"#b346ea\">lethal</font> fire in seconds"
+
+[WMUpgrade_Skill_Hunter]
+UpgradeName="Hunter"
+StandardSkillUpgradeDescription="Heal 15 points of health for every large ZED killed"
+DeluxeSkillUpgradeDescription="Heal <font color=\"#b346ea\">40</font> points of health for every large ZED killed"
+
+[WMUpgrade_Skill_ImpactRounds]
+UpgradeName="Impact Rounds"
+StandardSkillUpgradeDescription="Increase stumble power of <font color=\"#eaeff7\">all weapons</font> by 20% and increase <font color=\"#caab05\">ballistic</font> damage by 10%"
+DeluxeSkillUpgradeDescription="Increase stumble power of <font color=\"#eaeff7\">all weapons</font> by <font color=\"#b346ea\">50%</font> and increase <font color=\"#caab05\">ballistic</font> damage by <font color=\"#b346ea\">25%</font>"
+
+[WMUpgrade_Skill_Kamikaze]
+UpgradeName="Kamikaze"
+StandardSkillUpgradeDescription="Once per wave explode and survive when your health reaches critical level"
+DeluxeSkillUpgradeDescription="Increase damage with <font color=\"#eaeff7\">all weapons</font> by <font color=\"#b346ea\">25%</font> and once per wave explode and survive when your health reaches critical level"
+
+[WMUpgrade_Skill_MadBomber]
+UpgradeName="Mad Bomber"
+StandardSkillUpgradeDescription="<font color=\"#caab05\">Explosive rounds</font> can explode at any range and resistance to your <font color=\"#eaeff7\">own explosives</font> increases by 30%"
+DeluxeSkillUpgradeDescription="<font color=\"#caab05\">Explosive rounds</font> can explode at any range and resistance to your <font color=\"#eaeff7\">own explosives</font> increases by <font color=\"#b346ea\">75%</font>"
+
+[WMUpgrade_Skill_MagicBullet]
+UpgradeName="Magic Bullet"
+StandardSkillUpgradeDescription="Killing a ZED adds 1 round into your current magazine from your spare ammo pool"
+DeluxeSkillUpgradeDescription="Killing a ZED adds <font color=\"#b346ea\">2</font> rounds into your current magazine from your spare ammo pool"
+
+[WMUpgrade_Skill_Marksman]
+UpgradeName="Marksman"
+StandardSkillUpgradeDescription="Attack and shoot 15% faster with <font color=\"#eaeff7\">all weapons</font> and move 5% faster"
+DeluxeSkillUpgradeDescription="Attack and shoot <font color=\"#b346ea\">40%</font> faster with <font color=\"#eaeff7\">all weapons</font> and move <font color=\"#b346ea\">10%</font> faster"
+
+[WMUpgrade_Skill_Massacre]
+UpgradeName="Massacre"
+StandardSkillUpgradeDescription="Increase damage with <font color=\"#caab05\">melee weapons</font> by 20% and increase damage with <font color=\"#eaeff7\">other weapons</font> by 5%"
+DeluxeSkillUpgradeDescription="Increase damage with <font color=\"#caab05\">melee weapons</font> by <font color=\"#b346ea\">50%</font> and increase damage with <font color=\"#eaeff7\">other weapons</font> by <font color=\"#b346ea\">15%</font>"
+
+[WMUpgrade_Skill_MedicalInjection]
+UpgradeName="Medical Injection"
+StandardSkillUpgradeDescription="Regenerate up to 3 points of health every second when your health is low with lower health equaling faster regeneration"
+DeluxeSkillUpgradeDescription="Regenerate up to <font color=\"#b346ea\">8</font> points of health every second when your health is low with lower health equaling faster regeneration"
+
+[WMUpgrade_Skill_Napalm]
+UpgradeName="Napalm"
+StandardSkillUpgradeDescription="<font color=\"#eaeff7\">All weapons</font> can set fire to ZEDs and burning ZEDs will light other ZEDs on fire upon contact"
+DeluxeSkillUpgradeDescription="<font color=\"#eaeff7\">All weapons</font> can set <font color=\"#b346ea\">lethal</font> fire to ZEDs and burning ZEDs will light other ZEDs on fire upon contact"
+
+[WMUpgrade_Skill_Overload]
+UpgradeName="Overload"
+StandardSkillUpgradeDescription="Increase magazine capacity and max ammo of <font color=\"#eaeff7\">all weapons</font> by 20%"
+DeluxeSkillUpgradeDescription="Increase magazine capacity and max ammo of <font color=\"#eaeff7\">all weapons</font> by <font color=\"#b346ea\">50%</font>"
+
+[WMUpgrade_Skill_Parry]
+UpgradeName="Parry"
+StandardSkillUpgradeDescription="Parrying an attack with a <font color=\"#caab05\">melee weapon</font> decreases incoming damage by 30% and increases damage output by 30% with <font color=\"#eaeff7\">any weapon</font> for 10 seconds"
+DeluxeSkillUpgradeDescription="Parrying an attack with a <font color=\"#caab05\">melee weapon</font> decreases incoming damage by <font color=\"#b346ea\">40%</font> and increases damage output by <font color=\"#b346ea\">75%</font> with <font color=\"#eaeff7\">any weapon</font> for 10 seconds"
+
+[WMUpgrade_Skill_Penetrator]
+UpgradeName="Penetrator"
+StandardSkillUpgradeDescription="Increase penetration power with <font color=\"#caab05\">shotguns, rifles, and revolvers</font> by 200%"
+DeluxeSkillUpgradeDescription="Increase penetration power with <font color=\"#caab05\">shotguns, rifles, and revolvers</font> by <font color=\"#b346ea\">500%</font>"
+
+[WMUpgrade_Skill_Pressure]
+UpgradeName="Pressure"
+StandardSkillUpgradeDescription="Increase reload speed with <font color=\"#eaeff7\">all weapons</font> by up to 60% when your health is low with lower health equaling faster reloading"
+DeluxeSkillUpgradeDescription="Increase reload speed with <font color=\"#eaeff7\">all weapons</font> by up to <font color=\"#b346ea\">150%</font> when your health is low with lower health equalling faster reloading"
+
+[WMUpgrade_Skill_Pyromaniac]
+UpgradeName="Pyromaniac"
+StandardSkillUpgradeDescription="When you are near 4 or more ZEDs your weapon shoots 20% faster and has unlimited ammo"
+DeluxeSkillUpgradeDescription="When you are near <font color=\"#b346ea\">3</font> or more ZEDs your weapon shoots <font color=\"#b346ea\">40%</font> faster and has unlimited ammo"
+
+[WMUpgrade_Skill_QuickDraw]
+UpgradeName="Quick Draw"
+StandardSkillUpgradeDescription="Switch between <font color=\"#eaeff7\">any weapons</font> 100% faster"
+DeluxeSkillUpgradeDescription="Switch between <font color=\"#eaeff7\">any weapons</font> <font color=\"#b346ea\">250%</font> faster"
+
+[WMUpgrade_Skill_QuickFuse]
+UpgradeName="Quick Fuse"
+StandardSkillUpgradeDescription="Decrease fuse time of <font color=\"#eaeff7\">all grenades</font> by 50% and increase damage with <font color=\"#eaeff7\">all grenades</font> by 20%"
+DeluxeSkillUpgradeDescription="Decrease fuse time of <font color=\"#eaeff7\">all grenades</font> by 50% and increase damage with <font color=\"#eaeff7\">all grenades</font> by <font color=\"#b346ea\">50%</font>"
+
+[WMUpgrade_Skill_Ranger]
+UpgradeName="Ranger"
+StandardSkillUpgradeDescription="Increase headshot damage with <font color=\"#eaeff7\">all weapons</font> by 15% and increase headshot stun power with <font color=\"#eaeff7\">all weapons</font> by 50%"
+DeluxeSkillUpgradeDescription="Increase headshot damage with <font color=\"#eaeff7\">all weapons</font> by <font color=\"#b346ea\">40%</font> and increase headshot stun power with <font color=\"#eaeff7\">all weapons</font> by <font color=\"#b346ea\">125%</font>"
+
+[WMUpgrade_Skill_RankThemUp]
+UpgradeName="Rank Them Up"
+StandardSkillUpgradeDescription="Quickly land 5 headshots to increase damage on the 6th headshot by 150% with <font color=\"#eaeff7\">all weapons</font>"
+DeluxeSkillUpgradeDescription="Quickly land 5 headshots to increase damage on the 6th headshot by <font color=\"#b346ea\">375%</font> with <font color=\"#eaeff7\">all weapons</font>"
+
+[WMUpgrade_Skill_RapidAssault]
+UpgradeName="Rapid Assault"
+StandardSkillUpgradeDescription="Attack and shoot 20% faster with <font color=\"#eaeff7\">all weapons</font>"
+DeluxeSkillUpgradeDescription="Attack and shoot <font color=\"#b346ea\">50%</font> faster with <font color=\"#eaeff7\">all weapons</font>"
+
+[WMUpgrade_Skill_Resistance]
+UpgradeName="Resistance"
+StandardSkillUpgradeDescription="Increase resistance to fire, sonic, and poison damages by 25%"
+DeluxeSkillUpgradeDescription="Increase resistance to fire, sonic, and poison damages by <font color=\"#b346ea\">60%</font>"
+
+[WMUpgrade_Skill_RiotShield]
+UpgradeName="Riot Shield"
+StandardSkillUpgradeDescription="Increase resistance to <font color=\"#caab05\">projectile</font> damage by 50% and increase other damage resistances by 5%"
+DeluxeSkillUpgradeDescription="Increase resistance to <font color=\"#caab05\">projectile</font> damage by <font color=\"#b346ea\">90%</font> and increase other damage resistances by <font color=\"#b346ea\">10%</font>"
+
+[WMUpgrade_Skill_Ruthless]
+UpgradeName="Ruthless"
+StandardSkillUpgradeDescription="Increase damage with <font color=\"#eaeff7\">all weapons</font> by 15%"
+DeluxeSkillUpgradeDescription="Increase damage with <font color=\"#eaeff7\">all weapons</font> by <font color=\"#b346ea\">40%</font>"
+
+[WMUpgrade_Skill_Safeguard]
+UpgradeName="Safe Guard"
+StandardSkillUpgradeDescription="Increase syringe and healing dart potency and recharge rate by 20%"
+DeluxeSkillUpgradeDescription="Increase syringe and healing dart potency and recharge rate by <font color=\"#b346ea\">50%</font>"
+
+[WMUpgrade_Skill_Salvo]
+UpgradeName="Salvo"
+StandardSkillUpgradeDescription="Increase damage and rate of fire for <font color=\"#eaeff7\">all weapons</font> by 10%"
+DeluxeSkillUpgradeDescription="Increase damage and rate of fire for <font color=\"#eaeff7\">all weapons</font> by <font color=\"#b346ea\">25%</font>"
+
+[WMUpgrade_Skill_Scrapper]
+UpgradeName="Scrapper"
+StandardSkillUpgradeDescription="12.5% chance to generate a chunk of ammo for your unequipped weapons after killing a ZED"
+DeluxeSkillUpgradeDescription="<font color=\"#b346ea\">25%</font> chance to generate a chunk of ammo for your unequipped weapons after killing a ZED"
+
+[WMUpgrade_Skill_ShockTrooper]
+UpgradeName="Shock Trooper"
+StandardSkillUpgradeDescription="Increase reload speed of empty magazines by 40% for <font color=\"#eaeff7\">all weapons</font>"
+DeluxeSkillUpgradeDescription="Increase reload speed of empty magazines by <font color=\"#b346ea\">100%</font> for <font color=\"#eaeff7\">all weapons</font>"
+
+[WMUpgrade_Skill_ShootAndRun]
+UpgradeName="Shoot And Run"
+StandardSkillUpgradeDescription="Over time increase reload speed up to 50% and movement speed up to 20% while actively killing ZEDs"
+DeluxeSkillUpgradeDescription="Over time increase reload speed up to <font color=\"#b346ea\">125%</font> and movement speed up to <font color=\"#b346ea\">50%</font> while actively killing ZEDs"
+
+[WMUpgrade_Skill_Skirmisher]
+UpgradeName="Skirmisher"
+StandardSkillUpgradeDescription="Move 5% faster and regenerate 1 point of health every second"
+DeluxeSkillUpgradeDescription="Move <font color=\"#b346ea\">10%</font> faster and regenerate <font color=\"#b346ea\">2</font> points of health every second"
+
+[WMUpgrade_Skill_Sniper]
+UpgradeName="Sniper"
+StandardSkillUpgradeDescription="While stationary increase damage by 20% with <font color=\"#eaeff7\">all weapons</font>"
+DeluxeSkillUpgradeDescription="While stationary increase damage by <font color=\"#b346ea\">50%</font> with <font color=\"#eaeff7\">all weapons</font>"
+
+[WMUpgrade_Skill_SonicResistantRounds]
+UpgradeName="Sonic Resistant Rounds"
+StandardSkillUpgradeDescription="<font color=\"#eaeff7\">Your explosives</font> are completely immune to Siren screams and resistance to sonic damage increases by 40%"
+DeluxeSkillUpgradeDescription="<font color=\"#eaeff7\">Your explosives</font> are completely immune to Siren screams and resistance to sonic damage increases by <font color=\"#b346ea\">100%</font>"
+
+[WMUpgrade_Skill_Spartan]
+UpgradeName="Spartan"
+StandardSkillUpgradeDescription="You move and attack faster during ZED Time"
+DeluxeSkillUpgradeDescription="You move and attack <font color=\"#b346ea\">insanely</font> fast during ZED Time"
+
+[WMUpgrade_Skill_SpecialUnit]
+UpgradeName="Special Unit"
+StandardSkillUpgradeDescription="While you have body armor increase damage with <font color=\"#eaeff7\">all weapons</font> by 15% otherwise increase movement speed by 10%"
+DeluxeSkillUpgradeDescription="While you have body armor increase damage with <font color=\"#eaeff7\">all weapons</font> by <font color=\"#b346ea\">40%</font> otherwise increase movement speed by <font color=\"#b346ea\">20%</font>"
+
+[WMUpgrade_Skill_Speedloader]
+UpgradeName="Speedloader"
+StandardSkillUpgradeDescription="Reload 10% to 50% faster with <font color=\"#eaeff7\">all weapons</font> in proportion to how many rounds remain in your magazine with more rounds equaling faster reloading"
+DeluxeSkillUpgradeDescription="Reload <font color=\"#b346ea\">25%</font> to <font color=\"#b346ea\">100%</font> faster with <font color=\"#eaeff7\">all weapons</font> in proportion to how many rounds remain in your magazine with more rounds equaling faster reloading"
+
+[WMUpgrade_Skill_Stability]
+UpgradeName="Stability"
+StandardSkillUpgradeDescription="Decrease recoil by 25% when using iron sights and by 50% when hip firing with <font color=\"#eaeff7\">all weapons</font>"
+DeluxeSkillUpgradeDescription="Decrease recoil by <font color=\"#b346ea\">50%</font> when using iron sights and by <font color=\"#b346ea\">75%</font> when hip firing with <font color=\"#eaeff7\">all weapons</font>"
+
+[WMUpgrade_Skill_Steady]
+UpgradeName="Steady"
+StandardSkillUpgradeDescription="Decrease recoil by 30% and drastically reduce weapon bob with <font color=\"#eaeff7\">all weapons</font>"
+DeluxeSkillUpgradeDescription="Decrease recoil by <font color=\"#b346ea\">75%</font> and drastically reduce weapon bob with <font color=\"#eaeff7\">all weapons</font>"
+
+[WMUpgrade_Skill_Strength]
+UpgradeName="Strength"
+StandardSkillUpgradeDescription="Increase weight capacity by 3"
+DeluxeSkillUpgradeDescription="Increase weight capacity by <font color=\"#b346ea\">8</font>"
+
+[WMUpgrade_Skill_Supplier]
+UpgradeName="Supplier"
+StandardSkillUpgradeDescription="You can carry up to 30% more ammo for <font color=\"#eaeff7\">all weapons</font> and once per wave your teammates can restock 30% of their ammo by interacting with you"
+DeluxeSkillUpgradeDescription="You can carry up to <font color=\"#b346ea\">75%</font> more ammo for <font color=\"#eaeff7\">all weapons</font> and once per wave your teammates can restock 30% of their ammo by interacting with you"
+
+[WMUpgrade_Skill_SuppressionRounds]
+UpgradeName="Suppression Rounds"
+StandardSkillUpgradeDescription="Landing several body shots slows ZEDs by 30% and when a ZED is sprinting increase knockdown power by 30% with <font color=\"#eaeff7\">all weapons</font>"
+DeluxeSkillUpgradeDescription="Landing several body shots slows ZEDs by 30% and when a ZED is sprinting increase knockdown power by <font color=\"#b346ea\">75%</font> with <font color=\"#eaeff7\">all weapons</font>"
+
+[WMUpgrade_Skill_SymbioticHealth]
+UpgradeName="Symbiotic Health"
+StandardSkillUpgradeDescription="Increase total health by 10% and heal 10% of your health while healing teammates"
+DeluxeSkillUpgradeDescription="Increase total health by <font color=\"#b346ea\">25%</font> and heal <font color=\"#b346ea\">25%</font> of your health while healing teammates"
+
+[WMUpgrade_Skill_TacticalArmor]
+UpgradeName="Heavy Armor Training"
+StandardSkillUpgradeDescription="Max armor increases by 20% and while you have body armor Clots can't grab you"
+DeluxeSkillUpgradeDescription="Max armor increases by <font color=\"#b346ea\">50%</font> and while you have body armor Clots can't grab you"
+
+[WMUpgrade_Skill_TacticalMovement]
+UpgradeName="Tactical Movement"
+StandardSkillUpgradeDescription="Ignore movement speed penalty while using iron sights with <font color=\"#eaeff7\">all weapons</font>"
+DeluxeSkillUpgradeDescription="Gain bonus <font color=\"#b346ea\">15%</font> movement speed while using iron sights with <font color=\"#eaeff7\">all weapons</font> and increase movement speed by <font color=\"#b346ea\">5%</font>"
+
+[WMUpgrade_Skill_TacticalReload]
+UpgradeName="Tactical Reload"
+StandardSkillUpgradeDescription="Increase reload speed with <font color=\"#caab05\">Commando, Demolitionist, Gunslinger, Sharpshooter, Support, and SWAT weapons</font>"
+DeluxeSkillUpgradeDescription="Increase reload speed with <font color=\"#eaeff7\">all weapons</font> by <font color=\"#b346ea\">30%</font>"
+
+[WMUpgrade_Skill_Tactician]
+UpgradeName="Tactician"
+StandardSkillUpgradeDescription="During ZED Time you reload and switch <font color=\"#eaeff7\">all weapons</font> at full speed"
+DeluxeSkillUpgradeDescription="During ZED Time you reload and switch <font color=\"#eaeff7\">all weapons</font> <font color=\"#b346ea\">75%</font> faster than full speed"
+
+[WMUpgrade_Skill_Tank]
+UpgradeName="Tank"
+StandardSkillUpgradeDescription="Increase damage resistance by 20% while your health is higher than 90%"
+DeluxeSkillUpgradeDescription="Increase damage resistance by <font color=\"#b346ea\">30%</font> while your health is higher than <font color=\"#b346ea\">70%</font>"
+
+[WMUpgrade_Skill_Tempest]
+UpgradeName="Tempest"
+StandardSkillUpgradeDescription="Increase damage with <font color=\"#eaeff7\">all weapons</font> by 20% while moving"
+DeluxeSkillUpgradeDescription="Increase damage with <font color=\"#eaeff7\">all weapons</font> by <font color=\"#b346ea\">50%</font> while moving"
+
+[WMUpgrade_Skill_Tenacity]
+UpgradeName="Tenacity"
+StandardSkillUpgradeDescription="Reduce incoming damage by 15% for 5 seconds after killing a ZED"
+DeluxeSkillUpgradeDescription="Reduce incoming damage by <font color=\"#b346ea\">40%</font> for 5 seconds after killing a ZED"
+
+[WMUpgrade_Skill_TightChoke]
+UpgradeName="Tight Choke"
+StandardSkillUpgradeDescription="Decrease shot spread by 40%"
+DeluxeSkillUpgradeDescription="Decrease shot spread by <font color=\"#b346ea\">70%</font>"
+
+[WMUpgrade_Skill_Vampire]
+UpgradeName="Vampire"
+StandardSkillUpgradeDescription="Whenever you kill a ZED heal 2 points of health for any <font color=\"#caab05\">projectile weapon</font> or heal 3 points of health for any <font color=\"#caab05\">melee weapon</font>"
+DeluxeSkillUpgradeDescription="Whenever you kill a ZED heal <font color=\"#b346ea\">5</font> points of health for any <font color=\"#caab05\">projectile weapon</font> or heal <font color=\"#b346ea\">8</font> points of health for any <font color=\"#caab05\">melee weapon</font>"
+
+[WMUpgrade_Skill_Velocity]
+UpgradeName="High Velocity"
+StandardSkillUpgradeDescription="Increase damage with <font color=\"#eaeff7\">all weapons</font> up to 25% while shooting ZEDs at long range with longer distances equaling greater damage"
+DeluxeSkillUpgradeDescription="Increase damage with <font color=\"#eaeff7\">all weapons</font> up to <font color=\"#b346ea\">60%</font> while shooting ZEDs at long range with longer distances equaling greater damage"
+
+[WMUpgrade_Skill_Watcher]
+UpgradeName="Watcher"
+StandardSkillUpgradeDescription="Allows you to see ZED health and increases damage you deal to greatly injured ZEDs with <font color=\"#eaeff7\">all weapons</font> by 25%"
+DeluxeSkillUpgradeDescription="Allows you to see ZED health and increases damage you deal to greatly injured ZEDs with <font color=\"#eaeff7\">all weapons</font> by <font color=\"#b346ea\">60%</font>"
+
+[WMUpgrade_Skill_WhirlwindOfLead]
+UpgradeName="Whirlwind Of Lead"
+StandardSkillUpgradeDescription="During ZED Time your weapon shoots faster and has unlimited ammo"
+DeluxeSkillUpgradeDescription="During ZED Time your weapon shoots in <font color=\"#b346ea\">near real-time</font> and has unlimited ammo"
+
+[WMUpgrade_Skill_Zedatif]
+UpgradeName="ZED-atif"
+StandardSkillUpgradeDescription="Poison effects slow ZEDs and <font color=\"#caab05\">poison</font> damage and healing potency increases by 25%"
+DeluxeSkillUpgradeDescription="Poison effects slow ZEDs and <font color=\"#caab05\">poison</font> damage and healing potency increases by <font color=\"#b346ea\">60%</font>"
+
+[WMUpgrade_Skill_ZedPlosion]
+UpgradeName="ZED-plosion"
+StandardSkillUpgradeDescription="ZEDs you kill have a 20% chance to explode, damaging and knocking down nearby ZEDs"
+DeluxeSkillUpgradeDescription="ZEDs you kill have a <font color=\"#b346ea\">50%</font> chance to explode, damaging and knocking down nearby ZEDs"
+
+[WMUpgrade_Weapon_AmmunitionConsumption]
+UpgradeName="Ammo Consumption"
+WeaponUpgradeDescription="Decrease ammo consumption rate of this weapon by %x%%"
+
+[WMUpgrade_Weapon_Damage]
+UpgradeName="Damage"
+WeaponUpgradeDescription="Increase damage dealt with this weapon by %x%%"
+
+[WMUpgrade_Weapon_Damage_Clot]
+UpgradeName="Damage Against Clots"
+WeaponUpgradeDescription="Increase damage dealt against Clots with this weapon by %x%%"
+
+[WMUpgrade_Weapon_Damage_Fleshpound]
+UpgradeName="Damage Against Fleshpounds"
+WeaponUpgradeDescription="Increase damage dealt against Fleshpounds with this weapon by %x%%"
+
+[WMUpgrade_Weapon_Damage_GroundFire]
+UpgradeName="Ground Fire Damage"
+WeaponUpgradeDescription="Increase ground fire damage dealt with this weapon by %x%%"
+
+[WMUpgrade_Weapon_Damage_Headshot]
+UpgradeName="Headshot Damage"
+WeaponUpgradeDescription="Increase headshot damage with this weapon by %x%%"
+
+[WMUpgrade_Weapon_DamageTaken]
+UpgradeName="Damage Taken"
+WeaponUpgradeDescription="Increase damage resistance by %x%% while holding this weapon"
+
+[WMUpgrade_Weapon_HardMeleeAttack]
+UpgradeName="Hard Melee Attack Damage"
+WeaponUpgradeDescription="Increase hard melee attack damage dealt with this weapon by %x%%"
+
+[WMUpgrade_Weapon_Heal]
+UpgradeName="Heal Potency"
+WeaponUpgradeDescription="Increase healing potency of this weapon by %x%%"
+
+[WMUpgrade_Weapon_KnockdownPower]
+UpgradeName="Knockdown Effect"
+WeaponUpgradeDescription="Increase knockdown power of this weapon by %x%%"
+
+[WMUpgrade_Weapon_MagSize]
+UpgradeName="Magazine Size"
+WeaponUpgradeDescription="Increase magazine capacity of this weapon by %x%%"
+
+[WMUpgrade_Weapon_MagSize_Small]
+UpgradeName="Magazine Size"
+WeaponUpgradeDescription="Increase magazine capacity of this weapon by %x% round(s)"
+
+[WMUpgrade_Weapon_MeleeAttackSpeed]
+UpgradeName="Melee Attack Speed"
+WeaponUpgradeDescription="Attack %x%% faster with this weapon"
+
+[WMUpgrade_Weapon_Penetration]
+UpgradeName="Penetration"
+WeaponUpgradeDescription="Increase penetration power of this weapon by %x%%"
+
+[WMUpgrade_Weapon_RateOfFire]
+UpgradeName="Rate Of Fire"
+WeaponUpgradeDescription="Increase rate of fire of this weapon by %x%%"
+
+[WMUpgrade_Weapon_Recoil]
+UpgradeName="Recoil"
+WeaponUpgradeDescription="Decrease recoil of this weapon by %x%%"
+
+[WMUpgrade_Weapon_ReloadSpeed]
+UpgradeName="Reload Speed"
+WeaponUpgradeDescription="Increase reload speed of this weapon by %x%%"
+
+[WMUpgrade_Weapon_SpareAmmo]
+UpgradeName="Spare Ammo"
+WeaponUpgradeDescription="Carry up to %x%% more ammo for this weapon"
+
+[WMUpgrade_Weapon_SpareAmmo_C4]
+UpgradeName="Spare Ammo"
+WeaponUpgradeDescription="Increase max ammo of this weapon by %x% rounds"
+
+[WMUpgrade_Weapon_StumblePower]
+UpgradeName="Stumble Effect"
+WeaponUpgradeDescription="Increase stumble effect of this weapon by %x%%"
+
+[WMUpgrade_Weapon_StunPower]
+UpgradeName="Stun Effect"
+WeaponUpgradeDescription="Increase stun power of this weapon by %x%%"
+
+[WMUpgrade_Weapon_SwitchSpeed]
+UpgradeName="Switch Speed"
+WeaponUpgradeDescription="Increase switch speed of this weapon by %x%%"
+
+[WMUpgrade_Weapon_TightChoke]
+UpgradeName="Tight Choke"
+WeaponUpgradeDescription="Decrease shot spread of this weapon by %x%%"
+
+//Special Waves
+[WMSpecialWave_Acceleration]
+SpecialWaveTitle="Acceleration"
+SpecialWaveDescription="Time is collapsing!"
+
+[WMSpecialWave_BackupPlan]
+SpecialWaveTitle="Backup Plan"
+SpecialWaveDescription="No more ammo..."
+
+[WMSpecialWave_BloodyChainsaw]
+SpecialWaveTitle="Bloody Chainsaws"
+SpecialWaveDescription="Scrakes are everywhere!"
+
+[WMSpecialWave_BobbleZed]
+SpecialWaveTitle="Bobble Zed"
+SpecialWaveDescription="That must hurt their necks!"
+
+[WMSpecialWave_BuffUp]
+SpecialWaveTitle="Buff Up"
+SpecialWaveDescription="They grow fast!"
+
+[WMSpecialWave_CatchMe]
+SpecialWaveTitle="Catch me if you can"
+SpecialWaveDescription="Run for your life!"
+
+[WMSpecialWave_Chaos]
+SpecialWaveTitle="Chaos"
+SpecialWaveDescription="???"
+
+[WMSpecialWave_ClotBuster]
+SpecialWaveTitle="Clot Buster"
+SpecialWaveDescription="Hordes of clots are coming!"
+
+[WMSpecialWave_Division]
+SpecialWaveTitle="Division"
+SpecialWaveDescription="Double the Troubles!"
+
+[WMSpecialWave_Dosh]
+SpecialWaveTitle="Dosh"
+SpecialWaveDescription="It's raining Dosh!"
+
+[WMSpecialWave_DoubleDamage]
+SpecialWaveTitle="Double Damage"
+SpecialWaveDescription="Double your damage!"
+
+[WMSpecialWave_Earthquake]
+SpecialWaveTitle="Earthquake"
+SpecialWaveDescription="The world is now shaking"
+
+[WMSpecialWave_Emperor]
+SpecialWaveTitle="Emperor"
+SpecialWaveDescription="He is scary..."
+
+[WMSpecialWave_Featherweight]
+SpecialWaveTitle="Featherweight"
+SpecialWaveDescription="Dead bodies are floating!"
+
+[WMSpecialWave_Fireworks]
+SpecialWaveTitle="Fireworks"
+SpecialWaveDescription="Horzine's festive gift!"
+
+[WMSpecialWave_FiveAlarmSiren]
+SpecialWaveTitle="Five Alarm Siren"
+SpecialWaveDescription="Plug your ears!"
+
+[WMSpecialWave_GiftFromAbove]
+SpecialWaveTitle="Gift From Above"
+SpecialWaveDescription="More gifts spawn during the wave!"
+
+[WMSpecialWave_GodMode]
+SpecialWaveTitle="Super Soldier"
+SpecialWaveDescription="Release your True power"
+
+[WMSpecialWave_GoredFast]
+SpecialWaveTitle="Gored Fast"
+SpecialWaveDescription="Watch their right arm!"
+
+[WMSpecialWave_Haemorrhage]
+SpecialWaveTitle="Haemorrhage"
+SpecialWaveDescription="Watch out for paper cuts!"
+
+[WMSpecialWave_HellFire]
+SpecialWaveTitle="HellFire"
+SpecialWaveDescription="Say welcome to Hell!"
+
+[WMSpecialWave_InstaKill]
+SpecialWaveTitle="InstaKill"
+SpecialWaveDescription="But also for them!"
+
+[WMSpecialWave_Lethargic]
+SpecialWaveTitle="Lethargic"
+SpecialWaveDescription="They are faster during ZED times!"
+
+[WMSpecialWave_Locked]
+SpecialWaveTitle="Locked"
+SpecialWaveDescription="It's a trap!"
+
+[WMSpecialWave_MechanicalProblem]
+SpecialWaveTitle="Mechanical Problem"
+SpecialWaveDescription="Launching Annihilation.exe"
+
+[WMSpecialWave_Pesticide]
+SpecialWaveTitle="Arachnids"
+SpecialWaveDescription="Hordes of crawlers are coming!"
+
+[WMSpecialWave_Phoenix]
+SpecialWaveTitle="Phoenix"
+SpecialWaveDescription="They revive from their ashes!"
+
+[WMSpecialWave_Pop]
+SpecialWaveTitle="Hard Skin"
+SpecialWaveDescription="Headshots are the key!"
+
+[WMSpecialWave_Popcorn]
+SpecialWaveTitle="Popcorn"
+SpecialWaveDescription="Make them explode!"
+
+[WMSpecialWave_Poundamonium]
+SpecialWaveTitle="Poundamonium"
+SpecialWaveDescription="The Fleshpound Convention is in town!"
+
+[WMSpecialWave_Predator]
+SpecialWaveTitle="Predator"
+SpecialWaveDescription="The enemy of my enemy is my friend!"
+
+[WMSpecialWave_PurpleAlert]
+SpecialWaveTitle="Purple Alert"
+SpecialWaveDescription="Elite ZEDs incoming!"
+
+[WMSpecialWave_Regeneration]
+SpecialWaveTitle="Regeneration"
+SpecialWaveDescription="You feel better!"
+
+[WMSpecialWave_Shrink]
+SpecialWaveTitle="Shrink"
+SpecialWaveDescription="A small threat is still a threat!"
+
+[WMSpecialWave_TheHorde]
+SpecialWaveTitle="The Horde"
+SpecialWaveDescription="Rush Hour!"
+
+[WMSpecialWave_TinyTerror]
+SpecialWaveTitle="Tiny Terror"
+SpecialWaveDescription="Look at them, they are so cute!"
+
+[WMSpecialWave_Titans]
+SpecialWaveTitle="Titans"
+SpecialWaveDescription="Slowly but surely!"
+
+[WMSpecialWave_ToxicNightmare]
+SpecialWaveTitle="Toxic Nightmare"
+SpecialWaveDescription="Watch for the mines!"
+
+[WMSpecialWave_UnlimitedAmmo]
+SpecialWaveTitle="Unlimited Ammo"
+SpecialWaveDescription="Spread some love!"
+
+[WMSpecialWave_UpUpDecay]
+SpecialWaveTitle="Up, Up and Decay"
+SpecialWaveDescription="Try to make ninety-nine Zed balloons!"
+
+[WMSpecialWave_Vampire]
+SpecialWaveTitle="Vampire"
+SpecialWaveDescription="Everyone is a vampire!"
+
+[WMSpecialWave_Virus]
+SpecialWaveTitle="Virus"
+SpecialWaveDescription="Level 4 containment!"
+
+//Zed Buffs
+[WMZedBuff_Beefcake]
+BuffDescription="SOME ZEDS ARE STRONGER THAN USUAL"
+
+[WMZedBuff_Clot_Stronger]
+BuffDescription="CLOTS ARE STRONGER"
+
+[WMZedBuff_Crawler_Faster]
+BuffDescription="CRAWLERS ARE FASTER"
+
+[WMZedBuff_Crawler_Health]
+BuffDescription="CRAWLERS ARE BIGGER"
+
+[WMZedBuff_Damage]
+BuffDescription="ZEDS DEAL MORE DAMAGE"
+
+[WMZedBuff_Damage_II]
+BuffDescription="ZEDS DEAL MORE DAMAGE II"
+
+[WMZedBuff_Fleshpound_Stronger]
+BuffDescription="FLESHPOUNDS ARE ENRAGED"
+
+[WMZedBuff_Gorefast_Damage]
+BuffDescription="GOREFASTS DEAL MORE DAMAGE"
+
+[WMZedBuff_Gorefast_Enraged]
+BuffDescription="GOREFASTS ARE ENRAGED"
+
+[WMZedBuff_Health]
+BuffDescription="ZEDS HAVE MORE HEALTH"
+
+[WMZedBuff_Health_II]
+BuffDescription="ZEDS HAVE MORE HEALTH II"
+
+[WMZedBuff_Hostility]
+BuffDescription="ZEDS ARE MORE AGGRESSIVE"
+
+[WMZedBuff_Husk_SuicideRate]
+BuffDescription="HUSKS COMMIT SUICIDE MORE OFTEN"
+
+[WMZedBuff_PukeMine]
+BuffDescription="BLOATS ALWAYS PUKE MINE ON DEATH"
+
+[WMZedBuff_Scrake_Enraged]
+BuffDescription="SCRAKES ARE ENRAGED"
+
+[WMZedBuff_Siren_Heal]
+BuffDescription="SIRENS SCREAMS CAN HEAL OTHER ZEDS"
+
+[WMZedBuff_Siren_ScreamRate]
+BuffDescription="SIRENS SCREAM MORE OFTEN"
+
+[WMZedBuff_Slasher_Enraged]
+BuffDescription="SLASHERS ARE ENRAGED"
+
+[WMZedBuff_SpawnRate]
+BuffDescription="ZEDS SPAWN FASTER"
+
+[WMZedBuff_Speed]
+BuffDescription="ZEDS MOVE FASTER"
+
+[WMZedBuff_Speed_II]
+BuffDescription="ZEDS MOVE FASTER II"
+
+[WMZedBuff_Stalker_Faster]
+BuffDescription="STALKERS ARE FASTER"
+

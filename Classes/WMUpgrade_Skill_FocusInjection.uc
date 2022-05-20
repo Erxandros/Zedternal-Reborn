@@ -29,9 +29,8 @@ defaultproperties
 	MaxBonus(0)=20
 	MaxBonus(1)=50
 
-	UpgradeName="Focus Injection"
-	UpgradeDescription(0)="Healing teammates increases the damage they inflict and their damage resistance by 5% for 5 seconds up to a max of 20%"
-	UpgradeDescription(1)="Healing teammates increases the damage they inflict and their damage resistance by <font color=\"#b346ea\">10%</font> for 5 seconds up to a max of <font color=\"#b346ea\">50%</font>"
+	bShouldLocalize=True
+	UpgradeName="ZedternalReborn.WMUpgrade_Skill_FocusInjection"
 	UpgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_FocusInjection'
 	UpgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_FocusInjection_Deluxe'
 

@@ -17,9 +17,8 @@ defaultproperties
 	Bonus(0)=0.1f
 	Bonus(1)=0.25f
 
-	UpgradeName="Guerrilla"
-	UpgradeDescription(0)="Increase maximum health and damage with <font color=\"#eaeff7\">all weapons</font> by 10%"
-	UpgradeDescription(1)="Increase maximum health and damage with <font color=\"#eaeff7\">all weapons</font> by <font color=\"#b346ea\">25%</font>"
+	bShouldLocalize=True
+	UpgradeName="ZedternalReborn.WMUpgrade_Skill_Guerrilla"
 	UpgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Guerrilla'
 	UpgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Guerrilla_Deluxe'
 

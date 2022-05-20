@@ -80,8 +80,8 @@ defaultproperties
 	ZedSpawnRateFactor=0.9f
 	DoshFactor=0.9f // because we refill all weapons after the wave
 
-	Title="Backup Plan"
-	Description="No more ammo..."
+	bShouldLocalize=True
+	Title="ZedternalReborn.WMSpecialWave_BackupPlan"
 
 	Name="Default__WMSpecialWave_BackupPlan"
 }

@@ -23,8 +23,8 @@ defaultproperties
 {
 	PickupFactor=9.0f
 
-	Title="Gift From Above"
-	Description="More gifts spawn during the wave!"
+	bShouldLocalize=True
+	Title="ZedternalReborn.WMSpecialWave_GiftFromAbove"
 
 	Name="Default__WMSpecialWave_GiftFromAbove"
 }

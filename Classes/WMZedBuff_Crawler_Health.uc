@@ -30,7 +30,8 @@ defaultproperties
 	Size=0.175f
 	Speed=0.1f
 
-	BuffDescription="CRAWLERS ARE BIGGER"
+	bShouldLocalize=True
+	BuffDescription="ZedternalReborn.WMZedBuff_Crawler_Health"
 	BuffIcon=Texture2D'ZED_Crawler_UI.ZED-VS_Icons_Crawler-LightLeap'
 
 	Name="Default__WMZedBuff_Crawler_Health"

@@ -23,10 +23,9 @@ defaultproperties
 	Damage=0.05f
 	ReloadRate=0.15f
 
-	UpgradeName="Commando"
-	UpgradeDescription(0)="+%x%s. ZED Time Extension with <font color=\"#eaeff7\">any weapon</font>"
-	UpgradeDescription(1)="+%x%% Reload Speed with <font color=\"#eaeff7\">any weapon</font>"
-	UpgradeDescription(2)="+%x%% Damage with <font color=\"#caab05\">Commando weapons</font>"
+	bShouldLocalize=True
+	UpgradeName="ZedternalReborn.WMUpgrade_Perk_Commando"
+	LocalizeDescriptionLineCount=3
 	PerkBonus(0)=(baseValue=0, incValue=1, maxValue=10)
 	PerkBonus(1)=(baseValue=0, incValue=15, maxValue=-1)
 	PerkBonus(2)=(baseValue=0, incValue=5, maxValue=-1)

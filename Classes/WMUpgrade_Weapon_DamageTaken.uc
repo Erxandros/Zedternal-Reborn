@@ -25,8 +25,8 @@ defaultproperties
 {
 	Damage=0.04f
 
-	UpgradeName="Damage Taken"
-	UpgradeDescription(0)="Increase damage resistance by %x%% while holding this weapon"
+	bShouldLocalize=True
+	UpgradeName="ZedternalReborn.WMUpgrade_Weapon_DamageTaken"
 	WeaponBonus=(baseValue=0, incValue=4, maxValue=-1)
 
 	Name="Default__WMUpgrade_Weapon_DamageTaken"

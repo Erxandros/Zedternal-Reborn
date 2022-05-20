@@ -6,8 +6,8 @@ defaultproperties
 	WaveValueFactor=0.8f
 	DoshFactor=1.25f
 
-	Title="Purple Alert"
-	Description="Elite ZEDs incoming!"
+	bShouldLocalize=True
+	Title="ZedternalReborn.WMSpecialWave_PurpleAlert"
 
 	bReplaceMonstertoAdd=True
 	MonsterToAdd(0)=(MinWave=0,MaxWave=999,MinGr=1,MaxGr=4,MClass=class'ZedternalReborn.WMPawn_ZedClot_Slasher_Omega')

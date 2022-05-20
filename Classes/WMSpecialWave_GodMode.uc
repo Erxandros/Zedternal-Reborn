@@ -69,8 +69,8 @@ defaultproperties
 	WaveValueFactor=1.5f
 	DoshFactor=0.67f
 
-	Title="Super Soldier"
-	Description="Release your True power"
+	bShouldLocalize=True
+	Title="ZedternalReborn.WMSpecialWave_GodMode"
 
 	Name="Default__WMSpecialWave_GodMode"
 }

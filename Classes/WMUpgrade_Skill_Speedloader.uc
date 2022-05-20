@@ -20,9 +20,8 @@ defaultproperties
 	MaxReloadSpeed(0)=0.4f
 	MaxReloadSpeed(1)=0.75f
 
-	UpgradeName="Speedloader"
-	UpgradeDescription(0)="Reload 10% to 50% faster with <font color=\"#eaeff7\">all weapons</font> in proportion to how many rounds remain in your magazine with more rounds equaling faster reloading"
-	UpgradeDescription(1)="Reload <font color=\"#b346ea\">25%</font> to <font color=\"#b346ea\">100%</font> faster with <font color=\"#eaeff7\">all weapons</font> in proportion to how many rounds remain in your magazine with more rounds equaling faster reloading"
+	bShouldLocalize=True
+	UpgradeName="ZedternalReborn.WMUpgrade_Skill_Speedloader"
 	UpgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Speedloader'
 	UpgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Skills.UI_Skill_Speedloader_Deluxe'
 

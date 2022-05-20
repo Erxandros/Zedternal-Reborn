@@ -35,8 +35,8 @@ defaultproperties
 {
 	MaxDoshVelocity=600.0f
 
-	Title="Dosh"
-	Description="It's raining Dosh!"
+	bShouldLocalize=True
+	Title="ZedternalReborn.WMSpecialWave_Dosh"
 
 	Name="Default__WMSpecialWave_Dosh"
 }

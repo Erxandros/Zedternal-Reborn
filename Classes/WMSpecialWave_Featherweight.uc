@@ -33,8 +33,8 @@ defaultproperties
 	ZeroHealthInflation=1.0f
 	ZedSpawnRateFactor=0.9f
 
-	Title="Featherweight"
-	Description="Dead bodies are floating!"
+	bShouldLocalize=True
+	Title="ZedternalReborn.WMSpecialWave_Featherweight"
 
 	Name="Default__WMSpecialWave_Featherweight"
 }

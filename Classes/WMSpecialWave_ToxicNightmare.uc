@@ -58,8 +58,8 @@ defaultproperties
 	WaveValueFactor=0.9f
 	DoshFactor=1.1f
 
-	Title="Toxic Nightmare"
-	Description="Watch for the mines!"
+	bShouldLocalize=True
+	Title="ZedternalReborn.WMSpecialWave_ToxicNightmare"
 
 	MonsterToAdd(0)=(MinWave=0,MaxWave=999,MinGr=2,MaxGr=6,MClass=class'KFGameContent.KFPawn_ZedBloat')
 	MonsterToAdd(1)=(MinWave=3,MaxWave=999,MinGr=2,MaxGr=6,MClass=class'KFGameContent.KFPawn_ZedBloat')

@@ -8,7 +8,8 @@ static function ModifyZedSprintChanceMod(out float SprintChanceMod, KFPawn_Monst
 
 defaultproperties
 {
-	BuffDescription="FLESHPOUNDS ARE ENRAGED"
+	bShouldLocalize=True
+	BuffDescription="ZedternalReborn.WMZedBuff_Fleshpound_Stronger"
 	BuffIcon=Texture2D'ZED_Fleshpound_UI.ZED-VS_Icons_Fleshpound-HeavyAttack'
 
 	Name="Default__WMZedBuff_Fleshpound_Stronger"

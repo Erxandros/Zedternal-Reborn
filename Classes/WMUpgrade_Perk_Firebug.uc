@@ -48,10 +48,9 @@ defaultproperties
 	Damage=0.05f
 	Defense=0.04f
 
-	UpgradeName="FireBug"
-	UpgradeDescription(0)="+%x%% Fire, Explosive, Bloat Bile, and Siren Sonic Damage Resistance"
-	UpgradeDescription(1)="+%x%% Ammo Refill after completing a wave with <font color=\"#eaeff7\">any weapon</font>"
-	UpgradeDescription(2)="+%x%% Damage with <font color=\"#caab05\">Firebug weapons</font>"
+	bShouldLocalize=True
+	UpgradeName="ZedternalReborn.WMUpgrade_Perk_Firebug"
+	LocalizeDescriptionLineCount=3
 	PerkBonus(0)=(baseValue=0, incValue=4, maxValue=40)
 	PerkBonus(1)=(baseValue=0, incValue=5, maxValue=50)
 	PerkBonus(2)=(baseValue=0, incValue=5, maxValue=-1)

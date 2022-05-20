@@ -30,8 +30,8 @@ defaultproperties
 {
 	Damage=0.2f
 
-	UpgradeName="Damage Against Fleshpounds"
-	UpgradeDescription(0)="Increase damage dealt against Fleshpounds with this weapon by %x%%"
+	bShouldLocalize=True
+	UpgradeName="ZedternalReborn.WMUpgrade_Weapon_Damage_Fleshpound"
 	WeaponBonus=(baseValue=0, incValue=20, maxValue=-1)
 
 	Name="Default__WMUpgrade_Weapon_Damage_Fleshpound"
