@@ -325,6 +325,9 @@ function StartMatch()
 			KFPlayerReplicationInfo(KFPC.PlayerReplicationInfo).Score = class'ZedternalReborn.Config_Map'.static.GetStartingDosh(WorldInfo.GetMapName(True));
 		else
 			KFPlayerReplicationInfo(KFPC.PlayerReplicationInfo).Score = class'ZedternalReborn.Config_Dosh'.static.GetStartingDosh(GameDifficultyZedternal);
+
+		if (WMPlayerReplicationInfo(KFPC.PlayerReplicationInfo) != None)
+			WMPlayerReplicationInfo(KFPC.PlayerReplicationInfo).bHasPlayed = True;
 	}
 }
 
