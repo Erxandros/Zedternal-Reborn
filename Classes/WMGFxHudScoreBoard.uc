@@ -175,8 +175,8 @@ event Draw(Canvas ca)
 
 	S = Class'KFCommon_LocalizedStrings'.Static.GetDifficultyString(KFGRI.GameDifficulty);
 	// Change for Custom difficulty
-	if (S ~= "ANY")
-		S = "Custom";
+	if (S ~= class'KFCommon_LocalizedStrings'.default.NoPreferenceString)
+		S = class'KFCommon_LocalizedStrings'.default.CustomString;
 
 	S = " " $S $"  |  WAVE " $KFGRI.WaveNum $"  |  " $PC.WorldInfo.Title $"  |  00 : 00 : 00 ";
 	ScoreBoardCanvas.TextSize(S, XL, YL, FontScalar, FontScalar);
@@ -191,14 +191,14 @@ event Draw(Canvas ca)
 
 	S = Class'KFCommon_LocalizedStrings'.Static.GetDifficultyString(KFGRI.GameDifficulty);
 	// Change for Custom difficulty
-	if (S ~= "ANY")
-		S = "Custom";
+	if (S ~= class'KFCommon_LocalizedStrings'.default.NoPreferenceString)
+		S = class'KFCommon_LocalizedStrings'.default.CustomString;
 	ScoreBoardCanvas.SetPos(XPos, YPos);
 	ScoreBoardCanvas.DrawText(S, , FontScalar, FontScalar);
 	ScoreBoardCanvas.TextSize(S, XL, YL, FontScalar, FontScalar);
 
 	XPos += XL;
-	S = "  | WAVE " $KFGRI.WaveNum;
+	S = "  |  WAVE " $KFGRI.WaveNum;
 	ScoreBoardCanvas.SetPos(XPos, YPos);
 	ScoreBoardCanvas.DrawText(S, , FontScalar, FontScalar);
 	ScoreBoardCanvas.TextSize(S, XL, YL, FontScalar, FontScalar);
