@@ -274,16 +274,16 @@ event Draw(Canvas ca)
 	ScoreBoardCanvas.DrawText("PERK", , FontScalar, FontScalar);
 
 	ScoreBoardCanvas.SetPos(XPos + PlayerXPos, YPos);
-	ScoreBoardCanvas.DrawText("PLAYER", , FontScalar, FontScalar);
+	ScoreBoardCanvas.DrawText(class'KFGFxHUD_ScoreboardWidget'.default.PlayerString, , FontScalar, FontScalar);
 
 	ScoreBoardCanvas.SetPos(XPos + KillsXPos, YPos);
-	ScoreBoardCanvas.DrawText("KILLS", , FontScalar, FontScalar);
+	ScoreBoardCanvas.DrawText(class'KFGFxHUD_ScoreboardWidget'.default.KillsString, , FontScalar, FontScalar);
 
 	ScoreBoardCanvas.SetPos(XPos + AssistXPos, YPos);
-	ScoreBoardCanvas.DrawText("ASSISTS", , FontScalar, FontScalar);
+	ScoreBoardCanvas.DrawText(class'KFGFxHUD_ScoreboardWidget'.default.AssistsString, , FontScalar, FontScalar);
 
 	ScoreBoardCanvas.SetPos(XPos + CashXPos, YPos);
-	ScoreBoardCanvas.DrawText("DOSH", , FontScalar, FontScalar);
+	ScoreBoardCanvas.DrawText(class'KFGFxHUD_ScoreboardWidget'.default.DoshString, , FontScalar, FontScalar);
 
 	ScoreBoardCanvas.SetPos(XPos + HealthXPos, YPos);
 	ScoreBoardCanvas.DrawText("HEALTH", , FontScalar, FontScalar);
@@ -292,7 +292,7 @@ event Draw(Canvas ca)
 	ScoreBoardCanvas.DrawText("ARMOR", , FontScalar, FontScalar);
 
 	ScoreBoardCanvas.SetPos(XPos + PingXPos, YPos);
-	ScoreBoardCanvas.DrawText("PING", , FontScalar, FontScalar);
+	ScoreBoardCanvas.DrawText(class'KFGFxHUD_ScoreboardWidget'.default.PingString, , FontScalar, FontScalar);
 
 	ScoreBoardCanvas.SetPos(XPos + PlatformXPos, YPos);
 	ScoreBoardCanvas.DrawText("PLATFORM", , FontScalar, FontScalar);
