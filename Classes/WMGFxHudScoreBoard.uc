@@ -178,7 +178,7 @@ event Draw(Canvas ca)
 	if (S ~= class'KFCommon_LocalizedStrings'.default.NoPreferenceString)
 		S = class'KFCommon_LocalizedStrings'.default.CustomString;
 
-	S = " " $S $"  |  WAVE " $KFGRI.WaveNum $"  |  " $PC.WorldInfo.Title $"  |  00 : 00 : 00 ";
+	S = " " $S $"  |  " $class'KFGFxHUD_ScoreboardMapInfoContainer'.default.WaveString @KFGRI.WaveNum $"  |  " $PC.WorldInfo.Title $"  |  00 : 00 : 00 ";
 	ScoreBoardCanvas.TextSize(S, XL, YL, FontScalar, FontScalar);
 
 	XPos -= (XL * 0.5);
@@ -198,7 +198,7 @@ event Draw(Canvas ca)
 	ScoreBoardCanvas.TextSize(S, XL, YL, FontScalar, FontScalar);
 
 	XPos += XL;
-	S = "  |  WAVE " $KFGRI.WaveNum;
+	S = "  |  " $class'KFGFxHUD_ScoreboardMapInfoContainer'.default.WaveString @KFGRI.WaveNum;
 	ScoreBoardCanvas.SetPos(XPos, YPos);
 	ScoreBoardCanvas.DrawText(S, , FontScalar, FontScalar);
 	ScoreBoardCanvas.TextSize(S, XL, YL, FontScalar, FontScalar);
