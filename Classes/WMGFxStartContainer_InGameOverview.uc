@@ -8,15 +8,15 @@ function UpdateGameMode(string Mode)
 
 function UpdateDifficulty(string Difficulty)
 {
-	if (Difficulty ~= "ANY")
-		SetString("difficultyText", "Custom");
+	if (Difficulty ~= class'KFCommon_LocalizedStrings'.default.NoPreferenceString)
+		SetString("difficultyText", class'KFCommon_LocalizedStrings'.default.CustomString);
 	else
 		SetString("difficultyText", Difficulty);
 }
 
 function UpdateLength(string Length)
 {
-	SetString("lengthText", "Endless");
+	SetString("lengthText", class'KFCommon_LocalizedStrings'.static.GetGameModeString(3));
 }
 
 function UpdateServerType(string ServerType)
@@ -27,7 +27,7 @@ function UpdateServerType(string ServerType)
 
 	if (WI != None && WI.NetMode != NM_Standalone && !GetPC().WorldInfo.IsConsoleBuild())
 	{
-		SetString("serverType", "Unranked");
+		SetString("serverType", class'KFCommon_LocalizedStrings'.static.GetServerTypeString(3));
 	}
 }
 
