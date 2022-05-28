@@ -31,6 +31,23 @@ RerollDoshRefundedString="Dosh Refunded:"
 RerollFailTitleString="Lack of Dosh"
 RerollFailDescriptionString="Current Dosh:"
 
+//Score Board
+[WMGFxHudScoreBoard]
+PlayersString="Players"
+AliveString="Alive"
+SpectatorsString="Spectators"
+PerkString="PERK"
+HealthString="HEALTH"
+ArmorString="ARMOR"
+PlatformString="PLATFORM"
+SpectatorString="Spectator"
+LobbyString="In Lobby"
+DeadString="DEAD"
+BotPlatformString="Bot"
+EpicPlatformString="Epic"
+SteamPlatformString="Steam"
+UnknownPlatformString="Unknown"
+
 //Upgrades
 [WMUpgrade_Equipment_ArmorUp]
 UpgradeName="Armor Up"

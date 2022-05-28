@@ -2,6 +2,21 @@ class WMGFxHudScoreBoard extends WMGFxScoreBoardStyle;
 
 var transient float PerkXPos, PlayerXPos, KillsXPos, AssistXPos, CashXPos, HealthXPos, ArmorXPos, PingXPos, PlatformXPos;
 
+var localized string PlayersString;
+var localized string AliveString;
+var localized string SpectatorsString;
+var localized string PerkString;
+var localized string HealthString;
+var localized string ArmorString;
+var localized string PlatformString;
+var localized string SpectatorString;
+var localized string LobbyString;
+var localized string DeadString;
+var localized string BotPlatformString;
+var localized string EpicPlatformString;
+var localized string SteamPlatformString;
+var localized string UnknownPlatformString;
+
 final function PlayerController GetPlayer()
 {
 	return GetALocalPlayerController();
@@ -219,7 +234,7 @@ event Draw(Canvas ca)
 	XPos = XPosCenter;
 	YPos += YL;
 
-	S = " Players : " $NumPlayer $"  |  Alive : " $NumAlivePlayer $"  |  Spectators : " $NumSpec $" ";
+	S = " " $default.PlayersString $" : " $NumPlayer $"  |  " $default.AliveString $" : " $NumAlivePlayer $"  |  " $default.SpectatorsString $" : " $NumSpec $" ";
 	ScoreBoardCanvas.TextSize(S, XL, YL, FontScalar, FontScalar);
 
 	XPos -= (XL * 0.5);
@@ -230,19 +245,19 @@ event Draw(Canvas ca)
 	ScoreBoardCanvas.DrawColor = MakeColor(255, 145, 0, 255);
 	XPos += 5;
 
-	S = "Players : " $NumPlayer;
+	S = default.PlayersString $" : " $NumPlayer;
 	ScoreBoardCanvas.SetPos(XPos, YPos);
 	ScoreBoardCanvas.DrawText(S, , FontScalar, FontScalar);
 	ScoreBoardCanvas.TextSize(S, XL, YL, FontScalar, FontScalar);
 
 	XPos += XL;
-	S = "  |  Alive : " $NumAlivePlayer;
+	S = "  |  " $default.AliveString $" : " $NumAlivePlayer;
 	ScoreBoardCanvas.SetPos(XPos, YPos);
 	ScoreBoardCanvas.DrawText(S, , FontScalar, FontScalar);
 	ScoreBoardCanvas.TextSize(S, XL, YL, FontScalar, FontScalar);
 
 	XPos += XL;
-	S = "  |  Spectators : " $NumSpec;
+	S = "  |  " $default.SpectatorsString $" : " $NumSpec;
 	ScoreBoardCanvas.SetPos(XPos, YPos);
 	ScoreBoardCanvas.DrawText(S, , FontScalar, FontScalar);
 	//////
@@ -271,7 +286,7 @@ event Draw(Canvas ca)
 
 	// Header texts
 	ScoreBoardCanvas.SetPos(XPos + PerkXPos, YPos);
-	ScoreBoardCanvas.DrawText("PERK", , FontScalar, FontScalar);
+	ScoreBoardCanvas.DrawText(default.PerkString, , FontScalar, FontScalar);
 
 	ScoreBoardCanvas.SetPos(XPos + PlayerXPos, YPos);
 	ScoreBoardCanvas.DrawText(class'KFGFxHUD_ScoreboardWidget'.default.PlayerString, , FontScalar, FontScalar);
@@ -286,16 +301,16 @@ event Draw(Canvas ca)
 	ScoreBoardCanvas.DrawText(class'KFGFxHUD_ScoreboardWidget'.default.DoshString, , FontScalar, FontScalar);
 
 	ScoreBoardCanvas.SetPos(XPos + HealthXPos, YPos);
-	ScoreBoardCanvas.DrawText("HEALTH", , FontScalar, FontScalar);
+	ScoreBoardCanvas.DrawText(default.HealthString, , FontScalar, FontScalar);
 
 	ScoreBoardCanvas.SetPos(XPos + ArmorXPos, YPos);
-	ScoreBoardCanvas.DrawText("ARMOR", , FontScalar, FontScalar);
+	ScoreBoardCanvas.DrawText(default.ArmorString, , FontScalar, FontScalar);
 
 	ScoreBoardCanvas.SetPos(XPos + PingXPos, YPos);
 	ScoreBoardCanvas.DrawText(class'KFGFxHUD_ScoreboardWidget'.default.PingString, , FontScalar, FontScalar);
 
 	ScoreBoardCanvas.SetPos(XPos + PlatformXPos, YPos);
-	ScoreBoardCanvas.DrawText("PLATFORM", , FontScalar, FontScalar);
+	ScoreBoardCanvas.DrawText(default.PlatformString, , FontScalar, FontScalar);
 	//////
 
 	for (i = 0; i < WMPRIArray.length; ++i)
@@ -322,9 +337,9 @@ event Draw(Canvas ca)
 		ScoreBoardCanvas.SetPos(XPos + PerkXPos, YPos);
 
 		if (WMPRI.bOnlySpectator)
-			S = "Spectator";
+			S = default.SpectatorString;
 		else if (WMPRI.bWaitingPlayer)
-			S = "In Lobby";
+			S = default.LobbyString;
 		else
 			S = " Lv" @string(WMPRI.PlayerLevel);
 
@@ -380,7 +395,7 @@ event Draw(Canvas ca)
 		else if (WMPRI.PlayerHealthInt <= 0)
 		{
 			ScoreBoardCanvas.DrawColor = MakeColor(255, 0, 0, 255);
-			S = "DEAD";
+			S = default.DeadString;
 		}
 		else
 		{
@@ -411,7 +426,7 @@ event Draw(Canvas ca)
 		{
 			ScoreBoardCanvas.DrawColor = MakeColor(255, 0, 0, 255);
 			if (WMPRI.PlayerHealthInt <= 0)
-				S = "DEAD";
+				S = default.DeadString;
 			else
 				S = string(0) @"AP";
 		}
@@ -462,13 +477,13 @@ event Draw(Canvas ca)
 
 		////// Platform
 		if (WMPRI.bBot)
-			S = "Bot";
+			S = default.BotPlatformString;
 		else if (WMPRI.PlatformType == 2)
-			S = "Epic";
+			S = default.EpicPlatformString;
 		else if (WMPRI.PlatformType == 1)
-			S = "Steam";
+			S = default.SteamPlatformString;
 		else
-			S = "Unknown";
+			S = default.UnknownPlatformString;
 
 		ScoreBoardCanvas.SetPos(XPos + PlatformXPos, YPos);
 		ScoreBoardCanvas.DrawText(S, , FontScalar, FontScalar);
