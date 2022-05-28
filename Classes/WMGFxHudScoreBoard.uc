@@ -148,7 +148,7 @@ event Draw(Canvas ca)
 	if (PC.WorldInfo.NetMode != NM_Standalone)
 		S = " " $KFGRI.ServerName $" ";
 	else
-		S = " ZedternalReborn Standalone ";
+		S = " ZedternalReborn" @class'KFCommon_LocalizedStrings'.default.DiscordSoloMatchString $" ";
 
 	ScoreBoardCanvas.TextSize(S, XL, YL, FontScalar, FontScalar);
 
@@ -163,7 +163,7 @@ event Draw(Canvas ca)
 	if (PC.WorldInfo.NetMode != NM_Standalone)
 		S = KFGRI.ServerName;
 	else
-		S = "ZedternalReborn Standalone";
+		S = "ZedternalReborn" @class'KFCommon_LocalizedStrings'.default.DiscordSoloMatchString;
 
 	ScoreBoardCanvas.SetPos(XPos, YPos);
 	ScoreBoardCanvas.DrawText(S, , FontScalar, FontScalar);
