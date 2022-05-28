@@ -1,5 +1,36 @@
 //Version 1.0
 
+//Upgrade Menu
+[WMUI_UPGMenu]
+Title="Upgrade Menu"
+MenuHeader="Loadout"
+MenuTab1="Perk Upgrades"
+MenuTab2="Skill Upgrades"
+MenuTab3="Weapon Upgrades"
+MenuTab4="Equipment Upgrades"
+MenuTab5="Grenades"
+MenuTab6="Knives"
+MenuTab7=" "
+RerollButton="Reroll Skills"
+EquipButton="Equip"
+SkipButton="Skip Trader Time"
+CloseButton="Close Menu"
+FilterName1="Upgrades"
+FilterName2=""
+FilterName3=""
+Filter1Option1="Show All"
+Filter1Option2="Available"
+Filter1Option3="Purchased"
+PerkSkillListHeader="Buying this upgrade will unlocked one of these skills :"
+SkillDeluxe="[Deluxe]"
+RerollSuccessTitle="Reroll skills for perk %x%?"
+RerollFeeDescription="This will cost a reroll fee of %x% Dosh."
+RerollSellDescription="skill(s) will be sold at a %x%% rate for a total refund of %y% Dosh."
+RerollRequiredDosh="Required Dosh:"
+RerollDoshRefunded="Dosh Refunded:"
+RerollFailTitle="Lack of Dosh"
+RerollFailDescription="Current Dosh:"
+
 //Upgrades
 [WMUpgrade_Equipment_ArmorUp]
 UpgradeName="Armor Up"

@@ -57,44 +57,44 @@ function UpdateText()
 	{
 		LocalizedObject = CreateObject("Object");
 		LocalizedObject.SetString("noItems", "");
-		LocalizedObject.SetString("back", Class'KFCommon_LocalizedStrings'.default.BackString);
-		LocalizedObject.SetString("ok", Class'KFCommon_LocalizedStrings'.default.OKString);
+		LocalizedObject.SetString("back", class'KFCommon_LocalizedStrings'.default.BackString);
+		LocalizedObject.SetString("ok", class'KFCommon_LocalizedStrings'.default.OKString);
 		LocalizedObject.SetString("equip", "");
 		LocalizedObject.SetString("unequip", "");
 		LocalizedObject.SetString("useString", "");
-		LocalizedObject.SetString("recycle", "Reroll Skills");
-		LocalizedObject.SetString("inventory", "Upgrade Menu");
+		LocalizedObject.SetString("recycle", class'ZedternalReborn.WMUI_UPGMenu_Localization'.static.GetRerollButton());
+		LocalizedObject.SetString("inventory", class'ZedternalReborn.WMUI_UPGMenu_Localization'.static.GetTitle());
 
-		LocalizedObject.SetString("filters", "Loadout");
-		LocalizedObject.SetString("all", "Perk Upgrades");
-		LocalizedObject.SetString("weaponSkins", "Skill Upgrades");
-		LocalizedObject.SetString("cosmetics", "Weapon Upgrades");
-		LocalizedObject.SetString("items", "Equipment Upgrades");
-		LocalizedObject.SetString("craftingMats", "Grenades");
-		LocalizedObject.SetString("emotes", "Knives");
-		LocalizedObject.SetString("sfx", " ");
+		LocalizedObject.SetString("filters", class'ZedternalReborn.WMUI_UPGMenu_Localization'.static.GetMenuHeader());
+		LocalizedObject.SetString("all", class'ZedternalReborn.WMUI_UPGMenu_Localization'.static.GetMenuTab1());
+		LocalizedObject.SetString("weaponSkins", class'ZedternalReborn.WMUI_UPGMenu_Localization'.static.GetMenuTab2());
+		LocalizedObject.SetString("cosmetics", class'ZedternalReborn.WMUI_UPGMenu_Localization'.static.GetMenuTab3());
+		LocalizedObject.SetString("items", class'ZedternalReborn.WMUI_UPGMenu_Localization'.static.GetMenuTab4());
+		LocalizedObject.SetString("craftingMats", class'ZedternalReborn.WMUI_UPGMenu_Localization'.static.GetMenuTab5());
+		LocalizedObject.SetString("emotes", class'ZedternalReborn.WMUI_UPGMenu_Localization'.static.GetMenuTab6());
+		LocalizedObject.SetString("sfx", class'ZedternalReborn.WMUI_UPGMenu_Localization'.static.GetMenuTab7());
 
-		LocalizedObject.SetString("craftWeapon", "Skip Trader Time");
-		LocalizedObject.SetString("craftCosmetic", "Close Menu");
+		LocalizedObject.SetString("craftWeapon", class'ZedternalReborn.WMUI_UPGMenu_Localization'.static.GetSkipButton());
+		LocalizedObject.SetString("craftCosmetic", class'ZedternalReborn.WMUI_UPGMenu_Localization'.static.GetCloseButton());
 
-		LocalizedObject.SetString("filterName_0", "Upgrades");
-		LocalizedObject.SetString("filterName_1", "");
-		LocalizedObject.SetString("filterName_2", "");
+		LocalizedObject.SetString("filterName_0", class'ZedternalReborn.WMUI_UPGMenu_Localization'.static.GetFilterName1());
+		LocalizedObject.SetString("filterName_1", class'ZedternalReborn.WMUI_UPGMenu_Localization'.static.GetFilterName2());
+		LocalizedObject.SetString("filterName_2", class'ZedternalReborn.WMUI_UPGMenu_Localization'.static.GetFilterName3());
 
 		LocalizedObject.SetInt("filterIndex_0", int(CurrentUpgradeFilter));
 
 		UpgradeList = CreateArray();
 
 		TempObject = CreateObject("Object");
-		TempObject.SetString("label", "Show All");
+		TempObject.SetString("label", class'ZedternalReborn.WMUI_UPGMenu_Localization'.static.GetFilter1Option1());
 		UpgradeList.SetElementObject(0, TempObject);
 
 		TempObject = CreateObject("Object");
-		TempObject.SetString("label", "Available");
+		TempObject.SetString("label", class'ZedternalReborn.WMUI_UPGMenu_Localization'.static.GetFilter1Option2());
 		UpgradeList.SetElementObject(1, TempObject);
 
 		TempObject = CreateObject("Object");
-		TempObject.SetString("label", "Purchased");
+		TempObject.SetString("label", class'ZedternalReborn.WMUI_UPGMenu_Localization'.static.GetFilter1Option3());
 		UpgradeList.SetElementObject(2, TempObject);
 
 		LocalizedObject.SetObject("filterData_0", UpgradeList);
@@ -331,7 +331,7 @@ function CallBack_ItemDetailsClicked(int ItemDefinition)
 
 	if (!WMPRI.SyncCompleted && WMPRI.SyncTimerActive())
 	{
-		EquipButton.SetString("label", "Synchronizing...");
+		EquipButton.SetString("label", "...");
 		return;
 	}
 
@@ -377,7 +377,7 @@ function CallBack_ItemDetailsClicked(int ItemDefinition)
 	}
 	else if (CurrentFilterIndex == 4 || CurrentFilterIndex == 5)//Knives and Grenades
 	{
-		EquipButton.SetString("label", "Equip");
+		EquipButton.SetString("label", class'ZedternalReborn.WMUI_UPGMenu_Localization'.static.GetEquipButton());
 	}
 }
 
@@ -417,21 +417,32 @@ function Callback_RecycleItem(int ItemDefinition)
 		RerollPerkItemDefinition = ItemDefinition;
 		RerollTotalCost = TotalCost;
 
-		STitle = "Reroll skills for perk" @WMGRI.PerkUpgradesList[PerkUPGIndex[ItemDefinition]].PerkUpgrade.default.UpgradeName $"?";
-		SDescription = "This will cost a reroll fee of" @RerollCost @"Dosh.";
+		if (WMGRI.PerkUpgradesList[PerkUPGIndex[ItemDefinition]].PerkUpgrade.default.bShouldLocalize)
+			STitle = repl(class'ZedternalReborn.WMUI_UPGMenu_Localization'.static.GetRerollSuccessTitle(), "%x%", WMGRI.PerkUpgradesList[PerkUPGIndex[ItemDefinition]].PerkUpgrade.static.GetUpgradeName());
+		else
+			STitle = repl(class'ZedternalReborn.WMUI_UPGMenu_Localization'.static.GetRerollSuccessTitle(), "%x%", WMGRI.PerkUpgradesList[PerkUPGIndex[ItemDefinition]].PerkUpgrade.default.UpgradeName);
+
+		SDescription = repl(class'ZedternalReborn.WMUI_UPGMenu_Localization'.static.GetRerollFeeDescription(), "%x%", RerollCost);
 		if (Count > 0)
 		{
-			SDescription = SDescription @Count @"skill(s) will be sold at a" @Round(WMGRI.RerollSkillSellPercent * 100) $"% rate for a total refund of" @SkillRefund @"Dosh.";
+			SDescription = SDescription @Count @class'ZedternalReborn.WMUI_UPGMenu_Localization'.static.GetRerollSellDescription();
+			SDescription = repl(SDescription, "%x%", Round(WMGRI.RerollSkillSellPercent * 100));
+			SDescription = repl(SDescription, "%y%", SkillRefund);
 			if (TotalCost > 0)
-				SDescription = SDescription @"\nRequired Dosh:" @TotalCost;
+				SDescription = SDescription $"\n" $class'ZedternalReborn.WMUI_UPGMenu_Localization'.static.GetRerollRequiredDosh() @TotalCost;
 			else
-				SDescription = SDescription @"\nDosh Refunded:" @-TotalCost;
+				SDescription = SDescription $"\n" $class'ZedternalReborn.WMUI_UPGMenu_Localization'.static.GetRerollDoshRefunded() @-TotalCost;
 		}
 
-		Manager.OpenUPGMenuPopup(STitle, SDescription, "Confirm", "Cancel", ConfirmSkillReroll, ResetRerollVars);
+		Manager.OpenUPGMenuPopup(STitle, SDescription, class'KFCommon_LocalizedStrings'.default.ConfirmString, class'KFCommon_LocalizedStrings'.default.CancelString, ConfirmSkillReroll, ResetRerollVars);
 	}
 	else
-		Manager.OpenUPGMenuPopup("Lack of Dosh", "Current Dosh:" @Round(WMPRI.Score) $"\nRequired Dosh:" @TotalCost, , , , , "Okay", ResetRerollVars);
+	{
+		STitle = class'ZedternalReborn.WMUI_UPGMenu_Localization'.static.GetRerollFailTitle();
+		SDescription = class'ZedternalReborn.WMUI_UPGMenu_Localization'.static.GetRerollFailDescription() @Round(WMPRI.Score);
+		SDescription = SDescription $"\n" $class'ZedternalReborn.WMUI_UPGMenu_Localization'.static.GetRerollRequiredDosh() @TotalCost;
+		Manager.OpenUPGMenuPopup(STitle, SDescription, , , , , class'KFCommon_LocalizedStrings'.default.OKString, ResetRerollVars);
+	}
 }
 
 // Close menu
@@ -469,7 +480,7 @@ function Refresh()
 {
 	Callback_InventoryFilter(CurrentFilterIndex);
 	UpdateText();
-	EquipButton.SetString("label", "Synchronizing...");
+	EquipButton.SetString("label", "...");
 }
 
 function UpdateCraftButtons()
@@ -532,9 +543,9 @@ function BuildPerkUpgradeList(out GFxObject ItemArray)
 				if (MaxLevel > 1)
 				{
 					if (bPurchased)
-						S @= "(" $ MaxLevel $ "/" $ MaxLevel $ ")";
+						S @= "(" $MaxLevel $"/" $MaxLevel $")";
 					else
-						S @= "(" $ lvl $ "/" $ MaxLevel $ ")";
+						S @= "(" $lvl $"/" $MaxLevel $")";
 				}
 
 				ItemObject.SetString("label", S);
@@ -586,7 +597,7 @@ function string GetPerkDescription(int index, int lvl)
 
 		for (i = 1; i < WMGRI.PerkUpgradesList[index].PerkUpgrade.default.LocalizeDescriptionLineCount; ++i)
 		{
-			S $= "\n" $ repl(WMGRI.PerkUpgradesList[index].PerkUpgrade.static.GetUpgradeDescription(i), "%x%", WMGRI.PerkUpgradesList[index].PerkUpgrade.static.GetBonusValue(i, lvl + 1));
+			S $= "\n" $repl(WMGRI.PerkUpgradesList[index].PerkUpgrade.static.GetUpgradeDescription(i), "%x%", WMGRI.PerkUpgradesList[index].PerkUpgrade.static.GetBonusValue(i, lvl + 1));
 		}
 	}
 	else
@@ -598,13 +609,13 @@ function string GetPerkDescription(int index, int lvl)
 
 		for (i = 1; i < WMGRI.PerkUpgradesList[index].PerkUpgrade.default.UpgradeDescription.Length; ++i)
 		{
-			S $= "\n" $ repl(WMGRI.PerkUpgradesList[index].PerkUpgrade.default.UpgradeDescription[i], "%x%", WMGRI.PerkUpgradesList[index].PerkUpgrade.static.GetBonusValue(i, lvl + 1));
+			S $= "\n" $repl(WMGRI.PerkUpgradesList[index].PerkUpgrade.default.UpgradeDescription[i], "%x%", WMGRI.PerkUpgradesList[index].PerkUpgrade.static.GetBonusValue(i, lvl + 1));
 		}
 	}
 
 	// write associated skills (and use different colors for locked, unlocked and bought skills)
 	bFirstSkill = True;
-	S $= "\n\n\n\nBuying this upgrade will unlocked one of these skills :\n";
+	S $= "\n\n\n\n" $class'ZedternalReborn.WMUI_UPGMenu_Localization'.static.GetPerkSkillListHeader() $"\n";
 	for (i = 0; i < WMGRI.SkillUpgradesList.Length; ++i)
 	{
 		if (WMGRI.SkillUpgradesList[i].PerkPathName ~= PathName(WMGRI.PerkUpgradesList[index].PerkUpgrade))
@@ -635,9 +646,9 @@ function string GetPerkDescription(int index, int lvl)
 				S $= ", ";
 
 			if (WMGRI.SkillUpgradesList[i].SkillUpgrade.default.bShouldLocalize)
-				S $= "<font color=\"#" $TextColor$ "\">" $WMGRI.SkillUpgradesList[i].SkillUpgrade.static.GetUpgradeName()$ "</font>";
+				S $= "<font color=\"#" $TextColor $"\">" $WMGRI.SkillUpgradesList[i].SkillUpgrade.static.GetUpgradeName() $"</font>";
 			else
-				S $= "<font color=\"#" $TextColor$ "\">" $WMGRI.SkillUpgradesList[i].SkillUpgrade.default.UpgradeName$ "</font>";
+				S $= "<font color=\"#" $TextColor $"\">" $WMGRI.SkillUpgradesList[i].SkillUpgrade.default.UpgradeName $"</font>";
 		}
 	}
 
@@ -703,7 +714,7 @@ function BuildSkillUpgradeList(out GFxObject ItemArray)
 
 				if (WMPRI.bSkillDeluxe[i] == 1)
 				{
-					ItemObject.SetString("label", S @ "[Deluxe]");
+					ItemObject.SetString("label", S @class'ZedternalReborn.WMUI_UPGMenu_Localization'.static.GetSkillDeluxe());
 					if (WMGRI.SkillUpgradesList[i].SkillUpgrade.default.bShouldLocalize)
 						ItemObject.SetString("description", WMGRI.SkillUpgradesList[i].SkillUpgrade.static.GetUpgradeDescription(True));
 					else
@@ -814,9 +825,9 @@ function BuildWeaponUpgradeList(out GFxObject ItemArray)
 				if (MaxLevel > 1)
 				{
 					if (bPurchased)
-						S @= "(" $ MaxLevel $ "/" $ MaxLevel $ ")";
+						S @= "(" $MaxLevel $"/" $MaxLevel $")";
 					else
-						S @= "(" $ lvl $ "/" $ MaxLevel $ ")";
+						S @= "(" $lvl $"/" $MaxLevel $")";
 				}
 
 				ItemObject.SetString("label", S);
@@ -924,9 +935,9 @@ function BuildEquipmentUpgradeList(out GFxObject ItemArray)
 			if (MaxLevel > 1)
 			{
 				if (bPurchased)
-					S @= "(" $ MaxLevel $ "/" $ MaxLevel $ ")";
+					S @= "(" $MaxLevel $"/" $MaxLevel $")";
 				else
-					S @= "(" $ lvl $ "/" $ MaxLevel $ ")";
+					S @= "(" $lvl $"/" $MaxLevel $")";
 			}
 
 			ItemObject.SetString("label", S);
@@ -976,7 +987,7 @@ function string GetEquipmentDescription(int index, int lvl)
 
 		for (i = 1; i < WMGRI.EquipmentUpgradesList[index].EquipmentUpgrade.default.LocalizeDescriptionLineCount; ++i)
 		{
-			S $= "\n" $ repl(WMGRI.EquipmentUpgradesList[index].EquipmentUpgrade.static.GetUpgradeDescription(i), "%x%", WMGRI.EquipmentUpgradesList[index].EquipmentUpgrade.static.GetBonusValue(i, lvl + 1));
+			S $= "\n" $repl(WMGRI.EquipmentUpgradesList[index].EquipmentUpgrade.static.GetUpgradeDescription(i), "%x%", WMGRI.EquipmentUpgradesList[index].EquipmentUpgrade.static.GetBonusValue(i, lvl + 1));
 		}
 	}
 	else
@@ -988,7 +999,7 @@ function string GetEquipmentDescription(int index, int lvl)
 
 		for (i = 1; i < WMGRI.EquipmentUpgradesList[index].EquipmentUpgrade.default.UpgradeDescription.Length; ++i)
 		{
-			S $= "\n" $ repl(WMGRI.EquipmentUpgradesList[index].EquipmentUpgrade.default.UpgradeDescription[i], "%x%", WMGRI.EquipmentUpgradesList[index].EquipmentUpgrade.static.GetBonusValue(i, lvl + 1));
+			S $= "\n" $repl(WMGRI.EquipmentUpgradesList[index].EquipmentUpgrade.default.UpgradeDescription[i], "%x%", WMGRI.EquipmentUpgradesList[index].EquipmentUpgrade.static.GetBonusValue(i, lvl + 1));
 		}
 	}
 
@@ -1014,8 +1025,8 @@ function BuildGrenadeList(out GFxObject ItemArray)
 			ItemObject.SetInt("count", 1);
 			ItemObject.SetString("label", WMGRI.GrenadesList[i].Grenade.static.GetItemName());
 			ItemObject.SetString("description", "");
-			ItemObject.SetString("iconURLSmall", "img://" $ WMGRI.GrenadesList[i].Grenade.static.GetImagePath());
-			ItemObject.SetString("iconURLLarge", "img://" $ WMGRI.GrenadesList[i].Grenade.static.GetImagePath());
+			ItemObject.SetString("iconURLSmall", "img://" $WMGRI.GrenadesList[i].Grenade.static.GetImagePath());
+			ItemObject.SetString("iconURLLarge", "img://" $WMGRI.GrenadesList[i].Grenade.static.GetImagePath());
 			ItemObject.SetString("price", "");
 			ItemObject.Setstring("typeRarity", "");
 			ItemObject.SetBool("exchangeable", False);
@@ -1054,8 +1065,8 @@ function BuildKnifeList(out GFxObject ItemArray)
 		ItemObject.SetInt("count", 1);
 		ItemObject.SetString("label", WMP.KnivesWeaponDef[i].static.GetItemName());
 		ItemObject.SetString("description", "");
-		ItemObject.SetString("iconURLSmall", "img://" $ WMP.KnivesWeaponDef[i].static.GetImagePath());
-		ItemObject.SetString("iconURLLarge", "img://" $ WMP.KnivesWeaponDef[i].static.GetImagePath());
+		ItemObject.SetString("iconURLSmall", "img://" $WMP.KnivesWeaponDef[i].static.GetImagePath());
+		ItemObject.SetString("iconURLLarge", "img://" $WMP.KnivesWeaponDef[i].static.GetImagePath());
 		ItemObject.SetString("price", "");
 		ItemObject.Setstring("typeRarity", "");
 		ItemObject.SetBool("exchangeable", False);
