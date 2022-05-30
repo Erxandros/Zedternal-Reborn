@@ -2,6 +2,8 @@ class WMGFxWidget_PartyInGame extends KFGFxWidget_PartyInGame;
 
 var WMGameReplicationInfo WMGRI;
 
+var localized string CycleListString;
+
 function InitializeWidget()
 {
 	super.InitializeWidget();
@@ -26,7 +28,7 @@ function RefreshCycleButton()
 	}
 
 	WMGRI.LobbyMaxPage = KFPRIArray.Length / PlayerSlots + Min(1, KFPRIArray.Length % PlayerSlots);
-	SetString("switchTeamsString", "Cycle List" @ WMGRI.LobbyCurrentPage $ "/" $ WMGRI.LobbyMaxPage);
+	SetString("switchTeamsString", "" $ default.CycleListString @ WMGRI.LobbyCurrentPage $ "/" $ WMGRI.LobbyMaxPage);
 }
 
 function OneSecondLoop()

@@ -52,6 +52,10 @@ UnknownPlatformString="Unknown"
 [WMGFxHudWrapper]
 ZedBuffEvolvingString="!!! ZEDS ARE EVOLVING !!!"
 
+//Lobby Screen
+[WMGFxWidget_PartyInGame]
+CycleListString="Cycle List"
+
 //Upgrades
 [WMUpgrade_Equipment_ArmorUp]
 UpgradeName="Armor Up"
