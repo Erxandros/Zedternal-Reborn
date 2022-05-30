@@ -6,6 +6,8 @@ var float bgFactor;
 
 var const color SupplierThirdUsableColor;
 
+var localized string ZedBuffEvolvingString;
+
 simulated function PostBeginPlay()
 {
 	SetTimer(1.5f, True, NameOf(UpdateWarningString));
@@ -109,7 +111,7 @@ event DrawHUD()
 		size = 0.65f;
 
 		//draw warning
-		buffTitle = "!!! ZEDS ARE EVOLVING !!!";
+		buffTitle = default.ZedBuffEvolvingString;
 		Canvas.StrLen(buffTitle, XL, YL);
 		XL *= size;
 		YL *= size;

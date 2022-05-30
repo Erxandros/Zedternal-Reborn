@@ -48,6 +48,10 @@ EpicPlatformString="Epic"
 SteamPlatformString="Steam"
 UnknownPlatformString="Unknown"
 
+//HUD Wrapper
+[WMGFxHudWrapper]
+ZedBuffEvolvingString="!!! ZEDS ARE EVOLVING !!!"
+
 //Upgrades
 [WMUpgrade_Equipment_ArmorUp]
 UpgradeName="Armor Up"
