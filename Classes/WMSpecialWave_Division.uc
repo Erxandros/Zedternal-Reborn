@@ -4,7 +4,7 @@ var float SmallZedDamageGiven, SmallZedDamageTaken, SmallZedSize;
 
 function Killed(Controller Killer, Controller KilledPlayer, Pawn KilledPawn, class<DamageType> DT)
 {
-	local KFPawn_Monster KFPM, newKFPM1, newKFPM2;
+	local KFPawn_Monster KFPM, NewKFPM1, NewKFPM2;
 
 	KFPM = KFPawn_Monster(KilledPawn);
 	if (Killer != None && KFPM != None && KFPM.MyKFAIC != None &&
@@ -12,33 +12,37 @@ function Killed(Controller Killer, Controller KilledPlayer, Pawn KilledPawn, cla
 	{
 		if (Rand(2) == 1)
 		{
-			newKFPM1 = spawn(KFPM.class,,,KFPM.Location + vect(100,0,0), KilledPawn.Rotation);
-			newKFPM2 = spawn(KFPM.class,,,KFPM.Location - vect(100,0,0), KilledPawn.Rotation);
+			NewKFPM1 = spawn(KFPM.Class, , , KFPM.Location + vect(100,0,0), KilledPawn.Rotation);
+			NewKFPM2 = spawn(KFPM.Class, , , KFPM.Location - vect(100,0,0), KilledPawn.Rotation);
 		}
 		else
 		{
-			newKFPM1 = spawn(KFPM.class,,,KFPM.Location + vect(0,100,0), KilledPawn.Rotation);
-			newKFPM2 = spawn(KFPM.class,,,KFPM.Location - vect(0,100,0), KilledPawn.Rotation);
+			NewKFPM1 = spawn(KFPM.Class, , , KFPM.Location + vect(0,100,0), KilledPawn.Rotation);
+			NewKFPM2 = spawn(KFPM.Class, , , KFPM.Location - vect(0,100,0), KilledPawn.Rotation);
 		}
 
-		if (newKFPM1 != None)
-			AjustNewZed(newKFPM1, KFPM.MyKFAIC.class);
+		if (NewKFPM1 != None)
+			AjustNewZed(NewKFPM1, KFPM.MyKFAIC.Class);
 
-		if (newKFPM2 != None)
-			AjustNewZed(newKFPM2, KFPM.MyKFAIC.class);
+		if (NewKFPM2 != None)
+			AjustNewZed(NewKFPM2, KFPM.MyKFAIC.Class);
 	}
 }
 
 function AjustNewZed(KFPawn_Monster KFPM, class<KFAIController> KFAI)
 {
-	if (KFPM != None && KFAI != None)
+	local KFAIController NewKFAIC;
+
+	NewKFAIC = Spawn(KFAI);
+	if (NewKFAIC != None)
 	{
-		KFPM.MyKFAIC = Spawn(KFAI);
 		SetBodyChangeFlag(KFPM);
-		KFPM.MyKFAIC.Possess(KFPM, False);
+		NewKFAIC.Possess(KFPM, False);
 		KFPM.IntendedBodyScale = default.SmallZedSize;
 		KFPM.UpdateBodyScale(KFPM.IntendedBodyScale);
 	}
+	else
+		KFPM.Destroy();
 }
 
 static function ModifyDamageGiven(out int InDamage, int DefaultDamage, optional Actor DamageCauser, optional KFPawn_Monster MyKFPM, optional KFPlayerController DamageInstigator, optional class<KFDamageType> DamageType, optional int HitZoneIdx, optional KFWeapon MyKFW)
