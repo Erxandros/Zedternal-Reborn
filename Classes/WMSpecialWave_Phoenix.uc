@@ -12,7 +12,7 @@ function Killed(Controller Killer, Controller KilledPlayer, Pawn KilledPawn, cla
 	local KFPawn_Monster KFPM;
 
 	KFPM = KFPawn_Monster(KilledPawn);
-	if (KFPM != None && KFPM.MyKFAIC != None && FRand() < default.Prob && !IsTimerActive(NameOf(ReviveZED)))
+	if (KFPM != None && KFPM.MyKFAIC != None && KFPM.LastHitZoneIndex != HZI_HEAD && !KFPM.IsHeadless() && FRand() < default.Prob && !IsTimerActive(NameOf(ReviveZED)))
 	{
 		KFPM_Class = KFPM.Class;
 		KFAI_Class = KFPM.MyKFAIC.Class;
@@ -57,8 +57,8 @@ function ReviveZED()
 
 defaultproperties
 {
-	Delay=2.0f
-	Prob=0.2f
+	Delay=1.5f
+	Prob=0.4f
 	ZedSpawnRateFactor=0.95f
 	WaveValueFactor=0.875f
 	DoshFactor=0.875f
