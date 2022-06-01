@@ -7,6 +7,12 @@ var vector LastLocation;
 var rotator LastRotation;
 var KFGameReplicationInfo KFGRI;
 
+function PostBeginPlay()
+{
+	super.PostBeginPlay();
+	KFGRI = KFGameReplicationInfo(WorldInfo.GRI);
+}
+
 function Killed(Controller Killer, Controller KilledPlayer, Pawn KilledPawn, class<DamageType> DT)
 {
 	local KFPawn_Monster KFPM;
@@ -18,7 +24,6 @@ function Killed(Controller Killer, Controller KilledPlayer, Pawn KilledPawn, cla
 		KFAI_Class = KFPM.MyKFAIC.Class;
 		LastLocation = KFPM.Location;
 		LastRotation = KFPM.Rotation;
-		KFGRI = KFGameReplicationInfo(Killer.WorldInfo.GRI);
 		SetTimer(default.Delay, False, NameOf(ReviveZED));
 	}
 }
