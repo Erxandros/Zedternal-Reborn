@@ -1953,7 +1953,7 @@ function int GetAdjustedDeathPenalty(KFPlayerReplicationInfo KilledPlayerPRI, op
 
 	PlayerBase = class'ZedternalReborn.Config_Dosh'.static.GetBaseWaveDoshReward(GameDifficultyZedternal, PlayerCount);
 	PlayerWave = class'ZedternalReborn.Config_Dosh'.static.GetBonusWaveDoshReward(GameDifficultyZedternal, WaveNum);
-	PlayerPerkBonus = class'ZedternalReborn.Config_Dosh'.static.GetBonusPlayerLevelDoshReward(GameDifficultyZedternal, WMPlayerReplicationInfo(KFPC.PlayerReplicationInfo).PlayerLevel);
+	PlayerPerkBonus = class'ZedternalReborn.Config_Dosh'.static.GetBonusPlayerLevelDoshReward(GameDifficultyZedternal, WMPlayerReplicationInfo(KilledPlayerPRI).PlayerLevel);
 
 	return Round(float(PlayerBase + PlayerWave + PlayerPerkBonus) * (1.0f - FClamp(class'ZedternalReborn.Config_Dosh'.static.GetDeathPenaltyDoshPct(GameDifficultyZedternal), 0.0f, 1.0f)));
 }
