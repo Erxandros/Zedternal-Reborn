@@ -744,14 +744,14 @@ SpecialWaveDescription="Time is collapsing!"
 
 [WMSpecialWave_BackupPlan]
 SpecialWaveTitle="Backup Plan"
-SpecialWaveDescription="No more ammo..."
+SpecialWaveDescription="There was a hole in your pocket!"
 
 [WMSpecialWave_BloodyChainsaw]
 SpecialWaveTitle="Bloody Chainsaws"
 SpecialWaveDescription="Scrakes are everywhere!"
 
 [WMSpecialWave_BobbleZed]
-SpecialWaveTitle="Bobble Zed"
+SpecialWaveTitle="Bobble ZED"
 SpecialWaveDescription="That must hurt their necks!"
 
 [WMSpecialWave_BuffUp]
@@ -759,7 +759,7 @@ SpecialWaveTitle="Buff Up"
 SpecialWaveDescription="They grow fast!"
 
 [WMSpecialWave_CatchMe]
-SpecialWaveTitle="Catch me if you can"
+SpecialWaveTitle="Catch Me If You Can"
 SpecialWaveDescription="Run for your life!"
 
 [WMSpecialWave_Chaos]
@@ -772,7 +772,7 @@ SpecialWaveDescription="Hordes of clots are coming!"
 
 [WMSpecialWave_Division]
 SpecialWaveTitle="Division"
-SpecialWaveDescription="Double the Troubles!"
+SpecialWaveDescription="Double the trouble!"
 
 [WMSpecialWave_Dosh]
 SpecialWaveTitle="Dosh"
@@ -784,7 +784,7 @@ SpecialWaveDescription="Double your damage!"
 
 [WMSpecialWave_Earthquake]
 SpecialWaveTitle="Earthquake"
-SpecialWaveDescription="The world is now shaking"
+SpecialWaveDescription="The world is now shaking!"
 
 [WMSpecialWave_Emperor]
 SpecialWaveTitle="Emperor"
@@ -808,7 +808,7 @@ SpecialWaveDescription="More gifts spawn during the wave!"
 
 [WMSpecialWave_GodMode]
 SpecialWaveTitle="Super Soldier"
-SpecialWaveDescription="Release your True power"
+SpecialWaveDescription="Release your true power!"
 
 [WMSpecialWave_GoredFast]
 SpecialWaveTitle="Gored Fast"
@@ -819,8 +819,8 @@ SpecialWaveTitle="Haemorrhage"
 SpecialWaveDescription="Watch out for paper cuts!"
 
 [WMSpecialWave_HellFire]
-SpecialWaveTitle="HellFire"
-SpecialWaveDescription="Say welcome to Hell!"
+SpecialWaveTitle="Hellfire"
+SpecialWaveDescription="Welcome to Hell!"
 
 [WMSpecialWave_InstaKill]
 SpecialWaveTitle="InstaKill"
@@ -828,7 +828,7 @@ SpecialWaveDescription="But also for them!"
 
 [WMSpecialWave_Lethargic]
 SpecialWaveTitle="Lethargic"
-SpecialWaveDescription="They are faster during ZED times!"
+SpecialWaveDescription="They are faster during ZED Time!"
 
 [WMSpecialWave_Locked]
 SpecialWaveTitle="Locked"
@@ -836,11 +836,11 @@ SpecialWaveDescription="It's a trap!"
 
 [WMSpecialWave_MechanicalProblem]
 SpecialWaveTitle="Mechanical Problem"
-SpecialWaveDescription="Launching Annihilation.exe"
+SpecialWaveDescription="Launching Annihilation.exe!"
 
 [WMSpecialWave_Pesticide]
 SpecialWaveTitle="Arachnids"
-SpecialWaveDescription="Hordes of crawlers are coming!"
+SpecialWaveDescription="Hordes of Crawlers are coming!"
 
 [WMSpecialWave_Phoenix]
 SpecialWaveTitle="Phoenix"
@@ -876,7 +876,7 @@ SpecialWaveDescription="A small threat is still a threat!"
 
 [WMSpecialWave_TheHorde]
 SpecialWaveTitle="The Horde"
-SpecialWaveDescription="Rush Hour!"
+SpecialWaveDescription="Rush hour!"
 
 [WMSpecialWave_TinyTerror]
 SpecialWaveTitle="Tiny Terror"
@@ -895,8 +895,8 @@ SpecialWaveTitle="Unlimited Ammo"
 SpecialWaveDescription="Spread some love!"
 
 [WMSpecialWave_UpUpDecay]
-SpecialWaveTitle="Up, Up and Decay"
-SpecialWaveDescription="Try to make ninety-nine Zed balloons!"
+SpecialWaveTitle="Up, Up And Decay"
+SpecialWaveDescription="Try to make ninety-nine ZED balloons!"
 
 [WMSpecialWave_Vampire]
 SpecialWaveTitle="Vampire"
