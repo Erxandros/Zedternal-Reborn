@@ -2850,7 +2850,7 @@ simulated function Interact(KFPawn_Human KFPH)
 	{
 		foreach WMPH.InvManager.InventoryActors(class'KFWeapon', KFW)
 		{
-			if (KFW.static.DenyPerkResupply())
+			if (KFW.DenyPerkResupply())
 				continue;
 
 			bReceivedAmmo = (KFW.AddAmmo(FCeil(float(KFW.GetMaxAmmoAmount(0)) * PrimaryAmmoPercentage)) > 0) ? True : bReceivedAmmo;

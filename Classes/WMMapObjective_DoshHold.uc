@@ -49,6 +49,11 @@ simulated event ReplicatedEvent(name VarName)
 	}
 }
 
+simulated function bool CanActivateObjectiveByWeekly()
+{
+	return True;
+}
+
 // Status
 simulated function ActivateObjective()
 {
