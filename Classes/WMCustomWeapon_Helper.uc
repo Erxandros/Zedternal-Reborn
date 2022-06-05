@@ -174,4 +174,5 @@ defaultproperties
 	WeaponDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_Doshinegun_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_Doshinegun"));
 	WeaponDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_HRG_CranialPopper_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_HRG_CranialPopper"));
 	WeaponDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_HRG_Crossboom_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_HRG_Crossboom"));
+	WeaponDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_ShrinkRayGun_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_ShrinkRayGun"));
 }

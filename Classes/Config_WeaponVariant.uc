@@ -256,6 +256,10 @@ static function UpdateConfig()
 		NewVariant.WeaponDef = "KFGame.KFWeapDef_HRG_Crossboom";
 		NewVariant.WeaponDefVariant = "ZedternalReborn.WMWeapDef_HRG_Crossboom_Precious";
 		default.Weapon_VariantWeaponDef.AddItem(NewVariant);
+
+		NewVariant.WeaponDef = "KFGame.KFWeapDef_ShrinkRayGun";
+		NewVariant.WeaponDefVariant = "ZedternalReborn.WMWeapDef_ShrinkRayGun_Precious";
+		default.Weapon_VariantWeaponDef.AddItem(NewVariant);
 	}
 
 	if (default.MODEVERSION < class'ZedternalReborn.Config_Base'.const.CurrentVersion)
