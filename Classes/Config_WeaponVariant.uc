@@ -247,6 +247,13 @@ static function UpdateConfig()
 		default.Weapon_VariantWeaponDef.AddItem(NewVariant);
 	}
 
+	if (default.MODEVERSION < 13)
+	{
+		NewVariant.WeaponDef = "KFGame.KFWeapDef_HRG_CranialPopper";
+		NewVariant.WeaponDefVariant = "ZedternalReborn.WMWeapDef_HRG_CranialPopper_Precious";
+		default.Weapon_VariantWeaponDef.AddItem(NewVariant);
+	}
+
 	if (default.MODEVERSION < class'ZedternalReborn.Config_Base'.const.CurrentVersion)
 	{
 		default.MODEVERSION = class'ZedternalReborn.Config_Base'.const.CurrentVersion;
