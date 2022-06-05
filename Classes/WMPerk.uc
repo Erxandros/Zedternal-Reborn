@@ -1305,7 +1305,7 @@ function ApplyWeightLimits()
 	local int DefaultWeightLimit;
 	local int InWeightLimit;
 
-	if (OwnerPawn != None)
+	if (CheckOwnerPawn())
 	{
 		KFIM = KFInventoryManager(OwnerPawn.InvManager);
 
@@ -2734,7 +2734,7 @@ simulated function bool ShouldSacrifice()
 function NotifyPerkSacrificeExploded()
 {
 	bUsedSacrifice = True;
-	if (OwnerPawn != None)
+	if (CheckOwnerPawn())
 		OwnerPawn.HealDamage(50, OwnerPawn.Controller, class'KFGameContent.KFDT_Healing_MedicGrenade');
 }
 
@@ -3079,7 +3079,7 @@ simulated function DrawSpecialPerkHUD(Canvas C)
 	local float DetectionRangeSq, ThisDot;
 	local float HealthBarLength, HealthbarHeight;
 
-	if (OwnerPawn != None)
+	if (CheckOwnerPawn())
 	{
 		DetectionRangeSq = Square(GetCloakDetectionRange());
 
@@ -3408,7 +3408,7 @@ simulated function ApplyBatteryRechargeRate()
 	local byte i, index;
 	local float InRechargeRateFL, InRechargeRateNVG;
 
-	if (OwnerPawn != None)
+	if (CheckOwnerPawn())
 	{
 		InRechargeRateFL = 1.0f;
 		InRechargeRateNVG = 1.0f;
