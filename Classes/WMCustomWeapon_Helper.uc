@@ -175,4 +175,5 @@ defaultproperties
 	WeaponDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_HRG_CranialPopper_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_HRG_CranialPopper"));
 	WeaponDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_HRG_Crossboom_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_HRG_Crossboom"));
 	WeaponDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_ShrinkRayGun_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_ShrinkRayGun"));
+	WeaponDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_AutoTurret_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_AutoTurret"));
 }
