@@ -11,7 +11,7 @@ static function string GetItemLocalization(string KeyName)
 	ParseStringIntoArray(DEFAULT_WEAPON_PATH, Strings, ".", True);
 	Localization = Localize(Strings[1], KeyName, Strings[0]);
 	if (KeyName ~= "ItemName")
-		return "[P]" @ Localization;
+		return Chr(8471) @ Localization;
 	else
 		return Localization;
 }
