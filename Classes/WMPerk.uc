@@ -538,13 +538,11 @@ function ModifyDamageGiven(out int InDamage, optional Actor DamageCauser, option
 	if (DamageCauser != None)
 	{
 		if (DamageCauser.IsA('Weapon'))
-		{
 			MyKFW = KFWeapon(DamageCauser);
-		}
 		else if (DamageCauser.IsA('Projectile'))
-		{
 			MyKFW = KFWeapon(DamageCauser.Owner);
-		}
+		else if (DamageCauser.IsA('KFSprayActor'))
+			MyKFW = GetOwnerWeapon();
 		else
 			MyKFW = None;
 	}
@@ -561,17 +559,6 @@ function ModifyDamageGiven(out int InDamage, optional Actor DamageCauser, option
 	InDamage = Max(0, InDamage);
 	DefaultDamage = InDamage;
 	InDamage = Round(float(DefaultDamage) * PassiveDamageGiven);
-
-	// GetWeapon : MyKFW = None when player deals damage with flamethrower/freezethrower...
-	if (DamageType != None && (
-		class<KFDT_Fire_FlameThrower>(DamageType) != None ||
-		class<KFDT_Fire_CaulkBurn>(DamageType) != None ||
-		class<KFDT_Microwave>(DamageType) != None ||
-		class<KFDT_Fire_Ground>(DamageType) != None ||
-		class<KFDT_Freeze_Ground>(DamageType) != None))
-	{
-		MyKFW = GetOwnerWeapon();
-	}
 
 	if (MyWMPRI != None && MyWMGRI != None)
 	{
