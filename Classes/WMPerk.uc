@@ -1129,7 +1129,8 @@ simulated function ModifyMagSizeAndNumber(KFWeapon KFW, out int MagazineCapacity
 		}
 	}
 
-	if (KFWeap_Bow_Crossbow(KFW) == None && KFWeap_Bow_CompoundBow(KFW) == None) // crossbow and bow does not work well with more than 1 ammo per clip
+	// crossbow and bow does not work well with more than 1 ammo per clip
+	if (KFWeap_Bow_Crossbow(KFW) == None && KFWeap_Bow_CompoundBow(KFW) == None && KFWeap_HRG_Crossboom(KFW) == None)
 	{
 		if (!bSecondary)
 			MagazineCapacity = Clamp(MagCapacity, 0, MaxInt); //Prevent integer overflow
