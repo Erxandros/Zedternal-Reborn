@@ -2792,6 +2792,22 @@ simulated function bool CanExplosiveWeld()
 	return False;
 }
 
+simulated function bool DenyPerkResupply(const out KFWeapon KFW)
+{
+	if (KFW.default.InventoryGroup >= IG_Equipment)
+	{
+		if (ClassIsChildOf(KFW.Class, class'KFWeap_Thrown_C4'))
+			return False;
+
+		if (ClassIsChildOf(KFW.Class, class'KFWeap_AutoTurret'))
+			return False;
+
+		return True;
+	}
+
+	return False;
+}
+
 simulated function Interact(KFPawn_Human KFPH)
 {
 	local int Idx;
@@ -2838,7 +2854,7 @@ simulated function Interact(KFPawn_Human KFPH)
 	{
 		foreach WMPH.InvManager.InventoryActors(class'KFWeapon', KFW)
 		{
-			if (KFW.DenyPerkResupply())
+			if (DenyPerkResupply(KFW))
 				continue;
 
 			bReceivedAmmo = (KFW.AddAmmo(FCeil(float(KFW.GetMaxAmmoAmount(0)) * PrimaryAmmoPercentage)) > 0) ? True : bReceivedAmmo;
