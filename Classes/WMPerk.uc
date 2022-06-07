@@ -527,6 +527,18 @@ simulated function ResetSupplier()
 	}
 }
 
+function KFWeapon GetWeaponFromDamageType(class<KFDamageType> DT)
+{
+	local KFWeapon KFW;
+
+	KFW = GetOwnerWeapon();
+
+	if (KFWeap_FlameBase(KFW) != None && (ClassIsChildOf(DT, class'KFDT_Fire') || ClassIsChildOf(DT, class'KFDT_Freeze')))
+		return KFW;
+
+	return None;
+}
+
 function ModifyDamageGiven(out int InDamage, optional Actor DamageCauser, optional KFPawn_Monster MyKFPM, optional KFPlayerController DamageInstigator, optional class<KFDamageType> DamageType, optional int HitZoneIdx)
 {
 	local int i, index;
@@ -546,6 +558,9 @@ function ModifyDamageGiven(out int InDamage, optional Actor DamageCauser, option
 		else
 			MyKFW = None;
 	}
+
+	if (MyKFW == None && DamageType != None)
+		MyKFW = GetWeaponFromDamageType(DamageType);
 
 	// Server Custom Balance
 	if (DamageType != None)
