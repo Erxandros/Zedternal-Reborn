@@ -4,7 +4,7 @@ var array<float> Resistance;
 
 static function ModifyDamageTaken(out int InDamage, int DefaultDamage, int upgLevel, KFPawn OwnerPawn, optional class<DamageType> DamageType, optional Controller InstigatedBy, optional KFWeapon MyKFW)
 {
-	if (ClassIsChildOf(DamageType, class'KFDT_Explosive') && InstigatedBy != None && InstigatedBy == OwnerPawn.Controller)
+	if (ClassIsChildOf(DamageType, class'KFDT_Explosive') && InstigatedBy != None && OwnerPawn != None && InstigatedBy == OwnerPawn.Controller)
 		InDamage -= Round(float(DefaultDamage) * default.Resistance[upgLevel - 1]);
 }
 

@@ -6,7 +6,7 @@ var array<float> MaxSpeed;
 
 static simulated function ModifySpeed(out float InSpeed, float DefaultSpeed, int upgLevel, KFPawn OwnerPawn)
 {
-	if (OwnerPawn.Health < default.MinHealth)
+	if (OwnerPawn != None && OwnerPawn.Health < default.MinHealth)
 		InSpeed += DefaultSpeed * default.MaxSpeed[upgLevel - 1] * float(default.MinHealth - OwnerPawn.Health) * default.MinHealthInv;
 }
 

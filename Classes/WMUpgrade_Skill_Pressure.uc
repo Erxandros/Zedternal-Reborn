@@ -5,7 +5,7 @@ var array<float> maxReloadSpeed;
 
 static simulated function GetReloadRateScale(out float InReloadRateScale, int upgLevel, KFWeapon KFW, KFPawn OwnerPawn)
 {
-	if (OwnerPawn.Health < default.minHealth)
+	if (OwnerPawn != None && OwnerPawn.Health < default.minHealth)
 		InReloadRateScale = 1.0f / (1.0f / InReloadRateScale + default.maxReloadSpeed[upgLevel - 1] * (1.0f - OwnerPawn.Health / default.minHealth));
 }
 

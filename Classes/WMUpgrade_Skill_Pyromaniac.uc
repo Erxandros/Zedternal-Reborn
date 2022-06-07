@@ -17,18 +17,24 @@ static simulated function ModifyMeleeAttackSpeed(out float InDuration, float Def
 {
 	local WMUpgrade_Skill_Pyromaniac_Helper UPG;
 
-	UPG = GetHelper(KFPawn(KFW.Owner), upgLevel);
-	if (UPG != None && UPG.bEnable)
-		InDuration = DefaultDuration / (DefaultDuration / InDuration + default.RateOfFire[upgLevel - 1]);
+	if (KFW != None)
+	{
+		UPG = GetHelper(KFPawn(KFW.Owner), upgLevel);
+		if (UPG != None && UPG.bEnable)
+			InDuration = DefaultDuration / (DefaultDuration / InDuration + default.RateOfFire[upgLevel - 1]);
+	}
 }
 
 static simulated function ModifyRateOfFire(out float InRate, float DefaultRate, int upgLevel, KFWeapon KFW)
 {
 	local WMUpgrade_Skill_Pyromaniac_Helper UPG;
 
-	UPG = GetHelper(KFPawn(KFW.Owner), upgLevel);
-	if (UPG != None && UPG.bEnable)
-		InRate = DefaultRate / (DefaultRate / InRate + default.RateOfFire[upgLevel - 1]);
+	if (KFW != None)
+	{
+		UPG = GetHelper(KFPawn(KFW.Owner), upgLevel);
+		if (UPG != None && UPG.bEnable)
+			InRate = DefaultRate / (DefaultRate / InRate + default.RateOfFire[upgLevel - 1]);
+	}
 }
 
 static simulated function WMUpgrade_Skill_Pyromaniac_Helper GetHelper(KFPawn OwnerPawn, int upgLevel)

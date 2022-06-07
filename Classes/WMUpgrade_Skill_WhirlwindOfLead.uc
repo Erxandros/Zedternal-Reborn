@@ -4,14 +4,17 @@ var array<float> FireRate, SpecialRate;
 
 static simulated function bool GetIsUberAmmoActive(int upgLevel, KFWeapon KFW, KFPawn OwnerPawn)
 {
-	return OwnerPawn.Controller.WorldInfo.TimeDilation < 1.0f;
+	if (OwnerPawn != None && OwnerPawn.Controller != None)
+		return OwnerPawn.Controller.WorldInfo.TimeDilation < 1.0f;
+	else
+		return False;
 }
 
 static simulated function GetZedTimeModifier(out float InModifier, int upgLevel, KFWeapon KFW)
 {
 	local name StateName;
 
-	if(KFW != None)
+	if (KFW != None)
 	{
 		StateName = KFW.GetStateName();
 		if (class'ZedternalReborn.WMWeaponStates'.static.IsWeaponAttackState(StateName))

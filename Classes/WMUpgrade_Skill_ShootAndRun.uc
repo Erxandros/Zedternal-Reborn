@@ -25,7 +25,7 @@ static function AddVampireHealth(out int InHealth, int DefaultHealth, int upgLev
 {
 	local WMUpgrade_Skill_ShootAndRun_Helper UPG;
 
-	if (KFPawn(KFPC.Pawn) != None)
+	if (KFPC != None && KFPawn(KFPC.Pawn) != None)
 	{
 		UPG = GetHelper(KFPawn(KFPC.Pawn));
 		if (UPG != None)
