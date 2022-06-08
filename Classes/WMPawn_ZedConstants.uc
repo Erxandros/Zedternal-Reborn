@@ -1,4 +1,4 @@
-class WMPawn_OmegaConstants extends Object;
+class WMPawn_ZedConstants extends Object;
 
 var const linearColor OmegaColor;
 var const linearColor OmegaFresnelColor;

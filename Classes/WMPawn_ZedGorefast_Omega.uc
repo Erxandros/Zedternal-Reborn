@@ -77,8 +77,8 @@ simulated function UpdateGameplayMICParams()
 	{
 		for (i = 0; i < CharacterMICs.length; ++i)
 		{
-			CharacterMICs[i].SetVectorParameterValue('Vector_GlowColor', class'WMPawn_OmegaConstants'.default.OmegaColor);
-			CharacterMICs[i].SetVectorParameterValue('Vector_FresnelGlowColor', class'WMPawn_OmegaConstants'.default.OmegaFresnelColor);
+			CharacterMICs[i].SetVectorParameterValue('Vector_GlowColor', class'ZedternalReborn.WMPawn_ZedConstants'.default.OmegaColor);
+			CharacterMICs[i].SetVectorParameterValue('Vector_FresnelGlowColor', class'ZedternalReborn.WMPawn_ZedConstants'.default.OmegaFresnelColor);
 		}
 	}
 }

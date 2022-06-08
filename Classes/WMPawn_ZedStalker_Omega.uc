@@ -30,7 +30,7 @@ simulated function UpdateGameplayMICParams()
 	{
 		for (i = 0; i < CharacterMICs.length; ++i)
 		{
-			CharacterMICs[i].SetVectorParameterValue('Emissive Color', class'WMPawn_OmegaConstants'.default.OmegaColor);
+			CharacterMICs[i].SetVectorParameterValue('Emissive Color', class'ZedternalReborn.WMPawn_ZedConstants'.default.OmegaColor);
 		}
 	}
 }
