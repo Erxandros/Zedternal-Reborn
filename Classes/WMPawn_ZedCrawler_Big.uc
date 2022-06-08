@@ -4,7 +4,7 @@ var const float ExtraDamageResistance;
 
 static function string GetLocalizedName()
 {
-	return "Big Crawler";
+	return class'ZedternalReborn.WMPawn_ZedConstants'.default.BigString @ super.GetLocalizedName();
 }
 
 simulated function PostBeginPlay()

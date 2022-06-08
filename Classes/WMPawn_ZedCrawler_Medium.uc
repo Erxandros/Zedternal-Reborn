@@ -2,7 +2,7 @@ class WMPawn_ZedCrawler_Medium extends WMPawn_ZedCrawler_NoElite;
 
 static function string GetLocalizedName()
 {
-	return "Medium Crawler";
+	return class'ZedternalReborn.WMPawn_ZedConstants'.default.MediumString @ super.GetLocalizedName();
 }
 
 simulated function PostBeginPlay()

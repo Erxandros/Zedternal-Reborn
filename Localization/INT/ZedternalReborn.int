@@ -56,6 +56,20 @@ ZedBuffEvolvingString="!!! ZEDS ARE EVOLVING !!!"
 [WMGFxWidget_PartyInGame]
 CycleListString="Cycle List"
 
+//Zed Prefixes and Suffixes
+[WMPawn_ZedConstants]
+OmegaString="Omega"
+TinyString="Tiny"
+MediumString="Medium"
+BigString="Big"
+HugeString="Huge"
+UltraString="Ultra"
+EmperorString="Emperor"
+PredatorString="Predator"
+BlueString="Blue"
+GreenString="Green"
+PinkString="Pink"
+
 //Upgrades
 [WMUpgrade_Equipment_ArmorUp]
 UpgradeName="Armor Up"

@@ -9,7 +9,7 @@ var const float ExtraAfflictionResistance, ExtraDamageResistance;
 
 static function string GetLocalizedName()
 {
-	return "Husk Omega";
+	return super.GetLocalizedName() @ class'ZedternalReborn.WMPawn_ZedConstants'.default.OmegaString;
 }
 
 function PossessedBy(Controller C, bool bVehicleTransition)

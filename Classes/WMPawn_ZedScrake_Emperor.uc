@@ -5,7 +5,7 @@ var const KFPawnAnimInfo ScrakeOmegaAnimInfo;
 
 static function string GetLocalizedName()
 {
-	return "Scrake Emperor";
+	return super.GetLocalizedName() @ class'ZedternalReborn.WMPawn_ZedConstants'.default.EmperorString;
 }
 
 simulated function PostBeginPlay()

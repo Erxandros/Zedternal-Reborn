@@ -6,7 +6,7 @@ var const KFPawnAnimInfo ScrakeTinyAnimInfo;
 
 static function string GetLocalizedName()
 {
-	return "Tiny Scrake";
+	return class'ZedternalReborn.WMPawn_ZedConstants'.default.TinyString @ super.GetLocalizedName();
 }
 
 simulated function PostBeginPlay()

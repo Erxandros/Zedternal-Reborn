@@ -4,7 +4,7 @@ var linearColor PredatorColor;
 
 static function string GetLocalizedName()
 {
-	return "Fleshpound Predator";
+	return super.GetLocalizedName() @ class'ZedternalReborn.WMPawn_ZedConstants'.default.PredatorString;
 }
 
 simulated function PostBeginPlay()

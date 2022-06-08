@@ -4,7 +4,7 @@ var linearColor glowColor;
 
 static function string GetLocalizedName()
 {
-	return "Tiny Husk";
+	return class'ZedternalReborn.WMPawn_ZedConstants'.default.TinyString @ super.GetLocalizedName();
 }
 
 function PossessedBy(Controller C, bool bVehicleTransition)

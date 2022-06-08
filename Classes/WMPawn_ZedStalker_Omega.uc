@@ -5,7 +5,7 @@ var const float ExtraAfflictionResistance, ExtraDamageResistance;
 
 static function string GetLocalizedName()
 {
-	return "Stalker Omega";
+	return super.GetLocalizedName() @ class'ZedternalReborn.WMPawn_ZedConstants'.default.OmegaString;
 }
 
 simulated function PostBeginPlay()

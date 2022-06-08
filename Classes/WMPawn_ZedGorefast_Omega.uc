@@ -16,7 +16,7 @@ replication
 
 static function string GetLocalizedName()
 {
-	return "Gorefast Omega";
+	return super.GetLocalizedName() @ class'ZedternalReborn.WMPawn_ZedConstants'.default.OmegaString;
 }
 
 simulated function PostBeginPlay()
