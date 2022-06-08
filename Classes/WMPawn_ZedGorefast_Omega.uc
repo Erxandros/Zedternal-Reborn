@@ -158,7 +158,6 @@ defaultproperties
 	ShieldImpactEffects=KFSkinTypeEffects_InvulnerabilityShield'KFGameContent.Default__KFPawn_ZedHans:ShieldEffects'
 	ControllerClass=class'ZedternalReborn.WMAIController_ZedGorefast_Omega'
 	DifficultySettings=class'ZedternalReborn.WMDifficulty_Gorefast_Omega'
-	LocalizationKey="WMPawn_ZedGorefast_Omega"
 
 	bShieldOn=False
 	bVersusZed=False

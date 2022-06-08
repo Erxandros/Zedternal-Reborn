@@ -29,7 +29,6 @@ defaultproperties
 	ScrakeOmegaAnimSet=AnimSet'ZedternalReborn_Zeds.Scrake.Scrake_Omega_AnimSet'
 	ScrakeOmegaAnimInfo=KFPawnAnimInfo'ZedternalReborn_Zeds.Scrake.Scrake_Omega_AnimGroup'
 	DifficultySettings=class'ZedternalReborn.WMDifficulty_Scrake_Emperor'
-	LocalizationKey="WMPawn_ZedScrake_Emperor"
 
 	RageHealthThresholdNormal=0.2f
 	RageHealthThresholdHard=0.225f

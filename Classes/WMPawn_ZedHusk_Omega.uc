@@ -194,7 +194,6 @@ defaultproperties
 	SuicideFireballClass=class'ZedternalReborn.WMProj_Husk_Fireball_Suicide'
 	ControllerClass=class'ZedternalReborn.WMAIController_ZedHusk_Omega'
 	DifficultySettings=class'ZedternalReborn.WMDifficulty_Husk_Omega'
-	LocalizationKey="WMPawn_ZedHusk_Omega"
 
 	bVersusZed=False
 	DoshValue=34

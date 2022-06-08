@@ -142,7 +142,6 @@ defaultproperties
 {
 	ScrakeOmegaAnimSet=AnimSet'ZedternalReborn_Zeds.Scrake.Scrake_Omega_AnimSet'
 	ScrakeOmegaAnimInfo=KFPawnAnimInfo'ZedternalReborn_Zeds.Scrake.Scrake_Omega_AnimGroup'
-	LocalizationKey="WMPawn_ZedScrake_Omega"
 
 	RageHealthThresholdNormal=0.6f
 	RageHealthThresholdHard=0.7f

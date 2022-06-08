@@ -99,7 +99,6 @@ defaultproperties
 {
 	SlasherOmegaAnimSet=AnimSet'ZedternalReborn_Zeds.Slasher.Slasher_Clot_Omega_AnimSet'
 	SlasherOmegaAnimInfo=KFPawnAnimInfo'ZedternalReborn_Zeds.Slasher.Slasher_Clot_Omega_AnimGroup'
-	LocalizationKey="WMPawn_ZedSlasher_Omega"
 
 	bVersusZed=False
 	DoshValue=15

@@ -177,7 +177,6 @@ defaultproperties
 	AltRallyEffectBoneNames(1)="FX_EYE_R"
 	RallyEffectOffset=(X=0.0f,Y=0.0f,Z=0.0f)
 	AltRallyEffectOffset=(X=0.0f,Y=0.0f,Z=0.0f)
-	LocalizationKey="WMPawn_ZedFleshpound_Omega"
 
 	DefaultGlowColor=(G=0.25f)
 	FootstepCameraShakeInnerRadius=230.0f
