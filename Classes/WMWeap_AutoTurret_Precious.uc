@@ -48,6 +48,7 @@ defaultproperties
 {
 	SpareAmmoCapacity(0)=8
 	InstantHitDamage(BASH_FIREMODE)=36
+	MaxTurretsDeployed=3
 	DroppedPickupClass=class'ZedternalReborn.WMPreciousDroppedPickup'
 	Name="Default__WMWeap_AutoTurret_Precious"
 }
