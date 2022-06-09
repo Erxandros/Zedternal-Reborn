@@ -533,7 +533,7 @@ function KFWeapon GetWeaponFromDamageType(class<KFDamageType> DT)
 
 	KFW = GetOwnerWeapon();
 
-	if (KFWeap_FlameBase(KFW) != None && (ClassIsChildOf(DT, class'KFDT_Fire') || ClassIsChildOf(DT, class'KFDT_Freeze')))
+	if (KFWeap_FlameBase(KFW) != None && (ClassIsChildOf(DT, class'KFDT_Fire') || ClassIsChildOf(DT, class'KFDT_Microwave') || ClassIsChildOf(DT, class'KFDT_Freeze')))
 		return KFW;
 
 	return None;
@@ -561,6 +561,10 @@ function ModifyDamageGiven(out int InDamage, optional Actor DamageCauser, option
 
 	if (MyKFW == None && DamageType != None)
 		MyKFW = GetWeaponFromDamageType(DamageType);
+
+	`log("-----WMPerk Weapon"@MyKFW);
+	`log("-----WMPerk DamageType"@DamageType);
+	`log("---------------------------------");
 
 	// Server Custom Balance
 	if (DamageType != None)
