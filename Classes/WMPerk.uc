@@ -542,10 +542,6 @@ function ModifyDamageGiven(out int InDamage, optional Actor DamageCauser, option
 			MyKFW = None;
 	}
 
-	`log("-----WMPerk Weapon"@MyKFW);
-	`log("-----WMPerk DamageType"@DamageType);
-	`log("---------------------------------");
-
 	// Server Custom Balance
 	if (DamageType != None)
 	{
