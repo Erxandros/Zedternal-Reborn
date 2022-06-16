@@ -240,9 +240,7 @@ static simulated function Texture2D GetUpgradeIcon(int index)
 static simulated function bool IsWeaponOnSpecificPerk(KFWeapon W, class<KFPerk> Perk)
 {
 	if (W != None)
-	{
 		return W.static.GetWeaponPerkClass(Perk) == Perk;
-	}
 
 	return False;
 }
@@ -250,9 +248,7 @@ static simulated function bool IsWeaponOnSpecificPerk(KFWeapon W, class<KFPerk> 
 static function bool IsDamageTypeOnSpecificPerk(class<KFDamageType> KFDT, class<KFPerk> Perk)
 {
 	if (KFDT != None)
-	{
 		return KFDT.default.ModifierPerkList.Find(Perk) > INDEX_NONE;
-	}
 
 	return False;
 }

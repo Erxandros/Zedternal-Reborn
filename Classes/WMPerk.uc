@@ -324,22 +324,6 @@ function OnWaveEnded()
 		OwnerPC.SetPerkEffect(False);
 }
 
-static simulated function bool IsWeaponOnSpecificPerk(KFWeapon W, class<KFPerk> Perk)
-{
-	if (W != None)
-		return W.static.GetWeaponPerkClass(Perk) == Perk;
-
-	return False;
-}
-
-static function bool IsDamageTypeOnSpecificPerk(class<KFDamageType> KFDT, class<KFPerk> Perk)
-{
-	if (KFDT != None)
-		return KFDT.default.ModifierPerkList.Find(Perk) > INDEX_NONE;
-
-	return False;
-}
-
 simulated function bool isValidWeapon(class<KFWeapon> WeaponClass, KFWeapon KFW)
 {
 	if (KFW == None)
