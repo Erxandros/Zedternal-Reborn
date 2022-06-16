@@ -328,11 +328,17 @@ function OnWaveEnded()
 
 simulated function bool isValidWeapon(class<KFWeapon> WeaponClass, KFWeapon KFW)
 {
+	local KFPawn KP;
+
 	if (KFW == None)
 		return False;
-	else if (KFW.class == WeaponClass)
+	if (KFW.Class == WeaponClass)
 		return True;
-	else if (KFWeap_DualBase(KFW) != None && KFWeap_DualBase(KFW).SingleClass == WeaponClass)
+	if (KFWeap_DualBase(KFW) != None && KFWeap_DualBase(KFW).SingleClass == WeaponClass)
+		return True;
+
+	KP = KFPawn(KFW.Owner);
+	if (KP != None && KP.bIsTurret && KFWeapon(KP.Owner) != None && KFWeapon(KP.Owner).Class == WeaponClass)
 		return True;
 
 	return False;
