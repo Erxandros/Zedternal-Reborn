@@ -58,6 +58,8 @@ var private array< class<DamageType> > VampireEffectObjects;
 //Timers class to keep track of cached variables and flags
 var private WMPerk_Timers WMTimers;
 
+var private transient class<KFWeapon> LastModifyDamageGivenWeapon;
+
 simulated event PreBeginPlay()
 {
 	super.PreBeginPlay();
@@ -511,18 +513,6 @@ simulated function ResetSupplier()
 	}
 }
 
-function KFWeapon GetWeaponFromDamageType(class<KFDamageType> DT)
-{
-	local KFWeapon KFW;
-
-	KFW = GetOwnerWeapon();
-
-	if (KFWeap_FlameBase(KFW) != None && (ClassIsChildOf(DT, class'KFDT_Fire') || ClassIsChildOf(DT, class'KFDT_Microwave') || ClassIsChildOf(DT, class'KFDT_Freeze')))
-		return KFW;
-
-	return None;
-}
-
 function ModifyDamageGiven(out int InDamage, optional Actor DamageCauser, optional KFPawn_Monster MyKFPM, optional KFPlayerController DamageInstigator, optional class<KFDamageType> DamageType, optional int HitZoneIdx)
 {
 	local int i, index;
@@ -543,8 +533,14 @@ function ModifyDamageGiven(out int InDamage, optional Actor DamageCauser, option
 			MyKFW = None;
 	}
 
-	if (MyKFW == None && DamageType != None)
-		MyKFW = GetWeaponFromDamageType(DamageType);
+	if (MyKFW != None)
+		LastModifyDamageGivenWeapon = MyKFW.Class;
+	else
+	{
+		MyKFW = GetOwnerWeapon();
+		if (MyKFW != None && LastModifyDamageGivenWeapon != MyKFW.Class)
+			MyKFW = None;
+	}
 
 	`log("-----WMPerk Weapon"@MyKFW);
 	`log("-----WMPerk DamageType"@DamageType);
