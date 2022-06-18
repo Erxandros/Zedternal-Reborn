@@ -26,7 +26,11 @@ function UpdateGrenades()
 	// Update the grenades count value
 	if (CurrentGrenades != LastGrenades)
 	{
-		SetInt("backpackGrenades", CurrentGrenades);
+		if (CurrentGrenades > 9)
+			SetInt("backpackGrenades", 9);
+		else
+			SetInt("backpackGrenades", CurrentGrenades);
+
 		LastGrenades = CurrentGrenades;
 	}
 }
