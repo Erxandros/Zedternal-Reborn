@@ -2,7 +2,7 @@ class WMPawn_ZedHusk_Tiny_Green extends WMPawn_ZedHusk_Tiny;
 
 static function string GetLocalizedName()
 {
-	return class'ZedternalReborn.WMPawn_ZedConstants'.default.GreenString @ class'ZedternalReborn.WMPawn_ZedConstants'.default.TinyString @ super.GetLocalizedName();
+	return class'ZedternalReborn.WMPawn_ZedConstants'.default.GreenString @ super.GetLocalizedName();
 }
 
 defaultproperties
