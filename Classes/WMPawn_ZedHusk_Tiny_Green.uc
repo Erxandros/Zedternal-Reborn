@@ -7,10 +7,10 @@ static function string GetLocalizedName()
 
 defaultproperties
 {
-	glowColor=(R=0.6f, G=5.0f, B=0.6f)
+	glowColor=(R=0.12f, G=1.0f, B=0.12f)
 
 	Begin Object Class=PointLightComponent Name=ExplosionPointLightGreen
-		LightColor=(R=31, G=255, B=31, A=255)
+		LightColor=(R=30, G=255, B=30, A=255)
 		bCastPerObjectShadows=False
 	End Object
 
