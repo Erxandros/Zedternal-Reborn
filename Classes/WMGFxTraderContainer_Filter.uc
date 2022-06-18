@@ -2,6 +2,8 @@ class WMGFxTraderContainer_Filter extends KFGFxTraderContainer_Filter;
 
 var array< class<KFPerk> > DefaultPerk;
 
+var localized string CustomWeaponsString;
+
 function BuildPerkList()
 {
 	local byte i;
@@ -45,7 +47,7 @@ function SetPerkFilterData(byte FilterIndex)
 		}
 		else if (FilterIndex == DefaultPerk.Length - 1)
 		{
-			SetString("filterText", "Custom Weapons");
+			SetString("filterText", default.CustomWeaponsString);
 		}
 		else
 		{
