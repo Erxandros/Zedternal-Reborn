@@ -48,7 +48,7 @@ defaultproperties
 	ControllerClass=Class'ZedternalReborn.WMAIController_ZedFleshpound_Predator'
 
 	DefaultGlowColor=(G=0.25f)
-	PredatorColor=(R=0.2f,G=1.0f,B=0.1f,A=1.0f)
+	PredatorColor=(R=0.2f,G=1.0f,B=0.1f)
 	FootstepCameraShakeInnerRadius=230.0f
 	FootstepCameraShakeOuterRadius=1035.0f
 
@@ -58,6 +58,10 @@ defaultproperties
 	Mass=250.0f
 	GroundSpeed=500.0f
 	SprintSpeed=660.0f
+
+	Begin Object Name=PointLightComponent1
+		LightColor=(R=50,G=255,B=25,A=255)
+	End Object
 
 	XPValues(0)=20
 	XPValues(1)=25

@@ -111,7 +111,7 @@ defaultproperties
 	ExtraDamageResistance=0.1f
 
 	Begin Object Name=NeckLightComponent0
-		LightColor=(R=255,G=64,B=128,A=255)
+		LightColor=(R=127,G=63,B=255,A=255)
 	End Object
 
 	XPValues(0)=22

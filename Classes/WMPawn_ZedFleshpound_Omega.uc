@@ -197,6 +197,10 @@ defaultproperties
 		MomentumTransfer=65000.0f
 	End Object
 
+	Begin Object Name=PointLightComponent1
+		LightColor=(R=127,G=63,B=255,A=255)
+	End Object
+
 	XPValues(0)=70
 	XPValues(1)=94
 	XPValues(2)=126

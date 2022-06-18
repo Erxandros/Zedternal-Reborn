@@ -215,6 +215,18 @@ defaultproperties
 		SpecialMoveClasses(SM_Custom1) = class'ZedternalReborn.WMSM_Husk_Omega_FireBallBarrageAttack'
 	End Object
 
+	Begin Object Name=ChestLightComponent0
+		LightColor=(R=127,G=63,B=255,A=255)
+	End Object
+
+	Begin Object Name=ExplosionPointLight
+		LightColor=(R=127,G=63,B=255,A=255)
+	End Object
+
+	Begin Object Name=ExploTemplate0
+		ExploLight=ExplosionPointLight
+	End Object
+
 	XPValues(0)=30
 	XPValues(1)=40
 	XPValues(2)=54
