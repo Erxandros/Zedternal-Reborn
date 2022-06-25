@@ -255,16 +255,8 @@ static function bool IsDamageTypeOnSpecificPerk(class<KFDamageType> KFDT, class<
 
 static function bool IsMeleeDamageType(class<DamageType> DT)
 {
-	return (ClassIsChildOf(DT, class'KFDT_Bludgeon') || ClassIsChildOf(DT, class'KFDT_Slashing') || ClassIsChildOf(DT, class'KFDT_Piercing')) &&
-		class<KFDT_Slashing_EvisceratorProj>(DT) == None &&
-		class<KFDT_Ballistic_BlunderbussShards>(DT) == None &&
-		class<KFDT_Ballistic_HRGNailgun>(DT) == None &&
-		class<KFDT_Piercing_ChiappaShrapnel>(DT) == None &&
-		class<KFDT_Piercing_CompoundBowCryoImpact>(DT) == None &&
-		class<KFDT_Piercing_CompoundBowSharpImpact>(DT) == None &&
-		class<KFDT_Piercing_Crossbow>(DT) == None &&
-		class<KFDT_Piercing_NadeFragment>(DT) == None &&
-		class<KFDT_Piercing_NailFragment>(DT) == None;
+	return (ClassIsChildOf(DT, class'KFDT_Bludgeon') || ClassIsChildOf(DT, class'KFDT_Slashing') || ClassIsChildOf(DT, class'KFDT_Piercing'))
+		&& !IsGrenadeDT(DT) && (class<KFDamageType>(DT) != None && class<KFDamageType>(DT).default.MeleeHitPower > 0);
 }
 
 static function bool IsGrenadeDT(class<DamageType> DT)
