@@ -1,7 +1,8 @@
 class WMBinaryOps extends Object;
 
-function static int BinarySearch(const out array<object> InArray, string ObjName)
+static function int BinarySearch(const out array<object> InArray, string ObjName)
 {
+	local string MidStr;
 	local int Low, Mid, High;
 
 	ObjName = Caps(ObjName);
@@ -10,9 +11,10 @@ function static int BinarySearch(const out array<object> InArray, string ObjName
 	while (Low <= High)
 	{
 		Mid = (Low + High) / 2;
-		if (ObjName < Caps(PathName(InArray[Mid])))
+		MidStr = Caps(PathName(InArray[Mid]));
+		if (ObjName < MidStr)
 			High = Mid - 1;
-		else if (ObjName > Caps(PathName(InArray[Mid])))
+		else if (ObjName > MidStr)
 			Low = Mid + 1;
 		else
 			return Mid;
@@ -21,8 +23,9 @@ function static int BinarySearch(const out array<object> InArray, string ObjName
 	return INDEX_NONE;
 }
 
-function static bool BinarySearchUnique(const out array<object> InArray, string ObjName, out int Low)
+static function bool BinarySearchUnique(const out array<object> InArray, string ObjName, out int Low)
 {
+	local string MidStr;
 	local int Mid, High;
 
 	ObjName = Caps(ObjName);
@@ -31,9 +34,10 @@ function static bool BinarySearchUnique(const out array<object> InArray, string 
 	while (Low <= High)
 	{
 		Mid = (Low + High) / 2;
-		if (ObjName < Caps(PathName(InArray[Mid])))
+		MidStr = Caps(PathName(InArray[Mid]));
+		if (ObjName < MidStr)
 			High = Mid - 1;
-		else if (ObjName > Caps(PathName(InArray[Mid])))
+		else if (ObjName > MidStr)
 			Low = Mid + 1;
 		else
 			return False;
