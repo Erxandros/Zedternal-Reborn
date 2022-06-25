@@ -575,7 +575,7 @@ function ModifyDamageGiven(out int InDamage, optional Actor DamageCauser, option
 			MyKFW = None;
 	}
 
-	if (MyKFW == None && DamageType != None && !class'WMWeaponConstants'.static.IsGrenadeDT(DamageType, GrenadeWeaponDef))
+	if (MyKFW == None && DamageType != None && !class'ZedternalReborn.WMWeaponConstants'.static.IsGrenadeDTAdvance(DamageType, GrenadeWeaponDef))
 		GetWeaponFromDamageType(MyKFW, DamageType);
 
 	// Server Custom Balance

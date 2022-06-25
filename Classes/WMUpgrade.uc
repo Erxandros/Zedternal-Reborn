@@ -269,11 +269,17 @@ static function bool IsMeleeDamageType(class<DamageType> DT)
 
 static function bool IsGrenadeDT(class<DamageType> DT)
 {
-	return ClassIsChildOf(DT, class'KFDT_Explosive_DynamiteGrenade') || ClassIsChildOf(DT, class'KFDT_Explosive_FlashBangGrenade') ||
-		ClassIsChildOf(DT, class'KFDT_EMP_EMPGrenade') || ClassIsChildOf(DT, class'KFDT_Explosive_FragGrenade') ||
-		ClassIsChildOf(DT, class'KFDT_Explosive_HEGrenade') || ClassIsChildOf(DT, class'KFDT_Healing_MedicGrenade') ||
-		ClassIsChildOf(DT, class'KFDT_Fire_MolotovGrenade') || ClassIsChildOf(DT, class'KFDT_Freeze_FreezeGrenade') ||
-		ClassIsChildOf(DT, class'KFDT_Explosive_NailBombGrenade');
+	return class'ZedternalReborn.WMWeaponConstants'.static.IsGrenadeDT(DT);
+}
+
+static function bool IsGrenadeDTAdvance(class<KFDamageType> DT, optional KFPlayerController DamageInstigator, optional class<KFWeaponDefinition> GreandeDef)
+{
+	if (GreandeDef != None)
+		return class'ZedternalReborn.WMWeaponConstants'.static.IsGrenadeDTAdvance(DT, GreandeDef);
+	else if (DamageInstigator != None && DamageInstigator.CurrentPerk != None)
+		return class'ZedternalReborn.WMWeaponConstants'.static.IsGrenadeDTAdvance(DT, DamageInstigator.CurrentPerk.GrenadeWeaponDef);
+	else
+		return class'ZedternalReborn.WMWeaponConstants'.static.IsGrenadeDTAdvance(DT);
 }
 
 //Used for skills currently when sold using reroll button
