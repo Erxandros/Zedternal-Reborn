@@ -58,7 +58,8 @@ var private array< class<DamageType> > VampireEffectObjects;
 //Timers class to keep track of cached variables and flags
 var private WMPerk_Timers WMTimers;
 
-var private transient class<KFWeapon> LastModifyDamageGivenWeapon;
+var private transient string CachedWeaponPath;
+var private transient string CachedDTWeaponPath;
 
 simulated event PreBeginPlay()
 {
@@ -346,7 +347,7 @@ simulated function bool isValidWeapon(class<KFWeapon> WeaponClass, KFWeapon KFW)
 
 simulated function string GetGrenadeImagePath()
 {
-	return GrenadeWeaponDef.Static.GetImagePath();
+	return GrenadeWeaponDef.static.GetImagePath();
 }
 
 simulated function class<KFWeaponDefinition> GetGrenadeWeaponDef()
@@ -519,6 +520,41 @@ simulated function ResetSupplier()
 	}
 }
 
+function GetWeaponFromDamageType(out KFWeapon MyKFW, class<KFDamageType> DamageType)
+{
+	local KFWeapon TempKFW;
+	local class<KFWeapon> DTWeapon;
+	local string DTWeaponPath, TempKFWPath;
+
+	TempKFW = GetOwnerWeapon();
+	if (TempKFW != None && DamageType.default.WeaponDef != None)
+	{
+		DTWeaponPath = DamageType.default.WeaponDef.default.WeaponClassPath;
+		TempKFWPath = PathName(TempKFW.Class);
+
+		if (DTWeaponPath ~= TempKFWPath)
+		{
+			CachedWeaponPath = TempKFWPath;
+			CachedDTWeaponPath = DTWeaponPath;
+			MyKFW = TempKFW;
+		}
+		else if (DTWeaponPath ~= CachedDTWeaponPath && TempKFWPath ~= CachedWeaponPath)
+		{
+			MyKFW = TempKFW;
+		}
+		else
+		{
+			DTWeapon = class<KFWeapon>(DynamicLoadObject(DTWeaponPath, class'Class', True));
+			if (DTWeapon != None && ClassIsChildOf(TempKFW.Class, DTWeapon))
+			{
+				CachedWeaponPath = TempKFWPath;
+				CachedDTWeaponPath = DTWeaponPath;
+				MyKFW = TempKFW;
+			}
+		}
+	}
+}
+
 function ModifyDamageGiven(out int InDamage, optional Actor DamageCauser, optional KFPawn_Monster MyKFPM, optional KFPlayerController DamageInstigator, optional class<KFDamageType> DamageType, optional int HitZoneIdx)
 {
 	local int i, index;
@@ -539,14 +575,8 @@ function ModifyDamageGiven(out int InDamage, optional Actor DamageCauser, option
 			MyKFW = None;
 	}
 
-	if (MyKFW != None)
-		LastModifyDamageGivenWeapon = MyKFW.Class;
-	else
-	{
-		MyKFW = GetOwnerWeapon();
-		if (MyKFW != None && LastModifyDamageGivenWeapon != MyKFW.Class)
-			MyKFW = None;
-	}
+	if (MyKFW == None && DamageType != None && !class'WMWeaponConstants'.static.IsGrenadeDT(DamageType, GrenadeWeaponDef))
+		GetWeaponFromDamageType(MyKFW, DamageType);
 
 	// Server Custom Balance
 	if (DamageType != None)
