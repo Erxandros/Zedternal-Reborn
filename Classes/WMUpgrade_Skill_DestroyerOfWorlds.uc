@@ -4,7 +4,7 @@ var array<float> Damage;
 
 static function ModifyDamageGiven(out int InDamage, int DefaultDamage, int upgLevel, optional Actor DamageCauser, optional KFPawn_Monster MyKFPM, optional KFPlayerController DamageInstigator, optional class<KFDamageType> DamageType, optional int HitZoneIdx, optional KFWeapon MyKFW)
 {
-	if (DamageType != None && (ClassIsChildOf(DamageType, class'KFDT_Explosive') || static.IsGrenadeDT(DamageType)))
+	if (DamageType != None && (ClassIsChildOf(DamageType, class'KFDT_Explosive') || static.IsGrenadeDTAdvance(DamageType, DamageInstigator)))
 		InDamage += DefaultDamage * default.Damage[upgLevel - 1];
 }
 

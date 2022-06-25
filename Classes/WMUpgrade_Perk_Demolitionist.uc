@@ -7,7 +7,7 @@ static function ModifyDamageGiven(out int InDamage, int DefaultDamage, int upgLe
 	if (IsWeaponOnSpecificPerk(MyKFW, class'KFGame.KFPerk_Demolitionist') || IsDamageTypeOnSpecificPerk(DamageType, class'KFGame.KFPerk_Demolitionist'))
 		InDamage += Round(float(DefaultDamage) * default.Damage * upgLevel);
 
-	if (DamageType != None && static.IsGrenadeDT(DamageType))
+	if (DamageType != None && static.IsGrenadeDTAdvance(DamageType, DamageInstigator))
 		InDamage += Round(float(DefaultDamage) * default.GrenadeDamage * upgLevel);
 
 	if (MyKFPM != None && MyKFPM.bLargeZed)
