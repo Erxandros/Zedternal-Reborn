@@ -4,7 +4,7 @@ simulated event PreBeginPlay()
 {
 	local class<WMWeap_AutoTurretWeapon_Precious> WeaponClass;
 
-	super.PreBeginPlay();
+	super(KFWeap_ThrownBase).PreBeginPlay();
 
 	WeaponClass = class<WMWeap_AutoTurretWeapon_Precious> (DynamicLoadObject(class'ZedternalReborn.WMPawn_AutoTurret_Precious'.default.WeaponDefinition.default.WeaponClassPath, class'Class'));
 	WeaponClass.static.TriggerAsyncContentLoad(WeaponClass);
@@ -31,6 +31,7 @@ simulated function Projectile ProjectileFire()
 
 			KFPC.DeployedTurrets.AddItem(SpawnedActor);
 			NumDeployedTurrets = KFPC.DeployedTurrets.Length;
+			bTurretReadyToUse = False;
 			bForceNetUpdate = True;
 		}
 
