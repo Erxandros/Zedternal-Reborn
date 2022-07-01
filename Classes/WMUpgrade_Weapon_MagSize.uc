@@ -3,7 +3,7 @@ class WMUpgrade_Weapon_MagSize extends WMUpgrade_Weapon
 
 var float MagSize;
 
-// large clipped weapons and revolver are compatible
+// Large clipped weapons and revolver are compatible
 static function bool IsUpgradeCompatible(class<KFWeapon> KFW)
 {
 	if (KFW.default.MagazineCapacity[0] >= 10)

@@ -3,12 +3,10 @@ class WMUpgrade_Weapon_HardMeleeAttack extends WMUpgrade_Weapon
 
 var float Damage;
 
-// Only Melee weapons are compatible
+// Only melee weapons are compatible
 static function bool IsUpgradeCompatible(class<KFWeapon> KFW)
 {
-	if (class<KFWeap_Rifle_MosinNagant>(KFW) != None)
-		return False;
-	else if (class<KFWeap_MeleeBase>(KFW) != None)
+	if (KFW.default.bMeleeWeapon)
 		return True;
 
 	return False;

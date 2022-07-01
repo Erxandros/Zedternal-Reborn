@@ -3,7 +3,7 @@ class WMUpgrade_Weapon_Damage extends WMUpgrade_Weapon
 
 var float Damage;
 
-// all weapons are compatible
+// All weapons are compatible
 static function bool IsUpgradeCompatible(class<KFWeapon> KFW)
 {
 	return True;

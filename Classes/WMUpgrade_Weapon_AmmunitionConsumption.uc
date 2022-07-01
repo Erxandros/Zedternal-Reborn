@@ -3,12 +3,12 @@ class WMUpgrade_Weapon_AmmunitionConsumption extends WMUpgrade_Weapon
 
 var float RateOfFire;
 
-// Flame/Freeze thrower weapons are compatible
+// Flame based weapons are compatible
 static function bool IsUpgradeCompatible(class<KFWeapon> KFW)
 {
 	if (class<KFWeap_AssaultRifle_LazerCutter>(KFW) != None)
 		return False;
-	else if (class<KFWeap_FlameBase>(KFW) != None)
+	if (class<KFWeap_FlameBase>(KFW) != None)
 		return True;
 
 	return False;

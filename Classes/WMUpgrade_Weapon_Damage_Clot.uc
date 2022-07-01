@@ -6,9 +6,10 @@ var float Damage;
 // Only SWAT weapons are compatible
 static function bool IsUpgradeCompatible(class<KFWeapon> KFW)
 {
-	if (class<KFWeap_SMGBase>(KFW) != None)
-		return True;
-	else if (class<KFWeap_HRG_Nailgun>(KFW) != None)
+	local array< class<KFPerk> > KFPArray;
+
+	KFPArray = KFW.static.GetAssociatedPerkClasses();
+	if (KFPArray.Find(class'KFGame.KFPerk_SWAT') != INDEX_NONE)
 		return True;
 
 	return False;

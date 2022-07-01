@@ -3,14 +3,14 @@ class WMUpgrade_Weapon_TightChoke extends WMUpgrade_Weapon
 
 var float Spread;
 
-// Only Shotgun are compatible
+// Any weapon with more than one pellet per shot is compatible
 static function bool IsUpgradeCompatible(class<KFWeapon> KFW)
 {
-	if (class<KFWeap_ShotgunBase>(KFW) != None)
+	if (KFW.default.NumPellets[KFW.const.DEFAULT_FIREMODE] > 1)
 		return True;
-	else if (class<KFWeap_HRG_Revolver_Buckshot>(KFW) != None)
+	if (KFW.default.NumPellets[KFW.const.ALTFIRE_FIREMODE] > 1)
 		return True;
-	else if (class<KFWeap_Pistol_Blunderbuss>(KFW) != None)
+	if (KFW.default.NumPellets[KFW.const.CUSTOM_FIREMODE] > 1)
 		return True;
 
 	return False;

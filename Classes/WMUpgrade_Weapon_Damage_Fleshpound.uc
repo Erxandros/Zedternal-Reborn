@@ -3,18 +3,15 @@ class WMUpgrade_Weapon_Damage_Fleshpound extends WMUpgrade_Weapon
 
 var float Damage;
 
-// Only demo weapons and microwave gun are compatible
+// Only Demolitionist weapons and microwave gun are compatible
 static function bool IsUpgradeCompatible(class<KFWeapon> KFW)
 {
-	if (class<KFWeap_GrenadeLauncher_Base>(KFW) != None)
+	local array< class<KFPerk> > KFPArray;
+
+	KFPArray = KFW.static.GetAssociatedPerkClasses();
+	if (KFPArray.Find(class'KFGame.KFPerk_Demolitionist') != INDEX_NONE)
 		return True;
-	else if (class<KFWeap_Pistol_Blunderbuss>(KFW) != None)
-		return True;
-	else if (class<KFWeap_Beam_Microwave>(KFW) != None)
-		return True;
-	else if (class<KFWeap_AssaultRifle_M16M203>(KFW) != None)
-		return True;
-	else if (class<KFWeap_Thrown_C4>(KFW) != None)
+	if (class<KFWeap_Beam_Microwave>(KFW) != None)
 		return True;
 
 	return False;

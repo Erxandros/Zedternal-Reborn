@@ -3,10 +3,10 @@ class WMUpgrade_Weapon_SpareAmmo extends WMUpgrade_Weapon
 
 var float SpareAmmo;
 
-// large spare ammo weapons are compatible
+// Large spare ammo weapons are compatible
 static function bool IsUpgradeCompatible(class<KFWeapon> KFW)
 {
-	if (KFW.default.SpareAmmoCapacity[0] >= 7)
+	if (KFW.default.SpareAmmoCapacity[0] >= 8)
 		return True;
 
 	return False;

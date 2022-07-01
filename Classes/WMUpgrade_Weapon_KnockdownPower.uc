@@ -3,14 +3,31 @@ class WMUpgrade_Weapon_KnockdownPower extends WMUpgrade_Weapon
 
 var float KnockdownPower;
 
-// weapons with stun effect are compatible
+// Weapons with knockdown effect are compatible
 static function bool IsUpgradeCompatible(class<KFWeapon> KFW)
 {
 	local class<KFDamageType> KFDT;
 
-	KFDT = class<KFDamageType>(KFW.default.InstantHitDamageTypes[0]);
-	if (KFDT != None && KFDT.default.KnockdownPower > 0)
-		return True;
+	if ((KFW.default.InstantHitDamageTypes.Length - 1) >= KFW.const.DEFAULT_FIREMODE)
+	{
+		KFDT = class<KFDamageType>(KFW.default.InstantHitDamageTypes[KFW.const.DEFAULT_FIREMODE]);
+		if (KFDT != None && KFDT.default.KnockdownPower > 0)
+			return True;
+	}
+
+	if ((KFW.default.InstantHitDamageTypes.Length - 1) >= KFW.const.ALTFIRE_FIREMODE)
+	{
+		KFDT = class<KFDamageType>(KFW.default.InstantHitDamageTypes[KFW.const.ALTFIRE_FIREMODE]);
+		if (KFDT != None && KFDT.default.KnockdownPower > 0)
+			return True;
+	}
+
+	if ((KFW.default.InstantHitDamageTypes.Length - 1) >= KFW.const.CUSTOM_FIREMODE)
+	{
+		KFDT = class<KFDamageType>(KFW.default.InstantHitDamageTypes[KFW.const.CUSTOM_FIREMODE]);
+		if (KFDT != None && KFDT.default.KnockdownPower > 0)
+			return True;
+	}
 
 	return False;
 }

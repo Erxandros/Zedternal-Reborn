@@ -3,26 +3,26 @@ class WMUpgrade_Weapon_Recoil extends WMUpgrade_Weapon
 
 var float Recoil;
 
-// Revolvers, Rifles, SMGs and Medic weapons are compatible
+// Commando, Medic, Gunslinger, Sharpshooter, and SWAT weapons are compatible
 static function bool IsUpgradeCompatible(class<KFWeapon> KFW)
 {
-	if (KFW.default.MagazineCapacity[0] <= 1)
+	local array< class<KFPerk> > KFPArray;
+
+	if (class<KFWeap_ThrownBase>(KFW) != None)
 		return False;
-	else if (class<KFWeap_Pistol_Blunderbuss>(KFW) != None)
-		return False;
-	else if (class<KFWeap_PistolBase>(KFW) != None)
+	if (KFW.default.bIsBackupWeapon)
 		return True;
-	else if (class<KFWeap_RifleBase>(KFW) != None)
+
+	KFPArray = KFW.static.GetAssociatedPerkClasses();
+	if (KFPArray.Find(class'KFGame.KFPerk_Commando') != INDEX_NONE)
 		return True;
-	else if (class<KFWeap_SMGBase>(KFW) != None)
+	if (KFPArray.Find(class'KFGame.KFPerk_FieldMedic') != INDEX_NONE)
 		return True;
-	else if (class<KFWeap_ScopedBase>(KFW) != None)
+	if (KFPArray.Find(class'KFGame.KFPerk_Gunslinger') != INDEX_NONE)
 		return True;
-	else if (class<KFWeap_MedicBase>(KFW) != None)
+	if (KFPArray.Find(class'KFGame.KFPerk_Sharpshooter') != INDEX_NONE)
 		return True;
-	else if (class<KFWeap_Rifle_MosinNagant>(KFW) != None)
-		return True;
-	else if (class<KFWeap_HRG_Nailgun>(KFW) != None)
+	if (KFPArray.Find(class'KFGame.KFPerk_SWAT') != INDEX_NONE)
 		return True;
 
 	return False;

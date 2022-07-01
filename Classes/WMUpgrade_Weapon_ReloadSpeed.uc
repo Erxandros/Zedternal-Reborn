@@ -3,17 +3,13 @@ class WMUpgrade_Weapon_ReloadSpeed extends WMUpgrade_Weapon
 
 var float ReloadRate;
 
-// melee and thrown weapons are not compatible
+// Melee and thrown weapons are not compatible
 static function bool IsUpgradeCompatible(class<KFWeapon> KFW)
 {
-	if (class<KFWeap_Rifle_MosinNagant>(KFW) != None)
+	if (KFW.default.FiringStatesArray[KFW.const.RELOAD_FIREMODE] == 'Reloading' && class<KFWeap_ThrownBase>(KFW) == None)
 		return True;
-	else if (class<KFWeap_MeleeBase>(KFW) != None)
-		return False;
-	else if (class<KFWeap_ThrownBase>(KFW) != None)
-		return False;
 
-	return True;
+	return False;
 }
 
 static simulated function GetReloadRateScale(out float InReloadRateScale, int upgLevel, KFWeapon KFW, KFPawn OwnerPawn)

@@ -3,16 +3,28 @@ class WMUpgrade_Weapon_Damage_GroundFire extends WMUpgrade_Weapon
 
 var float Damage;
 
-// all weapons are compatible
+// Weapons with ground fire are compatible
 static function bool IsUpgradeCompatible(class<KFWeapon> KFW)
 {
-	if (class<KFWeap_HRG_Healthrower>(KFW) != None)
-		return False;
-	else if (class<KFWeap_AssaultRifle_LazerCutter>(KFW) != None)
-		return False;
-	else if (class<KFWeap_ShrinkRayGun>(KFW) != None)
-		return False;
-	else if (class<KFWeap_FlameBase>(KFW) != None)
+	if (class<KFWeap_AssaultRifle_HRGIncendiaryRifle>(KFW) != None)
+		return True;
+	if (class<KFWeap_Beam_Microwave>(KFW) != None)
+		return True;
+	if (class<KFWeap_Flame_CaulkBurn>(KFW) != None)
+		return True;
+	if (class<KFWeap_Flame_Flamethrower>(KFW) != None)
+		return True;
+	if (class<KFWeap_HuskCannon>(KFW) != None)
+		return True;
+	if (class<KFWeap_Ice_FreezeThrower>(KFW) != None)
+		return True;
+	if (class<KFWeap_Pistol_Flare>(KFW) != None)
+		return True;
+	if (class<KFWeap_Pistol_HRGScorcher>(KFW) != None)
+		return True;
+	if (class<KFWeap_Shotgun_DragonsBreath>(KFW) != None)
+		return True;
+	if (class<KFWeap_RocketLauncher_ThermiteBore>(KFW) != None)
 		return True;
 
 	return False;

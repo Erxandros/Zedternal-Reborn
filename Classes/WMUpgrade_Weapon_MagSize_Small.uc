@@ -3,10 +3,10 @@ class WMUpgrade_Weapon_MagSize_Small extends WMUpgrade_Weapon
 
 var int MagSize;
 
-// small clipped weapons are compatible
+// Small clipped weapons are compatible
 static function bool IsUpgradeCompatible(class<KFWeapon> KFW)
 {
-	if (KFW.default.MagazineCapacity[0] >= 5 && KFW.default.MagazineCapacity[0] < 10)
+	if (KFW.default.MagazineCapacity[0] > 1 && KFW.default.MagazineCapacity[0] < 10)
 		return True;
 
 	return False;

@@ -6,13 +6,10 @@ var float Heal;
 // Only Medic weapons are compatible
 static function bool IsUpgradeCompatible(class<KFWeapon> KFW)
 {
-	if (class<KFWeap_MedicBase>(KFW) != None)
-		return True;
-	else if (class<KFWeap_Rifle_HRGIncision>(KFW) != None)
-		return True;
-	else if (class<KFWeap_HRG_Healthrower>(KFW) != None)
-		return True;
-	else if (class<KFWeap_Blunt_MedicBat>(KFW) != None)
+	local array< class<KFPerk> > KFPArray;
+
+	KFPArray = KFW.static.GetAssociatedPerkClasses();
+	if (KFPArray.Find(class'KFGame.KFPerk_FieldMedic') != INDEX_NONE)
 		return True;
 
 	return False;

@@ -3,24 +3,24 @@ class WMUpgrade_Weapon_Damage_Headshot extends WMUpgrade_Weapon
 
 var float Damage;
 
-// Revolvers, Rifles and SMGs are compatible
+// Commando, Gunslinger, Sharpshooter, and SWAT are compatible
 static function bool IsUpgradeCompatible(class<KFWeapon> KFW)
 {
-	if (class<KFWeap_Pistol_Blunderbuss>(KFW) != None)
+	local array< class<KFPerk> > KFPArray;
+
+	if (class<KFWeap_ThrownBase>(KFW) != None)
 		return False;
-	else if (class<KFWeap_PistolBase>(KFW) != None)
+	if (KFW.default.bIsBackupWeapon)
 		return True;
-	else if (class<KFWeap_RifleBase>(KFW) != None)
+
+	KFPArray = KFW.static.GetAssociatedPerkClasses();
+	if (KFPArray.Find(class'KFGame.KFPerk_Commando') != INDEX_NONE)
 		return True;
-	else if (class<KFWeap_SMGBase>(KFW) != None)
+	if (KFPArray.Find(class'KFGame.KFPerk_Gunslinger') != INDEX_NONE)
 		return True;
-	else if (class<KFWeap_ScopedBase>(KFW) != None)
+	if (KFPArray.Find(class'KFGame.KFPerk_Sharpshooter') != INDEX_NONE)
 		return True;
-	else if (class<KFWeap_Rifle_MosinNagant>(KFW) != None)
-		return True;
-	else if (class<KFWeap_Bow_CompoundBow>(KFW) != None)
-		return True;
-	else if (class<KFWeap_HRG_Nailgun>(KFW) != None)
+	if (KFPArray.Find(class'KFGame.KFPerk_SWAT') != INDEX_NONE)
 		return True;
 
 	return False;

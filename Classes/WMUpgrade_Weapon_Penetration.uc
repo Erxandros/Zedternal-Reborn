@@ -3,10 +3,14 @@ class WMUpgrade_Weapon_Penetration extends WMUpgrade_Weapon
 
 var float Penetration;
 
-// weapons with penetration power are compatible
+// Weapons with penetration power are compatible
 static function bool IsUpgradeCompatible(class<KFWeapon> KFW)
 {
-	if (KFW.default.PenetrationPower[0] > 0)
+	if ((KFW.default.PenetrationPower.Length - 1) >= KFW.const.DEFAULT_FIREMODE && KFW.default.PenetrationPower[KFW.const.DEFAULT_FIREMODE] > 0)
+		return True;
+	if ((KFW.default.PenetrationPower.Length - 1) >= KFW.const.ALTFIRE_FIREMODE && KFW.default.PenetrationPower[KFW.const.ALTFIRE_FIREMODE] > 0)
+		return True;
+	if ((KFW.default.PenetrationPower.Length - 1) >= KFW.const.CUSTOM_FIREMODE && KFW.default.PenetrationPower[KFW.const.CUSTOM_FIREMODE] > 0)
 		return True;
 
 	return False;

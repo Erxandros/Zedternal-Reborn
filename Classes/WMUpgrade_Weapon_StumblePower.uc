@@ -3,21 +3,31 @@ class WMUpgrade_Weapon_StumblePower extends WMUpgrade_Weapon
 
 var float StumblePower;
 
-// weapons with stumble effect (and without stun/knockdown effect) are compatible
+// Weapons with stumble effect (and without stun/knockdown effect) are compatible
 static function bool IsUpgradeCompatible(class<KFWeapon> KFW)
 {
-	local float Stumble;
 	local class<KFDamageType> KFDT;
 
-	KFDT = class<KFDamageType>(KFW.default.InstantHitDamageTypes[0]);
+	if ((KFW.default.InstantHitDamageTypes.Length - 1) >= KFW.const.DEFAULT_FIREMODE)
+	{
+		KFDT = class<KFDamageType>(KFW.default.InstantHitDamageTypes[KFW.const.DEFAULT_FIREMODE]);
+		if (KFDT != None && KFDT.default.StumblePower > 0 && KFDT.default.StunPower == 0.0f && KFDT.default.KnockdownPower == 0.0f)
+			return True;
+	}
 
-	if (KFDT != None)
-		Stumble = KFDT.default.StumblePower;
-	else
-		return False;
+	if ((KFW.default.InstantHitDamageTypes.Length - 1) >= KFW.const.ALTFIRE_FIREMODE)
+	{
+		KFDT = class<KFDamageType>(KFW.default.InstantHitDamageTypes[KFW.const.ALTFIRE_FIREMODE]);
+		if (KFDT != None && KFDT.default.StumblePower > 0 && KFDT.default.StunPower == 0.0f && KFDT.default.KnockdownPower == 0.0f)
+			return True;
+	}
 
-	if (Stumble > 0 && KFDT.default.StunPower == 0.0f && KFDT.default.KnockdownPower == 0.0f)
-		return True;
+	if ((KFW.default.InstantHitDamageTypes.Length - 1) >= KFW.const.CUSTOM_FIREMODE)
+	{
+		KFDT = class<KFDamageType>(KFW.default.InstantHitDamageTypes[KFW.const.CUSTOM_FIREMODE]);
+		if (KFDT != None && KFDT.default.StumblePower > 0 && KFDT.default.StunPower == 0.0f && KFDT.default.KnockdownPower == 0.0f)
+			return True;
+	}
 
 	return False;
 }

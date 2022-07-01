@@ -6,23 +6,12 @@ var float Speed;
 // Medic and Gunslinger weapons are compatible
 static function bool IsUpgradeCompatible(class<KFWeapon> KFW)
 {
-	if (class<KFWeap_Pistol_Blunderbuss>(KFW) != None)
-		return False;
-	else if (class<KFWeap_MedicBase>(KFW) != None)
+	local array< class<KFPerk> > KFPArray;
+
+	KFPArray = KFW.static.GetAssociatedPerkClasses();
+	if (KFPArray.Find(class'KFGame.KFPerk_FieldMedic') != INDEX_NONE)
 		return True;
-	else if (class<KFWeap_HRG_Healthrower>(KFW) != None)
-		return True;
-	else if (class<KFWeap_Rifle_HRGIncision>(KFW) != None)
-		return True;
-	else if (class<KFWeap_Blunt_MedicBat>(KFW) != None)
-		return True;
-	else if (class<KFWeap_PistolBase>(KFW) != None)
-		return True;
-	else if (class<KFWeap_Rifle_Winchester1894>(KFW) != None)
-		return True;
-	else if (class<KFWeap_GrenadeLauncher_HX25>(KFW) != None)
-		return True;
-	else if (class<KFWeap_Rifle_CenterfireMB464>(KFW) != None)
+	if (KFPArray.Find(class'KFGame.KFPerk_Gunslinger') != INDEX_NONE)
 		return True;
 
 	return False;

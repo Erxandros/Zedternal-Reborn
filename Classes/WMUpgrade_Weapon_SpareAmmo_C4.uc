@@ -3,10 +3,10 @@ class WMUpgrade_Weapon_SpareAmmo_C4 extends WMUpgrade_Weapon
 
 var int SpareAmmo;
 
-// Only C4 are compatible
+// Small spare ammo weapons are compatible
 static function bool IsUpgradeCompatible(class<KFWeapon> KFW)
 {
-	if (class<KFWeap_Thrown_C4>(KFW) != None)
+	if (KFW.default.SpareAmmoCapacity[0] > 0 && KFW.default.SpareAmmoCapacity[0] < 8)
 		return True;
 
 	return False;

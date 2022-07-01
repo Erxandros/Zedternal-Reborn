@@ -3,12 +3,10 @@ class WMUpgrade_Weapon_MeleeAttackSpeed extends WMUpgrade_Weapon
 
 var float MeleeAttackSpeed;
 
-// Only Melee weapons are compatible
+// Only melee weapons are compatible
 static function bool IsUpgradeCompatible(class<KFWeapon> KFW)
 {
-	if (class<KFWeap_MeleeBase>(KFW) != None)
-		return True;
-	else if (class<KFWeap_Bow_CompoundBow>(KFW) != None)
+	if (KFW.default.bMeleeWeapon)
 		return True;
 
 	return False;
