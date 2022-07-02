@@ -11,8 +11,8 @@ var bool bShouldLocalize;
 // These functions are called by ZedternalReborn.WMPerk (server or client) to get perk stats.
 // So all function from upgrades bought by the player will be called
 //
-// To create a custom perk/skill/weapon upgrade, simply create a .uc file, extended to WMUpgrade_Perk, WMUpgrade_Skill or WMUpgrade_Weapon.
-// They, take any of these function and play with the output variable as you wish
+// To create a custom perk/skill/weapon/equipment upgrade, simply create a .uc file, and extended from WMUpgrade_Perk, WMUpgrade_Skill, WMUpgrade_Weapon or WMUpgrade_Equipment.
+// Then take any of these functions and play with the output variable as you wish.
 static simulated function InitiateWeapon(int upgLevel, KFWeapon KFW, KFPawn OwnerPawn);
 static function WaveEnd(int upgLevel, KFPlayerController KFPC);
 
@@ -264,6 +264,7 @@ static function bool IsGrenadeDT(class<DamageType> DT)
 	return class'ZedternalReborn.WMWeaponConstants'.static.IsGrenadeDT(DT);
 }
 
+//Use this function over IsGrenadeDT if you can
 static function bool IsGrenadeDTAdvance(class<KFDamageType> DT, optional KFPlayerController DamageInstigator, optional class<KFWeaponDefinition> GreandeDef)
 {
 	if (GreandeDef != None)
