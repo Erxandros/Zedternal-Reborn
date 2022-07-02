@@ -1,7 +1,7 @@
 class Config_Base extends Object;
 
 const CurrentVersion = 13;
-const CurrentHotfix = 1;
+const CurrentHotfix = 2;
 
 var array< class<Config_Common> > ConfigFiles;
 
