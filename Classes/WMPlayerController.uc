@@ -417,14 +417,6 @@ simulated function UpdatePerkIcon()
 	bShouldUpdateHUDPerkIcon = True;
 }
 
-function NotifyAddInventory(Inventory NewItem)
-{
-	super.NotifyAddInventory(NewItem);
-
-	if (KFWeapon(NewItem) != None)
-		Spawn(class'WMWeaponAmmoFix', NewItem);
-}
-
 simulated function SetNightVision(bool bEnabled)
 {
 	if (WMPerk(CurrentPerk) != None)

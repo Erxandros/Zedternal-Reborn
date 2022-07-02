@@ -1,5 +1,24 @@
 class WMInventoryManager extends KFInventoryManager;
 
+simulated function Inventory CreateInventory(class<Inventory> NewInventoryItemClass, optional bool bDoNotActivate)
+{
+	local Inventory Item;
+
+	Item = super.CreateInventory(NewInventoryItemClass, bDoNotActivate);
+
+	if (KFWeapon(Item) != None &&
+		Role == ROLE_Authority &&
+		WorldInfo.NetMode == NM_DedicatedServer &&
+		KFWeapon(Item).default.MagazineCapacity[0] > 0 &&
+		KFWeap_Welder(Item) == None &&
+		KFWeap_Healer_Syringe(Item) == None)
+	{
+		Spawn(class'ZedternalReborn.WMWeaponAmmoFix', Item);
+	}
+
+	return Item;
+}
+
 function bool AddArmorFromPickup()
 {
 	local WMPawn_Human WMPH;
