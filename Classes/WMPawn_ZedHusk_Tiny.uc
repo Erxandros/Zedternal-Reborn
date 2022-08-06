@@ -30,7 +30,7 @@ simulated function UpdateGameplayMICParams()
 
 	super.UpdateGameplayMICParams();
 
-	if(WorldInfo.NetMode != NM_DedicatedServer)
+	if (WorldInfo.NetMode != NM_DedicatedServer)
 	{
 		for (i = 0; i < CharacterMICs.length; ++i)
 		{

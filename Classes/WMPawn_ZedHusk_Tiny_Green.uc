@@ -9,6 +9,10 @@ defaultproperties
 {
 	glowColor=(R=0.12f, G=1.0f, B=0.12f)
 
+	Begin Object Name=ChestLightComponent0
+		LightColor=(R=30, G=255, B=30, A=255)
+	End Object
+
 	Begin Object Class=PointLightComponent Name=ExplosionPointLightGreen
 		LightColor=(R=30, G=255, B=30, A=255)
 		bCastPerObjectShadows=False
