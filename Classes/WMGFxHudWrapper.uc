@@ -31,7 +31,7 @@ event DrawHUD()
 	if (WMGRI == None)
 		return;
 
-	Canvas.Font = Font(DynamicLoadObject("UI_Canvas_Fonts.Font_General", class'Font'));
+	Canvas.Font = Font(DynamicLoadObject("UI_Canvas_Fonts.Font_Main", class'Font'));
 
 	//////////////////////////////////////////////
 	//////////// SPECIAL WAVES ///////////////////
@@ -39,7 +39,7 @@ event DrawHUD()
 
 	if (!WMGRI.bTraderIsOpen && WMGRI.SpecialWaveID[0] != INDEX_NONE && WMGRI.bDrawSpecialWave)
 	{
-		size = 0.5f;
+		size = 0.75f;
 
 		//draw warning
 		if (WMGRI.SpecialWavesList[WMGRI.SpecialWaveID[0]].SpecialWave.default.bShouldLocalize)
@@ -108,7 +108,7 @@ event DrawHUD()
 
 	if (zedBuffIndex == 0)
 	{
-		size = 0.65f;
+		size = 0.975f;
 
 		//draw warning
 		buffTitle = default.ZedBuffEvolvingString;
@@ -145,7 +145,7 @@ event DrawHUD()
 	}
 	else if (zedBuffIndex != INDEX_NONE)
 	{
-		size = 0.55f;
+		size = 0.825f;
 
 		if (WMGRI.ZedBuffsList[zedBuffIndex - 1].ZedBuff.default.bShouldLocalize)
 			buffTitle = WMGRI.ZedBuffsList[zedBuffIndex - 1].ZedBuff.static.GetBuffDescription();
@@ -219,7 +219,7 @@ event DrawHUD()
 			// Stacked zed buffs
 			if (WMGRI.ActiveZedBuffs[i] > 1)
 			{
-				size = 0.4f;
+				size = 0.6f;
 				buffStack = "x" $ string(WMGRI.ActiveZedBuffs[i]);
 
 				//draw shadow
