@@ -7,7 +7,6 @@ var byte DefaultFontSize; // Default medium font size of current resolution.
 var float DefaultHeight; // Default font text size.
 var transient Canvas ScoreBoardCanvas; // The ScoreBoardCanvas canvas object
 
-//function InitStyle()
 function PostBeginPlay()
 {
 	ScoreBoardCanvas = new class 'Engine.Canvas';
@@ -18,21 +17,12 @@ function PostBeginPlay()
 
 function Font PickFont(byte i, out float Scaler);
 
-function PickDefaultFontSize(float YRes)
+function PickDefaultFontSize(float XRes, float YRes)
 {
 	local int XL, YL;
 	local string S;
 
-	DefaultFontSize = 0;
-	if (YRes > 800)
-		++DefaultFontSize;
-	if (YRes > 1000)
-		++DefaultFontSize;
-	if (YRes > 1300)
-		++DefaultFontSize;
-	if (YRes > 1500)
-		++DefaultFontSize;
-
+	DefaultFontSize = (int(XRes) * int(YRes)) / 500000;
 	S = "ABC";
 	PickFont(DefaultFontSize, YRes).GetStringHeightAndWidth(S, YL, XL);
 	DefaultHeight = float(YL) * YRes;

@@ -1,49 +1,20 @@
 Class WMGFxScoreBoardStyle extends WMGFxScoreBoardStyleBase;
 
-var Font DrawFonts[3];
+var Font DrawFont;
 
 const TOOLTIP_BORDER = 4;
 
-//function InitStyle()
 function PostBeginPlay()
 {
-	local byte i;
-
 	Super.PostBeginPlay();
 
-	DrawFonts[0] = Font(DynamicLoadObject("UI_Canvas_Fonts.Font_General", class'Font'));
-	DrawFonts[1] = Font(DynamicLoadObject("EngineFonts.SmallFont", class'Font'));
-	DrawFonts[2] = Font(DynamicLoadObject("EngineFonts.TinyFont", class'Font'));
-	for (i = 0; i < ArrayCount(DrawFonts); ++i)
-	{
-		if (DrawFonts[i] == None)
-			DrawFonts[i] = class'Engine'.Static.GetMediumFont();
-	}
+	DrawFont = Font(DynamicLoadObject("UI_Canvas_Fonts.Font_Main", class'Font'));
 }
 
 function Font PickFont(byte i, out float Scaler)
 {
-	switch (i)
-	{
-		case 0:
-			Scaler = 1;
-			return DrawFonts[2];
-		case 1:
-			Scaler = 1;
-			return DrawFonts[1];
-		case 2:
-			Scaler = 0.4;
-			return DrawFonts[0];
-		case 3:
-			Scaler = 0.6;
-			return DrawFonts[0];
-		case 4:
-			Scaler = 0.8;
-			return DrawFonts[0];
-		default:
-			Scaler = 1;
-			return DrawFonts[0];
-	}
+	Scaler = 0.4 + 0.1 * i;
+	return DrawFont;
 }
 
 function float AdjustPlayerNameScaler(float Scaler, byte NameLength, byte FontType)

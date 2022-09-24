@@ -96,7 +96,7 @@ event Draw(Canvas ca)
 	local float XPos, YPos, XL, YL, FontScalar, XPosCenter;
 	local int i, j, PlayerIndex, NumSpec, NumPlayer, NumAlivePlayer, Width;
 
-	PickDefaultFontSize(ScoreBoardCanvas.SizeY);
+	PickDefaultFontSize(ScoreBoardCanvas.SizeX, ScoreBoardCanvas.SizeY);
 
 	// Get the current KFGameReplicationInfo
 	PC = GetPlayer();
@@ -263,7 +263,7 @@ event Draw(Canvas ca)
 	//////
 
 	////// ScoreBoardCanvas spacing
-	Width = ScoreBoardCanvas.ClipX * 0.65;
+	Width = ScoreBoardCanvas.ClipX * 0.7;
 
 	XPos = (ScoreBoardCanvas.ClipX - Width) * 0.5;
 	YPos += YL * 2.0;
@@ -276,13 +276,13 @@ event Draw(Canvas ca)
 	// Calculate X offsets
 	PerkXPos = Width * 0.0125;
 	PlayerXPos = Width * 0.100;
-	KillsXPos = Width * 0.350;
-	AssistXPos = Width * 0.450;
-	CashXPos = Width * 0.550;
-	HealthXPos = Width * 0.650;
-	ArmorXPos = Width * 0.750;
-	PingXPos = Width * 0.850;
-	PlatformXPos = Width * 0.9125;
+	KillsXPos = Width * 0.300;
+	AssistXPos = Width * 0.400;
+	CashXPos = Width * 0.500;
+	HealthXPos = Width * 0.600;
+	ArmorXPos = Width * 0.700;
+	PingXPos = Width * 0.800;
+	PlatformXPos = Width * 0.8625;
 
 	// Header texts
 	ScoreBoardCanvas.SetPos(XPos + PerkXPos, YPos);
@@ -318,7 +318,7 @@ event Draw(Canvas ca)
 		////// Player slot
 		WMPRI = WMPRIArray[i];
 
-		Width = ScoreBoardCanvas.ClipX * 0.65;
+		Width = ScoreBoardCanvas.ClipX * 0.7;
 
 		XPos = (ScoreBoardCanvas.ClipX - Width) * 0.5;
 		YPos += YL + 4;
