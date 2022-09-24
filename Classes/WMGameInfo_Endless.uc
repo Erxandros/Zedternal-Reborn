@@ -67,6 +67,9 @@ var array<S_Zed_Buff> ZedBuffSettings;
 var string WeaponUpgRandSeed;
 var int WeaponUpgRandPosition;
 
+//Pickup Timeouts
+var int DoshPickupTime, ProjectilePickupTime, WeaponPickupTime;
+
 event InitGame(string Options, out string ErrorMessage)
 {
 	// starting wave can be set through the console while launching the mod (by adding : ?wave=XXX)
@@ -176,6 +179,10 @@ event PostBeginPlay()
 	TimeBetweenWavesExtend = class'ZedternalReborn.Config_GameOptions'.static.GetTimeBetweenWaveHumanDied(GameDifficultyZedternal);
 	bUseExtendedTraderTime = False;
 	bUseStartingTraderTime = False;
+
+	DoshPickupTime = class'ZedternalReborn.Config_GameOptions'.static.GetDoshPickupDespawnTime(GameDifficultyZedternal);
+	ProjectilePickupTime = class'ZedternalReborn.Config_GameOptions'.static.GetProjectilePickupDespawnTime(GameDifficultyZedternal);
+	WeaponPickupTime = class'ZedternalReborn.Config_GameOptions'.static.GetWeaponPickupDespawnTime(GameDifficultyZedternal);
 }
 
 event PreLogin(string Options, string Address, const UniqueNetId UniqueId, bool bSupportsAuth, out string ErrorMessage)
@@ -329,6 +336,9 @@ function StartMatch()
 		if (WMPlayerReplicationInfo(KFPC.PlayerReplicationInfo) != None)
 			WMPlayerReplicationInfo(KFPC.PlayerReplicationInfo).bHasPlayed = True;
 	}
+
+	// Set projectile pickup times
+	SetTimer(1.0f, True, NameOf(SetProjectilePickupLife));
 }
 
 function StartWave()
@@ -2343,6 +2353,39 @@ function UpdateGameSettings()
 					//Trigger re-broadcast of game settings
 					GameInterface.UpdateOnlineGame(SessionName, KFGameSettings, True);
 				}
+			}
+		}
+	}
+}
+
+function bool CheckRelevance(Actor Other)
+{
+	if (super.CheckRelevance(Other))
+	{
+		if (KFDroppedPickup_Cash(Other) != None && DoshPickupTime > 0)
+			Other.LifeSpan = DoshPickupTime;
+		else if (KFDroppedPickup(Other) != None && WeaponPickupTime > 0)
+			Other.LifeSpan = WeaponPickupTime;
+
+		return True;
+	}
+	else
+		return False;
+}
+
+function SetProjectilePickupLife()
+{
+	local KFProj_RicochetStickBullet KFP;
+
+	if (ProjectilePickupTime > 0)
+	{
+		foreach DynamicActors(class'KFProj_RicochetStickBullet', KFP)
+		{
+			// Use bHiddenEdScene as a flag to see if ProjectilePickupTime was already applied
+			if (!KFP.bHiddenEdScene && KFP.GetStateName() == 'Pickup')
+			{
+				KFP.LifeSpan = ProjectilePickupTime;
+				KFP.bHiddenEdScene = True;
 			}
 		}
 	}
