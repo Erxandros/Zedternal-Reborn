@@ -1356,6 +1356,8 @@ function S_Weapon_Data ApplyRandomWeaponVariant(S_Weapon_Data WepData)
 				else
 					`log("ZR Info: Added dual weapon variant:"@PathName(WepData.KFWeapDefDualReplace));
 			}
+
+			break;
 		}
 	}
 
