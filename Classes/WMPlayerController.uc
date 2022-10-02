@@ -207,13 +207,15 @@ function UpdateWeaponMagAndCap()
 	// Compile passive bonuses
 	WMP = WMPerk(CurrentPerk);
 	if (WMP != None)
-		WMP.ClientAndServerComputePassiveBonuses();
-	UpdateClientPerkBonuses();
+		WMP.ApplySkillsToPawn();
+
+	// Set client passive bonuses
+	if (WorldInfo.NetMode == NM_DedicatedServer)
+		UpdateClientPerkBonuses();
 
 	//New Weight, Mag Size and max capacity
 	if (WMP != None)
 	{
-		WMP.ApplyWeightLimits();
 		WMPH = WMPawn_Human(Pawn);
 		if (WMPH != None)
 		{
@@ -235,9 +237,6 @@ function UpdateWeaponMagAndCap()
 			WMP.ModifyArmorInt(WMPH.ZedternalMaxArmor);
 			WMP.ModifyMaxSpareGrenadeAmount();
 		}
-
-		// Also update perk info
-		WMP.ApplySkillsToPawn();
 	}
 }
 
