@@ -65,6 +65,13 @@ static function UpdateConfig()
 		}
 	}
 
+	if (default.MODEVERSION < 14)
+	{
+		i = default.WeaponUpgrade_Upgrade.Find('WeaponPath', "ZedternalReborn.WMUpgrade_Weapon_SpareAmmo_C4");
+		if (i != INDEX_NONE)
+			default.WeaponUpgrade_Upgrade[i].WeaponPath = "ZedternalReborn.WMUpgrade_Weapon_SpareAmmo_Small";
+	}
+
 	if (default.MODEVERSION < class'ZedternalReborn.Config_Base'.const.CurrentVersion)
 	{
 		default.MODEVERSION = class'ZedternalReborn.Config_Base'.const.CurrentVersion;

@@ -1,4 +1,4 @@
-class WMUpgrade_Weapon_SpareAmmo_C4 extends WMUpgrade_Weapon
+class WMUpgrade_Weapon_SpareAmmo_Small extends WMUpgrade_Weapon
 	abstract;
 
 var int SpareAmmo;
@@ -22,8 +22,8 @@ defaultproperties
 	SpareAmmo=2
 
 	bShouldLocalize=True
-	UpgradeName="ZedternalReborn.WMUpgrade_Weapon_SpareAmmo_C4"
+	UpgradeName="ZedternalReborn.WMUpgrade_Weapon_SpareAmmo_Small"
 	WeaponBonus=(baseValue=0, incValue=2, maxValue=-1)
 
-	Name="Default__WMUpgrade_Weapon_SpareAmmo_C4"
+	Name="Default__WMUpgrade_Weapon_SpareAmmo_Small"
 }
