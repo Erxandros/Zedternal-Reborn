@@ -230,6 +230,11 @@ function ApplySkillsToPawn()
 		ServerComputePassiveBonuses();
 		ClientAndServerComputePassiveBonuses();
 	}
+	else
+	{
+		ServerPassiveBonusDefaults();
+		ClientAndServerPassiveBonusDefaults();
+	}
 }
 
 function AddDefaultInventory(KFPawn P)
@@ -355,10 +360,8 @@ simulated function class<KFWeaponDefinition> GetGrenadeWeaponDef()
 	return GrenadeWeaponDef;
 }
 
-function ServerComputePassiveBonuses()
+function ServerPassiveBonusDefaults()
 {
-	local byte i, index;
-
 	PassiveDamageGiven = 1.0f;
 	PassiveDamageTaken = 1.0f;
 	PassiveHealAmount = 1.0f;
@@ -367,6 +370,13 @@ function ServerComputePassiveBonuses()
 	PassiveStumblePower = 1.0f;
 	PassiveKnockdownPower = 1.0f;
 	PassiveSnarePower = 1.0f;
+}
+
+function ServerComputePassiveBonuses()
+{
+	local byte i, index;
+
+	ServerPassiveBonusDefaults();
 
 	if (MyWMPRI != None && MyWMGRI != None)
 	{
@@ -409,10 +419,8 @@ function ServerComputePassiveBonuses()
 	}
 }
 
-simulated function ClientAndServerComputePassiveBonuses()
+simulated function ClientAndServerPassiveBonusDefaults()
 {
-	local byte i, index;
-
 	PassiveMovementSpeed = 1.0f;
 	PassiveSwitchSpeed = 1.0f;
 	PassiveMeleeAttackSpeed = 1.0f;
@@ -424,6 +432,13 @@ simulated function ClientAndServerComputePassiveBonuses()
 	PassiveRateOfFire = 1.0f;
 	PassiveTightChoke = 1.0f;
 	PassivePenetration = 1.0f;
+}
+
+simulated function ClientAndServerComputePassiveBonuses()
+{
+	local byte i, index;
+
+	ClientAndServerPassiveBonusDefaults();
 
 	if (OwnerPC == None || OwnerPawn == None || MyWMPRI == None || MyWMGRI == None)
 		SetCachedVariables();
