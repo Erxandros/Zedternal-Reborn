@@ -266,6 +266,13 @@ static function UpdateConfig()
 		default.Weapon_VariantWeaponDef.AddItem(NewVariant);
 	}
 
+	if (default.MODEVERSION < 14)
+	{
+		NewVariant.WeaponDef = "KFGame.KFWeapDef_G36C";
+		NewVariant.WeaponDefVariant = "ZedternalReborn.WMWeapDef_G36C_Precious";
+		default.Weapon_VariantWeaponDef.AddItem(NewVariant);
+	}
+
 	if (default.MODEVERSION < class'ZedternalReborn.Config_Base'.const.CurrentVersion)
 	{
 		default.MODEVERSION = class'ZedternalReborn.Config_Base'.const.CurrentVersion;

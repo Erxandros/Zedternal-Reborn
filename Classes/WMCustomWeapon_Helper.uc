@@ -149,6 +149,7 @@ defaultproperties
 	PreciousDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_FNFal_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_FNFal"));
 	PreciousDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_FreezeThrower_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_FreezeThrower"));
 	PreciousDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_G18_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_G18"));
+	PreciousDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_G36C_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_G36C"));
 	PreciousDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_GravityImploder_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_GravityImploder"));
 	PreciousDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_Healthrower_HRG_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_Healthrower_HRG"));
 	PreciousDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_Hemogoblin_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_Hemogoblin"));
