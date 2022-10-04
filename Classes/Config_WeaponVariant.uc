@@ -271,6 +271,10 @@ static function UpdateConfig()
 		NewVariant.WeaponDef = "KFGame.KFWeapDef_G36C";
 		NewVariant.WeaponDefVariant = "ZedternalReborn.WMWeapDef_G36C_Precious";
 		default.Weapon_VariantWeaponDef.AddItem(NewVariant);
+
+		NewVariant.WeaponDef = "KFGame.KFWeapDef_HRG_Dragonbreath";
+		NewVariant.WeaponDefVariant = "ZedternalReborn.WMWeapDef_HRG_Dragonbreath_Precious";
+		default.Weapon_VariantWeaponDef.AddItem(NewVariant);
 	}
 
 	if (default.MODEVERSION < class'ZedternalReborn.Config_Base'.const.CurrentVersion)

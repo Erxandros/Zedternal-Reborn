@@ -159,6 +159,7 @@ defaultproperties
 	PreciousDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_HRG_Boomy_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_HRG_Boomy"));
 	PreciousDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_HRG_CranialPopper_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_HRG_CranialPopper"));
 	PreciousDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_HRG_Crossboom_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_HRG_Crossboom"));
+	PreciousDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_HRG_Dragonbreath_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_HRG_Dragonbreath"));
 	PreciousDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_HRG_EMP_ArcGenerator_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_HRG_EMP_ArcGenerator"));
 	PreciousDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_HRG_Energy_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_HRG_Energy"));
 	PreciousDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_HRG_Kaboomstick_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_HRG_Kaboomstick"));
