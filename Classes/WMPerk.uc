@@ -1081,8 +1081,8 @@ simulated function ModifyRecoil(out float CurrentRecoilModifier, KFWeapon KFW)
 		}
 	}
 
-	if (CurrentRecoilModifier < DefaultRecoilModifier * 0.08f)
-		CurrentRecoilModifier = DefaultRecoilModifier * 0.08f;
+	if (CurrentRecoilModifier < DefaultRecoilModifier * 0.05f)
+		CurrentRecoilModifier = DefaultRecoilModifier * 0.05f;
 }
 
 simulated function ModifySpread(out float InSpread)
