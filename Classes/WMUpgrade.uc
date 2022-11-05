@@ -38,6 +38,7 @@ static simulated function ModifyMeleeAttackSpeed(out float InDuration, float Def
 
 static simulated function GetReloadRateScale(out float InReloadRateScale, int upgLevel, KFWeapon KFW, KFPawn OwnerPawn);
 static simulated function ModifyRecoil(out float InRecoilModifier, float DefaultRecoilModifier, int upgLevel, KFWeapon KFW);
+static simulated function ModifySpread(out float InSpreadModifier, float DefaultSpreadModifier, int upgLevel, KFWeapon KFW);
 static simulated function ModifyWeaponBopDamping(out float InBobDamping, float DefaultBobDamping, int upgLevel, KFWeapon KFW);
 static simulated function ModifyMagSizeAndNumber(out int InMagazineCapacity, int DefaultMagazineCapacity, int upgLevel, KFWeapon KFW, optional array< Class<KFPerk> > WeaponPerkClass, optional bool bSecondary=False, optional name WeaponClassname);
 static simulated function ModifySpareAmmoAmount(out int InSpareAmmo, int DefaultSpareAmmo, int upgLevel, KFWeapon KFW, optional const out STraderItem TraderItem, optional bool bSecondary=False);
@@ -189,6 +190,7 @@ static function ModifyHardAttackDamagePassive(out float damageFactor, int upgLev
 static simulated function ModifyMeleeAttackSpeedPassive(out float durationFactor, int upgLevel);
 static simulated function GetReloadRateScalePassive(out float reloadRateFactor, int upgLevel);
 static simulated function ModifyRecoilPassive(out float recoilFactor, int upgLevel);
+static simulated function ModifySpreadPassive(out float spreadFactor, int upgLevel);
 static simulated function ModifyWeaponBopDampingPassive(out float bobDampFactor, int upgLevel);
 static simulated function ModifyMagSizeAndNumberPassive(out float magazineCapacityFactor, int upgLevel);
 static simulated function ModifySpareAmmoAmountPassive(out float spareAmmoFactor, int upgLevel);

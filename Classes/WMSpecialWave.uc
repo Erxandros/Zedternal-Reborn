@@ -79,6 +79,7 @@ static function ModifyHealAmount(out float InHealAmount, float DefaultHealAmount
 static simulated function ModifyHealerRechargeTime(out float InRechargeTime, float DefaultRechargeTime);
 static simulated function ModifySpeed(out float InSpeed, float DefaultSpeed, KFPawn OwnerPawn);
 static simulated function ModifyRecoil(out float InRecoilModifier, float DefaultRecoilModifier, KFWeapon KFW);
+static simulated function ModifySpread(out float InSpreadModifier, float DefaultSpreadModifier, KFWeapon KFW);
 static simulated function ModifyWeaponBopDamping(out float InBobDamping, float DefaultBobDamping, KFWeapon KFW);
 static simulated function ModifyMagSizeAndNumber(out int InMagazineCapacity, int DefaultMagazineCapacity, KFWeapon KFW, optional array< class<KFPerk> > WeaponPerkClass, optional bool bSecondary=False, optional name WeaponClassname);
 static simulated function ModifySpareAmmoAmount(out int InSpareAmmo, int DefaultSpareAmmo, KFWeapon KFW, optional const out STraderItem TraderItem, optional bool bSecondary=False);

@@ -38,6 +38,7 @@ var private float PassiveSwitchSpeed;
 var private float PassiveMeleeAttackSpeed;
 var private float PassiveReloadRateScale;
 var private float PassiveRecoil;
+var private float PassiveSpread;
 var private float PassiveBobDamp;
 var private float PassiveMagazineCapacity;
 var private float PassiveSpareAmmo;
@@ -426,6 +427,7 @@ simulated function ClientAndServerPassiveBonusDefaults()
 	PassiveMeleeAttackSpeed = 1.0f;
 	PassiveReloadRateScale = 1.0f;
 	PassiveRecoil = 1.0f;
+	PassiveSpread = 1.0f;
 	PassiveBobDamp = 1.0f;
 	PassiveMagazineCapacity = 1.0f;
 	PassiveSpareAmmo = 1.0f;
@@ -453,6 +455,7 @@ simulated function ClientAndServerComputePassiveBonuses()
 			MyWMGRI.PerkUpgradesList[index].PerkUpgrade.static.ModifyMeleeAttackSpeedPassive(PassiveMeleeAttackSpeed, MyWMPRI.bPerkUpgrade[index]);
 			MyWMGRI.PerkUpgradesList[index].PerkUpgrade.static.GetReloadRateScalePassive(PassiveReloadRateScale, MyWMPRI.bPerkUpgrade[index]);
 			MyWMGRI.PerkUpgradesList[index].PerkUpgrade.static.ModifyRecoilPassive(PassiveRecoil, MyWMPRI.bPerkUpgrade[index]);
+			MyWMGRI.PerkUpgradesList[index].PerkUpgrade.static.ModifySpreadPassive(PassiveSpread, MyWMPRI.bPerkUpgrade[index]);
 			MyWMGRI.PerkUpgradesList[index].PerkUpgrade.static.ModifyWeaponBopDampingPassive(PassiveBobDamp, MyWMPRI.bPerkUpgrade[index]);
 			MyWMGRI.PerkUpgradesList[index].PerkUpgrade.static.ModifyMagSizeAndNumberPassive(PassiveMagazineCapacity, MyWMPRI.bPerkUpgrade[index]);
 			MyWMGRI.PerkUpgradesList[index].PerkUpgrade.static.ModifySpareAmmoAmountPassive(PassiveSpareAmmo, MyWMPRI.bPerkUpgrade[index]);
@@ -468,6 +471,7 @@ simulated function ClientAndServerComputePassiveBonuses()
 			MyWMGRI.SkillUpgradesList[index].SkillUpgrade.static.ModifyMeleeAttackSpeedPassive(PassiveMeleeAttackSpeed, MyWMPRI.bSkillUpgrade[index]);
 			MyWMGRI.SkillUpgradesList[index].SkillUpgrade.static.GetReloadRateScalePassive(PassiveReloadRateScale, MyWMPRI.bSkillUpgrade[index]);
 			MyWMGRI.SkillUpgradesList[index].SkillUpgrade.static.ModifyRecoilPassive(PassiveRecoil, MyWMPRI.bSkillUpgrade[index]);
+			MyWMGRI.SkillUpgradesList[index].SkillUpgrade.static.ModifySpreadPassive(PassiveSpread, MyWMPRI.bSkillUpgrade[index]);
 			MyWMGRI.SkillUpgradesList[index].SkillUpgrade.static.ModifyWeaponBopDampingPassive(PassiveBobDamp, MyWMPRI.bSkillUpgrade[index]);
 			MyWMGRI.SkillUpgradesList[index].SkillUpgrade.static.ModifyMagSizeAndNumberPassive(PassiveMagazineCapacity, MyWMPRI.bSkillUpgrade[index]);
 			MyWMGRI.SkillUpgradesList[index].SkillUpgrade.static.ModifySpareAmmoAmountPassive(PassiveSpareAmmo, MyWMPRI.bSkillUpgrade[index]);
@@ -483,6 +487,7 @@ simulated function ClientAndServerComputePassiveBonuses()
 			MyWMGRI.EquipmentUpgradesList[index].EquipmentUpgrade.static.ModifyMeleeAttackSpeedPassive(PassiveMeleeAttackSpeed, MyWMPRI.bEquipmentUpgrade[index]);
 			MyWMGRI.EquipmentUpgradesList[index].EquipmentUpgrade.static.GetReloadRateScalePassive(PassiveReloadRateScale, MyWMPRI.bEquipmentUpgrade[index]);
 			MyWMGRI.EquipmentUpgradesList[index].EquipmentUpgrade.static.ModifyRecoilPassive(PassiveRecoil, MyWMPRI.bEquipmentUpgrade[index]);
+			MyWMGRI.EquipmentUpgradesList[index].EquipmentUpgrade.static.ModifySpreadPassive(PassiveSpread, MyWMPRI.bEquipmentUpgrade[index]);
 			MyWMGRI.EquipmentUpgradesList[index].EquipmentUpgrade.static.ModifyWeaponBopDampingPassive(PassiveBobDamp, MyWMPRI.bEquipmentUpgrade[index]);
 			MyWMGRI.EquipmentUpgradesList[index].EquipmentUpgrade.static.ModifyMagSizeAndNumberPassive(PassiveMagazineCapacity, MyWMPRI.bEquipmentUpgrade[index]);
 			MyWMGRI.EquipmentUpgradesList[index].EquipmentUpgrade.static.ModifySpareAmmoAmountPassive(PassiveSpareAmmo, MyWMPRI.bEquipmentUpgrade[index]);
@@ -1078,6 +1083,50 @@ simulated function ModifyRecoil(out float CurrentRecoilModifier, KFWeapon KFW)
 
 	if (CurrentRecoilModifier < DefaultRecoilModifier * 0.08f)
 		CurrentRecoilModifier = DefaultRecoilModifier * 0.08f;
+}
+
+simulated function ModifySpread(out float InSpread)
+{
+	local int i, index;
+	local float DefaultSpreadModifier;
+	local KFWeapon KFW;
+
+	DefaultSpreadModifier = InSpread;
+	InSpread *= PassiveSpread;
+
+	KFW = GetOwnerWeapon();
+	if (MyWMPRI != None && MyWMGRI != None)
+	{
+		for (i = 0; i <= 1; ++i)
+		{
+			if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)
+				MyWMGRI.SpecialWavesList[MyWMGRI.SpecialWaveID[i]].SpecialWave.static.ModifySpread(InSpread, DefaultSpreadModifier, KFW);
+		}
+		for (i = 0; i < MyWMPRI.Purchase_WeaponUpgrade.Length; ++i)
+		{
+			index = MyWMPRI.Purchase_WeaponUpgrade[i];
+			if (isValidWeapon(MyWMGRI.WeaponUpgradeSlotsList[index].KFWeapon, KFW))
+				MyWMGRI.WeaponUpgradeSlotsList[index].WeaponUpgrade.static.ModifySpread(InSpread, DefaultSpreadModifier, MyWMPRI.GetWeaponUpgrade(index), KFW);
+		}
+		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.Length; ++i)
+		{
+			index = MyWMPRI.Purchase_PerkUpgrade[i];
+			MyWMGRI.PerkUpgradesList[index].PerkUpgrade.static.ModifySpread(InSpread, DefaultSpreadModifier, MyWMPRI.bPerkUpgrade[index], KFW);
+		}
+		for (i = 0; i < MyWMPRI.Purchase_EquipmentUpgrade.Length; ++i)
+		{
+			index = MyWMPRI.Purchase_EquipmentUpgrade[i];
+			MyWMGRI.EquipmentUpgradesList[index].EquipmentUpgrade.static.ModifySpread(InSpread, DefaultSpreadModifier, MyWMPRI.bEquipmentUpgrade[index], KFW);
+		}
+		for (i = 0; i < MyWMPRI.Purchase_SkillUpgrade.Length; ++i)
+		{
+			index = MyWMPRI.Purchase_SkillUpgrade[i];
+			MyWMGRI.SkillUpgradesList[index].SkillUpgrade.static.ModifySpread(InSpread, DefaultSpreadModifier, MyWMPRI.bSkillUpgrade[index], KFW);
+		}
+	}
+
+	if (InSpread < DefaultSpreadModifier * 0.05f)
+		InSpread = DefaultSpreadModifier * 0.05f;
 }
 
 simulated function ModifyWeaponBopDamping(out float BobDamping, KFWeapon PawnWeapon)
