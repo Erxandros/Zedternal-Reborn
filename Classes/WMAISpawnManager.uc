@@ -224,7 +224,7 @@ function SetupNextWave(byte NextWaveIndex, int TimeToNextWaveBuffer = 0)
 
 	LastZedInfo.Length = 0; // Clear the LastZedInfo array just in case
 
-	`log("ZR Info: Generating ZED list for wave " $ NextWaveIndex $ "...");
+	`log("ZR Info: Generating ZED list for wave" @ NextWaveIndex $ "...");
 
 	/////////////////////////////////////////////////////////////////////
 	// Create the list of all zeds that will spawn in the current wave //
@@ -336,7 +336,7 @@ function SetupNextWave(byte NextWaveIndex, int TimeToNextWaveBuffer = 0)
 	if (WaveValue < 0)
 		WaveValue = MaxInt;
 
-	`log("ZR Info: Wave's Value = "$WaveValue);
+	`log("ZR Info: Wave's Value =" @ WaveValue);
 
 	// we are now ready to build the list
 	// we use two arrays : One for the Zed's Class and one for the delay between each spawn
@@ -370,7 +370,7 @@ function SetupNextWave(byte NextWaveIndex, int TimeToNextWaveBuffer = 0)
 	// 7) change spawn rate from custom map settings
 	CustomSpawnRate *= 1.0f / class'ZedternalReborn.Config_Map'.static.GetZedSpawnRate(WorldInfo.GetMapName(True));
 
-	`log("ZR Info: SpawnRateFactor = "$CustomSpawnRate);
+	`log("ZR Info: SpawnRateFactor =" @ CustomSpawnRate);
 
 	// We know what zeds will spawn, so shorten the ZedVariant list to make it more efficient and reduce loop counts
 	for (i = 0; i < VariantList.Length; ++i)
@@ -512,7 +512,8 @@ function SetupNextWave(byte NextWaveIndex, int TimeToNextWaveBuffer = 0)
 	WMGRI.AIRemaining = WaveTotalAI;
 	LastAISpawnVolume = None;
 
-	`log("ZR Info: WaveTotalAI = " $ WaveTotalAI);
+	`log("ZR Info: WaveTotalAI =" @ WaveTotalAI);
+	`log("ZR Info: GroupList Length =" @ GroupList.Length);
 }
 
 function ESquadType GetDesiredSquadTypeForZedList(array< class<KFPawn_Monster> > NewSquad)
@@ -644,7 +645,7 @@ function bool IsFinishedSpawning()
 
 	if (GroupList.Length == 0 && LeftoverSpawnSquad.Length == 0 && GetAIAliveCount() <= 0)
 	{
-		`log("ZR Warn: WMAISpawnManager.IsFinishedSpawning() emergency breakout. NumAISpawnsQueued: " $ NumAISpawnsQueued $ " WaveTotalAI: " $ WaveTotalAI);
+		`log("ZR Warn: WMAISpawnManager.IsFinishedSpawning() emergency breakout. NumAISpawnsQueued:" @ NumAISpawnsQueued @ "WaveTotalAI:" @ WaveTotalAI);
 		return True;
 	}
 
