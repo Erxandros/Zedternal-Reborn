@@ -645,7 +645,7 @@ function bool IsFinishedSpawning()
 
 	if (GroupList.Length == 0 && LeftoverSpawnSquad.Length == 0 && GetAIAliveCount() <= 0)
 	{
-		`log("ZR Warn: WMAISpawnManager.IsFinishedSpawning() emergency breakout. NumAISpawnsQueued:" @ NumAISpawnsQueued @ "WaveTotalAI:" @ WaveTotalAI);
+		`log("ZR Warning: WMAISpawnManager.IsFinishedSpawning() emergency breakout. NumAISpawnsQueued:" @ NumAISpawnsQueued @ "WaveTotalAI:" @ WaveTotalAI);
 		return True;
 	}
 
