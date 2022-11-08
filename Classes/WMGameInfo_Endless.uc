@@ -351,6 +351,7 @@ function StartMatch()
 
 	LogPlayerDetails();
 	SetTimer(60.0f, True, NameOf(LogPlayerDetails));
+	SetTimer(10.0f, True, NameOf(CheckIfAllPlayersDead));
 
 	super(KFGameInfo).StartMatch();
 
@@ -649,6 +650,16 @@ function RepPlayerInfo(WMPlayerReplicationInfo WMPRI)
 	{
 		WMPRI.UpdateServerPurchase();
 		WMPRI.UpdateClientPurchase();
+	}
+}
+
+function CheckIfAllPlayersDead()
+{
+	if (GetLivingPlayerCount() <= 0)
+	{
+		ClearTimer(NameOf(CheckIfAllPlayersDead));
+		`log("ZR Warning: All players dead but game has not ended by itself, ending game now");
+		WaveEnded(WEC_TeamWipedOut);
 	}
 }
 //Player Code End
