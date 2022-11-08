@@ -295,6 +295,52 @@ function InitializeStaticPerkList()
 ////////////////////////////////
 
 ////////////////////////////////
+//Logging Code Start
+function LogPlayerDetails()
+{
+	local KFPlayerController KFPC;
+
+	`log("ZR Info: Start player controller logging");
+	foreach WorldInfo.AllControllers(class'KFPlayerController', KFPC)
+	{
+		if (KFPC != None)
+		{
+			`log("ZR Info:" @ KFPC.Name);
+			if (KFPC.CurrentPerk != None)
+				`log("ZR Info:" @ KFPC.Name $ ".CurrentPerk is valid");
+			else
+				`log("ZR Warning:" @ KFPC.Name $ ".CurrentPerk is None");
+
+			if (KFPC.PlayerReplicationInfo != None)
+			{
+				`log("ZR Info:" @ KFPC.Name $ ".PlayerReplicationInfo is valid");
+				`log("ZR Info: Player username for" @ KFPC.Name @ "is" @ KFPC.PlayerReplicationInfo.PlayerName);
+			}
+			else
+				`log("ZR Warning:" @ KFPC.Name $ ".PlayerReplicationInfo is None");
+		}
+		else
+			`log("ZR Warning: WMGameInfo_Endless.LogPlayerDetails() - WorldInfo.AllControllers - KFPlayerController is None, which should probably never happen");
+	}
+	`log("ZR Info: End player controller logging");
+}
+
+function LogWaveDetails()
+{
+	`log("ZR Info: Current Wave =" @ WaveNum);
+	`log("ZR Info: AIAliveCount =" @ AIAliveCount);
+	`log("ZR Info: NumAISpawnsQueued =" @ NumAISpawnsQueued);
+	`log("ZR Info: NumAIFinishedSpawning =" @ NumAIFinishedSpawning);
+	if (WMAISpawnManager(SpawnManager) != None)
+	{
+		`log("ZR Info: GroupList Length =" @ WMAISpawnManager(SpawnManager).GroupList.Length);
+		`log("ZR Info: LeftoverSpawnSquad Length =" @ WMAISpawnManager(SpawnManager).LeftoverSpawnSquad.Length);
+	}
+}
+//Logging Code End
+////////////////////////////////
+
+////////////////////////////////
 //Match and Wave Code Start
 function StartMatch()
 {
@@ -302,6 +348,9 @@ function StartMatch()
 	local WMGameReplicationInfo WMGRI;
 
 	MyKFGRI.WaveNum = WaveNum;
+
+	LogPlayerDetails();
+	SetTimer(60.0f, True, NameOf(LogPlayerDetails));
 
 	super(KFGameInfo).StartMatch();
 
@@ -2458,19 +2507,6 @@ function UpdateGameSettings()
 				}
 			}
 		}
-	}
-}
-
-function LogWaveDetails()
-{
-	`log("ZR Info: Current Wave =" @ WaveNum);
-	`log("ZR Info: AIAliveCount =" @ AIAliveCount);
-	`log("ZR Info: NumAISpawnsQueued =" @ NumAISpawnsQueued);
-	`log("ZR Info: NumAIFinishedSpawning =" @ NumAIFinishedSpawning);
-	if (WMAISpawnManager(SpawnManager) != None)
-	{
-		`log("ZR Info: GroupList Length =" @ WMAISpawnManager(SpawnManager).GroupList.Length);
-		`log("ZR Info: LeftoverSpawnSquad Length =" @ WMAISpawnManager(SpawnManager).LeftoverSpawnSquad.Length);
 	}
 }
 
