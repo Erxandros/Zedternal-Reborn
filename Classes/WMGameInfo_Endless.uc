@@ -555,16 +555,16 @@ function SetupPickupItems()
 	}
 
 	//Set KFPickupFactory objects
-	for (i = 0; i < ItemPickups.length; ++i)
+	for (i = 0; i < ItemPickups.Length; ++i)
 	{
 		ItemPickups[i].StartSleeping();
 		KFPFID = KFPickupFactory_Item(ItemPickups[i]);
 		if (KFPFID != None)
 		{
-			if (bShouldArmorSpawn && KFPFID.ItemPickups.length == 1 && KFPFID.ItemPickups[0].ItemClass == class'KFGameContent.KFInventory_Armor')
+			if (bShouldArmorSpawn && KFPFID.ItemPickups.Length == 1 && KFPFID.ItemPickups[0].ItemClass == class'KFGameContent.KFInventory_Armor')
 				continue; //Do not replace an armor only spawn, unless armor is disabled from pickups
 
-			KFPFID.ItemPickups.length = 0;
+			KFPFID.ItemPickups.Length = 0;
 			KFPFID.ItemPickups = StartingItemPickups;
 			ItemPickups[i] = KFPFID;
 			ItemPickups[i].Reset();
@@ -576,11 +576,11 @@ function SetupPickupItems()
 	{
 		if (KFPFID != None)
 		{
-			if (bShouldArmorSpawn && KFPFID.ItemPickups.length == 1 && KFPFID.ItemPickups[0].ItemClass == class'KFGameContent.KFInventory_Armor')
+			if (bShouldArmorSpawn && KFPFID.ItemPickups.Length == 1 && KFPFID.ItemPickups[0].ItemClass == class'KFGameContent.KFInventory_Armor')
 				continue; //Do not replace an armor only spawn, unless armor is disabled from pickups
 
 			KFPFID.StartSleeping();
-			KFPFID.ItemPickups.length = 0;
+			KFPFID.ItemPickups.Length = 0;
 			KFPFID.ItemPickups = StartingItemPickups;
 			KFPFID.Reset();
 		}
@@ -857,6 +857,26 @@ function BossDied(Controller Killer, optional bool bCheckWaveEnded = True)
 	CheckWaveEnd();
 }
 
+function CheckWaveEnd(optional bool bForceWaveEnd = false)
+{
+	if (!MyKFGRI.bMatchHasBegun)
+	{
+		`log("ZR Info: WMGameInfo_Endless.CheckWaveEnd() - Cannot check if wave has ended since match has not begun.");
+		return;
+	}
+
+	if (GetLivingPlayerCount() <= 0)
+	{
+		`log("ZR Info: WMGameInfo_Endless.CheckWaveEnd() - Call Wave Ended - WEC_TeamWipedOut");
+		WaveEnded(WEC_TeamWipedOut);
+	}
+	else if ((AIAliveCount <= 0 && IsWaveActive() && SpawnManager.IsFinishedSpawning()) || bForceWaveEnd)
+	{
+		`log("ZR Info: WMGameInfo_Endless.CheckWaveEnd() - Call Wave Ended - WEC_WaveWon");
+		WaveEnded(WEC_WaveWon);
+	}
+}
+
 function InitializeSpecialWave()
 {
 	local int i, Ins;
@@ -917,12 +937,12 @@ function SetupSpecialWave()
 	local array<int> SWList;
 	local int i;
 
-	SWList.length = 0;
+	SWList.Length = 0;
 
 	// Check if it is a special wave override. If True, check all available special wave overrides
 	if (class'ZedternalReborn.Config_SpecialWaveOverride'.static.GetSpecialWaveOverrideAllowed(GameDifficultyZedternal))
 	{
-		for (i = 0; i < SpecialWaveOverrides.length; ++i)
+		for (i = 0; i < SpecialWaveOverrides.Length; ++i)
 		{
 			if (SpecialWaveOverrides[i].Wave == WaveNum && FRand() < SpecialWaveOverrides[i].Probability)
 			{
@@ -936,12 +956,12 @@ function SetupSpecialWave()
 			}
 		}
 
-		if (SWList.length != 0)
+		if (SWList.Length != 0)
 		{
 			WMGameReplicationInfo(MyKFGRI).SpecialWaveID[0] = SWList[0];
 			LastSpecialWaveID_First = SWList[0];
 
-			if (SWList.length > 1)
+			if (SWList.Length > 1)
 			{
 				WMGameReplicationInfo(MyKFGRI).SpecialWaveID[1] = SWList[1];
 				LastSpecialWaveID_Second = SWList[1];
@@ -971,7 +991,7 @@ function SetupSpecialWave()
 	}
 
 	// Select a Special Wave from SWList
-	if (SWList.length != 0)
+	if (SWList.Length != 0)
 	{
 		index = Rand(SWList.Length);
 		if (LastSpecialWaveID_First == SWList[index] || LastSpecialWaveID_Second == SWList[index])
@@ -982,7 +1002,7 @@ function SetupSpecialWave()
 		SWList.Remove(index, 1);
 
 		// check for a double special wave
-		if (SWList.length != 0 && FRand() < class'ZedternalReborn.Config_SpecialWave'.static.GetSpecialWaveDoubleProbability(GameDifficultyZedternal))
+		if (SWList.Length != 0 && FRand() < class'ZedternalReborn.Config_SpecialWave'.static.GetSpecialWaveDoubleProbability(GameDifficultyZedternal))
 		{
 			index = Rand(SWList.Length);
 			if (LastSpecialWaveID_Second == SWList[index] || LastSpecialWaveID_First == SWList[index])
@@ -2036,7 +2056,7 @@ function Killed(Controller Killer, Controller KilledPlayer, Pawn KilledPawn, cla
 		}
 	}
 
-	for (i = 0; i < WMGRI.ZedBuffsList.length; ++i)
+	for (i = 0; i < WMGRI.ZedBuffsList.Length; ++i)
 	{
 		if (WMGRI.ActiveZedBuffs[i] > 0)
 		{
