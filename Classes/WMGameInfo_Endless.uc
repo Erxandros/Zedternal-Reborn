@@ -70,6 +70,8 @@ var int WeaponUpgRandPosition;
 //Pickup Timeouts
 var int DoshPickupTime, ProjectilePickupTime, WeaponPickupTime;
 
+////////////////////////////////
+//Initialization Code Start
 event InitGame(string Options, out string ErrorMessage)
 {
 	// starting wave can be set through the console while launching the mod (by adding : ?wave=XXX)
@@ -235,7 +237,7 @@ event PostLogin(PlayerController NewPlayer)
 		WMPC.SetPreferredGrenadeTimer();
 }
 
-/** Set up the spawning */
+//Set up the spawning
 function InitSpawnManager()
 {
 	SpawnManager = new(self) SpawnManagerClasses[GameLength];
@@ -275,6 +277,25 @@ function InitWaveNumbers()
 	MyKFGRI.WaveMax = WaveMax;
 }
 
+function InitializeStaticPerkList()
+{
+	local byte i;
+
+	StaticPerks.Length = 0;
+
+	for (i = 0; i < Min(255, ConfigData.ValidPerkUpgrades.Length); ++i)
+	{
+		if (ConfigData.ValidPerkUpgrades[i].bIsStatic)
+			StaticPerks.AddItem(1);
+		else
+			StaticPerks.AddItem(0);
+	}
+}
+//Initialization Code End
+////////////////////////////////
+
+////////////////////////////////
+//Match and Wave Code Start
 function StartMatch()
 {
 	local KFPlayerController KFPC;
@@ -316,7 +337,7 @@ function StartMatch()
 		SetupNextTrader();
 		GotoState('TraderOpen', 'Begin');
 
-		// update wave modificators
+		// check for zed buffs
 		SetTimer(4.5f, False, NameOf(CheckForPreviousZedBuff));
 
 		// Set next wave objective
@@ -446,6 +467,32 @@ function WaveEnded(EWaveEndCondition WinCondition)
 		SetTimer(4.5f, False, NameOf(CheckZedBuff));
 }
 
+function CheckWaveEnd(optional bool bForceWaveEnd = false)
+{
+	if (!MyKFGRI.bMatchHasBegun)
+	{
+		`log("ZR Info: WMGameInfo_Endless.CheckWaveEnd() - Cannot check if wave has ended since match has not begun.");
+		return;
+	}
+
+	if (GetLivingPlayerCount() <= 0)
+	{
+		`log("ZR Info: WMGameInfo_Endless.CheckWaveEnd() - Call Wave Ended - WEC_TeamWipedOut");
+		ClearTimer(NameOf(LogWaveDetails));
+		WaveEnded(WEC_TeamWipedOut);
+	}
+	else if ((AIAliveCount <= 0 && IsWaveActive() && SpawnManager.IsFinishedSpawning()) || bForceWaveEnd)
+	{
+		`log("ZR Info: WMGameInfo_Endless.CheckWaveEnd() - Call Wave Ended - WEC_WaveWon");
+		ClearTimer(NameOf(LogWaveDetails));
+		WaveEnded(WEC_WaveWon);
+	}
+}
+//Match and Wave Code End
+////////////////////////////////
+
+////////////////////////////////
+//Player Code Start
 function RestartPlayer(Controller NewPlayer)
 {
 	local WMPlayerController WMPC;
@@ -508,10 +555,280 @@ function RestartPlayer(Controller NewPlayer)
 	}
 }
 
+function RepPlayerInfo(WMPlayerReplicationInfo WMPRI)
+{
+	local array<byte> PerkIndex;
+	local byte i, Count, Choice;
+
+	`log("ZR Info: Reconnect Player"@WMPRI.PlayerName$":"@WMPRI.NumTimesReconnected);
+
+	if (WMPRI.NumTimesReconnected < 1 && class'ZedternalReborn.Config_PerkUpgradeOptions'.default.PerkUpgrade_AvailablePerks > 0)
+	{
+		PerkIndex.Length = 0;
+		Count = 0;
+		for (i = 0; i < StaticPerks.Length; ++i)
+		{
+			// check if the perk i should be in the trader (static perk)
+			if (StaticPerks[i] == 1)
+			{
+				WMPRI.bPerkUpgradeAvailable[i] = 1;
+				++Count;
+			}
+			else
+			{
+				PerkIndex.AddItem(i);
+				WMPRI.bPerkUpgradeAvailable[i] = 0;
+			}
+
+			if (Count > class'ZedternalReborn.Config_PerkUpgradeOptions'.default.PerkUpgrade_AvailablePerks)
+			{
+				break;
+			}
+		}
+
+		for (i = 0; i < class'ZedternalReborn.Config_PerkUpgradeOptions'.default.PerkUpgrade_AvailablePerks - Count; ++i)
+		{
+			if (PerkIndex.Length > 0)
+			{
+				Choice = Rand(PerkIndex.Length);
+				WMPRI.bPerkUpgradeAvailable[PerkIndex[Choice]] = 1;
+				PerkIndex.Remove(Choice, 1);
+			}
+		}
+	}
+	else if (WMPRI.NumTimesReconnected >= 1)
+	{
+		WMPRI.UpdateServerPurchase();
+		WMPRI.UpdateClientPurchase();
+	}
+}
+//Player Code End
+////////////////////////////////
+
+////////////////////////////////
+//Trader Code Start
 function SetupNextTrader()
 {
 	if (!bUseAllTraders)
 		super.SetupNextTrader();
+}
+
+function OpenTrader()
+{
+	local WMGameReplicationInfo WMGRI;
+	local int i, Count, TimeMultiplier;
+
+	if (bUseStartingTraderTime)
+	{
+		if (startingTraderTime > 0)
+			TimeBetweenWaves = startingTraderTime;
+		else
+			TimeBetweenWaves = class'ZedternalReborn.Config_Map'.static.GetStartingTraderTime(WorldInfo.GetMapName(True));
+
+		bUseStartingTraderTime = False;
+	}
+	else if (bUseExtendedTraderTime)
+	{
+		TimeBetweenWaves = TimeBetweenWavesExtend;
+		bUseExtendedTraderTime = False;
+	}
+	else
+		TimeBetweenWaves = TimeBetweenWavesDefault;
+
+	if (class'ZedternalReborn.Config_ZedBuff'.static.GetZedBuffEnable(GameDifficultyZedternal)
+		&& class'ZedternalReborn.Config_ZedBuff'.static.IsWaveBuffZed(WaveNum, Count))
+	{
+		WMGRI = WMGameReplicationInfo(MyKFGRI);
+
+		if (WMGRI != None)
+		{
+			//Check to see if any Zed buffs are available
+			TimeMultiplier = 0;
+			for (i = 0; i < ZedBuffSettings.Length; ++i)
+			{
+				if (!ZedBuffSettings[i].bActivated && ZedBuffSettings[i].ID != INDEX_NONE && ZedBuffSettings[i].ID < 255
+					&& ZedBuffSettings[i].MinWave <= WaveNum && ZedBuffSettings[i].MaxWave >= WaveNum
+					&& WMGRI.ActiveZedBuffs[ZedBuffSettings[i].ID] < 50)
+						++TimeMultiplier;
+			}
+		}
+		else
+			TimeMultiplier = 1; //If WMGRI is not available, default to 1
+
+		if (class'ZedternalReborn.Config_ZedBuff'.static.GetBonusTraderTimeGivenPerBuff(GameDifficultyZedternal))
+			TimeMultiplier = Min(TimeMultiplier, Count);
+		else
+			TimeMultiplier = 1;
+
+		TimeBetweenWaves += class'ZedternalReborn.Config_ZedBuff'.static.GetTraderTimeBonus(GameDifficultyZedternal) * TimeMultiplier;
+	}
+
+	MyKFGRI.OpenTrader(TimeBetweenWaves);
+	NotifyTraderOpened();
+}
+
+function SelectRandomTraderVoice()
+{
+	local array<byte> TraderVoiceList;
+
+	//TraderVoiceGroup
+	TraderVoiceList.Length = 0;
+	if (class'ZedternalReborn.Config_TraderVoice'.default.TraderVoice_bUsePatriarchTrader)
+		TraderVoiceList.AddItem(0);
+	if (class'ZedternalReborn.Config_TraderVoice'.default.TraderVoice_bUseHansTrader)
+		TraderVoiceList.AddItem(1);
+	if (class'ZedternalReborn.Config_TraderVoice'.default.TraderVoice_bUseDefaultTrader)
+		TraderVoiceList.AddItem(2);
+	if (class'ZedternalReborn.Config_TraderVoice'.default.TraderVoice_bUseObjectiveTrader)
+		TraderVoiceList.AddItem(3);
+	if (class'ZedternalReborn.Config_TraderVoice'.default.TraderVoice_bUseLockheartTrader)
+		TraderVoiceList.AddItem(4);
+	if (class'ZedternalReborn.Config_TraderVoice'.default.TraderVoice_bUseSantaTrader)
+		TraderVoiceList.AddItem(5);
+
+	if (TraderVoiceList.Length > 0)
+		TraderVoiceIndex = TraderVoiceList[Rand(TraderVoiceList.Length)];
+	else
+		TraderVoiceIndex = default.TraderVoiceIndex;
+}
+//Trader Code End
+////////////////////////////////
+
+////////////////////////////////
+//Dosh Handling Code Start
+function int GetAdjustedDeathPenalty(KFPlayerReplicationInfo KilledPlayerPRI, optional bool bLateJoiner=False)
+{
+	local int PlayerBase, PlayerWave, PlayerCount, PlayerPerkBonus;
+	local KFPlayerController KFPC;
+
+	// new player (dosh is based on what team won during the game)
+	if (bLateJoiner)
+	{
+		PlayerBase = Round(doshNewPlayer * class'ZedternalReborn.Config_Dosh'.static.GetLateJoinerDoshPct(GameDifficultyZedternal));
+		`log("ZR Info: Player"@KilledPlayerPRI.PlayerName@"is late joiner, received"@PlayerBase@"dosh");
+
+		return PlayerBase;
+	}
+
+	// count current number of players
+	PlayerCount = 0;
+	foreach WorldInfo.AllControllers(class'KFPlayerController', KFPC)
+	{
+		if (KFPC.Pawn != None)
+			++PlayerCount;
+	}
+
+	PlayerBase = class'ZedternalReborn.Config_Dosh'.static.GetBaseWaveDoshReward(GameDifficultyZedternal, PlayerCount);
+	PlayerWave = class'ZedternalReborn.Config_Dosh'.static.GetBonusWaveDoshReward(GameDifficultyZedternal, WaveNum);
+	PlayerPerkBonus = class'ZedternalReborn.Config_Dosh'.static.GetBonusPlayerLevelDoshReward(GameDifficultyZedternal, WMPlayerReplicationInfo(KilledPlayerPRI).PlayerLevel);
+
+	return Round(float(PlayerBase + PlayerWave + PlayerPerkBonus) * (1.0f - FClamp(class'ZedternalReborn.Config_Dosh'.static.GetDeathPenaltyDoshPct(GameDifficultyZedternal), 0.0f, 1.0f)));
+}
+
+function float GetAdjustedAIDoshValue(class<KFPawn_Monster> MonsterClass)
+{
+	local float TempValue;
+	local int PlayerCount;
+	local KFPlayerController KFPC;
+	local byte i;
+
+	PlayerCount = 0;
+	foreach WorldInfo.AllControllers(class'KFPlayerController', KFPC)
+	{
+		if (KFPC.Pawn != None)
+			++PlayerCount;
+	}
+
+	TempValue = float(MonsterClass.static.GetDoshValue());
+	TempValue *= DifficultyInfo.GetKillCashModifier();
+
+	for (i = 0; i <= 1; ++i)
+	{
+		if (WMGameReplicationInfo(MyKFGRI).SpecialWaveID[i] != INDEX_NONE)
+			TempValue *= WMGameReplicationInfo(MyKFGRI).SpecialWavesList[WMGameReplicationInfo(MyKFGRI).SpecialWaveID[i]].SpecialWave.default.DoshFactor;
+	}
+
+	if (MonsterClass.default.bLargeZed)
+		TempValue *= class'ZedternalReborn.Config_Dosh'.static.GetLargeZedDoshMultiplier(GameDifficultyZedternal, PlayerCount);
+	else
+		TempValue *= class'ZedternalReborn.Config_Dosh'.static.GetNormalZedDoshMultiplier(GameDifficultyZedternal, PlayerCount);
+
+	return TempValue;
+}
+
+function RewardSurvivingPlayers()
+{
+	local int PlayerBase, PlayerWave, PlayerCount, PlayerPerkBonus;
+	local KFPlayerController KFPC;
+	Local KFTeamInfo_Human T;
+
+	PlayerCount = 0;
+	foreach WorldInfo.AllControllers(class'KFPlayerController', KFPC)
+	{
+		if (KFPC.Pawn != None && KFPC.Pawn.IsAliveAndWell())
+		{
+			++PlayerCount;
+
+			// Find the player's team
+			if (T == None && KFPC.PlayerReplicationInfo != None && KFPC.PlayerReplicationInfo.Team != None)
+			{
+				T = KFTeamInfo_Human(KFPC.PlayerReplicationInfo.Team);
+			}
+		}
+	}
+
+	if (T != None)
+	{
+		// Reset team score even though we do not use it
+		T.AddScore(0, True);
+	}
+
+	PlayerBase = class'ZedternalReborn.Config_Dosh'.static.GetBaseWaveDoshReward(GameDifficultyZedternal, PlayerCount);
+	PlayerWave = class'ZedternalReborn.Config_Dosh'.static.GetBonusWaveDoshReward(GameDifficultyZedternal, WaveNum);
+
+	`log("ZR Info: SCORING: Number of surviving players:" @ PlayerCount);
+	`log("ZR Info: SCORING: Base Dosh/surviving player:" @ PlayerBase);
+	`log("ZR Info: SCORING: Wave Dosh/surviving player:" @ PlayerWave);
+
+	// Add dosh for new players
+	doshNewPlayer += class'ZedternalReborn.Config_Dosh'.static.GetBaseWaveDoshReward(GameDifficultyZedternal, PlayerCount + 1) + PlayerWave;
+
+	foreach WorldInfo.AllControllers(class'KFPlayerController', KFPC)
+	{
+		if (KFPC.Pawn != None && KFPC.Pawn.IsAliveAndWell())
+		{
+			PlayerPerkBonus = class'ZedternalReborn.Config_Dosh'.static.GetBonusPlayerLevelDoshReward(GameDifficultyZedternal, WMPlayerReplicationInfo(KFPC.PlayerReplicationInfo).PlayerLevel);
+
+			KFPlayerReplicationInfo(KFPC.PlayerReplicationInfo).AddDosh(PlayerBase + PlayerWave + PlayerPerkBonus, True);
+
+			`log("ZR Info: Player" @ KFPC.PlayerReplicationInfo.PlayerName @ "got" @ PlayerBase + PlayerWave + PlayerPerkBonus @ "dosh for surviving the wave. Player perk level:" @ WMPlayerReplicationInfo(KFPC.PlayerReplicationInfo).PlayerLevel);
+		}
+	}
+}
+//Dosh Handling Code End
+////////////////////////////////
+
+////////////////////////////////
+//Pickup Code Start
+function InitAllPickups()
+{
+	if (bDisablePickups || DifficultyInfo == None)
+	{
+		NumWeaponPickups = 0;
+		NumAmmoPickups = 0;
+	}
+	else
+	{
+		NumWeaponPickups = Min(FCeil(float(ItemPickups.Length) * DifficultyInfo.GetItemPickupModifier()), ItemPickups.Length);
+		NumAmmoPickups = Min(FCeil(float(AmmoPickups.Length) * DifficultyInfo.GetAmmoPickupModifier()), AmmoPickups.Length);
+	}
+
+	if (BaseMutator != None)
+	{
+		BaseMutator.ModifyPickupFactories();
+	}
+
+	ResetAllPickups();
 }
 
 function SetupPickupItems()
@@ -591,6 +908,74 @@ function SetupPickupItems()
 	ResetAllPickups();
 }
 
+function ResetAllPickups()
+{
+	//Skip the KFGameInfo_Survival ResetAllPickups function
+	super(KFGameInfo).ResetAllPickups();
+}
+
+function ResetPickups(array<KFPickupFactory> PickupList, int NumPickups)
+{
+	local byte i, ChosenIndex;
+	local array<KFPickupFactory> PossiblePickups;
+
+	NumPickups = Clamp(Round(float(NumPickups) * (0.5f + float(WaveNum) * 0.1f)), 0, Round(float(PickupList.Length) * 0.75f));
+
+	PossiblePickups = PickupList;
+	for (i = 0; i < NumPickups; ++i)
+	{
+		if (PossiblePickups.Length > 0)
+		{
+			ChosenIndex = Rand(PossiblePickups.Length);
+			PossiblePickups[ChosenIndex].Reset();
+			PossiblePickups.Remove(ChosenIndex, 1);
+		}
+	}
+
+	// Put any pickup factories that weren't enabled to sleep
+	for (i = 0; i < PossiblePickups.Length; ++i)
+	{
+		PossiblePickups[i].StartSleeping();
+	}
+}
+
+function bool CheckRelevance(Actor Other)
+{
+	if (super.CheckRelevance(Other))
+	{
+		if (KFDroppedPickup_Cash(Other) != None && DoshPickupTime > 0)
+			Other.LifeSpan = DoshPickupTime;
+		else if (KFDroppedPickup(Other) != None && WeaponPickupTime > 0)
+			Other.LifeSpan = WeaponPickupTime;
+
+		return True;
+	}
+	else
+		return False;
+}
+
+function SetProjectilePickupLife()
+{
+	local KFProj_RicochetStickBullet KFP;
+
+	if (ProjectilePickupTime > 0)
+	{
+		foreach DynamicActors(class'KFProj_RicochetStickBullet', KFP)
+		{
+			// Use bHiddenEdScene as a flag to see if ProjectilePickupTime was already applied
+			if (!KFP.bHiddenEdScene && KFP.GetStateName() == 'Pickup')
+			{
+				KFP.LifeSpan = ProjectilePickupTime;
+				KFP.bHiddenEdScene = True;
+			}
+		}
+	}
+}
+//Pickup Code End
+////////////////////////////////
+
+////////////////////////////////
+//Objective Code Start
 function SetupObjectiveZones()
 {
 	local byte b;
@@ -651,6 +1036,15 @@ function SetupObjectiveZones()
 	}
 }
 
+function bool IsMapObjectiveEnabled()
+{
+	return class'ZedternalReborn.Config_Objective'.static.GetShouldEnableObjective(GameDifficultyZedternal);
+}
+//Objective Code End
+////////////////////////////////
+
+////////////////////////////////
+//ZedBuff Code Start
 function InitializeZedBuff()
 {
 	local int i;
@@ -768,7 +1162,11 @@ function ApplyRandomZedBuff(int Wave, bool bRewardPlayer, int Count)
 		RepairDoor();
 	}
 }
+//ZedBuff Code End
+////////////////////////////////
 
+////////////////////////////////
+//Door Repair Code Start
 function RepairDoor()
 {
 	local KFDoorActor KFD;
@@ -798,59 +1196,66 @@ function RepairDoorDelay()
 	if (WMGRI != None);
 		WMGRI.bRepairDoorTrigger = !WMGRI.bRepairDoorTrigger;
 }
+//Door Repair Code End
+////////////////////////////////
 
-function OpenTrader()
+////////////////////////////////
+//Death Handling Code Start
+function Killed(Controller Killer, Controller KilledPlayer, Pawn KilledPawn, class<DamageType> DT)
 {
+	local byte i, x;
+	local int PlayerCount;
+	local WMPlayerReplicationInfo KilledPRI;
+	local KFPlayerController KFPC;
+	local WMSpecialWave WMSW;
 	local WMGameReplicationInfo WMGRI;
-	local int i, Count, TimeMultiplier;
 
-	if (bUseStartingTraderTime)
+	super.Killed(Killer, KilledPlayer, KilledPawn, DT);
+
+	if (KilledPlayer != None && KilledPlayer.bIsPlayer)
 	{
-		if (startingTraderTime > 0)
-			TimeBetweenWaves = startingTraderTime;
-		else
-			TimeBetweenWaves = class'ZedternalReborn.Config_Map'.static.GetStartingTraderTime(WorldInfo.GetMapName(True));
-
-		bUseStartingTraderTime = False;
-	}
-	else if (bUseExtendedTraderTime)
-	{
-		TimeBetweenWaves = TimeBetweenWavesExtend;
-		bUseExtendedTraderTime = False;
-	}
-	else
-		TimeBetweenWaves = TimeBetweenWavesDefault;
-
-	if (class'ZedternalReborn.Config_ZedBuff'.static.GetZedBuffEnable(GameDifficultyZedternal)
-		&& class'ZedternalReborn.Config_ZedBuff'.static.IsWaveBuffZed(WaveNum, Count))
-	{
-		WMGRI = WMGameReplicationInfo(MyKFGRI);
-
-		if (WMGRI != None)
+		KilledPRI = WMPlayerReplicationInfo(KilledPlayer.PlayerReplicationInfo);
+		if (KilledPRI != None)
 		{
-			//Check to see if any Zed buffs are available
-			TimeMultiplier = 0;
-			for (i = 0; i < ZedBuffSettings.Length; ++i)
+			KilledPRI.PlayerHealthInt = 0;
+			KilledPRI.PlayerHealth = 0;
+			KilledPRI.PlayerHealthPercent = 0;
+		}
+	}
+
+	if (KilledPawn.IsA('KFPawn_Human'))
+		bUseExtendedTraderTime = True;
+
+	WMGRI = WMGameReplicationInfo(MyKFGRI);
+
+	if (WMGRI.SpecialWaveID[0] != INDEX_NONE)
+	{
+		foreach DynamicActors(class'WMSpecialWave', WMSW)
+		{
+			WMSW.Killed(Killer, KilledPlayer, KilledPawn, DT);
+		}
+	}
+
+	for (i = 0; i < WMGRI.ZedBuffsList.Length; ++i)
+	{
+		if (WMGRI.ActiveZedBuffs[i] > 0)
+		{
+			for (x = 0; x < WMGRI.ActiveZedBuffs[i]; ++x)
 			{
-				if (!ZedBuffSettings[i].bActivated && ZedBuffSettings[i].ID != INDEX_NONE && ZedBuffSettings[i].ID < 255
-					&& ZedBuffSettings[i].MinWave <= WaveNum && ZedBuffSettings[i].MaxWave >= WaveNum
-					&& WMGRI.ActiveZedBuffs[ZedBuffSettings[i].ID] < 50)
-						++TimeMultiplier;
+				WMGRI.ZedBuffsList[i].ZedBuff.static.KilledPawn(KilledPawn);
 			}
 		}
-		else
-			TimeMultiplier = 1; //If WMGRI is not available, default to 1
-
-		if (class'ZedternalReborn.Config_ZedBuff'.static.GetBonusTraderTimeGivenPerBuff(GameDifficultyZedternal))
-			TimeMultiplier = Min(TimeMultiplier, Count);
-		else
-			TimeMultiplier = 1;
-
-		TimeBetweenWaves += class'ZedternalReborn.Config_ZedBuff'.static.GetTraderTimeBonus(GameDifficultyZedternal) * TimeMultiplier;
 	}
 
-	MyKFGRI.OpenTrader(TimeBetweenWaves);
-	NotifyTraderOpened();
+	PlayerCount = 0;
+	foreach WorldInfo.AllControllers(class'KFPlayerController', KFPC)
+	{
+		if (KFPC.Pawn != None)
+			++PlayerCount;
+	}
+
+	if (KFPawn_Monster(KilledPawn) != None && PlayerCount != 0)
+		doshNewPlayer += GameLengthDoshScale[GameLength] * KFPawn_Monster(KilledPawn).static.GetDoshValue() / PlayerCount;
 }
 
 function BossDied(Controller Killer, optional bool bCheckWaveEnded = True)
@@ -858,28 +1263,57 @@ function BossDied(Controller Killer, optional bool bCheckWaveEnded = True)
 	CheckWaveEnd();
 }
 
-function CheckWaveEnd(optional bool bForceWaveEnd = false)
+function CheckZedTimeOnKill(Controller Killer, Controller KilledPlayer, Pawn KilledPawn, class<DamageType> DamageType)
 {
-	if (!MyKFGRI.bMatchHasBegun)
-	{
-		`log("ZR Info: WMGameInfo_Endless.CheckWaveEnd() - Cannot check if wave has ended since match has not begun.");
-		return;
-	}
+	local bool bIsHuman;
+	local KFPlayerController KFPC;
+	local WMPerk KillersPerk;
+	local class<KFDamageType> KFDT;
 
-	if (GetLivingPlayerCount() <= 0)
+	KFDT = class<KFDamageType>(DamageType);
+	if (KFDT != None && KFDT.default.DoT_Type != DOT_None)
+		return;
+
+	if (IsZedTimeActive())
 	{
-		`log("ZR Info: WMGameInfo_Endless.CheckWaveEnd() - Call Wave Ended - WEC_TeamWipedOut");
-		ClearTimer(NameOf(LogWaveDetails));
-		WaveEnded(WEC_TeamWipedOut);
+		KFPC = KFPlayerController(Killer);
+		if (KFPC != None)
+		{
+			KillersPerk = WMPerk(KFPC.GetPerk());
+
+			if (ZedTimeRemaining > 0.0f && KillersPerk != None && KillersPerk.GetZedTimeExtensionMax(KFPC.GetLevel()) > ZedTimeExtensionsUsed)
+			{
+				DramaticEvent(1.0f);
+				++ZedTimeExtensionsUsed;
+			}
+		}
 	}
-	else if ((AIAliveCount <= 0 && IsWaveActive() && SpawnManager.IsFinishedSpawning()) || bForceWaveEnd)
+	else
 	{
-		`log("ZR Info: WMGameInfo_Endless.CheckWaveEnd() - Call Wave Ended - WEC_WaveWon");
-		ClearTimer(NameOf(LogWaveDetails));
-		WaveEnded(WEC_WaveWon);
+		if (bNVAlwaysDramatic)
+			DramaticEvent(1.0f);
+
+		bIsHuman = KilledPawn.IsA('KFPawn_Human');
+		if (bIsHuman)
+		{
+			DramaticEvent(0.05f);
+			return;
+		}
+
+		if (KilledPawn.Controller == None)
+			return;
+
+		if (Killer != None && Killer.Pawn != None && VSizeSq(Killer.Pawn.Location - KilledPawn.Location) < 90000)
+			DramaticEvent(0.05f);
+		else
+			DramaticEvent(0.025f);
 	}
 }
+//Death Handling Code End
+////////////////////////////////
 
+////////////////////////////////
+//Special Wave Code Start
 function InitializeSpecialWave()
 {
 	local int i, Ins;
@@ -1067,11 +1501,11 @@ function ClearSpecialWave()
 		WMPC.UpdateWeaponMagAndCap();
 	}
 }
+//Special Wave Code End
+////////////////////////////////
 
-////////
+////////////////////////////////
 //Weapon Code Start
-////////
-
 function BuildWeaponList()
 {
 	local int i, Begin;
@@ -1631,36 +2065,11 @@ function SetTraderItemsAndPrintWeaponList()
 		`log(GetItemName(AllowedWeapons[i].default.WeaponClassPath) $ "(" $ i $ ")");
 	}
 }
-
-////////
 //Weapon Code End
-////////
+////////////////////////////////
 
-function SelectRandomTraderVoice()
-{
-	local array<byte> TraderVoiceList;
-
-	//TraderVoiceGroup
-	TraderVoiceList.Length = 0;
-	if (class'ZedternalReborn.Config_TraderVoice'.default.TraderVoice_bUsePatriarchTrader)
-		TraderVoiceList.AddItem(0);
-	if (class'ZedternalReborn.Config_TraderVoice'.default.TraderVoice_bUseHansTrader)
-		TraderVoiceList.AddItem(1);
-	if (class'ZedternalReborn.Config_TraderVoice'.default.TraderVoice_bUseDefaultTrader)
-		TraderVoiceList.AddItem(2);
-	if (class'ZedternalReborn.Config_TraderVoice'.default.TraderVoice_bUseObjectiveTrader)
-		TraderVoiceList.AddItem(3);
-	if (class'ZedternalReborn.Config_TraderVoice'.default.TraderVoice_bUseLockheartTrader)
-		TraderVoiceList.AddItem(4);
-	if (class'ZedternalReborn.Config_TraderVoice'.default.TraderVoice_bUseSantaTrader)
-		TraderVoiceList.AddItem(5);
-
-	if (TraderVoiceList.Length > 0)
-		TraderVoiceIndex = TraderVoiceList[Rand(TraderVoiceList.Length)];
-	else
-		TraderVoiceIndex = default.TraderVoiceIndex;
-}
-
+////////////////////////////////
+//Replication and Data Handling Code Start
 function RepGameInfoHighPriority()
 {
 	local WMGameReplicationInfo WMGRI;
@@ -1900,348 +2309,16 @@ function FreeConfigDataMemory()
 	// Free memory
 	ConfigData = None;
 }
+//Replication and Data Handling Code End
+////////////////////////////////
 
-function InitializeStaticPerkList()
-{
-	local byte i;
-
-	StaticPerks.Length = 0;
-
-	for (i = 0; i < Min(255, ConfigData.ValidPerkUpgrades.Length); ++i)
-	{
-		if (ConfigData.ValidPerkUpgrades[i].bIsStatic)
-			StaticPerks.AddItem(1);
-		else
-			StaticPerks.AddItem(0);
-	}
-}
-
-function RepPlayerInfo(WMPlayerReplicationInfo WMPRI)
-{
-	local array<byte> PerkIndex;
-	local byte i, Count, Choice;
-
-	`log("ZR Info: Reconnect Player"@WMPRI.PlayerName$":"@WMPRI.NumTimesReconnected);
-
-	if (WMPRI.NumTimesReconnected < 1 && class'ZedternalReborn.Config_PerkUpgradeOptions'.default.PerkUpgrade_AvailablePerks > 0)
-	{
-		PerkIndex.Length = 0;
-		Count = 0;
-		for (i = 0; i < StaticPerks.Length; ++i)
-		{
-			// check if the perk i should be in the trader (static perk)
-			if (StaticPerks[i] == 1)
-			{
-				WMPRI.bPerkUpgradeAvailable[i] = 1;
-				++Count;
-			}
-			else
-			{
-				PerkIndex.AddItem(i);
-				WMPRI.bPerkUpgradeAvailable[i] = 0;
-			}
-
-			if (Count > class'ZedternalReborn.Config_PerkUpgradeOptions'.default.PerkUpgrade_AvailablePerks)
-			{
-				break;
-			}
-		}
-
-		for (i = 0; i < class'ZedternalReborn.Config_PerkUpgradeOptions'.default.PerkUpgrade_AvailablePerks - Count; ++i)
-		{
-			if (PerkIndex.Length > 0)
-			{
-				Choice = Rand(PerkIndex.Length);
-				WMPRI.bPerkUpgradeAvailable[PerkIndex[Choice]] = 1;
-				PerkIndex.Remove(Choice, 1);
-			}
-		}
-	}
-	else if (WMPRI.NumTimesReconnected >= 1)
-	{
-		WMPRI.UpdateServerPurchase();
-		WMPRI.UpdateClientPurchase();
-	}
-}
-
-function int GetAdjustedDeathPenalty(KFPlayerReplicationInfo KilledPlayerPRI, optional bool bLateJoiner=False)
-{
-	local int PlayerBase, PlayerWave, PlayerCount, PlayerPerkBonus;
-	local KFPlayerController KFPC;
-
-	// new player (dosh is based on what team won during the game)
-	if (bLateJoiner)
-	{
-		PlayerBase = Round(doshNewPlayer * class'ZedternalReborn.Config_Dosh'.static.GetLateJoinerDoshPct(GameDifficultyZedternal));
-		`log("ZR Info: Player"@KilledPlayerPRI.PlayerName@"is late joiner, received"@PlayerBase@"dosh");
-
-		return PlayerBase;
-	}
-
-	// count current number of players
-	PlayerCount = 0;
-	foreach WorldInfo.AllControllers(class'KFPlayerController', KFPC)
-	{
-		if (KFPC.Pawn != None)
-			++PlayerCount;
-	}
-
-	PlayerBase = class'ZedternalReborn.Config_Dosh'.static.GetBaseWaveDoshReward(GameDifficultyZedternal, PlayerCount);
-	PlayerWave = class'ZedternalReborn.Config_Dosh'.static.GetBonusWaveDoshReward(GameDifficultyZedternal, WaveNum);
-	PlayerPerkBonus = class'ZedternalReborn.Config_Dosh'.static.GetBonusPlayerLevelDoshReward(GameDifficultyZedternal, WMPlayerReplicationInfo(KilledPlayerPRI).PlayerLevel);
-
-	return Round(float(PlayerBase + PlayerWave + PlayerPerkBonus) * (1.0f - FClamp(class'ZedternalReborn.Config_Dosh'.static.GetDeathPenaltyDoshPct(GameDifficultyZedternal), 0.0f, 1.0f)));
-}
-
-function float GetAdjustedAIDoshValue(class<KFPawn_Monster> MonsterClass)
-{
-	local float TempValue;
-	local int PlayerCount;
-	local KFPlayerController KFPC;
-	local byte i;
-
-	PlayerCount = 0;
-	foreach WorldInfo.AllControllers(class'KFPlayerController', KFPC)
-	{
-		if (KFPC.Pawn != None)
-			++PlayerCount;
-	}
-
-	TempValue = float(MonsterClass.static.GetDoshValue());
-	TempValue *= DifficultyInfo.GetKillCashModifier();
-
-	for (i = 0; i <= 1; ++i)
-	{
-		if (WMGameReplicationInfo(MyKFGRI).SpecialWaveID[i] != INDEX_NONE)
-			TempValue *= WMGameReplicationInfo(MyKFGRI).SpecialWavesList[WMGameReplicationInfo(MyKFGRI).SpecialWaveID[i]].SpecialWave.default.DoshFactor;
-	}
-
-	if (MonsterClass.default.bLargeZed)
-		TempValue *= class'ZedternalReborn.Config_Dosh'.static.GetLargeZedDoshMultiplier(GameDifficultyZedternal, PlayerCount);
-	else
-		TempValue *= class'ZedternalReborn.Config_Dosh'.static.GetNormalZedDoshMultiplier(GameDifficultyZedternal, PlayerCount);
-
-	return TempValue;
-}
-
-function Killed(Controller Killer, Controller KilledPlayer, Pawn KilledPawn, class<DamageType> DT)
-{
-	local byte i, x;
-	local int PlayerCount;
-	local WMPlayerReplicationInfo KilledPRI;
-	local KFPlayerController KFPC;
-	local WMSpecialWave WMSW;
-	local WMGameReplicationInfo WMGRI;
-
-	super.Killed(Killer, KilledPlayer, KilledPawn, DT);
-
-	if (KilledPlayer != None && KilledPlayer.bIsPlayer)
-	{
-		KilledPRI = WMPlayerReplicationInfo(KilledPlayer.PlayerReplicationInfo);
-		if (KilledPRI != None)
-		{
-			KilledPRI.PlayerHealthInt = 0;
-			KilledPRI.PlayerHealth = 0;
-			KilledPRI.PlayerHealthPercent = 0;
-		}
-	}
-
-	if (KilledPawn.IsA('KFPawn_Human'))
-		bUseExtendedTraderTime = True;
-
-	WMGRI = WMGameReplicationInfo(MyKFGRI);
-
-	if (WMGRI.SpecialWaveID[0] != INDEX_NONE)
-	{
-		foreach DynamicActors(class'WMSpecialWave', WMSW)
-		{
-			WMSW.Killed(Killer, KilledPlayer, KilledPawn, DT);
-		}
-	}
-
-	for (i = 0; i < WMGRI.ZedBuffsList.Length; ++i)
-	{
-		if (WMGRI.ActiveZedBuffs[i] > 0)
-		{
-			for (x = 0; x < WMGRI.ActiveZedBuffs[i]; ++x)
-			{
-				WMGRI.ZedBuffsList[i].ZedBuff.static.KilledPawn(KilledPawn);
-			}
-		}
-	}
-
-	PlayerCount = 0;
-	foreach WorldInfo.AllControllers(class'KFPlayerController', KFPC)
-	{
-		if (KFPC.Pawn != None)
-			++PlayerCount;
-	}
-
-	if (KFPawn_Monster(KilledPawn) != None && PlayerCount != 0)
-		doshNewPlayer += GameLengthDoshScale[GameLength] * KFPawn_Monster(KilledPawn).static.GetDoshValue() / PlayerCount;
-}
-
-function RewardSurvivingPlayers()
-{
-	local int PlayerBase, PlayerWave, PlayerCount, PlayerPerkBonus;
-	local KFPlayerController KFPC;
-	Local KFTeamInfo_Human T;
-
-	PlayerCount = 0;
-	foreach WorldInfo.AllControllers(class'KFPlayerController', KFPC)
-	{
-		if (KFPC.Pawn != None && KFPC.Pawn.IsAliveAndWell())
-		{
-			++PlayerCount;
-
-			// Find the player's team
-			if (T == None && KFPC.PlayerReplicationInfo != None && KFPC.PlayerReplicationInfo.Team != None)
-			{
-				T = KFTeamInfo_Human(KFPC.PlayerReplicationInfo.Team);
-			}
-		}
-	}
-
-	if (T != None)
-	{
-		// Reset team score even though we do not use it
-		T.AddScore(0, True);
-	}
-
-	PlayerBase = class'ZedternalReborn.Config_Dosh'.static.GetBaseWaveDoshReward(GameDifficultyZedternal, PlayerCount);
-	PlayerWave = class'ZedternalReborn.Config_Dosh'.static.GetBonusWaveDoshReward(GameDifficultyZedternal, WaveNum);
-
-	`log("ZR Info: SCORING: Number of surviving players:" @ PlayerCount);
-	`log("ZR Info: SCORING: Base Dosh/surviving player:" @ PlayerBase);
-	`log("ZR Info: SCORING: Wave Dosh/surviving player:" @ PlayerWave);
-
-	// Add dosh for new players
-	doshNewPlayer += class'ZedternalReborn.Config_Dosh'.static.GetBaseWaveDoshReward(GameDifficultyZedternal, PlayerCount + 1) + PlayerWave;
-
-	foreach WorldInfo.AllControllers(class'KFPlayerController', KFPC)
-	{
-		if (KFPC.Pawn != None && KFPC.Pawn.IsAliveAndWell())
-		{
-			PlayerPerkBonus = class'ZedternalReborn.Config_Dosh'.static.GetBonusPlayerLevelDoshReward(GameDifficultyZedternal, WMPlayerReplicationInfo(KFPC.PlayerReplicationInfo).PlayerLevel);
-
-			KFPlayerReplicationInfo(KFPC.PlayerReplicationInfo).AddDosh(PlayerBase + PlayerWave + PlayerPerkBonus, True);
-
-			`log("ZR Info: Player" @ KFPC.PlayerReplicationInfo.PlayerName @ "got" @ PlayerBase + PlayerWave + PlayerPerkBonus @ "dosh for surviving the wave. Player perk level:" @ WMPlayerReplicationInfo(KFPC.PlayerReplicationInfo).PlayerLevel);
-		}
-	}
-}
-
-function CheckZedTimeOnKill(Controller Killer, Controller KilledPlayer, Pawn KilledPawn, class<DamageType> DamageType)
-{
-	local bool bIsHuman;
-	local KFPlayerController KFPC;
-	local WMPerk KillersPerk;
-	local class<KFDamageType> KFDT;
-
-	KFDT = class<KFDamageType>(DamageType);
-	if (KFDT != None && KFDT.default.DoT_Type != DOT_None)
-		return;
-
-	if (IsZedTimeActive())
-	{
-		KFPC = KFPlayerController(Killer);
-		if (KFPC != None)
-		{
-			KillersPerk = WMPerk(KFPC.GetPerk());
-
-			if (ZedTimeRemaining > 0.0f && KillersPerk != None && KillersPerk.GetZedTimeExtensionMax(KFPC.GetLevel()) > ZedTimeExtensionsUsed)
-			{
-				DramaticEvent(1.0f);
-				++ZedTimeExtensionsUsed;
-			}
-		}
-	}
-	else
-	{
-		if (bNVAlwaysDramatic)
-			DramaticEvent(1.0f);
-
-		bIsHuman = KilledPawn.IsA('KFPawn_Human');
-		if (bIsHuman)
-		{
-			DramaticEvent(0.05f);
-			return;
-		}
-
-		if (KilledPawn.Controller == None)
-			return;
-
-		if (Killer != None && Killer.Pawn != None && VSizeSq(Killer.Pawn.Location - KilledPawn.Location) < 90000)
-			DramaticEvent(0.05f);
-		else
-			DramaticEvent(0.025f);
-	}
-}
-
-function InitAllPickups()
-{
-	if (bDisablePickups || DifficultyInfo == None)
-	{
-		NumWeaponPickups = 0;
-		NumAmmoPickups = 0;
-	}
-	else
-	{
-		NumWeaponPickups = Min(FCeil(float(ItemPickups.Length) * DifficultyInfo.GetItemPickupModifier()), ItemPickups.Length);
-		NumAmmoPickups = Min(FCeil(float(AmmoPickups.Length) * DifficultyInfo.GetAmmoPickupModifier()), AmmoPickups.Length);
-	}
-
-	if (BaseMutator != None)
-	{
-		BaseMutator.ModifyPickupFactories();
-	}
-
-	ResetAllPickups();
-}
-
-function ResetAllPickups()
-{
-	//Skip the KFGameInfo_Survival ResetAllPickups function
-	super(KFGameInfo).ResetAllPickups();
-}
-
-function ResetPickups(array<KFPickupFactory> PickupList, int NumPickups)
-{
-	local byte i, ChosenIndex;
-	local array<KFPickupFactory> PossiblePickups;
-
-	NumPickups = Clamp(Round(float(NumPickups) * (0.5f + float(WaveNum) * 0.1f)), 0, Round(float(PickupList.Length) * 0.75f));
-
-	PossiblePickups = PickupList;
-	for (i = 0; i < NumPickups; ++i)
-	{
-		if (PossiblePickups.Length > 0)
-		{
-			ChosenIndex = Rand(PossiblePickups.Length);
-			PossiblePickups[ChosenIndex].Reset();
-			PossiblePickups.Remove(ChosenIndex, 1);
-		}
-	}
-
-	// Put any pickup factories that weren't enabled to sleep
-	for (i = 0; i < PossiblePickups.Length; ++i)
-	{
-		PossiblePickups[i].StartSleeping();
-	}
-}
-
-/** Custom logic to determine what the game's current intensity is */
+//Custom logic to determine what the game's current intensity is
 function byte GetGameIntensityForMusic()
 {
 	return 255;
 }
 
-function bool IsMapObjectiveEnabled()
-{
-	return class'ZedternalReborn.Config_Objective'.static.GetShouldEnableObjective(GameDifficultyZedternal);
-}
-
-/** Adjusts AI pawn default settings by game difficulty and player count */
+//Adjusts AI pawn default settings by game difficulty and player count
 function SetMonsterDefaults(KFPawn_Monster P)
 {
 	local float HeadHealthMod, HealthMod, StartingSpeedMod, TotalSpeedMod;
@@ -2297,6 +2374,7 @@ function SetMonsterDefaults(KFPawn_Monster P)
 	}
 }
 
+//Override to fix player count on server browser
 function UpdateGameSettings()
 {
 	local name SessionName;
@@ -2378,39 +2456,6 @@ function UpdateGameSettings()
 					//Trigger re-broadcast of game settings
 					GameInterface.UpdateOnlineGame(SessionName, KFGameSettings, True);
 				}
-			}
-		}
-	}
-}
-
-function bool CheckRelevance(Actor Other)
-{
-	if (super.CheckRelevance(Other))
-	{
-		if (KFDroppedPickup_Cash(Other) != None && DoshPickupTime > 0)
-			Other.LifeSpan = DoshPickupTime;
-		else if (KFDroppedPickup(Other) != None && WeaponPickupTime > 0)
-			Other.LifeSpan = WeaponPickupTime;
-
-		return True;
-	}
-	else
-		return False;
-}
-
-function SetProjectilePickupLife()
-{
-	local KFProj_RicochetStickBullet KFP;
-
-	if (ProjectilePickupTime > 0)
-	{
-		foreach DynamicActors(class'KFProj_RicochetStickBullet', KFP)
-		{
-			// Use bHiddenEdScene as a flag to see if ProjectilePickupTime was already applied
-			if (!KFP.bHiddenEdScene && KFP.GetStateName() == 'Pickup')
-			{
-				KFP.LifeSpan = ProjectilePickupTime;
-				KFP.bHiddenEdScene = True;
 			}
 		}
 	}
