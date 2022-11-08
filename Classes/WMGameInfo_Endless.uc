@@ -371,6 +371,7 @@ function StartWave()
 
 	//Set up spawns for next wave
 	SpawnManager.SetupNextWave(WaveNum);
+	SetTimer(30.0f, True, NameOf(LogWaveDetails));
 
 	//Set the HUD for standalone
 	if (WorldInfo.NetMode != NM_DedicatedServer && Role == ROLE_Authority)
@@ -868,11 +869,13 @@ function CheckWaveEnd(optional bool bForceWaveEnd = false)
 	if (GetLivingPlayerCount() <= 0)
 	{
 		`log("ZR Info: WMGameInfo_Endless.CheckWaveEnd() - Call Wave Ended - WEC_TeamWipedOut");
+		ClearTimer(NameOf(LogWaveDetails));
 		WaveEnded(WEC_TeamWipedOut);
 	}
 	else if ((AIAliveCount <= 0 && IsWaveActive() && SpawnManager.IsFinishedSpawning()) || bForceWaveEnd)
 	{
 		`log("ZR Info: WMGameInfo_Endless.CheckWaveEnd() - Call Wave Ended - WEC_WaveWon");
+		ClearTimer(NameOf(LogWaveDetails));
 		WaveEnded(WEC_WaveWon);
 	}
 }
@@ -2410,6 +2413,19 @@ function SetProjectilePickupLife()
 				KFP.bHiddenEdScene = True;
 			}
 		}
+	}
+}
+
+function LogWaveDetails()
+{
+	`log("ZR Info: Current Wave =" @ WaveNum);
+	`log("ZR Info: AIAliveCount =" @ AIAliveCount);
+	`log("ZR Info: NumAISpawnsQueued =" @ NumAISpawnsQueued);
+	`log("ZR Info: NumAIFinishedSpawning =" @ NumAIFinishedSpawning);
+	if (WMAISpawnManager(SpawnManager) != None)
+	{
+		`log("ZR Info: GroupList Length =" @ WMAISpawnManager(SpawnManager).GroupList.Length);
+		`log("ZR Info: LeftoverSpawnSquad Length =" @ WMAISpawnManager(SpawnManager).LeftoverSpawnSquad.Length);
 	}
 }
 
