@@ -329,6 +329,7 @@ function LogWaveDetails()
 {
 	`log("ZR Info: Current Wave =" @ WaveNum);
 	`log("ZR Info: AIAliveCount =" @ AIAliveCount);
+	`log("ZR Info: GetMonsterAliveCount =" @ GetMonsterAliveCount());
 	`log("ZR Info: NumAISpawnsQueued =" @ NumAISpawnsQueued);
 	`log("ZR Info: NumAIFinishedSpawning =" @ NumAIFinishedSpawning);
 	if (WMAISpawnManager(SpawnManager) != None)
