@@ -659,7 +659,7 @@ function CheckIfAllPlayersDead()
 	if (GetLivingPlayerCount() <= 0)
 	{
 		ClearTimer(NameOf(CheckIfAllPlayersDead));
-		`log("ZR Warning: All players dead but game has not ended by itself, ending game now");
+		`log("ZR Warning: All players dead but match has not ended by itself, ending match now");
 		WaveEnded(WEC_TeamWipedOut);
 	}
 }
