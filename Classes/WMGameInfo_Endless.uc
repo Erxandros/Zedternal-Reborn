@@ -866,6 +866,56 @@ function RewardSurvivingPlayers()
 		}
 	}
 }
+
+protected function DistributeMoneyAndXP(class<KFPawn_Monster> MonsterClass, const out array<DamageInfo> DamageHistory, Controller Killer)
+{
+	local int i, TotalDamage, EarnedDosh;
+	local float AdjustedAIValue, ScoreDenominator;
+	local KFPlayerReplicationInfo DamagerKFPRI;
+
+	for (i = 0; i < DamageHistory.Length; ++i)
+	{
+		TotalDamage += DamageHistory[i].TotalDamage;
+	}
+
+	if (TotalDamage <= 0)
+	{
+		`log("ZR Warning: Total damage given to this zed is less than or equal to zero. This should never happen");
+		return;
+	}
+
+	// Scale value (via GameInfo) by difficulty and length & player count;
+	AdjustedAIValue = GetAdjustedAIDoshValue(MonsterClass);
+	ScoreDenominator = AdjustedAIValue / TotalDamage;
+
+	for (i = 0; i < DamageHistory.Length; ++i)
+	{
+		if (DamageHistory[i].DamagerController != None
+			&& DamageHistory[i].DamagerController.bIsPlayer
+			&& DamageHistory[i].DamagerPRI != None
+			&& DamageHistory[i].DamagerPRI.GetTeamNum() == 0)
+		{
+			EarnedDosh = Round(DamageHistory[i].TotalDamage * ScoreDenominator);
+			DamagerKFPRI = KFPlayerReplicationInfo(DamageHistory[i].DamagerPRI);
+			if (DamagerKFPRI != None)
+			{
+				//Killer cannot receive assists.
+				if (Killer.PlayerReplicationInfo != DamagerKFPRI)
+				{
+					DamagerKFPRI.Assists++;
+
+					if (DamageHistory[i].DamagePerks.Length == 1)
+						DamageHistory[i].DamagePerks[0].static.ModifyAssistDosh(EarnedDosh);
+				}
+
+				DamagerKFPRI.AddDosh(EarnedDosh, True);
+
+				if (DamagerKFPRI.Team != None)
+					KFTeamInfo_Human(DamagerKFPRI.Team).AddScore(EarnedDosh);
+			}
+		}
+	}
+}
 //Dosh Handling Code End
 ////////////////////////////////
 
@@ -1368,6 +1418,21 @@ function CheckZedTimeOnKill(Controller Killer, Controller KilledPlayer, Pawn Kil
 			DramaticEvent(0.05f);
 		else
 			DramaticEvent(0.025f);
+	}
+}
+
+protected function ScoreMonsterKill(Controller Killer, Controller Monster, KFPawn_Monster MonsterPawn)
+{
+	if (MonsterPawn != None)
+	{
+		if (MonsterPawn.DamageHistory.Length > 0)
+			DistributeMoneyAndXP(MonsterPawn.class, MonsterPawn.DamageHistory, Killer);
+
+		if (WorldInfo.NetMode == NM_DedicatedServer && Killer.GetTeamNum() == 0)
+		{
+			if (KFPlayerController(Killer) != None && KFPlayerController(Killer).MatchStats != None)
+				KFPlayerController(Killer).MatchStats.RecordZedKill(MonsterPawn.class, None);
+		}
 	}
 }
 //Death Handling Code End
