@@ -29,6 +29,9 @@ simulated event PostBeginPlay()
 	super.PostBeginPlay();
 	PerkList.Length = 1;
 
+	if (CurrentPerk == None)
+		RequestPerkChange(0);
+
 	SetTimer(2.0f, True, NameOf(UpdatePerkIcon));
 
 	if (WorldInfo.NetMode != NM_Client)
