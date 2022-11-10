@@ -1,4 +1,4 @@
-class WMWeap_HRG_Dragonbreath_Precious extends KFWeap_HRG_Dragonbreath;
+class WMWeap_HRG_Dragonbreath_Precious extends WMWeap_HRG_Dragonbreath;
 
 defaultproperties
 {
