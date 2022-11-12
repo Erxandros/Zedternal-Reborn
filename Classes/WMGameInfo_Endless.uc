@@ -516,6 +516,9 @@ function WaveEnded(EWaveEndCondition WinCondition)
 
 	if (WinCondition == WEC_WaveWon)
 		SetTimer(4.5f, False, NameOf(CheckZedBuff));
+
+	if (WinCondition == WEC_TeamWipedOut)
+		ClearTimer(NameOf(CheckIfAllPlayersDead));
 }
 
 function CheckWaveEnd(optional bool bForceWaveEnd = false)
