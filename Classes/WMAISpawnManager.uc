@@ -610,6 +610,7 @@ function CheckStuckZed()
 					// if stuck and near full health, teleport it
 					if (KFM.Health >= (KFM.HealthMax * 0.9f))
 					{
+						`log("ZR Info: Zed" @ KFM.Name @ "is considered stuck. Respawning Zed");
 						GroupList.Insert(0,1);
 						GroupList[0].ZedClasses.AddItem(KFM.default.class);
 						GroupList[0].Delay = 1.0f;
