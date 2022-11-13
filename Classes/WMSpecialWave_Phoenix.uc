@@ -8,7 +8,7 @@ function Killed(Controller Killer, Controller KilledPlayer, Pawn KilledPawn, cla
 	local WMSpecialWave_Phoenix_Helper PhoenixHelper;
 
 	KFPM = KFPawn_Monster(KilledPawn);
-	if (KFPM != None && KFPM.MyKFAIC != None && KFPM.LastHitZoneIndex != HZI_HEAD && !KFPM.IsHeadless() && FRand() < default.Prob)
+	if (Killer != None && KFPM != None && KFPM.MyKFAIC != None && KFPM.LastHitZoneIndex != HZI_HEAD && !KFPM.IsHeadless() && FRand() < default.Prob)
 	{
 		PhoenixHelper = Spawn(class'ZedternalReborn.WMSpecialWave_Phoenix_Helper');
 		if (PhoenixHelper != None)
