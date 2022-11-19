@@ -510,6 +510,16 @@ reliable client function PawnDiedCloseUPGMenu()
 		WMPRI.CloseUPGMenu();
 }
 
+function NotifyXPGain( class<KFPerk> PerkClass, int Amount, int BonusXP )
+{
+	// Do nothing
+}
+
+function NotifyLevelUp(class<KFPerk> PerkClass, byte PerkLevel, byte NewPrestigeLevel)
+{
+	// Do nothing
+}
+
 defaultproperties
 {
 	bShouldUpdateGrenadeIcon=True
@@ -530,7 +540,8 @@ defaultproperties
 	PerkList(8)=(PerkClass=class'KFGame.KFPerk_Sharpshooter')
 	PerkList(9)=(PerkClass=class'KFGame.KFPerk_SWAT')
 	PerkList(10)=(PerkClass=class'KFGame.KFPerk_Survivalist')
-	PurchaseHelperClass=class'WMAutoPurchaseHelper'
+	MatchStatsClass=class'ZedternalReborn.WMEphemeralMatchStats'
+	PurchaseHelperClass=class'ZedternalReborn.WMAutoPurchaseHelper'
 
 	Name="Default__WMPlayerController"
 }
