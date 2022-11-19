@@ -57,7 +57,7 @@ function GetAIHealthModifier(KFPawn_Monster P, float GameDifficulty, byte NumLiv
 			ExtraHealthMod = class'ZedternalReborn.Config_DifficultyGroupHealthExtra'.static.GetZedGroupExtraHealthModifierPerPlayer(GameDifficultyZedternal, ZedGroupNames[GID]);
 		}
 
-		if (GID == INDEX_NONE || HealthMod == INDEX_NONE)
+		if (GID == INDEX_NONE || HealthMod ~= INDEX_NONE)
 		{
 			if (P.bVersusZed)
 				HealthMod = class'ZedternalReborn.Config_DifficultyOmega'.static.GetZedHealthModifier(GameDifficultyZedternal);
@@ -67,7 +67,7 @@ function GetAIHealthModifier(KFPawn_Monster P, float GameDifficulty, byte NumLiv
 				HealthMod = class'ZedternalReborn.Config_DifficultyNormal'.static.GetZedHealthModifier(GameDifficultyZedternal);
 		}
 
-		if (GID == INDEX_NONE || HeadHealthMod == INDEX_NONE)
+		if (GID == INDEX_NONE || HeadHealthMod ~= INDEX_NONE)
 		{
 			if (P.bVersusZed)
 				HeadHealthMod = class'ZedternalReborn.Config_DifficultyOmega'.static.GetZedHeadHealthModifier(GameDifficultyZedternal);
@@ -111,7 +111,7 @@ function GetAIHealthModifier(KFPawn_Monster P, float GameDifficulty, byte NumLiv
 		}
 
 		// Add another extra multiplier based on the number of players
-		if (GID == INDEX_NONE || ExtraHealthMod == INDEX_NONE)
+		if (GID == INDEX_NONE || ExtraHealthMod ~= INDEX_NONE)
 		{
 			if (P.bVersusZed)
 				ExtraHealthMod += class'ZedternalReborn.Config_DifficultyOmega'.static.GetExtraHealthModifierPerPlayer(GameDifficultyZedternal);
@@ -123,6 +123,20 @@ function GetAIHealthModifier(KFPawn_Monster P, float GameDifficulty, byte NumLiv
 
 		HealthMod += ExtraHealthMod * float(NumLivingPlayers - 1);
 		HeadHealthMod += ExtraHealthMod * float(NumLivingPlayers - 1);
+	}
+
+	if (HealthMod < 0.05f)
+	{
+		`log("ZR Warn: WMGameDifficulty_Endless - GetAIHealthModifier - HealthMod is set to"
+			@ HealthMod @ "which is below the minimum of 0.05f. Return 1.0f as default.");
+		HealthMod = 1.0f;
+	}
+
+	if (HeadHealthMod < 0.05f)
+	{
+		`log("ZR Warn: WMGameDifficulty_Endless - GetAIHealthModifier - HeadHealthMod is set to"
+			@ HeadHealthMod @ "which is below the minimum of 0.05f. Return 1.0f as default.");
+		HeadHealthMod = 1.0f;
 	}
 }
 
@@ -149,7 +163,7 @@ function float GetAIDamageModifier(KFPawn_Monster P, float GameDifficulty, bool 
 			if (GID != INDEX_NONE)
 				ZedDamageMod = class'ZedternalReborn.Config_DifficultyGroupSoloDamage'.static.GetZedGroupSoloDamageModifier(GameDifficultyZedternal, ZedGroupNames[GID]);
 
-			if (GID == INDEX_NONE || ZedDamageMod == INDEX_NONE)
+			if (GID == INDEX_NONE || ZedDamageMod ~= INDEX_NONE)
 			{
 				if (P.bVersusZed)
 					ZedDamageMod = class'ZedternalReborn.Config_DifficultyOmega'.static.GetZedSoloDamageModifier(GameDifficultyZedternal);
@@ -164,7 +178,7 @@ function float GetAIDamageModifier(KFPawn_Monster P, float GameDifficulty, bool 
 			if (GID != INDEX_NONE)
 				ZedDamageMod = class'ZedternalReborn.Config_DifficultyGroupDamage'.static.GetZedGroupDamageModifier(GameDifficultyZedternal, ZedGroupNames[GID]);
 
-			if (GID == INDEX_NONE || ZedDamageMod == INDEX_NONE)
+			if (GID == INDEX_NONE || ZedDamageMod ~= INDEX_NONE)
 			{
 				if (P.bVersusZed)
 					ZedDamageMod = class'ZedternalReborn.Config_DifficultyOmega'.static.GetZedDamageModifier(GameDifficultyZedternal);
@@ -194,7 +208,14 @@ function float GetAIDamageModifier(KFPawn_Monster P, float GameDifficulty, bool 
 		}
 	}
 
-	return FMax(0.05f, ZedDamageMod);
+	if (ZedDamageMod < 0.05f)
+	{
+		`log("ZR Warn: WMGameDifficulty_Endless - GetAIDamageModifier - ZedDamageMod is set to"
+			@ ZedDamageMod @ "which is below the minimum of 0.05f. Return 1.0f as default.");
+		return 1.0f;
+	}
+
+	return ZedDamageMod;
 }
 
 /** Gives the random range of AI speed modification */
@@ -212,7 +233,7 @@ function float GetAISpeedMod(KFPawn_Monster P, float GameDifficulty)
 		if (GID != INDEX_NONE)
 			SpeedMod = class'ZedternalReborn.Config_DifficultyGroupSpeed'.static.GetZedGroupSpeedModifier(GameDifficultyZedternal, ZedGroupNames[GID]);
 
-		if (GID == INDEX_NONE || SpeedMod == INDEX_NONE)
+		if (GID == INDEX_NONE || SpeedMod ~= INDEX_NONE)
 		{
 			if (P.bVersusZed)
 				SpeedMod = class'ZedternalReborn.Config_DifficultyOmega'.static.GetZedSpeedModifier(GameDifficultyZedternal);
@@ -244,7 +265,14 @@ function float GetAISpeedMod(KFPawn_Monster P, float GameDifficulty)
 		}
 	}
 
-	return FMax(0.05f, SpeedMod);
+	if (SpeedMod < 0.05f)
+	{
+		`log("ZR Warn: WMGameDifficulty_Endless - GetAISpeedMod - SpeedMod is set to"
+			@ SpeedMod @ "which is below the minimum of 0.05f. Return 1.0f as default.");
+		return 1.0f;
+	}
+
+	return SpeedMod;
 }
 
 function float GetCharSprintChanceByDifficulty(KFPawn_Monster P, float GameDifficulty)
