@@ -352,6 +352,7 @@ function StartMatch()
 
 	LogPlayerDetails();
 	SetTimer(60.0f, True, NameOf(LogPlayerDetails));
+	SetTimer(15.0f, True, NameOf(CheckForBrokenZeds));
 	SetTimer(10.0f, True, NameOf(CheckIfAllPlayersDead));
 
 	super(KFGameInfo).StartMatch();
@@ -1435,6 +1436,29 @@ protected function ScoreMonsterKill(Controller Killer, Controller Monster, KFPaw
 		{
 			if (KFPlayerController(Killer) != None && KFPlayerController(Killer).MatchStats != None)
 				KFPlayerController(Killer).MatchStats.RecordZedKill(MonsterPawn.class, None);
+		}
+	}
+}
+
+function CheckForBrokenZeds()
+{
+	local KFPawn_Monster KFPM;
+
+	foreach DynamicActors(class'KFGame.KFPawn_Monster', KFPM)
+	{
+		if (KFPM != None && !KFPM.IsInState('Dying'))
+		{
+			if (KFPM.Health <= 0)
+			{
+				`log("ZR Warning: Zed" @ KFPM.Name @ "has zero health but is not dead. Killing forcefully");
+				KFPM.Died(None, None, KFPM.Location);
+			}
+
+			if (KFPM.MyKFAIC == None)
+			{
+				`log("ZR Warning: Zed" @ KFPM.Name @ "has no AI controller but is not dead. Killing forcefully");
+				KFPM.Died(None, None, KFPM.Location);
+			}
 		}
 	}
 }
