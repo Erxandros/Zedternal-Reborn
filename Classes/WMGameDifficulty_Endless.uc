@@ -127,14 +127,14 @@ function GetAIHealthModifier(KFPawn_Monster P, float GameDifficulty, byte NumLiv
 
 	if (HealthMod < 0.05f)
 	{
-		`log("ZR Warn: WMGameDifficulty_Endless - GetAIHealthModifier - HealthMod is set to"
+		`log("ZR Warning: WMGameDifficulty_Endless - GetAIHealthModifier - HealthMod is set to"
 			@ HealthMod @ "which is below the minimum of 0.05f. Return 1.0f as default.");
 		HealthMod = 1.0f;
 	}
 
 	if (HeadHealthMod < 0.05f)
 	{
-		`log("ZR Warn: WMGameDifficulty_Endless - GetAIHealthModifier - HeadHealthMod is set to"
+		`log("ZR Warning: WMGameDifficulty_Endless - GetAIHealthModifier - HeadHealthMod is set to"
 			@ HeadHealthMod @ "which is below the minimum of 0.05f. Return 1.0f as default.");
 		HeadHealthMod = 1.0f;
 	}
@@ -210,7 +210,7 @@ function float GetAIDamageModifier(KFPawn_Monster P, float GameDifficulty, bool 
 
 	if (ZedDamageMod < 0.05f)
 	{
-		`log("ZR Warn: WMGameDifficulty_Endless - GetAIDamageModifier - ZedDamageMod is set to"
+		`log("ZR Warning: WMGameDifficulty_Endless - GetAIDamageModifier - ZedDamageMod is set to"
 			@ ZedDamageMod @ "which is below the minimum of 0.05f. Return 1.0f as default.");
 		return 1.0f;
 	}
@@ -267,7 +267,7 @@ function float GetAISpeedMod(KFPawn_Monster P, float GameDifficulty)
 
 	if (SpeedMod < 0.05f)
 	{
-		`log("ZR Warn: WMGameDifficulty_Endless - GetAISpeedMod - SpeedMod is set to"
+		`log("ZR Warning: WMGameDifficulty_Endless - GetAISpeedMod - SpeedMod is set to"
 			@ SpeedMod @ "which is below the minimum of 0.05f. Return 1.0f as default.");
 		return 1.0f;
 	}
