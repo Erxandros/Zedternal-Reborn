@@ -27,7 +27,7 @@ static function ModifyDamageTaken(out int InDamage, int DefaultDamage, KFPawn Ow
 defaultproperties
 {
 	DamageTakenFactor=0.9f
-	ZedSpawnRateFactor=1.9f
+	ZedSpawnRateFactor=2.0f
 	WaveValueFactor=0.8f
 	DoshFactor=1.1f
 
