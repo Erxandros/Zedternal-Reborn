@@ -11,19 +11,18 @@ static function ModifyDamageTaken(out int InDamage, int DefaultDamage, KFPawn Ow
 defaultproperties
 {
 	Defense=0.25f
-	ZedSpawnRateFactor=0.925f
-	WaveValueFactor=0.6f
-	DoshFactor=1.65f
+	ZedSpawnRateFactor=0.85f
+	WaveValueFactor=0.8f
+	DoshFactor=1.15f
 
 	bShouldLocalize=True
 	Title="ZedternalReborn.WMSpecialWave_HellFire"
 
 	bReplaceMonstertoAdd=True
-	MonsterToAdd(0)=(MinWave=0,MaxWave=999,MinGr=1,MaxGr=4,MClass=class'ZedternalReborn.WMPawn_ZedHusk_NoDAR')
-	MonsterToAdd(1)=(MinWave=0,MaxWave=12,MinGr=2,MaxGr=5,MClass=class'ZedternalReborn.WMPawn_ZedCrawler_NoElite')
-	MonsterToAdd(2)=(MinWave=5,MaxWave=999,MinGr=1,MaxGr=2,MClass=class'ZedternalReborn.WMPawn_ZedHusk_NoDAR')
-	MonsterToAdd(3)=(MinWave=4,MaxWave=25,MinGr=1,MaxGr=3,MClass=class'ZedternalReborn.WMPawn_ZedCrawler_NoElite')
-	MonsterToAdd(4)=(MinWave=5,MaxWave=999,MinGr=1,MaxGr=1,MClass=class'ZedternalReborn.WMPawn_ZedHusk_Omega')
+	MonsterToAdd(0)=(MinWave=0,MaxWave=20,MinGr=1,MaxGr=3,MClass=class'ZedternalReborn.WMPawn_ZedHusk_NoDAR')
+	MonsterToAdd(1)=(MinWave=5,MaxWave=999,MinGr=2,MaxGr=5,MClass=class'ZedternalReborn.WMPawn_ZedHusk_NoDAR')
+	MonsterToAdd(2)=(MinWave=9,MaxWave=999,MinGr=1,MaxGr=2,MClass=class'ZedternalReborn.WMPawn_ZedHusk_Omega')
+	MonsterToAdd(3)=(MinWave=14,MaxWave=999,MinGr=2,MaxGr=4,MClass=class'ZedternalReborn.WMPawn_ZedHusk_Omega')
 
 	Name="Default__WMSpecialWave_HellFire"
 }
