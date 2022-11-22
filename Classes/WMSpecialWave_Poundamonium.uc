@@ -11,19 +11,21 @@ defaultproperties
 {
 	Damage=0.4f
 	ZedSpawnRateFactor=0.7f
-	WaveValueFactor=0.8f
+	WaveValueFactor=1.2f
 	DoshFactor=1.25f
 
 	bShouldLocalize=True
 	Title="ZedternalReborn.WMSpecialWave_Poundamonium"
 
 	bReplaceMonstertoAdd=True
-	MonsterToAdd(0)=(MinWave=0,MaxWave=999,MinGr=1,MaxGr=2,MClass=class'KFGameContent.KFPawn_ZedFleshpound')
-	MonsterToAdd(1)=(MinWave=4,MaxWave=999,MinGr=1,MaxGr=2,MClass=class'KFGameContent.KFPawn_ZedFleshpound')
-	MonsterToAdd(2)=(MinWave=0,MaxWave=999,MinGr=1,MaxGr=2,MClass=class'ZedternalReborn.WMPawn_ZedClot_Alpha_NoRiot')
-	MonsterToAdd(3)=(MinWave=12,MaxWave=999,MinGr=1,MaxGr=1,MClass=class'ZedternalReborn.WMPawn_ZedFleshpound_Omega')
-	MonsterToAdd(4)=(MinWave=6,MaxWave=999,MinGr=1,MaxGr=2,MClass=class'KFGameContent.KFPawn_ZedFleshpound')
-	MonsterToAdd(5)=(MinWave=0,MaxWave=999,MinGr=1,MaxGr=4,MClass=class'KFGameContent.KFPawn_ZedFleshpoundMini')
+	MonsterToAdd(0)=(MinWave=0,MaxWave=12,MinGr=1,MaxGr=2,MClass=class'KFGameContent.KFPawn_ZedFleshpoundMini')
+	MonsterToAdd(1)=(MinWave=6,MaxWave=999,MinGr=2,MaxGr=5,MClass=class'KFGameContent.KFPawn_ZedFleshpoundMini')
+	MonsterToAdd(2)=(MinWave=0,MaxWave=12,MinGr=1,MaxGr=1,MClass=class'KFGameContent.KFPawn_ZedFleshpound')
+	MonsterToAdd(3)=(MinWave=8,MaxWave=999,MinGr=2,MaxGr=2,MClass=class'KFGameContent.KFPawn_ZedFleshpound')
+	MonsterToAdd(4)=(MinWave=16,MaxWave=999,MinGr=2,MaxGr=4,MClass=class'KFGameContent.KFPawn_ZedFleshpound')
+	MonsterToAdd(5)=(MinWave=12,MaxWave=999,MinGr=1,MaxGr=1,MClass=class'ZedternalReborn.WMPawn_ZedFleshpound_Omega')
+	MonsterToAdd(6)=(MinWave=20,MaxWave=999,MinGr=2,MaxGr=2,MClass=class'ZedternalReborn.WMPawn_ZedFleshpound_Omega')
+	MonsterToAdd(7)=(MinWave=28,MaxWave=999,MinGr=2,MaxGr=4,MClass=class'ZedternalReborn.WMPawn_ZedFleshpound_Omega')
 
 	Name="Default__WMSpecialWave_Poundamonium"
 }
