@@ -22,8 +22,8 @@ function UpdateZed()
 defaultproperties
 {
 	ZedSpeedScale=1.0f
-	ZedSpawnRateFactor=0.925f
-	WaveValueFactor=0.95f
+	ZedSpawnRateFactor=0.75f
+	WaveValueFactor=0.9f
 
 	bShouldLocalize=True
 	Title="ZedternalReborn.WMSpecialWave_Lethargic"
