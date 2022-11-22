@@ -3,7 +3,7 @@ class WMSpecialWave_PurpleAlert extends WMSpecialWave;
 defaultproperties
 {
 	ZedSpawnRateFactor=0.85f
-	WaveValueFactor=0.8f
+	WaveValueFactor=1.1f
 	DoshFactor=1.25f
 
 	bShouldLocalize=True
