@@ -64,12 +64,12 @@ defaultproperties
 
 	bReplaceMonstertoAdd=True
 	MonsterToAdd(0)=(MinWave=0,MaxWave=7,MinGr=1,MaxGr=5,MClass=class'KFGameContent.KFPawn_ZedClot_Cyst')
-	MonsterToAdd(1)=(MinWave=0,MaxWave=10,MinGr=1,MaxGr=6,MClass=class'KFGameContent.KFPawn_ZedClot_Cyst')
+	MonsterToAdd(1)=(MinWave=0,MaxWave=10,MinGr=2,MaxGr=6,MClass=class'KFGameContent.KFPawn_ZedClot_Cyst')
 	MonsterToAdd(2)=(MinWave=0,MaxWave=13,MinGr=1,MaxGr=6,MClass=class'ZedternalReborn.WMPawn_ZedClot_Alpha_NoRiot')
-	MonsterToAdd(3)=(MinWave=2,MaxWave=999,MinGr=1,MaxGr=5,MClass=class'KFGameContent.KFPawn_ZedClot_Slasher')
-	MonsterToAdd(4)=(MinWave=0,MaxWave=999,MinGr=1,MaxGr=2,MClass=class'ZedternalReborn.WMPawn_ZedGorefast_NoDualBlade')
-	MonsterToAdd(5)=(MinWave=5,MaxWave=999,MinGr=1,MaxGr=1,MClass=class'KFGameContent.KFPawn_ZedFleshpound')
-	MonsterToAdd(6)=(MinWave=9,MaxWave=999,MinGr=1,MaxGr=1,MClass=class'KFGameContent.KFPawn_ZedClot_Slasher')
+	MonsterToAdd(3)=(MinWave=2,MaxWave=9,MinGr=1,MaxGr=5,MClass=class'KFGameContent.KFPawn_ZedClot_Slasher')
+	MonsterToAdd(4)=(MinWave=9,MaxWave=999,MinGr=2,MaxGr=6,MClass=class'KFGameContent.KFPawn_ZedClot_Slasher')
+	MonsterToAdd(5)=(MinWave=0,MaxWave=999,MinGr=1,MaxGr=2,MClass=class'ZedternalReborn.WMPawn_ZedGorefast_NoDualBlade')
+	MonsterToAdd(6)=(MinWave=5,MaxWave=999,MinGr=1,MaxGr=1,MClass=class'KFGameContent.KFPawn_ZedFleshpound')
 
 	Name="Default__WMSpecialWave_InstaKill"
 }
