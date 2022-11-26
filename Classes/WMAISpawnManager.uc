@@ -65,6 +65,8 @@ struct S_Wave_Temp
 var bool bAllowTurboSpawn;
 var float GameDifficultyZedternal;
 
+var int LeftoverWaveValue;
+
 function Initialize()
 {
 	if (GameDifficulty > `DIFFICULTY_HELLONEARTH)
@@ -332,11 +334,17 @@ function SetupNextWave(byte NextWaveIndex, int TimeToNextWaveBuffer = 0)
 	// 7) round result
 	WaveValue = Round(TempWaveValue);
 
+	// 8) add leftover wave value from previous wave
+	WaveValue += LeftoverWaveValue;
+
 	//Check for integer overflow
 	if (WaveValue < 0)
+	{
 		WaveValue = MaxInt;
-
-	`log("ZR Info: Wave's Value =" @ WaveValue);
+		`log("ZR Info: WaveValue =" @ WaveValue);
+	}
+	else
+		`log("ZR Info: WaveValue =" @ WaveValue @ "(" $ Round(TempWaveValue) @ "+" @ LeftoverWaveValue $ ")");
 
 	// we are now ready to build the list
 	// we use two arrays : One for the Zed's Class and one for the delay between each spawn
@@ -512,8 +520,14 @@ function SetupNextWave(byte NextWaveIndex, int TimeToNextWaveBuffer = 0)
 	WMGRI.AIRemaining = WaveTotalAI;
 	LastAISpawnVolume = None;
 
+	if (WaveValue > 0)
+		LeftoverWaveValue = WaveValue;
+	else
+		LeftoverWaveValue = 0;
+
 	`log("ZR Info: WaveTotalAI =" @ WaveTotalAI);
 	`log("ZR Info: GroupList Length =" @ GroupList.Length);
+	`log("ZR Info: Leftover WaveValue =" @ LeftoverWaveValue);
 }
 
 function ESquadType GetDesiredSquadTypeForZedList(array< class<KFPawn_Monster> > NewSquad)
