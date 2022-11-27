@@ -8,7 +8,7 @@ function PostBeginPlay()
 {
 	Super.PostBeginPlay();
 
-	DrawFont = Font(DynamicLoadObject("UI_Canvas_Fonts.Font_Main", class'Font'));
+	DrawFont = class'KFGameEngine'.Static.GetKFCanvasFont();
 }
 
 function Font PickFont(byte i, out float Scaler)

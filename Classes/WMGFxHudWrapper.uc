@@ -31,7 +31,7 @@ event DrawHUD()
 	if (WMGRI == None)
 		return;
 
-	Canvas.Font = Font(DynamicLoadObject("UI_Canvas_Fonts.Font_Main", class'Font'));
+	Canvas.Font = class'KFGameEngine'.Static.GetKFCanvasFont();
 
 	//////////////////////////////////////////////
 	//////////// SPECIAL WAVES ///////////////////
