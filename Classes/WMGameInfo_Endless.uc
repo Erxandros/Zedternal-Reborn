@@ -70,8 +70,11 @@ var int WeaponUpgRandPosition;
 //Pickup Timeouts
 var int DoshPickupTime, ProjectilePickupTime, WeaponPickupTime;
 
+//Damage Indicator Class
+var WMDmgInd DamageIndicator;
+
 ////////////////////////////////
-//Initialization Code Start
+//Initialization/Cleanup Code Start
 event InitGame(string Options, out string ErrorMessage)
 {
 	// starting wave can be set through the console while launching the mod (by adding : ?wave=XXX)
@@ -130,6 +133,8 @@ event PreBeginPlay()
 
 	if (WMGameDifficulty_Endless(DifficultyInfo) != None)
 		WMGameDifficulty_Endless(DifficultyInfo).InitializeCustomDiffGroupData();
+
+	DamageIndicator = Spawn(class'ZedternalReborn.WMDmgInd');
 }
 
 event PostBeginPlay()
@@ -237,6 +242,30 @@ event PostLogin(PlayerController NewPlayer)
 		WMPC.SetPreferredGrenadeTimer();
 }
 
+function Logout(Controller Exiting)
+{
+	super.Logout(Exiting);
+
+	if (DamageIndicator != None)
+		DamageIndicator.NotifyLogout(Exiting);
+}
+
+function GenericPlayerInitialization(Controller C)
+{
+	super.GenericPlayerInitialization(C);
+
+	if (DamageIndicator != None)
+		DamageIndicator.NotifyLogin(C);
+}
+
+event GetSeamlessTravelActorList(bool bToEntry, out array<Actor> ActorList)
+{
+	super.GetSeamlessTravelActorList(bToEntry, ActorList);
+
+	if (DamageIndicator != None)
+		DamageIndicator.CleanupUsers();
+}
+
 //Set up the spawning
 function InitSpawnManager()
 {
@@ -291,7 +320,7 @@ function InitializeStaticPerkList()
 			StaticPerks.AddItem(0);
 	}
 }
-//Initialization Code End
+//Initialization/Cleanup Code End
 ////////////////////////////////
 
 ////////////////////////////////
@@ -2615,6 +2644,17 @@ function UpdateGameSettings()
 			}
 		}
 	}
+}
+
+function ReduceDamage(out int Damage, pawn injured, Controller instigatedBy, vector HitLocation, out vector Momentum, class<DamageType> DamageType, Actor DamageCauser, TraceHitInfo HitInfo)
+{
+	super.ReduceDamage(Damage, injured, instigatedBy, HitLocation, Momentum, DamageType, DamageCauser, HitInfo);
+
+	if (Damage <= 0)
+		return;
+
+	if (DamageIndicator != None)
+		DamageIndicator.NetDamage(Injured, InstigatedBy, HitLocation);
 }
 
 defaultproperties
