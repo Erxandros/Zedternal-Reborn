@@ -134,7 +134,8 @@ event PreBeginPlay()
 	if (WMGameDifficulty_Endless(DifficultyInfo) != None)
 		WMGameDifficulty_Endless(DifficultyInfo).InitializeCustomDiffGroupData();
 
-	DamageIndicator = Spawn(class'ZedternalReborn.WMDmgInd');
+	if (class'ZedternalReborn.Config_GameOptions'.static.GetShouldEnableDamageIndicators(GameDifficultyZedternal))
+		DamageIndicator = Spawn(class'ZedternalReborn.WMDmgInd');
 }
 
 event PostBeginPlay()
@@ -190,6 +191,10 @@ event PostBeginPlay()
 	DoshPickupTime = class'ZedternalReborn.Config_GameOptions'.static.GetDoshPickupDespawnTime(GameDifficultyZedternal);
 	ProjectilePickupTime = class'ZedternalReborn.Config_GameOptions'.static.GetProjectilePickupDespawnTime(GameDifficultyZedternal);
 	WeaponPickupTime = class'ZedternalReborn.Config_GameOptions'.static.GetWeaponPickupDespawnTime(GameDifficultyZedternal);
+
+	// Try again if it failed to spawn in PreBeginPlay
+	if (DamageIndicator == None && class'ZedternalReborn.Config_GameOptions'.static.GetShouldEnableDamageIndicators(GameDifficultyZedternal))
+		DamageIndicator = Spawn(class'ZedternalReborn.WMDmgInd');
 }
 
 event PreLogin(string Options, string Address, const UniqueNetId UniqueId, bool bSupportsAuth, out string ErrorMessage)

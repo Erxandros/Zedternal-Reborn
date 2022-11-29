@@ -15,6 +15,8 @@ var config S_Difficulty_Int Game_DoshPickupDespawnTime;
 var config S_Difficulty_Int Game_ProjectilePickupDespawnTime;
 var config S_Difficulty_Int Game_WeaponPickupDespawnTime;
 
+var config S_Difficulty_Bool Game_bEnableDamageIndicators;
+
 static function UpdateConfig()
 {
 	if (default.MODEVERSION < 1)
@@ -69,6 +71,15 @@ static function UpdateConfig()
 		default.Game_WeaponPickupDespawnTime.Suicidal = 14400;
 		default.Game_WeaponPickupDespawnTime.HoE = 14400;
 		default.Game_WeaponPickupDespawnTime.Custom = 14400;
+	}
+
+	if (default.MODEVERSION < 15)
+	{
+		default.Game_bEnableDamageIndicators.Normal = True;
+		default.Game_bEnableDamageIndicators.Hard = True;
+		default.Game_bEnableDamageIndicators.Suicidal = True;
+		default.Game_bEnableDamageIndicators.HoE = True;
+		default.Game_bEnableDamageIndicators.Custom = True;
 	}
 
 	if (default.MODEVERSION < class'ZedternalReborn.Config_Base'.const.CurrentVersion)
@@ -219,6 +230,18 @@ static function int GetWeaponPickupDespawnTime(int Difficulty)
 		case 2 : return default.Game_WeaponPickupDespawnTime.Suicidal;
 		case 3 : return default.Game_WeaponPickupDespawnTime.HoE;
 		default: return default.Game_WeaponPickupDespawnTime.Custom;
+	}
+}
+
+static function bool GetShouldEnableDamageIndicators(int Difficulty)
+{
+	switch (Difficulty)
+	{
+		case 0 : return default.Game_bEnableDamageIndicators.Normal;
+		case 1 : return default.Game_bEnableDamageIndicators.Hard;
+		case 2 : return default.Game_bEnableDamageIndicators.Suicidal;
+		case 3 : return default.Game_bEnableDamageIndicators.HoE;
+		default: return default.Game_bEnableDamageIndicators.Custom;
 	}
 }
 
