@@ -108,6 +108,7 @@ static function UpdateSkinsHelper(const out string WeaponDef)
 defaultproperties
 {
 	//Overrides
+	OverrideDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_AutoTurret",OriginalWeaponDefPath="KFGame.KFWeapDef_AutoTurret"));
 	OverrideDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_Doshinegun",OriginalWeaponDefPath="KFGame.KFWeapDef_Doshinegun"));
 	OverrideDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_HRG_BlastBrawlers",OriginalWeaponDefPath="KFGame.KFWeapDef_HRG_BlastBrawlers"));
 	OverrideDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_HRG_Dragonbreath",OriginalWeaponDefPath="KFGame.KFWeapDef_HRG_Dragonbreath"));
