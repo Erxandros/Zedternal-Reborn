@@ -3575,6 +3575,39 @@ simulated function bool ImmuneToCameraShake()
 	return False;
 }
 
+simulated function ModifyMaxDeployed(out int CurrentMaxDeployed, KFWeapon KFW)
+{
+	local int i, index;
+	local int DefaultMaxDeployed;
+
+	DefaultMaxDeployed = CurrentMaxDeployed;
+
+	if (MyWMPRI != None && MyWMGRI != None)
+	{
+		for (i = 0; i < MyWMPRI.Purchase_WeaponUpgrade.Length; ++i)
+		{
+			index = MyWMPRI.Purchase_WeaponUpgrade[i];
+			if (isValidWeapon(MyWMGRI.WeaponUpgradeSlotsList[index].KFWeapon, KFW))
+				MyWMGRI.WeaponUpgradeSlotsList[index].WeaponUpgrade.static.ModifyMaxDeployed(CurrentMaxDeployed, DefaultMaxDeployed, MyWMPRI.GetWeaponUpgrade(index), KFW);
+		}
+		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.Length; ++i)
+		{
+			index = MyWMPRI.Purchase_PerkUpgrade[i];
+			MyWMGRI.PerkUpgradesList[index].PerkUpgrade.static.ModifyMaxDeployed(CurrentMaxDeployed, DefaultMaxDeployed, MyWMPRI.bPerkUpgrade[index], KFW);
+		}
+		for (i = 0; i < MyWMPRI.Purchase_EquipmentUpgrade.Length; ++i)
+		{
+			index = MyWMPRI.Purchase_EquipmentUpgrade[i];
+			MyWMGRI.EquipmentUpgradesList[index].EquipmentUpgrade.static.ModifyMaxDeployed(CurrentMaxDeployed, DefaultMaxDeployed, MyWMPRI.bEquipmentUpgrade[index], KFW);
+		}
+		for (i = 0; i < MyWMPRI.Purchase_SkillUpgrade.Length; ++i)
+		{
+			index = MyWMPRI.Purchase_SkillUpgrade[i];
+			MyWMGRI.SkillUpgradesList[index].SkillUpgrade.static.ModifyMaxDeployed(CurrentMaxDeployed, DefaultMaxDeployed, MyWMPRI.bSkillUpgrade[index], KFW);
+		}
+	}
+}
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Universal extension functions (they are used for advance extension mods and addons)

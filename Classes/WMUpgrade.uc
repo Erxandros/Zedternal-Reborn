@@ -73,6 +73,9 @@ static simulated function GetBatteryRateScale(out float InRechargeRateFL, out fl
 
 static simulated function SupplierModifiers(int upgLevel, out float PrimaryAmmoPercentage, out float SecondaryAmmoPercentage, out float ArmorPercentage, out int GrenadeAmount);
 
+//For sentinel, could be used for other turret based weapons
+static simulated function ModifyMaxDeployed(out int InMaxDeployed, int DefaultMaxDeployed, int upgLevel, KFWeapon KFW);
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Boolean functions
