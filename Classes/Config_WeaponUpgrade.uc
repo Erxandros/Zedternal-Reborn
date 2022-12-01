@@ -25,6 +25,7 @@ var config array<S_WeaponUpgrade> WeaponUpgrade_Upgrade;
 static function UpdateConfig()
 {
 	local int i;
+	local S_WeaponUpgrade NewItem;
 
 	if (default.MODEVERSION < 1)
 	{
@@ -70,6 +71,14 @@ static function UpdateConfig()
 		i = default.WeaponUpgrade_Upgrade.Find('WeaponPath', "ZedternalReborn.WMUpgrade_Weapon_SpareAmmo_C4");
 		if (i != INDEX_NONE)
 			default.WeaponUpgrade_Upgrade[i].WeaponPath = "ZedternalReborn.WMUpgrade_Weapon_SpareAmmo_Small";
+	}
+
+	if (default.MODEVERSION < 15)
+	{
+		NewItem.WeaponPath = "ZedternalReborn.WMUpgrade_Weapon_TurretLimit";
+		NewItem.PriceMultiplier = 2.0f;
+		NewItem.bIsStatic = True;
+		default.WeaponUpgrade_Upgrade.AddItem(NewItem);
 	}
 
 	if (default.MODEVERSION < class'ZedternalReborn.Config_Base'.const.CurrentVersion)
