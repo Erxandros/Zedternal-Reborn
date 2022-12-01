@@ -45,13 +45,80 @@ simulated function Projectile ProjectileFire()
 	return None;
 }
 
-simulated function BeginFire(byte FireModeNum)
+simulated function int GetMaxTurrets()
 {
 	local KFPerk InstigatorPerk;
 	local int MaxTurrets;
 
-	MaxTurrets = MaxTurretsDeployedZedternal;
+	MaxTurrets = default.MaxTurretsDeployedZedternal;
 
+	InstigatorPerk = GetPerk();
+	if (WMPerk(InstigatorPerk) != None)
+		WMPerk(InstigatorPerk).ModifyMaxDeployed(MaxTurrets, self);
+
+	return MaxTurrets;
+}
+
+simulated function DetonateFinished()
+{
+	SetReadyToUse(True);
+
+	if (!HasAnyAmmo() && NumDeployedTurrets == 0)
+	{
+		if (CanSwitchWeapons())
+			Instigator.Controller.ClientSwitchToBestWeapon(False);
+	}
+}
+
+simulated function Detonate(optional bool bKeepTurret = False)
+{
+	local int i, MaxTurrets;
+	local array<Actor> TurretsCopy;
+
+	if (Role == ROLE_Authority)
+	{
+		if (bKeepTurret)
+			MaxTurrets = GetMaxTurrets();
+		else // Blow them all up
+			MaxTurrets = 0;
+
+		TurretsCopy = KFPC.DeployedTurrets;
+		for (i = 0; i < TurretsCopy.Length; ++i)
+		{
+			if (bKeepTurret && i >= (TurretsCopy.Length - MaxTurrets))
+				continue;
+
+			KFPawn_AutoTurret(TurretsCopy[i]).SetTurretState(ETS_Detonate);
+		}
+
+		DetonateFinished();
+	}
+}
+
+simulated function DetonateExcess()
+{
+	local int i, MaxTurrets;
+	local array<Actor> TurretsCopy;
+
+	if (Role == ROLE_Authority)
+	{
+		MaxTurrets = GetMaxTurrets();
+
+		TurretsCopy = KFPC.DeployedTurrets;
+		for (i = 0; i < TurretsCopy.Length; ++i)
+		{
+			if (i > (TurretsCopy.Length - MaxTurrets))
+				continue;
+
+			KFPawn_AutoTurret(TurretsCopy[i]).SetTurretState(ETS_Detonate);
+		}
+
+		DetonateFinished();
+	}
+}
+
+simulated function BeginFire(byte FireModeNum)
+{
 	if (FireModeNum == DEFAULT_FIREMODE)
 		ClearPendingFire(DETONATE_FIREMODE);
 
@@ -65,22 +132,53 @@ simulated function BeginFire(byte FireModeNum)
 	}
 	else
 	{
-		InstigatorPerk = GetPerk();
-		if (WMPerk(InstigatorPerk) != None)
-			WMPerk(InstigatorPerk).ModifyMaxDeployed(MaxTurrets, self);
-
 		if (FireModeNum == DEFAULT_FIREMODE
-			&& NumDeployedTurrets >= MaxTurrets
+			&& NumDeployedTurrets >= GetMaxTurrets()
 			&& HasAnyAmmo())
 		{
 			if (!bTurretReadyToUse)
 				return;
 
-			PrepareAndDetonate();
+			PrepareAndDetonateExcess();
 		}
 
 		super(KFWeap_ThrownBase).BeginFire(FireModeNum);
 	}
+}
+
+simulated function PrepareAndDetonateExcess()
+{
+	local name DetonateAnimName;
+	local float AnimDuration;
+	local bool bInSprintState;
+
+	DetonateAnimName = ShouldPlayLastAnims() ? DetonateLastAnim : DetonateAnim;
+	AnimDuration = MySkelMesh.GetAnimLength(DetonateAnimName);
+	bInSprintState = IsInState('WeaponSprinting');
+
+	if (WorldInfo.NetMode != NM_DedicatedServer)
+	{
+		if (NumDeployedTurrets > 0)
+			PlaySoundBase(DetonateAkEvent, True);
+
+		if (bInSprintState)
+		{
+			AnimDuration *= 0.25f;
+			PlayAnimation(DetonateAnimName, AnimDuration);
+		}
+		else
+			PlayAnimation(DetonateAnimName);
+	}
+
+	if (Role == ROLE_Authority)
+		DetonateExcess();
+
+	IncrementFlashCount();
+
+	if (bInSprintState)
+		SetTimer(AnimDuration * 0.8f, False, NameOf(PlaySprintStart));
+	else
+		SetTimer(AnimDuration * 0.5f, False, NameOf(GotoActiveState));
 }
 
 defaultproperties
