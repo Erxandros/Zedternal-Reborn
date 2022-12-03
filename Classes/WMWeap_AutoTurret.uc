@@ -12,6 +12,114 @@ simulated event PreBeginPlay()
 	default.TurretWeapon.static.TriggerAsyncContentLoad(default.TurretWeapon);
 }
 
+simulated event PostBeginPlay()
+{
+	super(KFWeap_ThrownBase).PostBeginPlay();
+
+	if (Role == ROLE_Authority)
+	{
+		KFPC = KFPlayerController(Instigator.Controller);
+		NumDeployedTurrets = GetDeployedTurrets();
+	}
+}
+////////////////////////////////////////////////////////////
+//// Turret Helper Functions
+simulated function int GetDeployedTurrets()
+{
+	local int i, num;
+
+	num = 0;
+	for (i = 0; i < KFPC.DeployedTurrets.Length; ++i)
+	{
+		if (KFPC.DeployedTurrets[i].Owner == self)
+			num++;
+	}
+
+	return num;
+}
+
+simulated function GetAllTurrets(out array<Actor> TurretsList)
+{
+	local int i;
+
+	for (i = 0; i < KFPC.DeployedTurrets.Length; ++i)
+	{
+		if (KFPC.DeployedTurrets[i].Owner == self)
+			TurretsList.AddItem(KFPC.DeployedTurrets[i]);
+	}
+}
+
+simulated function int GetMaxTurrets()
+{
+	local KFPerk InstigatorPerk;
+	local int MaxTurrets;
+
+	MaxTurrets = default.MaxTurretsDeployedZedternal;
+
+	InstigatorPerk = GetPerk();
+	if (WMPerk(InstigatorPerk) != None)
+		WMPerk(InstigatorPerk).ModifyMaxDeployed(MaxTurrets, self);
+
+	return MaxTurrets;
+}
+////////////////////////////////////////////////////////////
+
+function RemoveDeployedTurret(optional int Index = INDEX_NONE, optional Actor TurretActor)
+{
+	if (Index == INDEX_NONE)
+	{
+		if (TurretActor != None)
+			Index = KFPC.DeployedTurrets.Find(TurretActor);
+	}
+
+	if (Index != INDEX_NONE)
+	{
+		KFPC.DeployedTurrets.Remove(Index, 1);
+		NumDeployedTurrets = GetDeployedTurrets();
+		bForceNetUpdate = True;
+	}
+}
+
+function SetOriginalValuesFromPickup(KFWeapon PickedUpWeapon)
+{
+	local int i;
+
+	super(KFWeap_ThrownBase).SetOriginalValuesFromPickup(PickedUpWeapon);
+
+	if (PickedUpWeapon.KFPlayer != None && PickedUpWeapon.KFPlayer != KFPC)
+	{
+		for (i = 0; i < PickedUpWeapon.KFPlayer.DeployedTurrets.Length; ++i)
+		{
+			if (PickedUpWeapon.KFPlayer.DeployedTurrets[i].Owner == PickedUpWeapon)
+			{
+				KFPC.DeployedTurrets.AddItem(PickedUpWeapon.KFPlayer.DeployedTurrets[i]);
+				PickedUpWeapon.KFPlayer.DeployedTurrets.Remove(i, 1);
+				i--;
+			}
+		}
+	}
+
+	for (i = 0; i < KFPC.DeployedTurrets.Length; ++i)
+	{
+		if (KFPC.DeployedTurrets[i].Owner == None || KFPC.DeployedTurrets[i].Owner == PickedUpWeapon)
+		{
+			KFPC.DeployedTurrets[i].Instigator = Instigator;
+			KFPC.DeployedTurrets[i].SetOwner(self);
+
+			if (Instigator.Controller != None)
+				KFPawn_AutoTurret(KFPC.DeployedTurrets[i]).InstigatorController = Instigator.Controller;
+		}
+	}
+
+	if (GetDeployedTurrets() > 1)
+		Detonate(True);
+
+	PickedUpWeapon.KFPlayer = None;
+
+	NumDeployedTurrets = GetDeployedTurrets();
+	bForceNetUpdate = True;
+}
+
 simulated function Projectile ProjectileFire()
 {
 	local vector SpawnLocation, SpawnDirection;
@@ -32,7 +140,7 @@ simulated function Projectile ProjectileFire()
 			SpawnedActor.SetTurretState(ETS_Throw);
 
 			KFPC.DeployedTurrets.AddItem(SpawnedActor);
-			NumDeployedTurrets = KFPC.DeployedTurrets.Length;
+			NumDeployedTurrets = GetDeployedTurrets();
 			bTurretReadyToUse = False;
 			bForceNetUpdate = True;
 		}
@@ -43,20 +151,6 @@ simulated function Projectile ProjectileFire()
 		return super(KFWeap_ThrownBase).ProjectileFire();
 
 	return None;
-}
-
-simulated function int GetMaxTurrets()
-{
-	local KFPerk InstigatorPerk;
-	local int MaxTurrets;
-
-	MaxTurrets = default.MaxTurretsDeployedZedternal;
-
-	InstigatorPerk = GetPerk();
-	if (WMPerk(InstigatorPerk) != None)
-		WMPerk(InstigatorPerk).ModifyMaxDeployed(MaxTurrets, self);
-
-	return MaxTurrets;
 }
 
 simulated function DetonateFinished()
@@ -82,7 +176,7 @@ simulated function Detonate(optional bool bKeepTurret = False)
 		else // Blow them all up
 			MaxTurrets = 0;
 
-		TurretsCopy = KFPC.DeployedTurrets;
+		GetAllTurrets(TurretsCopy);
 		for (i = 0; i < TurretsCopy.Length; ++i)
 		{
 			if (bKeepTurret && i >= (TurretsCopy.Length - MaxTurrets))
@@ -104,7 +198,7 @@ simulated function DetonateExcess()
 	{
 		MaxTurrets = GetMaxTurrets();
 
-		TurretsCopy = KFPC.DeployedTurrets;
+		GetAllTurrets(TurretsCopy);
 		for (i = 0; i < TurretsCopy.Length; ++i)
 		{
 			if (i > (TurretsCopy.Length - MaxTurrets))
