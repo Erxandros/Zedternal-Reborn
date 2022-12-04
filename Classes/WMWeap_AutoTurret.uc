@@ -277,7 +277,7 @@ simulated function PrepareAndDetonateExcess()
 
 defaultproperties
 {
-	TurretPawn=class'KFGameContent.KFPawn_AutoTurret';
+	TurretPawn=class'ZedternalReborn.WMPawn_AutoTurret';
 	TurretWeapon=class'KFGameContent.KFWeap_AutoTurretWeapon';
 
 	MaxTurretsDeployedZedternal=1

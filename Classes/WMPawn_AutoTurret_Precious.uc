@@ -1,4 +1,4 @@
-class WMPawn_AutoTurret_Precious extends KFPawn_AutoTurret
+class WMPawn_AutoTurret_Precious extends WMPawn_AutoTurret
 	notplaceable;
 
 defaultproperties
