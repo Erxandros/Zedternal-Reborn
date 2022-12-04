@@ -79,6 +79,11 @@ static function UpdateConfig()
 		NewItem.PriceMultiplier = 2.0f;
 		NewItem.bIsStatic = True;
 		default.WeaponUpgrade_Upgrade.AddItem(NewItem);
+
+		NewItem.WeaponPath = "ZedternalReborn.WMUpgrade_Weapon_TurretVision";
+		NewItem.PriceMultiplier = 0.15f;
+		NewItem.bIsStatic = False;
+		default.WeaponUpgrade_Upgrade.AddItem(NewItem);
 	}
 
 	if (default.MODEVERSION < class'ZedternalReborn.Config_Base'.const.CurrentVersion)
