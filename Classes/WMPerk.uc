@@ -3608,6 +3608,49 @@ simulated function ModifyMaxDeployed(out int CurrentMaxDeployed, KFWeapon KFW)
 	}
 }
 
+simulated function bool CanSeeCloaked(KFWeapon KFW)
+{
+	local int i, index;
+	local bool bSeeCloaked;
+
+	if (MyWMPRI != None && MyWMGRI != None)
+	{
+		for (i = 0; i < MyWMPRI.Purchase_WeaponUpgrade.Length; ++i)
+		{
+			index = MyWMPRI.Purchase_WeaponUpgrade[i];
+			if (isValidWeapon(MyWMGRI.WeaponUpgradeSlotsList[index].KFWeapon, KFW))
+			{
+				bSeeCloaked = MyWMGRI.WeaponUpgradeSlotsList[index].WeaponUpgrade.static.CanSeeCloaked(MyWMPRI.GetWeaponUpgrade(index), KFW, OwnerPawn);
+				if (bSeeCloaked)
+					return True;
+			}
+		}
+		for (i = 0; i < MyWMPRI.Purchase_PerkUpgrade.Length; ++i)
+		{
+			index = MyWMPRI.Purchase_PerkUpgrade[i];
+			bSeeCloaked = MyWMGRI.PerkUpgradesList[index].PerkUpgrade.static.CanSeeCloaked(MyWMPRI.bPerkUpgrade[index], KFW, OwnerPawn);
+			if (bSeeCloaked)
+				return True;
+		}
+		for (i = 0; i < MyWMPRI.Purchase_EquipmentUpgrade.Length; ++i)
+		{
+			index = MyWMPRI.Purchase_EquipmentUpgrade[i];
+			bSeeCloaked = MyWMGRI.EquipmentUpgradesList[index].EquipmentUpgrade.static.CanSeeCloaked(MyWMPRI.bEquipmentUpgrade[index], KFW, OwnerPawn);
+			if (bSeeCloaked)
+				return True;
+		}
+		for (i = 0; i < MyWMPRI.Purchase_SkillUpgrade.Length; ++i)
+		{
+			index = MyWMPRI.Purchase_SkillUpgrade[i];
+			bSeeCloaked = MyWMGRI.SkillUpgradesList[index].SkillUpgrade.static.CanSeeCloaked(MyWMPRI.bSkillUpgrade[index], KFW, OwnerPawn);
+			if (bSeeCloaked)
+				return True;
+		}
+	}
+
+	return False;
+}
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Universal extension functions (they are used for advance extension mods and addons)

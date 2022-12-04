@@ -179,6 +179,12 @@ static simulated function bool ImmuneToCameraShake(int upgLevel, KFPawn OwnerPaw
 	return False;
 }
 
+//For sentinel, could be used for other turret based weapons
+static simulated function bool CanSeeCloaked(int upgLevel, KFWeapon KFW, KFPawn OwnerPawn)
+{
+	return False;
+}
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Optimized function (they are called only one time)
