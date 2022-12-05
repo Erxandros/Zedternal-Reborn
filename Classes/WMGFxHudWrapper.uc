@@ -219,27 +219,27 @@ event DrawHUD()
 			// Stacked zed buffs
 			if (WMGRI.ActiveZedBuffs[i] > 1)
 			{
-				size = 0.6f;
+				size = 0.9f;
 				buffStack = "x" $ string(WMGRI.ActiveZedBuffs[i]);
 
 				//draw shadow
 				Canvas.SetDrawColor(0, 0, 0, 100);
-				Canvas.SetPos(X + 1, Y + 2);
+				Canvas.SetPos(X + (buffIcon.SizeX / 5) - 2, Y + 2);
 				Canvas.DrawText(buffStack, True, size, size);
 
 				//draw outlines
 				Canvas.SetDrawColor(0, 0, 0, 255);
-				Canvas.SetPos(X + 2, Y - 1);
+				Canvas.SetPos(X + (buffIcon.SizeX / 5) - 1, Y - 1);
 				Canvas.DrawText(buffStack, True, size, size);
-				Canvas.SetPos(X + 2, Y + 1);
+				Canvas.SetPos(X + (buffIcon.SizeX / 5) - 1, Y + 1);
 				Canvas.DrawText(buffStack, True, size, size);
-				Canvas.SetPos(X + 4, Y - 1);
+				Canvas.SetPos(X + (buffIcon.SizeX / 5) + 1, Y - 1);
 				Canvas.DrawText(buffStack, True, size, size);
-				Canvas.SetPos(X + 4, Y + 1);
+				Canvas.SetPos(X + (buffIcon.SizeX / 5) + 1, Y + 1);
 				Canvas.DrawText(buffStack, True, size, size);
 
 				//draw text
-				Canvas.SetPos(X + 3, Y);
+				Canvas.SetPos(X + (buffIcon.SizeX / 5), Y);
 				Canvas.SetDrawColor(225, 20, 20, 255);
 				Canvas.DrawText(buffStack, True, size, size);
 			}
