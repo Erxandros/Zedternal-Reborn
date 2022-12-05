@@ -12,6 +12,12 @@ static function UpdateConfig()
 		default.WeaponUpgrade_NumberUpgradePerWeapon = 3;
 	}
 
+	if (default.MODEVERSION < 15)
+	{
+		if (default.WeaponUpgrade_NumberUpgradePerWeapon == 3)
+			default.WeaponUpgrade_NumberUpgradePerWeapon = 5;
+	}
+
 	if (default.MODEVERSION < class'ZedternalReborn.Config_Base'.const.CurrentVersion)
 	{
 		default.MODEVERSION = class'ZedternalReborn.Config_Base'.const.CurrentVersion;
