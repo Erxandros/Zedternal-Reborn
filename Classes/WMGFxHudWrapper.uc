@@ -152,6 +152,9 @@ event DrawHUD()
 		else
 			buffTitle = WMGRI.ZedBuffsList[zedBuffIndex - 1].ZedBuff.default.BuffDescription;
 
+		if (WMGRI.ActiveZedBuffs[zedBuffIndex - 1] > 1)
+			buffTitle = buffTitle @ "x" $ WMGRI.ActiveZedBuffs[zedBuffIndex - 1];
+
 		Canvas.StrLen(buffTitle, XL, YL);
 		XL *= size;
 		YL *= size;
