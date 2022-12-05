@@ -75,6 +75,10 @@ static function UpdateConfig()
 
 	if (default.MODEVERSION < 15)
 	{
+		i = default.WeaponUpgrade_Upgrade.Find('WeaponPath', "ZedternalReborn.WMUpgrade_Weapon_Damage");
+		if (i != INDEX_NONE && default.WeaponUpgrade_Upgrade[i].MaxLevel == 3)
+			default.WeaponUpgrade_Upgrade[i].MaxLevel = 5;
+
 		NewItem.WeaponPath = "ZedternalReborn.WMUpgrade_Weapon_TurretAmmo";
 		NewItem.PriceMultiplier = 0.6f;
 		default.WeaponUpgrade_Upgrade.AddItem(NewItem);
