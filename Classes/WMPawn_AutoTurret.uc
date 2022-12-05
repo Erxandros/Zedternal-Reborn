@@ -1,6 +1,8 @@
 class WMPawn_AutoTurret extends KFPawn_AutoTurret
 	notplaceable;
 
+var bool bAmmoSet;
+
 simulated function bool PawnCloakingStatus(const out KFPawn Target)
 {
 	if (OwnerWeapon != None && OwnerWeapon.GetPerk() != None && WMPerk(OwnerWeapon.GetPerk()) != None)
@@ -10,6 +12,20 @@ simulated function bool PawnCloakingStatus(const out KFPawn Target)
 	}
 
 	return Target.bIsCloaking;
+}
+
+simulated function UpdateWeaponUpgrade(int UpgradeIndex)
+{
+	if (Weapon != None)
+	{
+		TurretWeapon.SetWeaponUpgradeLevel(UpgradeIndex);
+
+		if (!bAmmoSet)
+		{
+			TurretWeapon.AmmoCount[0] = TurretWeapon.MagazineCapacity[0];
+			bAmmoSet = True;
+		}
+	}
 }
 
 simulated state Combat
@@ -146,5 +162,7 @@ function CheckForTargets()
 
 defaultproperties
 {
+	bAmmoSet=False
+
 	Name="Default__WMPawn_AutoTurret"
 }
