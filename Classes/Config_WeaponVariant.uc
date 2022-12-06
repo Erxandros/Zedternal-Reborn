@@ -291,6 +291,10 @@ static function UpdateConfig()
 		NewVariant.WeaponDefVariant = "ZedternalReborn.WMWeapDef_HRG_BallisticBouncer_Precious";
 		default.Weapon_VariantWeaponDef.AddItem(NewVariant);
 
+		NewVariant.WeaponDef = "KFGame.KFWeapDef_HRG_MedicMissile";
+		NewVariant.WeaponDefVariant = "ZedternalReborn.WMWeapDef_HRG_MedicMissile_Precious";
+		default.Weapon_VariantWeaponDef.AddItem(NewVariant);
+
 		NewVariant.WeaponDef = "KFGame.KFWeapDef_HVStormCannon";
 		NewVariant.WeaponDefVariant = "ZedternalReborn.WMWeapDef_HVStormCannon_Precious";
 		default.Weapon_VariantWeaponDef.AddItem(NewVariant);
