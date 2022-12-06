@@ -298,6 +298,10 @@ static function UpdateConfig()
 		NewVariant.WeaponDef = "KFGame.KFWeapDef_HVStormCannon";
 		NewVariant.WeaponDefVariant = "ZedternalReborn.WMWeapDef_HVStormCannon_Precious";
 		default.Weapon_VariantWeaponDef.AddItem(NewVariant);
+
+		NewVariant.WeaponDef = "KFGame.KFWeapDef_ZedMKIII";
+		NewVariant.WeaponDefVariant = "ZedternalReborn.WMWeapDef_ZedMKIII_Precious";
+		default.Weapon_VariantWeaponDef.AddItem(NewVariant);
 	}
 
 	if (default.MODEVERSION < class'ZedternalReborn.Config_Base'.const.CurrentVersion)

@@ -229,5 +229,6 @@ defaultproperties
 	PreciousDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_ThermiteBore_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_ThermiteBore"));
 	PreciousDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_Thompson_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_Thompson"));
 	PreciousDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_Winchester1894_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_Winchester1894"));
+	PreciousDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_ZedMKIII_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_ZedMKIII"));
 	PreciousDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_Zweihander_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_Zweihander"));
 }
