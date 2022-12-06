@@ -19,6 +19,6 @@ static function string GetItemLocalization(string KeyName)
 defaultproperties
 {
 	WeaponClassPath="ZedternalReborn.WMWeap_AssaultRifle_Doshinegun_Precious"
-	BuyPrice=1200
+	BuyPrice=800
 	Name="Default__WMWeapDef_Doshinegun_Precious"
 }

@@ -3,12 +3,12 @@ class WMWeap_AssaultRifle_Doshinegun_Precious extends WMWeap_AssaultRifle_Doshin
 defaultproperties
 {
 	MagazineCapacity(0)=40
-	InstantHitDamage(ALTFIRE_FIREMODE)=81
+	InstantHitDamage(ALTFIRE_FIREMODE)=108
 	WeaponProjectiles(ALTFIRE_FIREMODE)=class'ZedternalReborn.WMProj_Dosh_Precious'
 	InstantHitDamage(BASH_FIREMODE)=36
-	InstantHitDamage(DEFAULT_FIREMODE)=81
+	InstantHitDamage(DEFAULT_FIREMODE)=108
 	WeaponProjectiles(DEFAULT_FIREMODE)=class'ZedternalReborn.WMProj_Dosh_Precious'
-	DoshCost=28
+	DoshCost=14
 	DroppedPickupClass=class'ZedternalReborn.WMPreciousDroppedPickup'
 	Name="Default__WMWeap_AssaultRifle_Doshinegun_Precious"
 }
