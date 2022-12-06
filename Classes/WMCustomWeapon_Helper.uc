@@ -175,6 +175,7 @@ defaultproperties
 	PreciousDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_HRGTeslauncher_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_HRGTeslauncher"));
 	PreciousDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_HRGWinterbite_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_HRGWinterbite"));
 	PreciousDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_HuskCannon_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_HuskCannon"));
+	PreciousDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_HVStormCannon_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_HVStormCannon"));
 	PreciousDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_HX25_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_HX25"));
 	PreciousDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_HZ12_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_HZ12"));
 	PreciousDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_IonThruster_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_IonThruster"));
