@@ -287,6 +287,10 @@ static function UpdateConfig()
 
 	if (default.MODEVERSION < 15)
 	{
+		NewVariant.WeaponDef = "KFGame.KFWeapDef_HRG_BallisticBouncer";
+		NewVariant.WeaponDefVariant = "ZedternalReborn.WMWeapDef_HRG_BallisticBouncer_Precious";
+		default.Weapon_VariantWeaponDef.AddItem(NewVariant);
+
 		NewVariant.WeaponDef = "KFGame.KFWeapDef_HVStormCannon";
 		NewVariant.WeaponDefVariant = "ZedternalReborn.WMWeapDef_HVStormCannon_Precious";
 		default.Weapon_VariantWeaponDef.AddItem(NewVariant);

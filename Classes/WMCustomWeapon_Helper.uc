@@ -156,6 +156,7 @@ defaultproperties
 	PreciousDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_Healthrower_HRG_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_Healthrower_HRG"));
 	PreciousDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_Hemogoblin_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_Hemogoblin"));
 	PreciousDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_HK_UMP_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_HK_UMP"));
+	PreciousDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_HRG_BallisticBouncer_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_HRG_BallisticBouncer"));
 	PreciousDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_HRG_BarrierRifle_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_HRG_BarrierRifle"));
 	PreciousDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_HRG_BlastBrawlers_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_HRG_BlastBrawlers"));
 	PreciousDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_HRG_Boomy_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_HRG_Boomy"));
