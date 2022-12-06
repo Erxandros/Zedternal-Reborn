@@ -2574,6 +2574,8 @@ function UpdateGameSettings()
 	local int NumHumanPlayers, i;
 	local KFGameEngine KFEngine;
 
+	super(KFGameInfo).UpdateGameSettings();
+
 	if (WorldInfo.NetMode == NM_DedicatedServer || WorldInfo.NetMode == NM_ListenServer)
 	{
 		if (GameInterface != None)
