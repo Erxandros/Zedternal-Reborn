@@ -2,9 +2,9 @@ class WMWeap_ZedMKIII_Precious extends KFWeap_ZedMKIII;
 
 defaultproperties
 {
-	MagazineCapacity(0)=200
+	MagazineCapacity(0)=100
 	AmmoPickupScale(0)=0.5
-	SpareAmmoCapacity(0)=560
+	SpareAmmoCapacity(0)=490
 	InstantHitDamage(ALTFIRE_FIREMODE)=135
 	WeaponProjectiles(ALTFIRE_FIREMODE)=class'ZedternalReborn.WMProj_Rocket_ZedMKIII_Precious'
 	InstantHitDamage(BASH_FIREMODE)=37

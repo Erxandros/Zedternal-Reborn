@@ -20,6 +20,6 @@ defaultproperties
 {
 	WeaponClassPath="ZedternalReborn.WMWeap_ZedMKIII_Precious"
 	BuyPrice=4000
-	AmmoPricePerMag=168
+	AmmoPricePerMag=210
 	Name="Default__WMWeapDef_ZedMKIII_Precious"
 }
