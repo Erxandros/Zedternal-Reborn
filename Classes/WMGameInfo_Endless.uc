@@ -2042,7 +2042,7 @@ function S_Weapon_Data CheckForWeaponOverrides(S_Weapon_Data WepData)
 			WeapDefPath[b] = class<KFWeaponDefinition>(DynamicLoadObject("ZedternalReborn.WMWeapDef_M16M203", class'Class'));
 		else if (WeapDefinitionPath ~= "KFGame.KFWeapDef_HRGIncendiaryRifle")
 			WeapDefPath[b] = class<KFWeaponDefinition>(DynamicLoadObject("ZedternalReborn.WMWeapDef_HRGIncendiaryRifle", class'Class'));
-		else if (WeapDefinitionPath ~= "KFGameContent.KFWeapDef_HRGTeslauncher")
+		else if (WeapDefinitionPath ~= "KFGame.KFWeapDef_HRGTeslauncher")
 			WeapDefPath[b] = class<KFWeaponDefinition>(DynamicLoadObject("ZedternalReborn.WMWeapDef_HRGTeslauncher", class'Class'));
 		else if (WeapDefinitionPath ~= "KFGame.KFWeapDef_MedicRifleGrenadeLauncher")
 			WeapDefPath[b] = class<KFWeaponDefinition>(DynamicLoadObject("ZedternalReborn.WMWeapDef_MedicRifleGrenadeLauncher", class'Class'));
