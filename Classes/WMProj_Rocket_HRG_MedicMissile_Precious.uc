@@ -1,4 +1,4 @@
-class WMProj_Rocket_HRG_MedicMissile_Precious extends KFProj_Rocket_HRG_MedicMissile
+class WMProj_Rocket_HRG_MedicMissile_Precious extends WMProj_Rocket_HRG_MedicMissile
 	hidedropdown;
 
 defaultproperties

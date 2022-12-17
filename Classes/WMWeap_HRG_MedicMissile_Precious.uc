@@ -1,4 +1,4 @@
-class WMWeap_HRG_MedicMissile_Precious extends KFWeap_HRG_MedicMissile;
+class WMWeap_HRG_MedicMissile_Precious extends WMWeap_HRG_MedicMissile;
 
 defaultproperties
 {

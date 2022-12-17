@@ -112,6 +112,7 @@ defaultproperties
 	OverrideDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_Doshinegun",OriginalWeaponDefPath="KFGame.KFWeapDef_Doshinegun"));
 	OverrideDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_HRG_BlastBrawlers",OriginalWeaponDefPath="KFGame.KFWeapDef_HRG_BlastBrawlers"));
 	OverrideDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_HRG_Dragonbreath",OriginalWeaponDefPath="KFGame.KFWeapDef_HRG_Dragonbreath"));
+	OverrideDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_HRG_MedicMissile",OriginalWeaponDefPath="KFGame.KFWeapDef_HRG_MedicMissile"));
 	OverrideDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_HRGIncendiaryRifle",OriginalWeaponDefPath="KFGame.KFWeapDef_HRGIncendiaryRifle"));
 	OverrideDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_HRGTeslauncher",OriginalWeaponDefPath="KFGameContent.KFWeapDef_HRGTeslauncher"));
 	OverrideDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_M16M203",OriginalWeaponDefPath="KFGame.KFWeapDef_M16M203"));
