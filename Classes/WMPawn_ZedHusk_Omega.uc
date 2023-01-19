@@ -115,7 +115,8 @@ function ANIMNOTIFY_HuskRandomFireballAttack()
 		if (HuskAIC != None)
 		{
 			FireballBarrageSM = WMSM_Husk_Omega_FireBallBarrageAttack(SpecialMoves[SpecialMove]);
-			HuskAIC.ShootFireballBarrage(default.SuicideFireballClass, FireballBarrageSM.GetFireOffset());
+			if (FireballBarrageSM != None)
+				HuskAIC.ShootFireballBarrage(default.SuicideFireballClass, FireballBarrageSM.GetFireOffset());
 		}
 	}
 }

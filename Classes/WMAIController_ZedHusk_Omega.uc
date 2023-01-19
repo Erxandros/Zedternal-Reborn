@@ -166,7 +166,7 @@ function ShootFireballBarrage(class<KFProj_Husk_Fireball> FireballClass, vector 
 	}
 
 	SocketLocation = MyKFPawn.GetPawnViewLocation() + (FireballOffset >> Pawn.GetViewRotation());
-	if (MyKFPawn.Health > 0.0f && Role == ROLE_Authority)
+	if (Role == ROLE_Authority && Enemy != None && MyKFPawn.Health > 0.0f)
 	{
 		AimLocation = Enemy.Location;
 
