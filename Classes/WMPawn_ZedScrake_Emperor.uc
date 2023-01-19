@@ -30,10 +30,10 @@ defaultproperties
 	ScrakeOmegaAnimInfo=KFPawnAnimInfo'ZedternalReborn_Zeds.Scrake.Scrake_Omega_AnimGroup'
 	DifficultySettings=class'ZedternalReborn.WMDifficulty_Scrake_Emperor'
 
-	RageHealthThresholdNormal=0.2f
-	RageHealthThresholdHard=0.225f
-	RageHealthThresholdSuicidal=0.25f
-	RageHealthThresholdHellOnEarth=0.275f
+	RageHealthThresholdNormal=0.25f
+	RageHealthThresholdHard=0.3f
+	RageHealthThresholdSuicidal=0.35f
+	RageHealthThresholdHellOnEarth=0.4f
 
 	bVersusZed=False
 	DoshValue=400
