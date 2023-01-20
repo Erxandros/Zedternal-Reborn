@@ -139,8 +139,14 @@ function CheckForTargets()
 	{
 		HitActor = Trace(HitLocation, HitNormal, CurrentTarget.Mesh.GetBoneLocation('Spine1'), MuzzleLoc, , , , TRACEFLAG_Bullet);
 
-		if (!CurrentTarget.IsAliveAndWell() || PawnCloakingStatus(CurrentTarget) || HitActor == None || KFPawn_Monster(HitActor) == None)
+		if (!CurrentTarget.IsAliveAndWell()
+			|| PawnCloakingStatus(CurrentTarget)
+			|| HitActor == None
+			|| KFPawn_Monster(HitActor) == None
+			|| HitActor.GetTeamNum() != 255)
+		{
 			continue;
+		}
 
 		Distance = VSizeSq(Location - CurrentTarget.Location);
 
