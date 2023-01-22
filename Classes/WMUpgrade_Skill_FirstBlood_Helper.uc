@@ -2,6 +2,7 @@ class WMUpgrade_Skill_FirstBlood_Helper extends Info
 	transient;
 
 var bool bActive;
+var float Time;
 
 function PostBeginPlay()
 {
@@ -11,14 +12,26 @@ function PostBeginPlay()
 		Destroy();
 }
 
-function SetFirstBlood(bool bEnable)
+function StartFirstBloodTimer()
 {
-	bActive = bEnable;
+	if (!IsTimerActive(NameOf(DisableFirstBloodFlag)))
+		SetTimer(Time, False, NameOf(DisableFirstBloodFlag));
+}
+
+function DisableFirstBloodFlag()
+{
+	bActive = False;
+}
+
+function EnableFirstBloodFlag()
+{
+	bActive = True;
 }
 
 defaultproperties
 {
 	bActive=True
+	Time=0.5f
 
 	Name="Default__WMUpgrade_Skill_FirstBlood_Helper"
 }

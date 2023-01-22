@@ -12,7 +12,7 @@ static function ModifyDamageGiven(out int InDamage, int DefaultDamage, int upgLe
 		if (UPG != None && UPG.bActive)
 		{
 			InDamage += DefaultDamage * FMin(default.DamageMax[upgLevel - 1], default.DamageDelta[upgLevel - 1] * MyKFW.MagazineCapacity[0]);
-			UPG.SetFirstBlood(False);
+			UPG.StartFirstBloodTimer();
 		}
 	}
 }
@@ -44,7 +44,7 @@ static simulated function GetReloadRateScale(out float InReloadRateScale, int up
 	{
 		UPG = GetHelper(OwnerPawn);
 		if (UPG != None)
-			UPG.SetFirstBlood(True);
+			UPG.EnableFirstBloodFlag();
 	}
 }
 
