@@ -50,7 +50,6 @@ var array<S_Spawn_Group> GroupList;
 struct S_Stuck_Zed
 {
 	var KFPawn_Monster Zed;
-	var vector LastLoc;
 	var int CountDown;
 };
 var array<S_Stuck_Zed> LastZedInfo;
@@ -598,10 +597,10 @@ function CheckStuckZed()
 	local int i;
 	local bool bFound;
 
-	// remove dead tracked zedClass
+	// Remove dead tracked Zeds
 	for (i = 0; i < LastZedInfo.Length; ++i)
 	{
-		if (LastZedInfo[i].Zed == None || LastZedInfo[i].Zed.Health <= 0)
+		if (LastZedInfo[i].Zed == None || LastZedInfo[i].Zed.Health <= 0  || !LastZedInfo[i].Zed.IsAliveAndWell())
 		{
 			LastZedInfo.Remove(i, 1);
 			--i;
@@ -611,41 +610,47 @@ function CheckStuckZed()
 	foreach DynamicActors(class'KFPawn_Monster', KFM)
 	{
 		bFound = False;
-		// check if we are currently tracking this monster
+		// Check if we are currently tracking this Zed
 		for (i = 0; i < LastZedInfo.Length; ++i)
 		{
 			if (LastZedInfo[i].Zed == KFM)
 			{
-				bFound = True;	// yes, we are currently tracking this monster
 				--LastZedInfo[i].CountDown;
-				// run this section if this monster is in the world for more than X seconds (when countdown reach 0)
+				bFound = True;	// Yes, we are currently tracking this Zed
 				if (LastZedInfo[i].CountDown <= 0)
 				{
-					// if stuck and near full health, teleport it
+					// If stuck and near full health, respawn the Zed
 					if (KFM.Health >= (KFM.HealthMax * 0.9f))
 					{
 						`log("ZR Info: Zed" @ KFM.Name @ "is considered stuck. Respawning Zed");
-						GroupList.Insert(0,1);
+
+						// Insert a new Zed into the GroupList
+						GroupList.Insert(0, 1);
 						GroupList[0].ZedClasses.AddItem(KFM.default.class);
 						GroupList[0].Delay = 1.0f;
+
+						// Increment Zed counter by 1
 						++WaveTotalAI;
 						++KFGameReplicationInfo(WorldInfo.GRI).AIRemaining;
 
-						// kill zed
+						// Kill stuck Zed
+						LastZedInfo.Remove(i, 1);
 						KFM.Died(None, None, KFM.Location);
 					}
 				}
-				else
-					--LastZedInfo[i].CountDown;
+
+				// Break out of the for loop
+				break;
 			}
 		}
 
-		// if new zed
+		// If new zed
 		if (!bFound)
 		{
 			LastZedInfo.Insert(0, 1);
 			LastZedInfo[0].Zed = KFM;
-			LastZedInfo[0].CountDown = class'ZedternalReborn.Config_Map'.static.GetZedStuckTimeout(WorldInfo.GetMapName(True)); // will be teleported after 2.5 minutes or user defined time
+			// will be teleported after 2.5 minutes or user defined time
+			LastZedInfo[0].CountDown = class'ZedternalReborn.Config_Map'.static.GetZedStuckTimeout(WorldInfo.GetMapName(True));
 		}
 	}
 }
