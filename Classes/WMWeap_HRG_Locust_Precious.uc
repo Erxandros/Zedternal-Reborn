@@ -1,4 +1,4 @@
-class WMWeap_HRG_Locust_Precious extends KFWeap_HRG_Locust;
+class WMWeap_HRG_Locust_Precious extends WMWeap_HRG_Locust;
 
 defaultproperties
 {
