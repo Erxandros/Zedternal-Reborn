@@ -7,7 +7,7 @@ function AdjustDamage(out int InDamage, class<DamageType> DamageType, Actor Dama
 
 defaultproperties
 {
-	WeaponProjectiles(ALTFIRE_FIREMODE)=class'WMProj_HRG_Locust'
-	WeaponProjectiles(DEFAULT_FIREMODE)=class'WMProj_HRG_Locust'
+	WeaponProjectiles(ALTFIRE_FIREMODE)=class'ZedternalReborn.WMProj_HRG_Locust'
+	WeaponProjectiles(DEFAULT_FIREMODE)=class'ZedternalReborn.WMProj_HRG_Locust'
 	Name="Default__WMWeap_HRG_Locust"
 }
