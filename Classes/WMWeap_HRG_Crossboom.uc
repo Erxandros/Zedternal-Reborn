@@ -4,7 +4,7 @@ function AdjustDamage(out int InDamage, class<DamageType> DamageType, Actor Dama
 {
 	super(KFWeap_ScopedBase).AdjustDamage(InDamage, DamageType, DamageCauser);
 
-	if (Instigator != None && DamageCauser.Instigator == Instigator
+	if (Instigator != None && DamageCauser != None && DamageCauser.Instigator == Instigator
 		&& (ClassIsChildOf(DamageType, class'KFGameContent.KFDT_Explosive_HRG_Crossboom')
 		|| ClassIsChildOf(DamageType, class'KFGameContent.KFDT_Explosive_HRG_CrossboomAlt')))
 	{
