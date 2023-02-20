@@ -70,7 +70,8 @@ simulated state Combat
 				if (!EnemyTarget.IsAliveAndWell()
 					|| PawnCloakingStatus(EnemyTarget)
 					|| VSizeSq(EnemyTarget.Location - Location) > EffectiveRadius * EffectiveRadius
-					|| (HitActor != None && KFPawn_Monster(HitActor) == None && KFPawn_Human(HitActor) == None))
+					|| (HitActor != None && KFPawn_Monster(HitActor) == None && KFPawn_Human(HitActor) == None)
+					|| EnemyTarget.GetTeamNum() != 255)
 				{
 					EnemyTarget = None;
 					CheckForTargets();
