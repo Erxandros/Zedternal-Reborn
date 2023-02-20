@@ -1,4 +1,4 @@
-class WMWeap_GravityImploder_Precious extends KFWeap_GravityImploder;
+class WMWeap_GravityImploder_Precious extends WMWeap_GravityImploder;
 
 defaultproperties
 {
