@@ -2040,6 +2040,8 @@ function S_Weapon_Data CheckForWeaponOverrides(S_Weapon_Data WepData)
 			WeapDefPath[b] = class<KFWeaponDefinition>(DynamicLoadObject("ZedternalReborn.WMWeapDef_Doshinegun", class'Class'));
 		else if (WeapDefinitionPath ~= "KFGame.KFWeapDef_HRG_BlastBrawlers")
 			WeapDefPath[b] = class<KFWeaponDefinition>(DynamicLoadObject("ZedternalReborn.WMWeapDef_HRG_BlastBrawlers", class'Class'));
+		else if (WeapDefinitionPath ~= "KFGame.KFWeapDef_HRG_Crossboom")
+			WeapDefPath[b] = class<KFWeaponDefinition>(DynamicLoadObject("ZedternalReborn.WMWeapDef_HRG_Crossboom", class'Class'));
 		else if (WeapDefinitionPath ~= "KFGame.KFWeapDef_HRG_Dragonbreath")
 			WeapDefPath[b] = class<KFWeaponDefinition>(DynamicLoadObject("ZedternalReborn.WMWeapDef_HRG_Dragonbreath", class'Class'));
 		else if (WeapDefinitionPath ~= "KFGame.KFWeapDef_HRG_Locust")

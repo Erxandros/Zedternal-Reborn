@@ -1,4 +1,4 @@
-class WMWeap_HRG_Crossboom_Precious extends KFWeap_HRG_Crossboom;
+class WMWeap_HRG_Crossboom_Precious extends WMWeap_HRG_Crossboom;
 
 defaultproperties
 {
