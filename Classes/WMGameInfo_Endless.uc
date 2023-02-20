@@ -2068,6 +2068,8 @@ function S_Weapon_Data CheckForWeaponOverrides(S_Weapon_Data WepData)
 			WeapDefPath[b] = class<KFWeaponDefinition>(DynamicLoadObject("ZedternalReborn.WMWeapDef_Nailgun_HRG", class'Class'));
 		else if (WeapDefinitionPath ~= "KFGame.KFWeapDef_SealSqueal")
 			WeapDefPath[b] = class<KFWeaponDefinition>(DynamicLoadObject("ZedternalReborn.WMWeapDef_SealSqueal", class'Class'));
+		else if (WeapDefinitionPath ~= "KFGame.KFWeapDef_ThermiteBore")
+			WeapDefPath[b] = class<KFWeaponDefinition>(DynamicLoadObject("ZedternalReborn.WMWeapDef_ThermiteBore", class'Class'));
 
 		if (!(WeapDefinitionPath ~= PathName(WeapDefPath[b])))
 		{

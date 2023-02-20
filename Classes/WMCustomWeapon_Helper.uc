@@ -125,6 +125,7 @@ defaultproperties
 	OverrideDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_Nailgun",OriginalWeaponDefPath="KFGame.KFWeapDef_Nailgun"));
 	OverrideDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_Nailgun_HRG",OriginalWeaponDefPath="KFGame.KFWeapDef_Nailgun_HRG"));
 	OverrideDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_SealSqueal",OriginalWeaponDefPath="KFGame.KFWeapDef_SealSqueal"));
+	OverrideDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_ThermiteBore",OriginalWeaponDefPath="KFGame.KFWeapDef_ThermiteBore"));
 
 	//Precious Weapons
 	PreciousDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_AA12_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_AA12"));

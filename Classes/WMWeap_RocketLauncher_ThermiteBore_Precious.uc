@@ -1,4 +1,4 @@
-class WMWeap_RocketLauncher_ThermiteBore_Precious extends KFWeap_RocketLauncher_ThermiteBore;
+class WMWeap_RocketLauncher_ThermiteBore_Precious extends WMWeap_RocketLauncher_ThermiteBore;
 
 defaultproperties
 {
