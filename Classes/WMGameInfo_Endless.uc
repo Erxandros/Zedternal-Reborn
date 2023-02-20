@@ -2036,6 +2036,8 @@ function S_Weapon_Data CheckForWeaponOverrides(S_Weapon_Data WepData)
 
 		if (WeapDefinitionPath ~= "KFGame.KFWeapDef_AutoTurret")
 			WeapDefPath[b] = class<KFWeaponDefinition>(DynamicLoadObject("ZedternalReborn.WMWeapDef_AutoTurret", class'Class'));
+		else if (WeapDefinitionPath ~= "KFGame.KFWeapDef_Blunderbuss")
+			WeapDefPath[b] = class<KFWeaponDefinition>(DynamicLoadObject("ZedternalReborn.WMWeapDef_Blunderbuss", class'Class'));
 		else if (WeapDefinitionPath ~= "KFGame.KFWeapDef_Doshinegun")
 			WeapDefPath[b] = class<KFWeaponDefinition>(DynamicLoadObject("ZedternalReborn.WMWeapDef_Doshinegun", class'Class'));
 		else if (WeapDefinitionPath ~= "KFGame.KFWeapDef_GravityImploder")

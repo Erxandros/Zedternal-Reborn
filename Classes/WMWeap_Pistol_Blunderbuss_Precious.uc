@@ -1,4 +1,4 @@
-class WMWeap_Pistol_Blunderbuss_Precious extends KFWeap_Pistol_Blunderbuss;
+class WMWeap_Pistol_Blunderbuss_Precious extends WMWeap_Pistol_Blunderbuss;
 
 defaultproperties
 {
