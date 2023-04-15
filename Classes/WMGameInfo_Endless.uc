@@ -255,6 +255,14 @@ function Logout(Controller Exiting)
 		DamageIndicator.NotifyLogout(Exiting);
 }
 
+function UnregisterPlayer(PlayerController PC)
+{
+	super.UnregisterPlayer(PC);
+
+	if (GetNumPlayers() == 0 && MyKFGRI.bIsEndlessPaused)
+		ResumeEndlessGame();
+}
+
 function GenericPlayerInitialization(Controller C)
 {
 	super.GenericPlayerInitialization(C);
