@@ -17,6 +17,8 @@ var config S_Difficulty_Int Game_WeaponPickupDespawnTime;
 
 var config S_Difficulty_Bool Game_bEnableDamageIndicators;
 
+var config S_Difficulty_Bool Game_bEnablePauseButton;
+
 static function UpdateConfig()
 {
 	if (default.MODEVERSION < 1)
@@ -80,6 +82,15 @@ static function UpdateConfig()
 		default.Game_bEnableDamageIndicators.Suicidal = True;
 		default.Game_bEnableDamageIndicators.HoE = True;
 		default.Game_bEnableDamageIndicators.Custom = True;
+	}
+
+	if (default.MODEVERSION < 16)
+	{
+		default.Game_bEnablePauseButton.Normal = True;
+		default.Game_bEnablePauseButton.Hard = True;
+		default.Game_bEnablePauseButton.Suicidal = True;
+		default.Game_bEnablePauseButton.HoE = True;
+		default.Game_bEnablePauseButton.Custom = True;
 	}
 
 	if (default.MODEVERSION < class'ZedternalReborn.Config_Base'.const.CurrentVersion)
@@ -242,6 +253,18 @@ static function bool GetShouldEnableDamageIndicators(int Difficulty)
 		case 2 : return default.Game_bEnableDamageIndicators.Suicidal;
 		case 3 : return default.Game_bEnableDamageIndicators.HoE;
 		default: return default.Game_bEnableDamageIndicators.Custom;
+	}
+}
+
+static function bool GetShouldEnablePauseButton(int Difficulty)
+{
+	switch (Difficulty)
+	{
+		case 0 : return default.Game_bEnablePauseButton.Normal;
+		case 1 : return default.Game_bEnablePauseButton.Hard;
+		case 2 : return default.Game_bEnablePauseButton.Suicidal;
+		case 3 : return default.Game_bEnablePauseButton.HoE;
+		default: return default.Game_bEnablePauseButton.Custom;
 	}
 }
 

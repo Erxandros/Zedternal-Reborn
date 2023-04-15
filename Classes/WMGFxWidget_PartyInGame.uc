@@ -59,6 +59,32 @@ function int GetOffsetRefreshParty(int Slots)
 	return 0;
 }
 
+function UpdateEndlessPauseButtonVisibility()
+{
+	if (KFGRI == None)
+		return;
+
+	//sanity check because this is happening
+	if (MyKFPRI == None)
+		MyKFPRI = KFPlayerReplicationInfo(GetPC().PlayerReplicationInfo);
+
+	if (GetPC().WorldInfo.NetMode != NM_Standalone
+		&& KFGRI.bMatchHasBegun
+		&& class'ZedternalReborn.Config_GameOptions'.static.GetShouldEnablePauseButton(KFGRI.GameDifficulty)
+		&& (MyKFPRI != None && MyKFPRI.bHasSpawnedIn && !KFGRI.bWaveIsActive)
+		&& !KFGRI.bMatchIsOver
+		&& KFGRI.bEndlessMode)
+	{
+		UpdateEndlessPauseButtonText();
+		SetBool("endlessPauseButtonVisible", True);
+	}
+	else
+		SetBool("endlessPauseButtonVisible", False);
+
+	if (EndlessPauseButton != None)
+		EndlessPauseButton.SetBool("selected", False);
+}
+
 function RefreshParty()
 {
 	local array<KFPlayerReplicationInfo> KFPRIArray;
