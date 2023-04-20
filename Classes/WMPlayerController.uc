@@ -520,6 +520,142 @@ function NotifyLevelUp(class<KFPerk> PerkClass, byte PerkLevel, byte NewPrestige
 	// Do nothing
 }
 
+static simulated function KFInterface_Usable GetCurrentUsableActor(Pawn P, optional bool bUseOnFind=False)
+{
+	local KFInterface_Usable UsableActor;
+	local Actor A, BestActor;
+
+	local KFInterface_Usable BestUsableActor;
+	local int InteractionIndex, BestInteractionIndex;
+
+	local WMGameReplicationInfo WMGRI;
+
+	BestInteractionIndex = -1;
+
+	if (P != None)
+	{
+		// On endless mode, if game is paused players can move but not interact with objects.
+		WMGRI = WMGameReplicationInfo(P.WorldInfo.GRI);
+		if (WMGRI != None && WMGRI.bNoTraderDuringPause)
+			return None;
+
+		// Check touching -- Useful when UsedBy() is implemented by subclass instead of kismet
+		ForEach P.TouchingActors(class'Actor', A)
+		{
+			UsableActor = KFInterface_Usable(A);
+			if (UsableActor != None && UsableActor.GetIsUsable(P))
+			{
+				// find the best usable by priority
+				// use the usable's interaction index as priority, since the UI already sort of does that
+				InteractionIndex = UsableActor.GetInteractionIndex(P);
+				if (InteractionIndex > BestInteractionIndex)
+				{
+					BestInteractionIndex = InteractionIndex;
+					BestUsableActor = UsableActor;
+					BestActor = A;
+				}
+			}
+		}
+
+		if (BestUsableActor != None)
+		{
+			if (bUseOnFind)
+				BestActor.UsedBy(P);
+
+			return BestUsableActor;
+		}
+	}
+
+	return None;
+}
+
+function GetTriggerUseList(float interactDistanceToCheck, float crosshairDist, float minDot, bool bUsuableOnly, out array<Trigger> out_useList)
+{
+	local int Idx;
+	local vector cameraLoc, cameraDir;
+	local rotator cameraRot;
+	local Trigger checkTrigger;
+	local SeqEvent_Used	UseSeq;
+	local float aimEpsilon;
+	local WMGameReplicationInfo WMGRI;
+
+	if (Pawn == None)
+		return;
+
+	WMGRI = WMGameReplicationInfo(WorldInfo.GRI);
+	if (WMGRI != None && WMGRI.bNoTraderDuringPause)
+		return;
+
+	// search of nearby actors that have use events
+	foreach Pawn.CollidingActors(class'Trigger', checkTrigger, interactDistanceToCheck)
+	{
+		for (Idx = 0; Idx < checkTrigger.GeneratedEvents.Length; ++Idx)
+		{
+			UseSeq = SeqEvent_Used(checkTrigger.GeneratedEvents[Idx]);
+			if (UseSeq == None)
+				continue;
+
+			// one-time init of camera vars
+			if (IsZero(cameraDir))
+			{
+				// grab camera location/rotation for checking crosshairDist
+				GetPlayerViewPoint(cameraLoc, cameraRot);
+				cameraDir = vector(cameraRot);
+			}
+
+			aimEpsilon = (UseSeq.bAimToInteract) ? 0.98f : minDot;
+
+			// if bUsuableOnly is true then we must get true back from CheckActivate (which tests various validity checks on the player and on the trigger's trigger count and retrigger conditions etc)
+			if ((!bUsuableOnly || (checkTrigger.GeneratedEvents[Idx].CheckActivate(checkTrigger,Pawn,true)))
+				// check to see if we are within range of the trigger
+				&& (VSizeSq(Pawn.Location - checkTrigger.Location) <= Square(UseSeq.InteractDistance))
+				// check to see if we are looking at the object
+				&& (Normal(checkTrigger.Location-cameraLoc) dot cameraDir >= aimEpsilon)
+				// check bUseLineCheck
+				&& (!UseSeq.bUseLineCheck || FastTrace(checkTrigger.Location, cameraLoc))
+			)
+			{
+				out_useList[out_useList.Length] = checkTrigger;
+
+				// don't bother searching for more events
+				Idx = checkTrigger.GeneratedEvents.Length;
+			}
+		}
+	}
+}
+
+function bool PerformedUseAction()
+{
+	local WMGameReplicationInfo WMGRI;
+
+	// Intentionally do not trigger Super Class so that we do not close the menu
+	if (WorldInfo.NetMode != NM_StandAlone)
+		return Super.PerformedUseAction();
+
+	// if the level is paused,
+	if (Pawn == None)
+		return True;
+
+	// below is only on server
+	if (Role < Role_Authority)
+		return False;
+
+	WMGRI = WMGameReplicationInfo(WorldInfo.GRI);
+	if (WMGRI != None && WMGRI.bNoTraderDuringPause)
+		return False;
+
+	// leave vehicle if currently in one
+	if (Vehicle(Pawn) != None)
+		return Vehicle(Pawn).DriverLeave(False);
+
+	// try to find a vehicle to drive
+	if (FindVehicleToDrive())
+		return True;
+
+	// try to interact with triggers
+	return TriggerInteracted();
+}
+
 defaultproperties
 {
 	bShouldUpdateGrenadeIcon=True

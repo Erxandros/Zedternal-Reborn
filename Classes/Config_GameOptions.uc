@@ -18,6 +18,8 @@ var config S_Difficulty_Int Game_WeaponPickupDespawnTime;
 var config S_Difficulty_Bool Game_bEnableDamageIndicators;
 
 var config S_Difficulty_Bool Game_bEnablePauseButton;
+var config S_Difficulty_Bool Game_bAllowTraderDuringPause;
+var config S_Difficulty_Bool Game_bAllowPickupsDuringPause;
 
 static function UpdateConfig()
 {
@@ -91,6 +93,18 @@ static function UpdateConfig()
 		default.Game_bEnablePauseButton.Suicidal = True;
 		default.Game_bEnablePauseButton.HoE = True;
 		default.Game_bEnablePauseButton.Custom = True;
+
+		default.Game_bAllowTraderDuringPause.Normal = False;
+		default.Game_bAllowTraderDuringPause.Hard = False;
+		default.Game_bAllowTraderDuringPause.Suicidal = False;
+		default.Game_bAllowTraderDuringPause.HoE = False;
+		default.Game_bAllowTraderDuringPause.Custom = False;
+
+		default.Game_bAllowPickupsDuringPause.Normal = False;
+		default.Game_bAllowPickupsDuringPause.Hard = False;
+		default.Game_bAllowPickupsDuringPause.Suicidal = False;
+		default.Game_bAllowPickupsDuringPause.HoE = False;
+		default.Game_bAllowPickupsDuringPause.Custom = False;
 	}
 
 	if (default.MODEVERSION < class'ZedternalReborn.Config_Base'.const.CurrentVersion)
@@ -265,6 +279,30 @@ static function bool GetShouldEnablePauseButton(int Difficulty)
 		case 2 : return default.Game_bEnablePauseButton.Suicidal;
 		case 3 : return default.Game_bEnablePauseButton.HoE;
 		default: return default.Game_bEnablePauseButton.Custom;
+	}
+}
+
+static function bool GetShouldAllowTraderDuringPause(int Difficulty)
+{
+	switch (Difficulty)
+	{
+		case 0 : return default.Game_bAllowTraderDuringPause.Normal;
+		case 1 : return default.Game_bAllowTraderDuringPause.Hard;
+		case 2 : return default.Game_bAllowTraderDuringPause.Suicidal;
+		case 3 : return default.Game_bAllowTraderDuringPause.HoE;
+		default: return default.Game_bAllowTraderDuringPause.Custom;
+	}
+}
+
+static function bool GetShouldAllowPickupsDuringPause(int Difficulty)
+{
+	switch (Difficulty)
+	{
+		case 0 : return default.Game_bAllowPickupsDuringPause.Normal;
+		case 1 : return default.Game_bAllowPickupsDuringPause.Hard;
+		case 2 : return default.Game_bAllowPickupsDuringPause.Suicidal;
+		case 3 : return default.Game_bAllowPickupsDuringPause.HoE;
+		default: return default.Game_bAllowPickupsDuringPause.Custom;
 	}
 }
 

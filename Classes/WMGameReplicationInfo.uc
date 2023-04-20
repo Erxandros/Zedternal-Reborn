@@ -188,6 +188,10 @@ var repnotify bool UpdateSkinsTrigger;
 var bool bZRUMenuAllWave;
 var bool bZRUMenuCommand;
 
+//For pause function
+var bool bIsPaused;
+var bool bNoTraderDuringPause;
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 ////// Sync Flags //////
@@ -401,7 +405,7 @@ replication
 		TraderMaxWeaponCount, TraderNewWeaponEachWave, TraderStaticWeaponCount,
 		TraderVoiceGroupIndex, bAllTraders, bArmorPickup,
 		bRepairDoorTrigger, UpdateSkinsTrigger, bZRUMenuAllWave,
-		bZRUMenuCommand;
+		bZRUMenuCommand, bIsPaused, bNoTraderDuringPause;
 }
 
 simulated event ReplicatedEvent(name VarName)

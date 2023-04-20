@@ -12,8 +12,46 @@ function InitializeWidget()
 
 function LocalizeText()
 {
-	super.LocalizeText();
+	local GFxObject TextObject;
+	local WorldInfo TempWorldInfo;
+
+	TextObject = CreateObject("Object");
+
+	TextObject.SetString("readyString", ReadyString);
+	TextObject.SetString("leaveString", LeaveString);
+	TextObject.SetString("createPartyString", CreatePartyString);
+	TextObject.SetString("deployingString", DeployingString);
+	TextObject.SetString("waitingString", WaitingString);
+	TextObject.SetString("selectPromptString", Localize("KFGFxWidget_ButtonPrompt", "ConfirmString", "KFGame"));
+	TextObject.SetString("backPromptString", Localize("KFGFxWidget_ButtonPrompt", "CancelString", "KFGame"));
+	TextObject.SetString("matchOver", MatchOverString);
+
+	if (WMGRI == None)
+	{
+		TempWorldInfo = class'WorldInfo'.static.GetWorldInfo();
+		if (TempWorldInfo != None && TempWorldInfo.GRI != None)
+			WMGRI = WMGameReplicationInfo(TempWorldInfo.GRI);
+	}
+
+	if (WMGRI != None)
+		SetString("endlessPauseString", WMGRI.bIsPaused ? ResumeGameString : PauseGameString);
+
+	SetObject("localizedText", TextObject);
 	RefreshCycleButton();
+}
+
+function UpdateEndlessPauseButtonText()
+{
+	local bool bIsConsole;
+
+	if (EndlessPauseButton != None)
+	{
+		bIsConsole = GetPC().WorldInfo.IsConsoleBuild();
+		if(bIsConsole)
+			EndlessPauseButton.SetString("label", WMGRI.bIsPaused ? ("  "@default.ResumeGameString) : ("  "@default.PauseGameString));
+		else
+			EndlessPauseButton.SetString("label", WMGRI.bIsPaused ? default.ResumeGameString : default.PauseGameString);
+	}
 }
 
 function RefreshCycleButton()

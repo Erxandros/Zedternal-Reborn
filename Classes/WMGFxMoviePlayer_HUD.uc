@@ -62,6 +62,20 @@ function DisplayExpandedWaveInfo()
 	}
 }
 
+function ShowPauseGameVote(PlayerReplicationInfo PRI, byte VoteDuration, bool bShowChoices)
+{
+	local WMGameReplicationInfo WMGRI;
+	WMGRI = WMGameReplicationInfo(KFPC.WorldInfo.GRI);
+
+	if (KickVoteWidget != None)
+	{
+		bIsPauseGameVoteActive = True;
+		bIsKickVoteActive = False;
+		bIsSkipTraderVoteActive = False;
+		KickVoteWidget.ShowVote(PRI, VoteDuration, bShowChoices, (WMGRI != None && WMGRI.bIsPaused) ? VT_RESUME_GAME : VT_PAUSE_GAME);
+	}
+}
+
 defaultproperties
 {
 	WidgetBindings(1)=(WidgetName="SpectatorInfoWidget",WidgetClass=class'ZedternalReborn.WMGFxHUD_SpectatorInfo')

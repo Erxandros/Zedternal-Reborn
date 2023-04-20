@@ -59,6 +59,21 @@ function bool ToggleMenus()
 	return False;
 }
 
+function ShowPauseGameVote(PlayerReplicationInfo PRI)
+{
+	local WMGameReplicationInfo WMGRI;
+	WMGRI = WMGameReplicationInfo(GetPC().WorldInfo.GRI);
+
+	PauseGameVotePRI = PRI;
+	if (bMenusOpen && CurrentMenu != TraderMenu)
+	{
+		bPauseGameVotePopupActive = True;
+		DelayedOpenPopup(EConfirmation, EDPPID_Misc, (WMGRI != None && WMGRI.bIsPaused) ? Class'KFGFxWidget_KickVote'.default.VoteResumeGameString : Class'KFGFxWidget_KickVote'.default.VotePauseGameString,
+		PauseGameVotePRI.PlayerName@Class'KFGFxWidget_KickVote'.default.VotePauseGameDetailString,
+		Class'KFCommon_LocalizedStrings'.default.YesString, Class'KFCommon_LocalizedStrings'.default.NoString, CastYesVotePauseGame, CastNoVotePauseGame);
+	}
+}
+
 defaultproperties
 {
 	WidgetPaths.Remove("../UI_Widgets/PartyWidget_SWF.swf")

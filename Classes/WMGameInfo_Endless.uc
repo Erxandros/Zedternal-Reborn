@@ -257,10 +257,35 @@ function Logout(Controller Exiting)
 
 function UnregisterPlayer(PlayerController PC)
 {
+	local WMGameReplicationInfo WMGRI;
+
 	super.UnregisterPlayer(PC);
 
-	if (GetNumPlayers() == 0 && MyKFGRI.bIsEndlessPaused)
+	WMGRI = WMGameReplicationInfo(MyKFGRI);
+	if (GetNumPlayers() == 0 && WMGRI != None && WMGRI.bIsPaused)
 		ResumeEndlessGame();
+}
+
+function PauseEndlessGame()
+{
+	local KFPawn_Human KFPH;
+	local WMGameReplicationInfo WMGRI;
+
+	WMGRI = WMGameReplicationInfo(MyKFGRI);
+
+	// Do not set if pickups are allowed during pause.
+	if (WMGRI == None || WMGRI.bIsEndlessPaused)
+	{
+		foreach WorldInfo.AllPawns(class'KFPawn_Human', KFPH)
+		{
+			if (KFPH.GetTeamNum() != 0)
+				KFPH.bCanPickupInventory = False;
+		}
+	}
+
+	// Pause game but allow players to move around. Do not set this if pickups or the trader is allowed during pause.
+	if (WMGRI == None || (WMGRI.bIsEndlessPaused && WMGRI.bNoTraderDuringPause))
+		WorldInfo.bPlayersOnlyPending = True;
 }
 
 function GenericPlayerInitialization(Controller C)
