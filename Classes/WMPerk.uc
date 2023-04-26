@@ -351,6 +351,14 @@ simulated function bool isValidWeapon(class<KFWeapon> WeaponClass, KFWeapon KFW)
 	return False;
 }
 
+static simulated function bool IsWeaponOnPerk(KFWeapon W, optional array < class<KFPerk> > WeaponPerkClass, optional class<KFPerk> InstigatorPerkClass, optional name WeaponClassName)
+{
+	if (InstigatorPerkClass == class'ZedternalReborn.WMPerk')
+		return True;
+
+	return super.IsWeaponOnPerk(W, WeaponPerkClass, InstigatorPerkClass, WeaponClassName);
+}
+
 simulated function string GetGrenadeImagePath()
 {
 	return GrenadeWeaponDef.static.GetImagePath();
