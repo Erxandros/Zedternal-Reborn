@@ -366,8 +366,6 @@ simulated function CloseUPGMenu()
 
 	if (UPGMenuManager != None)
 		UPGMenuManager.CloseMenu();
-
-	UPGMenuManager = None;
 }
 
 reliable client function ShowSkipTraderVote(PlayerReplicationInfo PRI, byte VoteDuration, bool bShowChoices)
