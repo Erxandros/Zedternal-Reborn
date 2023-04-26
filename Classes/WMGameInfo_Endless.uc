@@ -601,13 +601,30 @@ function CheckWaveEnd(optional bool bForceWaveEnd = false)
 	{
 		`log("ZR Info: WMGameInfo_Endless.CheckWaveEnd() - Call Wave Ended - WEC_TeamWipedOut");
 		ClearTimer(NameOf(LogWaveDetails));
+		UnpauseGameWaveEnded();
 		WaveEnded(WEC_TeamWipedOut);
 	}
 	else if ((AIAliveCount <= 0 && IsWaveActive() && SpawnManager.IsFinishedSpawning()) || bForceWaveEnd)
 	{
 		`log("ZR Info: WMGameInfo_Endless.CheckWaveEnd() - Call Wave Ended - WEC_WaveWon");
 		ClearTimer(NameOf(LogWaveDetails));
+		UnpauseGameWaveEnded();
 		WaveEnded(WEC_WaveWon);
+	}
+}
+
+function UnpauseGameWaveEnded()
+{
+	local WMGameReplicationInfo WMGRI;
+
+	WMGRI = WMGameReplicationInfo(MyKFGRI);
+	if (WMGRI != None && WMGRI.bIsPaused)
+	{
+		WMGRI.bIsPaused = False;
+		WMGRI.bNoTraderDuringPause = False;
+		WMGRI.bIsEndlessPaused = False;
+		WMGRI.bStopCountDown = False;
+		ResumeEndlessGame();
 	}
 }
 //Match and Wave Code End
