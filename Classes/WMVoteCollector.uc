@@ -76,6 +76,84 @@ function ServerStartVoteSkipTrader(PlayerReplicationInfo PRI)
 	}
 }
 
+function bool ShouldConcludeSkipTraderVote()
+{
+	local array<KFPlayerReplicationInfo> PRIs;
+	local WMGameReplicationInfo WMGRI;
+	local int NumPRIs, SkipVotesNeeded;
+
+	WMGRI = WMGameReplicationInfo(WorldInfo.GRI);
+	GetKFPRIArray(PRIs, , False);
+	NumPRIs = PRIs.Length;
+
+	if (YesVotes + NoVotes >= NumPRIs)
+	{
+		return True;
+	}
+	else if (WMGRI != None)
+	{
+		SkipVotesNeeded = FCeil(float(NumPRIs) * class'ZedternalReborn.Config_GameOptions'.static.GetSkipTraderVotingPercentage(WMGRI.GameDifficulty));
+		SkipVotesNeeded = Clamp(SkipVotesNeeded, 1, NumPRIs);
+
+		if (YesVotes >= SkipVotesNeeded)
+			return True;
+		else if (NoVotes > (NumPRIs - SkipVotesNeeded))
+			return True;
+	}
+
+	return False;
+}
+
+reliable server function ConcludeVoteSkipTrader()
+{
+	local array<KFPlayerReplicationInfo> PRIs;
+	local WMGameReplicationInfo WMGRI;
+	local int i, SkipVotesNeeded;
+	local KFGameInfo KFGI;
+
+	WMGRI = WMGameReplicationInfo(WorldInfo.GRI);
+	KFGI = KFGameInfo(WorldInfo.Game);
+
+	if (bIsSkipTraderVoteInProgress)
+	{
+		GetKFPRIArray(PRIs, , False);
+
+		for (i = 0; i < PRIs.Length; ++i)
+		{
+			PRIs[i].HideSkipTraderVote();
+		}
+
+		SkipVotesNeeded = FCeil(float(PRIs.Length) * class'ZedternalReborn.Config_GameOptions'.static.GetSkipTraderVotingPercentage(WMGRI.GameDifficulty));
+		SkipVotesNeeded = Clamp(SkipVotesNeeded, 1, PRIs.Length);
+		SetTimer(0.0f, True, NameOf(UpdateTimer), self);
+
+		if (YesVotes >= SkipVotesNeeded)
+		{
+			//skip trader
+			SkipTraderTime();
+
+			//clear everything
+			ResetSkipTraderVote();
+
+			//tell server to skip trader
+			KFGI.BroadcastLocalized(KFGI, class'KFLocalMessage', LMT_SkipTraderTimeSuccess);
+		}
+		else
+		{
+			//Set timer so that votes cannot be spammed
+			bIsFailedVoteTimerActive = True;
+			SetTimer(KFGI.TimeBetweenFailedVotes, False, NameOf(ClearFailedVoteFlag), self);
+			KFGI.BroadcastLocalized(KFGI, class'KFLocalMessage', LMT_SkipTraderVoteFailed);
+		}
+
+		bIsSkipTraderVoteInProgress = False;
+		CurrentSkipTraderVote.PlayerPRI = None;
+		CurrentSkipTraderVote.PlayerID = class'PlayerReplicationInfo'.default.UniqueId;
+		YesVotes = 0;
+		NoVotes = 0;
+	}
+}
+
 function ServerStartVotePauseGame(PlayerReplicationInfo PRI)
 {
 	local int i;
@@ -201,37 +279,59 @@ reliable server function ReceiveVotePauseGame(PlayerReplicationInfo PRI, bool bS
 	}
 }
 
+function bool ShouldConcludePauseGameVote()
+{
+	local array<KFPlayerReplicationInfo> PRIs;
+	local WMGameReplicationInfo WMGRI;
+	local int NumPRIs, PauseVotesNeeded;
+
+	WMGRI = WMGameReplicationInfo(WorldInfo.GRI);
+	GetKFPRIArray(PRIs, , False);
+	NumPRIs = PRIs.Length;
+
+	if (YesVotes + NoVotes >= NumPRIs)
+	{
+		return True;
+	}
+	else if (WMGRI != None)
+	{
+		PauseVotesNeeded = FCeil(float(NumPRIs) * class'ZedternalReborn.Config_GameOptions'.static.GetPauseGameVotingPercentage(WMGRI.GameDifficulty));
+		PauseVotesNeeded = Clamp(PauseVotesNeeded, 1, NumPRIs);
+
+		if (YesVotes >= PauseVotesNeeded)
+			return True;
+		else if (NoVotes > (NumPRIs - PauseVotesNeeded))
+			return True;
+	}
+
+	return False;
+}
+
 reliable server function ConcludeVotePauseGame()
 {
 	local array<KFPlayerReplicationInfo> PRIs;
-	local int i, NumPRIs;
-	local KFGameInfo KFGI;
 	local WMGameReplicationInfo WMGRI;
+	local int i, PauseVotesNeeded;
+	local KFGameInfo KFGI;
 
 	WMGRI = WMGameReplicationInfo(WorldInfo.GRI);
 	KFGI  = KFGameInfo(WorldInfo.Game);
 
-	if(bIsPauseGameVoteInProgress)
+	if (bIsPauseGameVoteInProgress)
 	{
-		GetKFPRIArray(PRIs);
+		GetKFPRIArray(PRIs, , False);
 
-		for (i = 0; i < PRIs.Length; i++)
+		for (i = 0; i < PRIs.Length; ++i)
 		{
 			PRIs[i].HidePauseGameVote();
 		}
 
-		NumPRIs = PRIs.Length;
-		SetTimer( 0.f, true, nameof(UpdatePauseGameTimer), self );
+		PauseVotesNeeded = FCeil(float(PRIs.Length) * class'ZedternalReborn.Config_GameOptions'.static.GetPauseGameVotingPercentage(WMGRI.GameDifficulty));
+		PauseVotesNeeded = Clamp(PauseVotesNeeded, 1, PRIs.Length);
+		SetTimer(0.0f, True, NameOf(UpdatePauseGameTimer), self);
 
-		if( NoVotes > 0)
+		if (YesVotes >= PauseVotesNeeded)
 		{
-			bIsFailedVoteTimerActive=true;
-			SetTimer( KFGI.TimeBetweenFailedVotes, false, nameof(ClearFailedVoteFlag), self );
-			KFGI.BroadcastLocalized(KFGI, class'KFLocalMessage', WMGRI.bIsPaused ? LMT_ResumeVoteFailed : LMT_PauseVoteFailed);
-		}
-		else if( YesVotes >= NumPRIs )
-		{
-
 			//pause game
 			if (WMGRI.bIsPaused)
 			{
@@ -259,16 +359,16 @@ reliable server function ConcludeVotePauseGame()
 		else
 		{
 			//Set timer so that votes cannot be spammed
-			bIsFailedVoteTimerActive=true;
-			SetTimer( KFGI.TimeBetweenFailedVotes, false, nameof(ClearFailedVoteFlag), self );
+			bIsFailedVoteTimerActive = True;
+			SetTimer(KFGI.TimeBetweenFailedVotes, False, NameOf(ClearFailedVoteFlag), self);
 			KFGI.BroadcastLocalized(KFGI, class'KFLocalMessage', WMGRI.bIsPaused ? LMT_ResumeVoteFailed : LMT_PauseVoteFailed);
 		}
 
-		bIsPauseGameVoteInProgress = false;
-		CurrentPauseGameVote.PlayerPRI = none;
+		bIsPauseGameVoteInProgress = False;
+		CurrentPauseGameVote.PlayerPRI = None;
 		CurrentPauseGameVote.PlayerID = class'PlayerReplicationInfo'.default.UniqueId;
-		yesVotes = 0;
-		noVotes = 0;
+		YesVotes = 0;
+		NoVotes = 0;
 	}
 }
 

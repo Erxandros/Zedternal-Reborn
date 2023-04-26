@@ -21,6 +21,9 @@ var config S_Difficulty_Bool Game_bEnablePauseButton;
 var config S_Difficulty_Bool Game_bAllowTraderDuringPause;
 var config S_Difficulty_Bool Game_bAllowPickupsDuringPause;
 
+var config S_Difficulty_Float Game_SkipTraderVotingPercentage;
+var config S_Difficulty_Float Game_PauseGameVotingPercentage;
+
 static function UpdateConfig()
 {
 	if (default.MODEVERSION < 1)
@@ -105,6 +108,18 @@ static function UpdateConfig()
 		default.Game_bAllowPickupsDuringPause.Suicidal = False;
 		default.Game_bAllowPickupsDuringPause.HoE = False;
 		default.Game_bAllowPickupsDuringPause.Custom = False;
+
+		default.Game_SkipTraderVotingPercentage.Normal = 1.0f;
+		default.Game_SkipTraderVotingPercentage.Hard = 1.0f;
+		default.Game_SkipTraderVotingPercentage.Suicidal = 1.0f;
+		default.Game_SkipTraderVotingPercentage.HoE = 1.0f;
+		default.Game_SkipTraderVotingPercentage.Custom = 1.0f;
+
+		default.Game_PauseGameVotingPercentage.Normal = 1.0f;
+		default.Game_PauseGameVotingPercentage.Hard = 1.0f;
+		default.Game_PauseGameVotingPercentage.Suicidal = 1.0f;
+		default.Game_PauseGameVotingPercentage.HoE = 1.0f;
+		default.Game_PauseGameVotingPercentage.Custom = 1.0f;
 	}
 
 	if (default.MODEVERSION < class'ZedternalReborn.Config_Base'.const.CurrentVersion)
@@ -303,6 +318,30 @@ static function bool GetShouldAllowPickupsDuringPause(int Difficulty)
 		case 2 : return default.Game_bAllowPickupsDuringPause.Suicidal;
 		case 3 : return default.Game_bAllowPickupsDuringPause.HoE;
 		default: return default.Game_bAllowPickupsDuringPause.Custom;
+	}
+}
+
+static function float GetSkipTraderVotingPercentage(int Difficulty)
+{
+	switch (Difficulty)
+	{
+		case 0 : return default.Game_SkipTraderVotingPercentage.Normal;
+		case 1 : return default.Game_SkipTraderVotingPercentage.Hard;
+		case 2 : return default.Game_SkipTraderVotingPercentage.Suicidal;
+		case 3 : return default.Game_SkipTraderVotingPercentage.HoE;
+		default: return default.Game_SkipTraderVotingPercentage.Custom;
+	}
+}
+
+static function float GetPauseGameVotingPercentage(int Difficulty)
+{
+	switch (Difficulty)
+	{
+		case 0 : return default.Game_PauseGameVotingPercentage.Normal;
+		case 1 : return default.Game_PauseGameVotingPercentage.Hard;
+		case 2 : return default.Game_PauseGameVotingPercentage.Suicidal;
+		case 3 : return default.Game_PauseGameVotingPercentage.HoE;
+		default: return default.Game_PauseGameVotingPercentage.Custom;
 	}
 }
 
