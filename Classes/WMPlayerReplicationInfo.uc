@@ -368,6 +368,16 @@ simulated function CloseUPGMenu()
 		UPGMenuManager.CloseMenu();
 }
 
+reliable client function CloseUPGMenuServer()
+{
+	local WMPlayerController WMPC;
+
+	WMPC = WMPlayerController(Owner);
+
+	if (WMPC != None && WMPC.bUpgradeMenuOpen)
+		CloseUPGMenu();
+}
+
 reliable client function ShowSkipTraderVote(PlayerReplicationInfo PRI, byte VoteDuration, bool bShowChoices)
 {
 	super.ShowSkipTraderVote(PRI, VoteDuration, bShowChoices);

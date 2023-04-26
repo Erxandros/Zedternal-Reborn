@@ -348,6 +348,15 @@ reliable server function ConcludeVotePauseGame()
 				WMGRI.bIsEndlessPaused = !class'ZedternalReborn.Config_Voting'.static.GetShouldAllowPickupsDuringPause(WMGRI.GameDifficulty);
 				WMGRI.bStopCountDown = True;
 				KFGI.PauseEndlessGame();
+
+				if (WMGRI.bNoTraderDuringPause)
+				{
+					for (i = 0; i < PRIs.Length; ++i)
+					{
+						if (WMPlayerReplicationInfo(PRIs[i]) != None)
+							WMPlayerReplicationInfo(PRIs[i]).CloseUPGMenuServer();
+					}
+				}
 			}
 
 			//clear everything
