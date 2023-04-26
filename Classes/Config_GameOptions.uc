@@ -17,13 +17,6 @@ var config S_Difficulty_Int Game_WeaponPickupDespawnTime;
 
 var config S_Difficulty_Bool Game_bEnableDamageIndicators;
 
-var config S_Difficulty_Bool Game_bEnablePauseButton;
-var config S_Difficulty_Bool Game_bAllowTraderDuringPause;
-var config S_Difficulty_Bool Game_bAllowPickupsDuringPause;
-
-var config S_Difficulty_Float Game_SkipTraderVotingPercentage;
-var config S_Difficulty_Float Game_PauseGameVotingPercentage;
-
 static function UpdateConfig()
 {
 	if (default.MODEVERSION < 1)
@@ -87,39 +80,6 @@ static function UpdateConfig()
 		default.Game_bEnableDamageIndicators.Suicidal = True;
 		default.Game_bEnableDamageIndicators.HoE = True;
 		default.Game_bEnableDamageIndicators.Custom = True;
-	}
-
-	if (default.MODEVERSION < 16)
-	{
-		default.Game_bEnablePauseButton.Normal = True;
-		default.Game_bEnablePauseButton.Hard = True;
-		default.Game_bEnablePauseButton.Suicidal = True;
-		default.Game_bEnablePauseButton.HoE = True;
-		default.Game_bEnablePauseButton.Custom = True;
-
-		default.Game_bAllowTraderDuringPause.Normal = False;
-		default.Game_bAllowTraderDuringPause.Hard = False;
-		default.Game_bAllowTraderDuringPause.Suicidal = False;
-		default.Game_bAllowTraderDuringPause.HoE = False;
-		default.Game_bAllowTraderDuringPause.Custom = False;
-
-		default.Game_bAllowPickupsDuringPause.Normal = False;
-		default.Game_bAllowPickupsDuringPause.Hard = False;
-		default.Game_bAllowPickupsDuringPause.Suicidal = False;
-		default.Game_bAllowPickupsDuringPause.HoE = False;
-		default.Game_bAllowPickupsDuringPause.Custom = False;
-
-		default.Game_SkipTraderVotingPercentage.Normal = 1.0f;
-		default.Game_SkipTraderVotingPercentage.Hard = 1.0f;
-		default.Game_SkipTraderVotingPercentage.Suicidal = 1.0f;
-		default.Game_SkipTraderVotingPercentage.HoE = 1.0f;
-		default.Game_SkipTraderVotingPercentage.Custom = 1.0f;
-
-		default.Game_PauseGameVotingPercentage.Normal = 1.0f;
-		default.Game_PauseGameVotingPercentage.Hard = 1.0f;
-		default.Game_PauseGameVotingPercentage.Suicidal = 1.0f;
-		default.Game_PauseGameVotingPercentage.HoE = 1.0f;
-		default.Game_PauseGameVotingPercentage.Custom = 1.0f;
 	}
 
 	if (default.MODEVERSION < class'ZedternalReborn.Config_Base'.const.CurrentVersion)
@@ -282,66 +242,6 @@ static function bool GetShouldEnableDamageIndicators(int Difficulty)
 		case 2 : return default.Game_bEnableDamageIndicators.Suicidal;
 		case 3 : return default.Game_bEnableDamageIndicators.HoE;
 		default: return default.Game_bEnableDamageIndicators.Custom;
-	}
-}
-
-static function bool GetShouldEnablePauseButton(int Difficulty)
-{
-	switch (Difficulty)
-	{
-		case 0 : return default.Game_bEnablePauseButton.Normal;
-		case 1 : return default.Game_bEnablePauseButton.Hard;
-		case 2 : return default.Game_bEnablePauseButton.Suicidal;
-		case 3 : return default.Game_bEnablePauseButton.HoE;
-		default: return default.Game_bEnablePauseButton.Custom;
-	}
-}
-
-static function bool GetShouldAllowTraderDuringPause(int Difficulty)
-{
-	switch (Difficulty)
-	{
-		case 0 : return default.Game_bAllowTraderDuringPause.Normal;
-		case 1 : return default.Game_bAllowTraderDuringPause.Hard;
-		case 2 : return default.Game_bAllowTraderDuringPause.Suicidal;
-		case 3 : return default.Game_bAllowTraderDuringPause.HoE;
-		default: return default.Game_bAllowTraderDuringPause.Custom;
-	}
-}
-
-static function bool GetShouldAllowPickupsDuringPause(int Difficulty)
-{
-	switch (Difficulty)
-	{
-		case 0 : return default.Game_bAllowPickupsDuringPause.Normal;
-		case 1 : return default.Game_bAllowPickupsDuringPause.Hard;
-		case 2 : return default.Game_bAllowPickupsDuringPause.Suicidal;
-		case 3 : return default.Game_bAllowPickupsDuringPause.HoE;
-		default: return default.Game_bAllowPickupsDuringPause.Custom;
-	}
-}
-
-static function float GetSkipTraderVotingPercentage(int Difficulty)
-{
-	switch (Difficulty)
-	{
-		case 0 : return default.Game_SkipTraderVotingPercentage.Normal;
-		case 1 : return default.Game_SkipTraderVotingPercentage.Hard;
-		case 2 : return default.Game_SkipTraderVotingPercentage.Suicidal;
-		case 3 : return default.Game_SkipTraderVotingPercentage.HoE;
-		default: return default.Game_SkipTraderVotingPercentage.Custom;
-	}
-}
-
-static function float GetPauseGameVotingPercentage(int Difficulty)
-{
-	switch (Difficulty)
-	{
-		case 0 : return default.Game_PauseGameVotingPercentage.Normal;
-		case 1 : return default.Game_PauseGameVotingPercentage.Hard;
-		case 2 : return default.Game_PauseGameVotingPercentage.Suicidal;
-		case 3 : return default.Game_PauseGameVotingPercentage.HoE;
-		default: return default.Game_PauseGameVotingPercentage.Custom;
 	}
 }
 

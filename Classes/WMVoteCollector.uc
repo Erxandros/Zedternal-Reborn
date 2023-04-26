@@ -92,7 +92,7 @@ function bool ShouldConcludeSkipTraderVote()
 	}
 	else if (WMGRI != None)
 	{
-		SkipVotesNeeded = FCeil(float(NumPRIs) * class'ZedternalReborn.Config_GameOptions'.static.GetSkipTraderVotingPercentage(WMGRI.GameDifficulty));
+		SkipVotesNeeded = FCeil(float(NumPRIs) * class'ZedternalReborn.Config_Voting'.static.GetSkipTraderVotingPercentage(WMGRI.GameDifficulty));
 		SkipVotesNeeded = Clamp(SkipVotesNeeded, 1, NumPRIs);
 
 		if (YesVotes >= SkipVotesNeeded)
@@ -123,7 +123,7 @@ reliable server function ConcludeVoteSkipTrader()
 			PRIs[i].HideSkipTraderVote();
 		}
 
-		SkipVotesNeeded = FCeil(float(PRIs.Length) * class'ZedternalReborn.Config_GameOptions'.static.GetSkipTraderVotingPercentage(WMGRI.GameDifficulty));
+		SkipVotesNeeded = FCeil(float(PRIs.Length) * class'ZedternalReborn.Config_Voting'.static.GetSkipTraderVotingPercentage(WMGRI.GameDifficulty));
 		SkipVotesNeeded = Clamp(SkipVotesNeeded, 1, PRIs.Length);
 		SetTimer(0.0f, True, NameOf(UpdateTimer), self);
 
@@ -295,7 +295,7 @@ function bool ShouldConcludePauseGameVote()
 	}
 	else if (WMGRI != None)
 	{
-		PauseVotesNeeded = FCeil(float(NumPRIs) * class'ZedternalReborn.Config_GameOptions'.static.GetPauseGameVotingPercentage(WMGRI.GameDifficulty));
+		PauseVotesNeeded = FCeil(float(NumPRIs) * class'ZedternalReborn.Config_Voting'.static.GetPauseGameVotingPercentage(WMGRI.GameDifficulty));
 		PauseVotesNeeded = Clamp(PauseVotesNeeded, 1, NumPRIs);
 
 		if (YesVotes >= PauseVotesNeeded)
@@ -326,7 +326,7 @@ reliable server function ConcludeVotePauseGame()
 			PRIs[i].HidePauseGameVote();
 		}
 
-		PauseVotesNeeded = FCeil(float(PRIs.Length) * class'ZedternalReborn.Config_GameOptions'.static.GetPauseGameVotingPercentage(WMGRI.GameDifficulty));
+		PauseVotesNeeded = FCeil(float(PRIs.Length) * class'ZedternalReborn.Config_Voting'.static.GetPauseGameVotingPercentage(WMGRI.GameDifficulty));
 		PauseVotesNeeded = Clamp(PauseVotesNeeded, 1, PRIs.Length);
 		SetTimer(0.0f, True, NameOf(UpdatePauseGameTimer), self);
 
@@ -344,8 +344,8 @@ reliable server function ConcludeVotePauseGame()
 			else
 			{
 				WMGRI.bIsPaused = True;
-				WMGRI.bNoTraderDuringPause = !class'ZedternalReborn.Config_GameOptions'.static.GetShouldAllowTraderDuringPause(WMGRI.GameDifficulty);
-				WMGRI.bIsEndlessPaused = !class'ZedternalReborn.Config_GameOptions'.static.GetShouldAllowPickupsDuringPause(WMGRI.GameDifficulty);
+				WMGRI.bNoTraderDuringPause = !class'ZedternalReborn.Config_Voting'.static.GetShouldAllowTraderDuringPause(WMGRI.GameDifficulty);
+				WMGRI.bIsEndlessPaused = !class'ZedternalReborn.Config_Voting'.static.GetShouldAllowPickupsDuringPause(WMGRI.GameDifficulty);
 				WMGRI.bStopCountDown = True;
 				KFGI.PauseEndlessGame();
 			}
