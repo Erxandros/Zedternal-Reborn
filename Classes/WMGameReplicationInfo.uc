@@ -189,6 +189,7 @@ var bool bZRUMenuAllWave;
 var bool bZRUMenuCommand;
 
 //For pause function
+var bool bPauseButtonEnabled;
 var bool bIsPaused;
 var bool bNoTraderDuringPause;
 
@@ -405,7 +406,8 @@ replication
 		TraderMaxWeaponCount, TraderNewWeaponEachWave, TraderStaticWeaponCount,
 		TraderVoiceGroupIndex, bAllTraders, bArmorPickup,
 		bRepairDoorTrigger, UpdateSkinsTrigger, bZRUMenuAllWave,
-		bZRUMenuCommand, bIsPaused, bNoTraderDuringPause;
+		bZRUMenuCommand, bPauseButtonEnabled, bIsPaused,
+		bNoTraderDuringPause;
 }
 
 simulated event ReplicatedEvent(name VarName)
@@ -1361,6 +1363,9 @@ defaultproperties
 	bEndlessMode=True
 	bZRUMenuAllWave=False
 	bZRUMenuCommand=False
+	bPauseButtonEnabled=False
+	bIsPaused=False
+	bNoTraderDuringPause=False
 
 	ArmorPrice=-1
 	GrenadePrice=-1

@@ -108,7 +108,7 @@ function UpdateEndlessPauseButtonVisibility()
 
 	if (GetPC().WorldInfo.NetMode != NM_Standalone
 		&& KFGRI.bMatchHasBegun
-		&& class'ZedternalReborn.Config_Voting'.static.GetShouldEnablePauseButton(KFGRI.GameDifficulty)
+		&& (WMGameReplicationInfo(KFGRI) != None && WMGameReplicationInfo(KFGRI).bPauseButtonEnabled)
 		&& (MyKFPRI != None && MyKFPRI.bHasSpawnedIn && !KFGRI.bWaveIsActive)
 		&& !KFGRI.bMatchIsOver
 		&& KFGRI.bEndlessMode)

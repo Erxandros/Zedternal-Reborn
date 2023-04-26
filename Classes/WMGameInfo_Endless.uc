@@ -2542,6 +2542,8 @@ function RepGameInfoLowPriority()
 	WMGRI.bZRUMenuAllWave = class'ZedternalReborn.Config_GameOptions'.static.GetAllowUpgradeCommandAllWave(GameDifficultyZedternal);
 	WMGRI.bZRUMenuCommand = class'ZedternalReborn.Config_GameOptions'.static.GetAllowUpgradeCommand(GameDifficultyZedternal);
 
+	WMGRI.bPauseButtonEnabled = class'ZedternalReborn.Config_Voting'.static.GetShouldEnablePauseButton(GameDifficultyZedternal);
+
 	SetTimer(3.0f, False, NameOf(FreeConfigDataMemory));
 }
 
