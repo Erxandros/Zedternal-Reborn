@@ -475,6 +475,16 @@ unreliable server function ServerUpdatePing(int NewPing)
 		WMPRI.UncompressedPing = NewPing;
 }
 
+exec function RequestPauseGame()
+{
+	local WMGameReplicationInfo WMGRI;
+
+	WMGRI = WMGameReplicationInfo(WorldInfo.GRI);
+
+	if (WMGRI == None || WMGRI.bPauseButtonEnabled)
+		super.RequestPauseGame();
+}
+
 exec function OpenZedternalUpgradeMenu()
 {
 	local WMPlayerReplicationInfo WMPRI;
