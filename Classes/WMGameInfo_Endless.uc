@@ -603,6 +603,7 @@ function CheckWaveEnd(optional bool bForceWaveEnd = false)
 		ClearTimer(NameOf(LogWaveDetails));
 		UnpauseGameWaveEnded();
 		WaveEnded(WEC_TeamWipedOut);
+		WorldInfo.ForceGarbageCollection(False);
 	}
 	else if ((AIAliveCount <= 0 && IsWaveActive() && SpawnManager.IsFinishedSpawning()) || bForceWaveEnd)
 	{
@@ -610,6 +611,7 @@ function CheckWaveEnd(optional bool bForceWaveEnd = false)
 		ClearTimer(NameOf(LogWaveDetails));
 		UnpauseGameWaveEnded();
 		WaveEnded(WEC_WaveWon);
+		WorldInfo.ForceGarbageCollection(False);
 	}
 }
 
@@ -2568,6 +2570,7 @@ function FreeConfigDataMemory()
 {
 	// Free memory
 	ConfigData = None;
+	WorldInfo.ForceGarbageCollection(False);
 }
 //Replication and Data Handling Code End
 ////////////////////////////////
