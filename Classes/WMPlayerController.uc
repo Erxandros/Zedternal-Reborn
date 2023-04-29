@@ -487,6 +487,21 @@ exec function RequestPauseGame()
 
 exec function OpenZedternalUpgradeMenu()
 {
+	ShowUpgradeMenu();
+}
+
+exec function OpenUpgradeMenu()
+{
+	ShowUpgradeMenu();
+}
+
+exec function OZUM()
+{
+	ShowUpgradeMenu();
+}
+
+function ShowUpgradeMenu()
+{
 	local WMPlayerReplicationInfo WMPRI;
 	local WMGameReplicationInfo WMGRI;
 
