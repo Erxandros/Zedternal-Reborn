@@ -266,6 +266,27 @@ function UnregisterPlayer(PlayerController PC)
 		ResumeEndlessGame();
 }
 
+function ShowPostGameMenu()
+{
+	local KFGameReplicationInfo KFGRI;
+
+	`log("ZR Info: ShowPostGameMenu");
+
+	MyKFGRI.bWaitingForAAR = False;
+
+	bEnableDeadToVOIP = True;
+	KFGRI = KFGameReplicationInfo(WorldInfo.GRI);
+
+	if (KFGRI != None)
+		KFGRI.OnOpenAfterActionReport(GetEndOfMatchTime());
+
+	SendMapOptionsAndOpenAARMenu();
+
+	UpdateCurrentMapVoteTime(GetEndOfMatchTime(), True);
+
+	WorldInfo.TWPushLogs();
+}
+
 function PauseEndlessGame()
 {
 	local KFPawn_Human KFPH;
@@ -2634,6 +2655,51 @@ function SetMonsterDefaults(KFPawn_Monster P)
 					break;
 			}
 		}
+	}
+}
+
+function SendMapOptionsAndOpenAARMenu()
+{
+	local KFPlayerController KFPC;
+	local KFPlayerReplicationInfo KFPRI;
+	local KFGameReplicationInfo KFGRI;
+	local int i;
+
+	KFGRI = KFGameReplicationInfo(WorldInfo.GRI);
+
+	foreach WorldInfo.AllControllers(class'KFPlayerController', KFPC)
+	{
+		if (WorldInfo.NetMode == NM_StandAlone)
+		{
+			if (KFGRI != None && KFGRI.VoteCollector != None)
+			{
+				class'KFGfxMenu_StartGame'.static.GetMapList(KFGRI.VoteCollector.MapList, 3);
+				for (i = 0; i < KFGRI.VoteCollector.MapList.Length; ++i)
+				{
+					// Endless gamemode is 3
+					if (!GameModeSupportsMap(3, KFGRI.VoteCollector.MapList[i]))
+					{
+						KFGRI.VoteCollector.MapList.Remove(i, 1);
+						i--;
+					}
+				}
+			}
+		}
+		else
+		{
+			KFPRI = KFPlayerReplicationInfo(KFPC.PlayerReplicationInfo);
+			for (i = 0; i < GameMapCycles[ActiveMapCycle].Maps.Length; ++i)
+			{
+				if (KFPRI != None)
+				{
+					// Endless gamemode is 3
+					if (GameModeSupportsMap(3, GameMapCycles[ActiveMapCycle].Maps[i]))
+						KFPRI.RecieveAARMapOption(GameMapCycles[ActiveMapCycle].Maps[i]);
+				}
+			}
+		}
+
+		KFPC.ClientShowPostGameMenu();
 	}
 }
 
