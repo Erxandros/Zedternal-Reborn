@@ -18,8 +18,8 @@ defaultproperties
 {
 	Damage(0)=1.0f
 	Damage(1)=2.5f
-	ExtraGrenades(0)=1
-	ExtraGrenades(1)=2
+	ExtraGrenades(0)=3
+	ExtraGrenades(1)=6
 
 	bShouldLocalize=True
 	UpgradeName="ZedternalReborn.WMUpgrade_Skill_Fallback"

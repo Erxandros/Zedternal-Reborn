@@ -29,8 +29,8 @@ defaultproperties
 {
 	Bonus(0)=0.75f
 	Bonus(1)=2.0f
-	ExtraGrenades(0)=1
-	ExtraGrenades(1)=2
+	ExtraGrenades(0)=4
+	ExtraGrenades(1)=8
 
 	bShouldLocalize=True
 	UpgradeName="ZedternalReborn.WMUpgrade_Skill_DoorTraps"
