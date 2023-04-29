@@ -2660,6 +2660,26 @@ function SetMonsterDefaults(KFPawn_Monster P)
 
 function string GetNextMap()
 {
+	local KFGameReplicationInfo KFGRI;
+	local int NextMapIndex;
+
+	KFGRI = KFGameReplicationInfo(WorldInfo.GRI);
+	if (KFGRI != None)
+		NextMapIndex = KFGRI.VoteCollector.GetNextMap();
+
+	if (NextMapIndex != INDEX_NONE)
+	{
+		if (WorldInfo.NetMode == NM_Standalone)
+			return KFGRI.VoteCollector.Maplist[NextMapIndex];
+		else
+			return GameMapCycles[ActiveMapCycle].Maps[NextMapIndex];
+	}
+
+	return GetNextMapBase();
+}
+
+function string GetNextMapBase()
+{
 	local array<string> MapList;
 	local int i;
 
