@@ -34,7 +34,7 @@ defaultproperties
 {
 	Health=0.75f
 	HeadHealth=0.75f
-	Size=0.178f
+	Size=0.175f
 	Speed=0.1f
 	Damage=0.1f
 	Prob=0.1f
