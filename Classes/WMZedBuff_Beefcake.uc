@@ -4,7 +4,7 @@ var float Health, HeadHealth, Size, Damage, Speed, Prob;
 
 static function ModifyZedHealthMod(out float HealthMod, KFPawn_Monster P, float GameDifficulty, byte NumLivingPlayers)
 {
-	if (!P.bLargeZed && (FRand() <= default.Prob || P.bAmbientCreature))
+	if (!(P.static.IsLargeZed() || P.static.IsABoss()) && (FRand() <= default.Prob || P.bAmbientCreature))
 	{
 		HealthMod += default.Health;
 		P.IntendedBodyScale += default.Size;

@@ -21,7 +21,7 @@ function Timer()
 			if (KFPM.Health < KFPM.HealthMax)
 			{
 				KFPM.PlayHeal(class'KFDT_Healing');
-				if (KFPM.bLargeZed)
+				if (KFPM.static.IsLargeZed() || KFPM.static.IsABoss())
 					KFPM.Health = Min(KFPM.HealthMax, Round(KFPM.Health + KFPM.HealthMax * default.HealLargeZed));
 				else
 					KFPM.Health = Min(KFPM.HealthMax, Round(KFPM.Health + KFPM.HealthMax * default.HealZed));

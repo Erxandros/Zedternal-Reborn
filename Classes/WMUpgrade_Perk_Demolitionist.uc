@@ -10,7 +10,7 @@ static function ModifyDamageGiven(out int InDamage, int DefaultDamage, int upgLe
 	if (DamageType != None && static.IsGrenadeDTAdvance(DamageType, DamageInstigator))
 		InDamage += Round(float(DefaultDamage) * default.GrenadeDamage * upgLevel);
 
-	if (MyKFPM != None && MyKFPM.bLargeZed)
+	if (MyKFPM != None && (MyKFPM.static.IsLargeZed() || MyKFPM.static.IsABoss()))
 		InDamage += Round(float(DefaultDamage) * default.LZDamage * upgLevel);
 }
 

@@ -921,7 +921,7 @@ function float GetAdjustedAIDoshValue(class<KFPawn_Monster> MonsterClass)
 			TempValue *= WMGameReplicationInfo(MyKFGRI).SpecialWavesList[WMGameReplicationInfo(MyKFGRI).SpecialWaveID[i]].SpecialWave.default.DoshFactor;
 	}
 
-	if (MonsterClass.default.bLargeZed)
+	if (MonsterClass.static.IsLargeZed() || MonsterClass.static.IsABoss())
 		TempValue *= class'ZedternalReborn.Config_Dosh'.static.GetLargeZedDoshMultiplier(GameDifficultyZedternal, PlayerCount);
 	else
 		TempValue *= class'ZedternalReborn.Config_Dosh'.static.GetNormalZedDoshMultiplier(GameDifficultyZedternal, PlayerCount);

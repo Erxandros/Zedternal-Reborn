@@ -61,7 +61,7 @@ function GetAIHealthModifier(KFPawn_Monster P, float GameDifficulty, byte NumLiv
 		{
 			if (P.bVersusZed)
 				HealthMod = class'ZedternalReborn.Config_DifficultyOmega'.static.GetZedHealthModifier(GameDifficultyZedternal);
-			else if (P.bLargeZed)
+			else if (P.static.IsLargeZed() || P.static.IsABoss())
 				HealthMod = class'ZedternalReborn.Config_DifficultyLarge'.static.GetZedHealthModifier(GameDifficultyZedternal);
 			else
 				HealthMod = class'ZedternalReborn.Config_DifficultyNormal'.static.GetZedHealthModifier(GameDifficultyZedternal);
@@ -71,7 +71,7 @@ function GetAIHealthModifier(KFPawn_Monster P, float GameDifficulty, byte NumLiv
 		{
 			if (P.bVersusZed)
 				HeadHealthMod = class'ZedternalReborn.Config_DifficultyOmega'.static.GetZedHeadHealthModifier(GameDifficultyZedternal);
-			else if (P.bLargeZed)
+			else if (P.static.IsLargeZed() || P.static.IsABoss())
 				HeadHealthMod = class'ZedternalReborn.Config_DifficultyLarge'.static.GetZedHeadHealthModifier(GameDifficultyZedternal);
 			else
 				HeadHealthMod = class'ZedternalReborn.Config_DifficultyNormal'.static.GetZedHeadHealthModifier(GameDifficultyZedternal);
@@ -87,7 +87,7 @@ function GetAIHealthModifier(KFPawn_Monster P, float GameDifficulty, byte NumLiv
 				HealthMod = class'ZedternalReborn.Config_DiffOverTime'.static.GetOmegaZedHealthModifierOverTime(HealthMod, GameDifficultyZedternal, WMGRI.WaveNum);
 				HeadHealthMod = class'ZedternalReborn.Config_DiffOverTime'.static.GetOmegaZedHealthModifierOverTime(HeadHealthMod, GameDifficultyZedternal, WMGRI.WaveNum);
 			}
-			else if (P.bLargeZed)
+			else if (P.static.IsLargeZed() || P.static.IsABoss())
 			{
 				HealthMod = class'ZedternalReborn.Config_DiffOverTime'.static.GetLargeZedHealthModifierOverTime(HealthMod, GameDifficultyZedternal, WMGRI.WaveNum);
 				HeadHealthMod = class'ZedternalReborn.Config_DiffOverTime'.static.GetLargeZedHealthModifierOverTime(HeadHealthMod, GameDifficultyZedternal, WMGRI.WaveNum);
@@ -115,7 +115,7 @@ function GetAIHealthModifier(KFPawn_Monster P, float GameDifficulty, byte NumLiv
 		{
 			if (P.bVersusZed)
 				ExtraHealthMod += class'ZedternalReborn.Config_DifficultyOmega'.static.GetExtraHealthModifierPerPlayer(GameDifficultyZedternal);
-			else if (P.bLargeZed)
+			else if (P.static.IsLargeZed() || P.static.IsABoss())
 				ExtraHealthMod += class'ZedternalReborn.Config_DifficultyLarge'.static.GetExtraHealthModifierPerPlayer(GameDifficultyZedternal);
 			else
 				ExtraHealthMod += class'ZedternalReborn.Config_DifficultyNormal'.static.GetExtraHealthModifierPerPlayer(GameDifficultyZedternal);
@@ -167,7 +167,7 @@ function float GetAIDamageModifier(KFPawn_Monster P, float GameDifficulty, bool 
 			{
 				if (P.bVersusZed)
 					ZedDamageMod = class'ZedternalReborn.Config_DifficultyOmega'.static.GetZedSoloDamageModifier(GameDifficultyZedternal);
-				else if (P.bLargeZed)
+				else if (P.static.IsLargeZed() || P.static.IsABoss())
 					ZedDamageMod = class'ZedternalReborn.Config_DifficultyLarge'.static.GetZedSoloDamageModifier(GameDifficultyZedternal);
 				else
 					ZedDamageMod = class'ZedternalReborn.Config_DifficultyNormal'.static.GetZedSoloDamageModifier(GameDifficultyZedternal);
@@ -182,7 +182,7 @@ function float GetAIDamageModifier(KFPawn_Monster P, float GameDifficulty, bool 
 			{
 				if (P.bVersusZed)
 					ZedDamageMod = class'ZedternalReborn.Config_DifficultyOmega'.static.GetZedDamageModifier(GameDifficultyZedternal);
-				else if (P.bLargeZed)
+				else if (P.static.IsLargeZed() || P.static.IsABoss())
 					ZedDamageMod = class'ZedternalReborn.Config_DifficultyLarge'.static.GetZedDamageModifier(GameDifficultyZedternal);
 				else
 					ZedDamageMod = class'ZedternalReborn.Config_DifficultyNormal'.static.GetZedDamageModifier(GameDifficultyZedternal);
@@ -237,7 +237,7 @@ function float GetAISpeedMod(KFPawn_Monster P, float GameDifficulty)
 		{
 			if (P.bVersusZed)
 				SpeedMod = class'ZedternalReborn.Config_DifficultyOmega'.static.GetZedSpeedModifier(GameDifficultyZedternal);
-			else if (P.bLargeZed)
+			else if (P.static.IsLargeZed() || P.static.IsABoss())
 				SpeedMod = class'ZedternalReborn.Config_DifficultyLarge'.static.GetZedSpeedModifier(GameDifficultyZedternal);
 			else
 				SpeedMod = class'ZedternalReborn.Config_DifficultyNormal'.static.GetZedSpeedModifier(GameDifficultyZedternal);

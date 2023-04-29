@@ -404,7 +404,7 @@ function SetupNextWave(byte NextWaveIndex, int TimeToNextWaveBuffer = 0)
 		// if not, we remove it from the list
 		if (WaveValue < (WaveSpawns[Choice].Value * Max(1, WaveSpawns[Choice].MinGr)))
 			WaveSpawns.Remove(Choice, 1);
-		else if (NoLargeZedCountDown > 0 && (WaveSpawns[Choice].ZedClass.default.bLargeZed || class<KFPawn_MonsterBoss>(WaveSpawns[Choice].ZedClass) != None))
+		else if (NoLargeZedCountDown > 0 && (WaveSpawns[Choice].ZedClass.static.IsLargeZed() || WaveSpawns[Choice].ZedClass.static.IsABoss()))
 			--NoLargeZedCountDown;
 		else
 		{
@@ -452,7 +452,7 @@ function SetupNextWave(byte NextWaveIndex, int TimeToNextWaveBuffer = 0)
 				if (!bVariantApplied)
 					GroupList[GroupList.Length - 1].ZedClasses.AddItem(WaveSpawns[Choice].ZedClass);
 
-				if (WaveSpawns[Choice].ZedClass.default.bLargeZed || class<KFPawn_MonsterBoss>(WaveSpawns[Choice].ZedClass) != None)
+				if (WaveSpawns[Choice].ZedClass.static.IsLargeZed() || WaveSpawns[Choice].ZedClass.static.IsABoss())
 					NoLargeZedCountDown = 1;
 			}
 

@@ -4,7 +4,7 @@ var float Health, LargeZedHealth, HeadHealth;
 
 static function ModifyZedHealthMod(out float HealthMod, KFPawn_Monster P, float GameDifficulty, byte NumLivingPlayers)
 {
-	if (P.bLargeZed)
+	if (P.static.IsLargeZed() || P.static.IsABoss())
 		HealthMod += default.LargeZedHealth;
 	else
 		HealthMod += default.Health;
