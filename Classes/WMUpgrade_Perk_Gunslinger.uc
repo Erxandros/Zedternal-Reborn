@@ -22,13 +22,13 @@ defaultproperties
 {
 	Damage=0.05f
 	MoveSpeed=0.04f
-	SwitchSpeed=0.2f
+	SwitchSpeed=0.25f
 
 	bShouldLocalize=True
 	UpgradeName="ZedternalReborn.WMUpgrade_Perk_Gunslinger"
 	LocalizeDescriptionLineCount=3
 	PerkBonus(0)=(baseValue=0, incValue=4, maxValue=-1)
-	PerkBonus(1)=(baseValue=0, incValue=20, maxValue=-1)
+	PerkBonus(1)=(baseValue=0, incValue=25, maxValue=-1)
 	PerkBonus(2)=(baseValue=0, incValue=5, maxValue=-1)
 	UpgradeIcon(0)=Texture2D'ZedternalReborn_Resource.Perks.UI_Perk_Gunslinger_Rank_0'
 	UpgradeIcon(1)=Texture2D'ZedternalReborn_Resource.Perks.UI_Perk_Gunslinger_Rank_1'
