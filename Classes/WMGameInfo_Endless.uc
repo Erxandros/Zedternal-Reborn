@@ -2658,6 +2658,44 @@ function SetMonsterDefaults(KFPawn_Monster P)
 	}
 }
 
+function string GetNextMap()
+{
+	local array<string> MapList;
+	local int i;
+
+	if (bUseMapList && GameMapCycles.Length > 0)
+	{
+		if (MapCycleIndex == INDEX_NONE)
+		{
+			MapList = GameMapCycles[ActiveMapCycle].Maps;
+			MapCycleIndex = GetCurrentMapCycleIndex(MapList);
+			if (MapCycleIndex == INDEX_NONE)
+			{
+				// Assume current map is actually zero
+				MapCycleIndex = 0;
+			}
+		}
+
+		for (i = 0; i < GameMapCycles[ActiveMapCycle].Maps.Length; ++i)
+		{
+			MapCycleIndex = MapCycleIndex + 1 < GameMapCycles[ActiveMapCycle].Maps.Length ? (MapCycleIndex + 1) : 0;
+
+			// Endless gamemode is 3
+			if (GameModeSupportsMap(3, GameMapCycles[ActiveMapCycle].Maps[MapCycleIndex]))
+			{
+				SaveConfig();
+				return GameMapCycles[ActiveMapCycle].Maps[MapCycleIndex];
+			}
+		}
+
+		return string(WorldInfo.GetPackageName());
+	}
+	else
+		return string(WorldInfo.GetPackageName());
+
+	return "";
+}
+
 function SendMapOptionsAndOpenAARMenu()
 {
 	local KFPlayerController KFPC;
