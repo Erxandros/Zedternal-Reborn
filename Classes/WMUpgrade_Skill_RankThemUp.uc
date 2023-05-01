@@ -74,8 +74,8 @@ static simulated function DeleteHelperClass(Pawn OwnerPawn)
 
 defaultproperties
 {
-	ExtraDamage(1)=1.5f
-	ExtraDamage(2)=3.75f
+	ExtraDamage(0)=1.5f
+	ExtraDamage(1)=3.75f
 
 	bShouldLocalize=True
 	UpgradeName="ZedternalReborn.WMUpgrade_Skill_RankThemUp"
