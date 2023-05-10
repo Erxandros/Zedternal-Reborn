@@ -46,6 +46,9 @@ function SetSumarryInfo()
 	}
 
 	SetObject("gameSummary", TextObject);
+
+	if (KFPC.WorldInfo.NetMode == NM_Client)
+		KFPC.WorldInfo.ForceGarbageCollection(False);
 }
 
 defaultproperties

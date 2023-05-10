@@ -570,6 +570,9 @@ simulated function GenerateDataFromSyncData()
 	{
 		bAllDataGenerated = True;
 		`log("ZR Info: All needed data generated from replicated data");
+
+		if (WorldInfo.NetMode == NM_Client)
+			WorldInfo.ForceGarbageCollection(False);
 	}
 }
 
@@ -1142,6 +1145,9 @@ simulated function OpenTrader(optional int time)
 	}
 
 	super.OpenTrader(time);
+
+	if (WorldInfo.NetMode == NM_Client)
+		WorldInfo.ForceGarbageCollection(False);
 }
 
 simulated function CloseTrader()
