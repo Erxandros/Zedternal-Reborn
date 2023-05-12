@@ -40,6 +40,37 @@ function LocalizeText()
 	RefreshCycleButton();
 }
 
+function UpdateInLobby(bool bIsInLobby)
+{
+	local bool bShouldShowCreateParty;
+
+	if (bIsInLobby != bInLobby)
+	{
+		bInLobby = bIsInLobby;
+		RefreshParty();
+	}
+
+	if (Manager.StartMenu != None)
+	{
+		if (GetPC().WorldInfo.IsMenuLevel())
+		{
+			bShouldShowCreateParty = !bInLobby && EStartMenuState(Manager.StartMenu.GetStartMenuState()) != ESoloGame;
+		}
+		else if (class'WorldInfo'.static.IsConsoleBuild())
+		{
+			bShouldShowCreateParty = GetPC().WorldInfo.NetMode != NM_Standalone && !bInLobby;
+		}
+
+		if (bCreatePartyVisible != bShouldShowCreateParty)
+		{
+			bCreatePartyVisible = bShouldShowCreateParty;
+			SetBool("partyButtonVisible",bCreatePartyVisible);
+		}
+	}
+
+	SetBool("bInParty", bIsInLobby);
+}
+
 function UpdateEndlessPauseButtonText()
 {
 	local bool bIsConsole;
