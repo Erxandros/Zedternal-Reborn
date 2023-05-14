@@ -614,7 +614,7 @@ function CheckWaveEnd(optional bool bForceWaveEnd = false)
 {
 	if (!MyKFGRI.bMatchHasBegun)
 	{
-		`log("ZR Info: WMGameInfo_Endless.CheckWaveEnd() - Cannot check if wave has ended since match has not begun.");
+		`log("ZR Info: WMGameInfo_Endless.CheckWaveEnd() - Cannot check if wave has ended since match is not active.");
 		return;
 	}
 
