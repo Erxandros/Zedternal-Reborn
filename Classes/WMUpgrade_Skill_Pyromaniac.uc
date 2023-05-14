@@ -64,7 +64,8 @@ static function WaveEnd(int upgLevel, KFPlayerController KFPC)
 	local WMUpgrade_Skill_Pyromaniac_Helper UPG;
 
 	UPG = GetHelper(KFPawn(KFPC.Pawn), upgLevel);
-	UPG.EndWaveReset();
+	if (UPG != None)
+		UPG.EndWaveReset();
 }
 
 static simulated function DeleteHelperClass(Pawn OwnerPawn)
