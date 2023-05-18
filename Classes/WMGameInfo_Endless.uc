@@ -1557,7 +1557,7 @@ function ScoreDamage(int DamageAmount, int HealthBeforeDamage, Controller Instig
 		if (InstigatedBy.Pawn != None)
 		{
 			if (WorldInfo.NetMode == NM_DedicatedServer || WorldInfo.NetMode == NM_ListenServer)
-				WMPlayerController(InstigatedBy).AddDamage(DamageAmount, damageType);
+				WMPlayerController(InstigatedBy).AddDamageStat(DamageAmount, damageType);
 			else
 				KFPlayerController(InstigatedBy).AddTrackedDamage(DamageAmount, damageType, None, None);
 		}

@@ -717,7 +717,7 @@ function bool DmgArrayBinarySearch(string DTName, out int Low)
 	return True;
 }
 
-function AddDamage(int DamageAmount, class<DamageType> DT)
+function AddDamageStat(int DamageAmount, class<DamageType> DT)
 {
 	local int i;
 
