@@ -608,6 +608,8 @@ function WaveEnded(EWaveEndCondition WinCondition)
 
 	if (WinCondition == WEC_TeamWipedOut)
 		ClearTimer(NameOf(CheckIfAllPlayersDead));
+
+	SetTimer(3.0f, False, NameOf(SyncStats));
 }
 
 function CheckWaveEnd(optional bool bForceWaveEnd = false)
@@ -773,6 +775,16 @@ function CheckIfAllPlayersDead()
 		ClearTimer(NameOf(LogWaveDetails));
 		`log("ZR Warning: All players dead but match has not ended by itself, ending match now");
 		WaveEnded(WEC_TeamWipedOut);
+	}
+}
+
+function SyncStats()
+{
+	local WMPlayerController WMPC;
+
+	foreach DynamicActors(class'WMPlayerController', WMPC)
+	{
+		WMPC.SendAllStats();
 	}
 }
 //Player Code End
@@ -1530,6 +1542,25 @@ function CheckZedTimeOnKill(Controller Killer, Controller KilledPlayer, Pawn Kil
 			DramaticEvent(0.05f);
 		else
 			DramaticEvent(0.025f);
+	}
+}
+
+function ScoreDamage(int DamageAmount, int HealthBeforeDamage, Controller InstigatedBy, Pawn DamagedPawn, class<DamageType> damageType)
+{
+	if (InstigatedBy == None || InstigatedBy.PlayerReplicationInfo == None || InstigatedBy.GetTeamNum() == DamagedPawn.GetTeamNum())
+		return;
+
+	if (InstigatedBy.bIsPlayer)
+	{
+		DamageAmount = Min(DamageAmount, HealthBeforeDamage);
+		KFPlayerReplicationInfo(InstigatedBy.PlayerReplicationInfo).DamageDealtOnTeam += DamageAmount;
+		if (InstigatedBy.Pawn != None)
+		{
+			if (WorldInfo.NetMode == NM_DedicatedServer || WorldInfo.NetMode == NM_ListenServer)
+				WMPlayerController(InstigatedBy).AddDamage(DamageAmount, damageType);
+			else
+				KFPlayerController(InstigatedBy).AddTrackedDamage(DamageAmount, damageType, None, None);
+		}
 	}
 }
 

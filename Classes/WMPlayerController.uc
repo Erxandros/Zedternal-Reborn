@@ -13,6 +13,14 @@ var byte PlatformType;
 //For command
 var bool bUpgradeMenuOpen;
 
+//For damage collection
+struct DamageCollector
+{
+	var class<DamageType> DT;
+	var int Damage;
+};
+var array<DamageCollector> DmgArray;
+
 simulated event PreBeginPlay()
 {
 	super.PreBeginPlay();
@@ -524,6 +532,7 @@ function PawnDied(Pawn inPawn)
 	if (inPawn == Pawn)
 	{
 		PawnDiedCloseUPGMenu();
+		SendAllStats();
 	}
 
 	super.PawnDied(inPawn);
@@ -539,7 +548,7 @@ reliable client function PawnDiedCloseUPGMenu()
 		WMPRI.CloseUPGMenu();
 }
 
-function NotifyXPGain( class<KFPerk> PerkClass, int Amount, int BonusXP )
+function NotifyXPGain(class<KFPerk> PerkClass, int Amount, int BonusXP)
 {
 	// Do nothing
 }
@@ -683,6 +692,65 @@ function bool PerformedUseAction()
 
 	// try to interact with triggers
 	return TriggerInteracted();
+}
+
+function bool DmgArrayBinarySearch(string DTName, out int Low)
+{
+	local string MidStr;
+	local int Mid, High;
+
+	DTName = Caps(DTName);
+	Low = 0;
+	High = DmgArray.Length - 1;
+	while (Low <= High)
+	{
+		Mid = (Low + High) / 2;
+		MidStr = Caps(PathName(DmgArray[Mid].DT));
+		if (DTName < MidStr)
+			High = Mid - 1;
+		else if (DTName > MidStr)
+			Low = Mid + 1;
+		else
+			return False;
+	}
+
+	return True;
+}
+
+function AddDamage(int DamageAmount, class<DamageType> DT)
+{
+	local int i;
+
+	if (DmgArrayBinarySearch(PathName(DT), i))
+	{
+		DmgArray.Insert(i, 1);
+		DmgArray[i].DT = DT;
+		DmgArray[i].Damage = DamageAmount;
+	}
+	else
+	{
+		DmgArray[i].Damage += DamageAmount;
+	}
+}
+
+function SendDamageData()
+{
+	local int i;
+
+	if (DmgArray.Length <= 0)
+		return;
+
+	for (i = 0; i < DmgArray.Length; ++i)
+	{
+		AddTrackedDamage(DmgArray[i].Damage, DmgArray[i].DT, None, None);
+	}
+
+	DmgArray.Length = 0;
+}
+
+function SendAllStats()
+{
+	SendDamageData();
 }
 
 defaultproperties
