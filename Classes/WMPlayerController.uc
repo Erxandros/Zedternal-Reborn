@@ -20,6 +20,7 @@ struct DamageCollector
 	var int Damage;
 };
 var array<DamageCollector> DmgArray;
+var int HealPoints;
 
 simulated event PreBeginPlay()
 {
@@ -748,9 +749,22 @@ function SendDamageData()
 	DmgArray.Length = 0;
 }
 
+function AddHealStat(int HealAmount)
+{
+	HealPoints += HealAmount;
+}
+
+function SendHealData()
+{
+	AddHealPoints(HealPoints);
+
+	HealPoints = 0;
+}
+
 function SendAllStats()
 {
 	SendDamageData();
+	SendHealData();
 }
 
 defaultproperties

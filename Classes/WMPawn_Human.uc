@@ -36,6 +36,131 @@ event bool HealDamage(int Amount, Controller Healer, class<DamageType> DamageTyp
 	return super.HealDamage(Amount, Healer, DamageType, bCanRepairArmor, bMessageHealer);
 }
 
+event bool HealDamageForce(int Amount, Controller Healer, class<DamageType> DamageType, optional bool bCanRepairArmor=True, optional bool bMessageHealer=True)
+{
+	local int DoshEarned;
+	local float UsedHealAmount;
+	local KFPlayerReplicationInfo InstigatorPRI;
+	local KFPlayerController InstigatorPC, KFPC;
+	local KFPerk InstigatorPerk;
+	local class<KFDamageType> KFDT;
+	local int i;
+	local bool bRepairedArmor;
+	local int OldHealth;
+
+	OldHealth = Health;
+
+	InstigatorPC = KFPlayerController(Healer);
+	InstigatorPerk = InstigatorPC != None ? InstigatorPC.GetPerk() : None;
+	if (InstigatorPerk != None)
+	{
+		// Instigator might be able to repair some armomr
+		if (bCanRepairArmor)
+			bRepairedArmor = InstigatorPerk.RepairArmor(self);
+
+		if (InstigatorPerk.GetHealingSpeedBoostActive())
+			UpdateHealingSpeedBoost();
+
+		if (InstigatorPerk.GetHealingDamageBoostActive())
+			UpdateHealingDamageBoost();
+
+		if (InstigatorPerk.GetHealingShieldActive())
+			UpdateHealingShield();
+	}
+
+	if (Amount > 0 && IsAliveAndWell() && Health < HealthMax)
+	{
+		// Play any healing effects attached to this damage type
+		KFDT = class<KFDamageType>(DamageType);
+		if (KFDT != None && KFDT.default.bNoPain)
+			PlayHeal(KFDT);
+		else
+			`warn("No hit effects for damagetype:"@DamageType);
+
+		if (Role == ROLE_Authority)
+		{
+			if (InstigatorPC == None || InstigatorPC.PlayerReplicationInfo == None)
+				return False;
+
+			InstigatorPRI = KFPlayerReplicationInfo(InstigatorPC.PlayerReplicationInfo);
+			UsedHealAmount = Amount;
+			if (InstigatorPerk != None)
+			{
+				if (InstigatorPerk.ModifyHealAmount(UsedHealAmount))
+				{
+					if (Controller != Healer && InstigatorPerk.IsHealingSurgeActive())
+					{
+						if (InstigatorPC.Pawn != None)
+							InstigatorPC.Pawn.HealDamage(InstigatorPC.Pawn.HealthMax * InstigatorPerk.GetSelfHealingSurgePct(), InstigatorPC, class'KFDT_Healing');
+					}
+				}
+			}
+
+			// You can never have a HealthToRegen value that's greater than HealthMax
+			if (Health + HealthToRegen + UsedHealAmount > HealthMax)
+				UsedHealAmount = HealthMax - (Health + HealthToRegen);
+
+			HealthToRegen += UsedHealAmount;
+			SetTimer(HealthRegenRate, True, NameOf(GiveHealthOverTime));
+
+			// Give the healer money/XP for helping a teammate
+			if (InstigatorPC.Pawn != None && InstigatorPC.Pawn != self)
+			{
+				DoshEarned = (UsedHealAmount / float(HealthMax)) * HealerRewardScaler;
+				InstigatorPRI.AddDosh(Max(DoshEarned, 0), True);
+				if (WMPlayerController(InstigatorPC) != None)
+					WMPlayerController(InstigatorPC).AddHealStat(UsedHealAmount);
+			}
+
+			if (Healer.bIsPlayer)
+			{
+				if (Healer != Controller)
+				{
+					InstigatorPC.ReceiveLocalizedMessage(class'KFLocalMessage_Game', GMT_HealedPlayer, PlayerReplicationInfo);
+					KFPC = KFPlayerController(Controller);
+					KFPC.ReceiveLocalizedMessage(class'KFLocalMessage_Game', GMT_HealedBy, Healer.PlayerReplicationInfo);
+
+					if (KFPC != None && KFPC.MatchStats != None)
+					{
+						KFPC.MatchStats.RecordIntStat(5, UsedHealAmount); // MATCH_EVENT_HEAL_RECEIVED
+						InstigatorPC.MatchStats.RecordIntStat(4, UsedHealAmount); // MATCH_EVENT_HEAL_GIVEN
+					}
+				}
+				else
+				{
+					if (bMessageHealer)
+						InstigatorPC.ReceiveLocalizedMessage(class'KFLocalMessage_Game', GMT_HealedSelf, PlayerReplicationInfo);
+				}
+			}
+
+			// don't play dialog for healing done through perk skills (e.g. berserker vampire skill)
+			if (bMessageHealer)
+				`DialogManager.PlayHealingDialog(KFPawn(Healer.Pawn), self, float(Health + HealthToRegen) / float(HealthMax));
+
+			// Reduce burn duration and damage in half if you heal while burning
+			for (i = 0; i < DamageOverTimeArray.Length; ++i)
+			{
+				if (DamageOverTimeArray[i].DoT_Type == DOT_Fire)
+				{
+					DamageOverTimeArray[i].Duration *= 0.5;
+					DamageOverTimeArray[i].Damage *= 0.5;
+					break;
+				}
+			}
+
+			if (Health - OldHealth > 0)
+				WorldInfo.Game.ScoreHeal(Health - OldHealth, OldHealth, Healer, self, DamageType);
+
+			return True;
+		}
+	}
+
+	if (Health - OldHealth > 0)
+		WorldInfo.Game.ScoreHeal(Health - OldHealth, OldHealth, Healer, self, DamageType);
+
+	return bRepairedArmor;
+}
+
 simulated function float GetHealingDamageBoostModifier()
 {
 	return 1.0f + (float(HealingDamageBoost_ZedternalReborn) / 100);
