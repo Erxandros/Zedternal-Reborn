@@ -53,5 +53,7 @@ function SetSumarryInfo()
 
 defaultproperties
 {
+	SubWidgetBindings(0)=(WidgetName="playerStatsContainer",WidgetClass=class'ZedternalReborn.WMGFxPostGameContainer_PlayerStats')
+
 	Name="Default__WMGFxMenu_PostGameReport"
 }
