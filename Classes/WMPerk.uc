@@ -2610,7 +2610,7 @@ function HealingDamage(int HealAmount, KFPawn KFP, class<DamageType> DamageType)
 	}
 }
 
-simulated function float GetZedTimeModifier(KFWeapon W)
+simulated event float GetZedTimeModifier(KFWeapon W)
 {
 	local byte i, index;
 	local float InModifier;
