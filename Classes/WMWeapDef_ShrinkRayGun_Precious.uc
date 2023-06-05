@@ -19,7 +19,7 @@ static function string GetItemLocalization(string KeyName)
 defaultproperties
 {
 	WeaponClassPath="ZedternalReborn.WMWeap_ShrinkRayGun_Precious"
-	BuyPrice=2400
+	BuyPrice=1800
 	AmmoPricePerMag=140
 	Name="Default__WMWeapDef_ShrinkRayGun_Precious"
 }
