@@ -5,7 +5,7 @@ defaultproperties
 	MagazineCapacity(0)=14
 	AmmoPickupScale(0)=1
 	SpareAmmoCapacity(0)=157
-	AmmoCost(ALTFIRE_FIREMODE)=50
+	AmmoCost(ALTFIRE_FIREMODE)=13
 	WeaponProjectiles(ALTFIRE_FIREMODE)=class'ZedternalReborn.WMProj_Grenade_HRG_CranialPopper_Precious'
 	InstantHitDamage(BASH_FIREMODE)=36
 	InstantHitDamage(DEFAULT_FIREMODE)=68
