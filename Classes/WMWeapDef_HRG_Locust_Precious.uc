@@ -19,7 +19,7 @@ static function string GetItemLocalization(string KeyName)
 defaultproperties
 {
 	WeaponClassPath="ZedternalReborn.WMWeap_HRG_Locust_Precious"
-	BuyPrice=1800
+	BuyPrice=2800
 	AmmoPricePerMag=112
 	Name="Default__WMWeapDef_HRG_Locust_Precious"
 }
