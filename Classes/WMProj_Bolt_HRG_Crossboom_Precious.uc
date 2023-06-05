@@ -5,7 +5,7 @@ defaultproperties
 {
 	Begin Object Name=ExploTemplate0
 		Damage=473
-		DamageRadius=260
+		DamageRadius=325
 	End Object
 	Name="Default__WMProj_Bolt_HRG_Crossboom_Precious"
 }
