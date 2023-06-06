@@ -117,6 +117,7 @@ defaultproperties
 	OverrideDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_HRG_Dragonbreath",OriginalWeaponDefPath="KFGame.KFWeapDef_HRG_Dragonbreath"));
 	OverrideDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_HRG_Locust",OriginalWeaponDefPath="KFGame.KFWeapDef_HRG_Locust"));
 	OverrideDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_HRG_MedicMissile",OriginalWeaponDefPath="KFGame.KFWeapDef_HRG_MedicMissile"));
+	OverrideDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_HRG_Warthog",OriginalWeaponDefPath="KFGame.KFWeapDef_HRG_Warthog"));
 	OverrideDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_HRGIncendiaryRifle",OriginalWeaponDefPath="KFGame.KFWeapDef_HRGIncendiaryRifle"));
 	OverrideDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_HRGTeslauncher",OriginalWeaponDefPath="KFGame.KFWeapDef_HRGTeslauncher"));
 	OverrideDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_HuskCannon",OriginalWeaponDefPath="KFGame.KFWeapDef_HuskCannon"));
@@ -179,6 +180,7 @@ defaultproperties
 	PreciousDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_HRG_SonicGun_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_HRG_SonicGun"));
 	PreciousDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_HRG_Stunner_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_HRG_Stunner"));
 	PreciousDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_HRG_Vampire_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_HRG_Vampire"));
+	PreciousDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_HRG_Warthog_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_HRG_Warthog"));
 	PreciousDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_HRGIncendiaryRifle_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_HRGIncendiaryRifle"));
 	PreciousDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_HRGIncision_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_HRGIncision"));
 	PreciousDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_HRGScorcher_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_HRGScorcher"));

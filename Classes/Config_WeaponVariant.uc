@@ -306,6 +306,10 @@ static function UpdateConfig()
 
 	if (default.MODEVERSION < 17)
 	{
+		NewVariant.WeaponDef = "KFGame.KFWeapDef_HRG_Warthog";
+		NewVariant.WeaponDefVariant = "ZedternalReborn.WMWeapDef_HRG_Warthog_Precious";
+		default.Weapon_VariantWeaponDef.AddItem(NewVariant);
+
 		NewVariant.WeaponDef = "KFGame.KFWeapDef_Shotgun_S12";
 		NewVariant.WeaponDefVariant = "ZedternalReborn.WMWeapDef_Shotgun_S12_Precious";
 		default.Weapon_VariantWeaponDef.AddItem(NewVariant);
