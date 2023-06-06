@@ -19,12 +19,12 @@ simulated event PostBeginPlay()
 	if (Role == ROLE_Authority)
 	{
 		KFPC = KFPlayerController(Instigator.Controller);
-		NumDeployedTurrets = GetDeployedTurrets();
+		NumDeployedTurrets = GetDeployedTurretCount();
 	}
 }
 ////////////////////////////////////////////////////////////
 //// Turret Helper Functions
-simulated function int GetDeployedTurrets()
+simulated function int GetDeployedTurretCount()
 {
 	local int i, num;
 
@@ -75,7 +75,7 @@ function RemoveDeployedTurret(optional int Index = INDEX_NONE, optional Actor Tu
 	if (Index != INDEX_NONE)
 	{
 		KFPC.DeployedTurrets.Remove(Index, 1);
-		NumDeployedTurrets = GetDeployedTurrets();
+		NumDeployedTurrets = GetDeployedTurretCount();
 		bForceNetUpdate = True;
 	}
 }
@@ -113,12 +113,12 @@ function SetOriginalValuesFromPickup(KFWeapon PickedUpWeapon)
 		}
 	}
 
-	if (GetDeployedTurrets() > 1)
+	if (GetDeployedTurretCount() > 1)
 		Detonate(True);
 
 	PickedUpWeapon.KFPlayer = None;
 
-	NumDeployedTurrets = GetDeployedTurrets();
+	NumDeployedTurrets = GetDeployedTurretCount();
 	bForceNetUpdate = True;
 }
 
@@ -127,7 +127,10 @@ simulated function Projectile ProjectileFire()
 	local vector SpawnLocation, SpawnDirection;
 	local KFPawn_AutoTurret SpawnedActor;
 
-	if (Role == ROLE_Authority && CurrentFireMode == DEFAULT_FIREMODE)
+	if (Role != ROLE_Authority)
+		return None;
+
+	if (CurrentFireMode == DEFAULT_FIREMODE)
 	{
 		GetTurretSpawnLocationAndDir(SpawnLocation, SpawnDirection);
 		SpawnedActor = Spawn(default.TurretPawn, self, , SpawnLocation + (TurretSpawnOffset >> Rotation), Rotation, , True);
@@ -141,18 +144,20 @@ simulated function Projectile ProjectileFire()
 			SpawnedActor.UpdateWeaponUpgrade(CurrentWeaponUpgradeIndex);
 			SpawnedActor.SetTurretState(ETS_Throw);
 
-			KFPC.DeployedTurrets.AddItem(SpawnedActor);
-			NumDeployedTurrets = GetDeployedTurrets();
+			if (KFPC != None)
+			{
+				KFPC.DeployedTurrets.AddItem(SpawnedActor);
+				NumDeployedTurrets = GetDeployedTurretCount();
+			}
+
 			bTurretReadyToUse = False;
 			bForceNetUpdate = True;
 		}
 
 		return None;
 	}
-	else
-		return super(KFWeap_ThrownBase).ProjectileFire();
 
-	return None;
+	return super(KFWeap_ThrownBase).ProjectileFire();
 }
 
 simulated function DetonateFinished()
@@ -229,7 +234,7 @@ simulated function BeginFire(byte FireModeNum)
 	else
 	{
 		if (KFPC != None)
-			NumDeployedTurrets = KFPC.DeployedTurrets.Length;
+			NumDeployedTurrets = GetDeployedTurretCount();
 
 		if (FireModeNum == DEFAULT_FIREMODE
 			&& NumDeployedTurrets >= GetMaxTurrets()
@@ -279,6 +284,45 @@ simulated function PrepareAndDetonateExcess()
 		SetTimer(AnimDuration * 0.8f, False, NameOf(PlaySprintStart));
 	else
 		SetTimer(AnimDuration * 0.5f, False, NameOf(GotoActiveState));
+}
+
+function CheckTurretAmmo()
+{
+	local float Percentage;
+	local KFWeapon KFW;
+	local KFPawn KFP;
+	local array<Actor> TurretsCopy;
+
+	if (Role == Role_Authority)
+	{
+		if (KFPC == None)
+			return;
+
+		GetAllTurrets(TurretsCopy);
+
+		if (TurretsCopy.Length > 0)
+		{
+			KFW = KFWeapon(KFPawn(TurretsCopy[0]).Weapon);
+			if (KFW != None)
+			{
+				Percentage = float(KFW.AmmoCount[0]) / float(KFW.MagazineCapacity[0]);
+				if (Percentage != CurrentAmmoPercentage)
+				{
+					CurrentAmmoPercentage = Percentage;
+					bNetDirty = True;
+
+					if (WorldInfo.NetMode == NM_Standalone)
+						UpdateMaterialColor(CurrentAmmoPercentage);
+					else
+					{
+						KFP = KFPawn(Instigator);
+						if (KFP != None)
+							KFP.OnWeaponSpecialAction(1 + (CurrentAmmoPercentage * 100));
+					}
+				}
+			}
+		}
+	}
 }
 
 defaultproperties
