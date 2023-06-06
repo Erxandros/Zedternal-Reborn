@@ -2905,6 +2905,9 @@ simulated function bool DenyPerkResupply(const out KFWeapon KFW)
 		if (ClassIsChildOf(KFW.Class, class'KFWeap_AutoTurret'))
 			return False;
 
+		if (ClassIsChildOf(KFW.Class, class'KFWeap_HRG_Warthog'))
+			return False;
+
 		return True;
 	}
 

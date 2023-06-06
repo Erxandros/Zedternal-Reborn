@@ -6,18 +6,23 @@ var float AmmoSize;
 // Only sentinel is compatible for now
 static function bool IsUpgradeCompatible(class<KFWeapon> KFW)
 {
-	return class<KFWeap_AutoTurret>(KFW) != None;
+	if (class<KFWeap_AutoTurret>(KFW) != None)
+		return True;
+	if (class<KFWeap_HRG_Warthog>(KFW) != None)
+		return True;
+
+	return False;
 }
 
 static simulated function ModifyMagSizeAndNumber(out int InMagazineCapacity, int DefaultMagazineCapacity, int upgLevel, KFWeapon KFW, optional array< class<KFPerk> > WeaponPerkClass, optional bool bSecondary=False, optional name WeaponClassname)
 {
-	if (KFW != None && KFWeap_AutoTurret(KFW) == None && !KFW.bCanBeReloaded && DefaultMagazineCapacity > 0)
+	if (KFW != None && !KFW.bCanBeReloaded && DefaultMagazineCapacity > 0)
 		InMagazineCapacity += Round(float(DefaultMagazineCapacity) * default.AmmoSize * upgLevel);
 }
 
 static simulated function ModifySpareAmmoAmount(out int InSpareAmmo, int DefaultSpareAmmo, int upgLevel, KFWeapon KFW, optional const out STraderItem TraderItem, optional bool bSecondary=False)
 {
-	if (KFW != None && KFWeap_AutoTurret(KFW) == None && KFW.bCanBeReloaded && DefaultSpareAmmo > 0)
+	if (KFW != None && KFW.bCanBeReloaded && DefaultSpareAmmo > 0)
 		InSpareAmmo += Round(float(DefaultSpareAmmo) * default.AmmoSize * upgLevel);
 }
 

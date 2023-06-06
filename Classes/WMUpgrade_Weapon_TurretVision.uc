@@ -6,7 +6,12 @@ var float Damage;
 // Only sentinel is compatible for now
 static function bool IsUpgradeCompatible(class<KFWeapon> KFW)
 {
-	return class<KFWeap_AutoTurret>(KFW) != None;
+	if (class<KFWeap_AutoTurret>(KFW) != None)
+		return True;
+	if (class<KFWeap_HRG_Warthog>(KFW) != None)
+		return True;
+
+	return False;
 }
 
 static function ModifyDamageGiven(out int InDamage, int DefaultDamage, int upgLevel, optional Actor DamageCauser, optional KFPawn_Monster MyKFPM, optional KFPlayerController DamageInstigator, optional class<KFDamageType> DamageType, optional int HitZoneIdx, optional KFWeapon MyKFW)

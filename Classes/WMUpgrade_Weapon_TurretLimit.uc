@@ -4,7 +4,12 @@ class WMUpgrade_Weapon_TurretLimit extends WMUpgrade_Weapon
 // Only sentinel is compatible for now
 static function bool IsUpgradeCompatible(class<KFWeapon> KFW)
 {
-	return class<KFWeap_AutoTurret>(KFW) != None;
+	if (class<KFWeap_AutoTurret>(KFW) != None)
+		return True;
+	if (class<KFWeap_HRG_Warthog>(KFW) != None)
+		return True;
+
+	return False;
 }
 
 static simulated function ModifyMaxDeployed(out int InMaxDeployed, int DefaultMaxDeployed, int upgLevel, KFWeapon KFW)
