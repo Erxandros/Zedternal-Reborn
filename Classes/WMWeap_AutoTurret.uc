@@ -83,6 +83,7 @@ function RemoveDeployedTurret(optional int Index = INDEX_NONE, optional Actor Tu
 function SetOriginalValuesFromPickup(KFWeapon PickedUpWeapon)
 {
 	local int i;
+	local Actor WeaponPawn;
 
 	super(KFWeap_ThrownBase).SetOriginalValuesFromPickup(PickedUpWeapon);
 
@@ -101,10 +102,11 @@ function SetOriginalValuesFromPickup(KFWeapon PickedUpWeapon)
 
 	for (i = 0; i < KFPC.DeployedTurrets.Length; ++i)
 	{
-		if (KFPC.DeployedTurrets[i].Owner == None || KFPC.DeployedTurrets[i].Owner == PickedUpWeapon)
+		WeaponPawn = KFPC.DeployedTurrets[i];
+		if (WeaponPawn != None && (WeaponPawn.Owner == None || WeaponPawn.Owner == PickedUpWeapon))
 		{
-			KFPC.DeployedTurrets[i].Instigator = Instigator;
-			KFPC.DeployedTurrets[i].SetOwner(self);
+			WeaponPawn.Instigator = Instigator;
+			WeaponPawn.SetOwner(self);
 
 			if (Instigator.Controller != None)
 				KFPawn_AutoTurret(KFPC.DeployedTurrets[i]).InstigatorController = Instigator.Controller;
@@ -182,7 +184,7 @@ simulated function Detonate(optional bool bKeepTurret = False)
 			if (bKeepTurret && i >= (TurretsCopy.Length - MaxTurrets))
 				continue;
 
-			KFPawn_AutoTurret(TurretsCopy[i]).SetTurretState(ETS_Detonate);
+				KFPawn_Autoturret(TurretsCopy[i]).SetTurretState(ETS_Detonate);
 		}
 
 		DetonateFinished();
@@ -226,6 +228,9 @@ simulated function BeginFire(byte FireModeNum)
 	}
 	else
 	{
+		if (KFPC != None)
+			NumDeployedTurrets = KFPC.DeployedTurrets.Length;
+
 		if (FireModeNum == DEFAULT_FIREMODE
 			&& NumDeployedTurrets >= GetMaxTurrets()
 			&& HasAnyAmmo())
@@ -267,6 +272,7 @@ simulated function PrepareAndDetonateExcess()
 	if (Role == ROLE_Authority)
 		DetonateExcess();
 
+	CurrentFireMode = DETONATE_FIREMODE;
 	IncrementFlashCount();
 
 	if (bInSprintState)

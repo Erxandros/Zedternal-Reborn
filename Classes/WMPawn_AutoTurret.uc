@@ -3,7 +3,7 @@ class WMPawn_AutoTurret extends KFPawn_AutoTurret
 
 var bool bAmmoSet;
 
-simulated function bool PawnCloakingStatus(const out KFPawn Target)
+simulated function bool PawnCloakingStatus(const out KFPawn_Monster Target)
 {
 	if (OwnerWeapon != None && OwnerWeapon.GetPerk() != None && WMPerk(OwnerWeapon.GetPerk()) != None)
 	{
@@ -11,7 +11,7 @@ simulated function bool PawnCloakingStatus(const out KFPawn Target)
 			return False;
 	}
 
-	return Target.bIsCloaking;
+	return Target.bIsCloaking && (Target.bIsCloakingSpottedByLP || Target.bIsCloakingSpottedByTeam) == False;
 }
 
 simulated function UpdateWeaponUpgrade(int UpgradeIndex)
@@ -70,7 +70,7 @@ simulated state Combat
 				if (!EnemyTarget.IsAliveAndWell()
 					|| PawnCloakingStatus(EnemyTarget)
 					|| VSizeSq(EnemyTarget.Location - Location) > EffectiveRadius * EffectiveRadius
-					|| (HitActor != None && KFPawn_Monster(HitActor) == None && KFPawn_Human(HitActor) == None)
+					|| (HitActor != None && HitActor.bWorldGeometry && KFFracturedMeshGlass(HitActor) == None)
 					|| EnemyTarget.GetTeamNum() != 255)
 				{
 					EnemyTarget = None;
@@ -85,7 +85,7 @@ simulated state Combat
 			}
 		}
 
-		if (EnemyTarget != None)
+		if (EnemyTarget != None && ReachedRotation())
 		{
 			DesiredRotationRot = rotator(Normal(EnemyTarget.Mesh.GetBoneLocation('Spine1') - MuzzleLoc));
 			DesiredRotationRot.Roll = 0;
@@ -98,7 +98,7 @@ simulated state Combat
 
 				if (TurretWeapon != None)
 				{
-					if (KFPawn_Monster(HitActor) != None)
+					if (HitActor != None && HitActor.bWorldGeometry == False)
 					{
 						TurretWeapon.Fire();
 
@@ -138,16 +138,18 @@ function CheckForTargets()
 
 	foreach CollidingActors(class'KFPawn_Monster', CurrentTarget, EffectiveRadius, Location, True, , HitInfo)
 	{
-		HitActor = Trace(HitLocation, HitNormal, CurrentTarget.Mesh.GetBoneLocation('Spine1'), MuzzleLoc, , , , TRACEFLAG_Bullet);
-
 		if (!CurrentTarget.IsAliveAndWell()
-			|| PawnCloakingStatus(CurrentTarget)
-			|| HitActor == None
-			|| KFPawn_Monster(HitActor) == None
-			|| HitActor.GetTeamNum() != 255)
+			|| PawnCloakingStatus(CurrentTarget))
 		{
 			continue;
 		}
+
+		HitActor = Trace(HitLocation, HitNormal, CurrentTarget.Mesh.GetBoneLocation('Spine1'), MuzzleLoc, , , , TRACEFLAG_Bullet);
+
+		if (HitActor == None || (HitActor.bWorldGeometry && KFFracturedMeshGlass(HitActor) == None) || HitActor.GetTeamNum() != 255)
+        {
+            continue;
+        }
 
 		Distance = VSizeSq(Location - CurrentTarget.Location);
 
