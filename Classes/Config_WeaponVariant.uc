@@ -304,6 +304,13 @@ static function UpdateConfig()
 		default.Weapon_VariantWeaponDef.AddItem(NewVariant);
 	}
 
+	if (default.MODEVERSION < 17)
+	{
+		NewVariant.WeaponDef = "KFGame.KFWeapDef_Shotgun_S12";
+		NewVariant.WeaponDefVariant = "ZedternalReborn.WMWeapDef_Shotgun_S12_Precious";
+		default.Weapon_VariantWeaponDef.AddItem(NewVariant);
+	}
+
 	if (default.MODEVERSION < class'ZedternalReborn.Config_Base'.const.CurrentVersion)
 	{
 		default.MODEVERSION = class'ZedternalReborn.Config_Base'.const.CurrentVersion;

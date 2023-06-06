@@ -230,6 +230,7 @@ defaultproperties
 	PreciousDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_Scythe_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_Scythe"));
 	PreciousDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_SealSqueal_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_SealSqueal"));
 	PreciousDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_Seeker6_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_Seeker6"));
+	PreciousDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_Shotgun_S12_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_Shotgun_S12"));
 	PreciousDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_ShrinkRayGun_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_ShrinkRayGun"));
 	PreciousDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_Stoner63A_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_Stoner63A"));
 	PreciousDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_SW500_HRG_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_SW500_HRG"));
