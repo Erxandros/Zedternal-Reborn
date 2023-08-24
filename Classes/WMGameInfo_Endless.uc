@@ -289,24 +289,12 @@ function ShowPostGameMenu()
 
 function PauseEndlessGame()
 {
-	local KFPawn_Human KFPH;
-	local WMGameReplicationInfo WMGRI;
+	GotoState('PauseTrader');
+}
 
-	WMGRI = WMGameReplicationInfo(MyKFGRI);
-
-	// Do not set if pickups are allowed during pause.
-	if (WMGRI == None || WMGRI.bIsEndlessPaused)
-	{
-		foreach WorldInfo.AllPawns(class'KFPawn_Human', KFPH)
-		{
-			if (KFPH.GetTeamNum() != 0)
-				KFPH.bCanPickupInventory = False;
-		}
-	}
-
-	// Pause game but allow players to move around. Do not set this if pickups or the trader is allowed during pause.
-	if (WMGRI == None || (WMGRI.bIsEndlessPaused && WMGRI.bNoTraderDuringPause))
-		WorldInfo.bPlayersOnlyPending = True;
+function ResumeEndlessGame()
+{
+	GotoState('TraderOpen');
 }
 
 function GenericPlayerInitialization(Controller C)
@@ -877,6 +865,36 @@ function SelectRandomTraderVoice()
 		TraderVoiceIndex = default.TraderVoiceIndex;
 }
 //Trader Code End
+////////////////////////////////
+
+////////////////////////////////
+//State Code Start
+function SkipTrader(int TimeAfterSkipTrader)
+{
+	SetTimer(TimeAfterSkipTrader, False, NameOf(CloseTraderTimer));
+	if (IsInState('PauseTrader'))
+		PauseTimer(True, NameOf(CloseTraderTimer));
+}
+
+state TraderOpen
+{
+	function BeginState(name PreviousStateName)
+	{
+		if (PreviousStateName == 'PauseTrader')
+			PauseTimer(False, NameOf(CloseTraderTimer));
+		else
+			super.BeginState(PreviousStateName);
+	}
+}
+
+state PauseTrader
+{
+	function BeginState(name PreviousStateName)
+	{
+		PauseTimer(True, NameOf(CloseTraderTimer));
+	}
+}
+//State Code End
 ////////////////////////////////
 
 ////////////////////////////////
