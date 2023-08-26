@@ -1,5 +1,19 @@
 class WMCheatManager extends KFCheatManager;
 
+exec function GetCharIndexList()
+{
+	local byte b;
+	local string Info;
+
+	Info = "0 -" @ class'KFGame.KFPlayerReplicationInfo'.default.CharacterArchetypes[0].Name;
+	for (b = 1; b < class'KFGame.KFPlayerReplicationInfo'.default.CharacterArchetypes.Length; ++b)
+	{
+		Info = Info $ "\n" $ b @ "-" @ class'KFGame.KFPlayerReplicationInfo'.default.CharacterArchetypes[b].Name;
+	}
+
+	LocalPlayer(Player).ViewportClient.ViewportConsole.OutputText(Info);
+}
+
 exec function SpawnHumanPawn(optional bool bEnemy, optional bool bUseGodMode, optional int CharIndex)
 {
 	local KFAIController KFBot;
@@ -44,9 +58,11 @@ exec function SpawnHumanPawn(optional bool bEnemy, optional bool bUseGodMode, op
 	// Set perk stuff
 	if (KFPRI.CharacterArchetypes.Length > CharIndex)
 		KFPH.SetCharacterArch(KFPRI.CharacterArchetypes[CharIndex]);
+	else
+		LocalPlayer(Player).ViewportClient.ViewportConsole.OutputText("CharIndex" @ CharIndex @ "is out of bounds, defaulting to 0");
 
-	KFPRI.CurrentPerkClass = class'ZedternalReborn.WMPerk';
-	KFPRI.NetPerkIndex = 1;
+	KFPRI.CurrentPerkClass = class'WMPlayerController'.default.PerkList[0].PerkClass;
+	KFPRI.NetPerkIndex = 0;
 
 	if (KFPRI != None)
 	{
