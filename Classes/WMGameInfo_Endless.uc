@@ -778,6 +778,11 @@ function SyncStats()
 		WMPC.SendAllStats();
 	}
 }
+
+function int AdjustStartingGrenadeCount(int CurrentCount)
+{
+	return Min(CurrentCount, class'ZedternalReborn.Config_Trader'.static.GetStartingMaxGrenadeCount(GameDifficultyZedternal));
+}
 //Player Code End
 ////////////////////////////////
 
@@ -2459,6 +2464,9 @@ function RepGameInfoHighPriority()
 	WMGRI.RerollCost = class'Config_SkillReroll'.default.SkillReroll_BasePrice;
 	WMGRI.RerollMultiplier = class'Config_SkillReroll'.default.SkillReroll_NextRerollPriceMultiplier;
 	WMGRI.RerollSkillSellPercent = class'Config_SkillReroll'.default.SkillReroll_SkillRerollSellPercentage;
+
+	//Starting Max Grenades
+	WMGRI.TraderStartingMaxGrenadeCount = class'ZedternalReborn.Config_Trader'.static.GetStartingMaxGrenadeCount(GameDifficultyZedternal);
 
 	SetTimer(3.0f, False, NameOf(RepGameInfoNormalPriority));
 }

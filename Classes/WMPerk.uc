@@ -1290,11 +1290,15 @@ simulated function ModifyMaxSpareGrenadeAmount()
 	local int SpareGrenade;
 	local int DefaultSpareGrenade;
 
-	DefaultSpareGrenade = default.MaxGrenadeCount;
-	SpareGrenade = DefaultSpareGrenade;
-
 	if (MyWMPRI != None && MyWMGRI != None)
 	{
+		if (MyWMGRI.TraderStartingMaxGrenadeCount != -1)
+			DefaultSpareGrenade = MyWMGRI.TraderStartingMaxGrenadeCount;
+		else
+			DefaultSpareGrenade = default.MaxGrenadeCount;
+
+		SpareGrenade = DefaultSpareGrenade;
+
 		for (i = 0; i <= 1; ++i)
 		{
 			if (MyWMGRI.SpecialWaveID[i] != INDEX_NONE)

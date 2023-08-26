@@ -173,6 +173,7 @@ var int ArmorPrice;
 var int GrenadePrice;
 var int TraderMaxWeaponCount;
 var int TraderNewWeaponEachWave;
+var int TraderStartingMaxGrenadeCount;
 var int TraderStaticWeaponCount;
 var repnotify byte TraderVoiceGroupIndex;
 
@@ -403,7 +404,7 @@ replication
 		EquipmentUpgradesRepArray, GrenadesRepArray, SpecialWaveID,
 		SpecialWavesRepArray, ActiveZedBuffs, bNewZedBuff,
 		ZedBuffsRepArray, ArmorPrice, GrenadePrice,
-		TraderMaxWeaponCount, TraderNewWeaponEachWave, TraderStaticWeaponCount,
+		TraderMaxWeaponCount, TraderNewWeaponEachWave, TraderStartingMaxGrenadeCount, TraderStaticWeaponCount,
 		TraderVoiceGroupIndex, bAllTraders, bArmorPickup,
 		bRepairDoorTrigger, UpdateSkinsTrigger, bZRUMenuAllWave,
 		bZRUMenuCommand, bPauseButtonEnabled, bIsPaused,
@@ -1377,6 +1378,7 @@ defaultproperties
 	GrenadePrice=-1
 	LobbyCurrentPage=1
 	LobbyMaxPage=1
+	TraderStartingMaxGrenadeCount=-1
 	TraderVoiceGroupIndex=255
 	WeaponUpgNumberUpgradePerWeapon=-1
 	ZedBuffNextMusicTrackIndex=0
