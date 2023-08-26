@@ -73,6 +73,9 @@ var int DoshPickupTime, ProjectilePickupTime, WeaponPickupTime;
 //Damage Indicator Class
 var WMDmgInd DamageIndicator;
 
+//Disable Zed AI Checker for Enable Cheats
+var bool bDisableZedAICheck;
+
 ////////////////////////////////
 //Initialization/Cleanup Code Start
 event InitGame(string Options, out string ErrorMessage)
@@ -1611,7 +1614,7 @@ function CheckForBrokenZeds()
 				KFPM.Died(None, None, KFPM.Location);
 			}
 
-			if (KFPM.MyKFAIC == None)
+			if (!bDisableZedAICheck && KFPM.MyKFAIC == None)
 			{
 				`log("ZR Warning: Zed" @ KFPM.Name @ "has no AI controller but is not dead. Killing forcefully");
 				KFPM.Died(None, None, KFPM.Location);

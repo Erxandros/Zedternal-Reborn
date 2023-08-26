@@ -7,6 +7,14 @@ struct S_ZedType
 };
 var const array<S_ZedType> ZedTypes;
 
+function InitCheatManager()
+{
+	super.InitCheatManager();
+
+	if (WMGameInfo_Endless(WorldInfo.Game) != None)
+		WMGameInfo_Endless(WorldInfo.Game).bDisableZedAICheck = True;
+}
+
 function class<KFPawn_Monster> LoadMonsterByName(string ZedName, optional bool bIsVersusPawn)
 {
 	local byte b;
