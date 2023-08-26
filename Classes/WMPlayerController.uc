@@ -787,6 +787,7 @@ defaultproperties
 	PerkList(8)=(PerkClass=class'KFGame.KFPerk_Sharpshooter')
 	PerkList(9)=(PerkClass=class'KFGame.KFPerk_SWAT')
 	PerkList(10)=(PerkClass=class'KFGame.KFPerk_Survivalist')
+	CheatClass=class'ZedternalReborn.WMCheatManager'
 	MatchStatsClass=class'ZedternalReborn.WMEphemeralMatchStats'
 	PurchaseHelperClass=class'ZedternalReborn.WMAutoPurchaseHelper'
 
