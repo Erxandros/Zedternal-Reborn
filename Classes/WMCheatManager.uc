@@ -93,7 +93,7 @@ exec function SpawnHumanPawn(optional bool bEnemy, optional bool bUseGodMode, op
 
 	HitLocation.Z += 100;
 
-	KFPH = Spawn(class'KFPawn_Human', , , HitLocation);
+	KFPH = KFPawn_Human(Spawn(WorldInfo.Game.default.DefaultPawnClass, , , HitLocation));
 	KFPH.SetPhysics(PHYS_Falling);
 
 	// Create a new Controller for this Bot
@@ -128,7 +128,11 @@ exec function SpawnHumanPawn(optional bool bEnemy, optional bool bUseGodMode, op
 		KFPRI.PLayerHealth = KFPH.Health;
 	}
 
-	KFPH.AddDefaultInventory();
+	if (KFInventoryManager(KFPH.InvManager) != None)
+	{
+		KFInventoryManager(KFPH.InvManager).bSuppressPickupMessages = True;
+		KFPH.InvManager.CreateInventory(class'KFGameContent.KFWeap_Pistol_9mm');
+	}
 }
 
 defaultproperties
