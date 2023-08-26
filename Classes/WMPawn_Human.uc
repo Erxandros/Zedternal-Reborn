@@ -197,6 +197,12 @@ simulated function ResetHealingShield()
 	super.ResetHealingShield();
 }
 
+function UpdateActiveSkillsPath(string IconPath, int Multiplier, bool Active, float MaxDuration)
+{
+	if (KFPlayerController(Controller) != None)
+		super.UpdateActiveSkillsPath(IconPath, Multiplier, Active, MaxDuration);
+}
+
 function SacrificeExplode()
 {
 	local KFExplosionActorReplicated ExploActor;

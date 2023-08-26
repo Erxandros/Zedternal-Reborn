@@ -19,6 +19,30 @@ simulated function Inventory CreateInventory(class<Inventory> NewInventoryItemCl
 	return Item;
 }
 
+simulated event ShowOnlyHUDGroup(byte GroupIndex)
+{
+	local KFGFxMoviePlayer_HUD KFGFxHUD;
+
+	if (KFPlayerController(Instigator.Controller) != None)
+	{
+		KFGFxHUD = KFPlayerController(Instigator.Controller).MyGFxHUD;
+		if (KFGFxHUD != None && KFGFxHUD.WeaponSelectWidget != None)
+			KFGFxHUD.WeaponSelectWidget.ShowOnlyHUDGroup(GroupIndex);
+	}
+}
+
+simulated function ShowAllHUDGroups()
+{
+	local KFGFxMoviePlayer_HUD KFGFxHUD;
+
+	if (Instigator != None && KFPlayerController(Instigator.Controller) != None)
+	{
+		KFGFxHUD = KFPlayerController(Instigator.Controller).MyGFxHUD;
+		if (KFGFxHUD != None && KFGFxHUD.WeaponSelectWidget != None)
+			KFGFxHUD.WeaponSelectWidget.ShowAllHUDGroups();
+	}
+}
+
 function bool AddArmorFromPickup()
 {
 	local WMPawn_Human WMPH;
