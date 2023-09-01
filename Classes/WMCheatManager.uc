@@ -44,35 +44,7 @@ function class<KFPawn_Monster> LoadMonsterByName(string ZedName, optional bool b
 	return SpawnClass;
 }
 
-exec function GetZedNameList()
-{
-	local byte b;
-	local string Info;
-
-	Info = ZedTypes[0].SearchName @ "-" @ ZedTypes[0].ZedClass.static.GetLocalizedName();
-	for (b = 1; b < ZedTypes.Length; ++b)
-	{
-		Info = Info $ "\n" $ ZedTypes[b].SearchName @ "-" @ ZedTypes[b].ZedClass.static.GetLocalizedName();
-	}
-
-	LocalPlayer(Player).ViewportClient.ViewportConsole.OutputText(Info);
-}
-
-exec function GetCharIndexList()
-{
-	local byte b;
-	local string Info;
-
-	Info = "0 -" @ class'KFGame.KFPlayerReplicationInfo'.default.CharacterArchetypes[0].Name;
-	for (b = 1; b < class'KFGame.KFPlayerReplicationInfo'.default.CharacterArchetypes.Length; ++b)
-	{
-		Info = Info $ "\n" $ b @ "-" @ class'KFGame.KFPlayerReplicationInfo'.default.CharacterArchetypes[b].Name;
-	}
-
-	LocalPlayer(Player).ViewportClient.ViewportConsole.OutputText(Info);
-}
-
-exec function SpawnHumanPawn(optional bool bEnemy, optional bool bUseGodMode, optional int CharIndex)
+function CreateHumanPawn(optional bool bEnemy, optional bool bUseGodMode, optional int CharIndex, optional class<Inventory> WeaponClass)
 {
 	local KFAIController KFBot;
 	local KFPlayerReplicationInfo KFPRI;
@@ -131,8 +103,55 @@ exec function SpawnHumanPawn(optional bool bEnemy, optional bool bUseGodMode, op
 	if (KFInventoryManager(KFPH.InvManager) != None)
 	{
 		KFInventoryManager(KFPH.InvManager).bSuppressPickupMessages = True;
-		KFPH.InvManager.CreateInventory(class'KFGameContent.KFWeap_Pistol_9mm');
+		if (WeaponClass != None)
+			KFPH.InvManager.CreateInventory(WeaponClass);
+		else
+			KFPH.InvManager.CreateInventory(class'KFGameContent.KFWeap_Pistol_9mm');
 	}
+}
+
+exec function GetZedNameList()
+{
+	local byte b;
+	local string Info;
+
+	Info = ZedTypes[0].SearchName @ "-" @ ZedTypes[0].ZedClass.static.GetLocalizedName();
+	for (b = 1; b < ZedTypes.Length; ++b)
+	{
+		Info = Info $ "\n" $ ZedTypes[b].SearchName @ "-" @ ZedTypes[b].ZedClass.static.GetLocalizedName();
+	}
+
+	LocalPlayer(Player).ViewportClient.ViewportConsole.OutputText(Info);
+}
+
+exec function GetCharIndexList()
+{
+	local byte b;
+	local string Info;
+
+	Info = "0 -" @ class'KFGame.KFPlayerReplicationInfo'.default.CharacterArchetypes[0].Name;
+	for (b = 1; b < class'KFGame.KFPlayerReplicationInfo'.default.CharacterArchetypes.Length; ++b)
+	{
+		Info = Info $ "\n" $ b @ "-" @ class'KFGame.KFPlayerReplicationInfo'.default.CharacterArchetypes[b].Name;
+	}
+
+	LocalPlayer(Player).ViewportClient.ViewportConsole.OutputText(Info);
+}
+
+exec function SpawnHumanPawn(optional bool bEnemy, optional bool bUseGodMode, optional int CharIndex)
+{
+	CreateHumanPawn(bEnemy, bUseGodMode, CharIndex, None);
+}
+
+exec function SpawnHumanPawnWep(string WeaponPath, optional bool bEnemy, optional bool bUseGodMode, optional int CharIndex)
+{
+	local class<Inventory> InventoryObj;
+
+	InventoryObj = class<Inventory>(DynamicLoadObject(WeaponPath, class'Class', True));
+	if (InventoryObj == None)
+		LocalPlayer(Player).ViewportClient.ViewportConsole.OutputText("Given weapon ["$WeaponPath$"] did not load successfully. Check if weapon path is correct.");
+
+	CreateHumanPawn(bEnemy, bUseGodMode, CharIndex, InventoryObj);
 }
 
 defaultproperties
