@@ -1073,15 +1073,15 @@ protected function DistributeMoneyAndXP(class<KFPawn_Monster> MonsterClass, cons
 //Pickup Code Start
 function InitAllPickups()
 {
-	if (bDisablePickups || DifficultyInfo == None)
+	if (bDisablePickups)
 	{
 		NumWeaponPickups = 0;
 		NumAmmoPickups = 0;
 	}
 	else
 	{
-		NumWeaponPickups = Min(FCeil(float(ItemPickups.Length) * DifficultyInfo.GetItemPickupModifier()), ItemPickups.Length);
-		NumAmmoPickups = Min(FCeil(float(AmmoPickups.Length) * DifficultyInfo.GetAmmoPickupModifier()), AmmoPickups.Length);
+		NumWeaponPickups = ItemPickups.Length;
+		NumAmmoPickups = AmmoPickups.Length;
 	}
 
 	if (BaseMutator != None)

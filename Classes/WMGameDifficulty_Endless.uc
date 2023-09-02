@@ -401,7 +401,7 @@ function float GetItemPickupModifier()
 	local float ItemPickupMod;
 	local byte i, x;
 
-	ItemPickupMod = CurrentSettings.ItemPickupsMod;
+	ItemPickupMod = 1.0f;
 
 	if (WMGRI == None)
 		WMGRI = WMGameReplicationInfo(Class'WorldInfo'.static.GetWorldInfo().GRI);
@@ -429,7 +429,7 @@ function float GetAmmoPickupModifier()
 	local float AmmoPickupMod;
 	local byte i, x;
 
-	AmmoPickupMod = CurrentSettings.AmmoPickupsMod;
+	AmmoPickupMod = 1.0f;
 
 	if (WMGRI == None)
 		WMGRI = WMGameReplicationInfo(Class'WorldInfo'.static.GetWorldInfo().GRI);
