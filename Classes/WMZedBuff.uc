@@ -9,7 +9,6 @@ var bool bShouldLocalize;
 static function ModifyZedHealthMod(out float HealthMod, KFPawn_Monster P, float GameDifficulty, byte NumLivingPlayers);
 static function ModifyZedHeadHealthMod(out float HeadHealthMod, KFPawn_Monster P, float GameDifficulty, byte NumLivingPlayers);
 static function ModifyZedDamageMod(out float PerZedDamageMod, KFPawn_Monster P, float GameDifficulty);
-static function ModifyZedSoloDamageMod(out float SoloPlayDamageMod, KFPawn_Monster P, float GameDifficulty);
 static function ModifyZedSpeedMod(out float SpeedMod, KFPawn_Monster P, float GameDifficulty);
 static function ModifyZedSprintChanceMod(out float SprintChanceMod, KFPawn_Monster P, float GameDifficulty);
 static function ModifyDamagedZedSprintChanceMod(out float SprintChanceMod, KFPawn_Monster P, float GameDifficulty);
