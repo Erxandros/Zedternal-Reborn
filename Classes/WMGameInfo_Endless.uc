@@ -781,7 +781,7 @@ function SyncStats()
 
 function int AdjustStartingGrenadeCount(int CurrentCount)
 {
-	return Min(CurrentCount, class'ZedternalReborn.Config_Trader'.static.GetStartingMaxGrenadeCount(GameDifficultyZedternal));
+	return Min(CurrentCount, class'ZedternalReborn.Config_Player'.static.GetStartingMaxGrenadeCount(GameDifficultyZedternal));
 }
 //Player Code End
 ////////////////////////////////
@@ -2466,7 +2466,7 @@ function RepGameInfoHighPriority()
 	WMGRI.RerollSkillSellPercent = class'Config_SkillReroll'.default.SkillReroll_SkillRerollSellPercentage;
 
 	//Starting Max Grenades
-	WMGRI.TraderStartingMaxGrenadeCount = class'ZedternalReborn.Config_Trader'.static.GetStartingMaxGrenadeCount(GameDifficultyZedternal);
+	WMGRI.TraderStartingMaxGrenadeCount = class'ZedternalReborn.Config_Player'.static.GetStartingMaxGrenadeCount(GameDifficultyZedternal);
 
 	SetTimer(3.0f, False, NameOf(RepGameInfoNormalPriority));
 }

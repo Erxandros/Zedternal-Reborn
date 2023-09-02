@@ -8,6 +8,7 @@ var config S_Difficulty_Int Player_StartingWeaponAmount;
 var config S_Difficulty_Int Player_StartingMaxHealth;
 var config S_Difficulty_Int Player_StartingMaxArmor;
 var config S_Difficulty_Int Player_StartingCarryWeight;
+var config S_Difficulty_Int Player_StartingMaxGrenadeCount;
 var config S_Difficulty_Float Player_HealAmountMultiplier;
 var config S_Difficulty_Float Player_DamageTakenMultiplierWhileHoldingMelee;
 
@@ -109,6 +110,15 @@ static function UpdateConfig()
 		default.Player_VampireEffect[2].HealAmount = 3;
 	}
 
+	if (default.MODEVERSION < 18)
+	{
+		default.Player_StartingMaxGrenadeCount.Normal = 5;
+		default.Player_StartingMaxGrenadeCount.Hard = 5;
+		default.Player_StartingMaxGrenadeCount.Suicidal = 5;
+		default.Player_StartingMaxGrenadeCount.HoE = 5;
+		default.Player_StartingMaxGrenadeCount.Custom = 5;
+	}
+
 	if (default.MODEVERSION < class'ZedternalReborn.Config_Base'.const.CurrentVersion)
 	{
 		default.MODEVERSION = class'ZedternalReborn.Config_Base'.const.CurrentVersion;
@@ -152,6 +162,14 @@ static function CheckBasicConfigValues()
 				string(GetStructValueInt(default.Player_StartingCarryWeight, i)),
 				"1", "1 carry weight", "value >= 1");
 			SetStructValueInt(default.Player_StartingCarryWeight, i, 1);
+		}
+
+		if (GetStructValueInt(default.Player_StartingMaxGrenadeCount, i) < 0)
+		{
+			LogBadStructConfigMessage(i, "Player_StartingMaxGrenadeCount",
+				string(GetStructValueInt(default.Player_StartingMaxGrenadeCount, i)),
+				"0", "0 grenades, no starting grenade capacity", "value >= 0");
+			SetStructValueInt(default.Player_StartingMaxGrenadeCount, i, 0);
 		}
 
 		if (GetStructValueFloat(default.Player_HealAmountMultiplier, i) < 0.0f)
@@ -331,6 +349,18 @@ static function int GetStartingCarryWeight(int Difficulty)
 		case 2 : return default.Player_StartingCarryWeight.Suicidal;
 		case 3 : return default.Player_StartingCarryWeight.HoE;
 		default: return default.Player_StartingCarryWeight.Custom;
+	}
+}
+
+static function int GetStartingMaxGrenadeCount(int Difficulty)
+{
+	switch (Difficulty)
+	{
+		case 0 : return default.Player_StartingMaxGrenadeCount.Normal;
+		case 1 : return default.Player_StartingMaxGrenadeCount.Hard;
+		case 2 : return default.Player_StartingMaxGrenadeCount.Suicidal;
+		case 3 : return default.Player_StartingMaxGrenadeCount.HoE;
+		default: return default.Player_StartingMaxGrenadeCount.Custom;
 	}
 }
 

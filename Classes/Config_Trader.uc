@@ -7,8 +7,6 @@ var config S_Difficulty_Int Trader_MaxWeapon;
 var config S_Difficulty_Int Trader_StartingWeaponNumber;
 var config S_Difficulty_Int Trader_NewWeaponEachWave;
 
-var config S_Difficulty_Int Trader_StartingMaxGrenadeCount;
-
 var config S_Difficulty_Float Trader_AmmoPriceMultiplier;
 var config S_Difficulty_Int Trader_ArmorPrice;
 var config S_Difficulty_Int Trader_GrenadePrice;
@@ -52,15 +50,6 @@ static function UpdateConfig()
 		default.Trader_GrenadePrice.Suicidal = 40;
 		default.Trader_GrenadePrice.HoE = 40;
 		default.Trader_GrenadePrice.Custom = 40;
-	}
-
-	if (default.MODEVERSION < 18)
-	{
-		default.Trader_StartingMaxGrenadeCount.Normal = 5;
-		default.Trader_StartingMaxGrenadeCount.Hard = 5;
-		default.Trader_StartingMaxGrenadeCount.Suicidal = 5;
-		default.Trader_StartingMaxGrenadeCount.HoE = 5;
-		default.Trader_StartingMaxGrenadeCount.Custom = 5;
 	}
 
 	if (default.MODEVERSION < class'ZedternalReborn.Config_Base'.const.CurrentVersion)
@@ -122,14 +111,6 @@ static function CheckBasicConfigValues()
 				string(GetStructValueInt(default.Trader_GrenadePrice, i)),
 				"0", "0 dosh, free grenades", "value >= 0");
 			SetStructValueInt(default.Trader_GrenadePrice, i, 0);
-		}
-
-		if (GetStructValueInt(default.Trader_StartingMaxGrenadeCount, i) < 0)
-		{
-			LogBadStructConfigMessage(i, "Trader_StartingMaxGrenadeCount",
-				string(GetStructValueInt(default.Trader_StartingMaxGrenadeCount, i)),
-				"0", "0 grenades, no starting grenade capacity", "value >= 0");
-			SetStructValueInt(default.Trader_StartingMaxGrenadeCount, i, 0);
 		}
 	}
 }
@@ -203,18 +184,6 @@ static function int GetGrenadePrice(int Difficulty)
 		case 2 : return default.Trader_GrenadePrice.Suicidal;
 		case 3 : return default.Trader_GrenadePrice.HoE;
 		default: return default.Trader_GrenadePrice.Custom;
-	}
-}
-
-static function int GetStartingMaxGrenadeCount(int Difficulty)
-{
-	switch (Difficulty)
-	{
-		case 0 : return default.Trader_StartingMaxGrenadeCount.Normal;
-		case 1 : return default.Trader_StartingMaxGrenadeCount.Hard;
-		case 2 : return default.Trader_StartingMaxGrenadeCount.Suicidal;
-		case 3 : return default.Trader_StartingMaxGrenadeCount.HoE;
-		default: return default.Trader_StartingMaxGrenadeCount.Custom;
 	}
 }
 
