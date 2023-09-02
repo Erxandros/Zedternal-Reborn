@@ -138,6 +138,23 @@ exec function GetCharIndexList()
 	LocalPlayer(Player).ViewportClient.ViewportConsole.OutputText(Info);
 }
 
+exec function GetWeaponList()
+{
+	local int i;
+	local string Info;
+	local WMGameReplicationInfo WMGRI;
+
+	WMGRI = WMGameReplicationInfo(Worldinfo.GRI);
+
+	Info = WMGRI.TraderItems.SaleItems[0].WeaponDef.default.WeaponClassPath @ "-" @ WMGRI.TraderItems.SaleItems[0].WeaponDef.static.GetItemName();
+	for (i = 1; i < WMGRI.TraderItems.SaleItems.Length; ++i)
+	{
+		Info = Info $ "\n" $ WMGRI.TraderItems.SaleItems[i].WeaponDef.default.WeaponClassPath @ "-" @ WMGRI.TraderItems.SaleItems[i].WeaponDef.static.GetItemName();
+	}
+
+	LocalPlayer(Player).ViewportClient.ViewportConsole.OutputText(Info);
+}
+
 exec function SpawnHumanPawn(optional bool bEnemy, optional bool bUseGodMode, optional int CharIndex)
 {
 	CreateHumanPawn(bEnemy, bUseGodMode, CharIndex, None);
