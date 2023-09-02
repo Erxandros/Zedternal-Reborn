@@ -3,8 +3,6 @@ class Config_GameOptions extends Config_Common
 
 var config int MODEVERSION;
 
-var config S_Difficulty_Bool Game_bArmorSpawnOnMap;
-
 var config S_Difficulty_Bool Game_bAllowZedternalUpgradeMenuCommand;
 var config S_Difficulty_Bool Game_bZedternalUpgradeMenuCommandAllWave;
 
@@ -21,12 +19,6 @@ static function UpdateConfig()
 {
 	if (default.MODEVERSION < 1)
 	{
-		default.Game_bArmorSpawnOnMap.Normal = True;
-		default.Game_bArmorSpawnOnMap.Hard = True;
-		default.Game_bArmorSpawnOnMap.Suicidal = True;
-		default.Game_bArmorSpawnOnMap.HoE = True;
-		default.Game_bArmorSpawnOnMap.Custom = True;
-
 		default.Game_bAllowZedternalUpgradeMenuCommand.Normal = False;
 		default.Game_bAllowZedternalUpgradeMenuCommand.Hard = False;
 		default.Game_bAllowZedternalUpgradeMenuCommand.Suicidal = False;
@@ -134,18 +126,6 @@ static function CheckBasicConfigValues()
 				"0", "default timeout", "value >= 0");
 			SetStructValueInt(default.Game_WeaponPickupDespawnTime, i, 0);
 		}
-	}
-}
-
-static function bool GetShouldArmorSpawnOnMap(int Difficulty)
-{
-	switch (Difficulty)
-	{
-		case 0 : return default.Game_bArmorSpawnOnMap.Normal;
-		case 1 : return default.Game_bArmorSpawnOnMap.Hard;
-		case 2 : return default.Game_bArmorSpawnOnMap.Suicidal;
-		case 3 : return default.Game_bArmorSpawnOnMap.HoE;
-		default: return default.Game_bArmorSpawnOnMap.Custom;
 	}
 }
 

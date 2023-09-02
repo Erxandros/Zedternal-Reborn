@@ -1073,15 +1073,22 @@ protected function DistributeMoneyAndXP(class<KFPawn_Monster> MonsterClass, cons
 //Pickup Code Start
 function InitAllPickups()
 {
-	if (bDisablePickups)
+	if (class'ZedternalReborn.Config_Pickup'.static.GetEnablePickups(GameDifficultyZedternal))
 	{
-		NumWeaponPickups = 0;
-		NumAmmoPickups = 0;
+		if (class'ZedternalReborn.Config_Pickup'.static.GetEnableAmmoPickups(GameDifficultyZedternal))
+			NumAmmoPickups = AmmoPickups.Length;
+		else
+			NumAmmoPickups = 0;
+
+		if (class'ZedternalReborn.Config_Pickup'.static.GetEnableWeaponPickups(GameDifficultyZedternal))
+			NumWeaponPickups = ItemPickups.Length;
+		else
+			NumWeaponPickups = 0;
 	}
 	else
 	{
-		NumWeaponPickups = ItemPickups.Length;
-		NumAmmoPickups = AmmoPickups.Length;
+		NumAmmoPickups = 0;
+		NumWeaponPickups = 0;
 	}
 
 	if (BaseMutator != None)
@@ -1105,7 +1112,7 @@ function SetupPickupItems()
 	// Set Weapon PickupFactory
 
 	//Add armor
-	bShouldArmorSpawn = class'ZedternalReborn.Config_GameOptions'.static.GetShouldArmorSpawnOnMap(GameDifficultyZedternal);
+	bShouldArmorSpawn = class'ZedternalReborn.Config_Pickup'.static.GetShouldArmorSpawnOnMap(GameDifficultyZedternal);
 	if (bShouldArmorSpawn)
 	{
 		newPickup.ItemClass = class'KFGameContent.KFInventory_Armor';
@@ -2494,7 +2501,7 @@ function RepGameInfoNormalPriority()
 	}
 
 	//Armor pickup enable
-	WMGRI.bArmorPickup = class'ZedternalReborn.Config_GameOptions'.static.GetShouldArmorSpawnOnMap(GameDifficultyZedternal) ? 2 : 1; //2 is True, 1 is False
+	WMGRI.bArmorPickup = class'ZedternalReborn.Config_Pickup'.static.GetShouldArmorSpawnOnMap(GameDifficultyZedternal) ? 2 : 1; //2 is True, 1 is False
 
 	//Starting/itempickup Weapon
 	for (b = 0; b < Min(255, StartingWeaponPath.Length); ++b)
