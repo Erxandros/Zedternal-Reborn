@@ -1178,16 +1178,31 @@ function SetupPickupItems()
 
 function ResetAllPickups()
 {
-	//Skip the KFGameInfo_Survival ResetAllPickups function
-	super(KFGameInfo).ResetAllPickups();
+	local int i;
+
+	AllPickupFactories.Remove(0, AllPickupFactories.Length);
+
+	for (i = 0; i < ItemPickups.Length; ++i)
+	{
+		AllPickupFactories.AddItem(ItemPickups[i]);
+	}
+
+	for (i = 0; i < AmmoPickups.Length; ++i)
+	{
+		AllPickupFactories.AddItem(AmmoPickups[i]);
+	}
+
+	i = class'ZedternalReborn.Config_Pickup'.static.GetWeaponPickupAmount(GameDifficultyZedternal, NumWeaponPickups, WaveNum);
+	ResetPickups(ItemPickups, Clamp(Round(float(i) * DifficultyInfo.GetItemPickupModifier()), 0, NumWeaponPickups));
+
+	i = class'ZedternalReborn.Config_Pickup'.static.GetAmmoPickupAmount(GameDifficultyZedternal, NumAmmoPickups, WaveNum);
+	ResetPickups(AmmoPickups, Clamp(Round(float(i) * DifficultyInfo.GetAmmoPickupModifier()), 0, NumAmmoPickups));
 }
 
 function ResetPickups(array<KFPickupFactory> PickupList, int NumPickups)
 {
 	local byte i, ChosenIndex;
 	local array<KFPickupFactory> PossiblePickups;
-
-	NumPickups = Clamp(Round(float(NumPickups) * (0.5f + float(WaveNum) * 0.1f)), 0, Round(float(PickupList.Length) * 0.75f));
 
 	PossiblePickups = PickupList;
 	for (i = 0; i < NumPickups; ++i)
