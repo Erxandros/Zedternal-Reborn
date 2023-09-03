@@ -1192,7 +1192,7 @@ function ResetAllPickups()
 		AllPickupFactories.AddItem(AmmoPickups[i]);
 	}
 
-	i = class'ZedternalReborn.Config_Pickup'.static.GetWeaponPickupAmount(GameDifficultyZedternal, NumWeaponPickups, WaveNum);
+	i = class'ZedternalReborn.Config_Pickup'.static.GetItemPickupAmount(GameDifficultyZedternal, NumWeaponPickups, WaveNum);
 	ResetPickups(ItemPickups, Clamp(Round(float(i) * DifficultyInfo.GetItemPickupModifier()), 0, NumWeaponPickups));
 
 	i = class'ZedternalReborn.Config_Pickup'.static.GetAmmoPickupAmount(GameDifficultyZedternal, NumAmmoPickups, WaveNum);

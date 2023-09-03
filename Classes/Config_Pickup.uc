@@ -12,9 +12,9 @@ var config S_Difficulty_Float Pickup_AmmoPickupBasePercentage;
 var config S_Difficulty_Float Pickup_AmmoPickupPercentageIncPerWave;
 var config S_Difficulty_Float Pickup_AmmoPickupMaxPercentage;
 
-var config S_Difficulty_Float Pickup_WeaponPickupBasePercentage;
-var config S_Difficulty_Float Pickup_WeaponPickupPercentageIncPerWave;
-var config S_Difficulty_Float Pickup_WeaponPickupMaxPercentage;
+var config S_Difficulty_Float Pickup_ItemPickupBasePercentage;
+var config S_Difficulty_Float Pickup_ItemPickupPercentageIncPerWave;
+var config S_Difficulty_Float Pickup_ItemPickupMaxPercentage;
 
 static function UpdateConfig()
 {
@@ -62,23 +62,23 @@ static function UpdateConfig()
 		default.Pickup_AmmoPickupMaxPercentage.HoE = 0.8f;
 		default.Pickup_AmmoPickupMaxPercentage.Custom = 0.8f;
 
-		default.Pickup_WeaponPickupBasePercentage.Normal = 0.45f;
-		default.Pickup_WeaponPickupBasePercentage.Hard = 0.35f;
-		default.Pickup_WeaponPickupBasePercentage.Suicidal = 0.25f;
-		default.Pickup_WeaponPickupBasePercentage.HoE = 0.1f;
-		default.Pickup_WeaponPickupBasePercentage.Custom = 0.1f;
+		default.Pickup_ItemPickupBasePercentage.Normal = 0.45f;
+		default.Pickup_ItemPickupBasePercentage.Hard = 0.35f;
+		default.Pickup_ItemPickupBasePercentage.Suicidal = 0.25f;
+		default.Pickup_ItemPickupBasePercentage.HoE = 0.1f;
+		default.Pickup_ItemPickupBasePercentage.Custom = 0.1f;
 
-		default.Pickup_WeaponPickupPercentageIncPerWave.Normal = 0.03f;
-		default.Pickup_WeaponPickupPercentageIncPerWave.Hard = 0.025f;
-		default.Pickup_WeaponPickupPercentageIncPerWave.Suicidal = 0.02f;
-		default.Pickup_WeaponPickupPercentageIncPerWave.HoE = 0.015f;
-		default.Pickup_WeaponPickupPercentageIncPerWave.Custom = 0.015f;
+		default.Pickup_ItemPickupPercentageIncPerWave.Normal = 0.03f;
+		default.Pickup_ItemPickupPercentageIncPerWave.Hard = 0.025f;
+		default.Pickup_ItemPickupPercentageIncPerWave.Suicidal = 0.02f;
+		default.Pickup_ItemPickupPercentageIncPerWave.HoE = 0.015f;
+		default.Pickup_ItemPickupPercentageIncPerWave.Custom = 0.015f;
 
-		default.Pickup_WeaponPickupMaxPercentage.Normal = 0.9f;
-		default.Pickup_WeaponPickupMaxPercentage.Hard = 0.8f;
-		default.Pickup_WeaponPickupMaxPercentage.Suicidal = 0.7f;
-		default.Pickup_WeaponPickupMaxPercentage.HoE = 0.55f;
-		default.Pickup_WeaponPickupMaxPercentage.Custom = 0.55f;
+		default.Pickup_ItemPickupMaxPercentage.Normal = 0.9f;
+		default.Pickup_ItemPickupMaxPercentage.Hard = 0.8f;
+		default.Pickup_ItemPickupMaxPercentage.Suicidal = 0.7f;
+		default.Pickup_ItemPickupMaxPercentage.HoE = 0.55f;
+		default.Pickup_ItemPickupMaxPercentage.Custom = 0.55f;
 	}
 
 	if (default.MODEVERSION < class'ZedternalReborn.Config_Base'.const.CurrentVersion)
@@ -163,18 +163,18 @@ static function int GetAmmoPickupAmount(int Difficulty, int NumAmmoPickups, int 
 	return Min(Round(float(NumAmmoPickups) * (base + inc * float(wave))), Round(float(NumAmmoPickups) * max));
 }
 
-static function int GetWeaponPickupAmount(int Difficulty, int NumWeaponPickups, int WaveNum)
+static function int GetItemPickupAmount(int Difficulty, int NumWeaponPickups, int WaveNum)
 {
 	local float base, inc, max;
 	local int wave;
 
 	switch (Difficulty)
 	{
-		case 0 : base = default.Pickup_WeaponPickupBasePercentage.Normal; inc = default.Pickup_WeaponPickupPercentageIncPerWave.Normal; max = default.Pickup_WeaponPickupMaxPercentage.Normal; break;
-		case 1 : base = default.Pickup_WeaponPickupBasePercentage.Hard; inc = default.Pickup_WeaponPickupPercentageIncPerWave.Hard; max = default.Pickup_WeaponPickupMaxPercentage.Hard; break;
-		case 2 : base = default.Pickup_WeaponPickupBasePercentage.Suicidal; inc = default.Pickup_WeaponPickupPercentageIncPerWave.Suicidal; max = default.Pickup_WeaponPickupMaxPercentage.Suicidal; break;
-		case 3 : base = default.Pickup_WeaponPickupBasePercentage.HoE; inc = default.Pickup_WeaponPickupPercentageIncPerWave.HoE; max = default.Pickup_WeaponPickupMaxPercentage.HoE; break;
-		default: base = default.Pickup_WeaponPickupBasePercentage.Custom; inc = default.Pickup_WeaponPickupPercentageIncPerWave.Custom; max = default.Pickup_WeaponPickupMaxPercentage.Custom; break;
+		case 0 : base = default.Pickup_ItemPickupBasePercentage.Normal; inc = default.Pickup_ItemPickupPercentageIncPerWave.Normal; max = default.Pickup_ItemPickupMaxPercentage.Normal; break;
+		case 1 : base = default.Pickup_ItemPickupBasePercentage.Hard; inc = default.Pickup_ItemPickupPercentageIncPerWave.Hard; max = default.Pickup_ItemPickupMaxPercentage.Hard; break;
+		case 2 : base = default.Pickup_ItemPickupBasePercentage.Suicidal; inc = default.Pickup_ItemPickupPercentageIncPerWave.Suicidal; max = default.Pickup_ItemPickupMaxPercentage.Suicidal; break;
+		case 3 : base = default.Pickup_ItemPickupBasePercentage.HoE; inc = default.Pickup_ItemPickupPercentageIncPerWave.HoE; max = default.Pickup_ItemPickupMaxPercentage.HoE; break;
+		default: base = default.Pickup_ItemPickupBasePercentage.Custom; inc = default.Pickup_ItemPickupPercentageIncPerWave.Custom; max = default.Pickup_ItemPickupMaxPercentage.Custom; break;
 	}
 
 	wave = WaveNum - 1;
