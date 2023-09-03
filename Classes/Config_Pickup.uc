@@ -94,6 +94,85 @@ static function CheckBasicConfigValues()
 
 	for (i = 0; i < NumberOfDiffs; ++i)
 	{
+		if (GetStructValueFloat(default.Pickup_AmmoPickupBasePercentage, i) < 0.0f)
+		{
+			LogBadStructConfigMessage(i, "Pickup_AmmoPickupBasePercentage",
+				string(GetStructValueFloat(default.Pickup_AmmoPickupBasePercentage, i)),
+				"0.0", "0% base ammo pickups enabled", "1.0 >= value >= 0.0");
+			SetStructValueFloat(default.Pickup_AmmoPickupBasePercentage, i, 0.0f);
+		}
+
+		if (GetStructValueFloat(default.Pickup_AmmoPickupBasePercentage, i) > 1.0f)
+		{
+			LogBadStructConfigMessage(i, "Pickup_AmmoPickupBasePercentage",
+				string(GetStructValueFloat(default.Pickup_AmmoPickupBasePercentage, i)),
+				"1.0", "100% base ammo pickups enabled", "1.0 >= value >= 0.0");
+			SetStructValueFloat(default.Pickup_AmmoPickupBasePercentage, i, 1.0f);
+		}
+
+		if (GetStructValueFloat(default.Pickup_AmmoPickupPercentageIncPerWave, i) < 0.0f)
+		{
+			LogBadStructConfigMessage(i, "Pickup_AmmoPickupPercentageIncPerWave",
+				string(GetStructValueFloat(default.Pickup_AmmoPickupPercentageIncPerWave, i)),
+				"0.0", "0%, no increase per wave", "value >= 0.0");
+			SetStructValueFloat(default.Pickup_AmmoPickupPercentageIncPerWave, i, 0.0f);
+		}
+
+		if (GetStructValueFloat(default.Pickup_AmmoPickupMaxPercentage, i) < 0.0f)
+		{
+			LogBadStructConfigMessage(i, "Pickup_AmmoPickupMaxPercentage",
+				string(GetStructValueFloat(default.Pickup_AmmoPickupMaxPercentage, i)),
+				"0.0", "0% max ammo pickups allowed", "1.0 >= value >= 0.0");
+			SetStructValueFloat(default.Pickup_AmmoPickupMaxPercentage, i, 0.0f);
+		}
+
+		if (GetStructValueFloat(default.Pickup_AmmoPickupMaxPercentage, i) > 1.0f)
+		{
+			LogBadStructConfigMessage(i, "Pickup_AmmoPickupMaxPercentage",
+				string(GetStructValueFloat(default.Pickup_AmmoPickupMaxPercentage, i)),
+				"1.0", "100% max ammo pickups allowed", "1.0 >= value >= 0.0");
+			SetStructValueFloat(default.Pickup_AmmoPickupMaxPercentage, i, 1.0f);
+		}
+
+		if (GetStructValueFloat(default.Pickup_ItemPickupBasePercentage, i) < 0.0f)
+		{
+			LogBadStructConfigMessage(i, "Pickup_ItemPickupBasePercentage",
+				string(GetStructValueFloat(default.Pickup_ItemPickupBasePercentage, i)),
+				"0.0", "0% base item pickups enabled", "1.0 >= value >= 0.0");
+			SetStructValueFloat(default.Pickup_ItemPickupBasePercentage, i, 0.0f);
+		}
+
+		if (GetStructValueFloat(default.Pickup_ItemPickupBasePercentage, i) > 1.0f)
+		{
+			LogBadStructConfigMessage(i, "Pickup_ItemPickupBasePercentage",
+				string(GetStructValueFloat(default.Pickup_ItemPickupBasePercentage, i)),
+				"1.0", "100% base item pickups enabled", "1.0 >= value >= 0.0");
+			SetStructValueFloat(default.Pickup_ItemPickupBasePercentage, i, 1.0f);
+		}
+
+		if (GetStructValueFloat(default.Pickup_ItemPickupPercentageIncPerWave, i) < 0.0f)
+		{
+			LogBadStructConfigMessage(i, "Pickup_ItemPickupPercentageIncPerWave",
+				string(GetStructValueFloat(default.Pickup_ItemPickupPercentageIncPerWave, i)),
+				"0.0", "0%, no increase per wave", "value >= 0.0");
+			SetStructValueFloat(default.Pickup_ItemPickupPercentageIncPerWave, i, 0.0f);
+		}
+
+		if (GetStructValueFloat(default.Pickup_ItemPickupMaxPercentage, i) < 0.0f)
+		{
+			LogBadStructConfigMessage(i, "Pickup_ItemPickupMaxPercentage",
+				string(GetStructValueFloat(default.Pickup_ItemPickupMaxPercentage, i)),
+				"0.0", "0% max item pickups allowed", "1.0 >= value >= 0.0");
+			SetStructValueFloat(default.Pickup_ItemPickupMaxPercentage, i, 0.0f);
+		}
+
+		if (GetStructValueFloat(default.Pickup_ItemPickupMaxPercentage, i) > 1.0f)
+		{
+			LogBadStructConfigMessage(i, "Pickup_ItemPickupMaxPercentage",
+				string(GetStructValueFloat(default.Pickup_ItemPickupMaxPercentage, i)),
+				"1.0", "100% max item pickups allowed", "1.0 >= value >= 0.0");
+			SetStructValueFloat(default.Pickup_ItemPickupMaxPercentage, i, 1.0f);
+		}
 	}
 }
 
