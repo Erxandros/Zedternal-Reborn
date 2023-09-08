@@ -1,4 +1,4 @@
-class WMWeap_HRG_Warthog extends KFWeap_HRG_Warthog;
+class WMWeap_HRG_Warthog extends KFWeap_HRG_Warthog implements(WMTurret_Interface);
 
 var class<KFPawn_HRG_Warthog> TurretPawn;
 var class<KFWeapon> TurretWeapon;

@@ -1,4 +1,4 @@
-class WMWeap_AutoTurret extends KFWeap_AutoTurret;
+class WMWeap_AutoTurret extends KFWeap_AutoTurret implements(WMTurret_Interface);
 
 var class<KFPawn_AutoTurret> TurretPawn;
 var class<KFWeapon> TurretWeapon;

@@ -10,6 +10,8 @@ static function bool IsUpgradeCompatible(class<KFWeapon> KFW)
 		return True;
 	if (class<KFWeap_HRG_Warthog>(KFW) != None)
 		return True;
+	if (WMTurret_Interface(KFW) != None)
+		return True;
 
 	return False;
 }

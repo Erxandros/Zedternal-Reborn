@@ -2912,6 +2912,9 @@ simulated function bool DenyPerkResupply(const out KFWeapon KFW)
 		if (ClassIsChildOf(KFW.Class, class'KFWeap_HRG_Warthog'))
 			return False;
 
+		if (WMTurret_Interface(KFW) != None)
+			return False;
+
 		return True;
 	}
 
