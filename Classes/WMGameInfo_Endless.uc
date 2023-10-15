@@ -1073,6 +1073,11 @@ protected function DistributeMoneyAndXP(class<KFPawn_Monster> MonsterClass, cons
 //Pickup Code Start
 function InitAllPickups()
 {
+	if (class'ZedternalReborn.Config_Pickup'.default.Pickup_bOverrideKismetPickups)
+	{
+		ResetKismetPickupFlags();
+	}
+
 	if (class'ZedternalReborn.Config_Pickup'.static.GetEnablePickups(GameDifficultyZedternal))
 	{
 		if (class'ZedternalReborn.Config_Pickup'.static.GetEnableAmmoPickups(GameDifficultyZedternal))
@@ -1097,6 +1102,44 @@ function InitAllPickups()
 	}
 
 	ResetAllPickups();
+}
+
+function ResetKismetPickupFlags()
+{
+	local KFPickupFactory_Ammo KFPFA;
+	local KFPickupFactory_Item KFPFI;
+
+	AmmoPickups.Length = 0;
+	foreach DynamicActors(class'KFPickupFactory_Ammo', KFPFA)
+	{
+		if (KFPFA != None && KFPFA.bKismetDriven)
+		{
+			KFPFA.bKismetDriven = False;
+			KFPFA.bUseRespawnTimeOverride = False;
+			KFPFA.RespawnTime = KFPFA.default.RespawnTime;
+			KFPFA.bEnabledAtStart = False;
+			KFPFA.bKismetEnabled = False;
+			KFPFA.Reset();
+		}
+
+		AmmoPickups.AddItem(KFPFA);
+	}
+
+	ItemPickups.Length = 0;
+	foreach DynamicActors(class'KFPickupFactory_Item', KFPFI)
+	{
+		if (KFPFI != None && KFPFI.bKismetDriven)
+		{
+			KFPFI.bKismetDriven = False;
+			KFPFI.bUseRespawnTimeOverride = False;
+			KFPFI.RespawnTime = KFPFI.default.RespawnTime;
+			KFPFI.bEnabledAtStart = False;
+			KFPFI.bKismetEnabled = False;
+			KFPFI.Reset();
+		}
+
+		ItemPickups.AddItem(KFPFI);
+	}
 }
 
 function SetupPickupItems()

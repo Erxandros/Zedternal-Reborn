@@ -7,6 +7,7 @@ var config S_Difficulty_Bool Pickup_bEnablePickups;
 var config S_Difficulty_Bool Pickup_bEnableAmmoPickups;
 var config S_Difficulty_Bool Pickup_bEnableWeaponPickups;
 var config S_Difficulty_Bool Pickup_bArmorSpawnOnMap;
+var config bool Pickup_bOverrideKismetPickups;
 
 var config S_Difficulty_Float Pickup_AmmoPickupBasePercentage;
 var config S_Difficulty_Float Pickup_AmmoPickupPercentageIncPerWave;
@@ -79,6 +80,11 @@ static function UpdateConfig()
 		default.Pickup_ItemPickupMaxPercentage.Suicidal = 0.7f;
 		default.Pickup_ItemPickupMaxPercentage.HoE = 0.55f;
 		default.Pickup_ItemPickupMaxPercentage.Custom = 0.55f;
+	}
+
+	if (default.MODEVERSION < 19)
+	{
+		default.Pickup_bOverrideKismetPickups = True;
 	}
 
 	if (default.MODEVERSION < class'ZedternalReborn.Config_Base'.const.CurrentVersion)
