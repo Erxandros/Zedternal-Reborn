@@ -2561,6 +2561,9 @@ function RepGameInfoNormalPriority()
 	//Armor pickup enable
 	WMGRI.bArmorPickup = class'ZedternalReborn.Config_Pickup'.static.GetShouldArmorSpawnOnMap(GameDifficultyZedternal) ? 2 : 1; //2 is True, 1 is False
 
+	//Kismet Pickups Override
+	WMGRI.bOverrideKismetPickups = class'ZedternalReborn.Config_Pickup'.default.Pickup_bOverrideKismetPickups ? 2 : 1; //2 is True, 1 is False
+
 	//Starting/itempickup Weapon
 	for (b = 0; b < Min(255, StartingWeaponPath.Length); ++b)
 	{

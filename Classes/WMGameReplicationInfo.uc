@@ -180,6 +180,7 @@ var repnotify byte TraderVoiceGroupIndex;
 //Replicated Map Values
 var repnotify byte bAllTraders;
 var byte bArmorPickup;
+var byte bOverrideKismetPickups;
 var repnotify bool bRepairDoorTrigger;
 
 //Weapon Skins
@@ -402,6 +403,7 @@ replication
 		bIsPaused,
 		bNewZedBuff,
 		bNoTraderDuringPause,
+		bOverrideKismetPickups,
 		bPauseButtonEnabled,
 		bRepairDoorTrigger,
 		bZRUMenuAllWave,
@@ -945,7 +947,8 @@ simulated function CheckAndSetTraderItems()
 simulated function SetWeaponPickupList()
 {
 	local int i;
-	local KFPickupFactory_Item KFPFID;
+	local KFPickupFactory_Ammo KFPFA;
+	local KFPickupFactory_Item KFPFI;
 	local array<ItemPickup> StartingItemPickups;
 	local class<KFWeapon> startingWeaponClass;
 	local class<KFWeap_DualBase> startingWeaponClassDual;
@@ -953,6 +956,45 @@ simulated function SetWeaponPickupList()
 
 	if (bArmorPickup == 0)
 		return; //Not yet replicated
+
+	if (bOverrideKismetPickups == 0)
+		return; //Not yet replicated
+
+	//Convert Kismet controlled pickups to standard pickups
+	if (bOverrideKismetPickups == 2)
+	{
+		foreach DynamicActors(class'KFPickupFactory_Ammo', KFPFA)
+		{
+			if (KFPFA != None && KFPFA.bKismetDriven)
+			{
+				KFPFA.bKismetDriven = False;
+				KFPFA.bUseRespawnTimeOverride = False;
+				KFPFA.RespawnTime = KFPFA.default.RespawnTime;
+				KFPFA.bEnabledAtStart = False;
+				KFPFA.bKismetEnabled = False;
+				if (KFPFA.GetStateName() == 'Pickup' || KFPFA.GetStateName() == 'Disabled')
+					KFPFA.Reset();
+				else
+					KFPFA.StartSleeping();
+			}
+		}
+
+		foreach DynamicActors(class'KFPickupFactory_Item', KFPFI)
+		{
+			if (KFPFI != None && KFPFI.bKismetDriven)
+			{
+				KFPFI.bKismetDriven = False;
+				KFPFI.bUseRespawnTimeOverride = False;
+				KFPFI.RespawnTime = KFPFI.default.RespawnTime;
+				KFPFI.bEnabledAtStart = False;
+				KFPFI.bKismetEnabled = False;
+				if (KFPFI.GetStateName() == 'Pickup' || KFPFI.GetStateName() == 'Disabled')
+					KFPFI.Reset();
+				else
+					KFPFI.StartSleeping();
+			}
+		}
+	}
 
 	// Set Weapon PickupFactory
 
@@ -985,15 +1027,15 @@ simulated function SetWeaponPickupList()
 	}
 
 	//Set KFPickupFactory objects on map to match server
-	foreach DynamicActors(class'KFPickupFactory_Item', KFPFID)
+	foreach DynamicActors(class'KFPickupFactory_Item', KFPFI)
 	{
-		if (KFPFID != None)
+		if (KFPFI != None)
 		{
-			if (bArmorPickup == 2 && KFPFID.ItemPickups.length == 1 && KFPFID.ItemPickups[0].ItemClass == Class'KFGameContent.KFInventory_Armor')
+			if (bArmorPickup == 2 && KFPFI.ItemPickups.length == 1 && KFPFI.ItemPickups[0].ItemClass == Class'KFGameContent.KFInventory_Armor')
 				continue; //Do not replace an armor only spawn, unless armor is disabled from pickups
-			KFPFID.ItemPickups.length = 0;
-			KFPFID.ItemPickups = StartingItemPickups;
-			KFPFID.SetPickupMesh();
+			KFPFI.ItemPickups.length = 0;
+			KFPFI.ItemPickups = StartingItemPickups;
+			KFPFI.SetPickupMesh();
 		}
 	}
 
@@ -1401,6 +1443,7 @@ defaultproperties
 
 	bAllTraders=0
 	bArmorPickup=0
+	bOverrideKismetPickups=0
 	bDrawSpecialWave=False
 	bEndlessMode=True
 	bZRUMenuAllWave=False
