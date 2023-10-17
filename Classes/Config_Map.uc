@@ -6,6 +6,7 @@ var config int MODEVERSION;
 struct S_Map
 {
 	var string MapName;
+	var array<int> Difficulty;
 	var int StartingDosh;
 	var int StartingWave;
 	var int FinalWave;
@@ -22,6 +23,7 @@ struct S_Map
 
 	structdefaultproperties
 	{
+		Difficulty=(0,1,2,3,4)
 		StartingDosh=400
 		StartingWave=1
 		FinalWave=255
@@ -58,17 +60,6 @@ static function UpdateConfig()
 		default.Map_Settings[0].ZedStuckThreshold = 4;
 		default.Map_Settings[0].ZedStuckTimeout = 150;
 		default.Map_Settings[0].AllTraders = False;
-	}
-
-	if (default.MODEVERSION < 19)
-	{
-		for (i = 0; i < default.Map_Settings.Length; ++i)
-		{
-			default.Map_Settings[i].EnableAmmoPickups = True;
-			default.Map_Settings[i].EnableWeaponPickups = True;
-			default.Map_Settings[i].ArmorSpawnOnMap = True;
-			default.Map_Settings[i].OverrideKismetPickups = True;
-		}
 	}
 
 	if (default.MODEVERSION < class'ZedternalReborn.Config_Base'.const.CurrentVersion)
@@ -166,143 +157,156 @@ static function CheckBasicConfigValues()
 	}
 }
 
-static function int GetStartingDosh(string MapName)
+protected static function int FindMap(string MapName, int Difficulty)
+{
+	local int i;
+
+	for (i = 0; i < default.Map_Settings.Length; ++i)
+	{
+		if (default.Map_Settings[i].MapName ~= MapName && default.Map_Settings[i].Difficulty.Find(Difficulty) != INDEX_NONE)
+			return i;
+	}
+
+	return INDEX_NONE;
+}
+
+static function int GetStartingDosh(string MapName, int Difficulty)
 {
 	local int index;
 
-	index = default.Map_Settings.Find('MapName', MapName);
+	index = FindMap(MapName, Difficulty);
 	if (index != INDEX_NONE)
 		return default.Map_Settings[index].StartingDosh;
 	else
-		return INDEX_NONE;
+		return -1;
 }
 
-static function int GetStartingWave(string MapName)
+static function int GetStartingWave(string MapName, int Difficulty)
 {
 	local int index;
 
-	index = default.Map_Settings.Find('MapName', MapName);
+	index = FindMap(MapName, Difficulty);
 	if (index != INDEX_NONE)
 		return default.Map_Settings[index].StartingWave - 1;
 	else
 		return 0;
 }
 
-static function int GetFinalWave(string MapName)
+static function int GetFinalWave(string MapName, int Difficulty)
 {
 	local int index;
 
-	index = default.Map_Settings.Find('MapName', MapName);
+	index = FindMap(MapName, Difficulty);
 	if (index != INDEX_NONE)
 		return default.Map_Settings[index].FinalWave;
 	else
 		return 255;
 }
 
-static function int GetStartingTraderTime(string MapName)
+static function int GetStartingTraderTime(string MapName, int Difficulty)
 {
 	local int index;
 
-	index = default.Map_Settings.Find('MapName', MapName);
+	index = FindMap(MapName, Difficulty);
 	if (index != INDEX_NONE)
 		return default.Map_Settings[index].StartingTraderTime;
 	else
 		return 0;
 }
 
-static function float GetZedNumberScale(string MapName)
+static function float GetZedNumberScale(string MapName, int Difficulty)
 {
 	local int index;
 
-	index = default.Map_Settings.Find('MapName', MapName);
+	index = FindMap(MapName, Difficulty);
 	if (index != INDEX_NONE)
 		return default.Map_Settings[index].ZedNumberScale;
 	else
 		return 1.0f;
 }
 
-static function float GetZedSpawnRate(string MapName)
+static function float GetZedSpawnRate(string MapName, int Difficulty)
 {
 	local int index;
 
-	index = default.Map_Settings.Find('MapName', MapName);
+	index = FindMap(MapName, Difficulty);
 	if (index != INDEX_NONE)
 		return default.Map_Settings[index].ZedSpawnRate;
 	else
 		return 1.0f;
 }
 
-static function int GetZedStuckThreshold(string MapName)
+static function int GetZedStuckThreshold(string MapName, int Difficulty)
 {
 	local int index;
 
-	index = default.Map_Settings.Find('MapName', MapName);
+	index = FindMap(MapName, Difficulty);
 	if (index != INDEX_NONE)
 		return default.Map_Settings[index].ZedStuckThreshold;
 	else
 		return 4;
 }
 
-static function int GetZedStuckTimeout(string MapName)
+static function int GetZedStuckTimeout(string MapName, int Difficulty)
 {
 	local int index;
 
-	index = default.Map_Settings.Find('MapName', MapName);
+	index = FindMap(MapName, Difficulty);
 	if (index != INDEX_NONE)
 		return default.Map_Settings[index].ZedStuckTimeout;
 	else
 		return 150;
 }
 
-static function byte GetAllTraders(string MapName)
+static function byte GetAllTraders(string MapName, int Difficulty)
 {
 	local int index;
 
-	index = default.Map_Settings.Find('MapName', MapName);
+	index = FindMap(MapName, Difficulty);
 	if (index != INDEX_NONE)
 		return default.Map_Settings[index].AllTraders ? 2 : 1;
 	else
 		return 0;
 }
 
-static function byte GetEnableAmmoPickups(string MapName)
+static function byte GetEnableAmmoPickups(string MapName, int Difficulty)
 {
 	local int index;
 
-	index = default.Map_Settings.Find('MapName', MapName);
+	index = FindMap(MapName, Difficulty);
 	if (index != INDEX_NONE)
 		return default.Map_Settings[index].EnableAmmoPickups ? 2 : 1;
 	else
 		return 0;
 }
 
-static function byte GetEnableWeaponPickups(string MapName)
+static function byte GetEnableWeaponPickups(string MapName, int Difficulty)
 {
 	local int index;
 
-	index = default.Map_Settings.Find('MapName', MapName);
+	index = FindMap(MapName, Difficulty);
 	if (index != INDEX_NONE)
 		return default.Map_Settings[index].EnableWeaponPickups ? 2 : 1;
 	else
 		return 0;
 }
 
-static function byte GetArmorSpawnOnMap(string MapName)
+static function byte GetArmorSpawnOnMap(string MapName, int Difficulty)
 {
 	local int index;
 
-	index = default.Map_Settings.Find('MapName', MapName);
+	index = FindMap(MapName, Difficulty);
 	if (index != INDEX_NONE)
 		return default.Map_Settings[index].ArmorSpawnOnMap ? 2 : 1;
 	else
 		return 0;
 }
 
-static function byte GetOverrideKismetPickups(string MapName)
+static function byte GetOverrideKismetPickups(string MapName, int Difficulty)
 {
 	local int index;
 
-	index = default.Map_Settings.Find('MapName', MapName);
+	index = FindMap(MapName, Difficulty);
 	if (index != INDEX_NONE)
 		return default.Map_Settings[index].OverrideKismetPickups ? 2 : 1;
 	else

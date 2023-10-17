@@ -4,7 +4,7 @@ var WMGameInfo_ConfigData ConfigData;
 
 var KFGFxObject_TraderItems DefaultTraderItems;
 var WMGFxObject_TraderItems TraderItems;
-var float doshNewPlayer;
+var float DoshNewPlayer;
 
 var int TimeBetweenWavesDefault, TimeBetweenWavesExtend;
 var bool bUseExtendedTraderTime, bUseStartingTraderTime, bUseAllTraders;
@@ -147,7 +147,7 @@ event PostBeginPlay()
 
 	// Set all traders toggle
 	if (!bUseAllTraders)
-		bUseAllTraders = class'ZedternalReborn.Config_Map'.static.GetAllTraders(WorldInfo.GetMapName(True)) == 2;
+		bUseAllTraders = class'ZedternalReborn.Config_Map'.static.GetAllTraders(WorldInfo.GetMapName(True), GameDifficultyZedternal) == 2;
 
 	// Store which perks are static (always selected first) for future use
 	InitializeStaticPerkList();
@@ -175,11 +175,13 @@ event PostBeginPlay()
 	RepGameInfoHighPriority();
 
 	if (startingDosh >= 0)
-		doshNewPlayer = startingDosh;
-	else if (class'ZedternalReborn.Config_Map'.static.GetStartingDosh(WorldInfo.GetMapName(True)) >= 0)
-		doshNewPlayer = class'ZedternalReborn.Config_Map'.static.GetStartingDosh(WorldInfo.GetMapName(True));
+		DoshNewPlayer = startingDosh;
 	else
-		doshNewPlayer = class'ZedternalReborn.Config_Dosh'.static.GetStartingDosh(GameDifficultyZedternal);
+	{
+		DoshNewPlayer = class'ZedternalReborn.Config_Map'.static.GetStartingDosh(WorldInfo.GetMapName(True), GameDifficultyZedternal);
+		if (DoshNewPlayer < 0)
+			DoshNewPlayer = class'ZedternalReborn.Config_Dosh'.static.GetStartingDosh(GameDifficultyZedternal);
+	}
 
 	LastSpecialWaveID_First = INDEX_NONE;
 	LastSpecialWaveID_Second = INDEX_NONE;
@@ -340,12 +342,12 @@ function InitWaveNumbers()
 	if (startingWave >= 0)
 		WaveNum = startingWave;
 	else
-		WaveNum = class'ZedternalReborn.Config_Map'.static.GetStartingWave(WorldInfo.GetMapName(True));
+		WaveNum = class'ZedternalReborn.Config_Map'.static.GetStartingWave(WorldInfo.GetMapName(True), GameDifficultyZedternal);
 
 	if (finalWave < 255 && finalWave > 0)
 		WaveMax = finalWave;
 	else
-		WaveMax = class'ZedternalReborn.Config_Map'.static.GetFinalWave(WorldInfo.GetMapName(True));
+		WaveMax = class'ZedternalReborn.Config_Map'.static.GetFinalWave(WorldInfo.GetMapName(True), GameDifficultyZedternal);
 
 	if (WaveMax <= WaveNum)
 	{
@@ -460,10 +462,16 @@ function StartMatch()
 	else
 	{
 		MyKFGRI.UpdateHUDWaveCount();
-		if (startingTraderTime > 0 || class'ZedternalReborn.Config_Map'.static.GetStartingTraderTime(WorldInfo.GetMapName(True)) > 0)
+		if (startingTraderTime > 0)
 			bUseStartingTraderTime = True;
 		else
-			bUseExtendedTraderTime = True;
+		{
+			startingTraderTime = class'ZedternalReborn.Config_Map'.static.GetStartingTraderTime(WorldInfo.GetMapName(True), GameDifficultyZedternal);
+			if (startingTraderTime > 0)
+				bUseStartingTraderTime = True;
+			else
+				bUseExtendedTraderTime = True;
+		}
 
 		SetupNextTrader();
 		GotoState('TraderOpen', 'Begin');
@@ -478,12 +486,7 @@ function StartMatch()
 	foreach WorldInfo.AllControllers(class'KFPlayerController', KFPC)
 	{
 		KFPC.ClientMatchStarted();
-		if (startingDosh >= 0)
-			KFPlayerReplicationInfo(KFPC.PlayerReplicationInfo).Score = startingDosh;
-		else if (class'ZedternalReborn.Config_Map'.static.GetStartingDosh(WorldInfo.GetMapName(True)) >= 0)
-			KFPlayerReplicationInfo(KFPC.PlayerReplicationInfo).Score = class'ZedternalReborn.Config_Map'.static.GetStartingDosh(WorldInfo.GetMapName(True));
-		else
-			KFPlayerReplicationInfo(KFPC.PlayerReplicationInfo).Score = class'ZedternalReborn.Config_Dosh'.static.GetStartingDosh(GameDifficultyZedternal);
+		KFPlayerReplicationInfo(KFPC.PlayerReplicationInfo).Score = DoshNewPlayer;
 
 		if (WMPlayerReplicationInfo(KFPC.PlayerReplicationInfo) != None)
 			WMPlayerReplicationInfo(KFPC.PlayerReplicationInfo).bHasPlayed = True;
@@ -801,11 +804,7 @@ function OpenTrader()
 
 	if (bUseStartingTraderTime)
 	{
-		if (startingTraderTime > 0)
-			TimeBetweenWaves = startingTraderTime;
-		else
-			TimeBetweenWaves = class'ZedternalReborn.Config_Map'.static.GetStartingTraderTime(WorldInfo.GetMapName(True));
-
+		TimeBetweenWaves = startingTraderTime;
 		bUseStartingTraderTime = False;
 	}
 	else if (bUseExtendedTraderTime)
@@ -915,7 +914,7 @@ function int GetAdjustedDeathPenalty(KFPlayerReplicationInfo KilledPlayerPRI, op
 	// new player (dosh is based on what team won during the game)
 	if (bLateJoiner)
 	{
-		PlayerBase = Round(doshNewPlayer * class'ZedternalReborn.Config_Dosh'.static.GetLateJoinerDoshPct(GameDifficultyZedternal));
+		PlayerBase = Round(DoshNewPlayer * class'ZedternalReborn.Config_Dosh'.static.GetLateJoinerDoshPct(GameDifficultyZedternal));
 		`log("ZR Info: Player"@KilledPlayerPRI.PlayerName@"is late joiner, received"@PlayerBase@"dosh");
 
 		return PlayerBase;
@@ -1002,7 +1001,7 @@ function RewardSurvivingPlayers()
 	`log("ZR Info: SCORING: Wave Dosh/surviving player:" @ PlayerWave);
 
 	// Add dosh for new players
-	doshNewPlayer += class'ZedternalReborn.Config_Dosh'.static.GetBaseWaveDoshReward(GameDifficultyZedternal, PlayerCount + 1) + PlayerWave;
+	DoshNewPlayer += class'ZedternalReborn.Config_Dosh'.static.GetBaseWaveDoshReward(GameDifficultyZedternal, PlayerCount + 1) + PlayerWave;
 
 	foreach WorldInfo.AllControllers(class'KFPlayerController', KFPC)
 	{
@@ -1075,19 +1074,19 @@ function InitAllPickups()
 {
 	local byte b;
 
-	b = class'ZedternalReborn.Config_Map'.static.GetOverrideKismetPickups(WorldInfo.GetMapName(True));
+	b = class'ZedternalReborn.Config_Map'.static.GetOverrideKismetPickups(WorldInfo.GetMapName(True), GameDifficultyZedternal);
 	if (b == 2 || (b == 0 && class'ZedternalReborn.Config_Pickup'.default.Pickup_bOverrideKismetPickups))
 		ResetKismetPickupFlags();
 
 	if (class'ZedternalReborn.Config_Pickup'.static.GetEnablePickups(GameDifficultyZedternal))
 	{
-		b = class'ZedternalReborn.Config_Map'.static.GetEnableAmmoPickups(WorldInfo.GetMapName(True));
+		b = class'ZedternalReborn.Config_Map'.static.GetEnableAmmoPickups(WorldInfo.GetMapName(True), GameDifficultyZedternal);
 		if (b == 2 || (b == 0 && class'ZedternalReborn.Config_Pickup'.static.GetEnableAmmoPickups(GameDifficultyZedternal)))
 			NumAmmoPickups = AmmoPickups.Length;
 		else
 			NumAmmoPickups = 0;
 
-		b = class'ZedternalReborn.Config_Map'.static.GetEnableWeaponPickups(WorldInfo.GetMapName(True));
+		b = class'ZedternalReborn.Config_Map'.static.GetEnableWeaponPickups(WorldInfo.GetMapName(True), GameDifficultyZedternal);
 		if (b == 2 || (b == 0 && class'ZedternalReborn.Config_Pickup'.static.GetEnableWeaponPickups(GameDifficultyZedternal)))
 			NumWeaponPickups = ItemPickups.Length;
 		else
@@ -1157,7 +1156,7 @@ function SetupPickupItems()
 	// Set Weapon PickupFactory
 
 	//Add armor
-	b = class'ZedternalReborn.Config_Map'.static.GetArmorSpawnOnMap(WorldInfo.GetMapName(True));
+	b = class'ZedternalReborn.Config_Map'.static.GetArmorSpawnOnMap(WorldInfo.GetMapName(True), GameDifficultyZedternal);
 	bShouldArmorSpawn = b == 2 || (b == 0 && class'ZedternalReborn.Config_Pickup'.static.GetShouldArmorSpawnOnMap(GameDifficultyZedternal));
 	if (bShouldArmorSpawn)
 	{
@@ -1481,7 +1480,7 @@ function ApplyRandomZedBuff(int Wave, bool bRewardPlayer, int Count)
 					}
 				}
 
-				doshNewPlayer += class'ZedternalReborn.Config_ZedBuff'.static.GetDoshBonus(GameDifficultyZedternal) * DoshMultiplier;
+				DoshNewPlayer += class'ZedternalReborn.Config_ZedBuff'.static.GetDoshBonus(GameDifficultyZedternal) * DoshMultiplier;
 			}
 
 			// play bosses music to stress players
@@ -1584,7 +1583,7 @@ function Killed(Controller Killer, Controller KilledPlayer, Pawn KilledPawn, cla
 	}
 
 	if (KFPawn_Monster(KilledPawn) != None && PlayerCount != 0)
-		doshNewPlayer += GameLengthDoshScale[GameLength] * KFPawn_Monster(KilledPawn).static.GetDoshValue() / PlayerCount;
+		DoshNewPlayer += GameLengthDoshScale[GameLength] * KFPawn_Monster(KilledPawn).static.GetDoshValue() / PlayerCount;
 }
 
 function BossDied(Controller Killer, optional bool bCheckWaveEnded = True)
@@ -2562,11 +2561,11 @@ function RepGameInfoNormalPriority()
 	}
 
 	//Armor pickup enable
-	b = class'ZedternalReborn.Config_Map'.static.GetArmorSpawnOnMap(WorldInfo.GetMapName(True));
+	b = class'ZedternalReborn.Config_Map'.static.GetArmorSpawnOnMap(WorldInfo.GetMapName(True), GameDifficultyZedternal);
 	WMGRI.bArmorPickup = (b == 2 || (b == 0 && class'ZedternalReborn.Config_Pickup'.static.GetShouldArmorSpawnOnMap(GameDifficultyZedternal))) ? 2 : 1; //2 is True, 1 is False
 
 	//Kismet Pickups Override
-	b = class'ZedternalReborn.Config_Map'.static.GetOverrideKismetPickups(WorldInfo.GetMapName(True));
+	b = class'ZedternalReborn.Config_Map'.static.GetOverrideKismetPickups(WorldInfo.GetMapName(True), GameDifficultyZedternal);
 	WMGRI.bOverrideKismetPickups = (b == 2 || (b == 0 && class'ZedternalReborn.Config_Pickup'.default.Pickup_bOverrideKismetPickups)) ? 2 : 1; //2 is True, 1 is False
 
 	//Starting/itempickup Weapon

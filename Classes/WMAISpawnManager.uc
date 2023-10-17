@@ -66,6 +66,11 @@ var float GameDifficultyZedternal;
 
 var int LeftoverWaveValue;
 
+var float MapZedNumberScale;
+var float MapZedSpawnRate;
+var int MapZedStuckThreshold;
+var int MapZedStuckTimeout;
+
 function Initialize()
 {
 	if (GameDifficulty > `DIFFICULTY_HELLONEARTH)
@@ -78,6 +83,11 @@ function Initialize()
 
 function InitializeZedSpawnData()
 {
+	MapZedNumberScale = class'ZedternalReborn.Config_Map'.static.GetZedNumberScale(WorldInfo.GetMapName(True), GameDifficultyZedternal);
+	MapZedSpawnRate = class'ZedternalReborn.Config_Map'.static.GetZedSpawnRate(WorldInfo.GetMapName(True), GameDifficultyZedternal);
+	MapZedStuckThreshold = class'ZedternalReborn.Config_Map'.static.GetZedStuckThreshold(WorldInfo.GetMapName(True), GameDifficultyZedternal);
+	MapZedStuckTimeout = class'ZedternalReborn.Config_Map'.static.GetZedStuckTimeout(WorldInfo.GetMapName(True), GameDifficultyZedternal);
+
 	ConfigData = new class'WMAISpawnManager_ConfigData';
 	ConfigData.InitializeConfigData();
 
@@ -328,7 +338,7 @@ function SetupNextWave(byte NextWaveIndex, int TimeToNextWaveBuffer = 0)
 	}
 
 	// 6) change wave points from custom map settings
-	TempWaveValue *= class'ZedternalReborn.Config_Map'.static.GetZedNumberScale(WorldInfo.GetMapName(True));
+	TempWaveValue *= MapZedNumberScale;
 
 	// 7) round result
 	WaveValue = Round(TempWaveValue);
@@ -375,7 +385,7 @@ function SetupNextWave(byte NextWaveIndex, int TimeToNextWaveBuffer = 0)
 		CustomSpawnRate *= 1.35f;
 
 	// 7) change spawn rate from custom map settings
-	CustomSpawnRate *= 1.0f / class'ZedternalReborn.Config_Map'.static.GetZedSpawnRate(WorldInfo.GetMapName(True));
+	CustomSpawnRate *= 1.0f / MapZedSpawnRate;
 
 	`log("ZR Info: SpawnRateFactor =" @ CustomSpawnRate);
 
@@ -570,7 +580,7 @@ function Update()
 		}
 	}
 
-	if (GroupList.Length == 0 && GetAIAliveCount() <= class'ZedternalReborn.Config_Map'.static.GetZedStuckThreshold(WorldInfo.GetMapName(True)))
+	if (GroupList.Length == 0 && GetAIAliveCount() <= MapZedStuckThreshold)
 		CheckStuckZed();
 }
 
@@ -650,7 +660,7 @@ function CheckStuckZed()
 			LastZedInfo.Insert(0, 1);
 			LastZedInfo[0].Zed = KFM;
 			// will be teleported after 2.5 minutes or user defined time
-			LastZedInfo[0].CountDown = class'ZedternalReborn.Config_Map'.static.GetZedStuckTimeout(WorldInfo.GetMapName(True));
+			LastZedInfo[0].CountDown = MapZedStuckTimeout;
 		}
 	}
 }
