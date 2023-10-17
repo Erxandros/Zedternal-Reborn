@@ -147,7 +147,7 @@ event PostBeginPlay()
 
 	// Set all traders toggle
 	if (!bUseAllTraders)
-		bUseAllTraders = class'ZedternalReborn.Config_Map'.static.GetAllTraders(WorldInfo.GetMapName(True));
+		bUseAllTraders = class'ZedternalReborn.Config_Map'.static.GetAllTraders(WorldInfo.GetMapName(True)) == 2;
 
 	// Store which perks are static (always selected first) for future use
 	InitializeStaticPerkList();
@@ -1073,19 +1073,22 @@ protected function DistributeMoneyAndXP(class<KFPawn_Monster> MonsterClass, cons
 //Pickup Code Start
 function InitAllPickups()
 {
-	if (class'ZedternalReborn.Config_Pickup'.default.Pickup_bOverrideKismetPickups)
-	{
+	local byte b;
+
+	b = class'ZedternalReborn.Config_Map'.static.GetOverrideKismetPickups(WorldInfo.GetMapName(True));
+	if (b == 2 || (b == 0 && class'ZedternalReborn.Config_Pickup'.default.Pickup_bOverrideKismetPickups))
 		ResetKismetPickupFlags();
-	}
 
 	if (class'ZedternalReborn.Config_Pickup'.static.GetEnablePickups(GameDifficultyZedternal))
 	{
-		if (class'ZedternalReborn.Config_Pickup'.static.GetEnableAmmoPickups(GameDifficultyZedternal))
+		b = class'ZedternalReborn.Config_Map'.static.GetEnableAmmoPickups(WorldInfo.GetMapName(True));
+		if (b == 2 || (b == 0 && class'ZedternalReborn.Config_Pickup'.static.GetEnableAmmoPickups(GameDifficultyZedternal)))
 			NumAmmoPickups = AmmoPickups.Length;
 		else
 			NumAmmoPickups = 0;
 
-		if (class'ZedternalReborn.Config_Pickup'.static.GetEnableWeaponPickups(GameDifficultyZedternal))
+		b = class'ZedternalReborn.Config_Map'.static.GetEnableWeaponPickups(WorldInfo.GetMapName(True));
+		if (b == 2 || (b == 0 && class'ZedternalReborn.Config_Pickup'.static.GetEnableWeaponPickups(GameDifficultyZedternal)))
 			NumWeaponPickups = ItemPickups.Length;
 		else
 			NumWeaponPickups = 0;
@@ -1097,9 +1100,7 @@ function InitAllPickups()
 	}
 
 	if (BaseMutator != None)
-	{
 		BaseMutator.ModifyPickupFactories();
-	}
 
 	ResetAllPickups();
 }
@@ -1145,6 +1146,7 @@ function ResetKismetPickupFlags()
 function SetupPickupItems()
 {
 	local int i;
+	local byte b;
 	local bool bShouldArmorSpawn;
 	local KFPickupFactory_Item KFPFID;
 	local array<ItemPickup> StartingItemPickups;
@@ -1155,7 +1157,8 @@ function SetupPickupItems()
 	// Set Weapon PickupFactory
 
 	//Add armor
-	bShouldArmorSpawn = class'ZedternalReborn.Config_Pickup'.static.GetShouldArmorSpawnOnMap(GameDifficultyZedternal);
+	b = class'ZedternalReborn.Config_Map'.static.GetArmorSpawnOnMap(WorldInfo.GetMapName(True));
+	bShouldArmorSpawn = b == 2 || (b == 0 && class'ZedternalReborn.Config_Pickup'.static.GetShouldArmorSpawnOnMap(GameDifficultyZedternal));
 	if (bShouldArmorSpawn)
 	{
 		newPickup.ItemClass = class'KFGameContent.KFInventory_Armor';
@@ -2559,10 +2562,12 @@ function RepGameInfoNormalPriority()
 	}
 
 	//Armor pickup enable
-	WMGRI.bArmorPickup = class'ZedternalReborn.Config_Pickup'.static.GetShouldArmorSpawnOnMap(GameDifficultyZedternal) ? 2 : 1; //2 is True, 1 is False
+	b = class'ZedternalReborn.Config_Map'.static.GetArmorSpawnOnMap(WorldInfo.GetMapName(True));
+	WMGRI.bArmorPickup = (b == 2 || (b == 0 && class'ZedternalReborn.Config_Pickup'.static.GetShouldArmorSpawnOnMap(GameDifficultyZedternal))) ? 2 : 1; //2 is True, 1 is False
 
 	//Kismet Pickups Override
-	WMGRI.bOverrideKismetPickups = class'ZedternalReborn.Config_Pickup'.default.Pickup_bOverrideKismetPickups ? 2 : 1; //2 is True, 1 is False
+	b = class'ZedternalReborn.Config_Map'.static.GetOverrideKismetPickups(WorldInfo.GetMapName(True));
+	WMGRI.bOverrideKismetPickups = (b == 2 || (b == 0 && class'ZedternalReborn.Config_Pickup'.default.Pickup_bOverrideKismetPickups)) ? 2 : 1; //2 is True, 1 is False
 
 	//Starting/itempickup Weapon
 	for (b = 0; b < Min(255, StartingWeaponPath.Length); ++b)

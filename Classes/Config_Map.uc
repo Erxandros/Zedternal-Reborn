@@ -15,6 +15,10 @@ struct S_Map
 	var int ZedStuckThreshold;
 	var int ZedStuckTimeout;
 	var bool AllTraders;
+	var bool EnableAmmoPickups;
+	var bool EnableWeaponPickups;
+	var bool ArmorSpawnOnMap;
+	var bool OverrideKismetPickups;
 
 	structdefaultproperties
 	{
@@ -27,6 +31,10 @@ struct S_Map
 		ZedStuckThreshold=4
 		ZedStuckTimeout=150
 		AllTraders=False
+		EnableAmmoPickups=True
+		EnableWeaponPickups=True
+		ArmorSpawnOnMap=True
+		OverrideKismetPickups=True
 	}
 };
 
@@ -34,6 +42,8 @@ var config array<S_Map> Map_Settings;
 
 static function UpdateConfig()
 {
+	local int i;
+
 	if (default.MODEVERSION < 1)
 	{
 		default.Map_Settings.Length = 1;
@@ -48,6 +58,17 @@ static function UpdateConfig()
 		default.Map_Settings[0].ZedStuckThreshold = 4;
 		default.Map_Settings[0].ZedStuckTimeout = 150;
 		default.Map_Settings[0].AllTraders = False;
+	}
+
+	if (default.MODEVERSION < 19)
+	{
+		for (i = 0; i < default.Map_Settings.Length; ++i)
+		{
+			default.Map_Settings[i].EnableAmmoPickups = True;
+			default.Map_Settings[i].EnableWeaponPickups = True;
+			default.Map_Settings[i].ArmorSpawnOnMap = True;
+			default.Map_Settings[i].OverrideKismetPickups = True;
+		}
 	}
 
 	if (default.MODEVERSION < class'ZedternalReborn.Config_Base'.const.CurrentVersion)
@@ -233,15 +254,59 @@ static function int GetZedStuckTimeout(string MapName)
 		return 150;
 }
 
-static function bool GetAllTraders(string MapName)
+static function byte GetAllTraders(string MapName)
 {
 	local int index;
 
 	index = default.Map_Settings.Find('MapName', MapName);
 	if (index != INDEX_NONE)
-		return default.Map_Settings[index].AllTraders;
+		return default.Map_Settings[index].AllTraders ? 2 : 1;
 	else
-		return False;
+		return 0;
+}
+
+static function byte GetEnableAmmoPickups(string MapName)
+{
+	local int index;
+
+	index = default.Map_Settings.Find('MapName', MapName);
+	if (index != INDEX_NONE)
+		return default.Map_Settings[index].EnableAmmoPickups ? 2 : 1;
+	else
+		return 0;
+}
+
+static function byte GetEnableWeaponPickups(string MapName)
+{
+	local int index;
+
+	index = default.Map_Settings.Find('MapName', MapName);
+	if (index != INDEX_NONE)
+		return default.Map_Settings[index].EnableWeaponPickups ? 2 : 1;
+	else
+		return 0;
+}
+
+static function byte GetArmorSpawnOnMap(string MapName)
+{
+	local int index;
+
+	index = default.Map_Settings.Find('MapName', MapName);
+	if (index != INDEX_NONE)
+		return default.Map_Settings[index].ArmorSpawnOnMap ? 2 : 1;
+	else
+		return 0;
+}
+
+static function byte GetOverrideKismetPickups(string MapName)
+{
+	local int index;
+
+	index = default.Map_Settings.Find('MapName', MapName);
+	if (index != INDEX_NONE)
+		return default.Map_Settings[index].OverrideKismetPickups ? 2 : 1;
+	else
+		return 0;
 }
 
 defaultproperties
