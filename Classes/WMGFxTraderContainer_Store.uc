@@ -98,6 +98,8 @@ function class<KFPerk> GetPerkFilterClass(byte index)
 /** returns True if this item should not be displayed */
 function bool IsItemFiltered(STraderItem Item, optional bool bDebug)
 {
+	local bool bUses9mm;
+
 	if (KFPC.GetPurchaseHelper().IsInOwnedItemList(Item.ClassName))
 		return True;
 
@@ -108,6 +110,13 @@ function bool IsItemFiltered(STraderItem Item, optional bool bDebug)
 		return True;
 
 	if (WMGameReplicationInfo(KFPC.PlayerReplicationInfo.WorldInfo.GRI) != None && !WMGameReplicationInfo(KFPC.PlayerReplicationInfo.WorldInfo.GRI).IsItemAllowed(Item))
+		return True;
+
+	bUses9mm = Has9mmGun();
+	if (bUses9mm && (Item.ClassName == 'KFWeap_HRG_93R' || Item.ClassName == 'KFWeap_HRG_93R_Dual'))
+		return True;
+
+	if (!bUses9mm && (Item.ClassName == 'KFWeap_Pistol_9mm' || Item.ClassName == 'KFWeap_Pistol_Dual9mm'))
 		return True;
 
 	return False;
