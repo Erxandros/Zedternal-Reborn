@@ -20,6 +20,12 @@ struct S_Map
 	var bool EnableWeaponPickups;
 	var bool ArmorSpawnOnMap;
 	var bool OverrideKismetPickups;
+	var float AmmoPickupBase;
+	var float AmmoPickupIncPerWave;
+	var float AmmoPickupMax;
+	var float ItemPickupBase;
+	var float ItemPickupIncPerWave;
+	var float ItemPickupMax;
 
 	structdefaultproperties
 	{
@@ -37,6 +43,12 @@ struct S_Map
 		EnableWeaponPickups=True
 		ArmorSpawnOnMap=True
 		OverrideKismetPickups=True
+		AmmoPickupBase=0.4f
+		AmmoPickupIncPerWave=0.04f
+		AmmoPickupMax=0.95f
+		ItemPickupBase=0.45f
+		ItemPickupIncPerWave=0.03f
+		ItemPickupMax=0.9f
 	}
 };
 
@@ -142,6 +154,86 @@ static function CheckBasicConfigValues()
 				string(default.Map_Settings[i].ZedStuckTimeout),
 				"15", "15 seconds before stuck zeds are respawned", "value >= 15");
 			default.Map_Settings[i].ZedStuckTimeout = 15;
+		}
+
+		if (default.Map_Settings[i].AmmoPickupBase < 0.0f)
+		{
+			LogBadConfigMessage("Map_Settings -" @ default.Map_Settings[i].MapName @ "- Line" @ string(i + 1) @ "- AmmoPickupBase",
+				string(default.Map_Settings[i].AmmoPickupBase),
+				"0.0", "0% base ammo pickups enabled", "1.0 >= value >= 0.0");
+			default.Map_Settings[i].AmmoPickupBase = 0.0f;
+		}
+
+		if (default.Map_Settings[i].AmmoPickupBase > 1.0f)
+		{
+			LogBadConfigMessage("Map_Settings -" @ default.Map_Settings[i].MapName @ "- Line" @ string(i + 1) @ "- AmmoPickupBase",
+				string(default.Map_Settings[i].AmmoPickupBase),
+				"1.0", "100% base ammo pickups enabled", "1.0 >= value >= 0.0");
+			default.Map_Settings[i].AmmoPickupBase = 1.0f;
+		}
+
+		if (default.Map_Settings[i].AmmoPickupIncPerWave < 0.0f)
+		{
+			LogBadConfigMessage("Map_Settings -" @ default.Map_Settings[i].MapName @ "- Line" @ string(i + 1) @ "- AmmoPickupIncPerWave",
+				string(default.Map_Settings[i].AmmoPickupIncPerWave),
+				"0.0", "0%, no increase per wave", "value >= 0.0");
+			default.Map_Settings[i].AmmoPickupIncPerWave = 0.0f;
+		}
+
+		if (default.Map_Settings[i].AmmoPickupMax < 0.0f)
+		{
+			LogBadConfigMessage("Map_Settings -" @ default.Map_Settings[i].MapName @ "- Line" @ string(i + 1) @ "- AmmoPickupMax",
+				string(default.Map_Settings[i].AmmoPickupMax),
+				"0.0", "0% max ammo pickups allowed", "1.0 >= value >= 0.0");
+			default.Map_Settings[i].AmmoPickupMax = 0.0f;
+		}
+
+		if (default.Map_Settings[i].AmmoPickupMax > 1.0f)
+		{
+			LogBadConfigMessage("Map_Settings -" @ default.Map_Settings[i].MapName @ "- Line" @ string(i + 1) @ "- AmmoPickupMax",
+				string(default.Map_Settings[i].AmmoPickupMax),
+				"1.0", "100% max ammo pickups allowed", "1.0 >= value >= 0.0");
+			default.Map_Settings[i].AmmoPickupMax = 1.0f;
+		}
+
+		if (default.Map_Settings[i].ItemPickupBase < 0.0f)
+		{
+			LogBadConfigMessage("Map_Settings -" @ default.Map_Settings[i].MapName @ "- Line" @ string(i + 1) @ "- ItemPickupBase",
+				string(default.Map_Settings[i].ItemPickupBase),
+				"0.0", "0% base item pickups enabled", "1.0 >= value >= 0.0");
+			default.Map_Settings[i].ItemPickupBase = 0.0f;
+		}
+
+		if (default.Map_Settings[i].ItemPickupBase > 1.0f)
+		{
+			LogBadConfigMessage("Map_Settings -" @ default.Map_Settings[i].MapName @ "- Line" @ string(i + 1) @ "- ItemPickupBase",
+				string(default.Map_Settings[i].ItemPickupBase),
+				"1.0", "100% base item pickups enabled", "1.0 >= value >= 0.0");
+			default.Map_Settings[i].ItemPickupBase = 1.0f;
+		}
+
+		if (default.Map_Settings[i].ItemPickupIncPerWave < 0.0f)
+		{
+			LogBadConfigMessage("Map_Settings -" @ default.Map_Settings[i].MapName @ "- Line" @ string(i + 1) @ "- ItemPickupIncPerWave",
+				string(default.Map_Settings[i].ItemPickupIncPerWave),
+				"0.0", "0%, no increase per wave", "value >= 0.0");
+			default.Map_Settings[i].ItemPickupIncPerWave = 0.0f;
+		}
+
+		if (default.Map_Settings[i].ItemPickupMax < 0.0f)
+		{
+			LogBadConfigMessage("Map_Settings -" @ default.Map_Settings[i].MapName @ "- Line" @ string(i + 1) @ "- ItemPickupMax",
+				string(default.Map_Settings[i].ItemPickupMax),
+				"0.0", "0% max item pickups allowed", "1.0 >= value >= 0.0");
+			default.Map_Settings[i].ItemPickupMax = 0.0f;
+		}
+
+		if (default.Map_Settings[i].ItemPickupMax > 1.0f)
+		{
+			LogBadConfigMessage("Map_Settings -" @ default.Map_Settings[i].MapName @ "- Line" @ string(i + 1) @ "- ItemPickupMax",
+				string(default.Map_Settings[i].ItemPickupMax),
+				"1.0", "100% max item pickups allowed", "1.0 >= value >= 0.0");
+			default.Map_Settings[i].ItemPickupMax = 1.0f;
 		}
 	}
 }
@@ -300,6 +392,72 @@ static function byte GetOverrideKismetPickups(string MapName, int Difficulty)
 		return default.Map_Settings[index].OverrideKismetPickups ? 2 : 1;
 	else
 		return 0;
+}
+
+static function float GetAmmoPickupBase(string MapName, int Difficulty)
+{
+	local int index;
+
+	index = FindMap(MapName, Difficulty);
+	if (index != INDEX_NONE)
+		return default.Map_Settings[index].AmmoPickupBase;
+	else
+		return -1;
+}
+
+static function float GetAmmoPickupIncPerWave(string MapName, int Difficulty)
+{
+	local int index;
+
+	index = FindMap(MapName, Difficulty);
+	if (index != INDEX_NONE)
+		return default.Map_Settings[index].AmmoPickupIncPerWave;
+	else
+		return -1;
+}
+
+static function float GetAmmoPickupMax(string MapName, int Difficulty)
+{
+	local int index;
+
+	index = FindMap(MapName, Difficulty);
+	if (index != INDEX_NONE)
+		return default.Map_Settings[index].AmmoPickupMax;
+	else
+		return -1;
+}
+
+static function float GetItemPickupBase(string MapName, int Difficulty)
+{
+	local int index;
+
+	index = FindMap(MapName, Difficulty);
+	if (index != INDEX_NONE)
+		return default.Map_Settings[index].ItemPickupBase;
+	else
+		return -1;
+}
+
+static function float GetItemPickupIncPerWave(string MapName, int Difficulty)
+{
+	local int index;
+
+	index = FindMap(MapName, Difficulty);
+	if (index != INDEX_NONE)
+		return default.Map_Settings[index].ItemPickupIncPerWave;
+	else
+		return -1;
+}
+
+static function float GetItemPickupMax(string MapName, int Difficulty)
+{
+	local int index;
+
+	index = FindMap(MapName, Difficulty);
+	if (index != INDEX_NONE)
+		return default.Map_Settings[index].ItemPickupMax;
+	else
+		return -1;
 }
 
 defaultproperties

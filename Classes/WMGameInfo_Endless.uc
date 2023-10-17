@@ -76,6 +76,11 @@ var WMDmgInd DamageIndicator;
 //Disable Zed AI Checker for Enable Cheats
 var bool bDisableZedAICheck;
 
+//Map config options for pickups
+var bool bEnableMapDefinedPickups;
+var float MapAmmoPickupBase, MapAmmoPickupIncPerWave, MapAmmoPickupMax;
+var float MapItemPickupBase, MapItemPickupIncPerWave, MapItemPickupMax;
+
 ////////////////////////////////
 //Initialization/Cleanup Code Start
 event InitGame(string Options, out string ErrorMessage)
@@ -192,10 +197,21 @@ event PostBeginPlay()
 	TimeBetweenWavesExtend = class'ZedternalReborn.Config_GameOptions'.static.GetTimeBetweenWaveHumanDied(GameDifficultyZedternal);
 	bUseExtendedTraderTime = False;
 	bUseStartingTraderTime = False;
+	bEnableMapDefinedPickups = False;
 
 	DoshPickupTime = class'ZedternalReborn.Config_GameOptions'.static.GetDoshPickupDespawnTime(GameDifficultyZedternal);
 	ProjectilePickupTime = class'ZedternalReborn.Config_GameOptions'.static.GetProjectilePickupDespawnTime(GameDifficultyZedternal);
 	WeaponPickupTime = class'ZedternalReborn.Config_GameOptions'.static.GetWeaponPickupDespawnTime(GameDifficultyZedternal);
+
+	MapAmmoPickupBase = class'ZedternalReborn.Config_Map'.static.GetAmmoPickupBase(WorldInfo.GetMapName(True), GameDifficultyZedternal);
+	MapAmmoPickupIncPerWave = class'ZedternalReborn.Config_Map'.static.GetAmmoPickupIncPerWave(WorldInfo.GetMapName(True), GameDifficultyZedternal);
+	MapAmmoPickupMax = class'ZedternalReborn.Config_Map'.static.GetAmmoPickupMax(WorldInfo.GetMapName(True), GameDifficultyZedternal);
+	MapItemPickupBase = class'ZedternalReborn.Config_Map'.static.GetItemPickupBase(WorldInfo.GetMapName(True), GameDifficultyZedternal);
+	MapItemPickupIncPerWave = class'ZedternalReborn.Config_Map'.static.GetItemPickupIncPerWave(WorldInfo.GetMapName(True), GameDifficultyZedternal);
+	MapItemPickupMax = class'ZedternalReborn.Config_Map'.static.GetItemPickupMax(WorldInfo.GetMapName(True), GameDifficultyZedternal);
+
+	if (MapAmmoPickupBase >= 0.0f)
+		bEnableMapDefinedPickups = True;
 
 	// Try again if it failed to spawn in PreBeginPlay
 	if (DamageIndicator == None && class'ZedternalReborn.Config_GameOptions'.static.GetShouldEnableDamageIndicators(GameDifficultyZedternal))
@@ -1237,10 +1253,16 @@ function ResetAllPickups()
 		AllPickupFactories.AddItem(AmmoPickups[i]);
 	}
 
-	i = class'ZedternalReborn.Config_Pickup'.static.GetItemPickupAmount(GameDifficultyZedternal, NumWeaponPickups, WaveNum);
+	if (bEnableMapDefinedPickups)
+		i = Min(Round(float(NumWeaponPickups) * (MapItemPickupBase + MapItemPickupIncPerWave * float(WaveNum - 1))), Round(float(NumWeaponPickups) * MapItemPickupMax));
+	else
+		i = class'ZedternalReborn.Config_Pickup'.static.GetItemPickupAmount(GameDifficultyZedternal, NumWeaponPickups, WaveNum);
 	ResetPickups(ItemPickups, Clamp(Round(float(i) * DifficultyInfo.GetItemPickupModifier()), 0, NumWeaponPickups));
 
-	i = class'ZedternalReborn.Config_Pickup'.static.GetAmmoPickupAmount(GameDifficultyZedternal, NumAmmoPickups, WaveNum);
+	if (bEnableMapDefinedPickups)
+		i = Min(Round(float(NumAmmoPickups) * (MapAmmoPickupBase + MapAmmoPickupIncPerWave * float(WaveNum - 1))), Round(float(NumAmmoPickups) * MapAmmoPickupMax));
+	else
+		i = class'ZedternalReborn.Config_Pickup'.static.GetAmmoPickupAmount(GameDifficultyZedternal, NumAmmoPickups, WaveNum);
 	ResetPickups(AmmoPickups, Clamp(Round(float(i) * DifficultyInfo.GetAmmoPickupModifier()), 0, NumAmmoPickups));
 }
 
