@@ -44,22 +44,11 @@ var config array<S_Map> Map_Settings;
 
 static function UpdateConfig()
 {
-	local int i;
-
 	if (default.MODEVERSION < 1)
 	{
 		default.Map_Settings.Length = 1;
 
 		default.Map_Settings[0].MapName = "KF-BioticsLab";
-		default.Map_Settings[0].StartingDosh = 400;
-		default.Map_Settings[0].StartingWave = 1;
-		default.Map_Settings[0].FinalWave = 255;
-		default.Map_Settings[0].StartingTraderTime = 0;
-		default.Map_Settings[0].ZedNumberScale = 1.0f;
-		default.Map_Settings[0].ZedSpawnRate = 1.0f;
-		default.Map_Settings[0].ZedStuckThreshold = 4;
-		default.Map_Settings[0].ZedStuckTimeout = 150;
-		default.Map_Settings[0].AllTraders = False;
 	}
 
 	if (default.MODEVERSION < class'ZedternalReborn.Config_Base'.const.CurrentVersion)
