@@ -20,6 +20,6 @@ defaultproperties
 {
 	WeaponClassPath="ZedternalReborn.WMWeap_HRG_BarrierRifle_Precious"
 	BuyPrice=4000
-	AmmoPricePerMag=154
+	AmmoPricePerMag=140
 	Name="Default__WMWeapDef_HRG_BarrierRifle_Precious"
 }

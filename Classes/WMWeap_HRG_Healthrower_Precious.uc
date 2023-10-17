@@ -6,6 +6,7 @@ defaultproperties
 	AmmoPickupScale(0)=0.375
 	SpareAmmoCapacity(0)=700
 	AmmoCost(ALTFIRE_FIREMODE)=30
+	InstantHitDamage(ALTFIRE_FIREMODE)=7
 	WeaponProjectiles(ALTFIRE_FIREMODE)=class'ZedternalReborn.WMProj_HealingDart_MedicBase_Precious'
 	InstantHitDamage(BASH_FIREMODE)=38
 	FireInterval(DEFAULT_FIREMODE)=0.075

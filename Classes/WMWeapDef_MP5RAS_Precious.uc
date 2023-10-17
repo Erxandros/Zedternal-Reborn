@@ -20,6 +20,6 @@ defaultproperties
 {
 	WeaponClassPath="ZedternalReborn.WMWeap_SMG_MP5RAS_Precious"
 	BuyPrice=1300
-	AmmoPricePerMag=79
+	AmmoPricePerMag=70
 	Name="Default__WMWeapDef_MP5RAS_Precious"
 }

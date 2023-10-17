@@ -20,6 +20,6 @@ defaultproperties
 {
 	WeaponClassPath="ZedternalReborn.WMWeap_AssaultRifle_Thompson_Precious"
 	BuyPrice=1300
-	AmmoPricePerMag=140
+	AmmoPricePerMag=126
 	Name="Default__WMWeapDef_Thompson_Precious"
 }

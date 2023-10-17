@@ -19,7 +19,7 @@ static function string GetItemLocalization(string KeyName)
 defaultproperties
 {
 	WeaponClassPath="ZedternalReborn.WMWeap_AssaultRifle_FAMAS_Precious"
-	BuyPrice=2400
+	BuyPrice=2000
 	AmmoPricePerMag=70
 	SecondaryAmmoMagSize=12
 	SecondaryAmmoMagPrice=42

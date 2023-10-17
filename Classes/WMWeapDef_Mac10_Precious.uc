@@ -20,6 +20,6 @@ defaultproperties
 {
 	WeaponClassPath="ZedternalReborn.WMWeap_SMG_Mac10_Precious"
 	BuyPrice=1800
-	AmmoPricePerMag=90
+	AmmoPricePerMag=82
 	Name="Default__WMWeapDef_Mac10_Precious"
 }

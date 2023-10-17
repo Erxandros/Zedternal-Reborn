@@ -20,6 +20,6 @@ defaultproperties
 {
 	WeaponClassPath="ZedternalReborn.WMWeap_AssaultRifle_G36C_Precious"
 	BuyPrice=3200
-	AmmoPricePerMag=101
+	AmmoPricePerMag=90
 	Name="Default__WMWeapDef_G36C_Precious"
 }
