@@ -315,6 +315,13 @@ static function UpdateConfig()
 		default.Weapon_VariantWeaponDef.AddItem(NewVariant);
 	}
 
+	if (default.MODEVERSION < 19)
+	{
+		NewVariant.WeaponDef = "KFGame.KFWeapDef_MG3";
+		NewVariant.WeaponDefVariant = "ZedternalReborn.WMWeapDef_MG3_Precious";
+		default.Weapon_VariantWeaponDef.AddItem(NewVariant);
+	}
+
 	if (default.MODEVERSION < class'ZedternalReborn.Config_Base'.const.CurrentVersion)
 	{
 		default.MODEVERSION = class'ZedternalReborn.Config_Base'.const.CurrentVersion;

@@ -209,6 +209,7 @@ defaultproperties
 	PreciousDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_MedicRifleGrenadeLauncher_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_MedicRifleGrenadeLauncher"));
 	PreciousDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_MedicShotgun_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_MedicShotgun"));
 	PreciousDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_MedicSMG_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_MedicSMG"));
+	PreciousDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_MG3_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_MG3"));
 	PreciousDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_MicrowaveGun_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_MicrowaveGun"));
 	PreciousDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_MicrowaveRifle_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_MicrowaveRifle"));
 	PreciousDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_Mine_Reconstructor_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_Mine_Reconstructor"));
