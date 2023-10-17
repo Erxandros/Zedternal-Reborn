@@ -193,73 +193,6 @@ reliable server private event ServerAddTransactionAmmoZedternal( int AmountAdded
 	}
 }
 
-simulated function BuyUpgradeZedternal(int ItemIndex, int CurrentUpgradeLevel)
-{
-	local STraderItem WeaponItem;
-	local KFPlayerController KFPC;
-
-	KFPC = KFPlayerController(Instigator.Owner);
-
-	// get the client's ammo count and send it to server (in case they're out of sync)
-	if (GetTraderItemFromWeaponListsZedternal(WeaponItem, ItemIndex))
-	{
-		KFPC.GetPurchaseHelper().AddDosh(-WeaponItem.WeaponDef.static.GetUpgradePrice(CurrentUpgradeLevel)); //client tracking
-		KFPC.GetPurchaseHelper().AddBlocks(-GetDisplayedBlocksRequiredFor(WeaponItem));//remove the old weight
-		KFPC.GetPurchaseHelper().AddBlocks(GetDisplayedBlocksRequiredFor(WeaponItem, CurrentUpgradeLevel + 1)); //add the new
-		ServerBuyUpgradeZedternal(ItemIndex, CurrentUpgradeLevel);
-	}
-}
-
-reliable server private function ServerBuyUpgradeZedternal(int ItemIndex, int CurrentUpgradeLevel)
-{
-	local STraderItem WeaponItem;
-	local KFWeapon KFW;
-	local int NewUpgradeLevel;
-
-
-	if (Role == ROLE_Authority && bServerTraderMenuOpen)
-	{
-		//is this a transation item or not?
-		if (GetTraderItemFromWeaponListsZedternal(WeaponItem, ItemIndex))
-		{
-			if (!ProcessUpgradeDoshZedternal(WeaponItem, CurrentUpgradeLevel))
-			{
-				return;
-			}
-
-			NewUpgradeLevel = CurrentUpgradeLevel + 1;
-
-			if (GetWeaponFromClass(KFW, WeaponItem.ClassName))
-			{
-				if (KFW != none)
-				{
-					KFW.SetWeaponUpgradeLevel(NewUpgradeLevel);
-					if (CurrentUpgradeLevel > 0)
-					{
-						AddCurrentCarryBlocks(-KFW.GetUpgradeStatAdd(EWUS_Weight, CurrentUpgradeLevel));
-					}
-
-					AddCurrentCarryBlocks(KFW.GetUpgradeStatAdd(EWUS_Weight, NewUpgradeLevel));
-					`BalanceLog(class'KFGameInfo'.const.GBE_Buy, Instigator.PlayerReplicationInfo, "Upgrade," @ KFW.Class $ "," @ NewUpgradeLevel);
-					`AnalyticsLog(("upgrade", Instigator.PlayerReplicationInfo, "upgrade", KFW.Class, "#" $ NewUpgradeLevel));
-				}
-			}
-			else
-			{
-				ServerAddTransactionUpgradeZedternal(ItemIndex, NewUpgradeLevel);
-			}
-		}
-	}
-}
-
-reliable server private event ServerAddTransactionUpgradeZedternal(int ItemIndex, int NewUpgradeLevel)
-{
-	if (bServerTraderMenuOpen)
-	{
-		AddTransactionUpgrade(ItemIndex, NewUpgradeLevel);
-	}
-}
-
 reliable server function ServerBuyWeaponZedternal( int ItemIndex, optional byte WeaponUpgrade )
 {
 	local STraderItem PurchasedItem;
@@ -409,27 +342,6 @@ private function bool ProcessAmmoDoshZedternal(out STraderItem PurchasedItem, in
 	}
 
 	`log("Server failed to process " @PurchasedItem.ClassName @"Ammo", bLogInventory);
-	return false;
-}
-
-private function bool ProcessUpgradeDoshZedternal(const out STraderItem PurchasedItem, int NewUpgradeLevel)
-{
-	local int BuyPrice;
-	local KFPlayerController KFPC;
-	local KFPlayerReplicationInfo KFPRI;
-
-	KFPC = KFPlayerController(Instigator.Owner);
-	KFPRI = KFPlayerReplicationInfo(Instigator.PlayerReplicationInfo);
-	if (KFPC != none && KFPRI != none)
-	{
-		BuyPrice = PurchasedItem.WeaponDef.static.GetUpgradePrice(NewUpgradeLevel);
-		if (BuyPrice <= KFPRI.Score)
-		{
-			KFPRI.AddDosh(-BuyPrice);
-			return true;
-		}
-	}
-
 	return false;
 }
 

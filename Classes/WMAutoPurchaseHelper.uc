@@ -19,36 +19,15 @@ function bool CanUpgrade(STraderItem SelectedItem, out int CanCarryIndex, out in
 	return False;
 }
 
+function bool UpgradeWeapon(int OwnedItemIndex)
+{
+	`log("ZR Info: Weapon upgrades in the trader are disabled in ZedternalReborn");
+	return False;
+}
+
 ////////
 //Copy and pasted from KFAutoPurchaseHelper, but changed GetItemIndicesFromArche to GetItemIndicesFromArcheZedternal and a few other minor things
 ////////
-
-function bool UpgradeWeapon(int OwnedItemIndex)
-{
-	local int ItemIndex;
-	local STraderItem DefaultItemInfo;
-	local SItemInformation ItemInfo;
-	local int Test1, Test2; //place holder ints
-
-	ItemInfo = OwnedItemList[OwnedItemIndex];
-	DefaultItemInfo = ItemInfo.DefaultItem;
-
-	if (ItemInfo.bIsSecondaryAmmo || !CanUpgrade(DefaultItemInfo, Test1, Test2, true))
-	{
-		`log("cannot upgrade");
-		return false;
-	}
-
-	WMGFxObject_TraderItems(TraderItems).GetItemIndicesFromArcheZedternal(ItemIndex, DefaultItemInfo.ClassName);
-
-	WMInventoryManager(MyKFIM).BuyUpgradeZedternal(ItemIndex, ItemInfo.ItemUpgradeLevel);
-	OwnedItemList[OwnedItemIndex].SellPrice = GetAdjustedSellPriceFor(DefaultItemInfo);
-	if (MyGfxManager != none && MyGfxManager.TraderMenu != none)
-	{
-		MyGfxManager.TraderMenu.OwnedItemList = OwnedItemList;
-	}
-	return true;
-}
 
 function BoughtAmmo(float AmountPurchased, int Price, EItemType ItemType, optional name ClassName, optional bool bIsSecondaryAmmo)
 {

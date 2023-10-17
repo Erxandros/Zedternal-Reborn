@@ -70,6 +70,11 @@ function Callback_FilterChanged(int FilterIndex)
 		LastSelectedPerkIndex = FilterIndex;
 }
 
+function Callback_UpgradeItem()
+{
+	`log("ZR Info: Weapon upgrades in the trader are disabled in ZedternalReborn");
+}
+
 ////////
 //Copy and pasted from KFGFxMenu_Trader, but with SelectedItemIndex replaced with SelectedItemIndexInt
 ////////
@@ -260,30 +265,6 @@ function Callback_FavoriteItem()
 		SetPlayerItemDetails(SelectedItemIndexInt);
 	}
 	RefreshItemComponents();
-}
-
-function Callback_UpgradeItem()
-{
-	local SItemInformation ItemInfo;
-	local KFAutoPurchaseHelper PurchaseHelper;
-
-	//only relevant in the player inventory
-	if (SelectedList == TL_Player)
-	{
-		PurchaseHelper = MyKFPC.GetPurchaseHelper();
-		if (PurchaseHelper.UpgradeWeapon(SelectedItemIndexInt))
-		{
-			ItemInfo = PurchaseHelper.OwnedItemList[SelectedItemIndexInt];
-			PurchaseHelper.OwnedItemList[SelectedItemIndexInt].ItemUpgradeLevel++;
-			// SellPrice is updated in UpgradeWeapon, but client-side upgrade level is set here,
-			// so update the sellprice again, now that we've updated the upgrade level
-			PurchaseHelper.OwnedItemList[SelectedItemIndexInt].SellPrice =
-				PurchaseHelper.GetAdjustedSellPriceFor(ItemInfo.DefaultItem);
-			RefreshItemComponents();
-			ShopContainer.ActionScriptVoid("itemBought");
-			class'KFMusicStingerHelper'.static.PlayWeaponUpgradeStinger(MyKFPC);
-		}
-	}
 }
 
 ////////
