@@ -85,38 +85,29 @@ function bool AddArmor(int Amount)
 //Copy and pasted from KFInventoryManager, but converted to Zedternal functions to turn bytes into ints to support a larger trader weapon list
 ////////
 
-simulated function BuyAmmoZedternal( float AmountPurchased, EItemType ItemType, optional int ItemIndex, optional bool bSecondaryAmmo )
+simulated function BuyAmmoZedternal(float AmountPurchased, EItemType ItemType, optional int ItemIndex, optional bool bSecondaryAmmo)
 {
 	local STraderItem WeaponItem;
 	local KFWeapon KFW;
-	local byte MagAmmoCount;
+	local int MagAmmoCount;
 
-	MagAmmoCount = 255;
+	MagAmmoCount = -1;
 
-	if ( ItemType == EIT_Weapon )
+	if (ItemType == EIT_Weapon)
 	{
-		// get the client's ammo count and send it to server (in case they're out of sync)
-		if( GetTraderItemFromWeaponListsZedternal(WeaponItem, ItemIndex) )
+		if (GetTraderItemFromWeaponListsZedternal(WeaponItem, ItemIndex))
 		{
-			if( GetWeaponFromClass(KFW, WeaponItem.ClassName) )
-			{
+			if (GetWeaponFromClass(KFW, WeaponItem.ClassName))
 				MagAmmoCount = bSecondaryAmmo ? KFW.AmmoCount[1] : KFW.AmmoCount[0];
-			}
 		}
 
 		ServerBuyAmmoZedternal(int(AmountPurchased), MagAmmoCount, ItemIndex, bSecondaryAmmo);
 	}
-	else if ( ItemType == EIT_Armor )
-	{
-		ServerBuyArmorZedternal(AmountPurchased);
-	}
-	else if ( ItemType == EIT_Grenade )
-	{
-		ServerBuyGrenadeZedternal(int(AmountPurchased));
-	}
+	else
+		BuyAmmo(AmountPurchased, ItemType);
 }
 
-reliable server private function ServerBuyAmmoZedternal(int AmountPurchased, byte ClientAmmoCount, int ItemIndex, bool bSecondaryAmmo)
+reliable server private function ServerBuyAmmoZedternal(int AmountPurchased, int ClientAmmoCount, int ItemIndex, bool bSecondaryAmmo)
 {
 	local STraderItem WeaponItem;
 	local KFWeapon KFW;
@@ -145,7 +136,7 @@ reliable server private function ServerBuyAmmoZedternal(int AmountPurchased, byt
 				{
 					// AddAmmo takes AmmoCount into account, but AmmoCount can be out of sync between client and server,
 					// so sync server with passed-in client value
-					if( ClientAmmoCount != 255 )
+					if( ClientAmmoCount != -1 )
 					{
 						ClientMaxMagCapacity = KFW.default.MagazineCapacity[0];
 						if( KFW.GetPerk() != none )
@@ -266,46 +257,6 @@ reliable server private event ServerAddTransactionUpgradeZedternal(int ItemIndex
 	if (bServerTraderMenuOpen)
 	{
 		AddTransactionUpgrade(ItemIndex, NewUpgradeLevel);
-	}
-}
-
-reliable server private function ServerBuyArmorZedternal( float PercentPurchased )
-{
-	local KFPawn_Human KFP;
-	local int AmountPurchased;
-	local float MaxArmor;
-
-	KFP = KFPawn_Human( Instigator );
-	if( Role == ROLE_Authority && KFP != none && bServerTraderMenuOpen )
-	{
-		if( ProcessArmorDoshZedternal( PercentPurchased ) )
-		{
-			// We've passed the percent armor purchased into this function, now get the armor count
-			MaxArmor = KFP.GetMaxArmor();
-			AmountPurchased = FCeil( MaxArmor * (PercentPurchased / 100.0) );
-
-			KFP.AddArmor( AmountPurchased );
-
-			/* __TW_ Analytics */
-			`BalanceLog(class'KFGameInfo'.const.GBE_Buy, Instigator.PlayerReplicationInfo, "Armor,"@PercentPurchased);
-			// this is a bit spammy, since it buys armor in increments of '3'
-			`AnalyticsLog(("buy", Instigator.PlayerReplicationInfo, "armor", "#"$PercentPurchased));
-		}
-	}
-}
-
-reliable server private function ServerBuyGrenadeZedternal( int AmountPurchased )
-{
-	if ( Role == ROLE_Authority && bServerTraderMenuOpen)
-	{
-		if(ProcessGrenadeDoshZedternal(AmountPurchased))
-		{
-			AddGrenades( AmountPurchased );
-
-			/* __TW_ Analytics */
-			`BalanceLog(class'KFGameInfo'.const.GBE_Buy, Instigator.PlayerReplicationInfo, "Grenades(s),"$","@AmountPurchased);
-			`AnalyticsLog(("buy", Instigator.PlayerReplicationInfo, "grenades", "#"$AmountPurchased));
-		}
 	}
 }
 
@@ -479,67 +430,6 @@ private function bool ProcessUpgradeDoshZedternal(const out STraderItem Purchase
 		}
 	}
 
-	return false;
-}
-
-private function bool ProcessGrenadeDoshZedternal(int AmountPurchased)
-{
-	local int BuyPrice;
-	local KFGFxObject_TraderItems TraderItems;
-	local KFPlayerController KFPC;
-	local KFPlayerReplicationInfo KFPRI;
-
-	KFPC = KFPlayerController(Instigator.Owner);
-	KFPRI = KFPlayerReplicationInfo(Instigator.PlayerReplicationInfo);
-	if( KFPC != none && KFPRI != none )
-	{
-		TraderItems = KFGameReplicationInfo( WorldInfo.GRI ).TraderItems;
-		BuyPrice = TraderItems.GrenadePrice * AmountPurchased;
-		if(BuyPrice <= KFPRI.Score)
-		{
-			KFPRI.AddDosh(-BuyPrice);
-			return true;
-		}
-	}
-
-	`log("Server failed to buy grenades");
-	return false;
-}
-
-private function bool ProcessArmorDoshZedternal(float PercentPurchased)
-{
-	local int BuyPrice;
-	local KFGFxObject_TraderItems TraderItems;
-	local KFPlayerController KFPC;
-	local KFPerk CurrentPerk;
-	local int ArmorPricePerPercent;
-	local KFPlayerReplicationInfo KFPRI;
-
-	KFPRI = KFPlayerReplicationInfo(Instigator.PlayerReplicationInfo);
-	if( KFPRI != none )
-	{
-		TraderItems = KFGameReplicationInfo( WorldInfo.GRI ).TraderItems;
-		ArmorPricePerPercent = TraderItems.ArmorPrice;
-
-		KFPC = KFPlayerController(Instigator.Owner);
-		if( KFPC != none )
-		{
-			CurrentPerk = KFPC.GetPerk();
-			if( CurrentPerk != none )
-			{
-				ArmorPricePerPercent *= CurrentPerk.GetArmorDiscountMod();
-			}
-		}
-
-		BuyPrice = FCeil(ArmorPricePerPercent * PercentPurchased);
-		if(BuyPrice <= KFPRI.Score)
-		{
-			KFPRI.AddDosh(-BuyPrice);
-			return true;
-		}
-	}
-
-	`log("Server failed to buy armor");
 	return false;
 }
 
