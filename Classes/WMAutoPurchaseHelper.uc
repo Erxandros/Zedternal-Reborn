@@ -215,7 +215,7 @@ function RemoveWeaponFromOwnedItemList( optional int OwnedListIdx = INDEX_NONE, 
 
 	// add a single to owned items when removing a dual
 	//if( ItemInfo.DefaultItem.SingleClassName != '' )
-	if( ItemInfo.DefaultItem.SingleClassName == 'KFWeap_Pistol_9mm' )
+	if( ItemInfo.DefaultItem.SingleClassName == 'KFWeap_Pistol_9mm' || ItemInfo.DefaultItem.SingleClassName == 'KFWeap_HRG_93R' )
 	{
 		// When removing a dual, always add a single to the owned list so that it shows up in the player inventory UI.
 		// If we don't own the single, then also buy it (add it to the transaction list).
