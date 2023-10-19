@@ -85,13 +85,14 @@ function bool AddArmor(int Amount)
 //Copy and pasted from KFInventoryManager, but converted to Zedternal functions to turn bytes into ints to support a larger trader weapon list
 ////////
 
+//Overrides KFInventoryManager.BuyAmmo and converts ItemIndex to int
 simulated function BuyAmmoZedternal(float AmountPurchased, EItemType ItemType, optional int ItemIndex, optional bool bSecondaryAmmo)
 {
 	local STraderItem WeaponItem;
 	local KFWeapon KFW;
 	local int MagAmmoCount;
 
-	MagAmmoCount = -1;
+	MagAmmoCount = -1; //Set to -1 to indicate not valid value
 
 	if (ItemType == EIT_Weapon)
 	{
@@ -107,50 +108,37 @@ simulated function BuyAmmoZedternal(float AmountPurchased, EItemType ItemType, o
 		BuyAmmo(AmountPurchased, ItemType);
 }
 
+//Overrides KFInventoryManager.ServerBuyAmmo and converts ItemIndex to int
 reliable server private function ServerBuyAmmoZedternal(int AmountPurchased, int ClientAmmoCount, int ItemIndex, bool bSecondaryAmmo)
 {
 	local STraderItem WeaponItem;
 	local KFWeapon KFW;
 	local int ClientMaxMagCapacity;
 
-	if( Role == ROLE_Authority && bServerTraderMenuOpen )
+	if (Role == ROLE_Authority && bServerTraderMenuOpen)
 	{
-		if( GetTraderItemFromWeaponListsZedternal(WeaponItem, ItemIndex) )
+		if (GetTraderItemFromWeaponListsZedternal(WeaponItem, ItemIndex))
 		{
-			if( !ProcessAmmoDoshZedternal(WeaponItem, AmountPurchased, bSecondaryAmmo) )
-			{
+			if (!ProcessAmmoDoshZedternal(WeaponItem, AmountPurchased, bSecondaryAmmo))
 				return;
-			}
 
-			if( GetWeaponFromClass(KFW, WeaponItem.ClassName) )
+			if (GetWeaponFromClass(KFW, WeaponItem.ClassName))
 			{
-				if( bSecondaryAmmo )
-				{
-					KFW.AddSecondaryAmmo( AmountPurchased );
-
-					/* __TW_ Analytics */
-					`BalanceLog(class'KFGameInfo'.const.GBE_Buy, Instigator.PlayerReplicationInfo, "S.Ammo,"@KFW.class$","@AmountPurchased);
-					`AnalyticsLog(("buy", Instigator.PlayerReplicationInfo, "S.ammo", KFW.class, "#"$AmountPurchased));
-				}
+				if (bSecondaryAmmo)
+					KFW.AddSecondaryAmmo(AmountPurchased);
 				else
 				{
 					// AddAmmo takes AmmoCount into account, but AmmoCount can be out of sync between client and server,
 					// so sync server with passed-in client value
-					if( ClientAmmoCount != -1 )
+					if (ClientAmmoCount != -1)
 					{
 						ClientMaxMagCapacity = KFW.default.MagazineCapacity[0];
-						if( KFW.GetPerk() != none )
-						{
-							// account for perks that potentially increase mag size, like commando
-							KFW.GetPerk().ModifyMagSizeAndNumber( KFW, ClientMaxMagCapacity );
-						}
-						KFW.AmmoCount[0] = Clamp( ClientAmmoCount, 0, ClientMaxMagCapacity );
+						if (KFW.GetPerk() != None)
+							KFW.GetPerk().ModifyMagSizeAndNumber(KFW, ClientMaxMagCapacity);
+						KFW.AmmoCount[0] = Clamp(ClientAmmoCount, 0, ClientMaxMagCapacity);
 					}
-					KFW.AddAmmo( AmountPurchased );
 
-					/* __TW_ Analytics */
-					`BalanceLog(class'KFGameInfo'.const.GBE_Buy, Instigator.PlayerReplicationInfo, "Ammo,"@KFW.class$","@AmountPurchased);
-					`AnalyticsLog(("buy", Instigator.PlayerReplicationInfo, "ammo", KFW.class, "#"$AmountPurchased));
+					KFW.AddAmmo(AmountPurchased);
 				}
 			}
 			else
@@ -162,38 +150,29 @@ reliable server private function ServerBuyAmmoZedternal(int AmountPurchased, int
 	}
 }
 
-reliable server private event ServerAddTransactionAmmoZedternal( int AmountAdded, int ItemIndex, bool bSecondaryAmmo )
+//Overrides KFInventoryManager.ServerAddTransactionAmmo and converts ItemIndex to int
+reliable server private event ServerAddTransactionAmmoZedternal(int AmountAdded, int ItemIndex, bool bSecondaryAmmo)
 {
 	local STraderItem WeaponItem;
 	local byte AmmoTypeIndex;
 	local int TransactionIndex;
 
-	if( bServerTraderMenuOpen )
+	if (bServerTraderMenuOpen)
 	{
-		if( GetTraderItemFromWeaponListsZedternal(WeaponItem, ItemIndex) )
+		if (GetTraderItemFromWeaponListsZedternal(WeaponItem, ItemIndex))
 		{
 			TransactionIndex = GetTransactionItemIndex(WeaponItem.ClassName);
-			if( TransactionIndex != INDEX_NONE )
+			if (TransactionIndex != INDEX_NONE)
 			{
 				AmmoTypeIndex = byte(bSecondaryAmmo);
 				TransactionItems[TransactionIndex].AddedAmmo[AmmoTypeIndex] += AmountAdded;
-
-				if ( bSecondaryAmmo )
-				{
-					`BalanceLog(class'KFGameInfo'.const.GBE_Buy, Instigator.PlayerReplicationInfo, "S.Ammo,"@WeaponItem.ClassName$","@AmountAdded);
-					`AnalyticsLog(("buy", Instigator.PlayerReplicationInfo, "S.ammo", WeaponItem.ClassName, "#"$AmountAdded));
-				}
-				else
-				{
-					`BalanceLog(class'KFGameInfo'.const.GBE_Buy, Instigator.PlayerReplicationInfo, "Ammo,"@WeaponItem.ClassName$","@AmountAdded);
-					`AnalyticsLog(("buy", Instigator.PlayerReplicationInfo, "ammo", WeaponItem.ClassName, "#"$AmountAdded));
-				}
 			}
 		}
 	}
 }
 
-reliable server function ServerBuyWeaponZedternal( int ItemIndex, optional byte WeaponUpgrade )
+//Overrides KFInventoryManager.ServerBuyWeapon and converts ItemIndex to int
+reliable server function ServerBuyWeaponZedternal(int ItemIndex, optional byte WeaponUpgrade)
 {
 	local STraderItem PurchasedItem;
 	local int BlocksRequired;
@@ -201,38 +180,34 @@ reliable server function ServerBuyWeaponZedternal( int ItemIndex, optional byte 
 	// Find the weapon in the servers TraderItemList
 	if (Role == ROLE_Authority && bServerTraderMenuOpen)
 	{
-		// Get the purchased item info using the item indicies
-		if( GetTraderItemFromWeaponListsZedternal(PurchasedItem, ItemIndex) )
+		// Get the purchased item info using the item indices
+		if (GetTraderItemFromWeaponListsZedternal(PurchasedItem, ItemIndex))
 		{
 			BlocksRequired = GetWeaponBlocks(PurchasedItem, WeaponUpgrade);
-			if(CurrentCarryBlocks > CurrentCarryBlocks + BlocksRequired
-				|| !ProcessWeaponDoshZedternal(PurchasedItem))
-			{
+			if (CurrentCarryBlocks > CurrentCarryBlocks + BlocksRequired || !ProcessWeaponDoshZedternal(PurchasedItem))
 				return;
-			}
 
-			`log("ServerBuyWeapon: Adding transaction item" @ PurchasedItem.ClassName, bLogInventory);
-			AddTransactionItem( PurchasedItem, WeaponUpgrade );
+			AddTransactionItem(PurchasedItem, WeaponUpgrade);
 		}
 	}
 }
 
-reliable server function ServerAddTransactionItemZedternal( int ItemIndex, optional byte WeaponUpgrade)
+//Overrides KFInventoryManager.ServerAddTransactionItem and converts ItemIndex to int
+reliable server function ServerAddTransactionItemZedternal(int ItemIndex, optional byte WeaponUpgrade)
 {
 	local STraderItem PurchasedItem;
 
 	// Find the weapon in the servers TraderItemList
 	if (Role == ROLE_Authority && bServerTraderMenuOpen)
 	{
-		// Get the purchased item info using the item indicies
-		if( GetTraderItemFromWeaponListsZedternal(PurchasedItem, ItemIndex) )
-		{
-			AddTransactionItem( PurchasedItem, WeaponUpgrade );
-		}
+		// Get the purchased item info using the item indices
+		if (GetTraderItemFromWeaponListsZedternal(PurchasedItem, ItemIndex))
+			AddTransactionItem(PurchasedItem, WeaponUpgrade);
 	}
 }
 
-reliable server function ServerSellWeaponZedternal( int ItemIndex )
+//Overrides KFInventoryManager.ServerSellWeapon and converts ItemIndex to int
+reliable server function ServerSellWeaponZedternal(int ItemIndex)
 {
 	local STraderItem SoldItem;
 	local int SellPrice, TransactionIndex;
@@ -243,15 +218,13 @@ reliable server function ServerSellWeaponZedternal( int ItemIndex )
 	if (Role == ROLE_Authority && bServerTraderMenuOpen)
 	{
 		KFPRI = KFPlayerReplicationInfo(Instigator.PlayerReplicationInfo);
-		// Get the Sold Item info using the Item indicies
-		if( KFPRI != none && GetTraderItemFromWeaponListsZedternal(SoldItem, ItemIndex) )
+		// Get the Sold Item info using the Item indices
+		if (KFPRI != None && GetTraderItemFromWeaponListsZedternal(SoldItem, ItemIndex))
 		{
 			// If the weapon is in our inventory, sell it immediately
-			if( GetWeaponFromClass(KFW, SoldItem.ClassName) )
+			if (GetWeaponFromClass(KFW, SoldItem.ClassName))
 			{
-				`log("ServerSellWeapon: Calling ServerRemoveFromInventory on" @ SoldItem.ClassName, bLogInventory);
 				SellPrice = GetAdjustedSellPriceFor(SoldItem);
-
 				KFPRI.AddDosh(SellPrice);
 				ServerRemoveFromInventory(KFW);
 				KFW.Destroy();
@@ -259,44 +232,41 @@ reliable server function ServerSellWeaponZedternal( int ItemIndex )
 			else // Otherwise it's a transaction item that needs to be removed
 			{
 				TransactionIndex = GetTransactionItemIndex(SoldItem.ClassName);
-				`log("ServerSellWeapon: SoldItem="$SoldItem.ClassName @ "TransactionIndex="$TransactionIndex, bLogInventory);
-				if( TransactionIndex != INDEX_NONE )
+				if (TransactionIndex != INDEX_NONE)
 				{
-					SellPrice = GetAdjustedSellPriceFor( SoldItem );
-
+					SellPrice = GetAdjustedSellPriceFor(SoldItem);
 					KFPRI.AddDosh(SellPrice);
-
-					`log("ServerSellWeapon: Calling RemoveTransactionItem on" @ SoldItem.ClassName, bLogInventory);
-					RemoveTransactionItem( SoldItem );
+					RemoveTransactionItem(SoldItem);
 				}
 			}
 		}
 	}
 }
 
+//Overrides KFInventoryManager.ProcessWeaponDosh because it is a private and final function that can not be used
 private function bool ProcessWeaponDoshZedternal(out STraderItem PurchasedItem)
 {
 	local int BuyPrice;
 	local KFPlayerReplicationInfo KFPRI;
 
 	KFPRI = KFPlayerReplicationInfo(Instigator.PlayerReplicationInfo);
-	if( KFPRI != none )
+	if (KFPRI != None)
 	{
-		BuyPrice = GetAdjustedBuyPriceFor( PurchasedItem );
+		BuyPrice = GetAdjustedBuyPriceFor(PurchasedItem);
 
 		// Check if we can buy this weapon using the servers weapon pricing
-		if(KFPRI.Score - BuyPrice >= 0)
+		if (KFPRI.Score - BuyPrice >= 0)
 		{
 			// Deduct the purchase from our score
 			KFPRI.AddDosh(-BuyPrice);
-			return true;
+			return True;
 		}
 	}
 
-	`log("Server failed to process " @PurchasedItem.ClassName, bLogInventory);
-	return false;
+	return False;
 }
 
+//Overrides KFInventoryManager.ProcessAmmoDosh because it is a private and final function that can not be used
 private function bool ProcessAmmoDoshZedternal(out STraderItem PurchasedItem, int AdditionalAmmo, optional bool bSecondaryAmmo)
 {
 	local int BuyPrice;
@@ -305,19 +275,15 @@ private function bool ProcessAmmoDoshZedternal(out STraderItem PurchasedItem, in
 	local KFGameReplicationInfo KFGRI;
 
 	KFGRI = KFGameReplicationInfo(WorldInfo.GRI);
-	if (KFGRI != none)
-	{
+	if (KFGRI != None)
 		AmmoCostScale = KFGRI.GameAmmoCostScale;
-	}
 	else
-	{
-		AmmoCostScale = 1.0;
-	}
+		AmmoCostScale = 1.0f;
 
 	KFPRI = KFPlayerReplicationInfo(Instigator.PlayerReplicationInfo);
-	if( KFPRI != none )
+	if (KFPRI != none)
 	{
-		if( bSecondaryAmmo )
+		if (bSecondaryAmmo)
 		{
 			PricePerMag = AmmoCostScale * PurchasedItem.WeaponDef.default.SecondaryAmmoMagPrice;
 			MagSize = PurchasedItem.WeaponDef.default.SecondaryAmmoMagSize;
@@ -333,30 +299,30 @@ private function bool ProcessAmmoDoshZedternal(out STraderItem PurchasedItem, in
 		}
 
 		// Check if we can buy this weapon using the servers weapon pricing
-		if( KFPRI.Score - BuyPrice >= 0 )
+		if (KFPRI.Score - BuyPrice >= 0)
 		{
 			// Deduct the purchase from our score
 			KFPRI.AddDosh(-BuyPrice);
-			return true;
+			return True;
 		}
 	}
 
-	`log("Server failed to process " @PurchasedItem.ClassName @"Ammo", bLogInventory);
-	return false;
+	return False;
 }
 
-private simulated function bool GetTraderItemFromWeaponListsZedternal(out STraderItem TraderItem, int ItemIndex )
+//Overrides KFInventoryManager.GetTraderItemFromWeaponLists and converts ItemIndex to int
+private simulated function bool GetTraderItemFromWeaponListsZedternal(out STraderItem TraderItem, int ItemIndex)
 {
 	local KFGFxObject_TraderItems TraderItemsObject;
 
-	TraderItemsObject = KFGameReplicationInfo( WorldInfo.GRI ).TraderItems;
-	if( ItemIndex < TraderItemsObject.SaleItems.Length )
+	TraderItemsObject = KFGameReplicationInfo(WorldInfo.GRI).TraderItems;
+	if (ItemIndex < TraderItemsObject.SaleItems.Length)
 	{
 		TraderItem = TraderItemsObject.SaleItems[ItemIndex];
-		return true;
+		return True;
 	}
 
-	return false;
+	return False;
 }
 
 defaultproperties
