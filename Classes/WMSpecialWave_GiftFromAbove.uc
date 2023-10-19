@@ -1,7 +1,5 @@
 class WMSpecialWave_GiftFromAbove extends WMSpecialWave;
 
-var float PickupFactor;
-
 function PostBeginPlay()
 {
 	super.PostBeginPlay();
@@ -14,15 +12,13 @@ function UpdatePickup()
 
 	foreach DynamicActors(class'KFGame.KFGameInfo', KFG)
 	{
-		KFG.ResetPickups(KFG.ItemPickups, int(float(KFG.NumWeaponPickups) * PickupFactor));
-		KFG.ResetPickups(KFG.AmmoPickups, int(float(KFG.NumAmmoPickups) * PickupFactor));
+		KFG.ResetPickups(KFG.ItemPickups, KFG.NumWeaponPickups);
+		KFG.ResetPickups(KFG.AmmoPickups, KFG.NumAmmoPickups);
 	}
 }
 
 defaultproperties
 {
-	PickupFactor=9.0f
-
 	bShouldLocalize=True
 	Title="ZedternalReborn.WMSpecialWave_GiftFromAbove"
 
