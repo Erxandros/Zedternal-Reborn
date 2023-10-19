@@ -1268,7 +1268,7 @@ function ResetAllPickups()
 
 function ResetPickups(array<KFPickupFactory> PickupList, int NumPickups)
 {
-	local byte i, ChosenIndex;
+	local int i, ChosenIndex;
 	local array<KFPickupFactory> PossiblePickups;
 
 	PossiblePickups = PickupList;
@@ -1280,6 +1280,8 @@ function ResetPickups(array<KFPickupFactory> PickupList, int NumPickups)
 			PossiblePickups[ChosenIndex].Reset();
 			PossiblePickups.Remove(ChosenIndex, 1);
 		}
+		else
+			break;
 	}
 
 	// Put any pickup factories that weren't enabled to sleep
