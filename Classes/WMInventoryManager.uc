@@ -243,6 +243,25 @@ reliable server function ServerSellWeaponZedternal(int ItemIndex)
 	}
 }
 
+//Overrides KFInventoryManager.ServerRemoveTransactionItem to use GetTraderItemFromWeaponListsZedternal
+reliable server final function ServerRemoveTransactionItemZedternal(int ItemIndex)
+{
+	local STraderItem ItemToRemove;
+	local KFWeapon InvWeap;
+
+	if (bServerTraderMenuOpen)
+	{
+		if (GetTraderItemFromWeaponListsZedternal(ItemToRemove, ItemIndex))
+		{
+			RemoveTransactionItem(ItemToRemove);
+
+			// remove from inventory if necessary (like after buying a dual when owning a single)
+			if( GetWeaponFromClass(InvWeap, ItemToRemove.ClassName))
+				RemoveFromInventory(InvWeap);
+		}
+	}
+}
+
 //Overrides KFInventoryManager.ProcessWeaponDosh because it is a private and final function that can not be used
 private function bool ProcessWeaponDoshZedternal(out STraderItem PurchasedItem)
 {

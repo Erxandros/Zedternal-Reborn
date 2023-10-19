@@ -186,7 +186,7 @@ function RemoveWeaponFromOwnedItemList( optional int OwnedListIdx = INDEX_NONE, 
 		// Remove the weapon from our inventory immediately (without selling)
 		AddBlocks(-MyKFIM.GetDisplayedBlocksRequiredFor(ItemInfo.DefaultItem));
 		WMGFxObject_TraderItems(TraderItems).GetItemIndicesFromArcheZedternal( ItemIndex, ItemInfo.DefaultItem.ClassName );
-		MyKFIM.ServerRemoveTransactionItem( ItemIndex );
+		WMInventoryManager(MyKFIM).ServerRemoveTransactionItemZedternal( ItemIndex );
 	}
 
 	// If we try to sell a weapons secondary ammo slot
