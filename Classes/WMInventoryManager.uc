@@ -150,6 +150,12 @@ reliable server private function ServerBuyAmmoZedternal(int AmountPurchased, int
 	}
 }
 
+//Used for WMAutoPurchaseHelper.AddTransactionAmmoZedternal to replace native KFAutoPurchaseHelper.AddTransactionAmmo
+reliable server function AddTransactionAmmo(int AmountAdded, int ItemIndex)
+{
+	ServerAddTransactionAmmoZedternal(AmountAdded, ItemIndex, False);
+}
+
 //Overrides KFInventoryManager.ServerAddTransactionAmmo and converts ItemIndex to int
 reliable server private event ServerAddTransactionAmmoZedternal(int AmountAdded, int ItemIndex, bool bSecondaryAmmo)
 {
