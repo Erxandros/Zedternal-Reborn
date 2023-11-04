@@ -8,7 +8,7 @@ var WMGameReplicationInfo WMGRI;
 
 var GFxObject ItemDetailsContainer, EquipButton;
 var int CurrentFilterIndex;
-var array<int> PerkUPGIndex, WeaponUPGIndex, SkillUPGIndex, EquipmentUPGIndex, GrenadeIndex;
+var array<int> PerkUPGIndex, WeaponUPGIndex, SkillUPGIndex, EquipmentUPGIndex;
 
 var AkBaseSoundObject SelectSound, PerkSound, SkillSound, WeaponSound, EquipmentSound;
 
@@ -255,7 +255,7 @@ function Callback_Equip(int ItemDefinition)
 	}
 	else if (CurrentFilterIndex == 4) //Grenades
 	{
-		WMPC.ChangeGrenade(GrenadeIndex[Index]);
+		WMPC.ChangeGrenade(Index);
 	}
 	else if (CurrentFilterIndex == 5) //Knives
 	{
@@ -1041,10 +1041,7 @@ function string GetEquipmentDescription(int index, int lvl)
 function BuildGrenadeList(out GFxObject ItemArray)
 {
 	local GFxObject ItemObject;
-	local int i, x;
-
-	GrenadeIndex.Length = 0;
-	x = 0;
+	local int i;
 
 	for (i = 0; i < WMGRI.GrenadesList.Length; ++i)
 	{
@@ -1060,8 +1057,8 @@ function BuildGrenadeList(out GFxObject ItemArray)
 			ItemObject.Setstring("typeRarity", "");
 			ItemObject.SetBool("exchangeable", False);
 			ItemObject.SetBool("recyclable", False);
-			ItemObject.SetInt("definition", x);
-			ItemObject.SetInt("type" ,0);
+			ItemObject.SetInt("definition", i);
+			ItemObject.SetInt("type", 0);
 			if (WMPC.CurrentPerk.GrenadeWeaponDef == WMGRI.GrenadesList[i].Grenade)
 			{
 				ItemObject.SetBool("active", True);
@@ -1072,9 +1069,7 @@ function BuildGrenadeList(out GFxObject ItemArray)
 				ItemObject.SetBool("active", False);
 				ItemObject.SetInt("type", 0);
 			}
-			ItemArray.SetElementObject(x, ItemObject);
-			GrenadeIndex.AddItem(i);
-			++x;
+			ItemArray.SetElementObject(i, ItemObject);
 		}
 	}
 }
@@ -1082,11 +1077,10 @@ function BuildGrenadeList(out GFxObject ItemArray)
 function BuildKnifeList(out GFxObject ItemArray)
 {
 	local GFxObject ItemObject;
-	local int i, x;
+	local int i;
 	local WMPerk WMP;
 
 	WMP = WMPerk(WMPC.CurrentPerk);
-	x = 0;
 
 	for (i = 0; i < WMP.KnivesWeaponDef.Length; ++i)
 	{
@@ -1100,7 +1094,7 @@ function BuildKnifeList(out GFxObject ItemArray)
 		ItemObject.Setstring("typeRarity", "");
 		ItemObject.SetBool("exchangeable", False);
 		ItemObject.SetBool("recyclable", False);
-		ItemObject.SetInt("definition", x);
+		ItemObject.SetInt("definition", i);
 		ItemObject.SetInt("type", 0);
 		if (WMPC.Preferences != None && i == WMPC.Preferences.KnifeIndex)
 		{
@@ -1112,8 +1106,7 @@ function BuildKnifeList(out GFxObject ItemArray)
 			ItemObject.SetBool("active", False);
 			ItemObject.SetInt("type", 0);
 		}
-		ItemArray.SetElementObject(x, ItemObject);
-		++x;
+		ItemArray.SetElementObject(i, ItemObject);
 	}
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////
