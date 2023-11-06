@@ -317,6 +317,33 @@ simulated function CheckPreferredGrenade()
 	}
 }
 
+simulated function ChangeSidearm(int Index)
+{
+	local Inventory Inv;
+	local KFWeapon KFW;
+	local class<Inventory> SidearmClass;
+
+	SidearmClass = class<Inventory>(DynamicLoadObject(WMGameReplicationInfo(WorldInfo.GRI).SidearmsList[Index].Sidearm.default.WeaponClassPath, class'Class'));
+	if (!KFInventoryManager(Pawn.InvManager).ClassIsInInventory(SidearmClass, Inv))
+	{
+		// remove all sidearms
+		for (Inv = Pawn.InvManager.InventoryChain; Inv != None; Inv = Inv.Inventory)
+		{
+			KFW = KFWeapon(Inv);
+			if (KFW != None && KFW.bIsBackupWeapon && KFWeap_Edged_Knife(KFW) == None)
+				KFInventoryManager(Pawn.InvManager).ServerRemoveFromInventory(Inv);
+		}
+
+		// change sidearm
+		ChangeSidearmServer(index);
+	}
+}
+
+reliable server function ChangeSidearmServer(int index)
+{
+	Pawn.InvManager.CreateInventory(class<Inventory>(DynamicLoadObject(WMGameReplicationInfo(WorldInfo.GRI).SidearmsList[Index].Sidearm.default.WeaponClassPath, class'Class')), Pawn.Weapon != None);
+}
+
 simulated function ChangeGrenade(int Index)
 {
 	CurrentPerk.GrenadeWeaponDef = WMGameReplicationInfo(WorldInfo.GRI).GrenadesList[Index].Grenade;

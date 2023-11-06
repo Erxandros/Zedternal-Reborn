@@ -253,11 +253,15 @@ function Callback_Equip(int ItemDefinition)
 			Owner.PlaySoundBase(default.EquipmentSound, True);
 		}
 	}
-	else if (CurrentFilterIndex == 4) //Grenades
+	else if (CurrentFilterIndex == 4) //Sidearms
+	{
+		WMPC.ChangeSidearm(Index);
+	}
+	else if (CurrentFilterIndex == 5) //Grenades
 	{
 		WMPC.ChangeGrenade(Index);
 	}
-	else if (CurrentFilterIndex == 5) //Knives
+	else if (CurrentFilterIndex == 6) //Knives
 	{
 		WMPC.ChangeKnife(Index);
 	}
@@ -342,11 +346,15 @@ function Callback_InventoryFilter(int FilterIndex)
 	{
 		BuildEquipmentUpgradeList(ItemArray);
 	}
-	else if (FilterIndex == 4) //Grenades
+	else if (FilterIndex == 4) //Sidearms
+	{
+		BuildSideArmList(ItemArray);
+	}
+	else if (FilterIndex == 5) //Grenades
 	{
 		BuildGrenadeList(ItemArray);
 	}
-	else if (FilterIndex == 5 && WMPerk(WMPC.CurrentPerk) != None) //Knives
+	else if (FilterIndex == 6 && WMPerk(WMPC.CurrentPerk) != None) //Knives
 	{
 		BuildKnifeList(ItemArray);
 	}
@@ -404,7 +412,11 @@ function CallBack_ItemDetailsClicked(int ItemDefinition)
 		else
 			EquipButton.SetString("label", ""$WMGRI.EquipmentUpgradesList[Index].BasePrice$Chr(163));
 	}
-	else if (CurrentFilterIndex == 4 || CurrentFilterIndex == 5)//Knives and Grenades
+	else if (CurrentFilterIndex == 4) //Sidearms
+	{
+		EquipButton.SetString("label", default.EquipButtonString);
+	}
+	else if (CurrentFilterIndex == 5 || CurrentFilterIndex == 6) //Knives and Grenades
 	{
 		EquipButton.SetString("label", default.EquipButtonString);
 	}
@@ -1037,7 +1049,40 @@ function string GetEquipmentDescription(int index, int lvl)
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-// Grenade And Knife Functions
+// Sidearm, Grenade, and Knife Functions
+function BuildSideArmList(out GFxObject ItemArray)
+{
+	local GFxObject ItemObject;
+	local int i;
+
+	for (i = 0; i < WMGRI.SidearmsList.Length; ++i)
+	{
+		ItemObject = CreateObject("Object");
+		ItemObject.SetInt("count", 1);
+		ItemObject.SetString("label", WMGRI.SidearmsList[i].Sidearm.static.GetItemName());
+		ItemObject.SetString("description", "");
+		ItemObject.SetString("iconURLSmall", "img://" $WMGRI.SidearmsList[i].Sidearm.static.GetImagePath());
+		ItemObject.SetString("iconURLLarge", "img://" $WMGRI.SidearmsList[i].Sidearm.static.GetImagePath());
+		ItemObject.SetString("price", "");
+		ItemObject.Setstring("typeRarity", "");
+		ItemObject.SetBool("exchangeable", False);
+		ItemObject.SetBool("recyclable", False);
+		ItemObject.SetInt("definition", i);
+		ItemObject.SetInt("type", 0);
+		if (WMPC.CurrentPerk.GetSecondaryWeaponClassPath() ~= WMGRI.SidearmsList[i].Sidearm.default.WeaponClassPath)
+		{
+			ItemObject.SetBool("active", True);
+			ItemObject.SetInt("type", 1);
+		}
+		else
+		{
+			ItemObject.SetBool("active", False);
+			ItemObject.SetInt("type", 0);
+		}
+		ItemArray.SetElementObject(i, ItemObject);
+	}
+}
+
 function BuildGrenadeList(out GFxObject ItemArray)
 {
 	local GFxObject ItemObject;

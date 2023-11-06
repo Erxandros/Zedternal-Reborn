@@ -2530,6 +2530,7 @@ function RepGameInfoHighPriority()
 	WMGRI.NumberOfWeaponUpgradeSlots = Min(`MAXWEAPONUPGRADES, WMGRI.WeaponUpgradeSlotsList.Length);
 	WMGRI.NumberOfEquipmentUpgrades = Min(255, ConfigData.ValidEquipmentUpgrades.Length);
 	WMGRI.NumberOfGrenadeItems = Min(255, ConfigData.GrenadeWeaponDefObjects.Length);
+	WMGRI.NumberOfSidearmItems = Min(255, ConfigData.SidearmWeaponDefObjects.Length);
 	WMGRI.NumberOfSpecialWaves = Min(255, SpecialWaveList.Length);
 	WMGRI.NumberOfZedBuffs = Min(255, ConfigData.ZedBuffObjects.Length);
 
@@ -2541,6 +2542,7 @@ function RepGameInfoHighPriority()
 	WMGRI.WeaponUpgradeSlotsList.Length = WMGRI.NumberOfWeaponUpgradeSlots;
 	WMGRI.EquipmentUpgradesList.Length = WMGRI.NumberOfEquipmentUpgrades;
 	WMGRI.GrenadesList.Length = WMGRI.NumberOfGrenadeItems;
+	WMGRI.SidearmsList.Length = WMGRI.NumberOfSidearmItems;
 	WMGRI.SpecialWavesList.Length = WMGRI.NumberOfSpecialWaves;
 	WMGRI.ZedBuffsList.Length = WMGRI.NumberOfZedBuffs;
 
@@ -2582,6 +2584,18 @@ function RepGameInfoNormalPriority()
 
 		WMGRI.GrenadesList[b].Grenade = ConfigData.GrenadeWeaponDefObjects[b];
 		WMGRI.GrenadesList[b].bDone = True;
+	}
+
+	//Sidearms
+	for (b = 0; b < Min(255, ConfigData.SidearmWeaponDefObjects.Length); ++b)
+	{
+		WMGRI.SidearmsRepArray[b].WeaponPathName = PathName(ConfigData.SidearmWeaponDefObjects[b]);
+		WMGRI.SidearmsRepArray[b].BuyPrice = ConfigData.SidearmPrices[b];
+		WMGRI.SidearmsRepArray[b].bValid = True;
+
+		WMGRI.SidearmsList[b].Sidearm = ConfigData.SidearmWeaponDefObjects[b];
+		WMGRI.SidearmsList[b].BuyPrice = ConfigData.SidearmPrices[b];
+		WMGRI.SidearmsList[b].bDone = True;
 	}
 
 	//Armor pickup enable

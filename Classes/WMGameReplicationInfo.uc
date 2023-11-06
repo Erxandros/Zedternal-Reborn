@@ -51,6 +51,18 @@ struct PerkUpgradeRepStruct
 	}
 };
 
+struct SidearmItemRepStruct
+{
+	var string WeaponPathName;
+	var int BuyPrice;
+	var bool bValid;
+
+	structdefaultproperties
+	{
+		bValid=False
+	}
+};
+
 struct SkillUpgradeRepStruct
 {
 	var string SkillPathName;
@@ -116,6 +128,7 @@ var int NumberOfAllowedWeapons;
 var int NumberOfEquipmentUpgrades;
 var int NumberOfGrenadeItems;
 var int NumberOfPerkUpgrades;
+var int NumberOfSidearmItems;
 var int NumberOfSkillUpgrades;
 var int NumberOfSpecialWaves;
 var int NumberOfStartingWeapons;
@@ -155,6 +168,9 @@ var string WeaponUpgRandSeed;
 
 //Replicated Equipment Upgrades
 var EquipmentUpgradeRepStruct EquipmentUpgradesRepArray[255];
+
+//Replicated Sidearms
+var SidearmItemRepStruct SidearmsRepArray[255];
 
 //Replicated Grenades
 var GrenadeItemRepStruct GrenadesRepArray[255];
@@ -211,6 +227,7 @@ var bool bAllowedWeaponsSynced_B;
 var bool bEquipmentUpgradesSynced;
 var bool bGrenadeItemsSynced;
 var bool bPerkUpgradesSynced;
+var bool bSidearmItemsSynced;
 var bool bSkillUpgradesSynced;
 var bool bSpecialWavesSynced;
 var bool bStartingWeaponsSynced;
@@ -269,6 +286,18 @@ struct GrenadeItemStruct
 struct PerkUpgradeStruct
 {
 	var class<WMUpgrade_Perk> PerkUpgrade;
+	var bool bDone;
+
+	structdefaultproperties
+	{
+		bDone=False
+	}
+};
+
+struct SidearmItemStruct
+{
+	var class<KFWeaponDefinition> Sidearm;
+	var int BuyPrice;
 	var bool bDone;
 
 	structdefaultproperties
@@ -366,6 +395,9 @@ var array<WeaponUpgradeStruct> WeaponUpgradesList;
 //Weapon Upgrade Slots
 var array<WeaponUpgradeSlotStruct> WeaponUpgradeSlotsList;
 
+//Sidearms
+var array<SidearmItemStruct> SidearmsList;
+
 //Grenades
 var array<GrenadeItemStruct> GrenadesList;
 
@@ -417,6 +449,7 @@ replication
 		NumberOfEquipmentUpgrades,
 		NumberOfGrenadeItems,
 		NumberOfPerkUpgrades,
+		NumberOfSidearmItems,
 		NumberOfSkillUpgrades,
 		NumberOfSpecialWaves,
 		NumberOfStartingWeapons,
@@ -430,6 +463,7 @@ replication
 		RerollCost,
 		RerollMultiplier,
 		RerollSkillSellPercent,
+		SidearmsRepArray,
 		SkillUpgDeluxePrice,
 		SkillUpgPrice,
 		SkillUpgradesRepArray,
@@ -567,6 +601,10 @@ simulated function ProcessAllSyncData()
 	//Sync Equipment Upgrades
 	if (!bEquipmentUpgradesSynced)
 		SyncAllEquipmentUpgrades();
+
+	//Sync Sidearms
+	if (!bSidearmItemsSynced)
+		SyncAllSidearmItems();
 
 	//Sync Grenades
 	if (!bGrenadeItemsSynced)
@@ -838,6 +876,36 @@ simulated function SyncAllEquipmentUpgrades()
 
 	if (i == NumberOfEquipmentUpgrades)
 		bEquipmentUpgradesSynced = True;
+}
+
+simulated function SyncAllSidearmItems()
+{
+	local int i;
+
+	if (NumberOfSidearmItems == INDEX_NONE)
+		return;
+
+	if (SidearmsList.Length == 0)
+		SidearmsList.Length = NumberOfSidearmItems;
+
+	if (NumberOfSidearmItems > 0)
+	{
+		for (i = 0; i < 255; ++i)
+		{
+			if (!SidearmsRepArray[i].bValid)
+				break; //base case
+
+			if (!SidearmsList[i].bDone)
+			{
+				SidearmsList[i].Sidearm = class<KFWeaponDefinition>(DynamicLoadObject(SidearmsRepArray[i].WeaponPathName, class'Class'));
+				SidearmsList[i].BuyPrice = SidearmsRepArray[i].BuyPrice;
+				SidearmsList[i].bDone = True;
+			}
+		}
+	}
+
+	if (i == NumberOfSidearmItems)
+		bSidearmItemsSynced = True;
 }
 
 simulated function SyncAllGrenadeItems()
@@ -1465,6 +1533,7 @@ defaultproperties
 	NumberOfEquipmentUpgrades=INDEX_NONE
 	NumberOfGrenadeItems=INDEX_NONE
 	NumberOfPerkUpgrades=INDEX_NONE
+	NumberOfSidearmItems=INDEX_NONE
 	NumberOfSkillUpgrades=INDEX_NONE
 	NumberOfSpecialWaves=INDEX_NONE
 	NumberOfStartingWeapons=INDEX_NONE
