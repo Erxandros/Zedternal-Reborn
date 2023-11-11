@@ -340,6 +340,7 @@ simulated function ChangeSidearm(int Index)
 
 		// change sidearm
 		ChangeSidearmServer(index);
+		CurrentPerk.SetSecondaryWeaponSelectedIndex(index);
 
 		if (WMGameReplicationInfo(WorldInfo.GRI).SidearmsList[Index].BuyPrice <= 0)
 		{
