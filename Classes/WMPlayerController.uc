@@ -47,6 +47,10 @@ simulated event PostBeginPlay()
 		SetTimer(0.5f, False, NameOf(GetPlatform));
 }
 
+simulated function InitPerkLoadout()
+{
+}
+
 simulated function byte CheckCurrentPerkAllowed()
 {
 	return SavedPerkIndex;
@@ -295,7 +299,7 @@ simulated function CheckPreferredSidearm()
 	local bool bFound;
 
 	WMGRI = WMGameReplicationInfo(WorldInfo.GRI);
-	if (WMGRI != None && WMGRI.bSidearmItemsSynced)
+	if (WMGRI != None && (WMGRI.bSidearmItemsSynced || WorldInfo.NetMode == NM_Standalone))
 	{
 		ClearTimer(NameOf(CheckPreferredSidearm));
 
@@ -362,7 +366,7 @@ simulated function CheckPreferredGrenade()
 	local bool bFound;
 
 	WMGRI = WMGameReplicationInfo(WorldInfo.GRI);
-	if (WMGRI != None && WMGRI.bGrenadeItemsSynced)
+	if (WMGRI != None && (WMGRI.bGrenadeItemsSynced || WorldInfo.NetMode == NM_Standalone))
 	{
 		ClearTimer(NameOf(CheckPreferredGrenade));
 
