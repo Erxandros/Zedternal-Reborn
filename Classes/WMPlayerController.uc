@@ -289,7 +289,7 @@ function DelayedPerkUpdate(float TimeOffset)
 
 reliable client function SetPreferredSidearmTimer()
 {
-	SetTimer(3.0f, True, NameOf(CheckPreferredSidearm));
+	SetTimer(1.5f, True, NameOf(CheckPreferredSidearm));
 }
 
 simulated function CheckPreferredSidearm()
@@ -357,7 +357,7 @@ reliable server function ChangeSidearmServer(int index)
 
 reliable client function SetPreferredGrenadeTimer()
 {
-	SetTimer(3.0f, True, NameOf(CheckPreferredGrenade));
+	SetTimer(1.5f, True, NameOf(CheckPreferredGrenade));
 }
 
 simulated function CheckPreferredGrenade()
