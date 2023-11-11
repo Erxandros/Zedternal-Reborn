@@ -3,6 +3,7 @@ class Config_LocalPreferences extends Object
 
 var config byte KnifeIndex;
 var config string GrenadePath;
+var config string SidearmPath;
 
 defaultproperties
 {

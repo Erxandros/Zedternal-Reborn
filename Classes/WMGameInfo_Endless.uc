@@ -265,7 +265,10 @@ event PostLogin(PlayerController NewPlayer)
 		RepPlayerInfo(WMPRI);
 
 	if (WMPC != None)
+	{
 		WMPC.SetPreferredGrenadeTimer();
+		WMPC.SetPreferredSidearmTimer();
+	}
 }
 
 function Logout(Controller Exiting)

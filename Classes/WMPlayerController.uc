@@ -283,6 +283,73 @@ function DelayedPerkUpdate(float TimeOffset)
 	SetTimer(TimeOffset + 3.0f, False, NameOf(UpdateWeaponMagAndCap));
 }
 
+reliable client function SetPreferredSidearmTimer()
+{
+	SetTimer(3.0f, True, NameOf(CheckPreferredSidearm));
+}
+
+simulated function CheckPreferredSidearm()
+{
+	local WMGameReplicationInfo WMGRI;
+	local byte i;
+	local bool bFound;
+
+	WMGRI = WMGameReplicationInfo(WorldInfo.GRI);
+	if (WMGRI != None && WMGRI.bSidearmItemsSynced)
+	{
+		ClearTimer(NameOf(CheckPreferredSidearm));
+
+		bFound = False;
+		for (i = 0; i < 255; ++i)
+		{
+			if (WMGRI.SidearmsRepArray[i].WeaponPathName ~= "")
+				break;
+
+			if (WMGRI.SidearmsRepArray[i].WeaponPathName ~= Preferences.SidearmPath && WMGRI.SidearmsRepArray[i].BuyPrice <= 0)
+			{
+				bFound = True;
+				break;
+			}
+		}
+
+		if (bFound)
+			ChangeSidearm(i);
+	}
+}
+
+simulated function ChangeSidearm(int Index)
+{
+	local Inventory Inv;
+	local KFWeapon KFW;
+	local class<Inventory> SidearmClass;
+
+	SidearmClass = class<Inventory>(DynamicLoadObject(WMGameReplicationInfo(WorldInfo.GRI).SidearmsList[Index].Sidearm.default.WeaponClassPath, class'Class'));
+	if (!KFInventoryManager(Pawn.InvManager).ClassIsInInventory(SidearmClass, Inv))
+	{
+		// remove all sidearms
+		for (Inv = Pawn.InvManager.InventoryChain; Inv != None; Inv = Inv.Inventory)
+		{
+			KFW = KFWeapon(Inv);
+			if (KFW != None && KFW.bIsBackupWeapon && KFWeap_Edged_Knife(KFW) == None)
+				KFInventoryManager(Pawn.InvManager).ServerRemoveFromInventory(Inv);
+		}
+
+		// change sidearm
+		ChangeSidearmServer(index);
+
+		if (WMGameReplicationInfo(WorldInfo.GRI).SidearmsList[Index].BuyPrice <= 0)
+		{
+			Preferences.SidearmPath = WMGameReplicationInfo(WorldInfo.GRI).SidearmsRepArray[Index].WeaponPathName;
+			Preferences.SaveConfig();
+		}
+	}
+}
+
+reliable server function ChangeSidearmServer(int index)
+{
+	Pawn.InvManager.CreateInventory(class<Inventory>(DynamicLoadObject(WMGameReplicationInfo(WorldInfo.GRI).SidearmsList[Index].Sidearm.default.WeaponClassPath, class'Class')), Pawn.Weapon != None);
+}
+
 reliable client function SetPreferredGrenadeTimer()
 {
 	SetTimer(3.0f, True, NameOf(CheckPreferredGrenade));
@@ -315,33 +382,6 @@ simulated function CheckPreferredGrenade()
 		if (bFound)
 			ChangeGrenade(i);
 	}
-}
-
-simulated function ChangeSidearm(int Index)
-{
-	local Inventory Inv;
-	local KFWeapon KFW;
-	local class<Inventory> SidearmClass;
-
-	SidearmClass = class<Inventory>(DynamicLoadObject(WMGameReplicationInfo(WorldInfo.GRI).SidearmsList[Index].Sidearm.default.WeaponClassPath, class'Class'));
-	if (!KFInventoryManager(Pawn.InvManager).ClassIsInInventory(SidearmClass, Inv))
-	{
-		// remove all sidearms
-		for (Inv = Pawn.InvManager.InventoryChain; Inv != None; Inv = Inv.Inventory)
-		{
-			KFW = KFWeapon(Inv);
-			if (KFW != None && KFW.bIsBackupWeapon && KFWeap_Edged_Knife(KFW) == None)
-				KFInventoryManager(Pawn.InvManager).ServerRemoveFromInventory(Inv);
-		}
-
-		// change sidearm
-		ChangeSidearmServer(index);
-	}
-}
-
-reliable server function ChangeSidearmServer(int index)
-{
-	Pawn.InvManager.CreateInventory(class<Inventory>(DynamicLoadObject(WMGameReplicationInfo(WorldInfo.GRI).SidearmsList[Index].Sidearm.default.WeaponClassPath, class'Class')), Pawn.Weapon != None);
 }
 
 simulated function ChangeGrenade(int Index)
