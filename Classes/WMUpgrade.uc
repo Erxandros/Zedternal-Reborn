@@ -264,6 +264,23 @@ static function bool IsDamageTypeOnSpecificPerk(class<KFDamageType> KFDT, class<
 	return False;
 }
 
+static function bool IsWeaponSidearmOrKnife(KFWeapon W)
+{
+	local KFPerk KFP;
+
+	if (W != None)
+		KFP = W.GetPerk();
+
+	if (KFP != None)
+	{
+		return KFP.GetKnifeWeaponClassPath() ~= PathName(W.Class)
+		|| KFP.GetSecondaryWeaponClassPath() ~= PathName(W.Class)
+		|| (KFWeap_DualBase(W) != None && KFP.GetSecondaryWeaponClassPath() ~= PathName(KFWeap_DualBase(W).default.SingleClass));
+	}
+
+	return False;
+}
+
 static function bool IsMeleeDamageType(class<DamageType> DT)
 {
 	return (ClassIsChildOf(DT, class'KFDT_Bludgeon') || ClassIsChildOf(DT, class'KFDT_Slashing') || ClassIsChildOf(DT, class'KFDT_Piercing'))

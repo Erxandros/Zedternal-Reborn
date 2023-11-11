@@ -5,7 +5,7 @@ var array<int> ExtraGrenades;
 
 static function ModifyDamageGiven(out int InDamage, int DefaultDamage, int upgLevel, optional Actor DamageCauser, optional KFPawn_Monster MyKFPM, optional KFPlayerController DamageInstigator, optional class<KFDamageType> DamageType, optional int HitZoneIdx, optional KFWeapon MyKFW)
 {
-	if (MyKFW != None && (MyKFW.default.bIsBackupWeapon || MyKFW.Class.Name == 'KFWeap_Pistol_Dual9mm'))
+	if (IsWeaponSidearmOrKnife(MyKFW))
 		InDamage += DefaultDamage * default.Damage[upgLevel - 1];
 }
 
