@@ -386,7 +386,7 @@ simulated function ChangeKnife(int Index)
 			{
 				KFW = KFWeapon(Inv);
 				if (KFW != None && !KFW.CanThrow() && KFWeap_Edged_Knife(KFW) != None && KFW.class != KnifeClass)
-					Pawn.InvManager.RemoveFromInventory(Inv);
+					KFInventoryManager(Pawn.InvManager).ServerRemoveFromInventory(Inv);
 			}
 
 			// change knife
