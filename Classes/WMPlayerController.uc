@@ -313,7 +313,7 @@ simulated function CheckPreferredSidearm()
 		}
 
 		if (bFound)
-			ChangeSidearm(i);
+			CurrentPerk.SetSecondaryWeaponSelectedIndex(i);
 	}
 }
 

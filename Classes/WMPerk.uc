@@ -310,6 +310,21 @@ simulated function string GetKnifeWeaponClassPath()
 	return KnifeWeaponDef.default.WeaponClassPath;
 }
 
+simulated function string GetSecondaryWeaponClassPath()
+{
+	return MyWMGRI.SidearmsList[StartingSecondaryWeaponClassIndex].Sidearm.default.WeaponClassPath;
+}
+
+simulated function SetSecondaryWeaponSelectedIndex(byte idx)
+{
+	if (idx >= MyWMGRI.SidearmsList.Length)
+		StartingSecondaryWeaponClassIndex = 0;
+	else
+		StartingSecondaryWeaponClassIndex = idx;
+
+	ServerUpdateCurrentSecondaryWeapon(StartingSecondaryWeaponClassIndex);
+}
+
 function bool ShouldAutosellWeapon(class<KFWeaponDefinition> DefClass)
 {
 	//Because survivalists get a random first weapon in their auto buy load out, if they ever swap
