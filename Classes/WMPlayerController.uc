@@ -156,7 +156,7 @@ reliable server function RerollSkillsForPerk(string RerollPerkPathName, int Cost
 	WMPRI = WMPlayerReplicationInfo(Pawn.PlayerReplicationInfo);
 	if (WMPRI != None && WMGRI != None && WMPRI.Score >= Cost)
 	{
-		for (i = 0; i < WMGRI.SkillUpgradesList.length; ++i)
+		for (i = 0; i < WMGRI.SkillUpgradesList.Length; ++i)
 		{
 			if (RerollPerkPathName ~= WMGRI.SkillUpgradesList[i].PerkPathName)
 			{
@@ -295,7 +295,7 @@ simulated function CheckPreferredGrenade()
 	local bool bFound;
 
 	WMGRI = WMGameReplicationInfo(WorldInfo.GRI);
-	if (WMGRI != None && WMGRI.GrenadesList.length > 0)
+	if (WMGRI != None && WMGRI.bGrenadeItemsSynced)
 	{
 		ClearTimer(NameOf(CheckPreferredGrenade));
 
@@ -434,12 +434,12 @@ simulated function string GetPerkIconPath()
 
 	if (WMPRI != None && WMGRI != None && WMPRI.PlayerLevel > 0)
 	{
-		tries = WMGRI.PerkUpgradesList.length;
+		tries = WMGRI.PerkUpgradesList.Length;
 		while (tries > 0)
 		{
 			++HUD_perkIndex;
 			--tries;
-			if (HUD_perkIndex >= WMGRI.PerkUpgradesList.length)
+			if (HUD_perkIndex >= WMGRI.PerkUpgradesList.Length)
 				HUD_perkIndex = 0;
 
 			if (WMPRI.bPerkUpgrade[HUD_perkIndex] > 0)
