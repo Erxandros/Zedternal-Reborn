@@ -10,7 +10,6 @@ var private const array< class<KFWeaponDefinition> > PrimaryWeaponPaths;
 var const array< class<KFWeaponDefinition> > KnivesWeaponDef;
 
 var private byte KnifeIndexFromClient;
-var private int StartingWeaponClassIndex;
 
 var private int Difficulty;
 
@@ -3844,7 +3843,6 @@ defaultproperties
 	ShrapnelExplosionTemplate=KFGameExplosion'KFGame.Default__KFPerk_Survivalist:ExploTemplate0'
 	WhiteMaterial=Texture2D'EngineResources.WhiteSquareTexture'
 
-	StartingWeaponClassIndex=INDEX_NONE
 	PrimaryWeaponDef=class'KFGame.KFWeapDef_Random'
 	KnifeWeaponDef=class'KFGame.KFWeapDef_Knife_SharpShooter'
 	GrenadeWeaponDef=class'KFGame.KFWeapDef_Grenade_Commando'
