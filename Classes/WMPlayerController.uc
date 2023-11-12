@@ -324,24 +324,27 @@ simulated function CheckPreferredSidearm()
 simulated function ChangeSidearm(int index)
 {
 	local Inventory Inv;
-	local KFWeapon KFW;
 	local class<Inventory> SidearmClass;
 
 	SidearmClass = class<Inventory>(DynamicLoadObject(WMGameReplicationInfo(WorldInfo.GRI).SidearmsList[index].Sidearm.default.WeaponClassPath, class'Class'));
 	if (!KFInventoryManager(Pawn.InvManager).ClassIsInInventory(SidearmClass, Inv))
 	{
-		// remove all sidearms
+		// Remove previous sidearm
 		for (Inv = Pawn.InvManager.InventoryChain; Inv != None; Inv = Inv.Inventory)
 		{
-			KFW = KFWeapon(Inv);
-			if (KFW != None && KFW.bIsBackupWeapon && KFWeap_Edged_Knife(KFW) == None)
+			if (CurrentPerk.GetSecondaryWeaponClassPath() ~= PathName(Inv.Class)
+				|| (KFWeap_DualBase(Inv) != None && CurrentPerk.GetSecondaryWeaponClassPath() ~= PathName(KFWeap_DualBase(Inv).default.SingleClass)))
+			{
 				KFInventoryManager(Pawn.InvManager).ServerRemoveFromInventory(Inv);
+				break;
+			}
 		}
 
-		// change sidearm
+		// Change sidearm
 		ChangeSidearmServer(index);
 		CurrentPerk.SetSecondaryWeaponSelectedIndex(index);
 
+		// Save selected sidearm if it is free
 		if (WMGameReplicationInfo(WorldInfo.GRI).SidearmsList[index].BuyPrice <= 0)
 		{
 			Preferences.SidearmPath = WMGameReplicationInfo(WorldInfo.GRI).SidearmsRepArray[index].WeaponPathName;
