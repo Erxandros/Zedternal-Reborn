@@ -9,7 +9,7 @@ var private const Texture2d WhiteMaterial;
 var private const array< class<KFWeaponDefinition> > PrimaryWeaponPaths;
 var const array< class<KFWeaponDefinition> > KnivesWeaponDef;
 
-var private byte KnifeIndexFromClient;
+var private byte SelectedKnifeIndex;
 
 var private int Difficulty;
 
@@ -66,9 +66,6 @@ simulated event PreBeginPlay()
 	super.PreBeginPlay();
 
 	WMTimers = Spawn(class'WMPerk_Timers', self);
-
-	if (WMPlayerController(OwnerPC) != None)
-		GetKnifeIndexFromClient();
 }
 
 simulated event PostBeginPlay()
@@ -280,33 +277,26 @@ function AddDefaultInventory(KFPawn P)
 	}
 }
 
-reliable server function SetKnifeIndexFromClient(byte index)
-{
-	KnifeIndexFromClient = index;
-}
-
-reliable client function GetKnifeIndexFromClient()
-{
-	local WMPlayerController WMPC;
-	local byte index;
-
-	WMPC = WMPlayerController(OwnerPC);
-
-	if (WMPC != None && WMPC.Preferences != None)
-		index = WMPC.Preferences.KnifeIndex;
-	else
-		index = 0;
-
-	SetKnifeIndexFromClient(index);
-}
-
 simulated function string GetKnifeWeaponClassPath()
 {
-	if (KnifeIndexFromClient < 0 || KnifeIndexFromClient > KnivesWeaponDef.Length)
-		KnifeIndexFromClient = 0;
-
-	KnifeWeaponDef = KnivesWeaponDef[KnifeIndexFromClient];
 	return KnifeWeaponDef.default.WeaponClassPath;
+}
+
+simulated function SetKnifeSelectedIndex(byte idx)
+{
+	if (idx >= KnivesWeaponDef.Length)
+		SelectedKnifeIndex = 0;
+	else
+		SelectedKnifeIndex = idx;
+
+	KnifeWeaponDef = KnivesWeaponDef[SelectedKnifeIndex];
+	ServerUpdateCurrentKnifeIndex(SelectedKnifeIndex);
+}
+
+reliable server function ServerUpdateCurrentKnifeIndex(byte index)
+{
+	SelectedKnifeIndex = index;
+	KnifeWeaponDef = KnivesWeaponDef[SelectedKnifeIndex];
 }
 
 simulated function string GetSecondaryWeaponClassPath()

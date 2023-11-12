@@ -268,6 +268,7 @@ event PostLogin(PlayerController NewPlayer)
 	{
 		WMPC.SetPreferredGrenadeTimer();
 		WMPC.SetPreferredSidearmTimer();
+		WMPC.SetPreferredKnifeTimer();
 	}
 }
 

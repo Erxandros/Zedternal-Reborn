@@ -321,13 +321,13 @@ simulated function CheckPreferredSidearm()
 	}
 }
 
-simulated function ChangeSidearm(int Index)
+simulated function ChangeSidearm(int index)
 {
 	local Inventory Inv;
 	local KFWeapon KFW;
 	local class<Inventory> SidearmClass;
 
-	SidearmClass = class<Inventory>(DynamicLoadObject(WMGameReplicationInfo(WorldInfo.GRI).SidearmsList[Index].Sidearm.default.WeaponClassPath, class'Class'));
+	SidearmClass = class<Inventory>(DynamicLoadObject(WMGameReplicationInfo(WorldInfo.GRI).SidearmsList[index].Sidearm.default.WeaponClassPath, class'Class'));
 	if (!KFInventoryManager(Pawn.InvManager).ClassIsInInventory(SidearmClass, Inv))
 	{
 		// remove all sidearms
@@ -342,9 +342,9 @@ simulated function ChangeSidearm(int Index)
 		ChangeSidearmServer(index);
 		CurrentPerk.SetSecondaryWeaponSelectedIndex(index);
 
-		if (WMGameReplicationInfo(WorldInfo.GRI).SidearmsList[Index].BuyPrice <= 0)
+		if (WMGameReplicationInfo(WorldInfo.GRI).SidearmsList[index].BuyPrice <= 0)
 		{
-			Preferences.SidearmPath = WMGameReplicationInfo(WorldInfo.GRI).SidearmsRepArray[Index].WeaponPathName;
+			Preferences.SidearmPath = WMGameReplicationInfo(WorldInfo.GRI).SidearmsRepArray[index].WeaponPathName;
 			Preferences.SaveConfig();
 		}
 	}
@@ -352,7 +352,7 @@ simulated function ChangeSidearm(int Index)
 
 reliable server function ChangeSidearmServer(int index)
 {
-	Pawn.InvManager.CreateInventory(class<Inventory>(DynamicLoadObject(WMGameReplicationInfo(WorldInfo.GRI).SidearmsList[Index].Sidearm.default.WeaponClassPath, class'Class')), Pawn.Weapon != None);
+	Pawn.InvManager.CreateInventory(class<Inventory>(DynamicLoadObject(WMGameReplicationInfo(WorldInfo.GRI).SidearmsList[index].Sidearm.default.WeaponClassPath, class'Class')), Pawn.Weapon != None);
 }
 
 reliable client function SetPreferredGrenadeTimer()
@@ -389,25 +389,25 @@ simulated function CheckPreferredGrenade()
 	}
 }
 
-simulated function ChangeGrenade(int Index)
+simulated function ChangeGrenade(int index)
 {
-	CurrentPerk.GrenadeWeaponDef = WMGameReplicationInfo(WorldInfo.GRI).GrenadesList[Index].Grenade;
+	CurrentPerk.GrenadeWeaponDef = WMGameReplicationInfo(WorldInfo.GRI).GrenadesList[index].Grenade;
 	// Replace Tripwire medic grenade with ZedternalReborn version to fix bug with sonic resistant rounds
 	if (CurrentPerk.GrenadeWeaponDef.default.WeaponClassPath ~= "KFGameContent.KFProj_MedicGrenade")
 		CurrentPerk.GrenadeClass = class<KFProj_Grenade>(DynamicLoadObject("ZedternalReborn.WMProj_MedicGrenade", class'Class'));
 	else
 		CurrentPerk.GrenadeClass = class<KFProj_Grenade>(DynamicLoadObject(CurrentPerk.GrenadeWeaponDef.default.WeaponClassPath, class'Class'));
-	ChangeGrenadeServer(Index);
+	ChangeGrenadeServer(index);
 
 	bShouldUpdateGrenadeIcon = True;
 
-	Preferences.GrenadePath = WMGameReplicationInfo(WorldInfo.GRI).GrenadesRepArray[Index].GrenadePathName;
+	Preferences.GrenadePath = WMGameReplicationInfo(WorldInfo.GRI).GrenadesRepArray[index].GrenadePathName;
 	Preferences.SaveConfig();
 }
 
-reliable server function ChangeGrenadeServer(int Index)
+reliable server function ChangeGrenadeServer(int index)
 {
-	CurrentPerk.GrenadeWeaponDef = WMGameReplicationInfo(WorldInfo.GRI).GrenadesList[Index].Grenade;
+	CurrentPerk.GrenadeWeaponDef = WMGameReplicationInfo(WorldInfo.GRI).GrenadesList[index].Grenade;
 	// Replace Tripwire medic grenade with ZedternalReborn version to fix bug with sonic resistant rounds
 	if (CurrentPerk.GrenadeWeaponDef.default.WeaponClassPath ~= "KFGameContent.KFProj_MedicGrenade")
 		CurrentPerk.GrenadeClass = class<KFProj_Grenade>(DynamicLoadObject("ZedternalReborn.WMProj_MedicGrenade", class'Class'));
@@ -415,7 +415,24 @@ reliable server function ChangeGrenadeServer(int Index)
 		CurrentPerk.GrenadeClass = class<KFProj_Grenade>(DynamicLoadObject(CurrentPerk.GrenadeWeaponDef.default.WeaponClassPath, class'Class'));
 }
 
-simulated function ChangeKnife(int Index)
+reliable client function SetPreferredKnifeTimer()
+{
+	SetTimer(1.0f, True, NameOf(CheckPreferredKnife));
+}
+
+simulated function CheckPreferredKnife()
+{
+	local WMPerk WMP;
+
+	WMP = WMPerk(CurrentPerk);
+	if (WMP != None)
+	{
+		ClearTimer(NameOf(CheckPreferredKnife));
+		WMP.SetKnifeSelectedIndex(Preferences.KnifeIndex);
+	}
+}
+
+simulated function ChangeKnife(int index)
 {
 	local Inventory Inv;
 	local KFWeapon KFW;
@@ -423,7 +440,7 @@ simulated function ChangeKnife(int Index)
 
 	if (WMPerk(CurrentPerk) != None)
 	{
-		KnifeClass = class<Inventory>(DynamicLoadObject(WMPerk(CurrentPerk).KnivesWeaponDef[Index].default.WeaponClassPath, class'Class'));
+		KnifeClass = class<Inventory>(DynamicLoadObject(WMPerk(CurrentPerk).KnivesWeaponDef[index].default.WeaponClassPath, class'Class'));
 		if (!KFInventoryManager(Pawn.InvManager).ClassIsInInventory(KnifeClass, Inv))
 		{
 			// remove all backup knives from inventory
@@ -436,9 +453,10 @@ simulated function ChangeKnife(int Index)
 
 			// change knife
 			ChangeKnifeServer(index);
+			WMPerk(CurrentPerk).SetKnifeSelectedIndex(index);
 
 			// Change knifeindex and save it as local data (client side)
-			Preferences.KnifeIndex = Index;
+			Preferences.KnifeIndex = index;
 			Preferences.SaveConfig();
 		}
 	}
@@ -446,7 +464,7 @@ simulated function ChangeKnife(int Index)
 
 reliable server function ChangeKnifeServer(int index)
 {
-	Pawn.InvManager.CreateInventory(class<Inventory>(DynamicLoadObject(WMPerk(CurrentPerk).KnivesWeaponDef[Index].default.WeaponClassPath, class'Class')), Pawn.Weapon != None);
+	Pawn.InvManager.CreateInventory(class<Inventory>(DynamicLoadObject(WMPerk(CurrentPerk).KnivesWeaponDef[index].default.WeaponClassPath, class'Class')), Pawn.Weapon != None);
 }
 
 function float GetPerkLevelProgressPercentage(Class<KFPerk> PerkClass, optional out int CurrentLevelEXP, optional out int NextLevelEXP)
