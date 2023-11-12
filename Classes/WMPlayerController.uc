@@ -435,7 +435,6 @@ simulated function CheckPreferredKnife()
 simulated function ChangeKnife(int index)
 {
 	local Inventory Inv;
-	local KFWeapon KFW;
 	local class<Inventory> KnifeClass;
 
 	if (WMPerk(CurrentPerk) != None)
@@ -443,19 +442,21 @@ simulated function ChangeKnife(int index)
 		KnifeClass = class<Inventory>(DynamicLoadObject(WMPerk(CurrentPerk).KnivesWeaponDef[index].default.WeaponClassPath, class'Class'));
 		if (!KFInventoryManager(Pawn.InvManager).ClassIsInInventory(KnifeClass, Inv))
 		{
-			// remove all backup knives from inventory
+			// Find old knife and remove it
 			for (Inv = Pawn.InvManager.InventoryChain; Inv != None; Inv = Inv.Inventory)
 			{
-				KFW = KFWeapon(Inv);
-				if (KFW != None && !KFW.CanThrow() && KFWeap_Edged_Knife(KFW) != None && KFW.class != KnifeClass)
+				if (CurrentPerk.GetKnifeWeaponClassPath() ~= PathName(Inv.Class))
+				{
 					KFInventoryManager(Pawn.InvManager).ServerRemoveFromInventory(Inv);
+					break;
+				}
 			}
 
-			// change knife
+			// Change selected knife
 			ChangeKnifeServer(index);
 			WMPerk(CurrentPerk).SetKnifeSelectedIndex(index);
 
-			// Change knifeindex and save it as local data (client side)
+			// Change selected knife index and save it as local data (client side)
 			Preferences.KnifeIndex = index;
 			Preferences.SaveConfig();
 		}
