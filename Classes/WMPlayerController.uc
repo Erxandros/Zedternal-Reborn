@@ -299,7 +299,7 @@ simulated function CheckPreferredSidearm()
 	local bool bFound;
 
 	WMGRI = WMGameReplicationInfo(WorldInfo.GRI);
-	if (WMGRI != None && (WMGRI.bSidearmItemsSynced || WMGRI.NumberOfSidearmItems == WMGRI.SidearmsList.Length))
+	if (WMGRI != None && WMGRI.bSidearmItemsSynced)
 	{
 		ClearTimer(NameOf(CheckPreferredSidearm));
 
@@ -367,7 +367,7 @@ simulated function CheckPreferredGrenade()
 	local bool bFound;
 
 	WMGRI = WMGameReplicationInfo(WorldInfo.GRI);
-	if (WMGRI != None && (WMGRI.bGrenadeItemsSynced || WMGRI.NumberOfGrenadeItems == WMGRI.GrenadesList.Length))
+	if (WMGRI != None && WMGRI.bGrenadeItemsSynced)
 	{
 		ClearTimer(NameOf(CheckPreferredGrenade));
 

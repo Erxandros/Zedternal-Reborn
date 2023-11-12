@@ -2588,6 +2588,7 @@ function RepGameInfoNormalPriority()
 		WMGRI.GrenadesList[b].Grenade = ConfigData.GrenadeWeaponDefObjects[b];
 		WMGRI.GrenadesList[b].bDone = True;
 	}
+	WMGRI.bGrenadeItemsSynced = True;
 
 	//Sidearms
 	for (b = 0; b < Min(255, ConfigData.SidearmWeaponDefObjects.Length); ++b)
@@ -2600,6 +2601,7 @@ function RepGameInfoNormalPriority()
 		WMGRI.SidearmsList[b].BuyPrice = ConfigData.SidearmPrices[b];
 		WMGRI.SidearmsList[b].bDone = True;
 	}
+	WMGRI.bSidearmItemsSynced = True;
 
 	//Armor pickup enable
 	b = class'ZedternalReborn.Config_Map'.static.GetArmorSpawnOnMap(WorldInfo.GetMapName(True), GameDifficultyZedternal);
