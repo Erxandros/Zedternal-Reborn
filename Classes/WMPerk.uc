@@ -6,7 +6,6 @@ var private WMGameReplicationInfo MyWMGRI;
 var private bool bUsedSacrifice;
 var private const GameExplosion ShrapnelExplosionTemplate;
 var private const Texture2d WhiteMaterial;
-var private const array< class<KFWeaponDefinition> > PrimaryWeaponPaths;
 var const array< class<KFWeaponDefinition> > KnivesWeaponDef;
 
 var private byte SelectedKnifeIndex;
@@ -312,21 +311,6 @@ simulated function SetSecondaryWeaponSelectedIndex(byte idx)
 		StartingSecondaryWeaponClassIndex = idx;
 
 	ServerUpdateCurrentSecondaryWeapon(StartingSecondaryWeaponClassIndex);
-}
-
-function bool ShouldAutosellWeapon(class<KFWeaponDefinition> DefClass)
-{
-	//Because survivalists get a random first weapon in their auto buy load out, if they ever swap
-	//      to another valid on-perk T1 then attempt to autobuy, they could be left in situations where
-	//      they sell the new valid T1, but don't have enough money to buy any other weapons. In this
-	//      case, we shouldn't sell the weapon if it's also part of the primary weapons that they could
-	//      start with in a valid match.
-	if (super.ShouldAutosellWeapon(DefClass))
-	{
-		return PrimaryWeaponPaths.Find(DefClass) == INDEX_NONE;
-	}
-
-	return False;
 }
 
 function OnWaveEnded()
@@ -3834,18 +3818,7 @@ defaultproperties
 	WhiteMaterial=Texture2D'EngineResources.WhiteSquareTexture'
 
 	PrimaryWeaponDef=class'KFGame.KFWeapDef_Random'
-	KnifeWeaponDef=class'KFGame.KFWeapDef_Knife_SharpShooter'
-	GrenadeWeaponDef=class'KFGame.KFWeapDef_Grenade_Commando'
 
-	PrimaryWeaponPaths(0)=class'KFGame.KFWeapDef_AR15'
-	PrimaryWeaponPaths(1)=class'KFGame.KFWeapDef_MB500'
-	PrimaryWeaponPaths(2)=class'KFGame.KFWeapDef_Crovel'
-	PrimaryWeaponPaths(3)=class'KFGame.KFWeapDef_HX25'
-	PrimaryWeaponPaths(4)=class'KFGame.KFWeapDef_MedicPistol'
-	PrimaryWeaponPaths(5)=class'KFGame.KFWeapDef_CaulkBurn'
-	PrimaryWeaponPaths(6)=class'KFGame.KFWeapDef_Remington1858Dual'
-	PrimaryWeaponPaths(7)=class'KFGame.KFWeapDef_Winchester1894'
-	PrimaryWeaponPaths(8)=class'KFGame.KFWeapDef_MP7'
 	KnivesWeaponDef(0)=class'KFGame.KFWeapDef_Knife_Berserker'
 	KnivesWeaponDef(1)=class'KFGame.KFWeapDef_Knife_Commando'
 	KnivesWeaponDef(2)=class'KFGame.KFWeapDef_Knife_Demo'
