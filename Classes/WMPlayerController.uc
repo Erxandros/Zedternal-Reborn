@@ -289,7 +289,7 @@ function DelayedPerkUpdate(float TimeOffset)
 
 reliable client function SetPreferredSidearmTimer()
 {
-	SetTimer(1.5f, True, NameOf(CheckPreferredSidearm));
+	SetTimer(1.0f, True, NameOf(CheckPreferredSidearm));
 }
 
 simulated function CheckPreferredSidearm()
@@ -299,7 +299,7 @@ simulated function CheckPreferredSidearm()
 	local bool bFound;
 
 	WMGRI = WMGameReplicationInfo(WorldInfo.GRI);
-	if (WMGRI != None && (WMGRI.bSidearmItemsSynced || WorldInfo.NetMode == NM_Standalone))
+	if (WMGRI != None && (WMGRI.bSidearmItemsSynced || WMGRI.NumberOfSidearmItems == WMGRI.SidearmsList.Length))
 	{
 		ClearTimer(NameOf(CheckPreferredSidearm));
 
@@ -357,7 +357,7 @@ reliable server function ChangeSidearmServer(int index)
 
 reliable client function SetPreferredGrenadeTimer()
 {
-	SetTimer(1.5f, True, NameOf(CheckPreferredGrenade));
+	SetTimer(1.0f, True, NameOf(CheckPreferredGrenade));
 }
 
 simulated function CheckPreferredGrenade()
@@ -367,7 +367,7 @@ simulated function CheckPreferredGrenade()
 	local bool bFound;
 
 	WMGRI = WMGameReplicationInfo(WorldInfo.GRI);
-	if (WMGRI != None && (WMGRI.bGrenadeItemsSynced || WorldInfo.NetMode == NM_Standalone))
+	if (WMGRI != None && (WMGRI.bGrenadeItemsSynced || WMGRI.NumberOfGrenadeItems == WMGRI.GrenadesList.Length))
 	{
 		ClearTimer(NameOf(CheckPreferredGrenade));
 
