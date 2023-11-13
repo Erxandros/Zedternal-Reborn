@@ -58,6 +58,22 @@ simulated function Inventory CreateInventorySidearm(class<Inventory> NewInventor
 	return None;
 }
 
+simulated function int GetAdjustedSellPriceFor(const out STraderItem OwnedItem, optional const array<SItemInformation> TraderOwnedItems)
+{
+	local KFPlayerController KFPC;
+	local KFPerk CurrentPerk;
+
+	KFPC = KFPlayerController(Instigator.Owner);
+	if (KFPC != None)
+	{
+		CurrentPerk = KFPC.GetPerk();
+		if (CurrentPerk != None && CurrentPerk.GetSecondaryWeaponClassPath() ~= OwnedItem.WeaponDef.default.WeaponClassPath)
+			return 0;
+	}
+
+	return super.GetAdjustedSellPriceFor(OwnedItem, TraderOwnedItems);
+}
+
 simulated event ShowOnlyHUDGroup(byte GroupIndex)
 {
 	local KFGFxMoviePlayer_HUD KFGFxHUD;
