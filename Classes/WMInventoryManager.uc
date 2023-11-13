@@ -1,21 +1,24 @@
 class WMInventoryManager extends KFInventoryManager;
 
+simulated function CreateAmmoFix(const out Inventory Inv)
+{
+	if (KFWeapon(Inv) != None &&
+		Role == ROLE_Authority &&
+		WorldInfo.NetMode == NM_DedicatedServer &&
+		KFWeapon(Inv).default.MagazineCapacity[0] > 0 &&
+		KFWeap_Welder(Inv) == None &&
+		KFWeap_Healer_Syringe(Inv) == None)
+	{
+		Spawn(class'ZedternalReborn.WMWeaponAmmoFix', Inv);
+	}
+}
+
 simulated function Inventory CreateInventory(class<Inventory> NewInventoryItemClass, optional bool bDoNotActivate)
 {
 	local Inventory Item;
 
 	Item = super.CreateInventory(NewInventoryItemClass, bDoNotActivate);
-
-	if (KFWeapon(Item) != None &&
-		Role == ROLE_Authority &&
-		WorldInfo.NetMode == NM_DedicatedServer &&
-		KFWeapon(Item).default.MagazineCapacity[0] > 0 &&
-		KFWeap_Welder(Item) == None &&
-		KFWeap_Healer_Syringe(Item) == None)
-	{
-		Spawn(class'ZedternalReborn.WMWeaponAmmoFix', Item);
-	}
-
+	CreateAmmoFix(Item);
 	return Item;
 }
 
@@ -48,6 +51,7 @@ simulated function Inventory CreateInventorySidearm(class<Inventory> NewInventor
 		if (KFW != None)
 			CheckForExcessRemoval(KFW);
 
+		CreateAmmoFix(KFW);
 		return KFW;
 	}
 
