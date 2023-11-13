@@ -98,8 +98,6 @@ function class<KFPerk> GetPerkFilterClass(byte index)
 /** returns True if this item should not be displayed */
 function bool IsItemFiltered(STraderItem Item, optional bool bDebug)
 {
-	local bool bUses9mm;
-
 	if (KFPC.GetPurchaseHelper().IsInOwnedItemList(Item.ClassName))
 		return True;
 
@@ -109,15 +107,39 @@ function bool IsItemFiltered(STraderItem Item, optional bool bDebug)
 	if (!KFPC.GetPurchaseHelper().IsSellable(Item))
 		return True;
 
-	if (WMGameReplicationInfo(KFPC.PlayerReplicationInfo.WorldInfo.GRI) != None && !WMGameReplicationInfo(KFPC.PlayerReplicationInfo.WorldInfo.GRI).IsItemAllowed(Item))
+	if (WMGameReplicationInfo(KFPC.WorldInfo.GRI) != None && !WMGameReplicationInfo(KFPC.WorldInfo.GRI).IsItemAllowed(Item))
 		return True;
 
-	bUses9mm = Has9mmGun();
-	if (bUses9mm && (Item.ClassName == 'KFWeap_HRG_93R' || Item.ClassName == 'KFWeap_HRG_93R_Dual'))
+	if (IsSidearm(Item))
 		return True;
 
-	if (!bUses9mm && (Item.ClassName == 'KFWeap_Pistol_9mm' || Item.ClassName == 'KFWeap_Pistol_Dual9mm'))
-		return True;
+	return False;
+}
+
+function bool IsSidearm(STraderItem Item)
+{
+	local WMGameReplicationInfo WMGRI;
+	local KFPerk KFP;
+	local name WeaponName;
+	local int i;
+
+	KFP = KFPC.GetPerk();
+	if (KFP != None)
+	{
+		if (Name(Split(KFP.GetSecondaryWeaponClassPath(), ".", True)) == Item.SingleClassName)
+			return False;
+	}
+
+	WMGRI = WMGameReplicationInfo(KFPC.WorldInfo.GRI);
+	if (WMGRI != None)
+	{
+		for (i = 0; i < WMGRI.SidearmsList.Length; ++i)
+		{
+			WeaponName = Name(Split(WMGRI.SidearmsList[i].Sidearm.default.WeaponClassPath, ".", True));
+			if (Item.ClassName == WeaponName || Item.SingleClassName == WeaponName || Item.DualClassName == WeaponName)
+				return True;
+		}
+	}
 
 	return False;
 }
