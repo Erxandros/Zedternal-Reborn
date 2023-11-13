@@ -21,6 +21,7 @@ var repnotify byte bWeaponUpgrade_15[255];
 var repnotify byte bWeaponUpgrade_16[255];
 var repnotify byte bSkillUpgrade[255];
 var repnotify byte bEquipmentUpgrade[255];
+var byte bSidearmItem[255];
 var byte bSkillUnlocked[255];
 var byte bSkillDeluxe[255];
 
@@ -70,7 +71,7 @@ var bool bPerkTertiarySupplyUsed;
 replication
 {
 	if (bNetDirty && (Role == Role_Authority))
-		bPerkUpgrade, bPerkUpgradeAvailable, bSkillUpgrade, bSkillUnlocked, bSkillDeluxe, bEquipmentUpgrade,
+		bPerkUpgrade, bPerkUpgradeAvailable, bSkillUpgrade, bSkillUnlocked, bSkillDeluxe, bEquipmentUpgrade, bSidearmItem,
 		bWeaponUpgrade_1, bWeaponUpgrade_2, bWeaponUpgrade_3, bWeaponUpgrade_4, bWeaponUpgrade_5,
 		bWeaponUpgrade_6, bWeaponUpgrade_7, bWeaponUpgrade_8, bWeaponUpgrade_9, bWeaponUpgrade_10, bWeaponUpgrade_11,
 		bWeaponUpgrade_12, bWeaponUpgrade_13, bWeaponUpgrade_14, bWeaponUpgrade_15, bWeaponUpgrade_16;
@@ -157,6 +158,7 @@ function CopyProperties(PlayerReplicationInfo PRI)
 			WMPRI.bSkillUnlocked[i] = bSkillUnlocked[i];
 			WMPRI.bSkillDeluxe[i] = bSkillDeluxe[i];
 			WMPRI.bEquipmentUpgrade[i] = bEquipmentUpgrade[i];
+			WMPRI.bSidearmItem[i] = bSidearmItem[i];
 		}
 
 		WMPRI.PlayerLevel = PlayerLevel;

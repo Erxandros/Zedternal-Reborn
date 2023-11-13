@@ -255,7 +255,23 @@ function Callback_Equip(int ItemDefinition)
 	}
 	else if (CurrentFilterIndex == 4) //Sidearms
 	{
-		WMPC.ChangeSidearm(Index);
+		UPGPrice = WMGRI.SidearmsList[Index].BuyPrice;
+		if (WMPRI.bSidearmItem[Index] == 0 && UPGPrice > 0)
+		{
+			if (WMPRI.Score >= UPGPrice)
+			{
+				OriginalDosh = WMPRI.Score;
+				if (WMPC.WorldInfo.NetMode != NM_Standalone)
+					WMPRI.SyncCompleted = False;
+				WMPC.BuySidearm(Index, UPGPrice);
+				if (WMPC.WorldInfo.NetMode != NM_Standalone)
+					WMPRI.bSidearmItem[Index] = 1;
+				WMPRI.Score = OriginalDosh - UPGPrice;
+				WMPC.ChangeSidearm(Index);
+			}
+		}
+		else
+			WMPC.ChangeSidearm(Index);
 	}
 	else if (CurrentFilterIndex == 5) //Grenades
 	{
@@ -414,7 +430,10 @@ function CallBack_ItemDetailsClicked(int ItemDefinition)
 	}
 	else if (CurrentFilterIndex == 4) //Sidearms
 	{
-		EquipButton.SetString("label", default.EquipButtonString);
+		if (WMPRI.bSidearmItem[Index] == 0 && WMGRI.SidearmsList[Index].BuyPrice > 0)
+			EquipButton.SetString("label", ""$WMGRI.SidearmsList[Index].BuyPrice$Chr(163));
+		else
+			EquipButton.SetString("label", default.EquipButtonString);
 	}
 	else if (CurrentFilterIndex == 5 || CurrentFilterIndex == 6) //Knives and Grenades
 	{

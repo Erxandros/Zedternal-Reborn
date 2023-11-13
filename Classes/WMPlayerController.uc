@@ -213,6 +213,23 @@ reliable server function BuyEquipmentUpgrade(int ItemDefinition, int Cost)
 	}
 }
 
+reliable server function BuySidearm(int ItemDefinition, int Cost)
+{
+	local WMPlayerReplicationInfo WMPRI;
+
+	WMPRI = WMPlayerReplicationInfo(Pawn.PlayerReplicationInfo);
+
+	if (WMPRI != None && WMPRI.Score >= Cost)
+	{
+		++WMPRI.bSidearmItem[ItemDefinition];
+		if (WorldInfo.NetMode == NM_DedicatedServer)
+		{
+			WMPRI.AddDosh(-Cost);
+			WMPRI.SyncTrigger = !WMPRI.SyncTrigger;
+		}
+	}
+}
+
 function UpdateWeaponMagAndCap()
 {
 	local WMPawn_Human WMPH;
