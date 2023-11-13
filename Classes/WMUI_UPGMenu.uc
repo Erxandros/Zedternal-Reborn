@@ -267,7 +267,6 @@ function Callback_Equip(int ItemDefinition)
 				if (WMPC.WorldInfo.NetMode != NM_Standalone)
 					WMPRI.bSidearmItem[Index] = 1;
 				WMPRI.Score = OriginalDosh - UPGPrice;
-				WMPC.ChangeSidearm(Index);
 			}
 		}
 		else

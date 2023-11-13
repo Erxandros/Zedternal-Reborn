@@ -227,6 +227,8 @@ reliable server function BuySidearm(int ItemDefinition, int Cost)
 			WMPRI.AddDosh(-Cost);
 			WMPRI.SyncTrigger = !WMPRI.SyncTrigger;
 		}
+
+		ChangeSidearm(ItemDefinition);
 	}
 }
 
@@ -338,7 +340,7 @@ simulated function CheckPreferredSidearm()
 	}
 }
 
-simulated function ChangeSidearm(int index)
+reliable client simulated function ChangeSidearm(int index)
 {
 	local Inventory Inv;
 	local class<Inventory> SidearmClass;
@@ -409,7 +411,7 @@ simulated function CheckPreferredGrenade()
 	}
 }
 
-simulated function ChangeGrenade(int index)
+reliable client simulated function ChangeGrenade(int index)
 {
 	CurrentPerk.GrenadeWeaponDef = WMGameReplicationInfo(WorldInfo.GRI).GrenadesList[index].Grenade;
 	// Replace Tripwire medic grenade with ZedternalReborn version to fix bug with sonic resistant rounds
@@ -452,7 +454,7 @@ simulated function CheckPreferredKnife()
 	}
 }
 
-simulated function ChangeKnife(int index)
+reliable client simulated function ChangeKnife(int index)
 {
 	local Inventory Inv;
 	local class<Inventory> KnifeClass;
