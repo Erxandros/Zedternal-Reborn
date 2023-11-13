@@ -24,6 +24,12 @@ static function UpdateConfig()
 	{
 		default.Weapon_bEnable9mmSidearm = True;
 		default.Weapon_bEnable93RSidearm = True;
+
+		default.Weapon_SidearmWeaponDef.Length = 2;
+		default.Weapon_SidearmWeaponDef[0].WeaponPath = "ZedternalReborn.WMWeapDef_9mm_Precious";
+		default.Weapon_SidearmWeaponDef[0].Price = 300;
+		default.Weapon_SidearmWeaponDef[1].WeaponPath = "ZedternalReborn.WMWeapDef_HRG_93R_Precious";
+		default.Weapon_SidearmWeaponDef[1].Price = 300;
 	}
 
 	if (default.MODEVERSION < class'ZedternalReborn.Config_Base'.const.CurrentVersion)
