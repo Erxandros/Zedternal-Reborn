@@ -39,6 +39,30 @@ static function UpdateConfig()
 	}
 }
 
+static function CheckBasicConfigValues()
+{
+	local int i;
+
+	if (!default.Weapon_bEnable9mmSidearm && !default.Weapon_bEnable93RSidearm)
+	{
+		`log("ZR Config Error: Weapon_bEnable9mmSidearm and Weapon_bEnable93RSidearm"
+			@"are currently both set to false which is not supported."
+			@"At least one needs to be true. Setting Weapon_bEnable9mmSidearm to true temporarily.");
+		default.Weapon_bEnable9mmSidearm = True;
+	}
+
+	for (i = 0; i < default.Weapon_SidearmWeaponDef.Length; ++i)
+	{
+		if (default.Weapon_SidearmWeaponDef[i].Price < 0)
+		{
+			LogBadConfigMessage("Weapon_SidearmWeaponDef - Line" @ string(i + 1) @ "- Price",
+				string(default.Weapon_SidearmWeaponDef[i].Price),
+				"0", "0, free", "value >= 0");
+			default.Weapon_SidearmWeaponDef[i].Price = 0;
+		}
+	}
+}
+
 static function LoadConfigObjects(out array<int> SidearmPrice, out array< class<KFWeaponDefinition> > WeaponDefObjects, out array< class<KFWeapon> > WeaponObjects)
 {
 	local int i, Ins;
