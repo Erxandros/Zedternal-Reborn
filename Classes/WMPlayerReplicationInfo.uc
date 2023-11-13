@@ -71,14 +71,40 @@ var bool bPerkTertiarySupplyUsed;
 replication
 {
 	if (bNetDirty && (Role == Role_Authority))
-		bPerkUpgrade, bPerkUpgradeAvailable, bSkillUpgrade, bSkillUnlocked, bSkillDeluxe, bEquipmentUpgrade, bSidearmItem,
-		bWeaponUpgrade_1, bWeaponUpgrade_2, bWeaponUpgrade_3, bWeaponUpgrade_4, bWeaponUpgrade_5,
-		bWeaponUpgrade_6, bWeaponUpgrade_7, bWeaponUpgrade_8, bWeaponUpgrade_9, bWeaponUpgrade_10, bWeaponUpgrade_11,
-		bWeaponUpgrade_12, bWeaponUpgrade_13, bWeaponUpgrade_14, bWeaponUpgrade_15, bWeaponUpgrade_16;
+		bEquipmentUpgrade,
+		bPerkUpgrade,
+		bPerkUpgradeAvailable,
+		bSidearmItem,
+		bSkillDeluxe,
+		bSkillUnlocked,
+		bSkillUpgrade,
+		bWeaponUpgrade_1,
+		bWeaponUpgrade_2,
+		bWeaponUpgrade_3,
+		bWeaponUpgrade_4,
+		bWeaponUpgrade_5,
+		bWeaponUpgrade_6,
+		bWeaponUpgrade_7,
+		bWeaponUpgrade_8,
+		bWeaponUpgrade_9,
+		bWeaponUpgrade_10,
+		bWeaponUpgrade_11,
+		bWeaponUpgrade_12,
+		bWeaponUpgrade_13,
+		bWeaponUpgrade_14,
+		bWeaponUpgrade_15,
+		bWeaponUpgrade_16;
 
 	if (bNetDirty)
-		PerkIconIndex, PlayerLevel, SyncTrigger, RerollSyncTrigger, UncompressedPing, PlayerHealthInt, PlayerArmorInt,
-		PlatformType, RerollCounter;
+		PerkIconIndex,
+		PlatformType,
+		PlayerArmorInt,
+		PlayerHealthInt,
+		PlayerLevel,
+		RerollCounter,
+		RerollSyncTrigger,
+		SyncTrigger,
+		UncompressedPing;
 }
 
 simulated event ReplicatedEvent(name VarName)
