@@ -374,7 +374,7 @@ reliable client simulated function ChangeSidearm(int index)
 
 reliable server function ChangeSidearmServer(int index)
 {
-	Pawn.InvManager.CreateInventory(class<Inventory>(DynamicLoadObject(WMGameReplicationInfo(WorldInfo.GRI).SidearmsList[index].Sidearm.default.WeaponClassPath, class'Class')), Pawn.Weapon != None);
+	WMInventoryManager(Pawn.InvManager).CreateInventorySidearm(class<Inventory>(DynamicLoadObject(WMGameReplicationInfo(WorldInfo.GRI).SidearmsList[index].Sidearm.default.WeaponClassPath, class'Class')), Pawn.Weapon != None);
 }
 
 reliable client function SetPreferredGrenadeTimer()

@@ -19,6 +19,41 @@ simulated function Inventory CreateInventory(class<Inventory> NewInventoryItemCl
 	return Item;
 }
 
+simulated function Inventory CreateInventorySidearm(class<Inventory> NewInventoryItemClass, optional bool bDoNotActivate)
+{
+	local KFWeapon KFW;
+
+	if (bPendingDelete)
+		return None;
+
+	if (class<KFWeapon>(NewInventoryItemClass) != None)
+	{
+		KFW = KFWeapon(Spawn(NewInventoryItemClass, Owner));
+		if (KFW != None)
+		{
+			KFW.InventorySize = 0;
+			KFW.bCanThrow = False;
+			KFW.bDropOnDeath = False;
+			KFW.bIsBackupWeapon = True;
+			if (!AddInventory(KFW, bDoNotActivate))
+			{
+				KFW.Destroy();
+				KFW = None;
+			}
+		}
+
+		UpdateHUD();
+		PlayGiveInventorySound(ItemPickupSound);
+
+		if (KFW != None)
+			CheckForExcessRemoval(KFW);
+
+		return KFW;
+	}
+
+	return None;
+}
+
 simulated event ShowOnlyHUDGroup(byte GroupIndex)
 {
 	local KFGFxMoviePlayer_HUD KFGFxHUD;
