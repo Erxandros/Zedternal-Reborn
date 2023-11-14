@@ -73,6 +73,30 @@ simulated function bool IsPrecious9mmInInventory()
 	return False;
 }
 
+simulated function int GetDisplayedBlocksRequiredFor(const out STraderItem ShopItem, optional int OverrideLevelValue = INDEX_NONE)
+{
+	local int BlocksRequired;
+	local KFPlayerController KFPC;
+	local KFPerk CurrentPerk;
+	local bool IsSidearm;
+
+	IsSidearm = False;
+	KFPC = KFPlayerController(Instigator.Owner);
+	if (KFPC != None)
+	{
+		CurrentPerk = KFPC.GetPerk();
+		if (CurrentPerk != None && Name(Split(CurrentPerk.GetSecondaryWeaponClassPath(), ".", True)) == ShopItem.SingleClassName)
+			IsSidearm = True;
+	}
+
+	BlocksRequired = GetWeaponBlocks(ShopItem, OverrideLevelValue);
+
+	if (!(ShopItem.SingleClassName == '' || IsSidearm) && GetIsOwned(ShopItem.SingleClassName))
+		BlocksRequired /= 2;
+
+	return BlocksRequired;
+}
+
 simulated function int GetAdjustedSellPriceFor(const out STraderItem OwnedItem, optional const array<SItemInformation> TraderOwnedItems)
 {
 	local KFPlayerController KFPC;
