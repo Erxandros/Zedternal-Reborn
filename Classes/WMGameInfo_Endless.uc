@@ -19,6 +19,7 @@ var array<byte> StaticPerks;
 //Weapons
 var array<string> KFWeaponDefPath, StartingWeaponPath;
 var array< class<KFWeaponDefinition> > AllowedWeapons, StartingWeapons;
+var int TraderBaseWeaponCount;
 
 struct S_Weapon_Data
 {
@@ -1936,6 +1937,7 @@ function BuildWeaponList()
 	//Add static and starting weapons
 	if (WeaponIndex.Length > 0)
 	{
+		TraderBaseWeaponCount = WeaponIndex[0];
 		for (i = 0; i < WeaponIndex[0]; ++i)
 		{
 			AddWeaponInTrader(TraderItems.SaleItems[i].WeaponDef);
@@ -2764,7 +2766,7 @@ function RepGameInfoLowPriority()
 	//Weapon unlocks
 	WMGRI.TraderNewWeaponEachWave = class'ZedternalReborn.Config_Trader'.static.GetNewWeaponEachWave(GameDifficultyZedternal);
 	WMGRI.TraderMaxWeaponCount = class'ZedternalReborn.Config_Trader'.static.GetMaxWeapon(GameDifficultyZedternal);
-	WMGRI.TraderStaticWeaponCount = ConfigData.StaticWeaponDefObjects.Length;
+	WMGRI.TraderBaseWeaponCount = TraderBaseWeaponCount;
 
 	//Perks, Skills and Weapons upgrades custom prices
 	WMGRI.PerkUpgMaxLevel = class'ZedternalReborn.Config_PerkUpgradeOptions'.default.PerkUpgrade_Price.Length;

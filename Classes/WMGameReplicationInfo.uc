@@ -187,10 +187,10 @@ var ZedBuffRepStruct ZedBuffsRepArray[255];
 //Replicated Trader Values
 var int ArmorPrice;
 var int GrenadePrice;
+var int TraderBaseWeaponCount;
 var int TraderMaxWeaponCount;
 var int TraderNewWeaponEachWave;
 var int TraderStartingMaxGrenadeCount;
-var int TraderStaticWeaponCount;
 var repnotify byte TraderVoiceGroupIndex;
 
 //Replicated Map Values
@@ -470,10 +470,10 @@ replication
 		SpecialWaveID,
 		SpecialWavesRepArray,
 		StartingWeaponsRepArray,
+		TraderBaseWeaponCount,
 		TraderMaxWeaponCount,
 		TraderNewWeaponEachWave,
 		TraderStartingMaxGrenadeCount,
-		TraderStaticWeaponCount,
 		TraderVoiceGroupIndex,
 		UpdateSkinsTrigger,
 		WeaponUpgNumberUpgradePerWeapon,
@@ -1430,7 +1430,7 @@ simulated function bool IsItemAllowed(STraderItem Item)
 {
 	local int i;
 
-	for (i = 0; i < Min(TraderMaxWeaponCount, (NumberOfStartingWeapons + TraderStaticWeaponCount + (WaveNum + 1) * TraderNewWeaponEachWave)); ++i)
+	for (i = 0; i < Min(TraderMaxWeaponCount, (TraderBaseWeaponCount + (WaveNum + 1) * TraderNewWeaponEachWave)); ++i)
 	{
 		if (Item.ClassName == AllowedWeaponsList[i].WeaponName)
 			return True;
