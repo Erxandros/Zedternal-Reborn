@@ -227,8 +227,6 @@ reliable server function BuySidearm(int ItemDefinition, int Cost)
 			WMPRI.AddDosh(-Cost);
 			WMPRI.SyncTrigger = !WMPRI.SyncTrigger;
 		}
-
-		ChangeSidearm(ItemDefinition);
 	}
 }
 
