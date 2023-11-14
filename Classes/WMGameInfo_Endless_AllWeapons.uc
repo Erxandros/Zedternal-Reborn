@@ -12,11 +12,17 @@ function PickWeapons(out array<int> WeaponIndex)
 
 function CombineWeaponsStartingWeapon(out array<S_Weapon_Data> CombinedWeaponList, out array< class<KFWeaponDefinition> > IgnoreList)
 {
-	local int i;
+	local int i, Ins;
 
 	for (i = 0; i < ConfigData.StartingWeaponObjects.Length; ++i)
 	{
 		StartingWeaponPath.AddItem(PathName(ConfigData.StartingWeaponObjects[i]));
+	}
+
+	for (i = 0; i < ConfigData.StartingWeaponDefObjects.Length; ++i)
+	{
+		if (class'ZedternalReborn.WMBinaryOps'.static.BinarySearchUnique(IgnoreList, PathName(ConfigData.StartingWeaponDefObjects[i]), Ins))
+			IgnoreList.InsertItem(Ins, ConfigData.StartingWeaponDefObjects[i]);
 	}
 
 	CombineWeapons(CombinedWeaponList, ConfigData.StartingWeaponDefObjects, ConfigData.StartingWeaponObjects);
