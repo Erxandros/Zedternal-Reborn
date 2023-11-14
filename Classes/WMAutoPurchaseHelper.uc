@@ -159,7 +159,7 @@ function int AddWeaponToOwnedItemList(STraderItem DefaultItem, optional bool bDo
 	return AddedWeaponIndex;
 }
 
-//Overrides KFAutoPurchaseHelper.RemoveWeaponFromOwnedItemList but uses Zedternal function overrides
+//Overrides KFAutoPurchaseHelper.RemoveWeaponFromOwnedItemList but uses Zedternal function overrides, also fixes dual sidearm selling
 function RemoveWeaponFromOwnedItemList(optional int OwnedListIdx = INDEX_NONE, optional name ClassName, optional bool bDoNotSell)
 {
 	local SItemInformation ItemInfo;
@@ -220,10 +220,8 @@ function RemoveWeaponFromOwnedItemList(optional int OwnedListIdx = INDEX_NONE, o
 	else
 		OwnedItemList.Remove( OwnedListIdx, 1 );
 
-	//now selling duals as we buy them, together.
-
-	// add a single to owned items when removing a dual
-	if (ItemInfo.DefaultItem.SingleClassName == 'KFWeap_Pistol_9mm' || ItemInfo.DefaultItem.SingleClassName == 'KFWeap_HRG_93R')
+	// add a single to owned items when removing a dual sidearm
+	if (KFPawn_Human(Pawn) != None && KFPawn_Human(Pawn).GetPerk() != None && ItemInfo.DefaultItem.SingleClassName == Name(Split(KFPawn_Human(Pawn).GetPerk().GetSecondaryWeaponClassPath(), ".", True)))
 	{
 		// When removing a dual, always add a single to the owned list so that it shows up in the player inventory UI.
 		// If we don't own the single, then also buy it (add it to the transaction list).
