@@ -2519,7 +2519,7 @@ function SetTraderItemsAndPrintWeaponList()
 	`log("ZR Weapon List:");
 	for (i = 0; i < AllowedWeapons.Length; ++i)
 	{
-		`log(GetItemName(AllowedWeapons[i].default.WeaponClassPath) $ "(" $ i $ ")");
+		`log(GetItemName(AllowedWeapons[i].default.WeaponClassPath) $ "(" $ i + 1 $ ")");
 	}
 }
 //Weapon Code End
