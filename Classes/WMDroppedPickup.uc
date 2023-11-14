@@ -125,6 +125,35 @@ function GiveTo(Pawn P)
 		NotifyHUDofWeapon(P);
 }
 
+simulated event SetPickupSkin(int ItemId, bool bFinishedLoading = false)
+{
+	local array<MaterialInterface> SkinMICs;
+
+	if (ItemId > 0 && WorldInfo.NetMode != NM_DedicatedServer && !bWaitingForWeaponSkinLoad)
+	{
+		if (bFinishedLoading || !StartLoadPickupSkin(ItemId))
+		{
+			SkinMICs = class'KFWeaponSkinList'.static.GetWeaponSkin(ItemId, WST_Pickup);
+			if (SkinMICs.Length > 0)
+				MyMeshComp.SetMaterial(0, SkinMICs[0]);
+		}
+	}
+
+	if (IsPreciousVariant())
+		SetUpgradedMaterial();
+
+	if (bEmptyPickup)
+		SetEmptyMaterial();
+}
+
+function bool IsPreciousVariant()
+{
+	if (Len(InventoryClass.Name) >= 8)
+		return Right(InventoryClass.Name, 8) ~= "Precious";
+
+	return False;
+}
+
 defaultproperties
 {
 	Name="Default__WMDroppedPickup"
