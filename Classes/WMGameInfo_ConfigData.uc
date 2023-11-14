@@ -32,6 +32,8 @@ var array< class<KFWeaponDefinition> > GrenadeWeaponDefObjects;
 var array<int> SidearmPrices;
 var array< class<KFWeaponDefinition> > SidearmWeaponDefObjects;
 var array< class<KFWeapon> > SidearmWeaponObjects;
+var array< class<KFWeaponDefinition> > SidearmWeaponOtherDefObjects;
+var array< class<KFWeapon> > SidearmWeaponOtherObjects;
 
 var array< class<KFWeaponDefinition> > StartingWeaponDefObjects;
 var array< class<KFWeapon> > StartingWeaponObjects;
@@ -57,7 +59,7 @@ function InitializeConfigData()
 	class'ZedternalReborn.Config_EquipmentUpgrade'.static.LoadConfigObjects(ValidEquipmentUpgrades, EquipmentUpgObjects);
 	class'ZedternalReborn.Config_WeaponCustom'.static.LoadConfigObjects(CustomWeaponDefObjects, CustomWeaponObjects);
 	class'ZedternalReborn.Config_WeaponGrenade'.static.LoadConfigObjects(GrenadeWeaponDefObjects);
-	class'ZedternalReborn.Config_WeaponSidearm'.static.LoadConfigObjects(SidearmPrices, SidearmWeaponDefObjects, SidearmWeaponObjects);
+	class'ZedternalReborn.Config_WeaponSidearm'.static.LoadConfigObjects(SidearmPrices, SidearmWeaponDefObjects, SidearmWeaponObjects, SidearmWeaponOtherDefObjects, SidearmWeaponOtherObjects);
 	class'ZedternalReborn.Config_WeaponStarting'.static.LoadConfigObjects(StartingWeaponDefObjects, StartingWeaponObjects);
 	class'ZedternalReborn.Config_WeaponStatic'.static.LoadConfigObjects(StaticWeaponDefObjects, StaticWeaponObjects);
 	class'ZedternalReborn.Config_WeaponVariant'.static.LoadConfigObjects(VariantProbs, VarBaseWeaponDefObjects,

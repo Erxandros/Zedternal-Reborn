@@ -2001,6 +2001,10 @@ function int CombineAllWeapons(out array<S_Weapon_Data> CombinedWeaponList)
 	local array< class<KFWeaponDefinition> > BaseWepDef;
 	local array< class<KFWeapon> > BaseWep;
 
+	//Sidearms
+	CombineWeapons(CombinedWeaponList, ConfigData.SidearmWeaponDefObjects, ConfigData.SidearmWeaponObjects);
+	CombineWeapons(CombinedWeaponList, ConfigData.SidearmWeaponOtherDefObjects, ConfigData.SidearmWeaponOtherObjects);
+
 	//Static Weapons
 	CombineWeapons(CombinedWeaponList, ConfigData.StaticWeaponDefObjects, ConfigData.StaticWeaponObjects);
 
@@ -2059,7 +2063,7 @@ function int CombineAllWeapons(out array<S_Weapon_Data> CombinedWeaponList)
 		}
 	}
 
-	return ConfigData.StaticWeaponDefObjects.Length + StartNum;
+	return ConfigData.SidearmWeaponDefObjects.Length + ConfigData.StaticWeaponDefObjects.Length + StartNum;
 }
 
 function CombineWeapons(out array<S_Weapon_Data> CombinedWeaponList, const out array< class<KFWeaponDefinition> > DefArray,

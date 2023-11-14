@@ -8,7 +8,8 @@ var config bool Weapon_bEnable93RSidearm;
 
 struct S_WeaponSidearm
 {
-	var string WeaponPath;
+	var string PrimaryWeaponDefPath;
+	var string SecondaryWeaponDefPath;
 	var int Price;
 
 	structdefaultproperties
@@ -26,9 +27,11 @@ static function UpdateConfig()
 		default.Weapon_bEnable93RSidearm = True;
 
 		default.Weapon_SidearmWeaponDef.Length = 2;
-		default.Weapon_SidearmWeaponDef[0].WeaponPath = "ZedternalReborn.WMWeapDef_9mm_Precious";
+		default.Weapon_SidearmWeaponDef[0].PrimaryWeaponDefPath = "ZedternalReborn.WMWeapDef_9mm_Precious";
+		default.Weapon_SidearmWeaponDef[0].SecondaryWeaponDefPath = "ZedternalReborn.WMWeapDef_9mmDual_Precious";
 		default.Weapon_SidearmWeaponDef[0].Price = 300;
-		default.Weapon_SidearmWeaponDef[1].WeaponPath = "ZedternalReborn.WMWeapDef_HRG_93R_Precious";
+		default.Weapon_SidearmWeaponDef[1].PrimaryWeaponDefPath = "ZedternalReborn.WMWeapDef_HRG_93R_Precious";
+		default.Weapon_SidearmWeaponDef[1].SecondaryWeaponDefPath = "ZedternalReborn.WMWeapDef_HRG_93R_Dual_Precious";
 		default.Weapon_SidearmWeaponDef[1].Price = 300;
 	}
 
@@ -63,7 +66,11 @@ static function CheckBasicConfigValues()
 	}
 }
 
-static function LoadConfigObjects(out array<int> SidearmPrice, out array< class<KFWeaponDefinition> > WeaponDefObjects, out array< class<KFWeapon> > WeaponObjects)
+static function LoadConfigObjects(out array<int> SidearmPrice,
+	out array< class<KFWeaponDefinition> > WeaponDefObjects,
+	out array< class<KFWeapon> > WeaponObjects,
+	out array< class<KFWeaponDefinition> > OtherWeaponDefObjects,
+	out array< class<KFWeapon> > OtherWeaponObjects)
 {
 	local int i, Ins;
 	local class<KFWeaponDefinition> ObjDef;
@@ -72,11 +79,15 @@ static function LoadConfigObjects(out array<int> SidearmPrice, out array< class<
 	SidearmPrice.Length = 0;
 	WeaponDefObjects.Length = 0;
 	WeaponObjects.Length = 0;
+	OtherWeaponDefObjects.Length = 0;
+	OtherWeaponObjects.Length = 0;
 
 	if (default.Weapon_bEnable9mmSidearm)
 	{
 		WeaponDefObjects.AddItem(class'KFGame.KFWeapDef_9mm');
 		WeaponObjects.AddItem(class'KFGameContent.KFWeap_Pistol_9mm');
+		OtherWeaponDefObjects.AddItem(class'KFGame.KFWeapDef_9mmDual');
+		OtherWeaponObjects.AddItem(class'KFGameContent.KFWeap_Pistol_Dual9mm');
 		SidearmPrice.AddItem(0);
 	}
 
@@ -84,22 +95,24 @@ static function LoadConfigObjects(out array<int> SidearmPrice, out array< class<
 	{
 		WeaponDefObjects.AddItem(class'KFGame.KFWeapDef_HRG_93R');
 		WeaponObjects.AddItem(class'KFGameContent.KFWeap_HRG_93R');
+		OtherWeaponDefObjects.AddItem(class'KFGame.KFWeapDef_HRG_93R_Dual');
+		OtherWeaponObjects.AddItem(class'KFGameContent.KFWeap_HRG_93R_Dual');
 		SidearmPrice.AddItem(0);
 	}
 
 	for (i = 0; i < default.Weapon_SidearmWeaponDef.Length; ++i)
 	{
-		ObjDef = class<KFWeaponDefinition>(DynamicLoadObject(default.Weapon_SidearmWeaponDef[i].WeaponPath, class'Class', True));
+		ObjDef = class<KFWeaponDefinition>(DynamicLoadObject(default.Weapon_SidearmWeaponDef[i].PrimaryWeaponDefPath, class'Class', True));
 		if (ObjDef == None)
 		{
-			LogBadLoadObjectConfigMessage("Weapon_SidearmWeaponDef", i + 1, default.Weapon_SidearmWeaponDef[i].WeaponPath);
+			LogBadLoadObjectConfigMessage("Weapon_SidearmWeaponDef", i + 1, default.Weapon_SidearmWeaponDef[i].PrimaryWeaponDefPath);
 			continue;
 		}
 
 		ObjWep = class<KFWeapon>(DynamicLoadObject(ObjDef.default.WeaponClassPath, class'Class', True));
 		if (ObjWep == None)
 		{
-			LogBadLoadWeaponConfigMessage("Weapon_SidearmWeaponDef", i + 1, default.Weapon_SidearmWeaponDef[i].WeaponPath,
+			LogBadLoadWeaponConfigMessage("Weapon_SidearmWeaponDef", i + 1, default.Weapon_SidearmWeaponDef[i].PrimaryWeaponDefPath,
 				ObjDef.default.WeaponClassPath);
 			continue;
 		}
@@ -109,6 +122,30 @@ static function LoadConfigObjects(out array<int> SidearmPrice, out array< class<
 			WeaponDefObjects.InsertItem(Ins, ObjDef);
 			WeaponObjects.InsertItem(Ins, ObjWep);
 			SidearmPrice.InsertItem(Ins, default.Weapon_SidearmWeaponDef[i].Price);
+		}
+
+		if (Len(default.Weapon_SidearmWeaponDef[i].SecondaryWeaponDefPath) > 0)
+		{
+			ObjDef = class<KFWeaponDefinition>(DynamicLoadObject(default.Weapon_SidearmWeaponDef[i].SecondaryWeaponDefPath, class'Class', True));
+			if (ObjDef == None)
+			{
+				LogBadLoadObjectConfigMessage("Weapon_SidearmWeaponDef", i + 1, default.Weapon_SidearmWeaponDef[i].SecondaryWeaponDefPath);
+				continue;
+			}
+
+			ObjWep = class<KFWeapon>(DynamicLoadObject(ObjDef.default.WeaponClassPath, class'Class', True));
+			if (ObjWep == None)
+			{
+				LogBadLoadWeaponConfigMessage("Weapon_SidearmWeaponDef", i + 1, default.Weapon_SidearmWeaponDef[i].SecondaryWeaponDefPath,
+					ObjDef.default.WeaponClassPath);
+				continue;
+			}
+
+			if (class'ZedternalReborn.WMBinaryOps'.static.BinarySearchUnique(WeaponDefObjects, PathName(ObjDef), Ins))
+			{
+				OtherWeaponDefObjects.InsertItem(Ins, ObjDef);
+				OtherWeaponObjects.InsertItem(Ins, ObjWep);
+			}
 		}
 	}
 }
