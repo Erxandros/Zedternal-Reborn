@@ -1921,10 +1921,10 @@ function ClearSpecialWave()
 //Weapon Code Start
 function BuildWeaponList()
 {
-	local int i, Begin;
+	local int i;
 	local array<int> WeaponIndex;
 
-	Begin = InitializeTraderItems(WeaponIndex);
+	InitializeTraderItems(WeaponIndex);
 
 	////////////////////////
 	// Create weapon list //
@@ -1934,22 +1934,25 @@ function BuildWeaponList()
 	WeaponUpgRandPosition = 0;
 
 	//Add static and starting weapons
-	for (i = 0; i < Begin; ++i)
+	if (WeaponIndex.Length > 0)
 	{
-		AddWeaponInTrader(TraderItems.SaleItems[i].WeaponDef);
+		for (i = 0; i < WeaponIndex[0]; ++i)
+		{
+			AddWeaponInTrader(TraderItems.SaleItems[i].WeaponDef);
+		}
 	}
 
-	PickWeapons(WeaponIndex, Begin);
+	PickWeapons(WeaponIndex);
 
 	SetTraderItemsAndPrintWeaponList();
 }
 
-function PickWeapons(out array<int> WeaponIndex, int Begin)
+function PickWeapons(out array<int> WeaponIndex)
 {
 	local int i, x;
 
 	//Adding randomly other weapons
-	for (i = Begin; i < class'ZedternalReborn.Config_Trader'.static.GetMaxWeapon(GameDifficultyZedternal); ++i)
+	for (i = 0; i < class'ZedternalReborn.Config_Trader'.static.GetMaxWeapon(GameDifficultyZedternal); ++i)
 	{
 		if (WeaponIndex.Length > 0)
 		{
@@ -1957,12 +1960,14 @@ function PickWeapons(out array<int> WeaponIndex, int Begin)
 			AddWeaponInTrader(TraderItems.SaleItems[WeaponIndex[x]].WeaponDef);
 			WeaponIndex.Remove(x, 1);
 		}
+		else
+			break;
 	}
 }
 
-function int InitializeTraderItems(out array<int> WeaponIndex)
+function InitializeTraderItems(out array<int> WeaponIndex)
 {
-	local int RandStart;
+	local array< class<KFWeaponDefinition> > IgnoreList;
 	local array<S_Weapon_Data> CombinedWeaponList;
 
 	WeaponIndex.Length = 0;
@@ -1986,38 +1991,49 @@ function int InitializeTraderItems(out array<int> WeaponIndex)
 	// Register Weapons //
 	//////////////////////
 
-	RandStart = CombineAllWeapons(CombinedWeaponList);
+	CombineAllWeapons(CombinedWeaponList, IgnoreList);
 	CheckWeaponList(CombinedWeaponList);
 	ApplyVariantsAndOverrides(CombinedWeaponList);
 	SetStartingWeapons(CombinedWeaponList);
-	RegisterWeapons(CombinedWeaponList, WeaponIndex, RandStart);
-
-	return RandStart;
+	RegisterWeapons(CombinedWeaponList, WeaponIndex, IgnoreList);
 }
 
-function int CombineAllWeapons(out array<S_Weapon_Data> CombinedWeaponList)
+function CombineAllWeapons(out array<S_Weapon_Data> CombinedWeaponList, out array< class<KFWeaponDefinition> > IgnoreList)
 {
-	local int i, x, StartNum;
+	local int i, x;
 	local array< class<KFWeaponDefinition> > BaseWepDef;
 	local array< class<KFWeapon> > BaseWep;
 
 	//Sidearms
 	CombineWeapons(CombinedWeaponList, ConfigData.SidearmWeaponDefObjects, ConfigData.SidearmWeaponObjects);
+	for (i = 0; i < ConfigData.SidearmWeaponDefObjects.Length; ++i)
+	{
+		if (class'ZedternalReborn.WMBinaryOps'.static.BinarySearchUnique(IgnoreList, PathName(ConfigData.SidearmWeaponDefObjects[i]), x))
+			IgnoreList.InsertItem(x, ConfigData.SidearmWeaponDefObjects[i]);
+	}
 	CombineWeapons(CombinedWeaponList, ConfigData.SidearmWeaponOtherDefObjects, ConfigData.SidearmWeaponOtherObjects);
+	for (i = 0; i < ConfigData.SidearmWeaponOtherDefObjects.Length; ++i)
+	{
+		if (class'ZedternalReborn.WMBinaryOps'.static.BinarySearchUnique(IgnoreList, PathName(ConfigData.SidearmWeaponOtherDefObjects[i]), x))
+			IgnoreList.InsertItem(x, ConfigData.SidearmWeaponOtherDefObjects[i]);
+	}
 
 	//Static Weapons
 	CombineWeapons(CombinedWeaponList, ConfigData.StaticWeaponDefObjects, ConfigData.StaticWeaponObjects);
+	for (i = 0; i < ConfigData.StaticWeaponDefObjects.Length; ++i)
+	{
+		if (class'ZedternalReborn.WMBinaryOps'.static.BinarySearchUnique(IgnoreList, PathName(ConfigData.StaticWeaponDefObjects[i]), x))
+			IgnoreList.InsertItem(x, ConfigData.StaticWeaponDefObjects[i]);
+	}
 
 	//Starting Weapons
-	StartNum = CombineWeaponsStartingWeapon(CombinedWeaponList, BaseWepDef, BaseWep);
+	CombineWeaponsStartingWeapon(CombinedWeaponList, IgnoreList);
 
 	//Custom Weapons
 	if (class'ZedternalReborn.Config_WeaponCustom'.default.Weapon_bUseCustomWeaponList)
 		CombineWeapons(CombinedWeaponList, ConfigData.CustomWeaponDefObjects, ConfigData.CustomWeaponObjects);
 
 	//Base Weapons
-	BaseWepDef.Length = 0;
-	BaseWep.Length = 0;
 	for (i = 0; i < DefaultTraderItems.SaleItems.Length; ++i)
 	{
 		if (DefaultTraderItems.SaleItems[i].WeaponDef != None)
@@ -2062,8 +2078,6 @@ function int CombineAllWeapons(out array<S_Weapon_Data> CombinedWeaponList)
 			}
 		}
 	}
-
-	return ConfigData.SidearmWeaponDefObjects.Length + ConfigData.StaticWeaponDefObjects.Length + StartNum;
 }
 
 function CombineWeapons(out array<S_Weapon_Data> CombinedWeaponList, const out array< class<KFWeaponDefinition> > DefArray,
@@ -2134,14 +2148,12 @@ function CombineWeapons(out array<S_Weapon_Data> CombinedWeaponList, const out a
 	}
 }
 
-function int CombineWeaponsStartingWeapon(out array<S_Weapon_Data> CombinedWeaponList, out array< class<KFWeaponDefinition> > BaseWepDef,
-	out array< class<KFWeapon> > BaseWep)
+function CombineWeaponsStartingWeapon(out array<S_Weapon_Data> CombinedWeaponList, out array< class<KFWeaponDefinition> > IgnoreList)
 {
-	local int i, Count, Choice;
+	local int i, Ins, Count, Choice;
 	local array<int> RandList;
-
-	BaseWepDef.Length = 0;
-	BaseWep.Length = 0;
+	local array< class<KFWeaponDefinition> > BaseWepDef;
+	local array< class<KFWeapon> > BaseWep;
 
 	//Starting Weapons
 	for (i = 0; i < ConfigData.StartingWeaponDefObjects.Length; ++i)
@@ -2155,12 +2167,14 @@ function int CombineWeaponsStartingWeapon(out array<S_Weapon_Data> CombinedWeapo
 		BaseWepDef.AddItem(ConfigData.StartingWeaponDefObjects[RandList[Choice]]);
 		BaseWep.AddItem(ConfigData.StartingWeaponObjects[RandList[Choice]]);
 		StartingWeaponPath.AddItem(PathName(BaseWep[i]));
+
+		if (class'ZedternalReborn.WMBinaryOps'.static.BinarySearchUnique(IgnoreList, PathName(ConfigData.StartingWeaponDefObjects[RandList[Choice]]), Ins))
+			IgnoreList.InsertItem(Ins, ConfigData.StartingWeaponDefObjects[RandList[Choice]]);
+
 		RandList.Remove(Choice, 1);
 	}
 
 	CombineWeapons(CombinedWeaponList, BaseWepDef, BaseWep);
-
-	return BaseWepDef.Length;
 }
 
 function CheckWeaponList(out array<S_Weapon_Data> CombinedWeaponList)
@@ -2324,7 +2338,7 @@ function SetStartingWeapons(const out array<S_Weapon_Data> CombinedWeaponList)
 
 	for (i = 0; i < StartingWeaponPath.Length; ++i)
 	{
-		for (x = 0; x < ConfigData.StaticWeaponDefObjects.Length + StartingWeaponPath.Length; ++x)
+		for (x = 0; x < CombinedWeaponList.Length; ++x)
 		{
 			if (StartingWeaponPath[i] ~= PathName(CombinedWeaponList[x].KFWeapSingle))
 			{
@@ -2370,7 +2384,8 @@ function SetStartingWeapons(const out array<S_Weapon_Data> CombinedWeaponList)
 	}
 }
 
-function RegisterWeapons(const out array<S_Weapon_Data> CombinedWeaponList, out array<int> WeaponIndex, int RandStart)
+function RegisterWeapons(const out array<S_Weapon_Data> CombinedWeaponList, out array<int> WeaponIndex,
+	const out array< class<KFWeaponDefinition> > IgnoreList)
 {
 	local int i, IDCount;
 	local STraderItem NewWeapon;
@@ -2387,8 +2402,11 @@ function RegisterWeapons(const out array<S_Weapon_Data> CombinedWeaponList, out 
 		TraderItems.SaleItems.AddItem(NewWeapon);
 		KFWeaponDefPath.AddItem(PathName(NewWeapon.WeaponDef));
 
-		if (IDCount >= RandStart)
+		if (class'ZedternalReborn.WMBinaryOps'.static.BinarySearch(IgnoreList, PathName(CombinedWeaponList[i].KFWeapDefSingle)) == INDEX_NONE
+			&& class'ZedternalReborn.WMBinaryOps'.static.BinarySearch(IgnoreList, PathName(CombinedWeaponList[i].KFWeapDefDual)) == INDEX_NONE)
+		{
 			WeaponIndex.AddItem(i);
+		}
 
 		++IDCount;
 	}

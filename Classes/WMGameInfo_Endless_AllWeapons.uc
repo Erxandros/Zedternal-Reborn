@@ -1,6 +1,6 @@
 class WMGameInfo_Endless_AllWeapons extends WMGameInfo_Endless;
 
-function PickWeapons(out array<int> WeaponIndex, int Begin)
+function PickWeapons(out array<int> WeaponIndex)
 {
 	local int i;
 
@@ -10,8 +10,7 @@ function PickWeapons(out array<int> WeaponIndex, int Begin)
 	}
 }
 
-function int CombineWeaponsStartingWeapon(out array<S_Weapon_Data> CombinedWeaponList, out array< class<KFWeaponDefinition> > BaseWepDef,
-	out array< class<KFWeapon> > BaseWep)
+function CombineWeaponsStartingWeapon(out array<S_Weapon_Data> CombinedWeaponList, out array< class<KFWeaponDefinition> > IgnoreList)
 {
 	local int i;
 
@@ -21,8 +20,6 @@ function int CombineWeaponsStartingWeapon(out array<S_Weapon_Data> CombinedWeapo
 	}
 
 	CombineWeapons(CombinedWeaponList, ConfigData.StartingWeaponDefObjects, ConfigData.StartingWeaponObjects);
-
-	return ConfigData.StartingWeaponDefObjects.Length;
 }
 
 defaultproperties
