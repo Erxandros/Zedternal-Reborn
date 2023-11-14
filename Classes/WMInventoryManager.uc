@@ -18,6 +18,7 @@ simulated function Inventory CreateInventory(class<Inventory> NewInventoryItemCl
 	local Inventory Item;
 
 	Item = super.CreateInventory(NewInventoryItemClass, bDoNotActivate);
+	Item.DroppedPickupClass = class'ZedternalReborn.WMDroppedPickup';
 	CreateAmmoFix(Item);
 	return Item;
 }
@@ -38,6 +39,7 @@ simulated function Inventory CreateInventorySidearm(class<Inventory> NewInventor
 			KFW.bCanThrow = False;
 			KFW.bDropOnDeath = False;
 			KFW.bIsBackupWeapon = True;
+			KFW.DroppedPickupClass = class'ZedternalReborn.WMDroppedPickup';
 			if (!AddInventory(KFW, bDoNotActivate))
 			{
 				KFW.Destroy();
@@ -56,6 +58,19 @@ simulated function Inventory CreateInventorySidearm(class<Inventory> NewInventor
 	}
 
 	return None;
+}
+
+simulated function bool IsPrecious9mmInInventory()
+{
+	local Inventory Inv;
+
+	for (Inv = InventoryChain; Inv != None; Inv = Inv.Inventory)
+	{
+		if (Inv.Class.Name == 'WMWeap_Pistol_9mm_Precious' || Inv.Class.Name == 'WMWeap_Pistol_Dual9mm_Precious')
+			return True;
+	}
+
+	return False;
 }
 
 simulated function int GetAdjustedSellPriceFor(const out STraderItem OwnedItem, optional const array<SItemInformation> TraderOwnedItems)
