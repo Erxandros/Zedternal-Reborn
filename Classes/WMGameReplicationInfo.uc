@@ -1430,7 +1430,7 @@ simulated function bool IsItemAllowed(STraderItem Item)
 {
 	local int i;
 
-	for (i = 0; i < Min(TraderMaxWeaponCount, (TraderBaseWeaponCount + (WaveNum + 1) * TraderNewWeaponEachWave)); ++i)
+	for (i = 0; i < Min(TraderBaseWeaponCount + TraderMaxWeaponCount, (TraderBaseWeaponCount + (WaveNum + 1) * TraderNewWeaponEachWave)); ++i)
 	{
 		if (Item.ClassName == AllowedWeaponsList[i].WeaponName)
 			return True;
