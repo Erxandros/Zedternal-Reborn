@@ -9,6 +9,5 @@ defaultproperties
 	InstantHitDamage(BASH_FIREMODE)=36
 	FireInterval(DEFAULT_FIREMODE)=0.075
 	MinAmmoConsumed=1
-	DroppedPickupClass=class'ZedternalReborn.WMPreciousDroppedPickup'
 	Name="Default__WMWeap_HRG_EMP_ArcGenerator_Precious"
 }

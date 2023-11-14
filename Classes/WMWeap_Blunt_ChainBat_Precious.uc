@@ -5,6 +5,5 @@ defaultproperties
 	InstantHitDamage(BASH_FIREMODE)=102
 	InstantHitDamage(DEFAULT_FIREMODE)=102
 	InstantHitDamage(HEAVY_ATK_FIREMODE)=135
-	DroppedPickupClass=class'ZedternalReborn.WMPreciousDroppedPickup'
 	Name="Default__WMWeap_Blunt_ChainBat_Precious"
 }

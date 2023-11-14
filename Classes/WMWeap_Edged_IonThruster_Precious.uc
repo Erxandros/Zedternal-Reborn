@@ -11,6 +11,5 @@ defaultproperties
 	UltimateChargePerHit(DEFAULT_FIREMODE)=2
 	UltimateChargePerHit(HEAVY_ATK_FIREMODE)=6
 	UltimateChargePerParry=10
-	DroppedPickupClass=class'ZedternalReborn.WMPreciousDroppedPickup'
 	Name="Default__WMWeap_Edged_IonThruster_Precious"
 }

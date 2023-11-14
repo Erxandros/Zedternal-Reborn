@@ -10,6 +10,5 @@ defaultproperties
 	InstantHitDamage(BASH_FIREMODE)=40
 	InstantHitDamage(DEFAULT_FIREMODE)=169
 	WeaponProjectiles(DEFAULT_FIREMODE)=class'ZedternalReborn.WMProj_Rocket_Seeker6_Precious'
-	DroppedPickupClass=class'ZedternalReborn.WMPreciousDroppedPickup'
 	Name="Default__WMWeap_RocketLauncher_Seeker6_Precious"
 }

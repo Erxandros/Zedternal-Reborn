@@ -10,6 +10,5 @@ defaultproperties
 	WeaponProjectiles(CUSTOM_FIREMODE)=class'ZedternalReborn.WMProj_Bullet_BlastBrawlers_Precious'
 	InstantHitDamage(DEFAULT_FIREMODE)=68
 	InstantHitDamage(HEAVY_ATK_FIREMODE)=270
-	DroppedPickupClass=class'ZedternalReborn.WMPreciousDroppedPickup'
 	Name="Default__WMWeap_HRG_BlastBrawlers_Precious"
 }

@@ -11,6 +11,5 @@ defaultproperties
 	WeaponProjectiles(DEFAULT_FIREMODE)=class'ZedternalReborn.WMProj_Blade_Eviscerator_Precious'
 	FireInterval(HEAVY_ATK_FIREMODE)=0.24
 	InstantHitDamage(HEAVY_ATK_FIREMODE)=40
-	DroppedPickupClass=class'ZedternalReborn.WMPreciousDroppedPickup'
 	Name="Default__WMWeap_Eviscerator_Precious"
 }

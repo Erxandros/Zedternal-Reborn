@@ -9,6 +9,5 @@ defaultproperties
 	InstantHitDamage(DEFAULT_FIREMODE)=338
 	WeaponProjectiles(DEFAULT_FIREMODE)=class'ZedternalReborn.WMProj_Bullet_MosinNagant_Precious'
 	InstantHitDamage(HEAVY_ATK_FIREMODE)=68
-	DroppedPickupClass=class'ZedternalReborn.WMPreciousDroppedPickup'
 	Name="Default__WMWeap_Rifle_MosinNagant_Precious"
 }

@@ -13,6 +13,5 @@ defaultproperties
 		Damage=304
 		DamageRadius=650
 	End Object
-	DroppedPickupClass=class'ZedternalReborn.WMPreciousDroppedPickup'
 	Name="Default__WMWeap_Blunt_MedicBat_Precious"
 }

@@ -9,6 +9,5 @@ defaultproperties
 	InstantHitDamage(DEFAULT_FIREMODE)=41
 	WeaponProjectiles(DEFAULT_FIREMODE)=class'ZedternalReborn.WMProj_Bullet_Frost_Shotgun_Axe_Precious'
 	InstantHitDamage(HEAVY_ATK_FIREMODE)=68
-	DroppedPickupClass=class'ZedternalReborn.WMPreciousDroppedPickup'
 	Name="Default__WMWeap_Rifle_FrostShotgunAxe_Precious"
 }

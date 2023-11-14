@@ -8,6 +8,5 @@ defaultproperties
 	InstantHitDamage(BASH_FIREMODE)=36
 	FireInterval(DEFAULT_FIREMODE)=0.06
 	MinAmmoConsumed=2
-	DroppedPickupClass=class'ZedternalReborn.WMPreciousDroppedPickup'
 	Name="Default__WMWeap_ShrinkRayGun_Precious"
 }

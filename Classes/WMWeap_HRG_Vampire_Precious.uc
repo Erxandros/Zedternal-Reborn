@@ -13,6 +13,5 @@ defaultproperties
 	WeaponProjectiles(CUSTOM_FIREMODE)=class'ZedternalReborn.WMProj_BloodBall_HRG_Vampire_Precious'
 	FireInterval(DEFAULT_FIREMODE)=0.075
 	MinAmmoConsumed=2
-	DroppedPickupClass=class'ZedternalReborn.WMPreciousDroppedPickup'
 	Name="Default__WMWeap_HRG_Vampire_Precious"
 }

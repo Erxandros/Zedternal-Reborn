@@ -15,6 +15,5 @@ defaultproperties
 		Damage=270
 		DamageRadius=1040
 	End Object
-	DroppedPickupClass=class'ZedternalReborn.WMPreciousDroppedPickup'
 	Name="Default__WMWeap_Shotgun_S12_Precious"
 }

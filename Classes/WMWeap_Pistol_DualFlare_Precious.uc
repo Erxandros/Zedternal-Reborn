@@ -11,6 +11,5 @@ defaultproperties
 	InstantHitDamage(BASH_FIREMODE)=33
 	InstantHitDamage(DEFAULT_FIREMODE)=54
 	WeaponProjectiles(DEFAULT_FIREMODE)=class'ZedternalReborn.WMProj_FlareGun_Precious'
-	DroppedPickupClass=class'ZedternalReborn.WMPreciousDroppedPickup'
 	Name="Default__WMWeap_Pistol_DualFlare_Precious"
 }

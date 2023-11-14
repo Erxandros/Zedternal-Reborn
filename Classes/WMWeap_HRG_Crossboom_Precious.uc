@@ -10,6 +10,5 @@ defaultproperties
 	FireInterval(DEFAULT_FIREMODE)=0.15
 	InstantHitDamage(DEFAULT_FIREMODE)=15
 	WeaponProjectiles(DEFAULT_FIREMODE)=class'ZedternalReborn.WMProj_Bolt_HRG_Crossboom_Precious'
-	DroppedPickupClass=class'ZedternalReborn.WMPreciousDroppedPickup'
 	Name="Default__WMWeap_HRG_Crossboom_Precious"
 }

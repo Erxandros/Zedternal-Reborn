@@ -32,6 +32,5 @@ defaultproperties
 	InstantHitDamage(BASH_FIREMODE)=27
 	InstantHitDamage(DEFAULT_FIREMODE)=108
 	InstantHitDamage(HEAVY_ATK_FIREMODE)=196
-	DroppedPickupClass=class'ZedternalReborn.WMPreciousDroppedPickup'
 	Name="Default__WMWeap_Blunt_Pulverizer_Precious"
 }

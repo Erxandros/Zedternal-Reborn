@@ -12,6 +12,5 @@ defaultproperties
 		Damage=284
 		DamageRadius=975
 	End Object
-	DroppedPickupClass=class'ZedternalReborn.WMPreciousDroppedPickup'
 	Name="Default__WMWeap_Beam_Microwave_Precious"
 }

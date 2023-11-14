@@ -10,6 +10,5 @@ defaultproperties
 	InstantHitDamage(DEFAULT_FIREMODE)=156
 	WeaponProjectiles(DEFAULT_FIREMODE)=class'ZedternalReborn.WMProj_Blade_BladedPistol_Precious'
 	InstantHitDamage(HEAVY_ATK_FIREMODE)=68
-	DroppedPickupClass=class'ZedternalReborn.WMPreciousDroppedPickup'
 	Name="Default__WMWeap_Pistol_Bladed_Precious"
 }

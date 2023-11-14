@@ -9,6 +9,5 @@ defaultproperties
 	InstantHitDamage(DEFAULT_FIREMODE)=108
 	WeaponProjectiles(DEFAULT_FIREMODE)=class'ZedternalReborn.WMProj_Dosh_Precious'
 	DoshCost=14
-	DroppedPickupClass=class'ZedternalReborn.WMPreciousDroppedPickup'
 	Name="Default__WMWeap_AssaultRifle_Doshinegun_Precious"
 }

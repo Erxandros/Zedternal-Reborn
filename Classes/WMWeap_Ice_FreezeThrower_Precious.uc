@@ -10,6 +10,5 @@ defaultproperties
 	InstantHitDamage(BASH_FIREMODE)=38
 	FireInterval(DEFAULT_FIREMODE)=0.075
 	MinAmmoConsumed=2
-	DroppedPickupClass=class'ZedternalReborn.WMPreciousDroppedPickup'
 	Name="Default__WMWeap_Ice_FreezeThrower_Precious"
 }

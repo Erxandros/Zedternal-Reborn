@@ -10,6 +10,5 @@ defaultproperties
 	FireInterval(DEFAULT_FIREMODE)=0.1
 	InstantHitDamage(DEFAULT_FIREMODE)=375
 	WeaponProjectiles(DEFAULT_FIREMODE)=class'ZedternalReborn.WMProj_Bolt_CompoundBowSharp_Precious'
-	DroppedPickupClass=class'ZedternalReborn.WMPreciousDroppedPickup'
 	Name="Default__WMWeap_Bow_CompoundBow_Precious"
 }

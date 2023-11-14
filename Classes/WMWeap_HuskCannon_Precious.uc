@@ -9,6 +9,5 @@ defaultproperties
 	InstantHitDamage(DEFAULT_FIREMODE)=54
 	WeaponProjectiles(DEFAULT_FIREMODE)=class'ZedternalReborn.WMProj_HuskCannon_Fireball_Precious'
 	MaxChargeTime=0.75
-	DroppedPickupClass=class'ZedternalReborn.WMPreciousDroppedPickup'
 	Name="Default__WMWeap_HuskCannon_Precious"
 }

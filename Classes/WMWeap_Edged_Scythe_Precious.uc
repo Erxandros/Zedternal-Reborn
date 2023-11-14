@@ -19,6 +19,5 @@ defaultproperties
 	FoldedDamageAlt=162
 	UnfoldedDamage=189
 	UnfoldedDamageAlt=257
-	DroppedPickupClass=class'ZedternalReborn.WMPreciousDroppedPickup'
 	Name="Default__WMWeap_Edged_Scythe_Precious"
 }

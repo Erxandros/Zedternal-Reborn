@@ -7,6 +7,5 @@ defaultproperties
 	SpareAmmoCapacity(0)=227
 	InstantHitDamage(BASH_FIREMODE)=37
 	InstantHitDamage(DEFAULT_FIREMODE)=135
-	DroppedPickupClass=class'ZedternalReborn.WMPreciousDroppedPickup'
 	Name="Default__WMWeap_HRG_BallisticBouncer_Precious"
 }
