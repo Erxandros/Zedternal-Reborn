@@ -2213,8 +2213,12 @@ function ApplyVariantsAndOverrides(out array<S_Weapon_Data> CombinedWeaponList)
 
 	for (i = 0; i < CombinedWeaponList.Length; ++i)
 	{
-		if (bAllowWeaponVariant)
+		if (bAllowWeaponVariant
+			&& (CombinedWeaponList[i].KFWeapDefSingle == None || class'ZedternalReborn.WMBinaryOps'.static.BinarySearch(ConfigData.SidearmWeaponDefObjects, PathName(CombinedWeaponList[i].KFWeapDefSingle)) == INDEX_NONE)
+			&& (CombinedWeaponList[i].KFWeapDefDual == None || class'ZedternalReborn.WMBinaryOps'.static.BinarySearch(ConfigData.SidearmWeaponDefObjects, PathName(CombinedWeaponList[i].KFWeapDefDual)) == INDEX_NONE))
+		{
 			CombinedWeaponList[i] = ApplyRandomWeaponVariant(CombinedWeaponList[i]);
+		}
 
 		CombinedWeaponList[i] = CheckForWeaponOverrides(CombinedWeaponList[i]);
 	}
