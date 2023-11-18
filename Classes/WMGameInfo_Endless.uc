@@ -1995,6 +1995,7 @@ function InitializeTraderItems(out array<int> WeaponIndex)
 	CombineAllWeapons(CombinedWeaponList, IgnoreList);
 	CheckWeaponList(CombinedWeaponList);
 	ApplyVariantsAndOverrides(CombinedWeaponList);
+	SetSidearmWeapons(CombinedWeaponList);
 	SetStartingWeapons(CombinedWeaponList);
 	RegisterWeapons(CombinedWeaponList, WeaponIndex, IgnoreList);
 }
@@ -2337,6 +2338,46 @@ function S_Weapon_Data CheckForWeaponOverrides(S_Weapon_Data WepData)
 	return WepData;
 }
 
+function SetSidearmWeapons(const out array<S_Weapon_Data> CombinedWeaponList)
+{
+	local int i, x;
+	local WMGameReplicationInfo WMGRI;
+
+	WMGRI = WMGameReplicationInfo(MyKFGRI);
+	if (WMGRI != None)
+	{
+		for (i = 0; i < ConfigData.SidearmWeaponDefObjects.Length; ++i)
+		{
+			for (x = 0; x < CombinedWeaponList.Length; ++x)
+			{
+				if (PathName(ConfigData.SidearmWeaponDefObjects[i]) ~= PathName(CombinedWeaponList[x].KFWeapDefSingle))
+				{
+					if (CombinedWeaponList[x].bOverride)
+						WMGRI.AddSidearmWeapon(CombinedWeaponList[x].KFWeapDefSingleReplace, ConfigData.SidearmPrices[i]);
+					else
+						WMGRI.AddSidearmWeapon(CombinedWeaponList[x].KFWeapDefSingle, ConfigData.SidearmPrices[i]);
+
+					break;
+				}
+				else if (PathName(ConfigData.SidearmWeaponDefObjects[i]) ~= PathName(CombinedWeaponList[x].KFWeapDefDual))
+				{
+					if (CombinedWeaponList[x].bOverride)
+					{
+						if (CombinedWeaponList[x].KFWeapDefDualReplace != None)
+							WMGRI.AddSidearmWeapon(CombinedWeaponList[x].KFWeapDefDualReplace, ConfigData.SidearmPrices[i]);
+						else
+							WMGRI.AddSidearmWeapon(CombinedWeaponList[x].KFWeapDefSingleReplace, ConfigData.SidearmPrices[i]);
+					}
+					else
+						WMGRI.AddSidearmWeapon(CombinedWeaponList[x].KFWeapDefDual, ConfigData.SidearmPrices[i]);
+
+					break;
+				}
+			}
+		}
+	}
+}
+
 function SetStartingWeapons(const out array<S_Weapon_Data> CombinedWeaponList)
 {
 	local int i, x;
@@ -2544,7 +2585,7 @@ function RepGameInfoHighPriority()
 	WMGRI.NumberOfWeaponUpgradeSlots = Min(`MAXWEAPONUPGRADES, WMGRI.WeaponUpgradeSlotsList.Length);
 	WMGRI.NumberOfEquipmentUpgrades = Min(255, ConfigData.ValidEquipmentUpgrades.Length);
 	WMGRI.NumberOfGrenadeItems = Min(255, ConfigData.GrenadeWeaponDefObjects.Length);
-	WMGRI.NumberOfSidearmItems = Min(255, ConfigData.SidearmWeaponDefObjects.Length);
+	WMGRI.NumberOfSidearmItems = Min(255, WMGRI.SidearmsList.Length);
 	WMGRI.NumberOfSpecialWaves = Min(255, SpecialWaveList.Length);
 	WMGRI.NumberOfZedBuffs = Min(255, ConfigData.ZedBuffObjects.Length);
 
@@ -2555,7 +2596,6 @@ function RepGameInfoHighPriority()
 	WMGRI.WeaponUpgradeSlotsList.Length = WMGRI.NumberOfWeaponUpgradeSlots;
 	WMGRI.EquipmentUpgradesList.Length = WMGRI.NumberOfEquipmentUpgrades;
 	WMGRI.GrenadesList.Length = WMGRI.NumberOfGrenadeItems;
-	WMGRI.SidearmsList.Length = WMGRI.NumberOfSidearmItems;
 	WMGRI.SpecialWavesList.Length = WMGRI.NumberOfSpecialWaves;
 	WMGRI.ZedBuffsList.Length = WMGRI.NumberOfZedBuffs;
 
@@ -2601,15 +2641,11 @@ function RepGameInfoNormalPriority()
 	WMGRI.bGrenadeItemsSynced = True;
 
 	//Sidearms
-	for (b = 0; b < Min(255, ConfigData.SidearmWeaponDefObjects.Length); ++b)
+	for (b = 0; b < Min(255, WMGRI.SidearmsList.Length); ++b)
 	{
-		WMGRI.SidearmsRepArray[b].WeaponPathName = PathName(ConfigData.SidearmWeaponDefObjects[b]);
-		WMGRI.SidearmsRepArray[b].BuyPrice = ConfigData.SidearmPrices[b];
+		WMGRI.SidearmsRepArray[b].WeaponPathName = PathName(WMGRI.SidearmsList[b].Sidearm);
+		WMGRI.SidearmsRepArray[b].BuyPrice = WMGRI.SidearmsList[b].BuyPrice;
 		WMGRI.SidearmsRepArray[b].bValid = True;
-
-		WMGRI.SidearmsList[b].Sidearm = ConfigData.SidearmWeaponDefObjects[b];
-		WMGRI.SidearmsList[b].BuyPrice = ConfigData.SidearmPrices[b];
-		WMGRI.SidearmsList[b].bDone = True;
 	}
 	WMGRI.bSidearmItemsSynced = True;
 

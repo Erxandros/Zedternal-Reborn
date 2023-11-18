@@ -1237,6 +1237,17 @@ simulated function AddAllowedWeapon(const out class<KFWeaponDefinition> KFWD)
 	AllowedWeaponsList.AddItem(NewAllowedWeapon);
 }
 
+simulated function AddSidearmWeapon(const out class<KFWeaponDefinition> KFWD, int BuyPrice)
+{
+	local SidearmItemStruct NewSidearm;
+
+	NewSidearm.Sidearm = KFWD;
+	NewSidearm.BuyPrice = BuyPrice;
+	NewSidearm.bDone = True;
+
+	SidearmsList.AddItem(NewSidearm);
+}
+
 simulated function SetAllTradersTimer()
 {
 	//Run it immediately and check if we should open the trader now
