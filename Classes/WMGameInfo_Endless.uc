@@ -2466,7 +2466,8 @@ function RegisterWeapons(const out array<S_Weapon_Data> CombinedWeaponList, out 
 
 function AddWeaponInTrader(const class<KFWeaponDefinition> KFWD)
 {
-	local int i, Choice;
+	local int i, BuyPrice, Choice;
+	local bool bIsSidearm;
 	local class<KFWeapon> KFW;
 	local array< class<WMUpgrade_Weapon> > AllowedUpgrades, StaticUpgrades;
 	local array<int> AllowedUpgrades_PU, StaticUpgrades_PU;
@@ -2479,7 +2480,27 @@ function AddWeaponInTrader(const class<KFWeaponDefinition> KFWD)
 	KFW = class<KFWeapon>(DynamicLoadObject(KFWD.default.WeaponClassPath, class'Class'));
 	if (WMGRI != None && KFW != None)
 	{
-		WMGRI.AddAllowedWeapon(KFWD);
+		bIsSidearm = False;
+		for (i = 0; i < WMGRI.SidearmsList.Length; ++i)
+		{
+			if (WMGRI.SidearmsList[i].Sidearm.default.WeaponClassPath ~= PathName(KFW))
+			{
+				bIsSidearm = True;
+				BuyPrice = WMGRI.SidearmsList[i].BuyPrice;
+				break;
+			}
+			else if (KFW.default.DualClass != None && WMGRI.SidearmsList[i].Sidearm.default.WeaponClassPath ~= PathName(KFW.default.DualClass))
+			{
+				bIsSidearm = True;
+				BuyPrice = WMGRI.SidearmsList[i].BuyPrice / 2;
+				break;
+			}
+		}
+
+		if (!bIsSidearm)
+			BuyPrice = KFWD.default.BuyPrice;
+
+		WMGRI.AddAllowedWeapon(KFWD, BuyPrice);
 
 		if (WMGRI.WeaponUpgradeSlotsList.Length == `MAXWEAPONUPGRADES)
 			return;
@@ -2512,7 +2533,7 @@ function AddWeaponInTrader(const class<KFWeaponDefinition> KFWD)
 
 			if (StaticUpgrades.Length > 0)
 			{
-				WMGRI.AddWeaponUpgrade(KFW, StaticUpgrades[0], StaticUpgrades_PU[0], StaticUpgrades_PM[0], KFWD.default.BuyPrice, StaticUpgrades_ML[0]);
+				WMGRI.AddWeaponUpgrade(KFW, StaticUpgrades[0], StaticUpgrades_PU[0], StaticUpgrades_PM[0], BuyPrice, StaticUpgrades_ML[0]);
 				StaticUpgrades.Remove(0, 1);
 				StaticUpgrades_PU.Remove(0, 1);
 				StaticUpgrades_PM.Remove(0, 1);
@@ -2521,7 +2542,7 @@ function AddWeaponInTrader(const class<KFWeaponDefinition> KFWD)
 			else if (AllowedUpgrades.Length > 0)
 			{
 				Choice = class'ZedternalReborn.WMRandom'.static.SeedRandom(WeaponUpgRandSeed, WeaponUpgRandPosition, AllowedUpgrades.Length);
-				WMGRI.AddWeaponUpgrade(KFW, AllowedUpgrades[Choice], AllowedUpgrades_PU[Choice], AllowedUpgrades_PM[Choice], KFWD.default.BuyPrice, AllowedUpgrades_ML[Choice]);
+				WMGRI.AddWeaponUpgrade(KFW, AllowedUpgrades[Choice], AllowedUpgrades_PU[Choice], AllowedUpgrades_PM[Choice], BuyPrice, AllowedUpgrades_ML[Choice]);
 				AllowedUpgrades.Remove(Choice, 1);
 				AllowedUpgrades_PU.Remove(Choice, 1);
 				AllowedUpgrades_PM.Remove(Choice, 1);

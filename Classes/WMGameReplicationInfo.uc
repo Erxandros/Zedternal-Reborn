@@ -1225,13 +1225,13 @@ simulated function AddWeaponUpgrade(const out class<KFWeapon> KFW, const out cla
 	WeaponUpgradeSlotsList.AddItem(WepUpg);
 }
 
-simulated function AddAllowedWeapon(const out class<KFWeaponDefinition> KFWD)
+simulated function AddAllowedWeapon(const out class<KFWeaponDefinition> KFWD, int BuyPrice)
 {
 	local AllowedWeaponStruct NewAllowedWeapon;
 
 	NewAllowedWeapon.KFWeaponPath = KFWD.default.WeaponClassPath;
 	NewAllowedWeapon.WeaponName = name(GetItemName(KFWD.default.WeaponClassPath));
-	NewAllowedWeapon.BuyPrice = KFWD.default.BuyPrice;
+	NewAllowedWeapon.BuyPrice = BuyPrice;
 	NewAllowedWeapon.bDone = True;
 
 	AllowedWeaponsList.AddItem(NewAllowedWeapon);
