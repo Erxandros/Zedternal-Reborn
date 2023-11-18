@@ -238,7 +238,7 @@ function AddDefaultInventory(KFPawn P)
 	local int i, choice;
 	local KFInventoryManager KFIM;
 	local WMGameInfo_Endless WMGI;
-	local array< class<KFWeaponDefinition> > StartingWeaponsList;
+	local array<string> StartingWeaponsList;
 
 	if (P != None && P.InvManager != None)
 	{
@@ -251,18 +251,15 @@ function AddDefaultInventory(KFPawn P)
 
 		WMGI = WMGameInfo_Endless(MyKFGI);
 
-		if (WMGI != None && WMGI.StartingWeapons.Length > 0)
+		if (WMGI != None && WMGI.StartingWeaponPath.Length > 0)
 		{
-			StartingWeaponsList = WMGI.StartingWeapons;
+			StartingWeaponsList = WMGI.StartingWeaponPath;
 			for (i = 0; i < class'ZedternalReborn.Config_Player'.static.GetStartingWeaponAmount(Difficulty); ++i)
 			{
 				if (StartingWeaponsList.Length > 0)
 				{
 					choice = Rand(StartingWeaponsList.Length);
-
-					if (StartingWeaponsList[choice] != None)
-						P.DefaultInventory.AddItem(class<Weapon>(DynamicLoadObject(StartingWeaponsList[choice].default.WeaponClassPath, class'Class')));
-
+					P.DefaultInventory.AddItem(class<Weapon>(DynamicLoadObject(StartingWeaponsList[choice], class'Class')));
 					StartingWeaponsList.Remove(choice, 1);
 				}
 				else

@@ -18,7 +18,7 @@ var array<byte> StaticPerks;
 
 //Weapons
 var array<string> KFWeaponDefPath, StartingWeaponPath;
-var array< class<KFWeaponDefinition> > AllowedWeapons, StartingWeapons;
+var array< class<KFWeaponDefinition> > AllowedWeapons;
 var int TraderBaseWeaponCount;
 
 struct S_Weapon_Data
@@ -1190,9 +1190,9 @@ function SetupPickupItems()
 	StartingItemPickups.AddItem(newPickup);
 
 	//Add starting weapons
-	for (i = 0; i < StartingWeapons.Length; ++i)
+	for (i = 0; i < StartingWeaponPath.Length; ++i)
 	{
-		startingWeaponClass = class<KFWeapon>(DynamicLoadObject(StartingWeapons[i].default.WeaponClassPath, class'Class'));
+		startingWeaponClass = class<KFWeapon>(DynamicLoadObject(StartingWeaponPath[i], class'Class'));
 
 		//Test for dual weapon
 		startingWeaponClassDual = class<KFWeap_DualBase>(startingWeaponClass);
@@ -2349,44 +2349,23 @@ function SetStartingWeapons(const out array<S_Weapon_Data> CombinedWeaponList)
 			if (StartingWeaponPath[i] ~= PathName(CombinedWeaponList[x].KFWeapSingle))
 			{
 				if (CombinedWeaponList[x].bVariant || CombinedWeaponList[x].bOverride)
-				{
-					StartingWeapons.AddItem(CombinedWeaponList[x].KFWeapDefSingleReplace);
-					break;
-				}
-				else
-				{
-					StartingWeapons.AddItem(CombinedWeaponList[x].KFWeapDefSingle);
-					break;
-				}
+					StartingWeaponPath[i] = CombinedWeaponList[x].KFWeapDefSingleReplace.default.WeaponClassPath;
+
+				break;
 			}
 			else if (StartingWeaponPath[i] ~= PathName(CombinedWeaponList[x].KFWeapDual))
 			{
 				if (CombinedWeaponList[x].bVariant || CombinedWeaponList[x].bOverride)
 				{
 					if (CombinedWeaponList[x].KFWeapDefDualReplace != None)
-					{
-						StartingWeapons.AddItem(CombinedWeaponList[x].KFWeapDefDualReplace);
-						break;
-					}
+						StartingWeaponPath[i] = CombinedWeaponList[x].KFWeapDefDualReplace.default.WeaponClassPath;
 					else
-					{
-						StartingWeapons.AddItem(CombinedWeaponList[x].KFWeapDefSingleReplace);
-						break;
-					}
+						StartingWeaponPath[i] = CombinedWeaponList[x].KFWeapDefSingleReplace.default.WeaponClassPath;
 				}
-				else
-				{
-					StartingWeapons.AddItem(CombinedWeaponList[x].KFWeapDefDual);
-					break;
-				}
+
+				break;
 			}
 		}
-	}
-
-	StartingWeaponPath.Length = 0;
-	for (i = 0; i < StartingWeapons.Length; ++i)
-	{
-		StartingWeaponPath.AddItem(StartingWeapons[i].default.WeaponClassPath);
 	}
 }
 
