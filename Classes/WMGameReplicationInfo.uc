@@ -1225,6 +1225,18 @@ simulated function AddWeaponUpgrade(const out class<KFWeapon> KFW, const out cla
 	WeaponUpgradeSlotsList.AddItem(WepUpg);
 }
 
+simulated function AddAllowedWeapon(const out class<KFWeaponDefinition> KFWD)
+{
+	local AllowedWeaponStruct NewAllowedWeapon;
+
+	NewAllowedWeapon.KFWeaponPath = KFWD.default.WeaponClassPath;
+	NewAllowedWeapon.WeaponName = name(GetItemName(KFWD.default.WeaponClassPath));
+	NewAllowedWeapon.BuyPrice = KFWD.default.BuyPrice;
+	NewAllowedWeapon.bDone = True;
+
+	AllowedWeaponsList.AddItem(NewAllowedWeapon);
+}
+
 simulated function SetAllTradersTimer()
 {
 	//Run it immediately and check if we should open the trader now
