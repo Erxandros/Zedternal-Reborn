@@ -18,7 +18,8 @@ simulated function Inventory CreateInventory(class<Inventory> NewInventoryItemCl
 	local Inventory Item;
 
 	Item = super.CreateInventory(NewInventoryItemClass, bDoNotActivate);
-	Item.DroppedPickupClass = class'ZedternalReborn.WMDroppedPickup';
+	if (KFWeapon(Item) != None)
+		Item.DroppedPickupClass = class'ZedternalReborn.WMDroppedPickup';
 	CreateAmmoFix(Item);
 	return Item;
 }
