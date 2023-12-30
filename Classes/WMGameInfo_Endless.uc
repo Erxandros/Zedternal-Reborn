@@ -721,7 +721,7 @@ function RestartPlayer(Controller NewPlayer)
 				}
 
 				// Late joiner dosh
-				if (!WMPRI.bHasPlayed && WMPC.Pawn != None && WMPC.Pawn.IsAliveAndWell())
+				if (!WMPRI.bHasPlayed)
 				{
 					if (MyKFGRI.bMatchHasBegun)
 						WMPRI.Score = GetAdjustedDeathPenalty(WMPRI, True);
