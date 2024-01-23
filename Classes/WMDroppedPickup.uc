@@ -69,7 +69,7 @@ function GiveTo(Pawn P)
 					return;
 				}
 
-				if (KFWInvClass != None && KFWInvClass.default.DualClass.Name == WeaponName)
+				if (KFWInvClass != None && KFWInvClass.default.DualClass != None && KFWInvClass.default.DualClass.Name == WeaponName)
 				{
 					if (KFWInvClass.default.DualClass.Name == OwnedSidearmName)
 						break;
