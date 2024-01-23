@@ -1,4 +1,4 @@
-class WMWeap_RocketLauncher_SealSqueal_Precious extends WMWeap_RocketLauncher_SealSqueal;
+class WMWeap_RocketLauncher_SealSqueal_Precious extends KFWeap_RocketLauncher_SealSqueal;
 
 defaultproperties
 {

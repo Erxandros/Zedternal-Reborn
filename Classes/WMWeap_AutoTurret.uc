@@ -107,9 +107,6 @@ function SetOriginalValuesFromPickup(KFWeapon PickedUpWeapon)
 		{
 			WeaponPawn.Instigator = Instigator;
 			WeaponPawn.SetOwner(self);
-
-			if (Instigator.Controller != None)
-				KFPawn_AutoTurret(KFPC.DeployedTurrets[i]).InstigatorController = Instigator.Controller;
 		}
 	}
 

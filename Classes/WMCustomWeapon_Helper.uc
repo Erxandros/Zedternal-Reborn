@@ -109,24 +109,17 @@ defaultproperties
 {
 	//Overrides
 	OverrideDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_AutoTurret",OriginalWeaponDefPath="KFGame.KFWeapDef_AutoTurret"));
-	OverrideDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_Blunderbuss",OriginalWeaponDefPath="KFGame.KFWeapDef_Blunderbuss"));
 	OverrideDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_Doshinegun",OriginalWeaponDefPath="KFGame.KFWeapDef_Doshinegun"));
-	OverrideDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_GravityImploder",OriginalWeaponDefPath="KFGame.KFWeapDef_GravityImploder"));
 	OverrideDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_HRG_BlastBrawlers",OriginalWeaponDefPath="KFGame.KFWeapDef_HRG_BlastBrawlers"));
-	OverrideDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_HRG_Crossboom",OriginalWeaponDefPath="KFGame.KFWeapDef_HRG_Crossboom"));
 	OverrideDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_HRG_Dragonbreath",OriginalWeaponDefPath="KFGame.KFWeapDef_HRG_Dragonbreath"));
-	OverrideDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_HRG_Locust",OriginalWeaponDefPath="KFGame.KFWeapDef_HRG_Locust"));
 	OverrideDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_HRG_MedicMissile",OriginalWeaponDefPath="KFGame.KFWeapDef_HRG_MedicMissile"));
 	OverrideDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_HRG_Warthog",OriginalWeaponDefPath="KFGame.KFWeapDef_HRG_Warthog"));
 	OverrideDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_HRGIncendiaryRifle",OriginalWeaponDefPath="KFGame.KFWeapDef_HRGIncendiaryRifle"));
 	OverrideDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_HRGTeslauncher",OriginalWeaponDefPath="KFGame.KFWeapDef_HRGTeslauncher"));
-	OverrideDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_HuskCannon",OriginalWeaponDefPath="KFGame.KFWeapDef_HuskCannon"));
 	OverrideDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_M16M203",OriginalWeaponDefPath="KFGame.KFWeapDef_M16M203"));
 	OverrideDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_MedicRifleGrenadeLauncher",OriginalWeaponDefPath="KFGame.KFWeapDef_MedicRifleGrenadeLauncher"));
 	OverrideDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_Nailgun",OriginalWeaponDefPath="KFGame.KFWeapDef_Nailgun"));
 	OverrideDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_Nailgun_HRG",OriginalWeaponDefPath="KFGame.KFWeapDef_Nailgun_HRG"));
-	OverrideDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_SealSqueal",OriginalWeaponDefPath="KFGame.KFWeapDef_SealSqueal"));
-	OverrideDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_ThermiteBore",OriginalWeaponDefPath="KFGame.KFWeapDef_ThermiteBore"));
 
 	//Precious Weapons
 	PreciousDefinitions.Add((ZedternalWeaponDefPath="ZedternalReborn.WMWeapDef_9mm_Precious",OriginalWeaponDefPath="KFGame.KFWeapDef_9mm"));

@@ -1,4 +1,4 @@
-class WMWeap_HuskCannon_Precious extends WMWeap_HuskCannon;
+class WMWeap_HuskCannon_Precious extends KFWeap_HuskCannon;
 
 defaultproperties
 {

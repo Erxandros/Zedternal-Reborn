@@ -1,4 +1,4 @@
-class WMProj_HRG_Locust_Precious extends WMProj_HRG_Locust
+class WMProj_HRG_Locust_Precious extends KFProj_HRG_Locust
 	hidedropdown;
 
 defaultproperties

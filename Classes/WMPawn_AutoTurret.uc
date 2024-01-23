@@ -136,6 +136,8 @@ function CheckForTargets()
 
 	TurretWeapon.GetMuzzleLocAndRot(MuzzleLoc, MuzzleRot);
 
+	SetCollisionType(COLLIDE_CustomDefault);
+
 	foreach CollidingActors(class'KFPawn_Monster', CurrentTarget, EffectiveRadius, Location, True, , HitInfo)
 	{
 		if (!CurrentTarget.IsAliveAndWell()
@@ -164,6 +166,8 @@ function CheckForTargets()
 			CurrentDistance = Distance;
 		}
 	}
+
+	SetCollisionType(COLLIDE_NoCollision);
 
 	if (EnemyTarget != None)
 		SetTurretState(ETS_Combat);

@@ -2285,20 +2285,12 @@ function S_Weapon_Data CheckForWeaponOverrides(S_Weapon_Data WepData)
 
 		if (WeapDefinitionPath ~= "KFGame.KFWeapDef_AutoTurret")
 			WeapDefPath[b] = class<KFWeaponDefinition>(DynamicLoadObject("ZedternalReborn.WMWeapDef_AutoTurret", class'Class'));
-		else if (WeapDefinitionPath ~= "KFGame.KFWeapDef_Blunderbuss")
-			WeapDefPath[b] = class<KFWeaponDefinition>(DynamicLoadObject("ZedternalReborn.WMWeapDef_Blunderbuss", class'Class'));
 		else if (WeapDefinitionPath ~= "KFGame.KFWeapDef_Doshinegun")
 			WeapDefPath[b] = class<KFWeaponDefinition>(DynamicLoadObject("ZedternalReborn.WMWeapDef_Doshinegun", class'Class'));
-		else if (WeapDefinitionPath ~= "KFGame.KFWeapDef_GravityImploder")
-			WeapDefPath[b] = class<KFWeaponDefinition>(DynamicLoadObject("ZedternalReborn.WMWeapDef_GravityImploder", class'Class'));
 		else if (WeapDefinitionPath ~= "KFGame.KFWeapDef_HRG_BlastBrawlers")
 			WeapDefPath[b] = class<KFWeaponDefinition>(DynamicLoadObject("ZedternalReborn.WMWeapDef_HRG_BlastBrawlers", class'Class'));
-		else if (WeapDefinitionPath ~= "KFGame.KFWeapDef_HRG_Crossboom")
-			WeapDefPath[b] = class<KFWeaponDefinition>(DynamicLoadObject("ZedternalReborn.WMWeapDef_HRG_Crossboom", class'Class'));
 		else if (WeapDefinitionPath ~= "KFGame.KFWeapDef_HRG_Dragonbreath")
 			WeapDefPath[b] = class<KFWeaponDefinition>(DynamicLoadObject("ZedternalReborn.WMWeapDef_HRG_Dragonbreath", class'Class'));
-		else if (WeapDefinitionPath ~= "KFGame.KFWeapDef_HRG_Locust")
-			WeapDefPath[b] = class<KFWeaponDefinition>(DynamicLoadObject("ZedternalReborn.WMWeapDef_HRG_Locust", class'Class'));
 		else if (WeapDefinitionPath ~= "KFGame.KFWeapDef_HRG_MedicMissile")
 			WeapDefPath[b] = class<KFWeaponDefinition>(DynamicLoadObject("ZedternalReborn.WMWeapDef_HRG_MedicMissile", class'Class'));
 		else if (WeapDefinitionPath ~= "KFGame.KFWeapDef_HRG_Warthog")
@@ -2307,8 +2299,6 @@ function S_Weapon_Data CheckForWeaponOverrides(S_Weapon_Data WepData)
 			WeapDefPath[b] = class<KFWeaponDefinition>(DynamicLoadObject("ZedternalReborn.WMWeapDef_HRGIncendiaryRifle", class'Class'));
 		else if (WeapDefinitionPath ~= "KFGame.KFWeapDef_HRGTeslauncher")
 			WeapDefPath[b] = class<KFWeaponDefinition>(DynamicLoadObject("ZedternalReborn.WMWeapDef_HRGTeslauncher", class'Class'));
-		else if (WeapDefinitionPath ~= "KFGame.KFWeapDef_HuskCannon")
-			WeapDefPath[b] = class<KFWeaponDefinition>(DynamicLoadObject("ZedternalReborn.WMWeapDef_HuskCannon", class'Class'));
 		else if (WeapDefinitionPath ~= "KFGame.KFWeapDef_M16M203")
 			WeapDefPath[b] = class<KFWeaponDefinition>(DynamicLoadObject("ZedternalReborn.WMWeapDef_M16M203", class'Class'));
 		else if (WeapDefinitionPath ~= "KFGame.KFWeapDef_MedicRifleGrenadeLauncher")
@@ -2317,10 +2307,6 @@ function S_Weapon_Data CheckForWeaponOverrides(S_Weapon_Data WepData)
 			WeapDefPath[b] = class<KFWeaponDefinition>(DynamicLoadObject("ZedternalReborn.WMWeapDef_Nailgun", class'Class'));
 		else if (WeapDefinitionPath ~= "KFGame.KFWeapDef_Nailgun_HRG")
 			WeapDefPath[b] = class<KFWeaponDefinition>(DynamicLoadObject("ZedternalReborn.WMWeapDef_Nailgun_HRG", class'Class'));
-		else if (WeapDefinitionPath ~= "KFGame.KFWeapDef_SealSqueal")
-			WeapDefPath[b] = class<KFWeaponDefinition>(DynamicLoadObject("ZedternalReborn.WMWeapDef_SealSqueal", class'Class'));
-		else if (WeapDefinitionPath ~= "KFGame.KFWeapDef_ThermiteBore")
-			WeapDefPath[b] = class<KFWeaponDefinition>(DynamicLoadObject("ZedternalReborn.WMWeapDef_ThermiteBore", class'Class'));
 
 		if (!(WeapDefinitionPath ~= PathName(WeapDefPath[b])))
 		{
