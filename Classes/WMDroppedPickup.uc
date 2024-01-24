@@ -146,7 +146,7 @@ simulated event SetPickupSkin(int ItemId, bool bFinishedLoading = false)
 		SetEmptyMaterial();
 }
 
-function bool IsPreciousVariant()
+simulated function bool IsPreciousVariant()
 {
 	if (Len(InventoryClass.Name) >= 8)
 		return Right(InventoryClass.Name, 8) ~= "Precious";
