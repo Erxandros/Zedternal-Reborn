@@ -16,6 +16,41 @@ simulated function CreateAmmoFix(const out Inventory Inv)
 simulated function Inventory CreateInventory(class<Inventory> NewInventoryItemClass, optional bool bDoNotActivate)
 {
 	local Inventory Item;
+	local WMGameReplicationInfo WMGRI;
+	local KFPerk KFP;
+	local class<KFWeapon> KFWInvClass;
+	local Name OwnedSidearmName, WeaponName;
+	local int i;
+
+	WMGRI = WMGameReplicationInfo(WorldInfo.GRI);
+
+	if (KFPlayerController(Instigator.Owner) != None)
+		KFP = KFPlayerController(Instigator.Owner).GetPerk();
+
+	KFWInvClass = class<KFWeapon>(NewInventoryItemClass);
+	if (WMGRI != None && KFP != None)
+	{
+		OwnedSidearmName = Name(Split(KFP.GetSecondaryWeaponClassPath(), ".", True));
+		for (i = 0; i < WMGRI.SidearmsList.Length; ++i)
+		{
+			WeaponName = Name(Split(WMGRI.SidearmsList[i].Sidearm.default.WeaponClassPath, ".", True));
+			if (NewInventoryItemClass.Name == WeaponName)
+			{
+				if (NewInventoryItemClass.Name == OwnedSidearmName)
+					break;
+
+				return None;
+			}
+
+			if (KFWInvClass != None && KFWInvClass.default.DualClass != None && KFWInvClass.default.DualClass.Name == WeaponName)
+			{
+				if (KFWInvClass.default.DualClass.Name == OwnedSidearmName)
+					break;
+
+				return None;
+			}
+		}
+	}
 
 	Item = super.CreateInventory(NewInventoryItemClass, bDoNotActivate);
 	if (KFWeapon(Item) != None)
