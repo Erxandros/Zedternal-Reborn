@@ -176,6 +176,15 @@ function bool AddArmor(int Amount)
 	}
 }
 
+reliable server function DeleteFromInventory(Inventory ItemToRemove)
+{
+	if (Role == ROLE_Authority)
+	{
+		RemoveFromInventory(ItemToRemove);
+		ItemToRemove.Destroy();
+	}
+}
+
 ////////
 //Copy and pasted from KFInventoryManager, but converted to Zedternal functions to turn bytes into ints to support a larger trader weapon list
 ////////

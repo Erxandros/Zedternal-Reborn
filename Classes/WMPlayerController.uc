@@ -352,7 +352,7 @@ reliable client simulated function ChangeSidearm(int index)
 			if (CurrentPerk.GetSecondaryWeaponClassPath() ~= PathName(Inv.Class)
 				|| (KFWeap_DualBase(Inv) != None && CurrentPerk.GetSecondaryWeaponClassPath() ~= PathName(KFWeap_DualBase(Inv).default.SingleClass)))
 			{
-				KFInventoryManager(Pawn.InvManager).ServerRemoveFromInventory(Inv);
+				WMInventoryManager(Pawn.InvManager).DeleteFromInventory(Inv);
 				break;
 			}
 		}
@@ -467,7 +467,7 @@ reliable client simulated function ChangeKnife(int index)
 			{
 				if (CurrentPerk.GetKnifeWeaponClassPath() ~= PathName(Inv.Class))
 				{
-					KFInventoryManager(Pawn.InvManager).ServerRemoveFromInventory(Inv);
+					WMInventoryManager(Pawn.InvManager).DeleteFromInventory(Inv);
 					break;
 				}
 			}
