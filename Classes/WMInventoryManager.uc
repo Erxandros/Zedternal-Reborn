@@ -55,10 +55,28 @@ simulated function Inventory CreateInventorySidearm(class<Inventory> NewInventor
 			CheckForExcessRemoval(KFW);
 
 		CreateAmmoFix(KFW);
+		SyncSidearmStats(KFW);
 		return KFW;
 	}
 
 	return None;
+}
+
+reliable client function SyncSidearmStats(KFWeapon KFW)
+{
+	local KFWeapon KFW_Local;
+
+	foreach DynamicActors(class'KFWeapon', KFW_Local)
+	{
+		if (KFW_Local == KFW)
+		{
+			KFW_Local.InventorySize = 0;
+			KFW_Local.bCanThrow = False;
+			KFW_Local.bDropOnDeath = False;
+			KFW_Local.bIsBackupWeapon = True;
+			break;
+		}
+	}
 }
 
 simulated function bool IsPrecious9mmInInventory()
