@@ -38,6 +38,5 @@ function float AdjustPlayerNameScaler(float Scaler, byte NameLength, byte FontTy
 
 defaultproperties
 {
-	MaxFontScale=5
 	Name="Default__WMGFxScoreBoardStyle"
 }

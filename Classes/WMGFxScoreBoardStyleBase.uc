@@ -2,7 +2,6 @@ Class WMGFxScoreBoardStyleBase extends Actor
 	abstract;
 
 var Texture2D ItemTex;
-var() byte MaxFontScale;
 var byte DefaultFontSize; // Default medium font size of current resolution.
 var float DefaultHeight; // Default font text size.
 var transient Canvas ScoreBoardCanvas; // The ScoreBoardCanvas canvas object
