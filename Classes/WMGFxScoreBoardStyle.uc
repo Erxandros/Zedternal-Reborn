@@ -2,8 +2,6 @@ Class WMGFxScoreBoardStyle extends WMGFxScoreBoardStyleBase;
 
 var Font DrawFont;
 
-const TOOLTIP_BORDER = 4;
-
 function PostBeginPlay()
 {
 	Super.PostBeginPlay();
