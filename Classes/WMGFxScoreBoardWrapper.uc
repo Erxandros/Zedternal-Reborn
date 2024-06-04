@@ -24,7 +24,7 @@ exec function SetShowScores(bool show)
 	bShowScores = show;	// TWI don't set this
 }
 
-exec function DebugZRScoreBoard()
+exec function ZRDebugScoreBoard()
 {
 	local Vector2D ViewportSize;
 	local GFXSettings Settings;
