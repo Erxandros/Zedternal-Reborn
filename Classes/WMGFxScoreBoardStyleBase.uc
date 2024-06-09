@@ -3,6 +3,7 @@ Class WMGFxScoreBoardStyleBase extends Actor
 
 var Texture2D ItemTex;
 var byte DefaultFontSize; // Default medium font size of current resolution.
+var int OverrideFontSize; // A user settable override for the font size
 var float DefaultHeight; // Default font text size.
 var transient Canvas ScoreBoardCanvas; // The ScoreBoardCanvas canvas object
 
@@ -21,7 +22,10 @@ function PickDefaultFontSize(float XRes, float YRes)
 	local int XL, YL;
 	local string S;
 
-	DefaultFontSize = (int(XRes) * int(YRes)) / 500000;
+	if (OverrideFontSize == INDEX_NONE)
+		DefaultFontSize = (int(XRes) * int(YRes)) / 500000;
+	else
+		DefaultFontSize = OverrideFontSize;
 	S = "ABC";
 	PickFont(DefaultFontSize, YRes).GetStringHeightAndWidth(S, YL, XL);
 	DefaultHeight = float(YL) * YRes;
@@ -152,5 +156,7 @@ final function DrawRectBox(int X, int Y, int XS, int YS, int Edge, optional byte
 
 defaultproperties
 {
+	OverrideFontSize=INDEX_NONE
+
 	Name="Default__WMGFxScoreBoardStyleBase"
 }

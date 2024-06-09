@@ -41,6 +41,19 @@ exec function ZRDebugScoreBoard()
 	LocalPlayer(PlayerOwner.Player).ViewportClient.ViewportConsole.OutputText("Resolution Y:"@Settings.Resolution.ResY);
 }
 
+exec function ZRSetScoreBoardSize(int FontSize)
+{
+	if (FontSize >= 0 && FontSize < 256)
+	{
+		ScoreBoard.OverrideFontSize = FontSize;
+		LocalPlayer(PlayerOwner.Player).ViewportClient.ViewportConsole.OutputText("Set score board font size to" @ FontSize);
+	}
+	else
+	{
+		LocalPlayer(PlayerOwner.Player).ViewportClient.ViewportConsole.OutputText("Font size must be between 0 to 255");
+	}
+}
+
 defaultproperties
 {
 	Name="Default__WMGFxScoreBoardWrapper"
