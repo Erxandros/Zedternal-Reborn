@@ -23,7 +23,7 @@ function PickDefaultFontSize(float XRes, float YRes)
 	local string S;
 
 	if (OverrideFontSize == INDEX_NONE)
-		DefaultFontSize = (int(XRes) * int(YRes)) / 500000;
+		DefaultFontSize = Round(XRes / 120.0f);
 	else
 		DefaultFontSize = OverrideFontSize;
 	S = "ABC";
