@@ -54,6 +54,12 @@ exec function ZRSetScoreBoardSize(int FontSize)
 	}
 }
 
+exec function ZRClearScoreBoardSize()
+{
+	ScoreBoard.OverrideFontSize = INDEX_NONE;
+	LocalPlayer(PlayerOwner.Player).ViewportClient.ViewportConsole.OutputText("Score board override font size reset back to auto scaling");
+}
+
 defaultproperties
 {
 	Name="Default__WMGFxScoreBoardWrapper"
