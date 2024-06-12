@@ -32,8 +32,7 @@ exec function ZRDebugScoreBoard()
 
 	LocalPlayer(PlayerOwner.Player).ViewportClient.GetViewportSize(ViewportSize);
 	class'KFGFxOptionsMenu_Graphics'.static.GetCurrentNativeSettings(Settings);
-	ScoreBoard.PickDefaultFontSize(ViewportSize.X, ViewportSize.Y);
-	ScoreBoard.PickFont(ScoreBoard.DefaultFontSize, Scaler);
+	ScoreBoard.PickDefaultFontSize(Scaler);
 
 	LocalPlayer(PlayerOwner.Player).ViewportClient.ViewportConsole.OutputText("Font Size:"@ScoreBoard.DefaultFontSize);
 	LocalPlayer(PlayerOwner.Player).ViewportClient.ViewportConsole.OutputText("Font Scaler:"@Scaler);

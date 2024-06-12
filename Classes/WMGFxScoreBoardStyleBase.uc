@@ -17,24 +17,21 @@ function PostBeginPlay()
 	DrawFont = class'KFGameEngine'.Static.GetKFCanvasFont();
 }
 
-function Font PickFont(byte i, out float Scaler)
-{
-	Scaler = 0.05f + 0.05f * i;
-	return DrawFont;
-}
-
-function PickDefaultFontSize(float XRes, float YRes)
+function PickDefaultFontSize(out float Scaler)
 {
 	local int XL, YL;
 	local string S;
 
 	if (OverrideFontSize == INDEX_NONE)
-		DefaultFontSize = Round(XRes / 120.0f);
+		DefaultFontSize = Round(ScoreBoardCanvas.SizeX / 120.0f);
 	else
 		DefaultFontSize = OverrideFontSize;
+
+	Scaler = 0.05f + 0.05f * DefaultFontSize;
+
 	S = "ABC";
-	PickFont(DefaultFontSize, YRes).GetStringHeightAndWidth(S, YL, XL);
-	DefaultHeight = float(YL) * YRes;
+	DrawFont.GetStringHeightAndWidth(S, YL, XL);
+	DefaultHeight = float(YL) * Scaler;
 }
 
 function float AdjustPlayerNameScaler(float Scaler, byte NameLength, byte FontType)

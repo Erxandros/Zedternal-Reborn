@@ -96,8 +96,6 @@ event Draw(Canvas ca)
 	local float XPos, YPos, XL, YL, FontScalar, XPosCenter;
 	local int i, j, PlayerIndex, NumSpec, NumPlayer, NumAlivePlayer, Width;
 
-	PickDefaultFontSize(ScoreBoardCanvas.SizeX, ScoreBoardCanvas.SizeY);
-
 	// Get the current KFGameReplicationInfo
 	PC = GetPlayer();
 	if (KFGRI == None)
@@ -150,7 +148,9 @@ event Draw(Canvas ca)
 
 	////// Header font info
 	ScoreBoardCanvas = ca;
-	ScoreBoardCanvas.Font = PickFont(DefaultFontSize, FontScalar);
+	ScoreBoardCanvas.Font = DrawFont;
+
+	PickDefaultFontSize(FontScalar);
 
 	YL = DefaultHeight;
 	XPosCenter = (ScoreBoardCanvas.ClipX * 0.5);
