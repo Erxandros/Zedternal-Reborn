@@ -1,12 +1,15 @@
 Class WMGFxScoreBoardStyleBase extends Actor
 	abstract;
 
-var Texture2D ItemTex;
-var byte DefaultFontSize; // Default medium font size of current resolution.
 var int OverrideFontSize; // A user settable override for the font size
-var float DefaultHeight; // Default font text size.
-var transient Canvas ScoreBoardCanvas; // The ScoreBoardCanvas canvas object
+
+var Texture2D ItemTex;
 var Font DrawFont; // The KF2 Canvas Font
+
+var transient byte DefaultFontSize; // Default font size for the current resolution.
+var transient float DefaultHeight; // Default font height size for the current resolution.
+var transient float NativeToViewportRatio; // The ratio to the native resolution to view port resolution.
+var transient Canvas ScoreBoardCanvas; // The ScoreBoardCanvas canvas object
 
 function PostBeginPlay()
 {
@@ -27,17 +30,27 @@ static function GetNativeResolution(out IntPoint resolution)
 	resolution.Y = Settings.Resolution.ResY;
 }
 
-function PickDefaultFontSize(float SizeX, float SizeY, out float Scaler)
+function PickDefaultFontSize(int SizeX, int SizeY, out float Scaler)
 {
+	local IntPoint NativeResolution;
 	local int XL, YL;
 	local string S;
 
+	GetNativeResolution(NativeResolution);
+
 	if (OverrideFontSize == INDEX_NONE)
-		DefaultFontSize = Round(SizeX / 120.0f);
+		DefaultFontSize = Round(float(NativeResolution.X) / 120.0f);
 	else
 		DefaultFontSize = OverrideFontSize;
 
 	Scaler = 0.05f + 0.05f * DefaultFontSize;
+
+	NativeToViewportRatio = 0.0f;
+	if (NativeResolution.X > SizeX || NativeResolution.Y > SizeY)
+			NativeToViewportRatio = float(NativeResolution.X * NativeResolution.Y) / float(SizeX * SizeY);
+
+	if (NativeToViewportRatio > 0)
+		Scaler = Scaler / NativeToViewportRatio;
 
 	S = "ABC";
 	DrawFont.GetStringHeightAndWidth(S, YL, XL);

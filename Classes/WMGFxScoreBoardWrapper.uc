@@ -34,6 +34,7 @@ exec function ZRDebugScoreBoard()
 
 	LocalPlayer(PlayerOwner.Player).ViewportClient.ViewportConsole.OutputText("Font Size:"@ScoreBoard.DefaultFontSize);
 	LocalPlayer(PlayerOwner.Player).ViewportClient.ViewportConsole.OutputText("Font Scaler:"@Scaler);
+	LocalPlayer(PlayerOwner.Player).ViewportClient.ViewportConsole.OutputText("NativeToViewPort Ratio:"@ScoreBoard.NativeToViewportRatio);
 	LocalPlayer(PlayerOwner.Player).ViewportClient.ViewportConsole.OutputText("ViewPort X:"@SizeX);
 	LocalPlayer(PlayerOwner.Player).ViewportClient.ViewportConsole.OutputText("ViewPort Y:"@SizeY);
 	LocalPlayer(PlayerOwner.Player).ViewportClient.ViewportConsole.OutputText("Resolution X:"@NativeResolution.X);
