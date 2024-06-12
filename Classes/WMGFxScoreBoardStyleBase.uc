@@ -17,6 +17,16 @@ function PostBeginPlay()
 	DrawFont = class'KFGameEngine'.Static.GetKFCanvasFont();
 }
 
+static function GetNativeResolution(out IntPoint resolution)
+{
+	local GFXSettings Settings;
+
+	class'KFGFxOptionsMenu_Graphics'.static.GetCurrentNativeSettings(Settings);
+
+	resolution.X = Settings.Resolution.ResX;
+	resolution.Y = Settings.Resolution.ResY;
+}
+
 function PickDefaultFontSize(float SizeX, float SizeY, out float Scaler)
 {
 	local int XL, YL;

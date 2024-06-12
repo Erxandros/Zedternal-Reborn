@@ -26,18 +26,18 @@ exec function SetShowScores(bool show)
 
 exec function ZRDebugScoreBoard()
 {
-	local GFXSettings Settings;
+	local IntPoint NativeResolution;
 	local float Scaler;
 
-	class'KFGFxOptionsMenu_Graphics'.static.GetCurrentNativeSettings(Settings);
+	ScoreBoard.GetNativeResolution(NativeResolution);
 	ScoreBoard.PickDefaultFontSize(SizeX, SizeY, Scaler);
 
 	LocalPlayer(PlayerOwner.Player).ViewportClient.ViewportConsole.OutputText("Font Size:"@ScoreBoard.DefaultFontSize);
 	LocalPlayer(PlayerOwner.Player).ViewportClient.ViewportConsole.OutputText("Font Scaler:"@Scaler);
 	LocalPlayer(PlayerOwner.Player).ViewportClient.ViewportConsole.OutputText("ViewPort X:"@SizeX);
 	LocalPlayer(PlayerOwner.Player).ViewportClient.ViewportConsole.OutputText("ViewPort Y:"@SizeY);
-	LocalPlayer(PlayerOwner.Player).ViewportClient.ViewportConsole.OutputText("Resolution X:"@Settings.Resolution.ResX);
-	LocalPlayer(PlayerOwner.Player).ViewportClient.ViewportConsole.OutputText("Resolution Y:"@Settings.Resolution.ResY);
+	LocalPlayer(PlayerOwner.Player).ViewportClient.ViewportConsole.OutputText("Resolution X:"@NativeResolution.X);
+	LocalPlayer(PlayerOwner.Player).ViewportClient.ViewportConsole.OutputText("Resolution Y:"@NativeResolution.Y);
 }
 
 exec function ZRSetScoreBoardSize(int FontSize)
