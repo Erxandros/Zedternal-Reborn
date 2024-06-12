@@ -56,14 +56,6 @@ function float AdjustPlayerNameScaler(float Scaler, byte NameLength, byte FontTy
 		return Scaler;
 }
 
-final function DrawText(byte Res, string S)
-{
-	local float Scale;
-
-	ScoreBoardCanvas.Font = PickFont(Res, Scale);
-	ScoreBoardCanvas.DrawText(S, , Scale, Scale);
-}
-
 final function DrawCornerTexNU(int SizeX, int SizeY, byte Dir) // Draw non-uniform corner.
 {
 	switch (Dir)
