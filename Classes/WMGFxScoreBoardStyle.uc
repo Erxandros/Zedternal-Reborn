@@ -11,7 +11,7 @@ function PostBeginPlay()
 
 function Font PickFont(byte i, out float Scaler)
 {
-	Scaler = 0.4 + 0.1 * i;
+	Scaler = 0.05f + 0.05f * i;
 	return DrawFont;
 }
 
