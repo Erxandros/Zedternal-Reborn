@@ -32,11 +32,12 @@ exec function ZRDebugScoreBoard()
 	ScoreBoard.GetNativeResolution(NativeResolution);
 	ScoreBoard.PickDefaultFontSize(SizeX, SizeY, Scaler);
 
+	LocalPlayer(PlayerOwner.Player).ViewportClient.ViewportConsole.OutputText("Font Override Enabled:"@ScoreBoard.OverrideFontSize != INDEX_NONE);
 	LocalPlayer(PlayerOwner.Player).ViewportClient.ViewportConsole.OutputText("Font Size:"@ScoreBoard.DefaultFontSize);
 	LocalPlayer(PlayerOwner.Player).ViewportClient.ViewportConsole.OutputText("Font Scaler:"@Scaler);
 	LocalPlayer(PlayerOwner.Player).ViewportClient.ViewportConsole.OutputText("NativeToViewPort Ratio:"@ScoreBoard.NativeToViewportRatio);
-	LocalPlayer(PlayerOwner.Player).ViewportClient.ViewportConsole.OutputText("ViewPort X:"@SizeX);
-	LocalPlayer(PlayerOwner.Player).ViewportClient.ViewportConsole.OutputText("ViewPort Y:"@SizeY);
+	LocalPlayer(PlayerOwner.Player).ViewportClient.ViewportConsole.OutputText("ViewPort X:"@int(SizeX));
+	LocalPlayer(PlayerOwner.Player).ViewportClient.ViewportConsole.OutputText("ViewPort Y:"@int(SizeY));
 	LocalPlayer(PlayerOwner.Player).ViewportClient.ViewportConsole.OutputText("Resolution X:"@NativeResolution.X);
 	LocalPlayer(PlayerOwner.Player).ViewportClient.ViewportConsole.OutputText("Resolution Y:"@NativeResolution.Y);
 }
