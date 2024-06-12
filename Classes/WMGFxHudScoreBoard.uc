@@ -1,4 +1,4 @@
-class WMGFxHudScoreBoard extends WMGFxScoreBoardStyle;
+class WMGFxHudScoreBoard extends WMGFxScoreBoardStyleBase;
 
 var transient float PerkXPos, PlayerXPos, KillsXPos, AssistXPos, CashXPos, HealthXPos, ArmorXPos, PingXPos, PlatformXPos;
 

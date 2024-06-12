@@ -6,6 +6,7 @@ var byte DefaultFontSize; // Default medium font size of current resolution.
 var int OverrideFontSize; // A user settable override for the font size
 var float DefaultHeight; // Default font text size.
 var transient Canvas ScoreBoardCanvas; // The ScoreBoardCanvas canvas object
+var Font DrawFont; // The KF2 Canvas Font
 
 function PostBeginPlay()
 {
@@ -13,9 +14,14 @@ function PostBeginPlay()
 	ItemTex = Texture2D(DynamicLoadObject("UI_LevelChevrons_TEX.UI_LevelChevron_Icon_02", class'Texture2D'));
 	if (ItemTex == None)
 		ItemTex = Texture2D'EngineMaterials.DefaultWhiteGrid';
+	DrawFont = class'KFGameEngine'.Static.GetKFCanvasFont();
 }
 
-function Font PickFont(byte i, out float Scaler);
+function Font PickFont(byte i, out float Scaler)
+{
+	Scaler = 0.05f + 0.05f * i;
+	return DrawFont;
+}
 
 function PickDefaultFontSize(float XRes, float YRes)
 {
@@ -29,6 +35,25 @@ function PickDefaultFontSize(float XRes, float YRes)
 	S = "ABC";
 	PickFont(DefaultFontSize, YRes).GetStringHeightAndWidth(S, YL, XL);
 	DefaultHeight = float(YL) * YRes;
+}
+
+function float AdjustPlayerNameScaler(float Scaler, byte NameLength, byte FontType)
+{
+	local float modifer;
+
+	if (FontType == 0)
+		modifer = 0.25;
+	else if (FontType == 1)
+		modifer = 0.1875;
+	else
+		modifer = 0.0;
+
+	if (NameLength > 24)
+		return Scaler * 0.625 + modifer;
+	else if (NameLength > 16)
+		return Scaler * 0.75 + modifer;
+	else
+		return Scaler;
 }
 
 final function DrawText(byte Res, string S)
