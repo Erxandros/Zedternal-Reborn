@@ -30,12 +30,12 @@ exec function ZRDebugScoreBoard()
 	local float Scaler;
 
 	class'KFGFxOptionsMenu_Graphics'.static.GetCurrentNativeSettings(Settings);
-	ScoreBoard.PickDefaultFontSize(Scaler);
+	ScoreBoard.PickDefaultFontSize(SizeX, SizeY, Scaler);
 
 	LocalPlayer(PlayerOwner.Player).ViewportClient.ViewportConsole.OutputText("Font Size:"@ScoreBoard.DefaultFontSize);
 	LocalPlayer(PlayerOwner.Player).ViewportClient.ViewportConsole.OutputText("Font Scaler:"@Scaler);
-	LocalPlayer(PlayerOwner.Player).ViewportClient.ViewportConsole.OutputText("ViewPort X:"@ScoreBoard.ScoreBoardCanvas.SizeX);
-	LocalPlayer(PlayerOwner.Player).ViewportClient.ViewportConsole.OutputText("ViewPort Y:"@ScoreBoard.ScoreBoardCanvas.SizeY);
+	LocalPlayer(PlayerOwner.Player).ViewportClient.ViewportConsole.OutputText("ViewPort X:"@SizeX);
+	LocalPlayer(PlayerOwner.Player).ViewportClient.ViewportConsole.OutputText("ViewPort Y:"@SizeY);
 	LocalPlayer(PlayerOwner.Player).ViewportClient.ViewportConsole.OutputText("Resolution X:"@Settings.Resolution.ResX);
 	LocalPlayer(PlayerOwner.Player).ViewportClient.ViewportConsole.OutputText("Resolution Y:"@Settings.Resolution.ResY);
 }

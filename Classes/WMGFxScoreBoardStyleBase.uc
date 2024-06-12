@@ -17,13 +17,13 @@ function PostBeginPlay()
 	DrawFont = class'KFGameEngine'.Static.GetKFCanvasFont();
 }
 
-function PickDefaultFontSize(out float Scaler)
+function PickDefaultFontSize(float SizeX, float SizeY, out float Scaler)
 {
 	local int XL, YL;
 	local string S;
 
 	if (OverrideFontSize == INDEX_NONE)
-		DefaultFontSize = Round(ScoreBoardCanvas.SizeX / 120.0f);
+		DefaultFontSize = Round(SizeX / 120.0f);
 	else
 		DefaultFontSize = OverrideFontSize;
 

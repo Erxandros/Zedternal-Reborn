@@ -86,7 +86,7 @@ final function QuickSort(out array<PlayerReplicationInfo> PRIArray, int low, int
 	}
 }
 
-event Draw(Canvas ca)
+event Draw(Canvas canvas)
 {
 	local String S;
 	local PlayerController PC;
@@ -147,10 +147,10 @@ event Draw(Canvas ca)
 	//////
 
 	////// Header font info
-	ScoreBoardCanvas = ca;
+	ScoreBoardCanvas = canvas;
 	ScoreBoardCanvas.Font = DrawFont;
 
-	PickDefaultFontSize(FontScalar);
+	PickDefaultFontSize(canvas.SizeX, canvas.SizeY, FontScalar);
 
 	YL = DefaultHeight;
 	XPosCenter = (ScoreBoardCanvas.ClipX * 0.5);
