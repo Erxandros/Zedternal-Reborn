@@ -32,7 +32,7 @@ exec function ZRDebugScoreBoard()
 	ScoreBoard.GetNativeResolution(NativeResolution);
 	ScoreBoard.PickDefaultFontSize(SizeX, SizeY, Scaler);
 
-	LocalPlayer(PlayerOwner.Player).ViewportClient.ViewportConsole.OutputText("Font Override Enabled:"@ScoreBoard.OverrideFontSize != INDEX_NONE);
+	LocalPlayer(PlayerOwner.Player).ViewportClient.ViewportConsole.OutputText("Font Override Enabled:"@ScoreBoard.OverrideFontSize != 0);
 	LocalPlayer(PlayerOwner.Player).ViewportClient.ViewportConsole.OutputText("Font Size:"@ScoreBoard.DefaultFontSize);
 	LocalPlayer(PlayerOwner.Player).ViewportClient.ViewportConsole.OutputText("Font Scaler:"@Scaler);
 	LocalPlayer(PlayerOwner.Player).ViewportClient.ViewportConsole.OutputText("NativeToViewPort Ratio:"@ScoreBoard.NativeToViewportRatio);
@@ -42,22 +42,22 @@ exec function ZRDebugScoreBoard()
 	LocalPlayer(PlayerOwner.Player).ViewportClient.ViewportConsole.OutputText("Resolution Y:"@NativeResolution.Y);
 }
 
-exec function ZRSetScoreBoardSize(int FontSize)
+exec function ZRSetScoreBoardSize(byte FontSize)
 {
-	if (FontSize >= 0 && FontSize < 256)
+	if (FontSize > 0 && FontSize < 256)
 	{
 		ScoreBoard.OverrideFontSize = FontSize;
 		LocalPlayer(PlayerOwner.Player).ViewportClient.ViewportConsole.OutputText("Set score board font size to" @ FontSize);
 	}
 	else
 	{
-		LocalPlayer(PlayerOwner.Player).ViewportClient.ViewportConsole.OutputText("Font size must be between 0 to 255");
+		LocalPlayer(PlayerOwner.Player).ViewportClient.ViewportConsole.OutputText("Font size must be between 1 to 255");
 	}
 }
 
 exec function ZRClearScoreBoardSize()
 {
-	ScoreBoard.OverrideFontSize = INDEX_NONE;
+	ScoreBoard.OverrideFontSize = 0;
 	LocalPlayer(PlayerOwner.Player).ViewportClient.ViewportConsole.OutputText("Score board override font size reset back to auto scaling");
 }
 

@@ -1,7 +1,7 @@
 Class WMGFxScoreBoardStyleBase extends Actor
 	abstract;
 
-var int OverrideFontSize; // A user settable override for the font size
+var byte OverrideFontSize; // A user settable override for the font size
 
 var Texture2D ItemTex;
 var Font DrawFont; // The KF2 Canvas Font
@@ -38,12 +38,12 @@ function PickDefaultFontSize(int SizeX, int SizeY, out float Scaler)
 
 	GetNativeResolution(NativeResolution);
 
-	if (OverrideFontSize == INDEX_NONE)
-		DefaultFontSize = Round(float(NativeResolution.X) / 120.0f);
+	if (OverrideFontSize == 0)
+		DefaultFontSize = Max(1, Round(float(NativeResolution.X) / 120.0f));
 	else
 		DefaultFontSize = OverrideFontSize;
 
-	Scaler = 0.05f + 0.05f * DefaultFontSize;
+	Scaler = 0.05f * DefaultFontSize;
 
 	NativeToViewportRatio = 0.0f;
 	if (NativeResolution.X > SizeX || NativeResolution.Y > SizeY)
@@ -193,7 +193,7 @@ final function DrawRectBox(int X, int Y, int XS, int YS, int Edge, optional byte
 
 defaultproperties
 {
-	OverrideFontSize=INDEX_NONE
+	OverrideFontSize=0
 
 	Name="Default__WMGFxScoreBoardStyleBase"
 }
