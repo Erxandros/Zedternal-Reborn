@@ -42,6 +42,11 @@ exec function ZRDebugScoreBoard()
 	LocalPlayer(PlayerOwner.Player).ViewportClient.ViewportConsole.OutputText("Resolution Y:"@NativeResolution.Y);
 }
 
+exec function ZRDebugSB() // Alias for ZRDebugScoreBoard
+{
+	ZRDebugScoreBoard();
+}
+
 exec function ZRSetScoreBoardSize(int FontSize)
 {
 	if (FontSize > 0 && FontSize < 256)
@@ -55,10 +60,20 @@ exec function ZRSetScoreBoardSize(int FontSize)
 	}
 }
 
+exec function ZRSetSB(int FontSize) // Alias for ZRSetScoreBoardSize
+{
+	ZRSetScoreBoardSize(FontSize);
+}
+
 exec function ZRClearScoreBoardSize()
 {
 	ScoreBoard.OverrideFontSize = 0;
 	LocalPlayer(PlayerOwner.Player).ViewportClient.ViewportConsole.OutputText("Score board override font size reset back to auto scaling");
+}
+
+exec function ZRClearSB() // Alias for ZRClearScoreBoardSize
+{
+	ZRClearScoreBoardSize();
 }
 
 defaultproperties
