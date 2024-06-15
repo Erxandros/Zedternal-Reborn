@@ -42,7 +42,7 @@ exec function ZRDebugScoreBoard()
 	LocalPlayer(PlayerOwner.Player).ViewportClient.ViewportConsole.OutputText("Resolution Y:"@NativeResolution.Y);
 }
 
-exec function ZRSetScoreBoardSize(byte FontSize)
+exec function ZRSetScoreBoardSize(int FontSize)
 {
 	if (FontSize > 0 && FontSize < 256)
 	{
