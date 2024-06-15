@@ -36,19 +36,26 @@ function PickDefaultFontSize(int SizeX, int SizeY, out float Scaler)
 	local int XL, YL;
 	local string S;
 
+	NativeToViewportRatio = 0.0f;
 	GetNativeResolution(NativeResolution);
+	if (NativeResolution.X > SizeX || NativeResolution.Y > SizeY)
+			NativeToViewportRatio = float(NativeResolution.X * NativeResolution.Y) / float(SizeX * SizeY);
 
 	if (OverrideFontSize == 0)
-		DefaultFontSize = Max(1, Round(float(NativeResolution.X) / 120.0f));
+	{
+		if (2048 >= SizeX)
+			DefaultFontSize = Max(1, FCeil(float(NativeResolution.X) / 120.0f));
+		else if (4096 >= SizeX)
+			DefaultFontSize = Max(1, FCeil(float(NativeResolution.X) / 180.0f));
+		else if (8192 >= SizeX)
+			DefaultFontSize = Max(1, FCeil(float(NativeResolution.X) / 240.0f));
+		else
+			DefaultFontSize = Max(1, FCeil(float(NativeResolution.X) / 300.0f));
+	}
 	else
 		DefaultFontSize = OverrideFontSize;
 
 	Scaler = 0.05f * DefaultFontSize;
-
-	NativeToViewportRatio = 0.0f;
-	if (NativeResolution.X > SizeX || NativeResolution.Y > SizeY)
-			NativeToViewportRatio = float(NativeResolution.X * NativeResolution.Y) / float(SizeX * SizeY);
-
 	if (NativeToViewportRatio > 0)
 		Scaler = Scaler / NativeToViewportRatio;
 
