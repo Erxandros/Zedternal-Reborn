@@ -1143,8 +1143,10 @@ function BuildKnifeList(out GFxObject ItemArray)
 	local GFxObject ItemObject;
 	local int i;
 	local WMPerk WMP;
+	local byte KnifeIndex;
 
 	WMP = WMPerk(WMPC.CurrentPerk);
+	KnifeIndex = class'ZedternalReborn.Config_LocalPreferences'.static.GetKnifeIndex();
 
 	for (i = 0; i < WMP.KnivesWeaponDef.Length; ++i)
 	{
@@ -1160,7 +1162,7 @@ function BuildKnifeList(out GFxObject ItemArray)
 		ItemObject.SetBool("recyclable", False);
 		ItemObject.SetInt("definition", i);
 		ItemObject.SetInt("type", 0);
-		if (WMPC.Preferences != None && i == WMPC.Preferences.KnifeIndex)
+		if (i == KnifeIndex)
 		{
 			ItemObject.SetBool("active", True);
 			ItemObject.SetInt("type", 1);

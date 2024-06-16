@@ -5,8 +5,6 @@ var int UPG_UpgradeListIndex;
 var bool bShouldUpdateHUDPerkIcon;
 var bool bShouldUpdateGrenadeIcon;
 
-var Config_LocalPreferences Preferences;
-
 //For scoreboard
 var byte PlatformType;
 
@@ -21,17 +19,6 @@ struct DamageCollector
 };
 var array<DamageCollector> DmgArray;
 var int HealPoints;
-
-simulated event PreBeginPlay()
-{
-	super.PreBeginPlay();
-
-	if (WorldInfo.NetMode == NM_Client || WorldInfo.NetMode == NM_Standalone)
-	{
-		Preferences = new class'Config_LocalPreferences';
-		Preferences.SaveConfig();
-	}
-}
 
 simulated event PostBeginPlay()
 {
@@ -314,19 +301,21 @@ simulated function CheckPreferredSidearm()
 	local WMGameReplicationInfo WMGRI;
 	local byte i;
 	local bool bFound;
+	local string SidearmPath;
 
 	WMGRI = WMGameReplicationInfo(WorldInfo.GRI);
 	if (WMGRI != None && WMGRI.bSidearmItemsSynced)
 	{
 		ClearTimer(NameOf(CheckPreferredSidearm));
 
+		SidearmPath = class'ZedternalReborn.Config_LocalPreferences'.static.GetSidearmPath();
 		bFound = False;
 		for (i = 0; i < 255; ++i)
 		{
 			if (WMGRI.SidearmsRepArray[i].WeaponPathName ~= "")
 				break;
 
-			if (WMGRI.SidearmsRepArray[i].WeaponPathName ~= Preferences.SidearmPath && WMGRI.SidearmsRepArray[i].BuyPrice <= 0)
+			if (WMGRI.SidearmsRepArray[i].WeaponPathName ~= SidearmPath && WMGRI.SidearmsRepArray[i].BuyPrice <= 0)
 			{
 				bFound = True;
 				break;
@@ -363,10 +352,7 @@ reliable client simulated function ChangeSidearm(int index)
 
 		// Save selected sidearm if it is free
 		if (WMGameReplicationInfo(WorldInfo.GRI).SidearmsList[index].BuyPrice <= 0)
-		{
-			Preferences.SidearmPath = WMGameReplicationInfo(WorldInfo.GRI).SidearmsRepArray[index].WeaponPathName;
-			Preferences.SaveConfig();
-		}
+			class'ZedternalReborn.Config_LocalPreferences'.static.SetSidearmPath(WMGameReplicationInfo(WorldInfo.GRI).SidearmsRepArray[index].WeaponPathName);
 	}
 }
 
@@ -385,19 +371,21 @@ simulated function CheckPreferredGrenade()
 	local WMGameReplicationInfo WMGRI;
 	local byte i;
 	local bool bFound;
+	local string GrenadePath;
 
 	WMGRI = WMGameReplicationInfo(WorldInfo.GRI);
 	if (WMGRI != None && WMGRI.bGrenadeItemsSynced)
 	{
 		ClearTimer(NameOf(CheckPreferredGrenade));
 
+		GrenadePath = class'ZedternalReborn.Config_LocalPreferences'.static.GetGrenadePath();
 		bFound = False;
 		for (i = 0; i < 255; ++i)
 		{
 			if (WMGRI.GrenadesRepArray[i].GrenadePathName ~= "")
 				break;
 
-			if (WMGRI.GrenadesRepArray[i].GrenadePathName ~= Preferences.GrenadePath)
+			if (WMGRI.GrenadesRepArray[i].GrenadePathName ~= GrenadePath)
 			{
 				bFound = True;
 				break;
@@ -421,8 +409,7 @@ reliable client simulated function ChangeGrenade(int index)
 
 	bShouldUpdateGrenadeIcon = True;
 
-	Preferences.GrenadePath = WMGameReplicationInfo(WorldInfo.GRI).GrenadesRepArray[index].GrenadePathName;
-	Preferences.SaveConfig();
+	class'ZedternalReborn.Config_LocalPreferences'.static.SetGrenadePath(WMGameReplicationInfo(WorldInfo.GRI).GrenadesRepArray[index].GrenadePathName);
 }
 
 reliable server function ChangeGrenadeServer(int index)
@@ -448,7 +435,7 @@ simulated function CheckPreferredKnife()
 	if (WMP != None)
 	{
 		ClearTimer(NameOf(CheckPreferredKnife));
-		WMP.SetKnifeSelectedIndex(Preferences.KnifeIndex);
+		WMP.SetKnifeSelectedIndex(class'ZedternalReborn.Config_LocalPreferences'.static.GetKnifeIndex());
 	}
 }
 
@@ -477,8 +464,7 @@ reliable client simulated function ChangeKnife(int index)
 			WMPerk(CurrentPerk).SetKnifeSelectedIndex(index);
 
 			// Change selected knife index and save it as local data (client side)
-			Preferences.KnifeIndex = index;
-			Preferences.SaveConfig();
+			class'ZedternalReborn.Config_LocalPreferences'.static.SetKnifeIndex(index);
 		}
 	}
 }
