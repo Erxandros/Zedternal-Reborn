@@ -4,6 +4,7 @@ class Config_LocalPreferences extends Object
 var config byte KnifeIndex;
 var config string GrenadePath;
 var config string SidearmPath;
+var config byte ScoreBoardOverrideFontSize;
 
 static function byte GetKnifeIndex()
 {
@@ -35,6 +36,17 @@ static function string GetSidearmPath()
 static function SetSidearmPath(string Path)
 {
 	default.SidearmPath = Path;
+	static.StaticSaveConfig();
+}
+
+static function byte GetSBOverrideFontSize()
+{
+	return default.ScoreBoardOverrideFontSize;
+}
+
+static function SetSBOverrideFontSize(byte Size)
+{
+	default.ScoreBoardOverrideFontSize = Size;
 	static.StaticSaveConfig();
 }
 

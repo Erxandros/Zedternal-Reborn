@@ -7,6 +7,7 @@ simulated function PostBeginPlay()
 	super.PostBeginPlay();
 
 	ScoreBoard = spawn(class'WMGFxHudScoreBoard');
+	ScoreBoard.OverrideFontSize = class'ZedternalReborn.Config_LocalPreferences'.static.GetSBOverrideFontSize();
 }
 
 event PostRender()
@@ -52,6 +53,7 @@ exec function ZRSetScoreBoardSize(int FontSize)
 	if (FontSize > 0 && FontSize < 256)
 	{
 		ScoreBoard.OverrideFontSize = FontSize;
+		class'ZedternalReborn.Config_LocalPreferences'.static.SetSBOverrideFontSize(FontSize);
 		LocalPlayer(PlayerOwner.Player).ViewportClient.ViewportConsole.OutputText("Set score board font size to" @ FontSize);
 	}
 	else
@@ -68,6 +70,7 @@ exec function ZRSetSB(int FontSize) // Alias for ZRSetScoreBoardSize
 exec function ZRClearScoreBoardSize()
 {
 	ScoreBoard.OverrideFontSize = 0;
+	class'ZedternalReborn.Config_LocalPreferences'.static.SetSBOverrideFontSize(0);
 	LocalPlayer(PlayerOwner.Player).ViewportClient.ViewportConsole.OutputText("Score board override font size reset back to auto scaling");
 }
 
