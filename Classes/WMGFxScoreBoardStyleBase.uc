@@ -8,7 +8,6 @@ var Font DrawFont; // The KF2 Canvas Font
 
 var transient byte DefaultFontSize; // Default font size for the current resolution.
 var transient float DefaultHeight; // Default font height size for the current resolution.
-var transient float NativeToViewportRatio; // The ratio to the native resolution to view port resolution.
 var transient Canvas ScoreBoardCanvas; // The ScoreBoardCanvas canvas object
 
 function PostBeginPlay()
@@ -30,34 +29,20 @@ static function GetNativeResolution(out IntPoint resolution)
 	resolution.Y = Settings.Resolution.ResY;
 }
 
-function PickDefaultFontSize(int SizeX, int SizeY, out float Scaler)
+function PickDefaultFontSize(int SizeX, out float Scaler)
 {
 	local IntPoint NativeResolution;
 	local int XL, YL;
 	local string S;
 
-	NativeToViewportRatio = 0.0f;
 	GetNativeResolution(NativeResolution);
-	if (NativeResolution.X > SizeX || NativeResolution.Y > SizeY)
-			NativeToViewportRatio = float(NativeResolution.X * NativeResolution.Y) / float(SizeX * SizeY);
 
 	if (OverrideFontSize == 0)
-	{
-		if (2048 >= SizeX)
-			DefaultFontSize = Max(1, FCeil(float(NativeResolution.X) / 120.0f));
-		else if (4096 >= SizeX)
-			DefaultFontSize = Max(1, FCeil(float(NativeResolution.X) / 180.0f));
-		else if (8192 >= SizeX)
-			DefaultFontSize = Max(1, FCeil(float(NativeResolution.X) / 240.0f));
-		else
-			DefaultFontSize = Max(1, FCeil(float(NativeResolution.X) / 300.0f));
-	}
+		DefaultFontSize = Max(6, Round(Loge(SizeX - 420) ** 1.6f - 8.5f));
 	else
 		DefaultFontSize = OverrideFontSize;
 
-	Scaler = 0.05f * DefaultFontSize;
-	if (NativeToViewportRatio > 0)
-		Scaler = Scaler / NativeToViewportRatio;
+	Scaler = 0.05f * DefaultFontSize / (float(NativeResolution.X) / float(SizeX));
 
 	S = "ABC";
 	DrawFont.GetStringHeightAndWidth(S, YL, XL);

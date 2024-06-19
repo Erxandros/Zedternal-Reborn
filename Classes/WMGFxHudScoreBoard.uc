@@ -150,7 +150,7 @@ event Draw(Canvas canvas)
 	ScoreBoardCanvas = canvas;
 	ScoreBoardCanvas.Font = DrawFont;
 
-	PickDefaultFontSize(canvas.SizeX, canvas.SizeY, FontScalar);
+	PickDefaultFontSize(canvas.SizeX, FontScalar);
 
 	YL = DefaultHeight;
 	XPosCenter = (ScoreBoardCanvas.ClipX * 0.5);
