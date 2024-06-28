@@ -382,7 +382,7 @@ simulated function CheckPreferredGrenade()
 	local string GrenadePath;
 
 	WMGRI = WMGameReplicationInfo(WorldInfo.GRI);
-	if (WMGRI != None && WMGRI.bGrenadeItemsSynced)
+	if (WMGRI != None && CurrentPerk != None && WMGRI.bGrenadeItemsSynced)
 	{
 		ClearTimer(NameOf(CheckPreferredGrenade));
 
