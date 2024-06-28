@@ -37,7 +37,12 @@ simulated function Inventory CreateInventory(class<Inventory> NewInventoryItemCl
 			if (NewInventoryItemClass.Name == WeaponName)
 			{
 				if (NewInventoryItemClass.Name == OwnedSidearmName)
+				{
+					if (FindInventoryType(NewInventoryItemClass) == None)
+						return CreateInventorySidearm(NewInventoryItemClass, bDoNotActivate);
+
 					break;
+				}
 
 				return None;
 			}
@@ -45,7 +50,12 @@ simulated function Inventory CreateInventory(class<Inventory> NewInventoryItemCl
 			if (KFWInvClass != None && KFWInvClass.default.DualClass != None && KFWInvClass.default.DualClass.Name == WeaponName)
 			{
 				if (KFWInvClass.default.DualClass.Name == OwnedSidearmName)
+				{
+					if (FindInventoryType(KFWInvClass.default.DualClass) == None)
+						return CreateInventorySidearm(KFWInvClass.default.DualClass, bDoNotActivate);
+
 					break;
+				}
 
 				return None;
 			}
