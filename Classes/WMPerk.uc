@@ -303,11 +303,26 @@ simulated function string GetSecondaryWeaponClassPath()
 simulated function SetSecondaryWeaponSelectedIndex(byte idx)
 {
 	if (idx >= MyWMGRI.SidearmsList.Length)
+	{
 		StartingSecondaryWeaponClassIndex = 0;
+		if (MyWMPRI != None)
+			MyWMPRI.SelectedSidarmIndex = 0;
+	}
 	else
+	{
 		StartingSecondaryWeaponClassIndex = idx;
+		if (MyWMPRI != None)
+			MyWMPRI.SelectedSidarmIndex = idx;
+	}
 
 	ServerUpdateCurrentSecondaryWeapon(StartingSecondaryWeaponClassIndex);
+}
+
+reliable server function ServerUpdateCurrentSecondaryWeapon(byte Value)
+{
+	StartingSecondaryWeaponClassIndex = Value;
+	if (MyWMPRI != None)
+		MyWMPRI.SelectedSidarmIndex = Value;
 }
 
 function OnWaveEnded()

@@ -299,14 +299,22 @@ reliable client function SetPreferredSidearmTimer()
 simulated function CheckPreferredSidearm()
 {
 	local WMGameReplicationInfo WMGRI;
+	local WMPlayerReplicationInfo WMPRI;
 	local byte i;
 	local bool bFound;
 	local string SidearmPath;
 
 	WMGRI = WMGameReplicationInfo(WorldInfo.GRI);
-	if (WMGRI != None && WMGRI.bSidearmItemsSynced)
+	WMPRI = WMPlayerReplicationInfo(PlayerReplicationInfo);
+	if (WMGRI != None && WMPRI != None && CurrentPerk != None && WMGRI.bSidearmItemsSynced)
 	{
 		ClearTimer(NameOf(CheckPreferredSidearm));
+
+		if (WMPRI.bHasPlayed)
+		{
+			CurrentPerk.SetSecondaryWeaponSelectedIndex(WMPRI.SelectedSidarmIndex);
+			return;
+		}
 
 		SidearmPath = class'ZedternalReborn.Config_LocalPreferences'.static.GetSidearmPath();
 		bFound = False;

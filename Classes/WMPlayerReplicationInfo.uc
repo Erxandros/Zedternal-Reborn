@@ -68,6 +68,9 @@ var bool bHasPlayed;
 //For Supplier
 var bool bPerkTertiarySupplyUsed;
 
+//For current sidearm index
+var byte SelectedSidarmIndex;
+
 replication
 {
 	if (bNetDirty && (Role == Role_Authority))
@@ -96,6 +99,7 @@ replication
 		bWeaponUpgrade_16;
 
 	if (bNetDirty)
+		bHasPlayed,
 		PerkIconIndex,
 		PlatformType,
 		PlayerArmorInt,
@@ -103,6 +107,7 @@ replication
 		PlayerLevel,
 		RerollCounter,
 		RerollSyncTrigger,
+		SelectedSidarmIndex,
 		SyncTrigger,
 		UncompressedPing;
 }
@@ -190,6 +195,7 @@ function CopyProperties(PlayerReplicationInfo PRI)
 		WMPRI.PlayerLevel = PlayerLevel;
 		WMPRI.RerollCounter = RerollCounter;
 		WMPRI.bHasPlayed = bHasPlayed;
+		WMPRI.SelectedSidarmIndex = SelectedSidarmIndex;
 	}
 
 	super.CopyProperties(PRI);
