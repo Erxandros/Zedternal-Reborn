@@ -1327,6 +1327,23 @@ function SetProjectilePickupLife()
 		}
 	}
 }
+
+function KFPickupFactory DetermineNextPickup(array<KFPickupFactory> PickupList, KFPickupFactory LastPickup)
+{
+	local int i;
+	local array<KFPickupFactory> PossibleFactories;
+
+	for (i = 0; i < PickupList.Length; ++i)
+	{
+		if (PickupList[i] != LastPickup && PickupList[i].IsInState('Sleeping') && !PickupList[i].bToBeActivated)
+			PossibleFactories.AddItem(PickupList[i]);
+	}
+
+	if (PossibleFactories.Length > 0)
+		return PossibleFactories[Rand(PossibleFactories.Length)];
+	else
+		return LastPickup;
+}
 //Pickup Code End
 ////////////////////////////////
 
@@ -2708,7 +2725,7 @@ function RepGameInfoLowPriority()
 	for (i = 0; i < Min(255, WMGRI.AllowedWeaponsList.Length); ++i)
 	{
 		WMGRI.AllowedWeaponsRepArray_A[i].WeaponPathName = WMGRI.AllowedWeaponsList[i].KFWeaponPath;
-		WMGRI.AllowedWeaponsRepArray_A[i].BuyPrice =  WMGRI.AllowedWeaponsList[i].BuyPrice;
+		WMGRI.AllowedWeaponsRepArray_A[i].BuyPrice = WMGRI.AllowedWeaponsList[i].BuyPrice;
 		WMGRI.AllowedWeaponsRepArray_A[i].bValid = True;
 	}
 	for (i = 0; i < Min(255, WMGRI.AllowedWeaponsList.Length - 255); ++i)
